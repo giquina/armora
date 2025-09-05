@@ -41,6 +41,8 @@ import {
 } from "@phosphor-icons/react"
 import { toast, Toaster } from 'sonner'
 import { useKV } from '@github/spark/hooks'
+import { ScheduleRideForm } from './components/ScheduleRideForm'
+import { scheduledRidesStore } from './lib/scheduledRidesStore'
 
 // TypeScript declarations for Google Maps API
 declare global {
@@ -1671,6 +1673,7 @@ function App() {
   const [favorites, setFavorites] = useKV("favorite-locations", [] as any[])
   const [recentTrips, setRecentTrips] = useKV("recent-trips", [] as any[])
   const [paymentMethod, setPaymentMethod] = useState('mastercard')
+  const [isScheduleRideFormOpen, setIsScheduleRideFormOpen] = useState(false)
   
   // Real geolocation integration with continuous tracking
   const { 
@@ -2329,6 +2332,19 @@ function App() {
             </div>
           </Button>
 
+          {/* Schedule Ride Button */}
+          <Button 
+            onClick={() => setIsScheduleRideFormOpen(true)}
+            variant="outline"
+            className="w-full h-12 border-2 border-dashed border-primary/30 hover:border-primary/50 hover:bg-primary/5 font-semibold text-sm rounded-xl transition-all duration-200"
+            disabled={!bookingForm.pickup || !bookingForm.destination}
+          >
+            <div className="flex items-center gap-2">
+              <Calendar size={16} />
+              Schedule for later
+            </div>
+          </Button>
+
           {/* Compact Booking Tips */}
           <Card className="border-0 shadow-sm bg-gradient-to-r from-accent/5 to-primary/5">
             <CardContent className="p-3">
@@ -2684,6 +2700,60 @@ function App() {
         </header>
 
         <div className="p-4 pb-20 max-w-md mx-auto">
+          {/* Upcoming Scheduled Rides Section */}
+          {(() => {
+            const upcomingRides = scheduledRidesStore.getUpcoming()
+            return upcomingRides.length > 0 ? (
+              <div className="mb-6">
+                <div className="flex items-center gap-2 mb-3">
+                  <Calendar size={18} className="text-primary" />
+                  <h2 className="text-lg font-semibold">Upcoming Rides</h2>
+                </div>
+                <div className="space-y-3">
+                  {upcomingRides.map((ride) => (
+                    <Card key={ride.id} className="border-0 shadow-sm bg-gradient-to-r from-blue-50 to-blue-50/50 hover:shadow-md transition-shadow">
+                      <CardContent className="p-4">
+                        <div className="flex items-start gap-3">
+                          <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center">
+                            <Clock size={18} className="text-blue-600" />
+                          </div>
+                          <div className="flex-1 min-w-0">
+                            <div className="flex items-center gap-2 mb-1">
+                              <Badge variant="outline" className="text-xs bg-blue-100 text-blue-700 border-blue-200">
+                                Scheduled
+                              </Badge>
+                              <span className="text-xs text-muted-foreground">
+                                {new Date(ride.pickupTimeISO).toLocaleDateString()} at {new Date(ride.pickupTimeISO).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                              </span>
+                            </div>
+                            <div className="space-y-1">
+                              <div className="flex items-center gap-2 text-sm">
+                                <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
+                                <span className="font-medium truncate">{ride.pickupLocation}</span>
+                              </div>
+                              <div className="flex items-center gap-2 text-sm">
+                                <div className="w-2 h-2 bg-red-500 rounded-full"></div>
+                                <span className="font-medium truncate">{ride.dropoffLocation}</span>
+                              </div>
+                              {ride.notes && (
+                                <p className="text-xs text-muted-foreground mt-2">{ride.notes}</p>
+                              )}
+                            </div>
+                          </div>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  ))}
+                </div>
+              </div>
+            ) : null
+          })()}
+
+          {/* Recent Trips Section */}
+          <div className="mb-4">
+            <h2 className="text-lg font-semibold mb-3">Recent Trips</h2>
+          </div>
+          
           {recentTrips.length === 0 ? (
             <div className="text-center py-16">
               <div className="w-16 h-16 bg-muted/20 rounded-full flex items-center justify-center mx-auto mb-4">
@@ -3061,7 +3131,18 @@ function App() {
     )
   }
 
-  return null
+  return (
+    <>
+      {/* Schedule Ride Form Modal */}
+      <ScheduleRideForm
+        isOpen={isScheduleRideFormOpen}
+        onClose={() => setIsScheduleRideFormOpen(false)}
+        initialPickup={bookingForm.pickup}
+        initialDropoff={bookingForm.destination}
+      />
+      {null}
+    </>
+  )
 }
 
 export default App
