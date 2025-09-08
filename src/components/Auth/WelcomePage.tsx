@@ -6,7 +6,6 @@ import SeasonalTheme from '../UI/SeasonalTheme';
 import GoogleIcon from '../UI/GoogleIcon';
 import { Logo } from '../UI/Logo';
 import { CredentialsModal } from '../UI/CredentialsModal';
-import { SIALogo, HomeOfficeLogo, CabinetOfficeLogo, TfLLogo } from '../UI/logos';
 import styles from './WelcomePage.module.css';
 
 export function WelcomePage() {
@@ -20,8 +19,8 @@ export function WelcomePage() {
   const showDevButton = isDevelopment && (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1');
 
   useEffect(() => {
-    const featureTimer = setTimeout(() => setShowFeatures(true), 1800);
-    const contentTimer = setTimeout(() => setShowContent(true), 2200);
+    const featureTimer = setTimeout(() => setShowFeatures(true), 900);
+    const contentTimer = setTimeout(() => setShowContent(true), 1100);
     
     return () => {
       clearTimeout(featureTimer);
@@ -106,34 +105,52 @@ export function WelcomePage() {
         <main className={styles.welcomeContent}>
           {/* Features Highlights */}
           <div className={`${styles.features} ${showFeatures ? styles.featuresVisible : ''}`}>
-            <div className={styles.feature} style={{ animationDelay: '0ms' }}>
-              <div className={styles.featureIcon}>
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+            <div className={styles.feature} style={{ animationDelay: '0ms', '--delay': 0 } as React.CSSProperties}>
+              <div className={styles.featureContent}>
+                <svg className={styles.checkmarkIcon} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3">
+                  <path d="M20 6L9 17l-5-5" className={styles.checkmarkPath} />
                 </svg>
+                <div className={styles.featureText}>
+                  <h3 className={styles.featureTitleOnly}>Government-Licensed Security Taxi Drivers</h3>
+                  <p className={styles.featureSubtitle}>Professional taxi drivers with close protection training and background checks</p>
+                </div>
               </div>
-              <span className={styles.featureText}>Professional Drivers</span>
             </div>
             
-            <div className={styles.feature} style={{ animationDelay: '200ms' }}>
-              <div className={styles.featureIcon}>
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                  <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
-                  <line x1="8" y1="21" x2="16" y2="21"/>
-                  <line x1="12" y1="17" x2="12" y2="21"/>
+            <div className={styles.feature} style={{ animationDelay: '100ms', '--delay': 1 } as React.CSSProperties}>
+              <div className={styles.featureContent}>
+                <svg className={styles.checkmarkIcon} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3">
+                  <path d="M20 6L9 17l-5-5" className={styles.checkmarkPath} />
                 </svg>
+                <div className={styles.featureText}>
+                  <h3 className={styles.featureTitleOnly}>Secure Private Hire Transport</h3>
+                  <p className={styles.featureSubtitle}>Licensed private hire service with enhanced safety protocols and threat awareness</p>
+                </div>
               </div>
-              <span className={styles.featureText}>Premium Vehicles</span>
             </div>
             
-            <div className={styles.feature} style={{ animationDelay: '400ms' }}>
-              <div className={styles.featureIcon}>
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                  <circle cx="12" cy="12" r="10"/>
-                  <polyline points="12,6 12,12 16,14"/>
+            <div className={styles.feature} style={{ animationDelay: '200ms', '--delay': 2 } as React.CSSProperties}>
+              <div className={styles.featureContent}>
+                <svg className={styles.checkmarkIcon} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3">
+                  <path d="M20 6L9 17l-5-5" className={styles.checkmarkPath} />
                 </svg>
+                <div className={styles.featureText}>
+                  <h3 className={styles.featureTitleOnly}>24/7 Protection Booking</h3>
+                  <p className={styles.featureSubtitle}>Instant taxi booking with security-conscious drivers available anytime</p>
+                </div>
               </div>
-              <span className={styles.featureText}>Always Available</span>
+            </div>
+            
+            <div className={styles.feature} style={{ animationDelay: '300ms', '--delay': 3 } as React.CSSProperties}>
+              <div className={styles.featureContent}>
+                <svg className={styles.checkmarkIcon} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3">
+                  <path d="M20 6L9 17l-5-5" className={styles.checkmarkPath} />
+                </svg>
+                <div className={styles.featureText}>
+                  <h3 className={styles.featureTitleOnly}>Discrete Professional Service</h3>
+                  <p className={styles.featureSubtitle}>VIP-level service standards with confidential transport protocols</p>
+                </div>
+              </div>
             </div>
           </div>
         </main>
@@ -220,63 +237,15 @@ export function WelcomePage() {
           )}
         </section>
 
-        {/* Footer Stats - Interactive Credentials */}
+        {/* Footer - Single Government Licensed Text */}
         <footer className={`${styles.welcomeFooter} ${showContent ? styles.footerVisible : ''}`}>
-          <div className={styles.trustItem}>
-            <button 
-              className={styles.credentialBadge}
-              onClick={() => setShowCredentialsModal(true)}
-              aria-label="View Government Licensed credentials details"
-            >
-              <div className={styles.trustIcon}>
-                <SIALogo width={32} height={32} />
-              </div>
-              <span className={styles.trustNumber}>Government Licensed</span>
-              <span className={styles.trustLabel}>SIA Authority</span>
-            </button>
-          </div>
-          <div className={styles.trustDivider}></div>
-          <div className={styles.trustItem}>
-            <button 
-              className={styles.credentialBadge}
-              onClick={() => setShowCredentialsModal(true)}
-              aria-label="View Home Office Approved credentials details"
-            >
-              <div className={styles.trustIcon}>
-                <HomeOfficeLogo width={32} height={32} />
-              </div>
-              <span className={styles.trustNumber}>Home Office Approved</span>
-              <span className={styles.trustLabel}>Security Standards</span>
-            </button>
-          </div>
-          <div className={styles.trustDivider}></div>
-          <div className={styles.trustItem}>
-            <button 
-              className={styles.credentialBadge}
-              onClick={() => setShowCredentialsModal(true)}
-              aria-label="View Cabinet Office Verified credentials details"
-            >
-              <div className={styles.trustIcon}>
-                <CabinetOfficeLogo width={32} height={32} />
-              </div>
-              <span className={styles.trustNumber}>Cabinet Office Verified</span>
-              <span className={styles.trustLabel}>VIP Protection</span>
-            </button>
-          </div>
-          <div className={styles.trustDivider}></div>
-          <div className={styles.trustItem}>
-            <button 
-              className={styles.credentialBadge}
-              onClick={() => setShowCredentialsModal(true)}
-              aria-label="View TfL Licensed credentials details"
-            >
-              <div className={styles.trustIcon}>
-                <TfLLogo width={32} height={32} />
-              </div>
-              <span className={styles.trustNumber}>TfL Licensed</span>
-              <span className={styles.trustLabel}>Transport for London</span>
-            </button>
-          </div>
+          <button 
+            className={styles.governmentLicensedButton}
+            onClick={() => setShowCredentialsModal(true)}
+            aria-label="View all Government Licensed & Certified Operations credentials"
+          >
+            Government-Licensed & Certified Operations
+          </button>
         </footer>
       </div>
 
