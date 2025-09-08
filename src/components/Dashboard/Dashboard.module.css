@@ -1,0 +1,482 @@
+/* ARMORA DASHBOARD - MOBILE-FIRST RESPONSIVE STYLING */
+
+.dashboard {
+  min-height: 100vh;
+  background: var(--bg-primary);
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  max-width: 100vw;
+  overflow-x: hidden; /* Critical: prevent horizontal scrolling */
+}
+
+/* ========================================
+   REWARD BANNER STYLES
+======================================== */
+.rewardBanner {
+  background: linear-gradient(135deg, var(--accent), var(--hover-gold));
+  color: var(--text-dark);
+  padding: var(--space-md);
+  margin-bottom: var(--space-md);
+  position: relative;
+  animation: slideInFromTop 0.5s ease-out;
+}
+
+.rewardContent {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  max-width: 100%;
+}
+
+.rewardIcon {
+  font-size: 24px;
+  flex-shrink: 0;
+}
+
+.rewardText {
+  flex: 1;
+  min-width: 0; /* Prevent text overflow */
+}
+
+.rewardTitle {
+  font-size: var(--font-base);
+  font-weight: 600;
+  margin: 0 0 2px 0;
+  line-height: var(--line-tight);
+}
+
+.rewardDescription {
+  font-size: var(--font-sm);
+  margin: 0;
+  opacity: 0.9;
+  line-height: var(--line-base);
+}
+
+.dismissButton {
+  background: none;
+  border: none;
+  color: var(--text-dark);
+  font-size: 24px;
+  line-height: 1;
+  cursor: pointer;
+  padding: var(--space-xs);
+  border-radius: var(--radius-sm);
+  transition: background-color var(--transition-fast);
+  flex-shrink: 0;
+  touch-action: manipulation;
+  min-width: var(--touch-target);
+  min-height: var(--touch-target);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.dismissButton:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+@keyframes slideInFromTop {
+  from {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* ========================================
+   HEADER STYLES
+======================================== */
+.header,
+.guestHeader {
+  padding: var(--space-lg) var(--space-md);
+  text-align: center;
+  background: var(--bg-primary);
+}
+
+.headerContent {
+  max-width: 100%;
+}
+
+.title {
+  font-size: var(--font-xl);
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0 0 var(--space-xs) 0;
+  line-height: var(--line-tight);
+}
+
+.subtitle {
+  font-size: var(--font-base);
+  color: var(--text-secondary);
+  margin: 0;
+  line-height: var(--line-base);
+}
+
+/* ========================================
+   SECTION STYLES
+======================================== */
+.quickBookingSection,
+.servicesSection,
+.recommendationSection,
+.actionSection,
+.upgradeSection,
+.contactSection {
+  padding: var(--space-md);
+  margin-bottom: var(--space-md);
+}
+
+.sectionTitle {
+  font-size: var(--font-lg);
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0 0 var(--space-md) 0;
+  text-align: center;
+  line-height: var(--line-tight);
+}
+
+/* ========================================
+   SERVICES GRID
+======================================== */
+.servicesGrid {
+  display: grid;
+  gap: var(--space-md);
+  width: 100%;
+  /* Mobile-first: single column */
+  grid-template-columns: 1fr;
+}
+
+/* Tablet: 2 columns for smaller services grid */
+@media (min-width: 768px) {
+  .servicesGrid {
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-lg);
+  }
+}
+
+/* Desktop: 3 columns for full width */
+@media (min-width: 1024px) {
+  .servicesGrid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-xl);
+  }
+  
+  .servicesSection {
+    padding: var(--space-xl) var(--space-lg);
+  }
+}
+
+/* ========================================
+   GUEST USER STYLES
+======================================== */
+.upgradeCard {
+  background: var(--bg-card);
+  border: 2px solid var(--accent);
+  border-radius: var(--radius-lg);
+  padding: var(--space-lg);
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.upgradeCard::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+  animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+  to {
+    left: 100%;
+  }
+}
+
+.upgradeContent {
+  position: relative;
+  z-index: 2;
+}
+
+.upgradeTitle {
+  font-size: var(--font-xl);
+  font-weight: 700;
+  color: var(--accent);
+  margin: 0 0 var(--space-sm) 0;
+  line-height: var(--line-tight);
+}
+
+.upgradeDescription {
+  font-size: var(--font-base);
+  color: var(--text-secondary);
+  margin: 0 0 var(--space-lg) 0;
+  line-height: var(--line-base);
+}
+
+.upgradeButton {
+  margin-top: var(--space-md);
+}
+
+/* Contact Section */
+.contactCard {
+  background: var(--bg-card);
+  border-radius: var(--radius-lg);
+  padding: var(--space-lg);
+  border: 1px solid var(--bg-secondary);
+}
+
+.contactTitle {
+  font-size: var(--font-lg);
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0 0 var(--space-sm) 0;
+  text-align: center;
+}
+
+.contactDescription {
+  font-size: var(--font-base);
+  color: var(--text-secondary);
+  margin: 0 0 var(--space-lg) 0;
+  text-align: center;
+  line-height: var(--line-base);
+}
+
+.contactDetails {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.contactItem {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+  text-align: center;
+}
+
+.contactLabel {
+  font-size: var(--font-sm);
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.contactLink {
+  color: var(--accent);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: var(--font-base);
+  transition: color var(--transition-fast);
+}
+
+.contactLink:hover {
+  color: var(--hover-gold);
+  text-decoration: underline;
+}
+
+@media (min-width: 768px) {
+  .contactDetails {
+    flex-direction: row;
+    justify-content: space-around;
+  }
+  
+  .contactItem {
+    flex: 1;
+  }
+}
+
+/* ========================================
+   RECOMMENDATION SECTION
+======================================== */
+.recommendationCard {
+  background: linear-gradient(135deg, var(--bg-card), var(--bg-secondary));
+  border: 1px solid var(--accent);
+  border-radius: var(--radius-lg);
+  padding: var(--space-lg);
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-md);
+  box-shadow: var(--shadow-gold);
+}
+
+.recommendationIcon {
+  font-size: 24px;
+  flex-shrink: 0;
+  line-height: 1;
+}
+
+.recommendationContent {
+  flex: 1;
+  min-width: 0;
+}
+
+.recommendationTitle {
+  font-size: var(--font-base);
+  font-weight: 600;
+  color: var(--accent);
+  margin: 0 0 var(--space-xs) 0;
+  line-height: var(--line-tight);
+}
+
+.recommendationDescription {
+  font-size: var(--font-sm);
+  color: var(--text-secondary);
+  margin: 0;
+  line-height: var(--line-base);
+}
+
+.recommendationDescription strong {
+  color: var(--text-primary);
+}
+
+/* ========================================
+   ACTION SECTION
+======================================== */
+.actionSection {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  padding: var(--space-lg) var(--space-md);
+  background: var(--bg-secondary);
+  border-top: 1px solid var(--bg-card);
+}
+
+.bookButton {
+  order: 1;
+}
+
+.profileButton {
+  order: 2;
+}
+
+@media (min-width: 768px) {
+  .actionSection {
+    flex-direction: row;
+    gap: var(--space-lg);
+    justify-content: center;
+  }
+  
+  .bookButton,
+  .profileButton {
+    flex: 1;
+    max-width: 300px;
+    order: initial;
+  }
+}
+
+/* ========================================
+   RESPONSIVE DESIGN ADJUSTMENTS
+======================================== */
+
+/* Small Mobile (320px) */
+@media (max-width: 359px) {
+  .dashboard {
+    padding: 0;
+  }
+  
+  .quickBookingSection,
+  .servicesSection,
+  .recommendationSection,
+  .upgradeSection,
+  .contactSection {
+    padding: var(--space-sm);
+    margin-bottom: var(--space-sm);
+  }
+  
+  .header,
+  .guestHeader {
+    padding: var(--space-md) var(--space-sm);
+  }
+  
+  .title {
+    font-size: var(--font-lg);
+  }
+  
+  .sectionTitle {
+    font-size: var(--font-base);
+  }
+}
+
+/* Tablet Adjustments */
+@media (min-width: 768px) {
+  .quickBookingSection,
+  .servicesSection,
+  .recommendationSection,
+  .upgradeSection,
+  .contactSection {
+    padding: var(--space-lg);
+    margin-bottom: var(--space-lg);
+  }
+  
+  .header,
+  .guestHeader {
+    padding: var(--space-xl) var(--space-lg);
+  }
+  
+  .title {
+    font-size: var(--font-xxl);
+  }
+  
+  .sectionTitle {
+    font-size: var(--font-xl);
+  }
+}
+
+/* Desktop Adjustments */
+@media (min-width: 1024px) {
+  .dashboard {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 var(--space-lg);
+  }
+  
+  .quickBookingSection,
+  .recommendationSection,
+  .upgradeSection,
+  .contactSection {
+    padding: var(--space-xl);
+  }
+}
+
+/* ========================================
+   ACCESSIBILITY & INTERACTION
+======================================== */
+
+/* Focus states for keyboard navigation */
+.upgradeButton:focus,
+.contactLink:focus,
+.dismissButton:focus {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* Reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  .rewardBanner,
+  .upgradeCard::before {
+    animation: none;
+  }
+  
+  .dismissButton,
+  .contactLink {
+    transition: none;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .upgradeCard {
+    border-color: var(--text-primary);
+    border-width: 3px;
+  }
+  
+  .recommendationCard {
+    border-color: var(--text-primary);
+    border-width: 2px;
+  }
+}

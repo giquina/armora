@@ -1,0 +1,293 @@
+/* ARMORA SPLASH SCREEN STYLES */
+
+.splashScreen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: linear-gradient(135deg, var(--armora-dark) 0%, var(--bg-secondary) 50%, var(--armora-dark) 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  overflow: hidden;
+}
+
+.content {
+  text-align: center;
+  z-index: 2;
+  position: relative;
+  animation: fadeInUp 1s ease-out;
+}
+
+.logoContainer {
+  position: relative;
+  margin-bottom: var(--space-xl);
+  display: inline-block;
+}
+
+.logo {
+  position: relative;
+  z-index: 2;
+  animation: scaleIn 0.8s ease-out 0.2s both;
+}
+
+.logoIcon {
+  filter: drop-shadow(0 4px 20px rgba(255, 215, 0, 0.4));
+  animation: goldPulse 3s ease-in-out infinite;
+}
+
+/* ORBITAL RING ANIMATION */
+.orbitalRing {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 120px;
+  height: 120px;
+  border: 2px solid var(--armora-gold);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0.3;
+  animation: orbitalSpin 4s linear infinite;
+}
+
+.orbitalDot {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  background: var(--armora-gold);
+  border-radius: 50%;
+  box-shadow: 0 0 8px var(--armora-gold);
+}
+
+.orbitalDot:nth-child(1) {
+  top: -3px;
+  left: 50%;
+  transform: translateX(-50%);
+  animation: orbitalPulse 2s ease-in-out infinite;
+}
+
+.orbitalDot:nth-child(2) {
+  top: 50%;
+  right: -3px;
+  transform: translateY(-50%);
+  animation: orbitalPulse 2s ease-in-out infinite 0.6s;
+}
+
+.orbitalDot:nth-child(3) {
+  bottom: -3px;
+  left: 50%;
+  transform: translateX(-50%);
+  animation: orbitalPulse 2s ease-in-out infinite 1.2s;
+}
+
+/* BRAND NAME STYLES */
+.brandName {
+  margin: 0 0 var(--space-md) 0;
+  animation: slideUp 0.8s ease-out 0.4s both;
+}
+
+.brandArmora {
+  display: block;
+  font-size: var(--font-display);
+  font-weight: 900;
+  letter-spacing: 0.1em;
+  color: var(--armora-gold);
+  text-shadow: 0 4px 20px rgba(255, 215, 0, 0.3);
+  margin-bottom: var(--space-xs);
+}
+
+.brandSecurityTransport {
+  display: block;
+  font-size: var(--font-lg);
+  font-weight: 300;
+  letter-spacing: 0.2em;
+  color: var(--text-primary);
+  opacity: 0.9;
+}
+
+.tagline {
+  font-size: var(--font-base);
+  color: var(--text-secondary);
+  margin: 0 0 var(--space-xxl) 0;
+  animation: slideUp 0.8s ease-out 0.6s both;
+  font-style: italic;
+}
+
+/* LOADING ANIMATION */
+.loadingContainer {
+  animation: slideUp 0.8s ease-out 0.8s both;
+}
+
+.loadingBar {
+  width: 200px;
+  height: 4px;
+  background: var(--bg-secondary);
+  border-radius: var(--radius-full);
+  margin: 0 auto var(--space-md) auto;
+  overflow: hidden;
+  position: relative;
+}
+
+.loadingProgress {
+  height: 100%;
+  background: linear-gradient(90deg, var(--armora-gold), var(--hover-gold));
+  border-radius: var(--radius-full);
+  animation: loadingProgress 3s ease-in-out infinite;
+  box-shadow: 0 0 10px var(--armora-gold);
+}
+
+.loadingText {
+  font-size: var(--font-sm);
+  color: var(--text-secondary);
+  margin: 0;
+  opacity: 0.8;
+}
+
+/* BACKGROUND EFFECTS */
+.backgroundEffect {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.gradientOrb {
+  position: absolute;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 215, 0, 0.1) 0%, transparent 70%);
+  animation: orbitalFloat 6s ease-in-out infinite;
+}
+
+.gradientOrb:nth-child(1) {
+  top: 20%;
+  left: 10%;
+  width: 300px;
+  height: 300px;
+  animation-delay: 0s;
+}
+
+.gradientOrb:nth-child(2) {
+  bottom: 20%;
+  right: 10%;
+  width: 200px;
+  height: 200px;
+  animation-delay: 3s;
+}
+
+/* ANIMATIONS */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes orbitalSpin {
+  from {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  to {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+
+@keyframes orbitalPulse {
+  0%, 100% {
+    opacity: 0.3;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.2);
+  }
+}
+
+@keyframes loadingProgress {
+  0% {
+    width: 0%;
+    transform: translateX(-100%);
+  }
+  50% {
+    width: 100%;
+    transform: translateX(0%);
+  }
+  100% {
+    width: 100%;
+    transform: translateX(100%);
+  }
+}
+
+@keyframes orbitalFloat {
+  0%, 100% {
+    transform: translateY(0px) scale(1);
+  }
+  50% {
+    transform: translateY(-20px) scale(1.1);
+  }
+}
+
+/* MOBILE OPTIMIZATIONS */
+@media (max-width: 768px) {
+  .brandArmora {
+    font-size: calc(var(--font-display) * 0.8);
+  }
+  
+  .brandSecurityTransport {
+    font-size: var(--font-base);
+  }
+  
+  .logoContainer {
+    margin-bottom: var(--space-lg);
+  }
+  
+  .orbitalRing {
+    width: 100px;
+    height: 100px;
+  }
+  
+  .loadingBar {
+    width: 160px;
+  }
+}
+
+@media (max-width: 320px) {
+  .brandArmora {
+    font-size: calc(var(--font-display) * 0.6);
+  }
+  
+  .brandSecurityTransport {
+    font-size: var(--font-sm);
+  }
+  
+  .tagline {
+    font-size: var(--font-sm);
+  }
+  
+  .orbitalRing {
+    width: 80px;
+    height: 80px;
+  }
+  
+  .loadingBar {
+    width: 140px;
+  }
+}
+
+/* LANDSCAPE MOBILE */
+@media (max-width: 768px) and (orientation: landscape) {
+  .content {
+    transform: scale(0.8);
+  }
+  
+  .logoContainer {
+    margin-bottom: var(--space-md);
+  }
+}

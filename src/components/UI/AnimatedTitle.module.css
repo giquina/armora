@@ -1,0 +1,168 @@
+/* ARMORA ANIMATED TITLE COMPONENT */
+
+.animatedTitle {
+  margin: 0;
+  line-height: 1.1;
+  font-weight: 700;
+  text-align: center;
+}
+
+.word {
+  display: inline-block;
+  position: relative;
+}
+
+.letter {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(20px) scale(0.8);
+  filter: blur(4px);
+  transition: none;
+}
+
+.animate .letter {
+  animation: letterReveal 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
+}
+
+.letter.highlighted {
+  color: var(--armora-gold);
+  position: relative;
+}
+
+.animate .letter.highlighted {
+  animation: letterRevealGold 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
+}
+
+.space {
+  display: inline-block;
+  width: 0.3em;
+}
+
+/* LETTER REVEAL ANIMATIONS */
+@keyframes letterReveal {
+  0% {
+    opacity: 0;
+    transform: translateY(20px) scale(0.8) rotateX(-90deg);
+    filter: blur(4px);
+  }
+  50% {
+    transform: translateY(-5px) scale(1.1) rotateX(0deg);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1) rotateX(0deg);
+    filter: blur(0px);
+  }
+}
+
+@keyframes letterRevealGold {
+  0% {
+    opacity: 0;
+    transform: translateY(20px) scale(0.8) rotateX(-90deg);
+    filter: blur(4px);
+    text-shadow: none;
+  }
+  50% {
+    transform: translateY(-8px) scale(1.2) rotateX(0deg);
+    text-shadow: 0 0 20px var(--armora-gold);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1) rotateX(0deg);
+    filter: blur(0px);
+    text-shadow: 0 2px 8px rgba(255, 215, 0, 0.3);
+  }
+}
+
+/* FLOATING ANIMATION AFTER REVEAL */
+.animate .letter {
+  animation: letterReveal 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards,
+             letterFloat 3s ease-in-out 1.5s infinite;
+}
+
+.animate .letter.highlighted {
+  animation: letterRevealGold 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards,
+             letterFloatGold 3s ease-in-out 1.5s infinite;
+}
+
+@keyframes letterFloat {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-2px);
+  }
+}
+
+@keyframes letterFloatGold {
+  0%, 100% {
+    transform: translateY(0);
+    text-shadow: 0 2px 8px rgba(255, 215, 0, 0.3);
+  }
+  50% {
+    transform: translateY(-3px);
+    text-shadow: 0 4px 12px rgba(255, 215, 0, 0.4);
+  }
+}
+
+/* GOLDEN PARTICLE EFFECT FOR HIGHLIGHTED LETTERS */
+.letter.highlighted::after {
+  content: '';
+  position: absolute;
+  top: -5px;
+  left: 50%;
+  width: 4px;
+  height: 4px;
+  background: var(--armora-gold);
+  border-radius: 50%;
+  transform: translateX(-50%);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.animate .letter.highlighted::after {
+  animation: particleRise 2s ease-out 1s infinite;
+}
+
+@keyframes particleRise {
+  0% {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(-50%) translateY(-30px) scale(0.5);
+  }
+}
+
+/* RESPONSIVE SIZING */
+@media (max-width: 768px) {
+  .animatedTitle {
+    font-size: clamp(1.5rem, 8vw, 2rem);
+  }
+}
+
+@media (max-width: 320px) {
+  .animatedTitle {
+    font-size: clamp(1.25rem, 7vw, 1.75rem);
+  }
+}
+
+/* ACCESSIBILITY - REDUCE MOTION */
+@media (prefers-reduced-motion: reduce) {
+  .letter {
+    animation: none !important;
+    opacity: 1;
+    transform: none;
+    filter: none;
+  }
+  
+  .letter.highlighted {
+    color: var(--armora-gold);
+    text-shadow: 0 2px 8px rgba(255, 215, 0, 0.3);
+  }
+  
+  .letter.highlighted::after {
+    display: none;
+  }
+}

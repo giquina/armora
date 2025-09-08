@@ -1,0 +1,104 @@
+/* ARMORA SECURITY TRANSPORT - DESIGN SYSTEM VARIABLES */
+
+:root {
+  /* PRIMARY BRAND COLORS */
+  --armora-dark: #1a1a2e;       /* Premium dark navy - professional security aesthetic */
+  --armora-gold: #FFD700;       /* Premium gold - VIP luxury positioning */
+  --armora-light: #e0e0e0;      /* Light text - high contrast readability */
+  
+  /* SEMANTIC COLORS */
+  --primary: var(--armora-dark);
+  --accent: var(--armora-gold);
+  --text-primary: var(--armora-light);
+  --text-secondary: #b0b0b0;
+  --text-dark: var(--armora-dark);
+  
+  /* BACKGROUND VARIATIONS */
+  --bg-primary: var(--armora-dark);
+  --bg-secondary: #252544;
+  --bg-card: #2a2a4a;
+  --bg-overlay: rgba(26, 26, 46, 0.95);
+  
+  /* INTERACTION STATES */
+  --hover-gold: #e6c200;
+  --active-gold: #ccac00;
+  --disabled: #666666;
+  --error: #ff4444;
+  --success: #00ff88;
+  --warning: #ffaa00;
+  
+  /* SPACING SYSTEM - 8px Grid */
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 32px;
+  --space-xxl: 48px;
+  
+  /* TYPOGRAPHY SCALE */
+  --font-xs: 12px;
+  --font-sm: 14px;
+  --font-base: 16px;
+  --font-lg: 18px;
+  --font-xl: 24px;
+  --font-xxl: 32px;
+  --font-display: 48px;
+  
+  /* LINE HEIGHTS */
+  --line-tight: 1.2;
+  --line-base: 1.5;
+  --line-loose: 1.8;
+  
+  /* BORDER RADIUS */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 16px;
+  --radius-full: 9999px;
+  
+  /* SHADOWS */
+  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.1);
+  --shadow-md: 0 4px 8px rgba(0, 0, 0, 0.15);
+  --shadow-lg: 0 8px 16px rgba(0, 0, 0, 0.2);
+  --shadow-gold: 0 4px 16px rgba(255, 215, 0, 0.3);
+  
+  /* MOBILE-FIRST BREAKPOINTS */
+  --mobile-max: 767px;
+  --tablet-min: 768px;
+  --tablet-max: 1023px;
+  --desktop-min: 1024px;
+  
+  /* TOUCH TARGETS - 44px minimum for accessibility */
+  --touch-target: 44px;
+  --touch-target-lg: 56px;
+  
+  /* TRANSITIONS */
+  --transition-fast: 0.15s ease-out;
+  --transition-base: 0.25s ease-out;
+  --transition-slow: 0.35s ease-out;
+  
+  /* Z-INDEX SCALE */
+  --z-dropdown: 1000;
+  --z-sticky: 1020;
+  --z-fixed: 1030;
+  --z-modal-backdrop: 1040;
+  --z-modal: 1050;
+  --z-popover: 1060;
+  --z-tooltip: 1070;
+  --z-toast: 1080;
+}
+
+/* DARK THEME OVERRIDES (Default) */
+[data-theme="dark"] {
+  --text-primary: var(--armora-light);
+  --text-secondary: #b0b0b0;
+  --bg-primary: var(--armora-dark);
+}
+
+/* LIGHT THEME OVERRIDES (Optional) */
+[data-theme="light"] {
+  --text-primary: var(--armora-dark);
+  --text-secondary: #666666;
+  --bg-primary: #ffffff;
+  --bg-secondary: #f5f5f5;
+  --bg-card: #ffffff;
+}

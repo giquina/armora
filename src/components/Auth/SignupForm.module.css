@@ -1,0 +1,412 @@
+/* ARMORA SIGNUP FORM - PREMIUM REGISTRATION */
+
+.signupPage {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  background: linear-gradient(
+    135deg,
+    var(--armora-dark) 0%,
+    var(--bg-secondary) 50%,
+    var(--armora-dark) 100%
+  );
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: clamp(1rem, 4vw, 2rem);
+  padding-top: clamp(2rem, 6vw, 3rem);
+}
+
+.signupContainer {
+  width: 100%;
+  max-width: 440px;
+  background: rgba(42, 42, 74, 0.95);
+  border: 1px solid rgba(255, 215, 0, 0.1);
+  border-radius: var(--radius-lg);
+  padding: clamp(1.5rem, 6vw, 2.5rem);
+  backdrop-filter: blur(10px);
+  box-shadow: 
+    0 10px 40px rgba(0, 0, 0, 0.3),
+    0 0 0 1px rgba(255, 215, 0, 0.1);
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.6s ease-out;
+  margin-bottom: clamp(2rem, 6vw, 3rem);
+}
+
+.signupContainer.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* HEADER SECTION */
+.header {
+  text-align: center;
+  margin-bottom: clamp(1.5rem, 6vw, 2rem);
+}
+
+.logo {
+  margin-bottom: clamp(1rem, 4vw, 1.5rem);
+}
+
+.title {
+  font-size: clamp(1.5rem, 5vw, 1.875rem);
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: clamp(0.5rem, 2vw, 0.75rem);
+  line-height: 1.2;
+}
+
+.subtitle {
+  font-size: clamp(0.875rem, 3vw, 1rem);
+  color: var(--text-secondary);
+  margin: 0;
+  font-weight: 400;
+}
+
+/* FORM SECTION */
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(1rem, 4vw, 1.25rem);
+}
+
+.errorMessage {
+  display: flex;
+  align-items: center;
+  gap: clamp(0.5rem, 2vw, 0.75rem);
+  padding: clamp(0.75rem, 3vw, 1rem);
+  background: rgba(255, 68, 68, 0.1);
+  border: 1px solid rgba(255, 68, 68, 0.3);
+  border-radius: var(--radius-md);
+  color: #ff6b6b;
+  font-size: clamp(0.875rem, 3vw, 0.9375rem);
+  font-weight: 500;
+}
+
+.errorIcon {
+  flex-shrink: 0;
+  color: #ff6b6b;
+}
+
+.fieldGroup {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(0.5rem, 2vw, 0.75rem);
+}
+
+.label {
+  font-size: clamp(0.875rem, 3vw, 0.9375rem);
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: clamp(0.25rem, 1vw, 0.5rem);
+}
+
+.inputWrapper {
+  position: relative;
+}
+
+.input {
+  width: 100%;
+  min-height: var(--touch-target-lg);
+  padding: clamp(0.75rem, 3vw, 1rem) clamp(2.5rem, 10vw, 3rem) clamp(0.75rem, 3vw, 1rem) clamp(1rem, 4vw, 1.25rem);
+  background: var(--bg-primary);
+  border: 2px solid rgba(255, 215, 0, 0.2);
+  border-radius: var(--radius-md);
+  color: var(--text-primary);
+  font-size: clamp(0.875rem, 3vw, 1rem);
+  font-weight: 500;
+  transition: all var(--transition-base);
+  outline: none;
+}
+
+.input:focus {
+  border-color: var(--armora-gold);
+  box-shadow: 0 0 0 3px rgba(255, 215, 0, 0.1);
+}
+
+.input::placeholder {
+  color: var(--text-secondary);
+  font-weight: 400;
+}
+
+.input:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.inputError {
+  border-color: #ff6b6b !important;
+  box-shadow: 0 0 0 3px rgba(255, 107, 107, 0.1) !important;
+}
+
+.passwordToggle {
+  position: absolute;
+  right: clamp(0.75rem, 3vw, 1rem);
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: var(--text-secondary);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: var(--touch-target);
+  min-height: var(--touch-target);
+  border-radius: var(--radius-sm);
+  transition: all var(--transition-base);
+}
+
+.passwordToggle:hover {
+  color: var(--armora-gold);
+  background: rgba(255, 215, 0, 0.1);
+}
+
+.passwordToggle:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.fieldError {
+  color: #ff6b6b;
+  font-size: clamp(0.75rem, 2.5vw, 0.8125rem);
+  font-weight: 500;
+  margin-top: clamp(0.25rem, 1vw, 0.5rem);
+}
+
+/* PASSWORD STRENGTH INDICATOR */
+.passwordStrength {
+  margin-top: clamp(0.5rem, 2vw, 0.75rem);
+}
+
+.strengthBar {
+  width: 100%;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 2px;
+  overflow: hidden;
+  margin-bottom: clamp(0.5rem, 2vw, 0.75rem);
+}
+
+.strengthProgress {
+  height: 100%;
+  transition: all 0.3s ease;
+  border-radius: 2px;
+}
+
+.strengthInfo {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(0.25rem, 1vw, 0.5rem);
+}
+
+.strengthLabel {
+  font-size: clamp(0.75rem, 2.5vw, 0.8125rem);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.suggestions {
+  margin: 0;
+  padding-left: clamp(1rem, 4vw, 1.25rem);
+  font-size: clamp(0.75rem, 2.5vw, 0.8125rem);
+  color: var(--text-secondary);
+  line-height: 1.4;
+}
+
+.suggestions li {
+  margin-bottom: clamp(0.125rem, 0.5vw, 0.25rem);
+}
+
+/* CHECKBOX GROUPS */
+.checkboxGroup {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(0.5rem, 2vw, 0.75rem);
+  margin: clamp(0.5rem, 2vw, 0.75rem) 0;
+}
+
+.checkboxLabel {
+  display: flex;
+  align-items: flex-start;
+  gap: clamp(0.5rem, 2vw, 0.75rem);
+  cursor: pointer;
+  font-size: clamp(0.875rem, 3vw, 0.9375rem);
+  color: var(--text-secondary);
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+.checkbox {
+  width: clamp(18px, 4vw, 20px);
+  height: clamp(18px, 4vw, 20px);
+  accent-color: var(--armora-gold);
+  cursor: pointer;
+  margin-top: 2px;
+  flex-shrink: 0;
+}
+
+.checkboxText {
+  user-select: none;
+}
+
+.link {
+  background: none;
+  border: none;
+  color: var(--armora-gold);
+  text-decoration: underline;
+  cursor: pointer;
+  font-size: inherit;
+  font-weight: 600;
+  padding: 0;
+  transition: color var(--transition-base);
+}
+
+.link:hover {
+  color: var(--hover-gold);
+}
+
+/* SUBMIT BUTTON */
+.submitButton {
+  margin-top: clamp(0.5rem, 2vw, 1rem);
+  position: relative;
+  overflow: hidden;
+}
+
+.spinner {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* FOOTER SECTION */
+.footer {
+  margin-top: clamp(1.5rem, 6vw, 2rem);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(1rem, 4vw, 1.5rem);
+}
+
+.divider {
+  position: relative;
+  width: 100%;
+  text-align: center;
+  margin: clamp(0.5rem, 2vw, 0.75rem) 0;
+}
+
+.divider::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--bg-secondary), transparent);
+}
+
+.dividerText {
+  background: rgba(42, 42, 74, 0.95);
+  padding: 0 clamp(0.75rem, 3vw, 1rem);
+  color: var(--text-secondary);
+  font-size: clamp(0.75rem, 2.5vw, 0.8125rem);
+  position: relative;
+  z-index: 1;
+}
+
+.loginButton {
+  border: 2px solid rgba(255, 215, 0, 0.3) !important;
+  background: rgba(255, 215, 0, 0.05) !important;
+  color: var(--armora-gold) !important;
+}
+
+.loginButton:hover {
+  background: rgba(255, 215, 0, 0.1) !important;
+  border-color: var(--armora-gold) !important;
+  transform: translateY(-1px);
+}
+
+.backButton {
+  background: none;
+  border: none;
+  color: var(--text-secondary);
+  font-size: clamp(0.8125rem, 3vw, 0.875rem);
+  font-weight: 500;
+  cursor: pointer;
+  padding: clamp(0.5rem, 2vw, 0.75rem);
+  border-radius: var(--radius-sm);
+  transition: all var(--transition-base);
+  min-height: var(--touch-target);
+}
+
+.backButton:hover {
+  color: var(--text-primary);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.backButton:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* RESPONSIVE ADJUSTMENTS */
+@media (max-width: 768px) {
+  .signupPage {
+    padding: clamp(0.5rem, 2vw, 1rem);
+    padding-top: clamp(1rem, 4vw, 2rem);
+  }
+  
+  .signupContainer {
+    padding: clamp(1rem, 4vw, 2rem);
+  }
+}
+
+@media (max-width: 320px) {
+  .input {
+    padding: 0.75rem 2.5rem 0.75rem 1rem;
+    font-size: 0.875rem;
+  }
+  
+  .passwordToggle {
+    right: 0.75rem;
+  }
+  
+  .title {
+    font-size: 1.375rem;
+  }
+  
+  .checkboxLabel {
+    font-size: 0.8125rem;
+  }
+}
+
+/* LANDSCAPE MOBILE OPTIMIZATION */
+@media (max-width: 768px) and (orientation: landscape) and (max-height: 500px) {
+  .signupPage {
+    align-items: flex-start;
+    padding-top: 1rem;
+  }
+  
+  .signupContainer {
+    margin-bottom: 1rem;
+  }
+  
+  .header {
+    margin-bottom: 1rem;
+  }
+  
+  .form {
+    gap: 0.75rem;
+  }
+}

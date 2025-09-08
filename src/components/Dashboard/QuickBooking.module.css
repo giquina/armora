@@ -1,0 +1,507 @@
+/* ARMORA QUICK BOOKING - MOBILE-FIRST RESPONSIVE STYLING */
+
+.quickBooking {
+  background: var(--bg-card);
+  border-radius: var(--radius-lg);
+  padding: var(--space-lg);
+  border: 1px solid var(--bg-secondary);
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+/* ========================================
+   HEADER
+======================================== */
+.header {
+  text-align: center;
+  margin-bottom: var(--space-lg);
+}
+
+.title {
+  font-size: var(--font-lg);
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0 0 var(--space-xs) 0;
+  line-height: var(--line-tight);
+}
+
+.subtitle {
+  font-size: var(--font-sm);
+  color: var(--text-secondary);
+  margin: 0;
+  line-height: var(--line-base);
+}
+
+/* ========================================
+   LOCATION INPUTS
+======================================== */
+.locationInputs {
+  margin-bottom: var(--space-lg);
+}
+
+.inputGroup {
+  margin-bottom: var(--space-md);
+}
+
+.inputLabel {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  font-size: var(--font-sm);
+  font-weight: 500;
+  color: var(--text-primary);
+  margin-bottom: var(--space-sm);
+  line-height: var(--line-base);
+}
+
+.locationIcon {
+  font-size: 16px;
+  flex-shrink: 0;
+}
+
+.inputWrapper {
+  position: relative;
+  width: 100%;
+}
+
+.locationInput {
+  width: 100%;
+  padding: var(--space-md);
+  padding-right: calc(var(--touch-target) + var(--space-sm));
+  background: var(--bg-primary);
+  border: 2px solid var(--bg-secondary);
+  border-radius: var(--radius-md);
+  color: var(--text-primary);
+  font-size: var(--font-base);
+  line-height: var(--line-base);
+  transition: all var(--transition-fast);
+  box-sizing: border-box;
+  min-height: var(--touch-target);
+}
+
+.locationInput:focus {
+  outline: none;
+  border-color: var(--accent);
+  background: var(--bg-card);
+  box-shadow: 0 0 0 3px rgba(255, 215, 0, 0.1);
+}
+
+.locationInput::placeholder {
+  color: var(--text-secondary);
+  opacity: 0.8;
+}
+
+.currentLocationButton {
+  position: absolute;
+  right: var(--space-xs);
+  top: 50%;
+  transform: translateY(-50%);
+  width: calc(var(--touch-target) - var(--space-xs));
+  height: calc(var(--touch-target) - var(--space-xs));
+  background: var(--bg-secondary);
+  border: none;
+  border-radius: var(--radius-sm);
+  color: var(--accent);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--transition-fast);
+  touch-action: manipulation;
+}
+
+.currentLocationButton:hover {
+  background: var(--accent);
+  color: var(--text-dark);
+  transform: translateY(-50%) scale(1.05);
+}
+
+.currentLocationButton:active {
+  transform: translateY(-50%) scale(0.95);
+}
+
+.currentLocationButton:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: translateY(-50%);
+}
+
+.locationSpinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid var(--bg-primary);
+  border-top: 2px solid var(--accent);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* ========================================
+   ROUTE INDICATOR
+======================================== */
+.routeIndicator {
+  position: relative;
+  height: var(--space-lg);
+  margin: var(--space-sm) 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.routeLine {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 2px;
+  height: var(--space-md);
+  background: linear-gradient(to bottom, var(--accent), transparent, var(--accent));
+}
+
+.routeDots {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+  z-index: 2;
+}
+
+.routeDot {
+  width: 6px;
+  height: 6px;
+  background: var(--accent);
+  border-radius: 50%;
+  opacity: 0.7;
+  animation: pulse 2s infinite;
+}
+
+.routeDot:nth-child(2) {
+  animation-delay: 0.5s;
+}
+
+.routeDot:nth-child(3) {
+  animation-delay: 1s;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 1; }
+}
+
+/* ========================================
+   SERVICE STATUS
+======================================== */
+.serviceStatus {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: var(--space-sm) var(--space-md);
+  background: rgba(0, 255, 136, 0.1);
+  border: 1px solid rgba(0, 255, 136, 0.3);
+  border-radius: var(--radius-md);
+  margin-bottom: var(--space-lg);
+}
+
+.serviceStatusIcon {
+  color: var(--success);
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.serviceStatusText {
+  font-size: var(--font-sm);
+  color: var(--text-secondary);
+  line-height: var(--line-base);
+}
+
+.serviceStatusText strong {
+  color: var(--text-primary);
+}
+
+.serviceWarning {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: var(--space-sm) var(--space-md);
+  background: rgba(255, 170, 0, 0.1);
+  border: 1px solid rgba(255, 170, 0, 0.3);
+  border-radius: var(--radius-md);
+  margin-bottom: var(--space-lg);
+}
+
+.serviceWarningIcon {
+  flex-shrink: 0;
+}
+
+.serviceWarningText {
+  font-size: var(--font-sm);
+  color: var(--warning);
+  line-height: var(--line-base);
+}
+
+/* ========================================
+   BOOKING OPTIONS
+======================================== */
+.bookingOptions {
+  margin-bottom: var(--space-lg);
+}
+
+.bookingOption {
+  background: var(--bg-primary);
+  border: 2px solid var(--bg-secondary);
+  border-radius: var(--radius-lg);
+  padding: var(--space-lg);
+  margin-bottom: var(--space-md);
+  transition: border-color var(--transition-fast);
+}
+
+.bookingOption:hover {
+  border-color: var(--accent);
+}
+
+.bookingOptionContent {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-md);
+  margin-bottom: var(--space-lg);
+}
+
+.bookingOptionIcon {
+  font-size: 24px;
+  flex-shrink: 0;
+  line-height: 1;
+  margin-top: 2px;
+}
+
+.bookingOptionText {
+  flex: 1;
+  min-width: 0;
+}
+
+.bookingOptionTitle {
+  font-size: var(--font-base);
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0 0 var(--space-xs) 0;
+  line-height: var(--line-tight);
+}
+
+.bookingOptionDescription {
+  font-size: var(--font-sm);
+  color: var(--text-secondary);
+  margin: 0;
+  line-height: var(--line-base);
+}
+
+.bookButton {
+  width: 100%;
+  min-height: var(--touch-target-lg);
+  font-weight: 600;
+  font-size: var(--font-base);
+}
+
+.schedulingNote {
+  text-align: center;
+  padding: var(--space-md);
+  background: rgba(255, 215, 0, 0.05);
+  border-radius: var(--radius-md);
+  border: 1px solid rgba(255, 215, 0, 0.2);
+}
+
+.schedulingText {
+  font-size: var(--font-sm);
+  color: var(--text-secondary);
+  margin: 0;
+  line-height: var(--line-base);
+}
+
+/* ========================================
+   QUICK STATS
+======================================== */
+.quickStats {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-sm);
+  padding: var(--space-md);
+  background: var(--bg-primary);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--bg-secondary);
+}
+
+.statItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  flex: 1;
+  min-width: 0;
+}
+
+.statNumber {
+  font-size: var(--font-base);
+  font-weight: 700;
+  color: var(--accent);
+  line-height: var(--line-tight);
+}
+
+.statLabel {
+  font-size: var(--font-xs);
+  color: var(--text-secondary);
+  margin-top: 2px;
+  line-height: var(--line-tight);
+}
+
+/* ========================================
+   RESPONSIVE ADJUSTMENTS
+======================================== */
+
+/* Small Mobile (320px) */
+@media (max-width: 359px) {
+  .quickBooking {
+    padding: var(--space-md);
+  }
+  
+  .locationInput {
+    padding: var(--space-sm);
+    padding-right: calc(var(--touch-target) + var(--space-xs));
+    font-size: var(--font-sm);
+  }
+  
+  .bookingOptionContent {
+    gap: var(--space-sm);
+  }
+  
+  .bookingOptionIcon {
+    font-size: 20px;
+  }
+  
+  .quickStats {
+    padding: var(--space-sm);
+  }
+  
+  .statNumber {
+    font-size: var(--font-sm);
+  }
+  
+  .statLabel {
+    font-size: 10px;
+  }
+}
+
+/* Tablet */
+@media (min-width: 768px) {
+  .quickBooking {
+    padding: var(--space-xl);
+  }
+  
+  .title {
+    font-size: var(--font-xl);
+  }
+  
+  .locationInputs {
+    margin-bottom: var(--space-xl);
+  }
+  
+  .bookingOptions {
+    margin-bottom: var(--space-xl);
+  }
+  
+  .quickStats {
+    padding: var(--space-lg);
+  }
+  
+  .statNumber {
+    font-size: var(--font-lg);
+  }
+}
+
+/* Desktop */
+@media (min-width: 1024px) {
+  .quickBooking {
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  
+  .locationInputs {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+  }
+  
+  .routeIndicator {
+    height: var(--space-xl);
+    margin: var(--space-md) 0;
+  }
+  
+  .routeLine {
+    height: var(--space-lg);
+  }
+}
+
+/* ========================================
+   ACCESSIBILITY & INTERACTION
+======================================== */
+
+/* Focus states */
+.locationInput:focus,
+.currentLocationButton:focus,
+.bookButton:focus {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .currentLocationButton {
+    transition: none;
+  }
+  
+  .currentLocationButton:hover,
+  .currentLocationButton:active {
+    transform: translateY(-50%);
+  }
+  
+  .locationSpinner,
+  .routeDot {
+    animation: none;
+  }
+}
+
+/* High contrast mode */
+@media (prefers-contrast: high) {
+  .locationInput {
+    border-width: 3px;
+  }
+  
+  .serviceStatus,
+  .serviceWarning,
+  .bookingOption {
+    border-width: 3px;
+  }
+  
+  .currentLocationButton {
+    border: 2px solid var(--accent);
+  }
+}
+
+/* Touch device optimizations */
+@media (pointer: coarse) {
+  .currentLocationButton {
+    width: var(--touch-target);
+    height: var(--touch-target);
+  }
+  
+  .locationInput {
+    min-height: var(--touch-target-lg);
+    padding: var(--space-md);
+    padding-right: calc(var(--touch-target) + var(--space-md));
+  }
+  
+  .bookButton {
+    min-height: calc(var(--touch-target-lg) + var(--space-sm));
+  }
+}

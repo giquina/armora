@@ -1,0 +1,452 @@
+/* ARMORA SERVICE CARD - MOBILE-FIRST RESPONSIVE STYLING */
+
+.serviceCard {
+  background: var(--bg-card);
+  border: 2px solid transparent;
+  border-radius: var(--radius-lg);
+  padding: var(--space-lg);
+  cursor: pointer;
+  transition: all var(--transition-base);
+  position: relative;
+  overflow: hidden;
+  min-height: 400px;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.serviceCard:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--accent);
+}
+
+.serviceCard:active {
+  transform: translateY(0);
+}
+
+/* Selected state */
+.serviceCard.selected {
+  border-color: var(--accent);
+  background: linear-gradient(135deg, var(--bg-card), var(--bg-secondary));
+  box-shadow: var(--shadow-gold);
+}
+
+/* Recommended state */
+.serviceCard.recommended {
+  border-color: var(--accent);
+  background: linear-gradient(135deg, var(--bg-card) 0%, rgba(255, 215, 0, 0.05) 100%);
+}
+
+/* Popular badge enhancement */
+.serviceCard.popular {
+  position: relative;
+}
+
+.serviceCard.popular::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--accent), var(--hover-gold), var(--accent));
+  background-size: 200% 100%;
+  animation: shimmer 2s linear infinite;
+}
+
+/* Preview mode (for guest users) */
+.serviceCard.preview {
+  cursor: default;
+  opacity: 0.9;
+}
+
+.serviceCard.preview:hover {
+  transform: none;
+  box-shadow: var(--shadow-md);
+  border-color: var(--bg-secondary);
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+/* ========================================
+   BADGES
+======================================== */
+.popularBadge {
+  position: absolute;
+  top: var(--space-md);
+  right: var(--space-md);
+  background: var(--accent);
+  color: var(--text-dark);
+  font-size: var(--font-xs);
+  font-weight: 600;
+  padding: var(--space-xs) var(--space-sm);
+  border-radius: var(--radius-full);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  z-index: 3;
+  box-shadow: var(--shadow-sm);
+}
+
+.recommendedBadge {
+  position: absolute;
+  top: var(--space-md);
+  left: var(--space-md);
+  background: linear-gradient(135deg, var(--accent), var(--hover-gold));
+  color: var(--text-dark);
+  font-size: var(--font-xs);
+  font-weight: 600;
+  padding: var(--space-xs) var(--space-sm);
+  border-radius: var(--radius-full);
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  z-index: 3;
+  box-shadow: var(--shadow-sm);
+}
+
+.recommendedIcon {
+  font-size: 12px;
+  line-height: 1;
+}
+
+/* ========================================
+   CARD HEADER
+======================================== */
+.cardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: var(--space-md);
+  gap: var(--space-sm);
+  flex-shrink: 0;
+}
+
+.serviceInfo {
+  flex: 1;
+  min-width: 0;
+}
+
+.serviceName {
+  font-size: var(--font-lg);
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0 0 var(--space-xs) 0;
+  line-height: var(--line-tight);
+}
+
+.serviceTagline {
+  font-size: var(--font-sm);
+  color: var(--text-secondary);
+  margin: 0;
+  line-height: var(--line-base);
+}
+
+.priceInfo {
+  text-align: right;
+  flex-shrink: 0;
+}
+
+.price {
+  font-size: var(--font-lg);
+  font-weight: 700;
+  color: var(--accent);
+  line-height: var(--line-tight);
+}
+
+.originalPrice {
+  font-size: var(--font-sm);
+  color: var(--text-secondary);
+  text-decoration: line-through;
+  margin-top: var(--space-xs);
+}
+
+/* ========================================
+   CARD CONTENT
+======================================== */
+.cardContent {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.description {
+  font-size: var(--font-sm);
+  color: var(--text-secondary);
+  line-height: var(--line-base);
+  margin: 0;
+}
+
+/* Features Section */
+.features {
+  flex: 1;
+}
+
+.featuresTitle {
+  font-size: var(--font-sm);
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0 0 var(--space-sm) 0;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.featuresList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.featureItem {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-sm);
+  font-size: var(--font-sm);
+  color: var(--text-secondary);
+  line-height: var(--line-base);
+}
+
+.featureIcon {
+  color: var(--accent);
+  font-weight: 700;
+  flex-shrink: 0;
+  width: 14px;
+  font-size: 12px;
+  margin-top: 2px;
+}
+
+/* Social Proof */
+.socialProof {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-sm);
+  padding: var(--space-sm);
+  background: rgba(255, 215, 0, 0.05);
+  border-radius: var(--radius-md);
+  border: 1px solid rgba(255, 215, 0, 0.2);
+}
+
+.socialProofItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  flex: 1;
+  min-width: 0;
+}
+
+.socialProofNumber {
+  font-size: var(--font-base);
+  font-weight: 700;
+  color: var(--accent);
+  line-height: var(--line-tight);
+}
+
+.socialProofLabel {
+  font-size: var(--font-xs);
+  color: var(--text-secondary);
+  margin-top: 2px;
+  line-height: var(--line-tight);
+}
+
+/* ========================================
+   CARD FOOTER
+======================================== */
+.cardFooter {
+  margin-top: var(--space-md);
+  flex-shrink: 0;
+}
+
+.selectButton {
+  width: 100%;
+  min-height: var(--touch-target);
+}
+
+.previewFooter {
+  text-align: center;
+  padding: var(--space-sm);
+  background: var(--bg-secondary);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--bg-card);
+}
+
+.previewText {
+  font-size: var(--font-sm);
+  color: var(--text-secondary);
+  margin: 0;
+  line-height: var(--line-base);
+}
+
+/* ========================================
+   SELECTION INDICATOR
+======================================== */
+.selectionIndicator {
+  position: absolute;
+  top: var(--space-md);
+  right: var(--space-md);
+  z-index: 5;
+  background: var(--accent);
+  border-radius: 50%;
+  padding: var(--space-xs);
+  box-shadow: var(--shadow-sm);
+  animation: scaleIn 0.3s ease-out;
+}
+
+.selectionCheck {
+  color: var(--text-dark);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+}
+
+@keyframes scaleIn {
+  from {
+    transform: scale(0);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+/* ========================================
+   RESPONSIVE ADJUSTMENTS
+======================================== */
+
+/* Small Mobile (320px) */
+@media (max-width: 359px) {
+  .serviceCard {
+    padding: var(--space-md);
+    min-height: 350px;
+  }
+  
+  .serviceName {
+    font-size: var(--font-base);
+  }
+  
+  .price {
+    font-size: var(--font-base);
+  }
+  
+  .popularBadge,
+  .recommendedBadge {
+    top: var(--space-sm);
+    font-size: 10px;
+    padding: 2px var(--space-xs);
+  }
+  
+  .popularBadge {
+    right: var(--space-sm);
+  }
+  
+  .recommendedBadge {
+    left: var(--space-sm);
+  }
+}
+
+/* Tablet */
+@media (min-width: 768px) {
+  .serviceCard {
+    min-height: 450px;
+  }
+  
+  .cardHeader {
+    margin-bottom: var(--space-lg);
+  }
+  
+  .socialProof {
+    padding: var(--space-md);
+  }
+}
+
+/* Desktop */
+@media (min-width: 1024px) {
+  .serviceCard {
+    min-height: 500px;
+    padding: var(--space-xl);
+  }
+  
+  .serviceName {
+    font-size: var(--font-xl);
+  }
+  
+  .price {
+    font-size: var(--font-xl);
+  }
+}
+
+/* ========================================
+   ACCESSIBILITY & INTERACTION
+======================================== */
+
+/* Focus states */
+.serviceCard:focus {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.selectButton:focus {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .serviceCard {
+    transition: none;
+  }
+  
+  .serviceCard.popular::before {
+    animation: none;
+  }
+  
+  .selectionIndicator {
+    animation: none;
+  }
+  
+  .serviceCard:hover,
+  .serviceCard:active {
+    transform: none;
+  }
+}
+
+/* High contrast mode */
+@media (prefers-contrast: high) {
+  .serviceCard {
+    border-width: 3px;
+  }
+  
+  .serviceCard.selected,
+  .serviceCard.recommended {
+    border-width: 4px;
+  }
+  
+  .popularBadge,
+  .recommendedBadge {
+    border: 2px solid var(--text-primary);
+  }
+}
+
+/* Touch device optimizations */
+@media (pointer: coarse) {
+  .serviceCard {
+    min-height: var(--touch-target-lg);
+  }
+  
+  .selectButton {
+    min-height: var(--touch-target-lg);
+    font-size: var(--font-base);
+  }
+}

@@ -1,0 +1,234 @@
+/* ARMORA BUTTON COMPONENT STYLES */
+
+.button {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-sm);
+  font-family: inherit;
+  font-weight: 600;
+  text-decoration: none;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  cursor: pointer;
+  user-select: none;
+  border: 2px solid transparent;
+  border-radius: var(--radius-md);
+  transition: all var(--transition-base);
+  outline: none;
+  min-height: var(--touch-target);
+  overflow: hidden;
+}
+
+/* SIZES */
+.sm {
+  min-height: 36px;
+  padding: var(--space-xs) var(--space-md);
+  font-size: var(--font-sm);
+  border-radius: var(--radius-sm);
+}
+
+.md {
+  min-height: var(--touch-target);
+  padding: var(--space-sm) var(--space-lg);
+  font-size: var(--font-base);
+}
+
+.lg {
+  min-height: var(--touch-target-lg);
+  padding: var(--space-md) var(--space-xl);
+  font-size: var(--font-lg);
+}
+
+.xl {
+  min-height: 64px;
+  padding: var(--space-lg) var(--space-xxl);
+  font-size: var(--font-xl);
+  border-radius: var(--radius-lg);
+}
+
+/* VARIANTS */
+.primary {
+  background: linear-gradient(135deg, var(--armora-gold) 0%, var(--hover-gold) 100%);
+  color: var(--armora-dark);
+  box-shadow: var(--shadow-gold);
+}
+
+.primary:hover:not(:disabled) {
+  background: linear-gradient(135deg, var(--hover-gold) 0%, var(--active-gold) 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(255, 215, 0, 0.4);
+}
+
+.primary:active:not(:disabled) {
+  transform: translateY(0);
+  background: var(--active-gold);
+}
+
+.secondary {
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+  border-color: var(--bg-card);
+}
+
+.secondary:hover:not(:disabled) {
+  background: var(--bg-card);
+  border-color: var(--armora-gold);
+  transform: translateY(-1px);
+}
+
+.outline {
+  background: transparent;
+  color: var(--armora-gold);
+  border-color: var(--armora-gold);
+}
+
+.outline:hover:not(:disabled) {
+  background: var(--armora-gold);
+  color: var(--armora-dark);
+  transform: translateY(-1px);
+}
+
+.ghost {
+  background: transparent;
+  color: var(--text-primary);
+  border-color: transparent;
+}
+
+.ghost:hover:not(:disabled) {
+  background: var(--bg-secondary);
+  color: var(--armora-gold);
+}
+
+.danger {
+  background: linear-gradient(135deg, var(--error) 0%, #cc0000 100%);
+  color: white;
+}
+
+.danger:hover:not(:disabled) {
+  background: linear-gradient(135deg, #cc0000 0%, #990000 100%);
+  transform: translateY(-1px);
+}
+
+/* STATES */
+.fullWidth {
+  width: 100%;
+}
+
+.loading {
+  color: transparent;
+  pointer-events: none;
+}
+
+.disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  pointer-events: none;
+  transform: none !important;
+}
+
+/* CONTENT AND ICONS */
+.content {
+  position: relative;
+  z-index: 1;
+}
+
+.iconLeft {
+  display: flex;
+  align-items: center;
+  margin-right: calc(var(--space-xs) * -1);
+}
+
+.iconRight {
+  display: flex;
+  align-items: center;
+  margin-left: calc(var(--space-xs) * -1);
+}
+
+/* LOADING SPINNER */
+.spinner {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+}
+
+.spinnerRing {
+  width: 20px;
+  height: 20px;
+  border: 2px solid transparent;
+  border-top-color: currentColor;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* FOCUS STYLES */
+.button:focus-visible {
+  outline: 2px solid var(--armora-gold);
+  outline-offset: 2px;
+}
+
+/* PREMIUM EFFECTS */
+.primary::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.2),
+    transparent
+  );
+  transition: left var(--transition-slow);
+  z-index: 1;
+}
+
+.primary:hover::before {
+  left: 100%;
+}
+
+/* MOBILE OPTIMIZATIONS */
+@media (max-width: 768px) {
+  .button {
+    min-height: var(--touch-target);
+  }
+  
+  .sm {
+    min-height: 40px;
+  }
+  
+  .lg {
+    min-height: 52px;
+  }
+  
+  .xl {
+    min-height: 60px;
+  }
+}
+
+/* TOUCH DEVICE OPTIMIZATIONS */
+@media (hover: none) and (pointer: coarse) {
+  .button:hover {
+    transform: none;
+  }
+  
+  .button:active {
+    transform: scale(0.98);
+    transition: transform 0.1s ease-out;
+  }
+}
