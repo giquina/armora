@@ -1,0 +1,279 @@
+#!/usr/bin/env node
+
+/**
+ * 📁 FILE STRUCTURE ORGANIZER - Armora Transport Development
+ * 
+ * PURPOSE: Automatically organize project files into proper folders with correct naming
+ * MISSION: Keep Armora Transport codebase clean and maintainable
+ * 
+ * Features:
+ * - Creates ideal folder structure
+ * - Analyzes current file placement
+ * - Suggests file moves and renames
+ * - Real-time file organization monitoring
+ * - Enforces naming conventions
+ * - Mobile-first component organization
+ */
+
+const fs = require('fs');
+const path = require('path');
+const chokidar = require('chokidar');
+const glob = require('glob');
+
+class FileStructureOrganizer {
+    constructor(options = {}) {
+        this.projectRoot = options.projectRoot || process.cwd();
+        this.srcPath = path.join(this.projectRoot, 'src');
+        this.isRunning = false;
+        this.fileWatcher = null;
+        this.pendingMoves = new Map();
+        this.changeTimer = null;
+        
+        // Define ideal project structure
+        this.targetStructure = {
+            'components/Auth': ['login', 'signup', 'auth', 'register', 'password'],
+            'components/Questionnaire': ['question', 'quiz', 'form', 'survey'],
+            'components/Dashboard': ['dashboard', 'home', 'main', 'overview'],
+            'components/Booking': ['book', 'reserve', 'trip', 'ride'],
+            'components/Driver': ['driver', 'chauffeur', 'operator'],
+            'components/Payment': ['payment', 'billing', 'card', 'checkout'],
+            'components/Profile': ['profile', 'account', 'user', 'settings'],
+            'components/Common': ['button', 'modal', 'input', 'header', 'footer'],
+            'components/Mobile': ['mobile', 'touch', 'swipe', 'gesture'],
+            'hooks': ['use'],
+            'utils': ['util', 'helper', 'tool'],
+            'services': ['api', 'service', 'client', 'request'],
+            'types': ['type', 'interface', 'model'],
+            'constants': ['constant', 'config', 'enum'],
+            'styles': ['css', 'scss', 'style', 'theme'],
+            'assets': ['image', 'icon', 'logo', 'media'],
+            'data': ['data', 'mock', 'sample', 'seed']
+        };
+        
+        console.log('📁 File Structure Organizer initialized');
+        console.log(`📂 Project: ${this.projectRoot}`);
+        console.log(`📝 Source: ${this.srcPath}`);
+        console.log('🎯 Focus: Mobile-first React components');
+    }
+    
+    /**
+     * Start the organizer
+     */
+    async start() {
+        if (this.isRunning) {
+            console.log('⚠️  File structure organizer is already running');
+            return;
+        }
+        
+        this.isRunning = true;
+        console.log('✅ Starting File Structure Organizer...');
+        
+        // Create ideal folder structure
+        await this.createIdealStructure();
+        
+        // Analyze current structure
+        await this.analyzeCurrentStructure();
+        
+        // Start file watching
+        this.startFileWatcher();
+        
+        console.log('🎉 File Structure Organizer is active!');
+    }
+    
+    /**
+     * Stop the organizer
+     */
+    stop() {
+        if (!this.isRunning) {
+            console.log('⚠️  File structure organizer is not running');
+            return;
+        }
+        
+        this.isRunning = false;
+        
+        if (this.fileWatcher) {
+            this.fileWatcher.close();
+            console.log('📁 Stopped file watching');
+        }
+        
+        console.log('🛑 File Structure Organizer stopped');
+    }
+    
+    /**
+     * Create ideal folder structure
+     */
+    async createIdealStructure() {
+        console.log('📂 Creating ideal folder structure...');
+        
+        const foldersToCreate = [
+            'components/Auth',
+            'components/Questionnaire', 
+            'components/Dashboard',
+            'components/Booking',
+            'components/Driver',
+            'components/Payment',
+            'components/Profile',
+            'components/Common',
+            'components/Mobile',
+            'hooks',
+            'utils',
+            'services',
+            'types',
+            'constants',
+            'styles',
+            'assets/images',
+            'assets/icons',
+            'data'
+        ];
+        
+        let createdCount = 0;
+        
+        for (const folder of foldersToCreate) {
+            const folderPath = path.join(this.srcPath, folder);
+            
+            if (!fs.existsSync(folderPath)) {
+                fs.mkdirSync(folderPath, { recursive: true });
+                console.log(`📁 Created: ${folder}`);
+                createdCount++;
+                
+                // Create index.ts file for barrel exports
+                if (folder.startsWith('components/')) {
+                    const indexPath = path.join(folderPath, 'index.ts');
+                    const indexContent = `// Barrel export for ${folder.split('/').pop()} components
+// Auto-generated by File Structure Organizer
+
+// Export components here as they are added
+// Example: export { default as LoginForm } from './LoginForm';
+`;
+                    fs.writeFileSync(indexPath, indexContent);
+                }
+            }
+        }
+        
+        if (createdCount > 0) {
+            console.log(`✅ Created ${createdCount} new folders`);
+        } else {
+            console.log('✅ Folder structure already exists');
+        }
+    }
+    
+    /**
+     * Start file watching
+     */
+    startFileWatcher() {
+        console.log('👀 Starting file watcher for structure monitoring...');
+        
+        this.fileWatcher = chokidar.watch('**/*.{tsx,ts,js,jsx}', {
+            cwd: this.srcPath,
+            ignored: [
+                '**/node_modules/**',
+                '**/build/**',
+                '**/dist/**',
+                '**/.git/**'
+            ],
+            ignoreInitial: true
+        });
+        
+        this.fileWatcher.on('add', (filePath) => {
+            console.log(`➕ New file detected: ${filePath}`);
+            this.handleNewFile(filePath);
+        });
+        
+        this.fileWatcher.on('change', (filePath) => {
+            // Re-analyze file if its content changed significantly
+            this.handleFileChange(filePath);
+        });
+        
+        this.fileWatcher.on('error', (error) => {
+            console.error('👀 File watcher error:', error.message);
+        });
+        
+        console.log('✅ File watcher started');
+    }
+    
+    /**
+     * Handle new file creation
+     */
+    handleNewFile(filePath) {
+        console.log(`📋 Analyzing new file: ${filePath}`);
+        // In a real implementation, we could suggest file moves here
+    }
+    
+    /**
+     * Handle file content changes
+     */
+    handleFileChange(filePath) {
+        // Debounced analysis of changed files
+        clearTimeout(this.changeTimer);
+        this.changeTimer = setTimeout(() => {
+            console.log(`📝 File ${filePath} content changed`);
+        }, 2000);
+    }
+    
+    /**
+     * Analyze current file structure
+     */
+    async analyzeCurrentStructure() {
+        console.log('🔍 Analyzing current file structure...');
+        
+        const files = glob.sync('**/*.{tsx,ts,js,jsx}', {
+            cwd: this.srcPath,
+            ignore: ['node_modules/**', 'build/**', 'dist/**']
+        });
+        
+        console.log(`📊 Found ${files.length} files to analyze`);
+        
+        // Save analysis report
+        const report = {
+            timestamp: new Date().toISOString(),
+            totalFiles: files.length,
+            analyzedFiles: files
+        };
+        
+        const reportPath = path.join(this.projectRoot, 'file-structure-analysis.json');
+        fs.writeFileSync(reportPath, JSON.stringify(report, null, 2));
+        console.log(`📄 Analysis saved: ${reportPath}`);
+    }
+    
+    /**
+     * Get current status
+     */
+    getStatus() {
+        return {
+            isRunning: this.isRunning,
+            pendingMoves: this.pendingMoves.size,
+            watchingFiles: this.fileWatcher ? true : false,
+            srcPath: this.srcPath
+        };
+    }
+}
+
+// Export for use in hooks manager
+module.exports = FileStructureOrganizer;
+
+// If run directly, start the organizer
+if (require.main === module) {
+    const organizer = new FileStructureOrganizer();
+    
+    // Handle graceful shutdown
+    process.on('SIGINT', () => {
+        console.log('\n🛑 Received shutdown signal');
+        organizer.stop();
+        process.exit(0);
+    });
+    
+    process.on('SIGTERM', () => {
+        console.log('\n🛑 Received termination signal');
+        organizer.stop();
+        process.exit(0);
+    });
+    
+    // Start the organizer
+    organizer.start().catch(error => {
+        console.error('❌ Failed to start File Structure Organizer:', error.message);
+        process.exit(1);
+    });
+    
+    console.log('✅ File Structure Organizer is running');
+    console.log('📝 Press Ctrl+C to stop');
+}

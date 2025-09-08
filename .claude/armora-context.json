@@ -1,0 +1,119 @@
+{
+  "project": {
+    "name": "Armora Security Transport",
+    "version": "0.1.0",
+    "type": "React TypeScript PWA",
+    "description": "Premium VIP security transport mobile app (like Uber but for security transport)",
+    "target": "App Store Distribution"
+  },
+  "development_status": {
+    "server_running": true,
+    "server_url": "http://localhost:3000",
+    "build_status": "success",
+    "last_updated": "2025-09-08"
+  },
+  "mobile_app_structure": {
+    "user_flow": [
+      "SplashScreen",
+      "WelcomePage", 
+      "Auth (Login/Signup/Guest)",
+      "GuestDisclaimer",
+      "QuestionnaireFlow",
+      "Dashboard",
+      "BookingFlow"
+    ],
+    "components_built": {
+      "SplashScreen": "pending",
+      "WelcomePage": "pending", 
+      "LoginForm": "pending",
+      "SignupForm": "pending",
+      "GuestDisclaimer": "pending",
+      "QuestionnaireFlow": "pending",
+      "Dashboard": "pending",
+      "BookingFlow": "pending"
+    },
+    "directories": {
+      "components": [
+        "Auth",
+        "Questionnaire", 
+        "Dashboard",
+        "Booking"
+      ],
+      "styles": "mobile-first CSS",
+      "data": "questionnaire questions, mock booking data",
+      "utils": "helper functions",
+      "types": "TypeScript interfaces"
+    }
+  },
+  "react_config": {
+    "typescript": "^4.9.5",
+    "react": "^19.1.1",
+    "react_scripts": "5.0.1",
+    "testing": "@testing-library/react ^16.3.0"
+  },
+  "pwa_manifest": {
+    "name": "Armora Security Transport",
+    "short_name": "Armora",
+    "theme_color": "#1a1a2e",
+    "background_color": "#1a1a2e",
+    "display": "standalone",
+    "orientation": "portrait-primary"
+  },
+  "mobile_design_system": {
+    "primary_color": "#1a1a2e",
+    "accent_color": "#FFD700", 
+    "typography": "mobile-first, readable fonts",
+    "spacing": "8px grid system",
+    "touch_targets": "minimum 44px x 44px",
+    "breakpoints": {
+      "mobile": "320px - 768px",
+      "tablet": "768px - 1024px", 
+      "desktop": "1024px+"
+    }
+  },
+  "business_logic": {
+    "service_levels": {
+      "standard": {
+        "name": "Armora Standard",
+        "price": "£45/hour",
+        "description": "Professional security transport"
+      },
+      "executive": {
+        "name": "Armora Executive", 
+        "price": "£75/hour",
+        "description": "Luxury security transport"
+      },
+      "shadow": {
+        "name": "Armora Shadow",
+        "price": "£65/hour", 
+        "description": "Independent security escort service",
+        "popularity": "most_popular"
+      }
+    },
+    "questionnaire_steps": 9,
+    "user_types": ["registered", "google", "guest"]
+  },
+  "hooks_system": {
+    "auto_github_saver": "commits every 5 minutes",
+    "dev_server_monitor": "keeps server running with QR codes",
+    "mobile_viewport_tester": "tests all screen sizes",
+    "brand_compliance_monitor": "enforces Armora colors",
+    "file_structure_organizer": "maintains organization",
+    "codebase_reviewer": "AI-powered analysis",
+    "subagent_manager": "coordinates specialized agents"
+  },
+  "subagents": {
+    "mobile_tester": "responsive testing across devices",
+    "pwa_optimizer": "app store preparation", 
+    "ux_validator": "mobile user experience checker",
+    "booking_flow_manager": "taxi booking logic",
+    "server_keeper": "maintains localhost:3000 uptime"
+  },
+  "development_guidelines": {
+    "mobile_first": "Every component must work on 320px width first",
+    "no_horizontal_scroll": "CRITICAL requirement",
+    "armora_branding": "Maintain dark theme with golden accents",
+    "complete_solutions": "NO HALF FIXES for mobile responsiveness",
+    "pwa_ready": "All components must prepare for app store packaging"
+  }
+}

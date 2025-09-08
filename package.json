@@ -21,7 +21,24 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "dev": "node dev-tools/hooks/hooks-manager.js start && npm start",
+    "hooks:start": "node dev-tools/hooks/hooks-manager.js start",
+    "hooks:stop": "node dev-tools/hooks/hooks-manager.js stop",
+    "hooks:status": "node dev-tools/hooks/hooks-manager.js status",
+    "hooks:restart": "node dev-tools/hooks/hooks-manager.js restart",
+    "hooks:emergency": "node dev-tools/hooks/hooks-manager.js emergency",
+    "hooks:help": "node dev-tools/hooks/hooks-manager.js help",
+    "suggest": "node dev-tools/hooks/codebase-reviewer-suggester.js",
+    "select-suggestion": "node dev-tools/hooks/suggestion-selector.js",
+    "add-task": "node dev-tools/hooks/suggestion-selector.js add",
+    "complete-task": "node dev-tools/hooks/suggestion-selector.js complete",
+    "start-task": "node dev-tools/hooks/suggestion-selector.js start",
+    "task-status": "node dev-tools/hooks/suggestion-selector.js status",
+    "refresh-suggestions": "node dev-tools/hooks/codebase-reviewer-suggester.js refresh",
+    "update-docs": "node .claude/commands/update-docs.js",
+    "project-health": "node .claude/commands/project-health.js", 
+    "statusline": "node .claude/commands/statusline.js"
   },
   "eslintConfig": {
     "extends": [
