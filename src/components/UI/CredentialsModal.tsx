@@ -1,12 +1,12 @@
 import React from 'react';
 import { Button } from './Button';
+import { SIALogo, HomeOfficeLogo, CabinetOfficeLogo, TfLLogo } from './logos';
 import styles from './CredentialsModal.module.css';
 
 export interface CredentialInfo {
   id: string;
   title: string;
   subtitle: string;
-  icon: string;
   fullTitle: string;
   description: string;
   benefits: string[];
@@ -25,7 +25,6 @@ const ALL_CREDENTIALS: CredentialInfo[] = [
     id: 'sia',
     title: 'Government Licensed',
     subtitle: 'SIA Authority',
-    icon: '🏛️',
     fullTitle: 'Security Industry Authority Licensing',
     description: 'All our drivers hold government-issued security licenses with rigorous background checks and training completed, plus ongoing compliance monitoring and renewal requirements.',
     benefits: [
@@ -41,7 +40,6 @@ const ALL_CREDENTIALS: CredentialInfo[] = [
     id: 'homeoffice',
     title: 'Home Office Approved',
     subtitle: 'Security Standards',
-    icon: '🛡️',
     fullTitle: 'Home Office Security Standards',
     description: 'Enhanced security screening following government protocols with BS 7858 security screening standards compliance and advanced background verification procedures.',
     benefits: [
@@ -57,7 +55,6 @@ const ALL_CREDENTIALS: CredentialInfo[] = [
     id: 'cabinet',
     title: 'Cabinet Office Verified',
     subtitle: 'VIP Protection',
-    icon: '⭐',
     fullTitle: 'Cabinet Office VIP Protection Standards',
     description: 'Protocols aligned with government executive protection, advanced threat awareness and response training, and discrete professional service appropriate for high-profile clients.',
     benefits: [
@@ -73,7 +70,6 @@ const ALL_CREDENTIALS: CredentialInfo[] = [
     id: 'tfl',
     title: 'TfL Licensed',
     subtitle: 'Transport for London',
-    icon: '🚗',
     fullTitle: 'Transport for London Licensing',
     description: 'All drivers licensed by Transport for London authority with vehicle compliance to TfL safety and quality standards, regular inspections and ongoing compliance monitoring, plus professional driving standards and local area expertise.',
     benefits: [
@@ -168,9 +164,12 @@ export function CredentialsModal({ isOpen, onClose }: CredentialsModalProps) {
               <div key={credential.id} className={styles.credentialCard}>
                 {/* Credential Header */}
                 <div className={styles.credentialHeader}>
-                  <span className={styles.credentialIcon} role="img" aria-label={credential.title}>
-                    {credential.icon}
-                  </span>
+                  <div className={styles.credentialIcon}>
+                    {credential.id === 'sia' && <SIALogo width={40} height={40} />}
+                    {credential.id === 'homeoffice' && <HomeOfficeLogo width={40} height={40} />}
+                    {credential.id === 'cabinet' && <CabinetOfficeLogo width={40} height={40} />}
+                    {credential.id === 'tfl' && <TfLLogo width={40} height={40} />}
+                  </div>
                   <div className={styles.credentialTitleGroup}>
                     <h3 className={styles.credentialTitle}>
                       {credential.fullTitle}

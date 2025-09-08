@@ -6,6 +6,7 @@ import SeasonalTheme from '../UI/SeasonalTheme';
 import GoogleIcon from '../UI/GoogleIcon';
 import { Logo } from '../UI/Logo';
 import { CredentialsModal } from '../UI/CredentialsModal';
+import { SIALogo, HomeOfficeLogo, CabinetOfficeLogo, TfLLogo } from '../UI/logos';
 import styles from './WelcomePage.module.css';
 
 export function WelcomePage() {
@@ -227,7 +228,9 @@ export function WelcomePage() {
               onClick={() => setShowCredentialsModal(true)}
               aria-label="View Government Licensed credentials details"
             >
-              <span className={styles.trustIcon}>🏛️</span>
+              <div className={styles.trustIcon}>
+                <SIALogo width={32} height={32} />
+              </div>
               <span className={styles.trustNumber}>Government Licensed</span>
               <span className={styles.trustLabel}>SIA Authority</span>
             </button>
@@ -239,7 +242,9 @@ export function WelcomePage() {
               onClick={() => setShowCredentialsModal(true)}
               aria-label="View Home Office Approved credentials details"
             >
-              <span className={styles.trustIcon}>🛡️</span>
+              <div className={styles.trustIcon}>
+                <HomeOfficeLogo width={32} height={32} />
+              </div>
               <span className={styles.trustNumber}>Home Office Approved</span>
               <span className={styles.trustLabel}>Security Standards</span>
             </button>
@@ -251,7 +256,9 @@ export function WelcomePage() {
               onClick={() => setShowCredentialsModal(true)}
               aria-label="View Cabinet Office Verified credentials details"
             >
-              <span className={styles.trustIcon}>⭐</span>
+              <div className={styles.trustIcon}>
+                <CabinetOfficeLogo width={32} height={32} />
+              </div>
               <span className={styles.trustNumber}>Cabinet Office Verified</span>
               <span className={styles.trustLabel}>VIP Protection</span>
             </button>
@@ -263,7 +270,9 @@ export function WelcomePage() {
               onClick={() => setShowCredentialsModal(true)}
               aria-label="View TfL Licensed credentials details"
             >
-              <span className={styles.trustIcon}>🚗</span>
+              <div className={styles.trustIcon}>
+                <TfLLogo width={32} height={32} />
+              </div>
               <span className={styles.trustNumber}>TfL Licensed</span>
               <span className={styles.trustLabel}>Transport for London</span>
             </button>

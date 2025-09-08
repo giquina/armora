@@ -474,63 +474,54 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 2px;
-  padding: clamp(0.5rem, 2vw, 0.75rem);
+  gap: clamp(2px, 1vh, 4px);
+  padding: 0;
   background: none;
   border: none;
   cursor: pointer;
   text-align: center;
   touch-action: manipulation;
-  background: linear-gradient(135deg, rgba(255, 215, 0, 0.1), rgba(255, 215, 0, 0.05));
-  border: 1px solid rgba(255, 215, 0, 0.2);
-  border-radius: clamp(8px, 2vw, 12px);
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  cursor: pointer;
+  transition: all 0.3s ease;
   position: relative;
-  overflow: hidden;
   opacity: 0;
-  transform: translateY(20px) scale(0.9);
-  animation: credentialReveal 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
-}
-
-.credentialBadge::before {
-  content: '';
-  position: absolute;
-  top: -50%;
-  left: -50%;
-  width: 200%;
-  height: 200%;
-  background: conic-gradient(from 0deg, transparent, rgba(255, 215, 0, 0.1), transparent);
-  animation: credentialShimmer 4s linear infinite;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-}
-
-.credentialBadge:hover::before {
-  opacity: 1;
+  transform: translateY(15px);
+  animation: credentialReveal 0.6s ease-out forwards;
 }
 
 .credentialBadge:hover {
-  transform: translateY(-2px) scale(1.02);
-  background: linear-gradient(135deg, rgba(255, 215, 0, 0.15), rgba(255, 215, 0, 0.08));
-  border-color: rgba(255, 215, 0, 0.4);
-  box-shadow: 0 8px 25px rgba(255, 215, 0, 0.2);
+  transform: translateY(-2px) scale(1.05);
 }
 
 .credentialBadge:focus {
-  outline: 2px solid var(--accent);
-  outline-offset: 2px;
-  transform: translateY(-2px) scale(1.02);
+  outline: 2px solid rgba(255, 215, 0, 0.5);
+  outline-offset: 3px;
+  border-radius: 4px;
 }
 
 .credentialBadge:active {
-  transform: translateY(0) scale(0.98);
+  transform: translateY(0) scale(0.95);
 }
 
 .trustIcon {
-  font-size: clamp(16px, 4vw, 20px);
-  margin-bottom: 2px;
-  animation: iconFloat 3s ease-in-out infinite;
+  width: clamp(24px, 6vw, 32px);
+  height: clamp(24px, 6vw, 32px);
+  margin-bottom: clamp(4px, 1vh, 8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--armora-gold);
+  transition: all 0.3s ease;
+}
+
+.trustIcon svg {
+  width: 100%;
+  height: 100%;
+  stroke-width: 1.5;
+}
+
+.credentialBadge:hover .trustIcon {
+  transform: scale(1.1);
+  color: var(--hover-gold);
 }
 
 .trustItem:nth-child(1) .credentialBadge {
@@ -562,24 +553,21 @@
 }
 
 .trustNumber {
-  font-size: clamp(10px, 2.5vw, 12px);
-  font-weight: 700;
+  font-size: clamp(11px, 2.8vw, 13px);
+  font-weight: 600;
   color: var(--armora-gold);
-  line-height: 1.1;
+  line-height: 1.2;
   text-align: center;
-  animation: counterGlow 3s ease-in-out infinite;
-  position: relative;
-  z-index: 2;
+  margin-bottom: 1px;
 }
 
 .trustLabel {
-  font-size: clamp(8px, 1.8vw, 9px);
+  font-size: clamp(9px, 2vw, 10px);
   color: var(--text-secondary);
   text-align: center;
   line-height: 1.1;
-  opacity: 0.8;
-  position: relative;
-  z-index: 2;
+  opacity: 0.9;
+  font-weight: 400;
 }
 
 .trustDivider {
@@ -703,15 +691,11 @@
 @keyframes credentialReveal {
   0% {
     opacity: 0;
-    transform: translateY(20px) scale(0.9);
-  }
-  50% {
-    opacity: 0.5;
-    transform: translateY(-5px) scale(1.05);
+    transform: translateY(15px);
   }
   100% {
     opacity: 1;
-    transform: translateY(0) scale(1);
+    transform: translateY(0);
   }
 }
 
