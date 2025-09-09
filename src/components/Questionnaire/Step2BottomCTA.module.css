@@ -59,6 +59,7 @@
   align-items: center;
   justify-content: center;
   width: 100%;
+  flex-wrap: nowrap; /* Keep on one line */
 }
 
 /* Back Button */
@@ -201,8 +202,8 @@
 
   .backButton,
   .saveExitButton {
-  min-height: 56px; /* Match shared secondaryCTA updated */
-  font-size: 1.1rem; /* Match shared secondaryCTA updated */
+    min-height: 56px; /* Match shared secondaryCTA updated */
+    font-size: 1.08rem; /* Slightly larger */
     padding: 0 16px;
   }
 
@@ -229,13 +230,13 @@
   .backButton,
   .saveExitButton {
   min-height: 60px; /* Match shared secondaryCTA updated */
-  font-size: 1.2rem; /* Match shared secondaryCTA updated */
+  font-size: 1.1rem; /* Larger but keep one line */
     padding: 0 16px;
   }
 
   .continueButton {
-  min-height: 64px; /* Match shared primaryCTA updated */
-  font-size: 1.3rem; /* Match shared primaryCTA updated */
+  min-height: 62px; /* Slightly reduced */
+  font-size: 1.25rem; /* Larger primary */
   }
 
   .ctaIcon {

@@ -12,7 +12,6 @@ import {
   getDynamicStepDescription 
 } from '../../utils/dynamicPersonalization';
 import styles from './QuestionnaireStep.module.css';
-import { Icon } from '../UI/Icon';
 import '../../styles/questionnaire-animations.css';
 
 interface QuestionnaireStepProps {
@@ -362,7 +361,6 @@ Your privacy is important to us. All questions are optional and you can use "Pre
             />
             <div className={styles.optionContent}>
               <div className={styles.optionHeader}>
-                <Icon name="check-circle" size={16} />
                 <span className={styles.optionLabel}>{option.label}</span>
                 {option.helpText && (
                   <button 
@@ -420,7 +418,6 @@ Your privacy is important to us. All questions are optional and you can use "Pre
             />
             <div className={styles.optionContent}>
               <div className={styles.optionHeader}>
-                <Icon name="check-circle" size={16} />
                 <span className={styles.optionLabel}>{option.label}</span>
               </div>
               {option.description && (
@@ -582,27 +579,26 @@ Your privacy is important to us. All questions are optional and you can use "Pre
             />
             
             <div className={styles.stepBadge}>
-              <Icon name="shield" size={18} />
               <span>Step {step.id} of 9</span>
             </div>
             
             <header className={styles.enhancedHeader}>
-              <h1 className={styles.titleEnhanced}><Icon name="user" size={20} /> {step.title}</h1>
-              <h2 className={styles.subtitleEnhanced}><Icon name="list" size={18} /> {step.subtitle}</h2>
+              <h1 className={styles.titleEnhanced}>{step.title}</h1>
+              <h2 className={styles.subtitleEnhanced}>{step.subtitle}</h2>
               
               <div className={styles.whyQuestionnaire}>
-                <h3><Icon name="info" size={16} /> Why This Assessment Matters</h3>
+                <h3>Why This Assessment Matters</h3>
                 <p>{dynamicContent.stepDescription || step.stepDescription}</p>
               </div>
               
               <div className={styles.processOverview}>
                 <div className={styles.processBenefits}>
                   <div className={styles.benefitItem}>
-                    <Icon name="clock" size={16} /> <span>Takes {step.processOverview.timeRequired}</span>
+                    <span>Takes {step.processOverview.timeRequired}</span>
                   </div>
                   {step.processOverview.benefits.map((benefit, index) => (
                     <div key={index} className={styles.benefitItem}>
-                      <Icon name="check-circle" size={16} /> <span>{benefit}</span>
+                      <span>{benefit}</span>
                     </div>
                   ))}
                 </div>
@@ -614,28 +610,28 @@ Your privacy is important to us. All questions are optional and you can use "Pre
             {/* Trust Indicators */}
       <div className={styles.trustIndicators}>
               <div className={styles.securityBadges}>
-        <div className={styles.badge}><Icon name="shield" size={14} /> SIA Licensed</div>
-        <div className={styles.badge}><Icon name="lock" size={14} /> 256-bit Encryption</div>
-        <div className={styles.badge}><Icon name="check-circle" size={14} /> Government Approved</div>
-        <div className={styles.badge}><Icon name="check-circle" size={14} /> TFL Private Hire</div>
-        <div className={styles.badge}><Icon name="shield" size={14} /> SIA Close Protection (CP) Officers</div>
+        <div className={styles.badge}>SIA Licensed</div>
+        <div className={styles.badge}>256-bit Encryption</div>
+        <div className={styles.badge}>Government Approved</div>
+        <div className={styles.badge}>TFL Private Hire</div>
+        <div className={styles.badge}>SIA Close Protection (CP) Officers</div>
               </div>
               
               <div className={styles.dataUsageNote}>
-        <Icon name="lock" size={14} /> <span>Your responses are used exclusively for security service matching and are never shared externally.</span>
+        <span>Your responses are used exclusively for security service matching and are never shared externally.</span>
               </div>
             </div>
           </div>
         ) : (
           <header className={styles.header}>
-            <h1 className={styles.title}><Icon name="user" size={18} /> {step.title}</h1>
+            <h1 className={styles.title}>{step.title}</h1>
             {step.subtitle && <p className={styles.subtitle}>{step.subtitle}</p>}
             
             {/* Step Guidance for non-first steps */}
-            {(dynamicContent.stepDescription || step.stepDescription) && (
-        <div className={styles.stepGuidance}>
-                <div className={styles.guidanceContent}>
-          <h4><Icon name="info" size={14} /> How This Step Helps:</h4>
+      {(dynamicContent.stepDescription || step.stepDescription) && (
+    <div className={styles.stepGuidance}>
+        <div className={styles.guidanceContent}>
+      <h4>How This Step Helps:</h4>
                   <p>{dynamicContent.stepDescription || step.stepDescription}</p>
                 </div>
               </div>
@@ -651,13 +647,13 @@ Your privacy is important to us. All questions are optional and you can use "Pre
         )}
 
         <div className={styles.questionSection}>
-          <h2 className={styles.question}><Icon name="list" size={16} /> {dynamicContent.questionText}</h2>
+          <h2 className={styles.question}>{dynamicContent.questionText}</h2>
           {step.helpText && <p className={styles.helpText}>{step.helpText}</p>}
           
           {/* Step-by-step guidance for all steps */}
           <div className={styles.stepInstructions}>
             <div className={styles.instructionContent}>
-              <h4><Icon name="info" size={14} /> How to Answer:</h4>
+              <h4>How to Answer:</h4>
               <p>{getStepGuidance(step.id)}</p>
             </div>
           </div>
@@ -702,7 +698,7 @@ Your privacy is important to us. All questions are optional and you can use "Pre
         {/* Global Privacy & Security disclaimer footer for steps 2-9 */}
         {step.id !== 1 && (
           <div className={`${styles.securityAssurance} ${styles.securityAssuranceFooter}`}>
-            <h4><Icon name="lock" size={14} /> Your Privacy & Security</h4>
+            <h4>Your Privacy & Security</h4>
             <p>{step.processOverview?.securityAssurance || 'All responses are encrypted and used exclusively for service matching. Your privacy is our priority.'}</p>
           </div>
         )}

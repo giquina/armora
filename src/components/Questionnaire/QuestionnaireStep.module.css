@@ -60,7 +60,6 @@
   color: var(--accent-primary);
   margin: 0 0 0.25rem 0; /* Reduced margin */
 }
-.title svg { color: var(--accent-primary); margin-right: 6px; }
 
 .subtitle {
   font-size: 0.85rem; /* Smaller subtitle */
@@ -83,7 +82,6 @@
   margin: 0 0 0.5rem 0; /* Reduced margin */
   text-align: center;
 }
-.question svg { color: var(--accent-primary); margin-right: 6px; }
 
 .helpText {
   font-size: 0.85rem; /* Smaller help text */
@@ -113,7 +111,7 @@
   z-index: 5;
 }
 
-/* BULLETPROOF OPTION STYLING - NO GOLDEN LINE */
+/* BULLETPROOF OPTION STYLING - Always show option borders */
 .option {
   /* Container Control */
   position: relative !important;
@@ -131,6 +129,8 @@
   
   /* Background */
   background: rgba(42, 42, 84, 0.6) !important;
+  /* Always show the Armora gold border on options */
+  border: var(--armora-gold-dotted) !important;
   
   /* FORCE REMOVE ANY LINES/BARS */
   box-shadow: none !important;
@@ -302,7 +302,6 @@
   gap: 0.5rem;
   margin-bottom: 0.25rem;
 }
-.optionHeader svg { color: var(--accent-primary); }
 
 .optionIcon {
   font-size: 1.2rem;
@@ -504,6 +503,14 @@
   background: transparent !important;
 }
 
+/* Also remove any secondary borders inside the welcome intro (no inner boxes) */
+.stepIntroComprehensive .trustIndicators,
+.stepIntroComprehensive .trustIndicators .badge,
+.stepIntroComprehensive .dataUsageNote {
+  border: none !important;
+  background: transparent !important;
+}
+
 .stepBadge {
   display: flex;
   align-items: center;
@@ -514,7 +521,6 @@
   color: var(--accent-primary);
   justify-content: center;
 }
-.stepBadge svg { color: var(--accent-primary); }
 
 .shieldIcon {
   font-size: 1.2rem;
@@ -531,7 +537,6 @@
   margin: 0 0 0.5rem 0;
   line-height: 1.2;
 }
-.titleEnhanced svg { color: var(--accent-primary); margin-right: 6px; }
 
 .subtitleEnhanced {
   font-size: 1rem;
@@ -540,7 +545,6 @@
   margin: 0 0 1rem 0;
   line-height: 1.3;
 }
-.subtitleEnhanced svg { color: var(--text-secondary); margin-right: 6px; }
 
 .whyQuestionnaire {
   margin-bottom: 1.25rem; /* Slightly tighter */
@@ -557,7 +561,6 @@
   color: var(--text-primary);
   margin: 0 0 0.5rem 0;
 }
-.whyQuestionnaire h3 svg { color: var(--accent-primary); margin-right: 6px; }
 
 .whyQuestionnaire p {
   font-size: 0.85rem;
@@ -588,7 +591,6 @@
   font-size: 0.8rem;
   color: var(--text-secondary);
 }
-.benefitItem svg { color: var(--accent-primary); }
 
 .clockIcon {
   font-size: 1rem;
@@ -677,7 +679,6 @@
   font-weight: 500;
   color: var(--text-primary);
 }
-.badge svg { color: var(--accent-primary); }
 
 .badge span:first-child {
   font-size: 0.9rem;
@@ -694,7 +695,6 @@
   color: var(--text-secondary);
   line-height: 1.3;
 }
-.dataUsageNote svg { color: var(--accent-primary); margin-top: 2px; }
 
 .dataUsageNote span:first-child {
   font-size: 0.9rem;
@@ -723,7 +723,6 @@
   color: var(--accent-primary);
   margin: 0 0 0.4rem 0;
 }
-.guidanceContent h4 svg { color: var(--accent-primary); margin-right: 6px; }
 
 .guidanceContent p {
   font-size: 0.8rem;
