@@ -1,0 +1,277 @@
+/* Step 2 Bottom CTA - 3-Button Layout */
+
+.ctaContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 16px;
+  background: linear-gradient(180deg, rgba(26, 26, 46, 0.95) 0%, #1a1a2e 100%);
+  border-top: var(--armora-gold-dotted);
+  border-bottom: var(--armora-gold-dotted); /* Add bottom border */
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  z-index: 1000;
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  box-shadow: 0 -8px 32px rgba(0, 0, 0, 0.4);
+  /* Ensure bottom border is always visible */
+  min-height: fit-content;
+  box-sizing: border-box;
+}
+
+.ctaButton {
+  /* Solid gold border to match Step 1 CTA style */
+  border: 1px solid var(--armora-gold-alpha);
+  border-radius: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-family: inherit;
+  position: relative;
+  overflow: hidden;
+  min-height: 44px;
+  box-sizing: border-box;
+  white-space: nowrap; /* Keep label on one line */
+}
+
+/* Step 2 Layout - 3 buttons only */
+.step2Layout {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 0 16px;
+}
+
+.ctaButtonsRow {
+  display: flex;
+  gap: 8px; /* Match shared CTA */
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+/* Back Button */
+.backButton {
+  flex: 1.1; /* Slightly larger to avoid wrapping */
+  background: transparent;
+  /* Solid gold border to match Step 1 CTA style */
+  border: 1px solid var(--armora-gold-alpha);
+  color: #FFD700;
+  font-size: 1.05rem; /* Match shared secondaryCTA updated */
+  min-height: 44px; /* Match shared secondaryCTA */
+  padding: 0 16px;
+  text-align: center;
+}
+
+.backButton:hover {
+  background: rgba(255, 215, 0, 0.1);
+  border-color: #FFD700;
+  color: #FFE55C;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 15px rgba(255, 215, 0, 0.2);
+}
+
+.backButton:active {
+  transform: translateY(0);
+  box-shadow: none;
+}
+
+/* Save & Exit Button */
+.saveExitButton {
+  flex: 1.2; /* Give Save & Exit more space */
+  background: transparent;
+  /* Solid gold border to match Step 1 CTA style */
+  border: 1px solid var(--armora-gold-alpha);
+  color: #FFD700;
+  font-size: 1.05rem; /* Match shared secondaryCTA updated */
+  min-height: 44px; /* Match shared secondaryCTA */
+  padding: 0 16px;
+  text-align: center;
+}
+
+.saveExitButton:hover {
+  background: rgba(255, 215, 0, 0.1);
+  border-color: #FFD700;
+  color: #FFE55C;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 15px rgba(255, 215, 0, 0.2);
+}
+
+.saveExitButton:active {
+  transform: translateY(0);
+  box-shadow: none;
+}
+
+/* Continue Button */
+.continueButton {
+  flex: 1.5; /* Slightly smaller to free space */
+  background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+  color: #1a1a2e;
+  font-size: 1.15rem; /* Match shared primaryCTA updated */
+  min-height: 56px; /* Match shared primary adjustments */
+  box-shadow: 0 4px 20px rgba(255, 215, 0, 0.3);
+  padding: 0 20px;
+  text-align: center;
+}
+
+.continueButton:hover:not(:disabled) {
+  background: linear-gradient(135deg, #FFE55C 0%, #FFB84D 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(255, 215, 0, 0.4);
+}
+
+.continueButton:active:not(:disabled) {
+  transform: translateY(0);
+  box-shadow: 0 4px 20px rgba(255, 215, 0, 0.3);
+}
+
+.continueButton:disabled {
+  background: rgba(255, 215, 0, 0.3);
+  color: rgba(26, 26, 46, 0.6);
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+/* CTA Icons */
+.ctaIcon {
+  font-size: 1rem;
+  opacity: 0.9;
+}
+
+.ctaLabel {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Mobile Optimizations */
+@media (min-width: 320px) and (max-width: 767px) {
+  .ctaContainer {
+    padding: 12px;
+    gap: 10px;
+  }
+
+  .step2Layout {
+    gap: 8px;
+    max-width: 100%;
+    padding: 0 12px;
+  }
+
+  .backButton,
+  .saveExitButton {
+  min-height: 48px; /* Match shared secondaryCTA updated */
+  font-size: 0.95rem; /* Match shared secondaryCTA updated */
+    padding: 0 8px;
+  }
+
+  .continueButton {
+  min-height: 52px; /* Match shared primaryCTA updated */
+  font-size: 1rem; /* Match shared primaryCTA updated */
+  }
+
+  .ctaIcon {
+    font-size: 0.9rem;
+  }
+}
+
+/* Tablet Styles */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .ctaContainer {
+  padding: 16px 12px;
+  width: 95%;
+  max-width: 1200px;
+  margin: 0 auto;
+  left: 50%;
+  right: auto;
+  transform: translateX(-50%);
+  border-radius: 12px 12px 0 0;
+  }
+
+  .backButton,
+  .saveExitButton {
+  min-height: 56px; /* Match shared secondaryCTA updated */
+  font-size: 1.1rem; /* Match shared secondaryCTA updated */
+    padding: 0 16px;
+  }
+
+  .continueButton {
+  min-height: 60px; /* Match shared primaryCTA updated */
+  font-size: 1.2rem; /* Match shared primaryCTA updated */
+  }
+}
+
+/* Desktop Styles */
+@media (min-width: 1024px) {
+  .ctaContainer {
+  padding: 16px 12px;
+  width: 95%;
+  max-width: 1200px;
+  margin: 0 auto;
+  left: 50%;
+  right: auto;
+  transform: translateX(-50%);
+  border-radius: 12px 12px 0 0;
+  gap: 12px;
+  }
+
+  .backButton,
+  .saveExitButton {
+  min-height: 60px; /* Match shared secondaryCTA updated */
+  font-size: 1.2rem; /* Match shared secondaryCTA updated */
+    padding: 0 16px;
+  }
+
+  .continueButton {
+  min-height: 64px; /* Match shared primaryCTA updated */
+  font-size: 1.3rem; /* Match shared primaryCTA updated */
+  }
+
+  .ctaIcon {
+    font-size: 1.1rem;
+  }
+}
+
+/* Focus States for Accessibility */
+.ctaButton:focus {
+  outline: 2px solid #FFD700;
+  outline-offset: 2px;
+}
+
+.ctaButton:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* High Contrast Mode Support */
+@media (prefers-contrast: high) {
+  .continueButton {
+    border: 2px solid #FFD700;
+  }
+
+  .backButton,
+  .saveExitButton {
+    border-width: 2px;
+  }
+}
+
+/* Accessibility and Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  .ctaButton {
+    transition: none;
+  }
+
+  .ctaButton:hover {
+    transform: none;
+  }
+}

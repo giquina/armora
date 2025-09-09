@@ -1,14 +1,47 @@
 /* Armora Security Transport - Questionnaire Flow Styles */
 
+/* FORCE PROPER CONTAINER SIZING */
 .container {
   min-height: 100vh;
-  max-height: 100vh; /* FORCE viewport limit */
   background: var(--bg-primary);
   color: var(--text-primary);
   display: flex;
   flex-direction: column;
-  width: 100%;
-  overflow: hidden; /* PREVENT scrolling on main container */
+  width: 100% !important;
+  max-width: 100vw !important;
+  padding: 0 20px !important;
+  margin: 0 !important;
+  box-sizing: border-box !important;
+  overflow: visible !important;
+  position: relative; /* Enable sticky positioning for child elements */
+}
+
+/* QUESTIONNAIRE STEP OVERRIDES */
+.questionnaire-step {
+  width: 100% !important;
+  max-width: 100% !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  box-sizing: border-box !important;
+}
+
+.questionnaire-options {
+  width: 100% !important;
+  max-width: 100% !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  box-sizing: border-box !important;
+}
+
+/* PREVENT PROGRESS BAR BLEED */
+.progress-container,
+.progress-bar,
+.progress-fill {
+  position: relative !important;
+  z-index: 1 !important;
+  margin-bottom: 30px !important;
+  border: none !important;
+  box-shadow: none !important;
 }
 
 .loadingContainer {

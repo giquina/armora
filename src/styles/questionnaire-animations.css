@@ -1,0 +1,315 @@
+/* Armora Security Transport - Premium Questionnaire Animations */
+
+/* Card Selection Animations */
+.questionnaire-option {
+  transform: translateY(0);
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  position: relative;
+  overflow: hidden;
+}
+
+.questionnaire-option:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 20px 40px rgba(255, 215, 0, 0.2);
+}
+
+.questionnaire-option.selected {
+  transform: scale(1.05);
+  animation: selectedPulse 2s infinite;
+}
+
+@keyframes selectedPulse {
+  0%, 100% { box-shadow: 0 0 20px rgba(255, 215, 0, 0.3); }
+  50% { box-shadow: 0 0 30px rgba(255, 215, 0, 0.6); }
+}
+
+/* Progress Bar Premium Animation */
+.progress-bar {
+  background: linear-gradient(90deg, #FFD700 0%, #FFA500 50%, #FFD700 100%);
+  background-size: 200% 100%;
+  animation: progressShimmer 3s ease-in-out infinite;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+@keyframes progressShimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+/* Progress Steps Animation */
+.progress-steps {
+  display: flex;
+  justify-content: space-between;
+}
+
+.progress-step {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.5s ease;
+  position: relative;
+}
+
+.progress-step.completed {
+  background: #FFD700;
+  animation: completedBounce 0.6s ease;
+}
+
+.progress-step.current {
+  background: rgba(255, 215, 0, 0.5);
+  animation: currentPulse 2s infinite;
+}
+
+@keyframes completedBounce {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.3); }
+  100% { transform: scale(1); }
+}
+
+@keyframes currentPulse {
+  0%, 100% { transform: scale(1); box-shadow: 0 0 0 rgba(255, 215, 0, 0.7); }
+  50% { transform: scale(1.1); box-shadow: 0 0 20px rgba(255, 215, 0, 0.4); }
+}
+
+/* Step Transition Animations */
+.step-enter {
+  opacity: 0;
+  transform: translateX(50px);
+}
+
+.step-enter-active {
+  opacity: 1;
+  transform: translateX(0);
+  transition: all 0.5s ease;
+}
+
+.step-exit {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.step-exit-active {
+  opacity: 0;
+  transform: translateX(-50px);
+  transition: all 0.5s ease;
+}
+
+/* Floating Background Elements */
+.questionnaire-background {
+  position: relative;
+  overflow: hidden;
+}
+
+.floating-elements {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.floating-shield {
+  position: absolute;
+  opacity: 0.03;
+  animation: float 20s infinite ease-in-out;
+  font-size: 4rem;
+  color: #FFD700;
+}
+
+.floating-shield:nth-child(1) {
+  top: 10%;
+  left: 10%;
+  animation-delay: 0s;
+}
+
+.floating-shield:nth-child(2) {
+  top: 60%;
+  right: 10%;
+  animation-delay: -7s;
+}
+
+.floating-shield:nth-child(3) {
+  bottom: 20%;
+  left: 20%;
+  animation-delay: -14s;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  33% { transform: translateY(-20px) rotate(10deg); }
+  66% { transform: translateY(10px) rotate(-5deg); }
+}
+
+/* Button Animations */
+.premium-button {
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.premium-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s;
+}
+
+.premium-button:hover::before {
+  left: 100%;
+}
+
+.premium-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(255, 215, 0, 0.3);
+}
+
+.premium-button:active {
+  transform: translateY(0);
+  box-shadow: 0 5px 15px rgba(255, 215, 0, 0.2);
+}
+
+/* Loading Animations */
+.premium-spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid rgba(255, 215, 0, 0.2);
+  border-top: 4px solid #FFD700;
+  border-radius: 50%;
+  animation: premiumSpin 1s linear infinite;
+}
+
+@keyframes premiumSpin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Option Selection Effects */
+.option-select-effect {
+  position: relative;
+}
+
+.option-select-effect::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(circle at center, rgba(255, 215, 0, 0.3) 0%, transparent 70%);
+  opacity: 0;
+  transform: scale(0.8);
+  transition: all 0.3s ease;
+  pointer-events: none;
+  border-radius: inherit;
+}
+
+.option-select-effect.selected::after {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* Privacy Option Animations */
+.privacy-shimmer {
+  position: relative;
+  overflow: hidden;
+}
+
+.privacy-shimmer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 215, 0, 0.1), transparent);
+  animation: shimmer 3s infinite;
+}
+
+@keyframes shimmer {
+  0% { left: -100%; }
+  100% { left: 100%; }
+}
+
+/* Text Input Focus Animations */
+.premium-input:focus {
+  animation: inputGlow 0.5s ease;
+}
+
+@keyframes inputGlow {
+  0% { box-shadow: 0 0 0 rgba(255, 215, 0, 0); }
+  50% { box-shadow: 0 0 20px rgba(255, 215, 0, 0.4); }
+  100% { box-shadow: 0 0 0 rgba(255, 215, 0, 0); }
+}
+
+/* Micro-interactions */
+.micro-bounce:hover {
+  animation: microBounce 0.3s ease;
+}
+
+@keyframes microBounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-2px); }
+}
+
+/* Service Preview Animations */
+.service-preview-slide-in {
+  animation: slideInFromRight 0.6s ease-out;
+}
+
+@keyframes slideInFromRight {
+  0% {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Mobile Optimizations */
+@media (max-width: 768px) {
+  .questionnaire-option:hover {
+    transform: translateY(-4px) scale(1.01);
+    box-shadow: 0 10px 20px rgba(255, 215, 0, 0.15);
+  }
+  
+  .floating-shield {
+    font-size: 2rem;
+  }
+  
+  .progress-step {
+    width: 24px;
+    height: 24px;
+  }
+}
+
+/* Reduced Motion Support */
+@media (prefers-reduced-motion: reduce) {
+  .questionnaire-option,
+  .premium-button,
+  .progress-step,
+  .floating-shield {
+    animation: none;
+    transition: none;
+  }
+  
+  .questionnaire-option:hover {
+    transform: none;
+  }
+  
+  .premium-button:hover {
+    transform: none;
+  }
+}

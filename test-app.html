@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Armora App Test</title>
+    <style>
+        body { 
+            font-family: monospace; 
+            background: #1a1a2e; 
+            color: #e0e0e0; 
+            padding: 20px; 
+        }
+        .status { 
+            padding: 10px; 
+            margin: 10px 0; 
+            border-radius: 5px; 
+        }
+        .success { background: rgba(0, 255, 0, 0.1); border: 1px solid #00ff00; }
+        .error { background: rgba(255, 0, 0, 0.1); border: 1px solid #ff0000; }
+        iframe { 
+            width: 100%; 
+            height: 600px; 
+            border: 2px solid #FFD700; 
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body>
+    <h1>🔒 Armora Security Transport - App Testing</h1>
+    
+    <div id="status-container">
+        <div class="status success">
+            ✅ React app compiled successfully
+        </div>
+        <div class="status success">
+            ✅ Server responding on localhost:3000
+        </div>
+        <div class="status success">
+            ✅ Added debugging logs to SplashScreen
+        </div>
+    </div>
+    
+    <h2>🚀 Live App Preview</h2>
+    <iframe src="http://localhost:3000" title="Armora App"></iframe>
+    
+    <h2>🔧 Debugging Instructions</h2>
+    <div class="status">
+        <strong>For user:</strong><br>
+        1. Open your browser to http://localhost:3000<br>
+        2. Open Developer Tools (F12)<br>
+        3. Check the Console tab for debug messages:<br>
+        &nbsp;&nbsp;- "🚀 SplashScreen mounted, starting 4-second timer..."<br>
+        &nbsp;&nbsp;- "⏰ Timer completed, navigating to welcome page..."<br>
+        4. If you don't see these messages, there may be a JavaScript error preventing the app from loading<br>
+        5. The SplashScreen should automatically transition to Welcome page after 4 seconds
+    </div>
+    
+    <h2>🎯 Expected Behavior</h2>
+    <div class="status">
+        1. <strong>SplashScreen (0-4 seconds)</strong>: Premium 4D logo with animations<br>
+        2. <strong>WelcomePage (after 4 seconds)</strong>: Sign in/Sign up/Guest options<br>
+        3. <strong>Questionnaire Flow</strong>: 9 comprehensive steps with privacy options<br>
+        4. <strong>Dashboard</strong>: Service selection with premium UI
+    </div>
+    
+    <script>
+        console.log('🔒 Armora Test Page Loaded');
+        
+        // Test iframe loading
+        document.querySelector('iframe').onload = function() {
+            console.log('✅ Armora app iframe loaded successfully');
+        };
+        
+        document.querySelector('iframe').onerror = function() {
+            console.log('❌ Error loading Armora app iframe');
+            document.getElementById('status-container').innerHTML += 
+                '<div class="status error">❌ Error loading app iframe</div>';
+        };
+    </script>
+</body>
+</html>

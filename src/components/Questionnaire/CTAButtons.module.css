@@ -1,0 +1,334 @@
+/* Armora Security Transport - Enhanced CTA Buttons */
+
+.ctaContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 16px;
+  background: linear-gradient(180deg, rgba(26, 26, 46, 0.95) 0%, #1a1a2e 100%);
+  /* Solid gold lines for the bar container */
+  border-top: var(--armora-gold-dotted);
+  border-bottom: var(--armora-gold-dotted); /* Add bottom border */
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  z-index: 1000;
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  box-shadow: 0 -8px 32px rgba(0, 0, 0, 0.4);
+  /* Ensure bottom border is always visible */
+  min-height: fit-content;
+  box-sizing: border-box;
+}
+
+.ctaButton {
+  /* Solid gold border to match Step 1 CTA style */
+  border: 1px solid var(--armora-gold-alpha);
+  border-radius: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-family: inherit;
+  position: relative;
+  overflow: hidden;
+  box-sizing: border-box;
+  white-space: nowrap; /* Force single line */
+}
+
+/* Primary CTA */
+.primaryCTA {
+  flex: 1.6; /* Slightly smaller to free space */
+  min-height: 56px;
+  background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+  color: #1a1a2e;
+  font-size: 1.15rem; /* Larger text for better fill */
+  box-shadow: 0 4px 20px rgba(255, 215, 0, 0.3);
+  /* Ensure the solid border is the vivid brand gold on primary */
+  border-color: #FFD700;
+  border-top-color: #FFD700;
+  border-right-color: #FFD700;
+  border-bottom-color: #FFD700;
+  border-left-color: #FFD700;
+}
+
+.primaryCTA:hover:not(:disabled) {
+  background: linear-gradient(135deg, #FFE55C 0%, #FFB84D 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(255, 215, 0, 0.4);
+}
+
+.primaryCTA:active:not(:disabled) {
+  transform: translateY(0);
+  box-shadow: 0 4px 20px rgba(255, 215, 0, 0.3);
+}
+
+.primaryCTA:disabled {
+  background: rgba(255, 215, 0, 0.3);
+  color: rgba(26, 26, 46, 0.6);
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+/* CTA Buttons Row - Horizontal Layout */
+.ctaButtonsRow {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  justify-content: center; /* Center the three CTAs consistently */
+  width: 100%;
+  flex-wrap: nowrap; /* Keep on one line */
+}
+
+.secondaryCTA {
+  flex: 1.1; /* Slightly more room to avoid wrapping */
+  min-height: 52px;
+  background: transparent;
+  border: 1px solid rgba(255, 215, 0, 0.5);
+  color: #FFD700;
+  font-size: 1.05rem; /* Increase secondary text for balance */
+}
+
+.secondaryCTA:hover {
+  background: rgba(255, 215, 0, 0.1);
+  border-color: #FFD700;
+  color: #FFE55C;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 15px rgba(255, 215, 0, 0.2);
+}
+
+.secondaryCTA:active {
+  transform: translateY(0);
+  box-shadow: none;
+}
+
+/* Utility CTAs */
+/* Utility CTAs removed */
+
+.utilityCTA:hover {
+  color: #FFD700;
+  text-decoration: none;
+  transform: translateY(-1px);
+}
+
+.utilityCTA:active {
+  transform: translateY(0);
+}
+
+/* CTA Icons */
+.ctaIcon {
+  font-size: 1rem;
+  opacity: 0.9;
+}
+
+.ctaLabel {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Progress Information */
+.progressInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 8px;
+  padding-top: 12px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.stepCounter {
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.7);
+  text-align: center;
+  font-weight: 500;
+}
+
+.progressBar {
+  height: 6px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 3px;
+  overflow: hidden;
+  position: relative;
+}
+
+.progressFill {
+  height: 100%;
+  background: linear-gradient(90deg, #FFD700 0%, #FFA500 100%);
+  border-radius: 3px;
+  transition: width 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  position: relative;
+}
+
+.progressFill::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  animation: progressShimmer 2s infinite;
+}
+
+@keyframes progressShimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+/* Mobile Optimizations */
+@media (min-width: 320px) and (max-width: 767px) {
+  .ctaContainer {
+    padding: 12px;
+    gap: 10px;
+  }
+
+  .ctaButtonsRow {
+    gap: 8px; /* No wrapping - keep on single line */
+  }
+
+  .primaryCTA {
+  min-height: 52px;
+  font-size: 1rem;
+  flex: 1.5; /* Slightly smaller */
+  }
+
+  .secondaryCTA {
+  min-height: 48px;
+  font-size: 0.95rem;
+  padding: 0 10px;
+  flex: 1.1; /* Slightly more room */
+  }
+
+  /* Utility CTAs removed */
+
+  .ctaIcon {
+    font-size: 0.9rem;
+  }
+
+  .progressInfo {
+    margin-top: 6px;
+    padding-top: 10px;
+    gap: 6px;
+  }
+
+  .stepCounter {
+    font-size: 0.75rem;
+  }
+
+  .progressBar {
+    height: 4px;
+  }
+}
+
+/* Tablet Styles */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .ctaContainer {
+  padding: 16px 12px;
+  width: 95%;
+  max-width: 1200px;
+  margin: 0 auto;
+  left: 50%;
+  right: auto;
+  transform: translateX(-50%);
+  border-radius: 12px 12px 0 0;
+  }
+
+  .primaryCTA {
+  min-height: 58px;
+  font-size: 1.2rem;
+  }
+
+  .secondaryCTA {
+  min-height: 56px;
+  font-size: 1.05rem; /* Slightly smaller to fit one line */
+  }
+}
+
+/* Desktop Styles */
+@media (min-width: 1024px) {
+  .ctaContainer {
+  padding: 16px 12px;
+  width: 95%;
+  max-width: 1200px;
+  margin: 0 auto;
+  left: 50%;
+  right: auto;
+  transform: translateX(-50%);
+  border-radius: 12px 12px 0 0;
+  gap: 12px;
+  }
+
+  .primaryCTA {
+  min-height: 60px;
+  font-size: 1.2rem;
+  }
+
+  .secondaryCTA {
+  min-height: 58px;
+  font-size: 1.05rem;
+  }
+
+  /* Utility CTAs removed */
+
+  .progressInfo {
+    margin-top: 12px;
+    padding-top: 16px;
+  }
+
+  .stepCounter {
+    font-size: 0.9rem;
+  }
+
+  .progressBar {
+    height: 8px;
+  }
+}
+
+/* Accessibility and Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  .ctaButton,
+  .progressFill {
+    transition: none;
+    animation: none;
+  }
+
+  .ctaButton:hover {
+    transform: none;
+  }
+
+  .progressFill::after {
+    animation: none;
+  }
+}
+
+/* Focus States for Accessibility */
+.ctaButton:focus {
+  outline: 2px solid #FFD700;
+  outline-offset: 2px;
+}
+
+.ctaButton:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* High Contrast Mode Support */
+@media (prefers-contrast: high) {
+  .primaryCTA {
+    border: 2px solid #FFD700;
+  }
+
+  .secondaryCTA {
+    border-width: 2px;
+  }
+
+  .progressBar {
+    border: 1px solid #FFD700;
+  }
+}

@@ -38,6 +38,7 @@ export interface QuestionnaireOption {
   description?: string;
   icon?: string;
   examples?: string;
+  armoraValue?: string;
   helpText?: string;
   recommendedFor?: string[];
 }
@@ -74,6 +75,25 @@ export interface ConversionPrompt {
   benefits: string[];
 }
 
+export interface LegalConfirmation {
+  id: string;
+  text: string;
+  required: boolean;
+  defaultChecked?: boolean;
+  link?: string;
+}
+
+export interface ProfileSummaryCard {
+  title: string;
+  fields: string[];
+}
+
+export interface ServiceRecommendation {
+  enabled: boolean;
+  confidenceThreshold: number;
+  previewFeatures: string[];
+}
+
 export interface QuestionnaireStep {
   id: number;
   title: string;
@@ -87,12 +107,24 @@ export interface QuestionnaireStep {
   showConversionPrompt?: ConversionPrompt;
   helpText?: string;
   isFirstStep?: boolean;
+  isLastStep?: boolean;
   stepDescription?: string;
   processOverview?: {
     timeRequired: string;
     benefits: string[];
     securityAssurance: string;
   };
+  profileSummary?: {
+    showSummary: boolean;
+    summaryCards: ProfileSummaryCard[];
+  };
+  legalConfirmations?: {
+    required: LegalConfirmation[];
+    optional: LegalConfirmation[];
+  };
+  securityStatement?: string;
+  legalStatement?: string;
+  serviceRecommendation?: ServiceRecommendation;
 }
 
 export interface QuestionnaireData {

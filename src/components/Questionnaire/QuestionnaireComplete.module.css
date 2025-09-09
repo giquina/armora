@@ -31,7 +31,7 @@
   width: 80px;
   height: 80px;
   background: var(--bg-card);
-  border: 3px solid var(--accent-primary);
+  border: var(--armora-gold-dotted);
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -142,7 +142,7 @@
 
 .serviceCard {
   background: var(--bg-card);
-  border: 2px solid var(--accent-primary);
+  border: var(--armora-gold-dotted) !important;
   border-radius: 12px;
   padding: 1.5rem;
   margin-bottom: 1rem;
@@ -304,7 +304,7 @@
 /* Upgrade Prompt */
 .upgradePrompt {
   background: linear-gradient(135deg, rgba(255, 215, 0, 0.1), rgba(255, 215, 0, 0.05));
-  border: 2px solid var(--accent-primary);
+  border: var(--armora-gold-dotted) !important;
   border-radius: 12px;
   padding: 1.5rem;
   margin-bottom: 2rem;
@@ -352,6 +352,7 @@
 /* Profile Summary */
 .profileSummary {
   background: var(--bg-card);
+  border: var(--armora-gold-dotted) !important;
   border-radius: 8px;
   padding: 1.5rem;
   margin-bottom: 2rem;
@@ -376,7 +377,7 @@
   justify-content: space-between;
   align-items: center;
   padding: 0.75rem 0;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  border-bottom: var(--armora-gold-dotted);
 }
 
 .summaryItem:last-child {
@@ -400,15 +401,19 @@
   gap: 1rem;
   padding: 1rem;
   background: var(--bg-primary);
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  border-top: var(--armora-gold-dotted);
+  border-bottom: var(--armora-gold-dotted); /* Add bottom border */
   position: sticky;
   bottom: 0;
+  /* Ensure bottom border is always visible */
+  min-height: fit-content;
+  box-sizing: border-box;
 }
 
 .button {
   flex: 1;
   padding: 1rem;
-  border: none;
+  border: var(--armora-gold-dotted) !important;
   border-radius: 8px;
   font-weight: 600;
   font-size: 1rem;
@@ -423,6 +428,7 @@
 .primaryButton {
   background: var(--accent-primary);
   color: var(--bg-primary);
+  border: var(--armora-gold-dotted) !important;
 }
 
 .primaryButton:hover {
@@ -433,7 +439,11 @@
 .secondaryButton {
   background: transparent;
   color: var(--text-secondary);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 215, 0, 0.4) !important;
+  border-top: 1px solid rgba(255, 215, 0, 0.4) !important;
+  border-right: 1px solid rgba(255, 215, 0, 0.4) !important;
+  border-bottom: 1px solid rgba(255, 215, 0, 0.4) !important; /* Explicit bottom border */
+  border-left: 1px solid rgba(255, 215, 0, 0.4) !important;
 }
 
 .secondaryButton:hover {

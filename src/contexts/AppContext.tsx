@@ -80,11 +80,25 @@ export function AppProvider({ children }: { children: ReactNode }) {
 
   // Convenience actions
   const navigateToView = (view: ViewState) => {
-    // Skip questionnaire for returning users who already completed it
-    if (view === 'questionnaire' && state.user?.hasCompletedQuestionnaire) {
+    // Development mode: always allow questionnaire navigation for testing
+    const isDevelopment = process.env.NODE_ENV === 'development';
+    
+    console.log('🔍 Navigation Debug:', {
+      targetView: view,
+      currentUser: state.user,
+      hasCompletedQuestionnaire: state.user?.hasCompletedQuestionnaire,
+      isDevelopment,
+      willBypassSkip: isDevelopment && view === 'questionnaire'
+    });
+    
+    // Skip questionnaire for returning users who already completed it (but not in development)
+    if (view === 'questionnaire' && state.user?.hasCompletedQuestionnaire && !isDevelopment) {
+      console.log('⚠️  Redirecting to dashboard - user has completed questionnaire');
       dispatch({ type: 'SET_VIEW', payload: 'dashboard' });
       return;
     }
+    
+    console.log('✅ Navigating to:', view);
     dispatch({ type: 'SET_VIEW', payload: view });
   };
 

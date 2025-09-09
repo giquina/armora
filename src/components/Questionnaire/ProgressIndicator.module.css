@@ -3,7 +3,7 @@
 .container {
   background: var(--bg-primary);
   padding: 1rem;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  border: var(--armora-gold-dotted) !important;
   position: sticky;
   top: 0;
   z-index: 10;
@@ -126,26 +126,9 @@
 /* Navigation Hints */
 .navigationHints {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end; /* Only the tip remains */
   align-items: center;
   font-size: 0.75rem;
-}
-
-.backButton {
-  background: none;
-  border: none;
-  color: var(--text-secondary);
-  cursor: pointer;
-  padding: 0.5rem;
-  border-radius: 4px;
-  transition: all 0.2s ease;
-  font-size: 0.8rem;
-  min-height: 32px;
-}
-
-.backButton:hover {
-  color: var(--accent-primary);
-  background: rgba(255, 215, 0, 0.1);
 }
 
 .navigationTip {
@@ -185,11 +168,6 @@
     font-size: 0.7rem;
   }
 
-  .backButton {
-    font-size: 0.75rem;
-    padding: 0.25rem 0.5rem;
-  }
-
   .navigationTip {
     display: none; /* Hide on very small screens to save space */
   }
@@ -200,6 +178,7 @@
   .container {
     padding: 1rem 2rem;
   }
+
 
   .progressDots {
     gap: 0.75rem;
@@ -214,9 +193,10 @@
 /* Desktop styles */
 @media (min-width: 1024px) {
   .container {
-    padding: 1.5rem 2rem;
-    max-width: 700px;
-    margin: 0 auto;
+  padding: 1rem 1.25rem;
+  width: 95%;
+  max-width: 1200px;
+  margin: 0 auto;
   }
 
   .stepCounter {
@@ -244,11 +224,8 @@
     font-size: 0.8rem;
   }
 
-  .backButton {
-    font-size: 0.85rem;
-  }
-
   .navigationTip {
     display: block;
   }
 }
+

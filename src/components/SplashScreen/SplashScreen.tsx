@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useMemo } from 'react';
+import React, { useEffect, useState, useMemo, useRef } from 'react';
 import { useApp } from '../../contexts/AppContext';
 import { ArmoraLogo } from '../UI/ArmoraLogo';
 import styles from './SplashScreen.module.css';
@@ -50,14 +50,25 @@ const SecurityStatus = () => {
 
 export function SplashScreen() {
   const { navigateToView } = useApp();
+  const hasNavigatedRef = useRef(false);
 
   useEffect(() => {
+    console.log('🚀 SplashScreen mounted, starting 4-second timer...');
     const timer = setTimeout(() => {
-      navigateToView('welcome');
+      if (!hasNavigatedRef.current) {
+        hasNavigatedRef.current = true;
+        console.log('⏰ Timer completed, navigating to welcome page...');
+        navigateToView('welcome');
+      }
     }, 4000);
 
-    return () => clearTimeout(timer);
-  }, [navigateToView]);
+    return () => {
+      console.log('🧹 SplashScreen unmounting, clearing timer...');
+      clearTimeout(timer);
+    };
+  // Run once on mount; avoid resetting timer if context updates change function identities
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <div className={styles.splashScreen}>

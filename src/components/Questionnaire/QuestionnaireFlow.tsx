@@ -121,6 +121,9 @@ export function QuestionnaireFlow({ onComplete }: QuestionnaireFlowProps) {
       // Set completion state
       setIsComplete(true);
 
+      // Navigate directly to achievement screen for immediate celebration
+      navigateToView('achievement');
+
       // Call completion callback
       if (onComplete) {
         onComplete();
@@ -174,11 +177,12 @@ export function QuestionnaireFlow({ onComplete }: QuestionnaireFlowProps) {
     }
   }, [isComplete]);
 
-  // Show completion screen if already completed or just finished
-  if (isComplete || hasCompleted) {
+  // Show completion screen only if user had previously completed (e.g., coming back to retake)
+  // Fresh completions now navigate directly to achievement screen
+  if (hasCompleted && !isComplete) {
     return (
       <QuestionnaireComplete 
-        onRestart={hasCompleted ? handleRestart : undefined}
+        onRestart={handleRestart}
         onContinue={() => navigateToView('achievement')}
       />
     );

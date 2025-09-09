@@ -67,17 +67,8 @@ export function ProgressIndicator({
         </span>
       </div>
 
-      {/* Navigation hint */}
+      {/* Navigation hints (no top back button; bottom nav handles Back) */}
       <div className={styles.navigationHints}>
-        {onPrevious && currentStep > 1 && (
-          <button
-            onClick={onPrevious}
-            className={styles.backButton}
-            aria-label="Go to previous step"
-          >
-            ← Back
-          </button>
-        )}
         <div className={styles.navigationTip}>
           Tap to select • Answers saved automatically
         </div>
