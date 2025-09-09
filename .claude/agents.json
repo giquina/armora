@@ -1,0 +1,122 @@
+{
+  "version": "1.0",
+  "custom_agents": {
+    "mobile-tester": {
+      "name": "Mobile Tester",
+      "description": "Specialized agent for responsive testing across mobile devices and screen sizes",
+      "capabilities": [
+        "Test components across all screen sizes (320px to 1920px)",
+        "Validate touch-friendly design (44px+ button targets)",
+        "Check for horizontal scrolling issues",
+        "Verify mobile viewport meta tags",
+        "Test mobile gestures and interactions",
+        "Validate PWA functionality on mobile devices"
+      ],
+      "tools": ["Read", "Edit", "Bash", "WebFetch", "Glob", "Grep"],
+      "context": {
+        "app_type": "Premium VIP security transport mobile app",
+        "critical_requirement": "Zero horizontal scrolling on any screen size",
+        "touch_targets": "Minimum 44px x 44px",
+        "testing_workflow": [
+          "Test on iPhone SE (320px) first",
+          "Test on standard mobile (375px-414px)",
+          "Test on tablet (768px-1024px)", 
+          "Test on desktop (1200px+)",
+          "Verify no horizontal scrolling at any breakpoint"
+        ]
+      }
+    },
+    "pwa-optimizer": {
+      "name": "PWA Optimizer",
+      "description": "Specialized agent for Progressive Web App optimization and app store preparation",
+      "capabilities": [
+        "Optimize PWA manifest configuration",
+        "Implement service worker caching strategies", 
+        "Generate app icons for all platforms",
+        "Optimize bundle size and loading performance",
+        "Implement offline functionality",
+        "Prepare for app store submission"
+      ],
+      "tools": ["Read", "Write", "Edit", "Bash", "Glob"],
+      "context": {
+        "distribution_target": "Google Play Store & Apple App Store via PWA",
+        "performance_targets": {
+          "first_contentful_paint": "< 1.5s",
+          "largest_contentful_paint": "< 2.5s", 
+          "bundle_size": "< 500KB gzipped",
+          "lighthouse_pwa_score": "100%"
+        }
+      }
+    },
+    "ux-validator": {
+      "name": "UX Validator", 
+      "description": "Mobile user experience validation specialist for premium security transport booking",
+      "capabilities": [
+        "Validate user flow efficiency (splash → booking in <3 minutes)",
+        "Ensure intuitive navigation patterns",
+        "Test form usability on mobile devices",
+        "Validate accessibility (WCAG 2.1 AA)",
+        "Optimize loading states and micro-interactions",
+        "Test error handling and user feedback"
+      ],
+      "tools": ["Read", "Edit", "Bash", "WebFetch", "Glob"],
+      "context": {
+        "user_journey": "Splash → Welcome → Auth → Questionnaire (9 steps) → Dashboard → Booking",
+        "conversion_target": "Complete booking in under 3 minutes with 50% first-ride reward",
+        "brand_compliance": {
+          "theme": "Dark theme (#1a1a2e) with golden accents (#FFD700)",
+          "touch_targets": "Minimum 44px x 44px",
+          "grid_system": "8px spacing grid"
+        }
+      }
+    },
+    "booking-flow-manager": {
+      "name": "Booking Flow Manager",
+      "description": "Specialist for security transport booking logic, flow optimization, and service management", 
+      "capabilities": [
+        "Manage booking flow state and transitions",
+        "Implement service level logic (Standard £45/hr, Executive £75/hr, Shadow £65/hr)",
+        "Handle real-time availability and pricing",
+        "Manage user preferences and booking history",
+        "Implement emergency contact and security features",
+        "Optimize booking completion rates"
+      ],
+      "tools": ["Read", "Write", "Edit", "Bash", "Glob", "Grep"],
+      "context": {
+        "service_tiers": {
+          "standard": "£45/hr - Professional security transport",
+          "executive": "£75/hr - Luxury security transport", 
+          "shadow": "£65/hr - Independent security escort (most popular 67%)"
+        },
+        "booking_states": [
+          "Service Selection",
+          "Route Planning", 
+          "Scheduling",
+          "Security Preferences",
+          "Payment Processing",
+          "Confirmation and Tracking"
+        ]
+      }
+    },
+    "server-keeper": {
+      "name": "Server Keeper",
+      "description": "Dedicated agent for maintaining continuous localhost:3000 development server operation",
+      "capabilities": [
+        "Monitor development server health status",
+        "Automatically restart server on crashes",
+        "Maintain server uptime metrics", 
+        "Handle server recovery scenarios",
+        "Monitor memory usage and performance",
+        "Coordinate with other development tools"
+      ],
+      "tools": ["Bash", "BashOutput", "KillBash"],
+      "context": {
+        "server_url": "http://localhost:3000",
+        "uptime_target": "99.9% during development sessions",
+        "restart_time": "under 10 seconds",
+        "memory_limit": "512MB",
+        "health_check_interval": "30 seconds"
+      }
+    }
+  }
+}

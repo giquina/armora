@@ -1,5 +1,6 @@
 import React, { ReactNode } from 'react';
 import { useApp } from '../../contexts/AppContext';
+import { ArmoraLogo } from '../UI/ArmoraLogo';
 import styles from './AppLayout.module.css';
 
 interface AppLayoutProps {
@@ -90,9 +91,18 @@ export function AppLayout({
               </button>
             )}
             
-            <h1 className={styles.headerTitle}>
-              {getHeaderTitle()}
-            </h1>
+            <div className={styles.headerBrand}>
+              <ArmoraLogo 
+                size="small" 
+                variant="compact" 
+                showOrbits={false}
+                interactive={true}
+                className={styles.headerLogo}
+              />
+              <h1 className={styles.headerTitle}>
+                {getHeaderTitle()}
+              </h1>
+            </div>
             
             {headerActions && (
               <div className={styles.headerActions}>

@@ -385,11 +385,273 @@
   left: 0;
 }
 
+/* Service Preview Section */
+.servicePreviewSection {
+  margin-bottom: var(--space-xl, 32px);
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.8s ease 0.3s;
+}
+
+.previewVisible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.previewHeader {
+  text-align: center;
+  margin-bottom: var(--space-lg, 24px);
+}
+
+.previewTitle {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--accent-gold, #FFD700);
+  margin: 0 0 var(--space-sm, 8px) 0;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.availabilityIndicator {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-xs, 4px);
+  font-size: 0.9rem;
+  color: var(--text-secondary, #b0b0b0);
+}
+
+.statusDot {
+  width: 8px;
+  height: 8px;
+  background: #00ff00;
+  border-radius: 50%;
+  animation: pulse 2s ease-in-out infinite;
+  box-shadow: 0 0 6px #00ff00;
+}
+
+/* Drivers Showcase */
+.driversShowcase {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: var(--space-sm, 8px);
+  margin-bottom: var(--space-lg, 24px);
+}
+
+.driverCard {
+  background: rgba(255, 215, 0, 0.05);
+  border: 1px solid rgba(255, 215, 0, 0.2);
+  border-radius: var(--radius-md, 8px);
+  padding: var(--space-sm, 8px);
+  text-align: center;
+  transition: all 0.3s ease;
+  animation: driverCardEntry 0.6s ease-out forwards;
+}
+
+.driverCard:hover {
+  border-color: rgba(255, 215, 0, 0.4);
+  transform: translateY(-2px);
+}
+
+@keyframes driverCardEntry {
+  from {
+    opacity: 0;
+    transform: scale(0.9) translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.driverAvatar {
+  position: relative;
+  display: inline-block;
+  margin-bottom: var(--space-xs, 4px);
+}
+
+.avatarImage {
+  font-size: 2rem;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 215, 0, 0.1);
+  border-radius: 50%;
+  border: 2px solid rgba(255, 215, 0, 0.3);
+}
+
+.certificationBadge {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  background: var(--accent-gold, #FFD700);
+  color: var(--primary-dark, #1a1a2e);
+  font-size: 0.6rem;
+  font-weight: bold;
+  padding: 1px 4px;
+  border-radius: 8px;
+  border: 1px solid #B8860B;
+}
+
+.driverInfo {
+  font-size: 0.8rem;
+}
+
+.driverName {
+  font-weight: 600;
+  color: var(--text-primary, #e0e0e0);
+  margin-bottom: 2px;
+}
+
+.driverTitle {
+  color: var(--accent-gold, #FFD700);
+  font-size: 0.7rem;
+  margin-bottom: 2px;
+}
+
+.responseTime {
+  color: #00ff00;
+  font-weight: 500;
+  font-size: 0.7rem;
+}
+
+/* Pricing Preview */
+.pricingPreview {
+  margin-bottom: var(--space-lg, 24px);
+}
+
+.pricingTitle {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--accent-gold, #FFD700);
+  text-align: center;
+  margin: 0 0 var(--space-md, 16px) 0;
+}
+
+.pricingGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-sm, 8px);
+}
+
+.priceCard {
+  background: rgba(255, 215, 0, 0.05);
+  border: 1px solid rgba(255, 215, 0, 0.2);
+  border-radius: var(--radius-md, 8px);
+  padding: var(--space-sm, 8px);
+  text-align: center;
+  position: relative;
+  transition: all 0.3s ease;
+  animation: priceCardEntry 0.6s ease-out forwards;
+}
+
+@keyframes priceCardEntry {
+  from {
+    opacity: 0;
+    transform: scale(0.95) translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.priceCard.popular {
+  border-color: var(--accent-gold, #FFD700);
+  background: rgba(255, 215, 0, 0.1);
+  transform: scale(1.02);
+}
+
+.popularBadge {
+  position: absolute;
+  top: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--accent-gold, #FFD700);
+  color: var(--primary-dark, #1a1a2e);
+  font-size: 0.6rem;
+  font-weight: bold;
+  padding: 2px 6px;
+  border-radius: 10px;
+  white-space: nowrap;
+}
+
+.serviceType {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--accent-gold, #FFD700);
+  margin-bottom: 2px;
+}
+
+.originalPrice {
+  font-size: 0.7rem;
+  text-decoration: line-through;
+  color: var(--text-secondary, #b0b0b0);
+  margin-bottom: 2px;
+}
+
+.discountedPrice {
+  font-size: 0.9rem;
+  font-weight: bold;
+  color: var(--text-primary, #e0e0e0);
+  margin-bottom: 2px;
+}
+
+.saveAmount {
+  font-size: 0.7rem;
+  color: #00ff00;
+  font-weight: 500;
+}
+
+/* Social Proof */
+.socialProof {
+  margin-bottom: var(--space-lg, 24px);
+}
+
+.trustStats {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-sm, 8px);
+  padding: var(--space-sm, 8px);
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: var(--radius-md, 8px);
+  border: 1px solid rgba(255, 215, 0, 0.2);
+}
+
+.statItem {
+  text-align: center;
+  min-width: 60px;
+}
+
+.statNumber {
+  display: block;
+  font-size: 1rem;
+  font-weight: bold;
+  color: var(--accent-gold, #FFD700);
+  line-height: 1;
+}
+
+.statLabel {
+  display: block;
+  font-size: 0.6rem;
+  color: var(--text-secondary, #b0b0b0);
+  margin-top: 2px;
+  line-height: 1.1;
+}
+
+.statDivider {
+  width: 1px;
+  height: 30px;
+  background: rgba(255, 215, 0, 0.3);
+}
+
 /* Action Section */
 .actionSection {
   opacity: 0;
   transform: translateY(20px);
-  transition: all 0.6s ease 0.4s;
+  transition: all 0.6s ease 0.6s;
 }
 
 .actionVisible {
@@ -467,6 +729,43 @@
   transform: translateY(-2px);
 }
 
+/* Enhanced Button Effects */
+.pulsing {
+  animation: buttonPulse 2s ease-in-out infinite;
+  position: relative;
+  overflow: hidden;
+}
+
+@keyframes buttonPulse {
+  0%, 100% {
+    box-shadow: 
+      0 4px 12px rgba(255, 215, 0, 0.3),
+      inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  }
+  50% {
+    box-shadow: 
+      0 6px 20px rgba(255, 215, 0, 0.5),
+      inset 0 1px 0 rgba(255, 255, 255, 0.3),
+      0 0 30px rgba(255, 215, 0, 0.3);
+    transform: scale(1.02);
+  }
+}
+
+.buttonText {
+  display: block;
+  font-weight: 700;
+  font-size: 1rem;
+  margin-bottom: 2px;
+}
+
+.urgencyText {
+  display: block;
+  font-size: 0.75rem;
+  opacity: 0.9;
+  font-weight: 400;
+  font-style: italic;
+}
+
 /* Floating Elements */
 .floatingElements {
   position: absolute;
@@ -536,6 +835,59 @@
   
   .discountText {
     font-size: 1rem;
+  }
+  
+  /* Mobile adjustments for service preview */
+  .driversShowcase {
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-xs, 4px);
+  }
+  
+  .driverCard {
+    padding: var(--space-xs, 4px);
+  }
+  
+  .avatarImage {
+    width: 30px;
+    height: 30px;
+    font-size: 1.5rem;
+  }
+  
+  .driverInfo {
+    font-size: 0.7rem;
+  }
+  
+  .pricingGrid {
+    gap: var(--space-xs, 4px);
+  }
+  
+  .priceCard {
+    padding: var(--space-xs, 4px);
+  }
+  
+  .trustStats {
+    gap: var(--space-xs, 4px);
+    padding: var(--space-xs, 4px);
+  }
+  
+  .statItem {
+    min-width: 50px;
+  }
+  
+  .statNumber {
+    font-size: 0.9rem;
+  }
+  
+  .statLabel {
+    font-size: 0.55rem;
+  }
+  
+  .buttonText {
+    font-size: 0.9rem;
+  }
+  
+  .urgencyText {
+    font-size: 0.7rem;
   }
 }
 

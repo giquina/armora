@@ -2,12 +2,13 @@
 
 .container {
   min-height: 100vh;
+  max-height: 100vh; /* FORCE viewport limit */
   background: var(--bg-primary);
   color: var(--text-primary);
   display: flex;
   flex-direction: column;
   width: 100%;
-  overflow-x: hidden;
+  overflow: hidden; /* PREVENT scrolling on main container */
 }
 
 .loadingContainer {

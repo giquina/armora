@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button } from './Button';
-import { SIALogo, HomeOfficeLogo, CabinetOfficeLogo, TfLLogo } from './logos';
+import CredentialIcons from './CredentialIcons';
 import styles from './CredentialsModal.module.css';
 
 export interface CredentialInfo {
@@ -23,63 +23,93 @@ interface CredentialsModalProps {
 const ALL_CREDENTIALS: CredentialInfo[] = [
   {
     id: 'sia',
-    title: 'Government Licensed',
-    subtitle: 'SIA Authority',
-    fullTitle: 'Security Industry Authority Licensing',
-    description: 'All our drivers hold government-issued security licenses with rigorous background checks and training completed, plus ongoing compliance monitoring and renewal requirements.',
+    title: 'Security Industry Authority',
+    subtitle: 'SIA Licensed',
+    fullTitle: 'Security Industry Authority (SIA) Licensing',
+    description: 'Government-mandated licensing for all security personnel with enhanced security screening following government protocols and criminal background verification.',
     benefits: [
-      'Verified trustworthy personnel handling your transport',
-      'Professional security awareness and threat assessment training',
-      'Government oversight ensures consistent service standards',
-      'Peace of mind knowing drivers are properly vetted'
+      'Enhanced security screening following government protocols with criminal background verification',
+      'Professional security awareness and advanced threat assessment training',
+      'Ongoing compliance monitoring with government oversight standards',
+      'BS 7858 security screening standards with rigorous background checks'
     ],
-    significance: 'Mandatory requirement for security transport services',
-    category: 'Legal Requirement'
+    significance: 'SIA certified close protection operatives, not just drivers',
+    category: 'Government Licensing'
   },
   {
     id: 'homeoffice',
     title: 'Home Office Approved',
     subtitle: 'Security Standards',
-    fullTitle: 'Home Office Security Standards',
-    description: 'Enhanced security screening following government protocols with BS 7858 security screening standards compliance and advanced background verification procedures.',
+    fullTitle: 'Home Office Approved Security Standards',
+    description: 'BS 7858 security screening standards with enhanced background verification procedures beyond standard licensing requirements.',
     benefits: [
-      'Highest level of driver vetting beyond basic requirements',
-      'Protection of your personal information and privacy',
-      'Confidence in driver integrity and professionalism',
-      'Government-level security clearance processes'
+      'Advanced vetting procedures beyond standard licensing requirements',
+      'Government-level security clearance processes with rigorous background verification',
+      'Enhanced standards for VIP and executive protection services',
+      'Professional security solutions tailored to your specific needs'
     ],
-    significance: 'Voluntary enhanced standards for VIP protection',
-    category: 'Professional Excellence'
+    significance: 'Professional security solutions tailored to your specific needs',
+    category: 'Government Standards'
   },
   {
     id: 'cabinet',
-    title: 'Cabinet Office Verified',
+    title: 'Cabinet Office Standards',
     subtitle: 'VIP Protection',
     fullTitle: 'Cabinet Office VIP Protection Standards',
-    description: 'Protocols aligned with government executive protection, advanced threat awareness and response training, and discrete professional service appropriate for high-profile clients.',
+    description: 'Government executive protection protocols and security procedures with advanced threat awareness training and discrete professional conduct.',
     benefits: [
-      'Service standards suitable for government officials and executives',
-      'Understanding of confidentiality and privacy requirements',
-      'Professional conduct appropriate for sensitive situations',
-      'Expertise in secure transport protocols'
+      'Government executive protection protocols and security procedures',
+      'Advanced threat awareness training and discrete professional conduct',
+      'Specialist training in VIP transport and threat assessment',
+      'Service standards suitable for government officials and executives'
     ],
-    significance: 'Meeting requirements for official government transport',
-    category: 'Government Level'
+    significance: '24/7 On-Demand Close Protection services available around the clock',
+    category: 'Executive Protection'
   },
   {
     id: 'tfl',
-    title: 'TfL Licensed',
-    subtitle: 'Transport for London',
-    fullTitle: 'Transport for London Licensing',
-    description: 'All drivers licensed by Transport for London authority with vehicle compliance to TfL safety and quality standards, regular inspections and ongoing compliance monitoring, plus professional driving standards and local area expertise.',
+    title: 'Transport for London',
+    subtitle: 'TfL Licensed',
+    fullTitle: 'Transport for London (TfL) Licensed Operations',
+    description: 'Fully licensed private hire operations with commercial vehicle compliance and regular safety inspections under Transport for London regulatory oversight.',
     benefits: [
-      'Legal compliance for all London transport operations',
-      'Guaranteed vehicle safety and maintenance standards',
-      'Expert knowledge of London routes and traffic patterns',
-      'Consumer protection under TfL regulations'
+      'Legal compliance for all London private hire operations with TfL oversight',
+      'Regular safety inspections and regulatory compliance monitoring',
+      'Professional transport operations meeting all legal requirements',
+      'Expert knowledge of London routes with advanced traffic management'
     ],
-    significance: 'Mandatory licensing for all private hire operations in London',
-    category: 'Legal Requirement'
+    significance: 'Professional security transport services available around the clock',
+    category: 'Transport Licensing'
+  },
+  {
+    id: 'phv',
+    title: 'Private Hire Vehicle',
+    subtitle: 'PHV Licensed',
+    fullTitle: 'Private Hire Vehicle (PHV) Licensed Fleet',
+    description: 'Commercial passenger vehicle licensing with comprehensive insurance coverage and professional maintenance standards for all fleet vehicles.',
+    benefits: [
+      'Commercial passenger vehicle licensing with comprehensive insurance coverage',
+      'Professional maintenance standards for reliability and operational safety',
+      'Regular safety inspections ensuring roadworthiness and regulatory compliance',
+      'Advanced fleet management with professional service standards'
+    ],
+    significance: 'Commercial vehicle compliance with professional service standards',
+    category: 'Vehicle Licensing'
+  },
+  {
+    id: 'cpo',
+    title: 'Close Protection Officers',
+    subtitle: 'CPO Certified',
+    fullTitle: 'Close Protection Officers (CPO) Certified Team',
+    description: 'Level 3 Close Protection Officer certification with specialized security training and advanced situational awareness protocols.',
+    benefits: [
+      'Level 3 Close Protection Officer certification with specialized security training',
+      'Advanced situational awareness and personal protection protocols',
+      'Professional close protection expertise with discrete service delivery',
+      'Emergency response capabilities and security protocol implementation'
+    ],
+    significance: 'Advanced personal protection protocols with specialized training',
+    category: 'Protection Certification'
   }
 ];
 
@@ -154,8 +184,9 @@ export function CredentialsModal({ isOpen, onClose }: CredentialsModalProps) {
         <main className={styles.modalContent}>
           <div className={styles.introSection}>
             <p className={styles.introText}>
-              Armora maintains the highest security standards through comprehensive licensing and certification. 
-              Our credentials ensure your safety, privacy, and professional service quality.
+              Armora operates under comprehensive government licensing and security industry certifications. 
+              Our multi-level compliance framework ensures professional security protocols, regulatory adherence, 
+              and advanced personal protection capabilities for executive transport services.
             </p>
           </div>
 
@@ -165,10 +196,10 @@ export function CredentialsModal({ isOpen, onClose }: CredentialsModalProps) {
                 {/* Credential Header */}
                 <div className={styles.credentialHeader}>
                   <div className={styles.credentialIcon}>
-                    {credential.id === 'sia' && <SIALogo width={40} height={40} />}
-                    {credential.id === 'homeoffice' && <HomeOfficeLogo width={40} height={40} />}
-                    {credential.id === 'cabinet' && <CabinetOfficeLogo width={40} height={40} />}
-                    {credential.id === 'tfl' && <TfLLogo width={40} height={40} />}
+                    <CredentialIcons 
+                      type={credential.id as 'sia' | 'homeoffice' | 'cabinet' | 'tfl' | 'phv' | 'cpo'} 
+                      className={styles.credentialLogo}
+                    />
                   </div>
                   <div className={styles.credentialTitleGroup}>
                     <h3 className={styles.credentialTitle}>
@@ -210,10 +241,11 @@ export function CredentialsModal({ isOpen, onClose }: CredentialsModalProps) {
 
           <div className={styles.summarySection}>
             <div className={styles.summaryCard}>
-              <h3 className={styles.summaryTitle}>Your Security Guarantee</h3>
+              <h3 className={styles.summaryTitle}>Comprehensive Security Standards Compliance</h3>
               <p className={styles.summaryText}>
-                Every Armora driver meets all four certification standards, ensuring government-level security, 
-                legal compliance, and professional excellence for your transport needs.
+                All Armora security operatives and fleet vehicles maintain full compliance with these six government 
+                certification standards, ensuring professional security protocols, regulatory compliance, and advanced 
+                personal protection capabilities for executive transport services.
               </p>
             </div>
           </div>
@@ -228,7 +260,7 @@ export function CredentialsModal({ isOpen, onClose }: CredentialsModalProps) {
             onClick={onClose}
             className={styles.ctaButton}
           >
-            Book with Confidence
+            Proceed with Professional Security Transport
           </Button>
         </footer>
       </div>

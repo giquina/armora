@@ -5,6 +5,8 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## Project Overview
 Armora is a React TypeScript application for a premium VIP security transport service (similar to Uber but with professional security officers). The project is currently in early development with a fresh Create React App foundation and extensive development infrastructure already configured. The goal is to build a mobile-first Progressive Web App ready for app store distribution.
 
+**PASSENGER-FOCUSED APPROACH**: All messaging, UI copy, and user-facing content should be written from the passenger's perspective, emphasizing benefits and value to the rider rather than company features or technical capabilities. Use simple, clear language that speaks to safety benefits and convenience.
+
 ## Development Commands
 
 ### Primary Commands
@@ -31,6 +33,11 @@ The project includes a sophisticated hooks system for mobile-first development:
 - `npm run task-status` - View current task status
 - `npm run refresh-suggestions` - Regenerate task suggestions
 
+### Project Management Tools
+- `npm run update-docs` - Update project documentation
+- `npm run project-health` - Check project health status
+- `npm run statusline` - Display project status information
+
 The hooks system includes 7 specialized development tools:
 - **Auto GitHub Saver**: Automatically commits and pushes work every 5 minutes
 - **Dev Server Monitor**: Keeps dev server running with mobile QR codes
@@ -43,12 +50,12 @@ The hooks system includes 7 specialized development tools:
 ## Project Architecture
 
 ### Current Development State
-This is a fresh Create React App project with:
+This is a React TypeScript project with:
 - **React 19.1.1** with TypeScript 4.9.5
-- Basic App.tsx with default React template
+- **React Router DOM 7.8.2** for navigation
 - Comprehensive development infrastructure configured
 - Extensive documentation and planning completed
-- Component directories created but not yet implemented
+- Core components implemented including SplashScreen, Dashboard, Questionnaire, and Auth components
 
 ### Planned Application Structure
 The app will follow a single-page application pattern with view-based routing:
@@ -56,38 +63,70 @@ The app will follow a single-page application pattern with view-based routing:
 - **User Types**: `registered` | `google` | `guest`
 - **State Management**: React hooks with localStorage persistence
 
-### Component Structure (To Be Implemented)
+### Current Component Structure
 ```
 src/
 ├── components/
-│   ├── Auth/           - Authentication system
-│   │   ├── SplashScreen.tsx
-│   │   ├── WelcomePage.tsx
-│   │   ├── LoginForm.tsx
-│   │   ├── SignupForm.tsx
-│   │   └── GuestDisclaimer.tsx
-│   ├── Questionnaire/  - Multi-step onboarding (9 steps)
-│   │   ├── QuestionnaireFlow.tsx
-│   │   ├── QuestionnaireStep.tsx
-│   │   ├── ProgressIndicator.tsx
-│   │   └── PersonalizationEngine.tsx
-│   ├── Dashboard/      - Service selection interface
-│   │   ├── Dashboard.tsx
-│   │   ├── ServiceCard.tsx
-│   │   ├── RewardBanner.tsx
-│   │   └── PersonalizedRecommendation.tsx
-│   └── Booking/        - Booking flow components
-├── data/               - Configuration and mock data
-│   ├── questionnaireData.ts
-│   └── servicesData.ts
-├── utils/              - Helper functions
-│   └── recommendationEngine.ts
-├── types/              - TypeScript interfaces
-└── styles/             - Mobile-first CSS
-    ├── App.css
-    ├── Dashboard.css
-    └── customScrollbars.css
+│   ├── Auth/           - Authentication system (implemented)
+│   ├── SplashScreen/   - App loading screen with premium 4D logo (implemented)
+│   ├── Questionnaire/  - Multi-step onboarding with progress indicator (implemented)
+│   ├── Dashboard/      - Service selection with cards and quick booking (implemented)
+│   ├── Achievement/    - Reward unlock screens (implemented)
+│   ├── Booking/        - Booking flow components (in progress)
+│   ├── Profile/        - User profile management (in progress)
+│   ├── Layout/         - App layout components with header logo (implemented)
+│   └── UI/             - Reusable UI components including premium ArmoraLogo (implemented)
+├── utils/              - Helper functions including seasonal themes
+├── types/              - TypeScript interfaces with questionnaire support (implemented)
+└── styles/             - Mobile-first CSS modules
 ```
+
+## Premium 4D Logo System
+
+### ArmoraLogo Component
+A sophisticated 4D logo system that establishes Armora as premium security transport brand:
+
+#### Component Location
+- **ArmoraLogo.tsx** - `/src/components/UI/ArmoraLogo.tsx`
+- **ArmoraLogo.module.css** - `/src/components/UI/ArmoraLogo.module.css`
+
+#### Features
+- **4D Visual Depth** - Multi-layered shield with perspective and dimensional effects
+- **Premium Materials** - Metallic gold finishes, glass overlays, holographic elements
+- **Advanced Animations** - Floating motion, orbital rings, energy fields, circuit flows
+- **Responsive Scaling** - Perfect appearance on all screen sizes (320px+)
+- **Multiple Variants** - Full, compact, minimal, animated, monochrome versions
+
+#### Usage Examples
+```tsx
+// Hero logo for splash screen
+<ArmoraLogo size="hero" variant="animated" showOrbits={true} />
+
+// Header logo for navigation
+<ArmoraLogo size="small" variant="compact" showOrbits={false} interactive={true} />
+
+// Welcome page prominent display
+<ArmoraLogo size="large" variant="full" showOrbits={true} />
+```
+
+#### Size Variants
+- **small** - 0.7x scale for headers/navigation
+- **medium** - 1x scale for standard display
+- **large** - 1.3x scale for prominent placement
+- **hero** - 1.8x scale for splash screens
+
+#### Display Variants
+- **full** - Complete 4D logo with all effects and orbital rings
+- **compact** - Simplified version without orbits for space-constrained areas
+- **minimal** - Clean shield with premium finish, no decorative elements
+- **animated** - Enhanced animations for loading states and splash screens
+- **monochrome** - Black/white version maintaining 3D depth
+
+#### Global Consistency Implementation
+- **SplashScreen** - Uses hero size with animated variant
+- **WelcomePage** - Uses large size with full variant
+- **AppLayout Header** - Uses small size with compact variant
+- All implementations maintain consistent brand appearance
 
 ## Business Context & Requirements
 
@@ -179,10 +218,45 @@ Use `/agents` command to view, create, edit, or delete agents. These provide spe
 - ✅ Project setup and development infrastructure
 - ✅ Comprehensive documentation and planning
 - ✅ Hooks system and AI-powered development tools
-- ✅ Component structure and file organization planned
-- ⏳ Core components implementation (next phase)
-- ⏳ Authentication system
-- ⏳ Questionnaire flow
-- ⏳ Dashboard and booking components
+- ✅ Core components implementation (SplashScreen, Dashboard, Questionnaire, Auth)
+- ✅ UI component library with modals and interactive elements
+- ✅ Mobile-first responsive design system
+- ⏳ Booking flow completion
+- ⏳ User profile management
+- ⏳ PWA implementation and app store preparation
 
-Last updated: 2025-09-08T13:30:00.000Z
+## Key Files Reference
+
+### Core Component Files
+- **ArmoraLogo.tsx** - Premium 4D logo component (`/src/components/UI/ArmoraLogo.tsx`)
+- **ArmoraLogo.module.css** - Advanced 4D CSS animations (`/src/components/UI/ArmoraLogo.module.css`)
+- **AppLayout.tsx** - Main app layout with header logo (`/src/components/Layout/AppLayout.tsx`)
+- **SplashScreen.tsx** - Loading screen with hero logo (`/src/components/SplashScreen/SplashScreen.tsx`)
+- **WelcomePage.tsx** - Welcome screen with prominent logo (`/src/components/Auth/WelcomePage.tsx`)
+
+### TypeScript Interface Files
+- **index.ts** - Main type definitions (`/src/types/index.ts`)
+- **questionnaireData.ts** - Complete questionnaire data (`/src/data/questionnaireData.ts`)
+
+### Key Documentation Files
+- **CLAUDE.md** - Main development documentation (this file)
+- **README.md** - Project overview and setup instructions
+- **package.json** - Dependencies and scripts
+
+### Mobile-First CSS Architecture
+All components use CSS Modules with mobile-first approach:
+- Start at 320px minimum width
+- NO horizontal scrolling allowed
+- Touch-friendly 44px+ button targets
+- Responsive breakpoints: 320px, 768px, 1024px+
+- Dark navy (#1a1a2e) + gold (#FFD700) color scheme
+
+### Development Status Update
+- ✅ Premium 4D ArmoraLogo system implemented globally
+- ✅ TypeScript interfaces updated for questionnaire support  
+- ✅ Global logo consistency across all screens
+- ✅ Advanced CSS animations with 60fps performance
+- ✅ Mobile-responsive scaling (320px+)
+- ✅ Multiple logo variants (full, compact, minimal, animated)
+
+Last updated: 2025-09-08T22:25:00.000Z

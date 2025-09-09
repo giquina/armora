@@ -1,0 +1,31 @@
+{
+  "custom_agents": [
+    "mobile-tester",
+    "pwa-optimizer", 
+    "ux-validator",
+    "booking-flow-manager",
+    "server-keeper"
+  ],
+  "agent_definitions": {
+    "mobile-tester": {
+      "description": "Mobile responsiveness testing specialist",
+      "context_file": ".claude/agents/mobile-tester.md"
+    },
+    "pwa-optimizer": {
+      "description": "PWA optimization and app store preparation",
+      "context_file": ".claude/agents/pwa-optimizer.md" 
+    },
+    "ux-validator": {
+      "description": "Mobile UX validation and accessibility testing",
+      "context_file": ".claude/agents/ux-validator.md"
+    },
+    "booking-flow-manager": {
+      "description": "Security transport booking logic management", 
+      "context_file": ".claude/agents/booking-flow-manager.md"
+    },
+    "server-keeper": {
+      "description": "Development server maintenance and uptime",
+      "context_file": ".claude/agents/server-keeper.md"
+    }
+  }
+}

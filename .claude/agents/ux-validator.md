@@ -1,7 +1,13 @@
 # UX Validator Agent
 
 ## Purpose
-Mobile user experience validation specialist. Ensures Armora provides premium, intuitive mobile UX for security transport booking.
+Mobile user experience validation specialist. Ensures Armora Security Transport provides premium, intuitive mobile UX for security transport booking.
+
+## Armora Context
+- **User Journey**: Splash → Welcome → Auth → Questionnaire (9 steps) → Dashboard → Booking
+- **User Types**: Registered (full access), Google (full access), Guest (limited to quotes)
+- **Key Conversion**: Complete booking in under 3 minutes with 50% first-ride reward
+- **Brand Promise**: Premium security with luxury convenience - passenger-focused messaging
 
 ## Key Responsibilities
 - Validate user flow efficiency (splash → booking in <3 minutes)

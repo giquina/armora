@@ -1,0 +1,339 @@
+/* Executive Onboarding Experience Styles */
+
+.executiveContainer {
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+  border-radius: 16px;
+  padding: 24px;
+  margin: 16px 0;
+  position: relative;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+.executiveContainer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #FFD700, #FFA500, #FFD700);
+  border-radius: 16px 16px 0 0;
+}
+
+/* Progress Header */
+.progressHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.progressBar {
+  flex: 1;
+  height: 6px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 3px;
+  overflow: hidden;
+  margin-right: 12px;
+}
+
+.progressFill {
+  height: 100%;
+  background: linear-gradient(90deg, #FFD700, #FFA500);
+  border-radius: 3px;
+  transition: width 0.8s ease;
+}
+
+.progressText {
+  color: #e0e0e0;
+  font-size: 12px;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+/* Profile Header */
+.profileHeader {
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.profileTitle {
+  color: #FFD700;
+  font-size: 22px;
+  font-weight: 700;
+  margin: 0 0 8px 0;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.profileSubtitle {
+  color: #e0e0e0;
+  font-size: 14px;
+  margin: 0;
+  opacity: 0.9;
+}
+
+/* Trust Indicators */
+.trustGrid {
+  margin-bottom: 24px;
+}
+
+.sectionTitle {
+  color: #FFD700;
+  font-size: 16px;
+  font-weight: 600;
+  margin: 0 0 16px 0;
+  text-align: center;
+}
+
+.indicatorGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 12px;
+}
+
+.trustIndicator {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 215, 0, 0.2);
+  border-radius: 8px;
+  padding: 12px;
+  transition: all 0.3s ease;
+}
+
+.trustIndicator:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 215, 0, 0.4);
+  transform: translateY(-2px);
+}
+
+.indicatorHeader {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+
+.indicatorIcon {
+  font-size: 18px;
+  width: 24px;
+  text-align: center;
+}
+
+.indicatorTitle {
+  color: #e0e0e0;
+  font-size: 13px;
+  font-weight: 600;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.verifiedBadge {
+  background: #4CAF50;
+  color: white;
+  font-size: 10px;
+  padding: 2px 4px;
+  border-radius: 50%;
+  font-weight: 700;
+}
+
+.indicatorDescription {
+  color: #e0e0e0;
+  font-size: 11px;
+  line-height: 1.4;
+  margin: 0;
+  opacity: 0.8;
+}
+
+/* Highlights Section */
+.highlightsSection {
+  margin-bottom: 24px;
+}
+
+.highlightsList {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 8px;
+}
+
+.highlight {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  background: rgba(76, 175, 80, 0.1);
+  border: 1px solid rgba(76, 175, 80, 0.3);
+  border-radius: 6px;
+}
+
+.checkIcon {
+  color: #4CAF50;
+  font-weight: 700;
+  font-size: 14px;
+  flex-shrink: 0;
+}
+
+.highlightText {
+  color: #e0e0e0;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+/* Statistics Section */
+.statsSection {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background: rgba(255, 215, 0, 0.1);
+  border: 1px solid rgba(255, 215, 0, 0.3);
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 20px;
+}
+
+.stat {
+  text-align: center;
+  flex: 1;
+}
+
+.statNumber {
+  color: #FFD700;
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 4px;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.statLabel {
+  color: #e0e0e0;
+  font-size: 11px;
+  font-weight: 500;
+  opacity: 0.9;
+}
+
+/* Security Assurance */
+.assuranceSection {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  padding: 16px;
+}
+
+.assuranceIcon {
+  font-size: 24px;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.assuranceContent {
+  flex: 1;
+}
+
+.assuranceTitle {
+  color: #FFD700;
+  font-size: 14px;
+  font-weight: 600;
+  margin: 0 0 6px 0;
+}
+
+.assuranceText {
+  color: #e0e0e0;
+  font-size: 12px;
+  line-height: 1.5;
+  margin: 0;
+  opacity: 0.9;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+  .executiveContainer {
+    padding: 20px;
+    margin: 12px 0;
+  }
+
+  .indicatorGrid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .highlightsList {
+    grid-template-columns: 1fr;
+    gap: 6px;
+  }
+
+  .statsSection {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .stat {
+    padding: 8px 0;
+  }
+
+  .profileTitle {
+    font-size: 20px;
+  }
+
+  .statNumber {
+    font-size: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .executiveContainer {
+    padding: 16px;
+  }
+
+  .progressHeader {
+    margin-bottom: 16px;
+  }
+
+  .profileHeader {
+    margin-bottom: 20px;
+  }
+
+  .trustGrid,
+  .highlightsSection {
+    margin-bottom: 20px;
+  }
+
+  .assuranceSection {
+    flex-direction: column;
+    text-align: center;
+    gap: 8px;
+  }
+
+  .trustIndicator {
+    padding: 10px;
+  }
+
+  .highlight {
+    padding: 6px 10px;
+  }
+}
+
+/* Animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.trustIndicator {
+  animation: fadeInUp 0.6s ease forwards;
+}
+
+.trustIndicator:nth-child(1) { animation-delay: 0.1s; }
+.trustIndicator:nth-child(2) { animation-delay: 0.2s; }
+.trustIndicator:nth-child(3) { animation-delay: 0.3s; }
+.trustIndicator:nth-child(4) { animation-delay: 0.4s; }
+.trustIndicator:nth-child(5) { animation-delay: 0.5s; }
+.trustIndicator:nth-child(6) { animation-delay: 0.6s; }

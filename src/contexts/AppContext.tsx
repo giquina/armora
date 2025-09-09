@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useReducer, useEffect, ReactNode } from 'react';
+import React, { createContext, useContext, useReducer, useEffect, useCallback, ReactNode } from 'react';
 import { AppState, ViewState, User, PersonalizationData, DeviceCapabilities } from '../types';
 
 // Initial state
@@ -92,7 +92,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
     dispatch({ type: 'SET_USER', payload: user });
   };
 
-  const updateQuestionnaireData = (data: PersonalizationData) => {
+  const updateQuestionnaireData = useCallback((data: PersonalizationData) => {
     dispatch({ type: 'SET_QUESTIONNAIRE_DATA', payload: data });
     
     // If questionnaire is completed, mark user as completed
@@ -104,7 +104,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
       };
       dispatch({ type: 'SET_USER', payload: updatedUser });
     }
-  };
+  }, [state.user]);
 
   const setError = (error: string | null) => {
     dispatch({ type: 'SET_ERROR', payload: error });
@@ -177,7 +177,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
         localStorage.removeItem('armora_questionnaire');
       }
     }
-  }, []);
+  }, [updateQuestionnaireData]);
 
   // Save user and questionnaire data to localStorage
   useEffect(() => {

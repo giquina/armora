@@ -66,6 +66,15 @@ img {
   --armora-spacing-md: 16px;
   --armora-spacing-lg: 24px;
   --armora-spacing-xl: 32px;
+
+  /* Component-specific variables */
+  --bg-primary: #1a1a2e;
+  --bg-card: rgba(255, 255, 255, 0.05);
+  --bg-card-hover: rgba(255, 255, 255, 0.1);
+  --text-primary: #e0e0e0;
+  --text-secondary: rgba(224, 224, 224, 0.7);
+  --accent-primary: #FFD700;
+  --accent-secondary: rgba(255, 215, 0, 0.8);
 }
 
 /* Mobile-first breakpoints */

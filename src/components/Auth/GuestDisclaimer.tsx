@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useApp } from '../../contexts/AppContext';
 import { Button } from '../UI/Button';
-import { Logo } from '../UI/Logo';
+import { ArmoraLogo } from '../UI/ArmoraLogo';
 import styles from './GuestDisclaimer.module.css';
 
 export function GuestDisclaimer() {
@@ -55,10 +55,10 @@ export function GuestDisclaimer() {
         
         {/* Header */}
         <header className={styles.header}>
-          <Logo 
-            size="md" 
-            showOrbital={false}
-            animated={true}
+          <ArmoraLogo 
+            size="medium" 
+            showOrbits={false}
+            variant="animated"
             className={styles.logo}
           />
           <h1 className={styles.title}>Guest Access</h1>

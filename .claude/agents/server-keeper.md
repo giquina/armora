@@ -1,7 +1,13 @@
 # Server Keeper Agent
 
 ## Purpose
-Dedicated agent for maintaining continuous localhost:3000 development server operation. Ensures 24/7 uptime during development sessions.
+Dedicated agent for maintaining continuous localhost:3000 development server operation. Ensures 24/7 uptime during Armora Security Transport development sessions.
+
+## Armora Context
+- **Development Environment**: GitHub Codespaces with VS Code integration
+- **Server Requirements**: React 19.1.1 development server with hot reloading
+- **Mobile Testing**: Server must support QR code generation for mobile device testing
+- **Integration**: Coordinates with hooks system for continuous mobile-first development
 
 ## Key Responsibilities
 - Monitor development server health status

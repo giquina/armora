@@ -8,7 +8,9 @@
   bottom: 0;
   width: 100vw;
   height: 100vh;
-  overflow: hidden;
+  min-height: 100vh;
+  max-height: 100vh; /* ENFORCE viewport limit */
+  overflow: hidden; /* PREVENT any scrolling */
   overscroll-behavior: none;
   touch-action: none;
   background: linear-gradient(
@@ -25,13 +27,15 @@
 /* VIEWPORT-FITTED CONTAINER - NO SCROLLING ALLOWED */
 .welcomeContainer {
   height: 100vh;
+  min-height: 100vh;
+  max-height: 100vh; /* ENFORCE viewport limit */
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
-  padding: clamp(2rem, 8vh, 4rem) clamp(1rem, 4vw, 2rem) clamp(1rem, 3vh, 2rem);
+  justify-content: space-between; /* DISTRIBUTE content evenly */
+  padding: clamp(0.5rem, 2vh, 1rem) clamp(1rem, 4vw, 2rem) clamp(0.25rem, 1vh, 0.5rem); /* COMPRESSED padding */
   position: relative;
   z-index: 2;
-  overflow: hidden;
+  overflow: hidden; /* PREVENT scrolling */
   overscroll-behavior: none;
 }
 
@@ -45,7 +49,7 @@
 .logoContainer {
   position: relative;
   display: inline-block;
-  margin-bottom: clamp(0.5rem, 2vh, 1rem);
+  margin-bottom: clamp(0.25rem, 1vh, 0.5rem);
 }
 
 .orbitalRing {
@@ -99,15 +103,15 @@
 }
 
 .welcomeTitle {
-  font-size: clamp(1.5rem, 6vw, 2.5rem);
-  margin: clamp(0.5rem, 2vh, 1rem) 0;
+  font-size: clamp(1.375rem, 5vw, 2rem);
+  margin: clamp(0.25rem, 1vh, 0.5rem) 0;
   line-height: 1.1;
 }
 
 .tagline {
-  font-size: clamp(0.875rem, 3vw, 1.125rem);
+  font-size: clamp(0.75rem, 2.5vw, 1rem);
   color: var(--armora-gold);
-  margin: 0;
+  margin: 0 0 clamp(0.25rem, 1vh, 0.5rem) 0;
   font-weight: 300;
   font-style: italic;
   opacity: 0;
@@ -116,22 +120,22 @@
 
 /* MAIN CONTENT - FEATURES */
 .welcomeContent {
-  flex: 0 0 auto;
+  flex: 1 1 auto;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: clamp(1.5rem, 4vh, 3rem) 0 clamp(2rem, 6vh, 4rem) 0;
+  margin: clamp(0.25rem, 1vh, 0.75rem) 0; /* COMPRESSED margins */
 }
 
 .features {
   display: grid;
   grid-template-columns: 1fr 1fr; /* FORCE 2 columns */
   grid-template-rows: auto auto;   /* 2 rows */
-  gap: clamp(8px, 2vw, 12px);
+  gap: clamp(2px, 0.8vh, 6px); /* Compressed gap for tighter spacing */
   opacity: 0;
   transform: translateY(20px);
   max-width: 600px;
-  margin: 0 auto clamp(1.5rem, 4vh, 2.5rem) auto;
+  margin: 0 auto;
   width: 100%;
 }
 
@@ -140,7 +144,7 @@
   .features {
     grid-template-columns: 1fr; /* Single column on mobile */
     grid-template-rows: repeat(4, auto);
-    gap: clamp(6px, 1.5vh, 8px);
+    gap: clamp(3px, 1vh, 6px); /* Compressed gap for mobile */
     max-width: 100%;
   }
 }
@@ -155,22 +159,24 @@
   /* REMOVE large box styling */
   background: none;           /* No background */
   border: none;              /* No border */
-  padding: clamp(4px, 1vw, 8px);   /* Minimal padding */
+  padding: clamp(6px, 1.5vh, 10px);   /* COMPRESSED padding for horizontal layout */
   border-radius: 0;          /* No rounded corners */
   
-  /* Compact layout */
+  /* HORIZONTAL layout with icon on left */
   display: flex;
-  align-items: center;
-  justify-content: flex-start; /* Left align */
-  text-align: left;
+  flex-direction: row; /* HORIZONTAL: icon and text side by side */
+  align-items: flex-start; /* Align to top for multi-line content */
+  justify-content: flex-start; /* Left align content */
+  text-align: left; /* Left align text */
   min-height: auto;          /* No minimum height */
-  animation: featureBounceIn 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55) both;
-  transition: all 0.2s ease;
+  opacity: 0;
+  transform: translateX(-20px); /* Slide in from left */
+  animation: slideInFromLeft 0.6s ease-out forwards;
+  animation-delay: calc(var(--delay, 0) * 0.1s);
+  transition: all 0.3s ease;
 }
 
-.feature:hover {
-  transform: translateX(2px); /* Subtle left-to-right movement */
-}
+/* REMOVED: Hover effects - replaced with slide animations */
 
 .featureIcon {
   display: flex;
@@ -217,75 +223,106 @@
 
 .featureContent {
   display: flex;
+  flex-direction: row; /* HORIZONTAL: icon and text side by side */
   align-items: flex-start; /* Align to top for multi-line content */
-  gap: var(--space-2);
+  gap: clamp(8px, 2vh, 12px); /* Gap between icon and text */
   width: 100%;
 }
 
 .featureText {
   flex: 1;
+  text-align: left; /* Left align text */
+  width: 100%;
+  max-width: calc(100% - 32px); /* Account for icon + gap */
+  min-height: auto; /* Allow natural height for multi-line text */
 }
 
-.checkmarkIcon {
-  width: 16px;
-  height: 16px;
-  flex-shrink: 0;
+.featureLogo {
+  width: 20px; /* Smaller size for horizontal layout */
+  height: 20px;
+  flex-shrink: 0; /* Prevent icon from shrinking */
   margin-top: 2px; /* Align with first line of text */
   color: var(--armora-gold);
+  fill: var(--armora-gold);
   filter: drop-shadow(0 1px 2px rgba(255, 215, 0, 0.3));
+  animation: logoReveal 0.8s ease-in-out forwards, gentlePulse 4s ease-in-out infinite;
+  animation-delay: calc(var(--delay, 0) * 0.15s), 1s;
+  transition: all 0.3s ease;
 }
 
-.checkmarkPath {
-  stroke-dasharray: 100;
-  stroke-dashoffset: 100;
-  animation: checkmarkDraw 0.8s ease-in-out forwards;
-  animation-delay: calc(var(--delay, 0) * 0.15s); /* Faster stagger */
-}
+/* REMOVED: Hover effects on non-interactive elements */
 
 .featureTitleOnly {
-  font-size: 0.75rem;        /* Smaller text */
-  font-weight: 500;
+  font-size: 0.8rem;        /* Optimized for horizontal layout */
+  font-weight: 600;
   color: var(--text-primary);
-  margin: 0;
-  line-height: 1.2;
+  margin: 0 0 clamp(2px, 0.5vh, 4px) 0; /* Small bottom margin */
+  line-height: 1.25;
+  text-align: left; /* Left align for horizontal layout */
   word-break: keep-all;
   hyphens: none;
+  animation: fadeInUp 0.6s ease-out forwards;
+  animation-delay: calc(var(--delay, 0) * 0.1s + 0.2s);
 }
 
 .featureSubtitle {
-  font-size: 0.6875rem; /* 11px - descriptive text */
+  font-size: 0.7rem; /* Readable size for full descriptions */
   font-weight: 400;
   font-style: italic;
   color: var(--text-secondary);
-  line-height: 1.3;
+  line-height: 1.3; /* Better line height for multi-line text */
   opacity: 0.8;
-  margin: clamp(2px, 0.5vh, 4px) 0 0 0;
-  word-break: keep-all;
-  hyphens: none;
+  margin: 0; /* No margins for tight spacing */
+  text-align: left; /* Left align for horizontal layout */
+  
+  /* ALLOW full text display with natural wrapping */
+  white-space: normal; /* Allow text wrapping */
+  overflow: visible; /* Show all text */
+  text-overflow: clip; /* Remove ellipsis */
+  max-width: none; /* Remove width constraint */
+  
+  /* Enable natural text wrapping */
+  word-wrap: break-word;
+  hyphens: auto;
+  
+  animation: fadeInUp 0.8s ease-out forwards;
+  animation-delay: calc(var(--delay, 0) * 0.15s + 0.4s);
 }
 
-/* Responsive adjustments for very small screens */
+/* Responsive adjustments for readability */
+@media (max-width: 480px) {
+  .featureSubtitle {
+    font-size: 0.65rem; /* Slightly smaller on mobile if needed */
+    line-height: 1.4;
+  }
+}
+
 @media (max-width: 360px) {
   .featureTitleOnly {
-    font-size: 0.6875rem; /* Slightly smaller on very small screens */
-    line-height: 1.15;
+    font-size: 0.75rem; /* Adjusted for horizontal layout */
+    line-height: 1.2;
+  }
+  
+  .featureSubtitle {
+    font-size: 0.6rem; /* Further reduction for very small screens */
+    line-height: 1.35;
   }
   
   .features {
-    gap: 4px;
+    gap: 4px; /* Slightly larger gap for better text separation */
   }
   
   .feature {
-    padding: 2px 4px;
+    padding: 4px 6px; /* More padding for better text readability */
   }
   
   .featureContent {
-    gap: 4px;
+    gap: 8px; /* Better spacing between icon and text for readability */
   }
   
-  .checkmarkIcon {
-    width: 14px;
-    height: 14px;
+  .featureLogo {
+    width: 18px; /* Slightly smaller on very small screens */
+    height: 18px;
   }
 }
 
@@ -294,7 +331,7 @@
   flex: 0 0 auto;
   opacity: 0;
   transform: translateY(30px);
-  margin-bottom: clamp(0.5rem, 1.5vh, 1rem);
+  margin-bottom: clamp(0.5rem, 1.5vh, 0.75rem);
 }
 
 .actionsVisible {
@@ -306,8 +343,8 @@
 .authButtons {
   display: flex;
   flex-direction: column;
-  gap: clamp(0.75rem, 2vh, 1rem);
-  margin-bottom: clamp(0.75rem, 2vh, 1rem);
+  gap: clamp(0.5rem, 1.5vh, 0.75rem);
+  margin-bottom: clamp(0.5rem, 1.5vh, 0.75rem);
 }
 
 /* AUTHENTICATION BUTTONS */
@@ -389,7 +426,7 @@
 
 .divider {
   position: relative;
-  margin: clamp(0.75rem, 2vh, 1rem) 0;
+  margin: clamp(0.5rem, 1.5vh, 0.75rem) 0;
   text-align: center;
 }
 
@@ -456,7 +493,22 @@
   animation: devButtonPulse 1s ease-in-out infinite;
 }
 
-.devSkipButton::before {
+/* DEVELOPMENT-ONLY QUESTIONNAIRE BUTTON */
+.devQuestionnaireButton {
+  padding: clamp(0.5rem, 2vh, 0.75rem) clamp(1rem, 4vw, 1.5rem) !important;
+  min-height: auto !important;
+  margin-top: clamp(0.5rem, 1.5vh, 0.75rem) !important;
+  background: linear-gradient(135deg, #ff6b6b, #ff8e8e) !important;
+  border: 2px solid #ff5252 !important;
+  color: white !important;
+  transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+  animation: devButtonPulse 1s ease-in-out infinite;
+}
+
+.devSkipButton::before,
+.devQuestionnaireButton::before {
   content: '';
   position: absolute;
   top: 0;
@@ -467,7 +519,8 @@
   transition: left 0.25s ease;
 }
 
-.devSkipButton:hover::before {
+.devSkipButton:hover::before,
+.devQuestionnaireButton:hover::before {
   left: 100%;
 }
 
@@ -477,6 +530,77 @@
   border-color: #ff6b6b !important;
   box-shadow: 0 8px 25px rgba(255, 68, 68, 0.4);
   animation: none;
+}
+
+.devQuestionnaireButton:hover {
+  transform: translateY(-2px) scale(1.02);
+  background: linear-gradient(135deg, #ff8e8e, #ffb1b1) !important;
+  border-color: #ff6b6b !important;
+  box-shadow: 0 8px 25px rgba(255, 107, 107, 0.4);
+  animation: none;
+}
+
+/* FIXED DEVELOPMENT QUESTIONNAIRE BUTTON - HIGHLY VISIBLE */
+.devQuestionnaireFixed {
+  position: fixed;
+  bottom: 80px; /* Above footer */
+  right: 20px;
+  background: #ff4444 !important; /* Bright red */
+  color: white !important;
+  border: 2px solid #ff0000 !important;
+  border-radius: 8px;
+  padding: 12px 16px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  cursor: pointer;
+  z-index: 9999 !important; /* Highest priority */
+  box-shadow: 0 4px 16px rgba(255, 68, 68, 0.5);
+  font-family: monospace;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  transition: all 0.2s ease;
+  
+  /* Pulsing animation for maximum visibility */
+  animation: devButtonPulse 2s ease-in-out infinite;
+}
+
+.devQuestionnaireFixed:hover {
+  background: #ff0000 !important;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(255, 0, 0, 0.6);
+}
+
+/* Fixed development questionnaire button in bottom-right */
+.devQuestionnaireFixed {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: #ff6b6b;
+  color: white;
+  border: 2px solid #ff5252;
+  border-radius: 8px;
+  padding: 10px 16px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  cursor: pointer;
+  z-index: 1000;
+  box-shadow: 0 4px 12px rgba(255, 107, 107, 0.3);
+  font-family: monospace;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  transition: all 0.2s ease;
+  animation: devButtonPulse 1s ease-in-out infinite;
+}
+
+.devQuestionnaireFixed:hover {
+  background: #ff5252;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(255, 107, 107, 0.4);
+  animation: none;
+}
+
+.devQuestionnaireFixed:active {
+  transform: translateY(0);
 }
 
 .devButtonContent {
@@ -509,10 +633,11 @@
 /* FOOTER SECTION - GOVERNMENT LICENSED */
 .welcomeFooter {
   flex: 0 0 auto;
+  flex-shrink: 0; /* NEVER let footer shrink */
   display: flex;
   justify-content: center;
   align-items: center;
-  padding-top: clamp(0.75rem, 2vh, 1.5rem);
+  padding: clamp(0.25rem, 1vh, 0.5rem) 0; /* COMPRESSED padding */
   opacity: 0;
   transform: translateY(20px);
   margin-top: auto;
@@ -524,7 +649,7 @@
   font-family: Arial, sans-serif;
   font-size: clamp(12px, 3vw, 14px);
   font-weight: 500;
-  color: #005ea5;
+  color: #9CA3AF; /* Changed from blue to grey */
   text-decoration: underline;
   text-underline-offset: 3px;
   cursor: pointer;
@@ -553,7 +678,7 @@
 
 .governmentLicensedButton:hover {
   background-color: rgba(230, 194, 0, 0.1);
-  color: #E6C200;
+  color: #E6C200; /* Keep gold hover effect */
   transform: translateY(-1px);
   box-shadow: 0 2px 8px rgba(230, 194, 0, 0.2);
 }
@@ -824,17 +949,80 @@
   }
 }
 
-@keyframes checkmarkDraw {
+@keyframes pulse {
   0% {
-    stroke-dashoffset: 100;
-    opacity: 0;
+    transform: scale(1);
+    opacity: 1;
   }
   50% {
-    opacity: 1;
+    transform: scale(1.1);
+    opacity: 0.8;
   }
   100% {
-    stroke-dashoffset: 0;
+    transform: scale(1);
     opacity: 1;
+  }
+}
+
+@keyframes logoReveal {
+  0% {
+    opacity: 0;
+    transform: scale(0.5) rotate(-10deg);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scale(1.1) rotate(5deg);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+  }
+}
+
+@keyframes slideInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes subtlePulse {
+  0%, 100% { 
+    opacity: 1; 
+  }
+  50% { 
+    opacity: 0.7; 
+  }
+}
+
+@keyframes slideInFromLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes gentlePulse {
+  0%, 100% { 
+    opacity: 1; 
+  }
+  50% { 
+    opacity: 0.8; 
   }
 }
 
@@ -854,6 +1042,136 @@
   
   .tagline {
     font-size: clamp(0.75rem, 2.5vw, 1rem);
+  }
+}
+
+/* VIEWPORT HEIGHT MANAGEMENT - CRITICAL FOR NO SCROLLING */
+@media (max-height: 700px) {
+  .welcomeContainer {
+    padding: clamp(0.5rem, 2vh, 1rem) clamp(1rem, 4vw, 2rem) clamp(0.25rem, 1vh, 0.5rem);
+  }
+  
+  .welcomeContent {
+    margin: clamp(0.5rem, 1.5vh, 1rem) 0 clamp(0.5rem, 1.5vh, 1rem) 0;
+  }
+  
+  .features {
+    gap: clamp(2px, 0.8vh, 6px);
+  }
+  
+  .authButtons {
+    gap: clamp(0.375rem, 1.2vh, 0.625rem);
+  }
+  
+  .welcomeTitle {
+    font-size: clamp(1.25rem, 4.5vw, 1.75rem);
+  }
+  
+  .tagline {
+    font-size: clamp(0.6875rem, 2.2vw, 0.875rem);
+  }
+}
+
+@media (max-height: 600px) {
+  .welcomeContainer {
+    padding: clamp(0.375rem, 1.5vh, 0.75rem) clamp(1rem, 4vw, 2rem) clamp(0.25rem, 1vh, 0.375rem);
+  }
+  
+  .orbitalRing {
+    width: clamp(50px, 12vw, 70px);
+    height: clamp(50px, 12vw, 70px);
+  }
+  
+  .welcomeTitle {
+    font-size: clamp(1.125rem, 4vw, 1.5rem);
+    margin: clamp(0.125rem, 0.8vh, 0.375rem) 0;
+  }
+  
+  .tagline {
+    font-size: clamp(0.625rem, 2vw, 0.8125rem);
+  }
+  
+  .featureTitleOnly {
+    font-size: 0.75rem; /* Horizontal layout optimized size */
+    line-height: 1.2;
+  }
+  
+  .featureSubtitle {
+    font-size: 0.65rem; /* Compressed for better fit */
+  }
+  
+  .features {
+    gap: clamp(1px, 0.6vh, 4px); /* Even more compressed gap */
+  }
+  
+  .feature {
+    padding: clamp(2px, 0.8vh, 4px); /* Compressed padding */
+  }
+  
+  .authButtons {
+    gap: clamp(0.25rem, 1vh, 0.5rem);
+    margin-bottom: clamp(0.25rem, 1vh, 0.5rem);
+  }
+  
+  .divider {
+    margin: clamp(0.25rem, 1vh, 0.5rem) 0;
+  }
+}
+
+@media (max-height: 568px) {
+  /* iPhone SE and similar short screens */
+  .welcomeContainer {
+    padding: 0.5rem 1rem 0.25rem;
+  }
+  
+  .logoContainer {
+    margin-bottom: 0.25rem;
+  }
+  
+  .welcomeTitle {
+    font-size: 1.125rem;
+    margin: 0.125rem 0;
+  }
+  
+  .tagline {
+    font-size: 0.625rem;
+    margin-bottom: 0.25rem;
+  }
+  
+  .welcomeContent {
+    margin: 0.5rem 0;
+  }
+  
+  .features {
+    gap: 3px; /* Increased gap even on shortest screens */
+  }
+  
+  .feature {
+    padding: 2px 4px; /* More padding */
+  }
+  
+  .featureTitleOnly {
+    font-size: 0.75rem; /* Keep larger font on very short screens */
+    line-height: 1.15;
+  }
+  
+  .featureSubtitle {
+    font-size: 0.625rem; /* Keep readable size */
+    margin: 1px 0 0 0;
+  }
+  
+  .authButtons {
+    gap: 0.375rem;
+    margin-bottom: 0.375rem;
+  }
+  
+  .divider {
+    margin: 0.375rem 0;
+  }
+  
+  .governmentLicensedButton {
+    font-size: 11px;
+    padding: 6px 16px;
   }
 }
 

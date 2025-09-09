@@ -1,0 +1,214 @@
+/* Conversion Psychology Optimization Styles */
+
+.conversionContainer {
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+  border: 1px solid rgba(255, 215, 0, 0.2);
+  border-radius: 12px;
+  padding: 16px;
+  margin: 16px 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.conversionContainer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #FFD700, transparent);
+  animation: shimmer 3s infinite;
+}
+
+@keyframes shimmer {
+  0% { left: -100%; }
+  100% { left: 100%; }
+}
+
+.scarcityMessage {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.scarcityIcon {
+  width: 20px;
+  height: 20px;
+  color: #FF6B6B;
+  flex-shrink: 0;
+}
+
+.scarcityText {
+  color: #e0e0e0;
+  font-size: 14px;
+  font-weight: 500;
+  margin: 0;
+}
+
+.scarcityHighlight {
+  color: #FFD700;
+  font-weight: 600;
+}
+
+.investmentTrigger {
+  background: rgba(255, 215, 0, 0.1);
+  border: 1px solid rgba(255, 215, 0, 0.3);
+  border-radius: 8px;
+  padding: 12px;
+  margin: 12px 0;
+}
+
+.investmentTitle {
+  color: #FFD700;
+  font-size: 14px;
+  font-weight: 600;
+  margin: 0 0 6px 0;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.investmentIcon {
+  width: 16px;
+  height: 16px;
+}
+
+.investmentText {
+  color: #e0e0e0;
+  font-size: 13px;
+  line-height: 1.4;
+  margin: 0;
+}
+
+.socialValidation {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 12px;
+  background: rgba(76, 175, 80, 0.1);
+  border: 1px solid rgba(76, 175, 80, 0.3);
+  border-radius: 8px;
+  margin: 10px 0;
+}
+
+.validationIcon {
+  width: 18px;
+  height: 18px;
+  color: #4CAF50;
+  flex-shrink: 0;
+}
+
+.validationText {
+  color: #e0e0e0;
+  font-size: 13px;
+  font-weight: 500;
+  margin: 0;
+}
+
+.urgencyCountdown {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: linear-gradient(90deg, rgba(255, 107, 107, 0.1), rgba(255, 215, 0, 0.1));
+  border: 1px solid rgba(255, 107, 107, 0.3);
+  border-radius: 8px;
+  padding: 12px;
+  margin: 12px 0;
+}
+
+.urgencyContent {
+  flex: 1;
+}
+
+.urgencyTitle {
+  color: #FF6B6B;
+  font-size: 14px;
+  font-weight: 600;
+  margin: 0 0 4px 0;
+}
+
+.urgencySubtitle {
+  color: #e0e0e0;
+  font-size: 12px;
+  margin: 0;
+}
+
+.countdown {
+  background: rgba(255, 107, 107, 0.2);
+  border-radius: 6px;
+  padding: 8px 12px;
+  min-width: 60px;
+  text-align: center;
+}
+
+.countdownTime {
+  color: #FFD700;
+  font-size: 16px;
+  font-weight: 700;
+  margin: 0;
+  font-family: 'Courier New', monospace;
+}
+
+.countdownLabel {
+  color: #e0e0e0;
+  font-size: 10px;
+  font-weight: 500;
+  margin: 2px 0 0 0;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 480px) {
+  .conversionContainer {
+    margin: 12px 0;
+    padding: 14px;
+  }
+  
+  .scarcityText,
+  .investmentText,
+  .validationText {
+    font-size: 13px;
+  }
+  
+  .investmentTitle {
+    font-size: 13px;
+  }
+  
+  .urgencyCountdown {
+    flex-direction: column;
+    gap: 8px;
+    text-align: center;
+  }
+  
+  .countdown {
+    width: 100%;
+    max-width: 120px;
+  }
+}
+
+/* Animation for countdown */
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+.countdown.urgent {
+  animation: pulse 1s infinite;
+  border: 1px solid rgba(255, 107, 107, 0.5);
+}
+
+/* Hover effects for interactive elements */
+.conversionContainer:hover {
+  border-color: rgba(255, 215, 0, 0.4);
+  transform: translateY(-1px);
+  transition: all 0.3s ease;
+}
+
+.investmentTrigger:hover {
+  background: rgba(255, 215, 0, 0.15);
+  border-color: rgba(255, 215, 0, 0.4);
+  transition: all 0.3s ease;
+}

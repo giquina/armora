@@ -1,0 +1,409 @@
+/* Armora Security Transport - Premium 4D Logo System */
+/* Advanced CSS effects establishing sophisticated brand identity */
+
+.armoraLogo4d {
+  position: relative;
+  display: inline-block;
+  perspective: 1000px;
+  transform-style: preserve-3d;
+  --logo-scale: 1;
+  --orbit-scale: 1;
+  --primary-gold: #FFD700;
+  --secondary-gold: #FFA500;
+  --accent-gold: #FF8C00;
+  --dark-navy: #1a1a2e;
+  --glass-white: rgba(255, 255, 255, 0.8);
+}
+
+/* SHIELD CONTAINER WITH 4D DEPTH */
+.shieldContainer {
+  position: relative;
+  width: calc(120px * var(--logo-scale));
+  height: calc(140px * var(--logo-scale));
+  transform-style: preserve-3d;
+  animation: logoFloat 6s ease-in-out infinite;
+}
+
+/* MULTI-LAYER DEPTH SYSTEM */
+.shieldShadowLayer {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(ellipse at center, rgba(0,0,0,0.4) 0%, transparent 70%);
+  transform: translateZ(-50px) scale(1.2);
+  filter: blur(10px);
+}
+
+.shieldDepthLayer3 {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(145deg, rgba(255,215,0,0.1), rgba(255,140,0,0.1));
+  clip-path: polygon(50% 0%, 85% 25%, 85% 75%, 50% 100%, 15% 75%, 15% 25%);
+  transform: translateZ(-30px);
+  animation: depthPulse 4s ease-in-out infinite;
+  --z-depth: -30px;
+}
+
+.shieldDepthLayer2 {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(145deg, rgba(255,215,0,0.2), rgba(255,140,0,0.2));
+  clip-path: polygon(50% 0%, 85% 25%, 85% 75%, 50% 100%, 15% 75%, 15% 25%);
+  transform: translateZ(-20px);
+  animation: depthPulse 4s ease-in-out infinite 0.5s;
+  --z-depth: -20px;
+}
+
+.shieldDepthLayer1 {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(145deg, rgba(255,215,0,0.3), rgba(255,140,0,0.3));
+  clip-path: polygon(50% 0%, 85% 25%, 85% 75%, 50% 100%, 15% 75%, 15% 25%);
+  transform: translateZ(-10px);
+  animation: depthPulse 4s ease-in-out infinite 1s;
+  --z-depth: -10px;
+}
+
+/* PREMIUM METALLIC SHIELD BODY */
+.shieldMain {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  clip-path: polygon(50% 0%, 85% 25%, 85% 75%, 50% 100%, 15% 75%, 15% 25%);
+  transform: translateZ(0px);
+  overflow: hidden;
+}
+
+.shieldBaseMetallic {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: 
+    linear-gradient(145deg, var(--primary-gold) 0%, var(--secondary-gold) 25%, var(--accent-gold) 50%, var(--primary-gold) 75%, var(--secondary-gold) 100%),
+    radial-gradient(circle at 30% 30%, rgba(255,255,255,0.4) 0%, transparent 50%),
+    radial-gradient(circle at 70% 70%, rgba(255,255,255,0.2) 0%, transparent 40%);
+  background-size: 100% 100%, 50% 50%, 30% 30%;
+  animation: metallicShimmer 8s ease-in-out infinite;
+}
+
+.shieldGlassOverlay {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: 
+    linear-gradient(135deg, 
+      rgba(255,255,255,0.3) 0%, 
+      transparent 30%, 
+      transparent 70%, 
+      rgba(255,255,255,0.1) 100%
+    );
+  animation: glassReflection 6s ease-in-out infinite;
+}
+
+/* SHIELD EMBLEM AREA */
+.shieldEmblemArea {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 60%;
+  height: 60%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* PREMIUM 3D LETTER "A" */
+.letterA3d {
+  position: relative;
+  perspective: 500px;
+  transform-style: preserve-3d;
+  transform: translateZ(20px);
+}
+
+.letterFront {
+  font-size: calc(3.5rem * var(--logo-scale));
+  font-weight: 900;
+  color: var(--dark-navy);
+  text-shadow: 
+    0 0 10px rgba(255,255,255,0.8),
+    0 4px 8px rgba(0,0,0,0.3);
+  transform: translateZ(10px);
+  animation: letterGlow 3s ease-in-out infinite alternate;
+  line-height: 1;
+  font-family: 'Arial Black', sans-serif;
+}
+
+.letterBevel {
+  position: absolute;
+  top: 0;
+  left: 0;
+  font-size: calc(3.5rem * var(--logo-scale));
+  font-weight: 900;
+  color: #333;
+  transform: translateZ(-5px) translateX(3px) translateY(3px);
+  opacity: 0.6;
+  line-height: 1;
+  font-family: 'Arial Black', sans-serif;
+}
+
+.letterShadow {
+  position: absolute;
+  top: 0;
+  left: 0;
+  font-size: calc(3.5rem * var(--logo-scale));
+  font-weight: 900;
+  color: rgba(0,0,0,0.4);
+  transform: translateZ(-15px) translateX(6px) translateY(6px);
+  filter: blur(4px);
+  line-height: 1;
+  font-family: 'Arial Black', sans-serif;
+}
+
+/* SECURITY CIRCUIT PATTERNS */
+.securityCircuits {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  opacity: 0.6;
+  animation: circuitFlow 12s linear infinite;
+}
+
+.circuitPattern {
+  width: 100%;
+  height: 100%;
+  stroke: rgba(255,215,0,0.7);
+  stroke-width: 1;
+  fill: none;
+  animation: circuitPulse 2s ease-in-out infinite;
+}
+
+/* HOLOGRAPHIC SECURITY STRIPS */
+.holographicStrips {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: 
+    repeating-linear-gradient(
+      45deg,
+      transparent 0px,
+      transparent 8px,
+      rgba(255,215,0,0.1) 8px,
+      rgba(255,215,0,0.1) 16px
+    );
+  animation: holographicShift 4s linear infinite;
+}
+
+/* DYNAMIC ORBITAL RINGS */
+.orbitalSystem {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+.orbitRing1 {
+  position: absolute;
+  width: calc(140px * var(--orbit-scale));
+  height: calc(140px * var(--orbit-scale));
+  border: 2px solid rgba(255,215,0,0.6);
+  border-radius: 50%;
+  border-top-color: rgba(255,215,0,1);
+  border-right-color: transparent;
+  transform: translate(-50%, -50%) rotateX(60deg);
+  animation: orbitRotation 8s linear infinite;
+  --x-rotation: 60deg;
+}
+
+.orbitRing2 {
+  position: absolute;
+  width: calc(180px * var(--orbit-scale));
+  height: calc(180px * var(--orbit-scale));
+  border: 2px solid rgba(255,215,0,0.4);
+  border-radius: 50%;
+  border-bottom-color: rgba(255,215,0,0.8);
+  border-left-color: transparent;
+  transform: translate(-50%, -50%) rotateX(30deg);
+  animation: orbitRotation 12s linear infinite reverse;
+  --x-rotation: 30deg;
+}
+
+.orbitRing3 {
+  position: absolute;
+  width: calc(220px * var(--orbit-scale));
+  height: calc(220px * var(--orbit-scale));
+  border: 2px solid rgba(255,215,0,0.3);
+  border-radius: 50%;
+  border-right-color: rgba(255,215,0,0.6);
+  border-top-color: transparent;
+  transform: translate(-50%, -50%) rotateX(45deg);
+  animation: orbitRotation 16s linear infinite;
+  --x-rotation: 45deg;
+}
+
+/* ENERGY FIELD EFFECT */
+.energyField {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle at center,
+    rgba(255,215,0,0.2) 0%,
+    rgba(255,215,0,0.1) 30%,
+    transparent 60%
+  );
+  animation: energyPulse 3s ease-in-out infinite;
+}
+
+/* KEYFRAME ANIMATIONS */
+@keyframes logoFloat {
+  0%, 100% { transform: translateY(0px) rotateY(0deg); }
+  25% { transform: translateY(-10px) rotateY(5deg); }
+  50% { transform: translateY(0px) rotateY(0deg); }
+  75% { transform: translateY(-5px) rotateY(-5deg); }
+}
+
+@keyframes depthPulse {
+  0%, 100% { opacity: 0.6; transform: translateZ(var(--z-depth)) scale(1); }
+  50% { opacity: 1; transform: translateZ(var(--z-depth)) scale(1.05); }
+}
+
+@keyframes metallicShimmer {
+  0%, 100% { background-position: 0% 0%, 0% 0%, 0% 0%; }
+  50% { background-position: 100% 100%, 100% 100%, 100% 100%; }
+}
+
+@keyframes glassReflection {
+  0%, 100% { opacity: 0.8; transform: translateX(-20px); }
+  50% { opacity: 1; transform: translateX(20px); }
+}
+
+@keyframes letterGlow {
+  0% { text-shadow: 0 0 10px rgba(255,255,255,0.8), 0 4px 8px rgba(0,0,0,0.3); }
+  100% { text-shadow: 0 0 20px rgba(255,215,0,1), 0 4px 12px rgba(0,0,0,0.5); }
+}
+
+@keyframes circuitFlow {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes circuitPulse {
+  0%, 100% { stroke-opacity: 0.6; }
+  50% { stroke-opacity: 1; }
+}
+
+@keyframes holographicShift {
+  0% { background-position: 0px 0px; }
+  100% { background-position: 20px 20px; }
+}
+
+@keyframes orbitRotation {
+  0% { transform: translate(-50%, -50%) rotateX(var(--x-rotation)) rotateZ(0deg); }
+  100% { transform: translate(-50%, -50%) rotateX(var(--x-rotation)) rotateZ(360deg); }
+}
+
+@keyframes energyPulse {
+  0%, 100% { transform: scale(1); opacity: 0.6; }
+  50% { transform: scale(1.2); opacity: 1; }
+}
+
+/* SIZE VARIANTS */
+.small { 
+  --logo-scale: 0.7; 
+  --orbit-scale: 0.8;
+}
+
+.medium { 
+  --logo-scale: 1; 
+  --orbit-scale: 1;
+}
+
+.large { 
+  --logo-scale: 1.3; 
+  --orbit-scale: 1.2;
+}
+
+.hero { 
+  --logo-scale: 1.8; 
+  --orbit-scale: 1.5;
+}
+
+/* VARIANT ADJUSTMENTS */
+.compact .orbitalSystem {
+  display: none;
+}
+
+.compact .energyField {
+  opacity: 0.3;
+}
+
+.minimal .securityCircuits,
+.minimal .holographicStrips,
+.minimal .orbitalSystem {
+  display: none;
+}
+
+.minimal .energyField {
+  opacity: 0.2;
+}
+
+.animated .shieldContainer {
+  animation: logoFloat 4s ease-in-out infinite, spin 20s linear infinite;
+}
+
+.monochrome {
+  filter: grayscale(100%);
+}
+
+.monochrome .shieldBaseMetallic {
+  background: 
+    linear-gradient(145deg, #e0e0e0 0%, #c0c0c0 25%, #a0a0a0 50%, #e0e0e0 75%, #c0c0c0 100%);
+}
+
+.interactive {
+  transition: transform 0.3s ease;
+  cursor: pointer;
+}
+
+.interactive:hover {
+  transform: scale(1.1);
+}
+
+.interactive:hover .shieldContainer {
+  animation-play-state: paused;
+}
+
+.interactive:hover .orbitRing1,
+.interactive:hover .orbitRing2,
+.interactive:hover .orbitRing3 {
+  animation-duration: 2s;
+}
+
+/* MOBILE OPTIMIZATIONS */
+@media (max-width: 480px) {
+  .armoraLogo4d {
+    --logo-scale: 0.8;
+    --orbit-scale: 0.9;
+  }
+  
+  .orbitRing1, .orbitRing2, .orbitRing3 {
+    border-width: 1px;
+  }
+  
+  .letterFront, .letterBevel, .letterShadow {
+    font-size: calc(2.8rem * var(--logo-scale));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .armoraLogo4d * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}

@@ -4,7 +4,7 @@ import { Button } from '../UI/Button';
 import { AnimatedTitle } from '../UI/AnimatedTitle';
 import SeasonalTheme from '../UI/SeasonalTheme';
 import GoogleIcon from '../UI/GoogleIcon';
-import { Logo } from '../UI/Logo';
+import { ArmoraLogo } from '../UI/ArmoraLogo';
 import { CredentialsModal } from '../UI/CredentialsModal';
 import styles from './WelcomePage.module.css';
 
@@ -14,19 +14,27 @@ export function WelcomePage() {
   const [showContent, setShowContent] = useState(false);
   const [showCredentialsModal, setShowCredentialsModal] = useState(false);
 
-  // Development environment detection
+  // Development environment detection - ALWAYS SHOW IN DEV
   const isDevelopment = process.env.NODE_ENV === 'development';
-  const showDevButton = isDevelopment && (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1');
+  const showDevButton = isDevelopment; // Always show if development mode
 
   useEffect(() => {
     const featureTimer = setTimeout(() => setShowFeatures(true), 900);
     const contentTimer = setTimeout(() => setShowContent(true), 1100);
     
+    // Debug development button visibility
+    console.log('WelcomePage Debug:', { 
+      isDevelopment, 
+      showDevButton, 
+      nodeEnv: process.env.NODE_ENV,
+      hostname: window.location.hostname 
+    });
+    
     return () => {
       clearTimeout(featureTimer);
       clearTimeout(contentTimer);
     };
-  }, []);
+  }, [isDevelopment, showDevButton]);
 
   // Development-only function to skip to dashboard with mock data
   const handleDevSkipToDashboard = () => {
@@ -76,16 +84,14 @@ export function WelcomePage() {
 
   return (
     <SeasonalTheme className={styles.welcomePage}>
-      
       <div className={styles.welcomeContainer}>
         {/* Header Section */}
         <header className={styles.welcomeHeader}>
-          <Logo 
-            size="lg"
-            showOrbital={true}
-            animated={true}
-            clickable={true}
-            enhanced3D={true}
+          <ArmoraLogo 
+            size="large"
+            variant="full"
+            showOrbits={true}
+            interactive={true}
             className={styles.logoContainer}
           />
           
@@ -107,48 +113,55 @@ export function WelcomePage() {
           <div className={`${styles.features} ${showFeatures ? styles.featuresVisible : ''}`}>
             <div className={styles.feature} style={{ animationDelay: '0ms', '--delay': 0 } as React.CSSProperties}>
               <div className={styles.featureContent}>
-                <svg className={styles.checkmarkIcon} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3">
-                  <path d="M20 6L9 17l-5-5" className={styles.checkmarkPath} />
+                <svg className={styles.featureLogo} viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12 2L4 7V14C4 19 12 22 12 22S20 19 20 14V7L12 2Z" />
+                  <path d="M10 14L8 12L9.5 10.5L10 11L14.5 6.5L16 8L10 14Z" />
                 </svg>
                 <div className={styles.featureText}>
                   <h3 className={styles.featureTitleOnly}>Government-Licensed Security Taxi Drivers</h3>
-                  <p className={styles.featureSubtitle}>Professional taxi drivers with close protection training and background checks</p>
+                  <p className={styles.featureSubtitle}>SIA-certified drivers with enhanced background screening</p>
                 </div>
               </div>
             </div>
             
             <div className={styles.feature} style={{ animationDelay: '100ms', '--delay': 1 } as React.CSSProperties}>
               <div className={styles.featureContent}>
-                <svg className={styles.checkmarkIcon} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3">
-                  <path d="M20 6L9 17l-5-5" className={styles.checkmarkPath} />
+                <svg className={styles.featureLogo} viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M18.92 6.01C18.72 5.42 18.16 5 17.5 5H6.5C5.84 5 5.28 5.42 5.08 6.01L3 12V20C3 20.55 3.45 21 4 21H5C5.55 21 6 20.55 6 20V19H18V20C18 20.55 18.45 21 19 21H20C20.55 21 21 20.55 21 20V12L18.92 6.01Z"/>
+                  <circle cx="7.5" cy="16.5" r="1.5"/>
+                  <circle cx="16.5" cy="16.5" r="1.5"/>
+                  <path d="M12 8L10 10L14 14L12 16" stroke="currentColor" strokeWidth="1" fill="none"/>
                 </svg>
                 <div className={styles.featureText}>
                   <h3 className={styles.featureTitleOnly}>Secure Private Hire Transport</h3>
-                  <p className={styles.featureSubtitle}>Licensed private hire service with enhanced safety protocols and threat awareness</p>
+                  <p className={styles.featureSubtitle}>Licensed transport with enhanced safety protocols</p>
                 </div>
               </div>
             </div>
             
             <div className={styles.feature} style={{ animationDelay: '200ms', '--delay': 2 } as React.CSSProperties}>
               <div className={styles.featureContent}>
-                <svg className={styles.checkmarkIcon} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3">
-                  <path d="M20 6L9 17l-5-5" className={styles.checkmarkPath} />
+                <svg className={styles.featureLogo} viewBox="0 0 24 24" fill="currentColor">
+                  <circle cx="12" cy="12" r="10"/>
+                  <polyline points="12,6 12,12 16,14" stroke="white" strokeWidth="2" fill="none"/>
+                  <text x="12" y="4" textAnchor="middle" fontSize="3" fill="currentColor">24/7</text>
                 </svg>
                 <div className={styles.featureText}>
                   <h3 className={styles.featureTitleOnly}>24/7 Protection Booking</h3>
-                  <p className={styles.featureSubtitle}>Instant taxi booking with security-conscious drivers available anytime</p>
+                  <p className={styles.featureSubtitle}>Instant booking with security-conscious drivers available anytime</p>
                 </div>
               </div>
             </div>
             
             <div className={styles.feature} style={{ animationDelay: '300ms', '--delay': 3 } as React.CSSProperties}>
               <div className={styles.featureContent}>
-                <svg className={styles.checkmarkIcon} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3">
-                  <path d="M20 6L9 17l-5-5" className={styles.checkmarkPath} />
+                <svg className={styles.featureLogo} viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M5 16L3 7L7 10L12 6L17 10L21 7L19 16H5Z"/>
+                  <text x="12" y="20" textAnchor="middle" fontSize="3" fill="currentColor">VIP</text>
                 </svg>
                 <div className={styles.featureText}>
                   <h3 className={styles.featureTitleOnly}>Discrete Professional Service</h3>
-                  <p className={styles.featureSubtitle}>VIP-level service standards with confidential transport protocols</p>
+                  <p className={styles.featureSubtitle}>VIP-level confidential transport standards</p>
                 </div>
               </div>
             </div>
@@ -235,6 +248,22 @@ export function WelcomePage() {
               </span>
             </Button>
           )}
+
+          {/* Development-only questionnaire button */}
+          {showDevButton && (
+            <Button
+              variant="ghost"
+              size="md"
+              isFullWidth
+              onClick={() => navigateToView('questionnaire')}
+              className={styles.devQuestionnaireButton}
+            >
+              <span className={styles.devButtonContent}>
+                <span>📝 TEST QUESTIONNAIRE</span>
+                <span className={styles.devNote}>(DEVELOPMENT ONLY)</span>
+              </span>
+            </Button>
+          )}
         </section>
 
         {/* Footer - Single Government Licensed Text */}
@@ -254,6 +283,33 @@ export function WelcomePage() {
         isOpen={showCredentialsModal}
         onClose={() => setShowCredentialsModal(false)}
       />
+
+      {/* SUPER VISIBLE RED DEVELOPMENT BUTTON */}
+      {showDevButton && (
+        <div
+          style={{
+            position: 'fixed',
+            bottom: '20px',
+            right: '20px',
+            zIndex: 99999,
+            backgroundColor: '#ff0000',
+            color: 'white',
+            padding: '15px 20px',
+            borderRadius: '8px',
+            fontSize: '14px',
+            fontWeight: 'bold',
+            cursor: 'pointer',
+            boxShadow: '0 4px 20px rgba(255, 0, 0, 0.6)',
+            border: '3px solid #ffffff',
+            fontFamily: 'monospace',
+            animation: 'pulse 1s infinite'
+          }}
+          onClick={() => navigateToView('questionnaire')}
+        >
+          🔴 TEST QUESTIONNAIRE 🔴
+        </div>
+      )}
+      
     </SeasonalTheme>
   );
 }

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { QuestionnaireStep as IQuestionnaireStep, QuestionnaireOption } from '../../types';
+import { QuestionnaireStep as IQuestionnaireStep, QuestionnaireOption, DynamicQuestionContent } from '../../types';
+import { getDynamicQuestionContent, getRealtimeRecommendations } from '../../data/questionnaireData';
 import styles from './QuestionnaireStep.module.css';
 
 interface QuestionnaireStepProps {
@@ -11,6 +12,8 @@ interface QuestionnaireStepProps {
   onConversionPromptResponse?: (shouldConvert: boolean) => void;
   isFirstStep?: boolean;
   isLastStep?: boolean;
+  userResponses?: Record<string, any>;
+  currentStepNumber?: number;
 }
 
 export function QuestionnaireStep({
@@ -21,7 +24,9 @@ export function QuestionnaireStep({
   showConversionPrompt,
   onConversionPromptResponse,
   isFirstStep,
-  isLastStep
+  isLastStep,
+  userResponses = {},
+  currentStepNumber = 1
 }: QuestionnaireStepProps) {
   // const { state } = useApp(); // Available for future features if needed
   // const { user } = state;
@@ -32,6 +37,12 @@ export function QuestionnaireStep({
   const [textValue, setTextValue] = useState<string>('');
   const [errors, setErrors] = useState<string[]>([]);
   const [isAnimatingIn, setIsAnimatingIn] = useState(true);
+  const [showExamples, setShowExamples] = useState<Record<string, boolean>>({});
+  const [showUncertaintyHelp, setShowUncertaintyHelp] = useState(false);
+  
+  // Get dynamic content and real-time recommendations
+  const dynamicContent: DynamicQuestionContent = getDynamicQuestionContent(step.id, userResponses);
+  const recommendations = currentStepNumber >= 2 ? getRealtimeRecommendations(userResponses) : null;
 
   // Initialize values from current value
   useEffect(() => {
@@ -170,11 +181,20 @@ export function QuestionnaireStep({
     onComplete(step.id, value);
   };
 
-  // Render options for radio/checkbox/select
-  const renderOptions = () => {
-    if (!step.options) return null;
+  // Toggle examples visibility
+  const toggleExamples = (optionId: string) => {
+    setShowExamples(prev => ({
+      ...prev,
+      [optionId]: !prev[optionId]
+    }));
+  };
 
-    return step.options.map((option: QuestionnaireOption) => {
+  // Render enhanced options with examples and help
+  const renderOptions = () => {
+    const optionsToRender = step.id === 2 && dynamicContent.options.length > 0 ? dynamicContent.options : step.options;
+    if (!optionsToRender) return null;
+
+    return optionsToRender.map((option: QuestionnaireOption & { examples?: string; helpText?: string }) => {
       if (step.type === 'radio') {
         return (
           <label key={option.id} className={styles.option}>
@@ -190,9 +210,40 @@ export function QuestionnaireStep({
               <div className={styles.optionHeader}>
                 {option.icon && <span className={styles.optionIcon}>{option.icon}</span>}
                 <span className={styles.optionLabel}>{option.label}</span>
+                {option.helpText && (
+                  <button 
+                    type="button"
+                    className={styles.helpButton}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      alert(option.helpText);
+                    }}
+                  >
+                    ?
+                  </button>
+                )}
               </div>
               {option.description && (
                 <p className={styles.optionDescription}>{option.description}</p>
+              )}
+              {option.examples && (
+                <div className={styles.examplesSection}>
+                  <button 
+                    type="button"
+                    className={styles.showExamplesBtn}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      toggleExamples(option.id);
+                    }}
+                  >
+                    {showExamples[option.id] ? 'Hide examples' : 'See examples'}
+                  </button>
+                  {showExamples[option.id] && (
+                    <div className={styles.examplesContent}>
+                      <strong>Examples:</strong> {option.examples}
+                    </div>
+                  )}
+                </div>
               )}
             </div>
           </label>
@@ -282,6 +333,22 @@ export function QuestionnaireStep({
     }
   };
 
+  // Step-by-step guidance helper
+  const getStepGuidance = (stepId: number): string => {
+    const guidance: Record<number, string> = {
+      1: "Select the option that best matches your professional role. This helps us understand the level of discretion and security protocols required for your transport needs.",
+      2: "Consider your typical transport patterns. Regular users benefit from consistent security teams, while occasional users receive flexible on-demand protection.",
+      3: "Think about your specific security concerns or requirements. There are no wrong answers - this helps us match appropriate protection levels.",
+      4: "Choose the areas where you most frequently need transport. This helps us pre-position resources and establish secure routes.",
+      5: "Select any specialized locations you might need. Airport transfers and event venues require enhanced security protocols.",
+      6: "Provide an emergency contact following security industry best practices. This ensures rapid response in any situation.",
+      7: "Select any accommodations or special requirements. We ensure all passengers receive appropriate support for comfortable transport.",
+      8: "Choose how you'd like to receive updates. Clear communication is essential for effective security operations.",
+      9: "Review your complete security profile. This comprehensive assessment ensures we deliver the most appropriate protection service."
+    };
+    return guidance[stepId] || "Please complete this step to continue building your security profile.";
+  };
+
   // Render conversion prompt for guest users
   if (showConversionPrompt && step.showConversionPrompt && onConversionPromptResponse) {
     const prompt = step.showConversionPrompt;
@@ -325,20 +392,154 @@ export function QuestionnaireStep({
   return (
     <div className={`${styles.container} ${isAnimatingIn ? styles.animatingIn : ''}`}>
       <div className={styles.content}>
-        <header className={styles.header}>
-          <h1 className={styles.title}>{step.title}</h1>
-          {step.subtitle && <p className={styles.subtitle}>{step.subtitle}</p>}
-        </header>
+        {/* Enhanced Step 1 Introduction */}
+        {step.isFirstStep && step.processOverview ? (
+          <div className={styles.stepIntroComprehensive}>
+            <div className={styles.stepBadge}>
+              <span className={styles.shieldIcon}>🛡️</span>
+              <span>Step {step.id} of 9</span>
+            </div>
+            
+            <header className={styles.enhancedHeader}>
+              <h1 className={styles.titleEnhanced}>{step.title}</h1>
+              <h2 className={styles.subtitleEnhanced}>{step.subtitle}</h2>
+              
+              <div className={styles.whyQuestionnaire}>
+                <h3>Why This Assessment Matters</h3>
+                <p>{step.stepDescription}</p>
+              </div>
+              
+              <div className={styles.processOverview}>
+                <div className={styles.processBenefits}>
+                  <div className={styles.benefitItem}>
+                    <span className={styles.clockIcon}>⏱️</span>
+                    <span>Takes {step.processOverview.timeRequired}</span>
+                  </div>
+                  {step.processOverview.benefits.map((benefit, index) => (
+                    <div key={index} className={styles.benefitItem}>
+                      <span className={styles.checkIcon}>✓</span>
+                      <span>{benefit}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+              
+              <div className={styles.securityAssurance}>
+                <h4>Your Privacy & Security</h4>
+                <p>{step.processOverview.securityAssurance}</p>
+              </div>
+            </header>
+            
+            {/* Trust Indicators */}
+            <div className={styles.trustIndicators}>
+              <div className={styles.securityBadges}>
+                <div className={styles.badge}>
+                  <span>🛡️</span> SIA Licensed
+                </div>
+                <div className={styles.badge}>
+                  <span>🔒</span> 256-bit Encryption
+                </div>
+                <div className={styles.badge}>
+                  <span>🏆</span> Government Approved
+                </div>
+              </div>
+              
+              <div className={styles.dataUsageNote}>
+                <span>ℹ️</span>
+                <span>Your responses are used exclusively for security service matching and are never shared externally.</span>
+              </div>
+            </div>
+          </div>
+        ) : (
+          <header className={styles.header}>
+            <h1 className={styles.title}>{step.title}</h1>
+            {step.subtitle && <p className={styles.subtitle}>{step.subtitle}</p>}
+            
+            {/* Step Guidance for non-first steps */}
+            {step.stepDescription && (
+              <div className={styles.stepGuidance}>
+                <div className={styles.guidanceContent}>
+                  <h4>How This Step Helps:</h4>
+                  <p>{step.stepDescription}</p>
+                </div>
+              </div>
+            )}
+          </header>
+        )}
 
         <div className={styles.questionSection}>
           <h2 className={styles.question}>{step.question}</h2>
           {step.helpText && <p className={styles.helpText}>{step.helpText}</p>}
+          
+          {/* Step-by-step guidance for all steps */}
+          <div className={styles.stepInstructions}>
+            <div className={styles.instructionContent}>
+              <h4>How to Answer:</h4>
+              <p>{getStepGuidance(step.id)}</p>
+            </div>
+          </div>
         </div>
 
         <div className={styles.inputSection}>
           {step.type === 'radio' || step.type === 'checkbox' ? (
             <div className={styles.optionsContainer}>
               {renderOptions()}
+              
+              {/* Uncertainty Option */}
+              <div className={styles.uncertaintySection}>
+                <label className={`${styles.option} ${styles.uncertaintyOption}`}>
+                  <input
+                    type={step.type}
+                    name={`step-${step.id}`}
+                    value="not_sure"
+                    checked={step.type === 'radio' ? selectedValue === 'not_sure' : selectedValues.includes('not_sure')}
+                    onChange={() => step.type === 'radio' ? handleSingleSelect('not_sure') : handleMultiSelect('not_sure', true)}
+                    className={step.type === 'radio' ? styles.radioInput : styles.checkboxInput}
+                  />
+                  <div className={styles.optionContent}>
+                    <div className={styles.optionHeader}>
+                      <span className={styles.optionIcon}>❓</span>
+                      <span className={styles.optionLabel}>I'm not sure what applies to me</span>
+                    </div>
+                    <p className={styles.optionDescription}>
+                      Let our security specialists recommend based on professionals in similar roles
+                    </p>
+                  </div>
+                </label>
+                
+                {(selectedValue === 'not_sure' || selectedValues.includes('not_sure')) && (
+                  <div className={styles.uncertaintyHelp}>
+                    <div className={styles.helpOptions}>
+                      <button 
+                        type="button"
+                        className={styles.helpButton}
+                        onClick={() => setShowUncertaintyHelp(!showUncertaintyHelp)}
+                      >
+                        {showUncertaintyHelp ? 'Hide guidance' : 'Get personalized guidance'}
+                      </button>
+                      {showUncertaintyHelp && (
+                        <div className={styles.uncertaintyGuidance}>
+                          <h4>Let us help you choose</h4>
+                          <p>Based on your professional profile, here are typical scenarios:</p>
+                          {dynamicContent?.similarClients && dynamicContent.similarClients.length > 0 && (
+                            <div className={styles.similarClients}>
+                              {dynamicContent.similarClients.map((client, index) => (
+                                <div key={index} className={styles.clientExample}>
+                                  <div className={styles.clientType}>{client.type}</div>
+                                  <div className={styles.clientNeeds}>{client.needs}</div>
+                                  <div className={styles.recommendedService}>
+                                    <strong>Our solution:</strong> {client.service}
+                                  </div>
+                                </div>
+                              ))}
+                            </div>
+                          )}
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                )}
+              </div>
             </div>
           ) : step.type === 'select' ? (
             renderSelect()
@@ -346,6 +547,37 @@ export function QuestionnaireStep({
             renderTextInput()
           )}
         </div>
+
+        {/* Real-time Service Preview */}
+        {recommendations && currentStepNumber >= 2 && (
+          <div className={styles.servicePreviewPanel}>
+            <div className={styles.previewHeader}>
+              <h3>Your Profile So Far</h3>
+              <div className={styles.progressIndicator}>
+                {currentStepNumber}/9 steps complete ({recommendations.completionPercentage}%)
+              </div>
+            </div>
+            
+            <div className={styles.currentRecommendations}>
+              <div className={styles.serviceLevel}>
+                <strong>Recommended Service:</strong> {recommendations.recommendedService}
+              </div>
+              <div className={styles.costEstimate}>
+                <strong>Estimated Cost:</strong> {recommendations.estimatedCost}/hour
+              </div>
+              <div className={styles.driverMatch}>
+                <strong>Available Drivers:</strong> {recommendations.matchingDrivers} certified specialists in your area
+              </div>
+              <div className={styles.securityFeatures}>
+                <strong>Security Features:</strong> {recommendations.securityFeatures.join(', ')}
+              </div>
+            </div>
+            
+            <div className={styles.previewNote}>
+              <small>💡 This preview updates as you complete more steps</small>
+            </div>
+          </div>
+        )}
 
         {errors.length > 0 && (
           <div className={styles.errorContainer}>
@@ -387,7 +619,7 @@ export function QuestionnaireStep({
           disabled={!canProceed()}
           className={`${styles.button} ${styles.primaryButton}`}
         >
-          {isLastStep ? 'Complete Assessment' : 'Next →'}
+          {isLastStep ? 'Complete Security Assessment' : 'Next →'}
         </button>
       </div>
     </div>

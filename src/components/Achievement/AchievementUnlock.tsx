@@ -10,8 +10,9 @@ const AchievementUnlock: React.FC<AchievementUnlockProps> = ({
   onCreateAccountUpgrade
 }) => {
   const { state, setUser } = useApp();
-  const [animationStep, setAnimationStep] = useState<'entry' | 'reveal' | 'unlock' | 'reward' | 'details' | 'action'>('entry');
+  const [animationStep, setAnimationStep] = useState<'entry' | 'reveal' | 'unlock' | 'reward' | 'preview' | 'details' | 'action'>('entry');
   const [showConfetti, setShowConfetti] = useState(false);
+  const [showServicePreview, setShowServicePreview] = useState(false);
 
   // Generate reward data
   const rewardData: FirstRideReward = {
@@ -40,8 +41,9 @@ const AchievementUnlock: React.FC<AchievementUnlockProps> = ({
       { step: 'reveal', delay: 1000 },
       { step: 'unlock', delay: 2000 },
       { step: 'reward', delay: 3000 },
-      { step: 'details', delay: 4000 },
-      { step: 'action', delay: 5000 }
+      { step: 'preview', delay: 4000 },
+      { step: 'details', delay: 5000 },
+      { step: 'action', delay: 6000 }
     ];
 
     const timeouts = sequence.map(({ step, delay }) =>
@@ -57,6 +59,9 @@ const AchievementUnlock: React.FC<AchievementUnlockProps> = ({
             };
             setUser(updatedUser);
           }
+        }
+        if (step === 'preview') {
+          setShowServicePreview(true);
         }
       }, delay)
     );
@@ -189,6 +194,101 @@ const AchievementUnlock: React.FC<AchievementUnlockProps> = ({
           </div>
         </div>
 
+        {/* Service Preview Section */}
+        <div className={`${styles.servicePreviewSection} ${animationStep >= 'preview' ? styles.previewVisible : ''}`}>
+          <div className={styles.previewHeader}>
+            <h3 className={styles.previewTitle}>Your VIP Security Team Is Ready</h3>
+            <div className={styles.availabilityIndicator}>
+              <div className={styles.statusDot}></div>
+              <span>12 certified drivers available now</span>
+            </div>
+          </div>
+
+          <div className={styles.driversShowcase}>
+            <div className={styles.driverCard}>
+              <div className={styles.driverAvatar}>
+                <div className={styles.avatarImage}>👨‍💼</div>
+                <div className={styles.certificationBadge}>SIA</div>
+              </div>
+              <div className={styles.driverInfo}>
+                <div className={styles.driverName}>Marcus Johnson</div>
+                <div className={styles.driverTitle}>Executive Protection</div>
+                <div className={styles.responseTime}>4 min away</div>
+              </div>
+            </div>
+            
+            <div className={styles.driverCard}>
+              <div className={styles.driverAvatar}>
+                <div className={styles.avatarImage}>👩‍💼</div>
+                <div className={styles.certificationBadge}>SIA</div>
+              </div>
+              <div className={styles.driverInfo}>
+                <div className={styles.driverName}>Sarah Mitchell</div>
+                <div className={styles.driverTitle}>VIP Transport</div>
+                <div className={styles.responseTime}>6 min away</div>
+              </div>
+            </div>
+
+            <div className={styles.driverCard}>
+              <div className={styles.driverAvatar}>
+                <div className={styles.avatarImage}>👨‍💼</div>
+                <div className={styles.certificationBadge}>SIA</div>
+              </div>
+              <div className={styles.driverInfo}>
+                <div className={styles.driverName}>David Clark</div>
+                <div className={styles.driverTitle}>Close Protection</div>
+                <div className={styles.responseTime}>8 min away</div>
+              </div>
+            </div>
+          </div>
+
+          <div className={styles.pricingPreview}>
+            <h4 className={styles.pricingTitle}>Your Personalized VIP Pricing</h4>
+            <div className={styles.pricingGrid}>
+              <div className={styles.priceCard}>
+                <div className={styles.serviceType}>Standard</div>
+                <div className={styles.originalPrice}>£45/hr</div>
+                <div className={styles.discountedPrice}>£22.50/hr</div>
+                <div className={styles.saveAmount}>Save £22.50</div>
+              </div>
+              
+              <div className={`${styles.priceCard} ${styles.popular}`}>
+                <div className={styles.popularBadge}>Most Popular</div>
+                <div className={styles.serviceType}>Shadow</div>
+                <div className={styles.originalPrice}>£65/hr</div>
+                <div className={styles.discountedPrice}>£32.50/hr</div>
+                <div className={styles.saveAmount}>Save £32.50</div>
+              </div>
+              
+              <div className={styles.priceCard}>
+                <div className={styles.serviceType}>Executive</div>
+                <div className={styles.originalPrice}>£75/hr</div>
+                <div className={styles.discountedPrice}>£37.50/hr</div>
+                <div className={styles.saveAmount}>Save £37.50</div>
+              </div>
+            </div>
+          </div>
+
+          <div className={styles.socialProof}>
+            <div className={styles.trustStats}>
+              <div className={styles.statItem}>
+                <span className={styles.statNumber}>127</span>
+                <span className={styles.statLabel}>Fortune 500 Executives</span>
+              </div>
+              <div className={styles.statDivider}></div>
+              <div className={styles.statItem}>
+                <span className={styles.statNumber}>99.8%</span>
+                <span className={styles.statLabel}>Incident-Free Record</span>
+              </div>
+              <div className={styles.statDivider}></div>
+              <div className={styles.statItem}>
+                <span className={styles.statNumber}>8 min</span>
+                <span className={styles.statLabel}>Average Response</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
         {/* Action buttons */}
         <div className={`${styles.actionSection} ${animationStep >= 'action' ? styles.actionVisible : ''}`}>
           {isGuest ? (
@@ -200,9 +300,10 @@ const AchievementUnlock: React.FC<AchievementUnlockProps> = ({
               </div>
               <button
                 onClick={handleUpgrade}
-                className={`${styles.button} ${styles.primaryButton}`}
+                className={`${styles.button} ${styles.primaryButton} ${styles.pulsing}`}
               >
-                Create Account Now
+                <span className={styles.buttonText}>Secure Your 50% Discount</span>
+                <span className={styles.urgencyText}>Limited time offer</span>
               </button>
               <button
                 onClick={handleContinue}
@@ -214,9 +315,10 @@ const AchievementUnlock: React.FC<AchievementUnlockProps> = ({
           ) : (
             <button
               onClick={handleContinue}
-              className={`${styles.button} ${styles.primaryButton}`}
+              className={`${styles.button} ${styles.primaryButton} ${styles.pulsing}`}
             >
-              Continue to Dashboard
+              <span className={styles.buttonText}>Start Your VIP Experience</span>
+              <span className={styles.urgencyText}>Your drivers are waiting</span>
             </button>
           )}
         </div>

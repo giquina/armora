@@ -2,12 +2,13 @@
 
 .container {
   min-height: 100vh;
+  max-height: 100vh; /* FORCE viewport limit */
   display: flex;
   flex-direction: column;
   background: var(--bg-primary);
   color: var(--text-primary);
   width: 100%;
-  overflow-x: hidden;
+  overflow: hidden; /* PREVENT scrolling on container */
   animation: slideInRight 0.3s ease-out;
 }
 
@@ -28,66 +29,76 @@
 
 .content {
   flex: 1;
-  padding: 1rem;
+  padding: 1rem 1rem 0 1rem; /* Remove bottom padding */
   max-width: 100%;
   width: 100%;
+  overflow-y: auto; /* Allow scrolling within content area */
+  display: flex;
+  flex-direction: column;
 }
 
 .header {
   text-align: center;
-  margin-bottom: 2rem;
+  margin-bottom: 1rem; /* Reduced spacing */
+  flex-shrink: 0; /* Don't let header shrink */
 }
 
 .title {
-  font-size: 1.25rem;
+  font-size: 1.1rem; /* Smaller title */
   font-weight: 600;
   color: var(--accent-primary);
-  margin: 0 0 0.5rem 0;
+  margin: 0 0 0.25rem 0; /* Reduced margin */
 }
 
 .subtitle {
-  font-size: 0.9rem;
+  font-size: 0.85rem; /* Smaller subtitle */
   color: var(--text-secondary);
   margin: 0;
   font-weight: 400;
 }
 
 .questionSection {
-  margin-bottom: 2rem;
+  margin-bottom: 1rem; /* Reduced spacing */
+  flex-shrink: 0; /* Don't let shrink */
 }
 
 .question {
-  font-size: 1.1rem;
+  font-size: 1rem; /* Smaller question */
   font-weight: 500;
   color: var(--text-primary);
-  line-height: 1.4;
-  margin: 0 0 1rem 0;
+  line-height: 1.3; /* Tighter line height */
+  margin: 0 0 0.5rem 0; /* Reduced margin */
   text-align: left;
 }
 
 .helpText {
-  font-size: 0.85rem;
+  font-size: 0.8rem; /* Smaller help text */
   color: var(--text-secondary);
   margin: 0;
-  line-height: 1.4;
+  line-height: 1.3; /* Tighter line height */
 }
 
 .inputSection {
-  margin-bottom: 2rem;
+  flex: 1; /* Take available space */
+  margin-bottom: 1rem; /* Reduced spacing */
+  min-height: 0; /* Allow flex shrinking */
 }
 
 /* Options Container */
 .optionsContainer {
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
+  gap: 0.5rem; /* Smaller gaps between options */
+  overflow-y: auto; /* Allow scrolling within options */
+  flex: 1; /* Take available space */
+  max-height: 100%; /* Constrain to available space */
 }
 
 .option {
   display: flex;
   align-items: flex-start;
-  gap: 1rem;
-  padding: 1rem;
+  gap: 0.75rem; /* Smaller gap */
+  padding: 0.75rem; /* Compressed padding */
   background: var(--bg-card);
   border: 2px solid transparent;
   border-radius: 8px;
@@ -95,6 +106,7 @@
   transition: all 0.2s ease;
   min-height: 44px; /* Touch target */
   position: relative;
+  flex-shrink: 0; /* Don't shrink options */
 }
 
 .option:hover {
@@ -145,15 +157,15 @@
 .optionLabel {
   font-weight: 500;
   color: var(--text-primary);
-  font-size: 0.95rem;
-  line-height: 1.3;
+  font-size: 0.9rem; /* Smaller label */
+  line-height: 1.2; /* Tighter line height */
 }
 
 .optionDescription {
-  font-size: 0.85rem;
+  font-size: 0.8rem; /* Smaller description */
   color: var(--text-secondary);
   margin: 0;
-  line-height: 1.3;
+  line-height: 1.2; /* Tighter line height */
 }
 
 /* Text Inputs */
@@ -189,18 +201,19 @@
   cursor: pointer;
 }
 
-/* Error Handling */
+/* Error Handling - COMPRESSED */
 .errorContainer {
-  margin-top: 1rem;
+  margin-top: 0.5rem; /* Less margin */
+  flex-shrink: 0; /* Don't let shrink */
 }
 
 .error {
   color: #ff6b6b;
-  font-size: 0.85rem;
-  margin: 0.25rem 0;
+  font-size: 0.8rem; /* Smaller error text */
+  margin: 0.2rem 0; /* Less margin */
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.4rem; /* Smaller gap */
 }
 
 .error::before {
@@ -208,36 +221,40 @@
   flex-shrink: 0;
 }
 
-/* Character and Selection Counters */
+/* Character and Selection Counters - COMPRESSED */
 .characterCount,
 .selectionCount {
   text-align: right;
-  font-size: 0.8rem;
+  font-size: 0.75rem; /* Smaller counter text */
   color: var(--text-secondary);
-  margin-top: 0.5rem;
+  margin-top: 0.25rem; /* Less margin */
+  flex-shrink: 0; /* Don't let shrink */
 }
 
-/* Action Buttons */
+/* Action Buttons - ALWAYS VISIBLE */
 .actions {
   display: flex;
-  gap: 1rem;
-  padding: 1rem;
+  gap: 0.75rem; /* Smaller gap */
+  padding: 0.75rem 1rem; /* Compressed padding */
   background: var(--bg-primary);
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  border-top: 1px solid rgba(255, 215, 0, 0.2);
   position: sticky;
   bottom: 0;
+  flex-shrink: 0; /* NEVER let buttons shrink */
+  z-index: 100; /* Always on top */
+  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.3); /* Subtle shadow to separate */
 }
 
 .button {
   flex: 1;
-  padding: 1rem;
+  padding: 0.875rem; /* Slightly compressed */
   border: none;
   border-radius: 8px;
   font-weight: 600;
-  font-size: 1rem;
+  font-size: 0.95rem; /* Slightly smaller font */
   cursor: pointer;
   transition: all 0.2s ease;
-  min-height: 44px;
+  min-height: 44px; /* Still touch-friendly */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -269,6 +286,213 @@
 .secondaryButton:hover {
   background: var(--bg-card);
   color: var(--text-primary);
+}
+
+/* Enhanced Step 1 Introduction Styles */
+.stepIntroComprehensive {
+  margin-bottom: 1.5rem;
+  padding: 1rem;
+  background: linear-gradient(135deg, rgba(255, 215, 0, 0.05) 0%, rgba(26, 26, 46, 0.8) 100%);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 215, 0, 0.2);
+}
+
+.stepBadge {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--accent-primary);
+}
+
+.shieldIcon {
+  font-size: 1.2rem;
+}
+
+.enhancedHeader {
+  text-align: left;
+}
+
+.titleEnhanced {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--accent-primary);
+  margin: 0 0 0.5rem 0;
+  line-height: 1.2;
+}
+
+.subtitleEnhanced {
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--text-primary);
+  margin: 0 0 1rem 0;
+  line-height: 1.3;
+}
+
+.whyQuestionnaire {
+  margin-bottom: 1rem;
+}
+
+.whyQuestionnaire h3 {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0 0 0.5rem 0;
+}
+
+.whyQuestionnaire p {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  line-height: 1.4;
+  margin: 0;
+}
+
+.processOverview {
+  margin-bottom: 1rem;
+}
+
+.processBenefits {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.benefitItem {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+}
+
+.clockIcon {
+  font-size: 1rem;
+  color: var(--accent-primary);
+}
+
+.checkIcon {
+  font-size: 0.9rem;
+  color: var(--accent-primary);
+  font-weight: bold;
+}
+
+.securityAssurance {
+  margin-top: 1rem;
+  padding: 0.75rem;
+  background: rgba(255, 215, 0, 0.05);
+  border-radius: 8px;
+  border-left: 3px solid var(--accent-primary);
+}
+
+.securityAssurance h4 {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0 0 0.5rem 0;
+}
+
+.securityAssurance p {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  line-height: 1.4;
+  margin: 0;
+}
+
+/* Trust Indicators */
+.trustIndicators {
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(255, 215, 0, 0.2);
+}
+
+.securityBadges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.badge {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.4rem 0.6rem;
+  background: rgba(255, 215, 0, 0.1);
+  border: 1px solid rgba(255, 215, 0, 0.3);
+  border-radius: 16px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.badge span:first-child {
+  font-size: 0.9rem;
+}
+
+.dataUsageNote {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  padding: 0.6rem;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 6px;
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  line-height: 1.3;
+}
+
+.dataUsageNote span:first-child {
+  font-size: 0.9rem;
+  flex-shrink: 0;
+  margin-top: 0.1rem;
+}
+
+/* Step Guidance */
+.stepGuidance {
+  margin-top: 1rem;
+  padding: 0.75rem;
+  background: rgba(255, 215, 0, 0.03);
+  border-radius: 6px;
+  border-left: 2px solid rgba(255, 215, 0, 0.4);
+}
+
+.guidanceContent h4 {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--accent-primary);
+  margin: 0 0 0.4rem 0;
+}
+
+.guidanceContent p {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  line-height: 1.3;
+  margin: 0;
+}
+
+/* Step Instructions */
+.stepInstructions {
+  margin-top: 0.75rem;
+  padding: 0.6rem;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 6px;
+  border: 1px dashed rgba(255, 215, 0, 0.3);
+}
+
+.instructionContent h4 {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--accent-primary);
+  margin: 0 0 0.3rem 0;
+}
+
+.instructionContent p {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  line-height: 1.3;
+  margin: 0;
 }
 
 /* Conversion Prompt Styles */
@@ -329,54 +553,425 @@
   gap: 0.75rem;
 }
 
-/* Mobile-first responsive design */
+/* Enhanced Dynamic Questionnaire Features */
+
+/* Help Button */
+.helpButton {
+  background: var(--accent-gold, #FFD700);
+  color: var(--primary-dark, #1a1a2e);
+  border: none;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  font-size: 12px;
+  font-weight: bold;
+  cursor: pointer;
+  margin-left: var(--space-sm, 8px);
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+}
+
+.helpButton:hover {
+  transform: scale(1.1);
+  background: #FFE55C;
+}
+
+/* Examples Section */
+.examplesSection {
+  margin-top: 0.5rem;
+  border-top: 1px solid rgba(224, 224, 224, 0.1);
+  padding-top: 0.5rem;
+}
+
+.showExamplesBtn {
+  background: none;
+  border: none;
+  color: var(--accent-primary);
+  font-size: 0.8rem;
+  cursor: pointer;
+  text-decoration: underline;
+  padding: 0;
+  margin: 0;
+}
+
+.showExamplesBtn:hover {
+  color: #FFE55C;
+}
+
+.examplesContent {
+  margin-top: 0.4rem;
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  line-height: 1.4;
+  background: rgba(255, 215, 0, 0.05);
+  padding: 0.5rem;
+  border-radius: 4px;
+  border-left: 3px solid var(--accent-primary);
+}
+
+/* Uncertainty Handling */
+.uncertaintySection {
+  margin-top: 1rem;
+  border-top: 2px solid rgba(255, 215, 0, 0.2);
+  padding-top: 1rem;
+}
+
+.uncertaintyOption {
+  background: rgba(255, 215, 0, 0.05);
+  border: 2px solid rgba(255, 215, 0, 0.3);
+  border-radius: 8px;
+}
+
+.uncertaintyHelp {
+  margin-top: 0.5rem;
+  background: rgba(255, 215, 0, 0.1);
+  border-radius: 8px;
+  padding: 1rem;
+}
+
+.uncertaintyGuidance h4 {
+  color: var(--accent-primary);
+  margin: 0 0 0.5rem 0;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.uncertaintyGuidance p {
+  margin: 0 0 1rem 0;
+  color: var(--text-primary);
+  font-size: 0.8rem;
+}
+
+/* Similar Clients Examples */
+.similarClients {
+  display: grid;
+  gap: 0.5rem;
+}
+
+.clientExample {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+  padding: 0.6rem;
+  border-left: 3px solid var(--accent-primary);
+}
+
+.clientType {
+  font-weight: 600;
+  color: var(--accent-primary);
+  font-size: 0.8rem;
+  margin-bottom: 2px;
+}
+
+.clientNeeds {
+  font-size: 0.75rem;
+  color: var(--text-primary);
+  margin-bottom: 0.3rem;
+  line-height: 1.3;
+}
+
+.recommendedService {
+  font-size: 0.7rem;
+  color: var(--text-secondary);
+}
+
+/* Service Preview Panel */
+.servicePreviewPanel {
+  background: linear-gradient(135deg, 
+    rgba(255, 215, 0, 0.1) 0%,
+    rgba(255, 215, 0, 0.05) 100%);
+  border: 2px solid rgba(255, 215, 0, 0.3);
+  border-radius: 12px;
+  padding: 1rem;
+  margin: 1rem 0;
+  animation: slideInUp 0.6s ease-out;
+}
+
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.previewHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid rgba(255, 215, 0, 0.2);
+  padding-bottom: 0.5rem;
+}
+
+.previewHeader h3 {
+  color: var(--accent-primary);
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.progressIndicator {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.currentRecommendations {
+  display: grid;
+  gap: 0.5rem;
+}
+
+.currentRecommendations > div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.8rem;
+  padding: 0.2rem 0;
+}
+
+.currentRecommendations strong {
+  color: var(--text-primary);
+  font-weight: 600;
+  min-width: 120px;
+  font-size: 0.75rem;
+}
+
+.serviceLevel {
+  color: var(--accent-primary);
+  font-weight: 600;
+}
+
+.costEstimate {
+  color: #00ff00;
+  font-weight: 600;
+}
+
+.driverMatch {
+  color: var(--text-primary);
+}
+
+.securityFeatures {
+  color: var(--text-secondary);
+  font-size: 0.75rem;
+}
+
+.previewNote {
+  margin-top: 1rem;
+  text-align: center;
+  padding-top: 0.5rem;
+  border-top: 1px solid rgba(255, 215, 0, 0.2);
+}
+
+.previewNote small {
+  color: var(--text-secondary);
+  font-style: italic;
+  font-size: 0.7rem;
+}
+
+/* Mobile-first responsive design - CRITICAL FOR VIEWPORT */
 @media (min-width: 320px) and (max-width: 767px) {
   .content {
-    padding: 1rem;
+    padding: 0.75rem 1rem 0 1rem; /* Even more compressed */
+  }
+
+  .header {
+    margin-bottom: 0.75rem; /* Less space */
   }
 
   .title {
-    font-size: 1.1rem;
+    font-size: 1rem; /* Smaller mobile title */
+  }
+
+  .subtitle {
+    font-size: 0.8rem; /* Smaller mobile subtitle */
+  }
+
+  .questionSection {
+    margin-bottom: 0.75rem; /* Less space */
   }
 
   .question {
-    font-size: 1rem;
+    font-size: 0.95rem; /* Smaller mobile question */
+  }
+
+  .helpText {
+    font-size: 0.75rem; /* Smaller mobile help text */
   }
 
   .option {
-    padding: 0.75rem;
-    gap: 0.75rem;
+    padding: 0.6rem; /* More compressed */
+    gap: 0.6rem; /* Smaller gap */
   }
 
   .optionLabel {
-    font-size: 0.9rem;
+    font-size: 0.85rem; /* Smaller mobile labels */
   }
 
   .optionDescription {
-    font-size: 0.8rem;
+    font-size: 0.75rem; /* Smaller mobile descriptions */
+  }
+
+  .optionsContainer {
+    gap: 0.4rem; /* Smaller gaps */
   }
 
   .actions {
-    flex-direction: column;
-    gap: 0.75rem;
+    flex-direction: row; /* Keep horizontal on mobile */
+    gap: 0.5rem; /* Smaller gap */
+    padding: 0.6rem 1rem; /* More compressed */
   }
 
   .button {
-    padding: 0.875rem;
-    font-size: 0.95rem;
+    padding: 0.75rem 0.5rem; /* More compressed */
+    font-size: 0.9rem; /* Smaller mobile button text */
+  }
+
+  /* Enhanced Step 1 Mobile Styles */
+  .stepIntroComprehensive {
+    padding: 0.8rem;
+    margin-bottom: 1rem;
+  }
+
+  .titleEnhanced {
+    font-size: 1.1rem;
+  }
+
+  .subtitleEnhanced {
+    font-size: 0.9rem;
+  }
+
+  .whyQuestionnaire h3 {
+    font-size: 0.85rem;
+  }
+
+  .whyQuestionnaire p {
+    font-size: 0.8rem;
+  }
+
+  .benefitItem {
+    font-size: 0.75rem;
+  }
+
+  .securityAssurance {
+    padding: 0.6rem;
+  }
+
+  .securityAssurance h4 {
+    font-size: 0.8rem;
+  }
+
+  .securityAssurance p {
+    font-size: 0.75rem;
+  }
+
+  .securityBadges {
+    gap: 0.4rem;
+  }
+
+  .badge {
+    padding: 0.3rem 0.5rem;
+    font-size: 0.7rem;
+  }
+
+  .dataUsageNote {
+    padding: 0.5rem;
+    font-size: 0.7rem;
+  }
+
+  .stepGuidance {
+    padding: 0.6rem;
+    margin-top: 0.75rem;
+  }
+
+  .guidanceContent h4 {
+    font-size: 0.8rem;
+  }
+
+  .guidanceContent p {
+    font-size: 0.75rem;
+  }
+
+  .stepInstructions {
+    padding: 0.5rem;
+    margin-top: 0.6rem;
+  }
+
+  .instructionContent h4 {
+    font-size: 0.75rem;
+  }
+
+  .instructionContent p {
+    font-size: 0.7rem;
+  }
+
+  /* Mobile Dynamic Features */
+  .helpButton {
+    width: 20px;
+    height: 20px;
+    font-size: 10px;
+  }
+
+  .examplesContent {
+    padding: 0.4rem;
+    font-size: 0.7rem;
+  }
+
+  .servicePreviewPanel {
+    padding: 0.8rem;
+    margin: 0.8rem 0;
+  }
+
+  .previewHeader h3 {
+    font-size: 0.9rem;
+  }
+
+  .progressIndicator {
+    font-size: 0.7rem;
+  }
+
+  .currentRecommendations > div {
+    font-size: 0.75rem;
+  }
+
+  .currentRecommendations strong {
+    min-width: 100px;
+    font-size: 0.7rem;
+  }
+
+  .uncertaintyHelp {
+    padding: 0.8rem;
+  }
+
+  .clientExample {
+    padding: 0.5rem;
+  }
+
+  .clientType {
+    font-size: 0.75rem;
+  }
+
+  .clientNeeds {
+    font-size: 0.7rem;
+  }
+
+  .recommendedService {
+    font-size: 0.65rem;
   }
 
   .promptContent {
-    padding: 1.5rem;
+    padding: 1.25rem;
     margin: 0 0.5rem;
   }
 
   .promptTitle {
-    font-size: 1.15rem;
+    font-size: 1.1rem;
   }
 
   .promptDescription {
-    font-size: 0.9rem;
+    font-size: 0.85rem;
   }
 }
 

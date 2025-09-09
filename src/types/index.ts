@@ -37,6 +37,24 @@ export interface QuestionnaireOption {
   value: string;
   description?: string;
   icon?: string;
+  examples?: string;
+  helpText?: string;
+  recommendedFor?: string[];
+}
+
+export interface SimilarClientExample {
+  type: string;
+  needs: string;
+  service: string;
+}
+
+export interface DynamicQuestionContent {
+  title: string;
+  subtitle: string;
+  question: string;
+  helpText: string;
+  options: QuestionnaireOption[];
+  similarClients?: SimilarClientExample[];
 }
 
 export interface ValidationRule {
@@ -68,6 +86,13 @@ export interface QuestionnaireStep {
   skipForUserTypes?: UserType[];
   showConversionPrompt?: ConversionPrompt;
   helpText?: string;
+  isFirstStep?: boolean;
+  stepDescription?: string;
+  processOverview?: {
+    timeRequired: string;
+    benefits: string[];
+    securityAssurance: string;
+  };
 }
 
 export interface QuestionnaireData {
@@ -139,4 +164,39 @@ export interface AppState {
   deviceCapabilities: DeviceCapabilities;
   isLoading: boolean;
   error: string | null;
+}
+
+export interface BookingStep {
+  step: 'vehicle-selection' | 'location-picker' | 'booking-confirmation' | 'booking-success';
+  data?: any;
+}
+
+export interface LocationData {
+  pickup: string;
+  destination: string;
+  estimatedDistance?: number;
+  estimatedDuration?: number;
+}
+
+export interface BookingData {
+  service: ServiceLevel;
+  pickup: string;
+  destination: string;
+  estimatedDistance: number;
+  estimatedDuration: number;
+  estimatedCost: number;
+  additionalRequirements?: string;
+  user: User | null;
+}
+
+export interface BookingRecord {
+  id: string;
+  userId?: string;
+  service: string;
+  pickup: string;
+  destination: string;
+  estimatedCost: number;
+  additionalRequirements?: string;
+  createdAt: Date;
+  status: 'confirmed' | 'in-progress' | 'completed' | 'cancelled';
 }

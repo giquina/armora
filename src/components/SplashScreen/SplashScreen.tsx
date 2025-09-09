@@ -1,7 +1,52 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import { useApp } from '../../contexts/AppContext';
-import { Logo } from '../UI/Logo';
+import { ArmoraLogo } from '../UI/ArmoraLogo';
 import styles from './SplashScreen.module.css';
+
+const SecurityStatus = () => {
+  const [messageIndex, setMessageIndex] = useState(0);
+  const [displayText, setDisplayText] = useState('');
+  const [isTyping, setIsTyping] = useState(true);
+
+  const securityMessages = useMemo(() => [
+    "Initializing quantum encryption...",
+    "Scanning driver authentication matrix...",
+    "Verifying biometric security protocols...",
+    "Establishing secure communication channels...",
+    "Loading executive protection network...",
+    "Securing your journey..."
+  ], []);
+
+  useEffect(() => {
+    const message = securityMessages[messageIndex];
+    let charIndex = 0;
+    setDisplayText('');
+    setIsTyping(true);
+
+    const typeInterval = setInterval(() => {
+      if (charIndex < message.length) {
+        setDisplayText(message.slice(0, charIndex + 1));
+        charIndex++;
+      } else {
+        setIsTyping(false);
+        clearInterval(typeInterval);
+        
+        setTimeout(() => {
+          setMessageIndex((prev) => (prev + 1) % securityMessages.length);
+        }, 800);
+      }
+    }, 60);
+
+    return () => clearInterval(typeInterval);
+  }, [messageIndex, securityMessages]);
+
+  return (
+    <div className={styles.securityStatus}>
+      <span className={styles.statusText}>{displayText}</span>
+      {isTyping && <span className={styles.cursor}>|</span>}
+    </div>
+  );
+};
 
 export function SplashScreen() {
   const { navigateToView } = useApp();
@@ -9,46 +54,85 @@ export function SplashScreen() {
   useEffect(() => {
     const timer = setTimeout(() => {
       navigateToView('welcome');
-    }, 3000);
+    }, 4000);
 
     return () => clearTimeout(timer);
   }, [navigateToView]);
 
   return (
     <div className={styles.splashScreen}>
+      {/* Immersive Background Effects */}
+      <div className={styles.splashImmersiveBg}>
+        <div className={styles.securityGrid}></div>
+        {/* Security particles */}
+        <div className={styles.securityParticle}></div>
+        <div className={styles.securityParticle}></div>
+        <div className={styles.securityParticle}></div>
+        <div className={styles.securityParticle}></div>
+        <div className={styles.securityParticle}></div>
+        <div className={styles.securityParticle}></div>
+        <div className={styles.securityParticle}></div>
+        <div className={styles.securityParticle}></div>
+        <div className={styles.securityParticle}></div>
+      </div>
+
       <div className={styles.content}>
-        {/* Premium Logo with Orbital Animation */}
-        <Logo 
-          size="xl"
-          showOrbital={true}
-          animated={true}
-          className={styles.logoContainer}
+        {/* Premium 4D Logo with Advanced Effects */}
+        <ArmoraLogo 
+          size="hero" 
+          variant="animated" 
+          showOrbits={true} 
+          className={styles.splashLogo}
         />
 
-        {/* Brand Name */}
-        <h1 className={styles.brandName}>
-          <span className={styles.brandArmora}>ARMORA</span>
-          <span className={styles.brandSecurityTransport}>Security Transport</span>
+        {/* Spectacular "ARMORA" Text Animation */}
+        <h1 className={styles.armoraTitleAnimated}>
+          <div className={styles.letterContainer}>
+            <span className={styles.letter} data-letter="A">A</span>
+          </div>
+          <div className={styles.letterContainer}>
+            <span className={styles.letter} data-letter="R">R</span>
+          </div>
+          <div className={styles.letterContainer}>
+            <span className={styles.letter} data-letter="M">M</span>
+          </div>
+          <div className={styles.letterContainer}>
+            <span className={styles.letter} data-letter="O">O</span>
+          </div>
+          <div className={styles.letterContainer}>
+            <span className={styles.letter} data-letter="R">R</span>
+          </div>
+          <div className={styles.letterContainer}>
+            <span className={styles.letter} data-letter="A">A</span>
+          </div>
         </h1>
 
-        {/* Tagline */}
-        <p className={styles.tagline}>
+        {/* Enhanced Tagline */}
+        <p className={styles.taglineEnhanced}>
           Your Personal Security Driver Team
         </p>
 
-        {/* Loading Animation */}
-        <div className={styles.loadingContainer}>
-          <div className={styles.loadingBar}>
-            <div className={styles.loadingProgress}></div>
+        {/* Advanced Security Loading System */}
+        <div className={styles.securityLoadingContainer}>
+          {/* Biometric scanner effect */}
+          <div className={styles.biometricScanner}>
+            <div className={styles.scannerBeam}></div>
           </div>
-          <p className={styles.loadingText}>Securing your journey...</p>
+          
+          {/* Progress segments with data encryption effect */}
+          <div className={styles.encryptionProgress}>
+            {Array.from({ length: 30 }, (_, i) => (
+              <div 
+                key={i} 
+                className={styles.dataBlock}
+                style={{ animationDelay: `${i * 0.1}s` }}
+              ></div>
+            ))}
+          </div>
         </div>
-      </div>
 
-      {/* Premium Background Effect */}
-      <div className={styles.backgroundEffect}>
-        <div className={styles.gradientOrb}></div>
-        <div className={styles.gradientOrb}></div>
+        {/* Dynamic Security Status Messages */}
+        <SecurityStatus />
       </div>
     </div>
   );

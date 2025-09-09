@@ -1,0 +1,296 @@
+/* Armora Social Proof Engine - Real-time Trust Indicators */
+
+.socialProofEngine {
+  background: rgba(255, 215, 0, 0.05);
+  border: 1px solid rgba(255, 215, 0, 0.2);
+  border-radius: 12px;
+  padding: 1rem;
+  margin: 1rem 0;
+}
+
+/* Live Statistics Display */
+.liveStats {
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.statDisplay {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  padding: 1rem;
+  background: rgba(255, 215, 0, 0.1);
+  border-radius: 8px;
+  margin-bottom: 0.5rem;
+  transition: all 0.5s ease;
+  animation: statFadeIn 0.5s ease-out;
+}
+
+@keyframes statFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.statIcon {
+  font-size: 2rem;
+  animation: iconPulse 2s ease-in-out infinite;
+}
+
+@keyframes iconPulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+.statContent {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+
+.statNumber {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: var(--accent-gold, #FFD700);
+  line-height: 1;
+}
+
+.statLabel {
+  font-size: 0.9rem;
+  color: var(--text-primary, #e0e0e0);
+  margin-top: 0.25rem;
+  line-height: 1.2;
+}
+
+/* Stat Indicators */
+.statIndicators {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.statDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(255, 215, 0, 0.3);
+  transition: all 0.3s ease;
+}
+
+.statDot.active {
+  background: var(--accent-gold, #FFD700);
+  transform: scale(1.2);
+}
+
+/* Testimonial Carousel */
+.testimonialCarousel {
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.testimonialSlide {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin-bottom: 0.5rem;
+  position: relative;
+  animation: testimonialFadeIn 0.8s ease-out;
+}
+
+@keyframes testimonialFadeIn {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.quoteIcon {
+  position: absolute;
+  top: -10px;
+  left: 20px;
+  font-size: 3rem;
+  color: var(--accent-gold, #FFD700);
+  opacity: 0.3;
+  font-family: serif;
+}
+
+.testimonialText {
+  font-style: italic;
+  font-size: 1rem;
+  line-height: 1.5;
+  color: var(--text-primary, #e0e0e0);
+  margin: 0 0 1rem 0;
+  text-align: left;
+}
+
+.testimonialAuthor {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.authorInitials {
+  width: 40px;
+  height: 40px;
+  background: var(--accent-gold, #FFD700);
+  color: var(--primary-dark, #1a1a2e);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 0.9rem;
+  flex-shrink: 0;
+}
+
+.authorInfo {
+  text-align: left;
+}
+
+.authorName {
+  font-weight: 600;
+  color: var(--text-primary, #e0e0e0);
+  font-size: 0.9rem;
+  margin-bottom: 0.2rem;
+}
+
+.authorCompany {
+  font-size: 0.8rem;
+  color: var(--text-secondary, #b0b0b0);
+}
+
+/* Testimonial Indicators */
+.testimonialIndicators {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.testimonialDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(255, 215, 0, 0.3);
+  transition: all 0.3s ease;
+}
+
+.testimonialDot.active {
+  background: var(--accent-gold, #FFD700);
+  transform: scale(1.2);
+}
+
+/* Trust Badges */
+.trustBadges {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.badge {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(255, 215, 0, 0.1);
+  border: 1px solid rgba(255, 215, 0, 0.3);
+  border-radius: 20px;
+  padding: 0.5rem 1rem;
+  font-size: 0.8rem;
+  color: var(--text-primary, #e0e0e0);
+  animation: badgeGlow 3s ease-in-out infinite;
+}
+
+@keyframes badgeGlow {
+  0%, 100% { 
+    box-shadow: 0 0 0 rgba(255, 215, 0, 0);
+  }
+  50% { 
+    box-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
+  }
+}
+
+.badgeIcon {
+  font-size: 1rem;
+}
+
+.badgeText {
+  font-weight: 500;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 480px) {
+  .socialProofEngine {
+    padding: 0.75rem;
+    margin: 0.75rem 0;
+  }
+
+  .statDisplay {
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 0.75rem;
+  }
+
+  .statIcon {
+    font-size: 1.5rem;
+  }
+
+  .statNumber {
+    font-size: 1.2rem;
+  }
+
+  .statLabel {
+    font-size: 0.8rem;
+    text-align: center;
+  }
+
+  .testimonialSlide {
+    padding: 1rem;
+  }
+
+  .testimonialText {
+    font-size: 0.9rem;
+  }
+
+  .testimonialAuthor {
+    flex-direction: column;
+    gap: 0.5rem;
+    text-align: center;
+  }
+
+  .authorInitials {
+    width: 35px;
+    height: 35px;
+    font-size: 0.8rem;
+  }
+
+  .authorName {
+    font-size: 0.85rem;
+  }
+
+  .authorCompany {
+    font-size: 0.75rem;
+  }
+
+  .trustBadges {
+    gap: 0.5rem;
+  }
+
+  .badge {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.7rem;
+  }
+
+  .badgeIcon {
+    font-size: 0.9rem;
+  }
+}

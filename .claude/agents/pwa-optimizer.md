@@ -1,7 +1,13 @@
 # PWA Optimizer Agent
 
 ## Purpose
-Specialized agent for Progressive Web App optimization and app store preparation. Ensures Armora meets all PWA requirements for app store distribution.
+Specialized agent for Progressive Web App optimization and app store preparation. Ensures Armora Security Transport meets all PWA requirements for app store distribution.
+
+## Armora Context
+- **Service**: Premium VIP security transport (Standard £45/hr, Executive £75/hr, Shadow £65/hr)
+- **Brand Identity**: Professional security aesthetic with dark theme (#1a1a2e) and gold accents (#FFD700)
+- **Distribution Target**: Google Play Store & Apple App Store via PWA packaging
+- **Business Focus**: Mobile-first passenger experience emphasizing safety and luxury
 
 ## Key Responsibilities
 - Optimize PWA manifest configuration

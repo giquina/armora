@@ -1,0 +1,3 @@
+#!/bin/bash
+# Armora Agents Command - Quick access to specialized development agents
+node /workspaces/armora/.claude/commands/agents.js "$@"

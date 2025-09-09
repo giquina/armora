@@ -40,7 +40,8 @@
     "refresh-suggestions": "node dev-tools/hooks/codebase-reviewer-suggester.js refresh",
     "update-docs": "node .claude/commands/update-docs.js",
     "project-health": "node .claude/commands/project-health.js",
-    "statusline": "node .claude/commands/statusline.js"
+    "statusline": "node .claude/commands/statusline.js",
+    "agents": "node .claude/commands/agents.js"
   },
   "eslintConfig": {
     "extends": [
