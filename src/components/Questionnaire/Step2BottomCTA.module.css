@@ -66,8 +66,8 @@
 .backButton {
   flex: 1.1; /* Slightly larger to avoid wrapping */
   background: transparent;
-  /* Solid gold border to match Step 1 CTA style */
-  border: 1px solid var(--armora-gold-alpha);
+  /* Thin default border matching content boxes */
+  border: 1px solid rgba(255, 215, 0, 0.3);
   color: #FFD700;
   font-size: 1.05rem; /* Match shared secondaryCTA updated */
   min-height: 44px; /* Match shared secondaryCTA */
@@ -76,54 +76,78 @@
 }
 
 .backButton:hover {
-  background: rgba(255, 215, 0, 0.1);
-  border-color: #FFD700;
+  background: rgba(255, 215, 0, 0.05);
+  border: 2px solid #FFD700; /* THICK border on hover */
   color: #FFE55C;
   transform: translateY(-1px);
   box-shadow: 0 4px 15px rgba(255, 215, 0, 0.2);
 }
 
 .backButton:active {
+  background: rgba(255, 215, 0, 0.1);
+  border: 2px solid #FFD700; /* THICK border when clicked */
   transform: translateY(0);
   box-shadow: none;
+}
+
+/* Focus state for back button */
+.backButton:focus {
+  background: rgba(255, 215, 0, 0.05);
+  border: 2px solid #FFD700; /* THICK border on focus */
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(255, 215, 0, 0.3);
 }
 
 /* Save & Exit Button */
 .saveExitButton {
   flex: 1.2; /* Give Save & Exit more space */
   background: transparent;
-  /* Solid gold border to match Step 1 CTA style */
-  border: 1px solid var(--armora-gold-alpha);
-  color: #FFD700;
+  /* Thin default border matching content boxes */
+  border: 1px solid rgba(255, 215, 0, 0.3);
+  color: #ffffff !important; /* White text by default */
   font-size: 1.05rem; /* Match shared secondaryCTA updated */
   min-height: 44px; /* Match shared secondaryCTA */
   padding: 0 16px;
   text-align: center;
+  transition: color 0.3s ease;
 }
 
 .saveExitButton:hover {
-  background: rgba(255, 215, 0, 0.1);
-  border-color: #FFD700;
+  background: rgba(255, 215, 0, 0.05);
+  border: 2px solid #FFD700; /* THICK border on hover */
   color: #FFE55C;
   transform: translateY(-1px);
   box-shadow: 0 4px 15px rgba(255, 215, 0, 0.2);
 }
 
 .saveExitButton:active {
+  background: rgba(255, 215, 0, 0.1);
+  border: 2px solid #FFD700; /* THICK border when clicked */
+  color: #FFD700 !important; /* Golden text when clicked */
   transform: translateY(0);
   box-shadow: none;
 }
 
+/* Focus state for save & exit button */
+.saveExitButton:focus {
+  background: rgba(255, 215, 0, 0.05);
+  border: 2px solid #FFD700; /* THICK border on focus */
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(255, 215, 0, 0.3);
+}
+
 /* Continue Button */
 .continueButton {
-  flex: 1.5; /* Slightly smaller to free space */
+  flex: 1; /* Equal width with other buttons */
   background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
   color: #1a1a2e;
-  font-size: 1.15rem; /* Match shared primaryCTA updated */
-  min-height: 56px; /* Match shared primary adjustments */
+  font-size: 18px; /* Consistent font size */
+  font-weight: 600;
+  height: 56px; /* Fixed height matching all buttons */
   box-shadow: 0 4px 20px rgba(255, 215, 0, 0.3);
   padding: 0 20px;
   text-align: center;
+  border: 1px solid #FFD700;
 }
 
 .continueButton:hover:not(:disabled) {
@@ -165,21 +189,22 @@
   }
 
   .step2Layout {
-    gap: 8px;
+    gap: 10px;
     max-width: 100%;
     padding: 0 12px;
   }
 
   .backButton,
   .saveExitButton {
-  min-height: 48px; /* Match shared secondaryCTA updated */
-  font-size: 0.95rem; /* Match shared secondaryCTA updated */
-    padding: 0 8px;
+    height: 52px; /* Fixed height on mobile */
+    font-size: 16px; /* Proportional font */
+    padding: 0 10px;
   }
 
   .continueButton {
-  min-height: 52px; /* Match shared primaryCTA updated */
-  font-size: 1rem; /* Match shared primaryCTA updated */
+    height: 52px; /* Same height as other buttons */
+    font-size: 16px; /* Same font size */
+    padding: 0 12px;
   }
 
   .ctaIcon {

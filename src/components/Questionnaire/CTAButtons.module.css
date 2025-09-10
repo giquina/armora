@@ -24,12 +24,12 @@
 }
 
 .ctaButton {
-  /* Solid gold border to match Step 1 CTA style */
-  border: 1px solid var(--armora-gold-alpha);
+  /* Thin default border matching content boxes */
+  border: 1px solid rgba(255, 215, 0, 0.3);
   border-radius: 12px;
   font-weight: 600;
   cursor: pointer;
-  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  transition: border-width 0.2s ease, border-color 0.2s ease, background-color 0.2s ease, transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -43,11 +43,12 @@
 
 /* Primary CTA */
 .primaryCTA {
-  flex: 1.6; /* Slightly smaller to free space */
-  min-height: 56px;
+  flex: 1; /* Equal width with secondary */
+  height: 56px; /* Fixed height, not min-height */
   background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
   color: #1a1a2e;
-  font-size: 1.15rem; /* Larger text for better fill */
+  font-size: 18px; /* Bigger, proportional font */
+  font-weight: 600;
   box-shadow: 0 4px 20px rgba(255, 215, 0, 0.3);
   /* Ensure the solid border is the vivid brand gold on primary */
   border-color: #FFD700;
@@ -79,28 +80,46 @@
 /* CTA Buttons Row - Horizontal Layout */
 .ctaButtonsRow {
   display: flex;
-  gap: 8px;
-  align-items: center;
-  justify-content: center; /* Center the three CTAs consistently */
+  gap: 12px; /* Slightly more gap for visual balance */
+  align-items: stretch; /* Ensure equal heights */
+  justify-content: center; /* Center the CTAs */
   width: 100%;
   flex-wrap: nowrap; /* Keep on one line */
 }
 
 .secondaryCTA {
-  flex: 1.1; /* Slightly more room to avoid wrapping */
-  min-height: 52px;
+  flex: 1; /* Equal width with primary */
+  height: 56px; /* Same height as primary */
   background: transparent;
-  border: 1px solid rgba(255, 215, 0, 0.5);
+  border: 1px solid rgba(255, 215, 0, 0.3); /* Thin default border */
   color: #FFD700;
-  font-size: 1.05rem; /* Increase secondary text for balance */
+  font-size: 18px; /* Same font size as primary */
+  font-weight: 600;
 }
 
 .secondaryCTA:hover {
-  background: rgba(255, 215, 0, 0.1);
-  border-color: #FFD700;
+  background: rgba(255, 215, 0, 0.05);
+  border: 2px solid #FFD700; /* THICK border on hover */
   color: #FFE55C;
   transform: translateY(-1px);
   box-shadow: 0 4px 15px rgba(255, 215, 0, 0.2);
+}
+
+/* Focus state for secondary CTA */
+.secondaryCTA:focus {
+  background: rgba(255, 215, 0, 0.05);
+  border: 2px solid #FFD700; /* THICK border on focus */
+  color: #FFE55C;
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(255, 215, 0, 0.3);
+}
+
+/* Active state for secondary CTA */
+.secondaryCTA:active {
+  background: rgba(255, 215, 0, 0.1);
+  border: 2px solid #FFD700; /* THICK border when clicked */
+  transform: translateY(0);
+  box-shadow: none;
 }
 
 .secondaryCTA:active {
@@ -144,10 +163,11 @@
 }
 
 .stepCounter {
-  font-size: 0.8rem;
-  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.65rem !important; /* Even smaller - 10.4px */
+  color: rgba(224, 224, 224, 0.6) !important; /* Subtle color */
   text-align: center;
   font-weight: 500;
+  opacity: 0.7 !important; /* More faded for less distraction */
 }
 
 .progressBar {
@@ -190,20 +210,20 @@
   }
 
   .ctaButtonsRow {
-    gap: 8px; /* No wrapping - keep on single line */
+    gap: 10px; /* Consistent gap on mobile */
   }
 
   .primaryCTA {
-  min-height: 52px;
-  font-size: 1rem;
-  flex: 1.5; /* Slightly smaller */
+    height: 52px; /* Slightly smaller on mobile but still fixed */
+    font-size: 16px; /* Proportional font for mobile */
+    flex: 1; /* Equal width */
   }
 
   .secondaryCTA {
-  min-height: 48px;
-  font-size: 0.95rem;
-  padding: 0 10px;
-  flex: 1.1; /* Slightly more room */
+    height: 52px; /* Same height as primary */
+    font-size: 16px; /* Same font size as primary */
+    padding: 0 12px;
+    flex: 1; /* Equal width */
   }
 
   /* Utility CTAs removed */
@@ -219,7 +239,8 @@
   }
 
   .stepCounter {
-    font-size: 0.75rem;
+    font-size: 0.6rem !important; /* Even smaller for mobile - 9.6px */
+    opacity: 0.6 !important;
   }
 
   .progressBar {
@@ -230,49 +251,49 @@
 /* Tablet Styles */
 @media (min-width: 768px) and (max-width: 1023px) {
   .ctaContainer {
-  padding: 16px 12px;
-  width: 95%;
-  max-width: 1200px;
-  margin: 0 auto;
-  left: 50%;
-  right: auto;
-  transform: translateX(-50%);
-  border-radius: 12px 12px 0 0;
+    padding: 16px 12px;
+    width: 95%;
+    max-width: 1200px;
+    margin: 0 auto;
+    left: 50%;
+    right: auto;
+    transform: translateX(-50%);
+    border-radius: 12px 12px 0 0;
   }
 
   .primaryCTA {
-  min-height: 58px;
-  font-size: 1.2rem;
+    height: 58px; /* Fixed height */
+    font-size: 18px; /* Consistent font size */
   }
 
   .secondaryCTA {
-  min-height: 56px;
-  font-size: 1.05rem; /* Slightly smaller to fit one line */
+    height: 58px; /* Same height as primary */
+    font-size: 18px; /* Same font size as primary */
   }
 }
 
 /* Desktop Styles */
 @media (min-width: 1024px) {
   .ctaContainer {
-  padding: 16px 12px;
-  width: 95%;
-  max-width: 1200px;
-  margin: 0 auto;
-  left: 50%;
-  right: auto;
-  transform: translateX(-50%);
-  border-radius: 12px 12px 0 0;
-  gap: 12px;
+    padding: 16px 12px;
+    width: 95%;
+    max-width: 1200px;
+    margin: 0 auto;
+    left: 50%;
+    right: auto;
+    transform: translateX(-50%);
+    border-radius: 12px 12px 0 0;
+    gap: 12px;
   }
 
   .primaryCTA {
-  min-height: 60px;
-  font-size: 1.2rem;
+    height: 60px; /* Fixed height */
+    font-size: 20px; /* Bigger font on desktop */
   }
 
   .secondaryCTA {
-  min-height: 58px;
-  font-size: 1.05rem;
+    height: 60px; /* Same height as primary */
+    font-size: 20px; /* Same font size as primary */
   }
 
   /* Utility CTAs removed */
@@ -283,7 +304,8 @@
   }
 
   .stepCounter {
-    font-size: 0.9rem;
+    font-size: 0.7rem !important; /* Small desktop font - 11.2px */
+    opacity: 0.8 !important;
   }
 
   .progressBar {

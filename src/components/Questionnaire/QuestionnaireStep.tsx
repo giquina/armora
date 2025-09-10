@@ -3,14 +3,7 @@ import { QuestionnaireStep as IQuestionnaireStep, QuestionnaireOption } from '..
 import { CTAButtons } from './CTAButtons';
 import { Step2BottomCTA } from './Step2BottomCTA';
 import { NameCollection } from './NameCollection';
-import { 
-  getDynamicProgressMessage, 
-  getDynamicBackText, 
-  getDynamicCTAText, 
-  getDynamicExamples,
-  getDynamicQuestionText,
-  getDynamicStepDescription 
-} from '../../utils/dynamicPersonalization';
+import ProfileSummaryComponent from './ProfileSummary';
 import styles from './QuestionnaireStep.module.css';
 import '../../styles/questionnaire-animations.css';
 
@@ -45,29 +38,6 @@ export function QuestionnaireStep({
   const [textValue, setTextValue] = useState<string>('');
   const [errors, setErrors] = useState<string[]>([]);
   const [isAnimatingIn, setIsAnimatingIn] = useState(true);
-  const [preferNotToSay, setPreferNotToSay] = useState(false);
-  const [showExamples, setShowExamples] = useState<Record<string, boolean>>({});
-  
-  // Dynamic personalization state
-  const [userName, setUserName] = useState<string>('');
-  const [dynamicContent, setDynamicContent] = useState<{
-    backText: string;
-    progressMessage: string;
-    ctaText: string;
-    questionText: string;
-    stepDescription?: string;
-  }>({
-    backText: '',
-    progressMessage: '',
-    ctaText: '',
-    questionText: step.question,
-    stepDescription: step.stepDescription
-  });
-  
-    
-  // Extract professional profile from userResponses or current selection
-  const professionalProfile = userResponses?.step1_transportProfile || selectedValue;
-
 
   // Initialize values from current value
   useEffect(() => {
@@ -143,30 +113,6 @@ export function QuestionnaireStep({
     
     return () => clearTimeout(timer);
   }, [step.id]);
-
-  // Update dynamic content when context changes
-  useEffect(() => {
-    const updateDynamicContent = () => {
-      const hasValue = selectedValue || selectedValues.length > 0 || textValue.trim();
-      
-      setDynamicContent({
-        backText: getDynamicBackText(step.id),
-        progressMessage: getDynamicProgressMessage({
-          userName,
-          professionalProfile,
-          currentStep: step.id,
-          totalSteps: 9
-        }),
-        ctaText: getDynamicCTAText(step.id, !!hasValue, userName),
-        questionText: getDynamicQuestionText(step.question, userName, professionalProfile),
-        stepDescription: step.stepDescription ? 
-          getDynamicStepDescription(step.stepDescription, userName, professionalProfile) : 
-          undefined
-      });
-    };
-
-    updateDynamicContent();
-  }, [userName, professionalProfile, step.id, step.question, step.stepDescription, selectedValue, selectedValues.length, textValue]);
 
   // Handle radio/select input with toggle functionality
   const handleSingleSelect = (value: string) => {
@@ -337,14 +283,18 @@ Your privacy is important to us. All questions are optional and you can use "Pre
     const optionsToRender = step.options;
     if (!optionsToRender) return null;
 
-  return optionsToRender.map((option: QuestionnaireOption & { examples?: string; helpText?: string }) => {
-      // Apply dynamic examples based on professional profile
-      const dynamicExamples = option.examples ? 
-        getDynamicExamples(professionalProfile, option.examples) : 
-        option.examples;
+    return optionsToRender.map((option: QuestionnaireOption & { examples?: string; helpText?: string }) => {
       if (step.type === 'radio') {
         const optionNode = (
-          <label key={option.id} className={`${styles.option} questionnaire-option option-select-effect ${selectedValue === option.value ? 'selected' : ''}`} data-option-value={option.value}>
+          <label 
+            key={option.id} 
+            className={`${styles.option} questionnaire-option option-select-effect ${selectedValue === option.value ? 'selected' : ''}`} 
+            data-option-value={option.value}
+            onClick={(e) => {
+              e.preventDefault(); // Prevent default label behavior
+              handleSingleSelect(option.value); // Use our toggle logic
+            }}
+          >
             {/* HIGH DEMAND badge - responsive positioning */}
             {option.value === 'international_visitor' && (
               <div className={`${styles.demandBadge} ${selectedValue === option.value ? styles.selected : ''}`}>
@@ -356,7 +306,8 @@ Your privacy is important to us. All questions are optional and you can use "Pre
               name={`step-${step.id}`}
               value={option.value}
               checked={selectedValue === option.value}
-              onChange={() => handleSingleSelect(option.value)}
+              onChange={() => {}} // Remove onChange to prevent conflicts
+              onClick={(e) => e.stopPropagation()} // Prevent radio input from interfering
               className={styles.radioInput}
             />
             <div className={styles.optionContent}>
@@ -378,9 +329,9 @@ Your privacy is important to us. All questions are optional and you can use "Pre
               {option.description && (
                 <p className={styles.optionDescription}>{option.description}</p>
               )}
-              {dynamicExamples && (
+              {option.examples && (
                 <div className={styles.optionExamples}>
-                  {dynamicExamples}
+                  {option.examples}
                 </div>
               )}
             </div>
@@ -423,9 +374,9 @@ Your privacy is important to us. All questions are optional and you can use "Pre
               {option.description && (
                 <p className={styles.optionDescription}>{option.description}</p>
               )}
-              {dynamicExamples && (
+              {option.examples && (
                 <div className={styles.optionExamples}>
-                  {dynamicExamples}
+                  {option.examples}
                 </div>
               )}
             </div>
@@ -495,17 +446,6 @@ Your privacy is important to us. All questions are optional and you can use "Pre
     }
   };
 
-  // Dynamic content is already handled by the dynamicContent state above
-
-  // Toggle examples visibility
-  const toggleExamples = (optionId: string) => {
-    setShowExamples(prev => ({
-      ...prev,
-      [optionId]: !prev[optionId]
-    }));
-  };
-
-
   // Step-by-step guidance helper
   const getStepGuidance = (stepId: number): string => {
     const guidance: Record<number, string> = {
@@ -561,6 +501,36 @@ Your privacy is important to us. All questions are optional and you can use "Pre
     );
   }
 
+  // Special handling for Step 8 - Profile Summary
+  if (step.id === 8) {
+    return (
+      <div className={`${styles.container} ${isAnimatingIn ? styles.animatingIn : ''} questionnaire-background`}>
+        <div className={styles.content}>
+          <header className={styles.header}>
+            <h1 className={styles.title}>Your Armora Security Profile</h1>
+            <p className={styles.subtitle}>Comprehensive analysis of your transport requirements</p>
+          </header>
+          
+          <div className={styles.profileSummary}>
+            <ProfileSummaryComponent userResponses={userResponses} />
+          </div>
+          
+          <CTAButtons
+            currentStep={step.id}
+            totalSteps={9}
+            hasSelection={true}
+            onNext={() => onComplete(step.id, 'profile_reviewed')}
+            onPrevious={onPrevious}
+            onSaveExit={handleSaveExit}
+            onHelp={handleHelp}
+            onSkip={handleSkip}
+            isLastStep={false}
+          />
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className={`${styles.container} ${isAnimatingIn ? styles.animatingIn : ''} questionnaire-background`}>
       {/* Floating Background Elements */}
@@ -573,52 +543,99 @@ Your privacy is important to us. All questions are optional and you can use "Pre
           <div className={styles.stepIntroComprehensive}>
             {/* Name Collection Section */}
             <NameCollection 
-              userName={userName}
-              onNameChange={setUserName}
+              userName={userResponses?.userName || ''}
+              onNameChange={() => {}}
               className={styles.nameCollectionWrapper}
             />
             
-            <div className={styles.stepBadge}>
-              <span>Step {step.id} of 9</span>
+            {/* Header - Outside the boxes */}
+            <div className={styles.stepHeaderSection}>
+              <header className={styles.enhancedHeader}>
+                <h1 className={styles.titleEnhanced}>{step.title}</h1>
+                <h2 className={styles.subtitleEnhanced}>{step.subtitle}</h2>
+              </header>
             </div>
             
-            <header className={styles.enhancedHeader}>
-              <h1 className={styles.titleEnhanced}>{step.title}</h1>
-              <h2 className={styles.subtitleEnhanced}>{step.subtitle}</h2>
-              
-              <div className={styles.whyQuestionnaire}>
-                <h3>Why This Assessment Matters</h3>
-                <p>{dynamicContent.stepDescription || step.stepDescription}</p>
-              </div>
-              
-              <div className={styles.processOverview}>
-                <div className={styles.processBenefits}>
-                  <div className={styles.benefitItem}>
-                    <span>Takes {step.processOverview.timeRequired}</span>
+            {/* Consolidated 2-Box Layout for Step 1 */}
+            <div className={styles.twoBoxLayout}>
+              {/* Box 1: Assessment Overview & Benefits */}
+              <div className={styles.layoutBox}>
+                <div className={styles.boxHeader}>
+                  <span className={styles.boxIcon}>📋</span>
+                  <h3>Why This Assessment Matters</h3>
+                </div>
+                <p className={styles.boxContent}>
+                  Unlock personalized security transport tailored to your professional needs.
+                </p>
+                <p className={styles.boxContent}>
+                  Our SIA-licensed security drivers provide both premium chauffeur services and trained protection awareness - ensuring your safety whether you're a business executive, government official, or international visitor requiring discrete, professional transport.
+                </p>
+                
+                <div className={styles.boxSubsection}>
+                  <div className={styles.boxSubheader}>
+                    <span className={styles.boxIcon}>✨</span>
+                    <h4>What You'll Receive</h4>
                   </div>
-                  {step.processOverview.benefits.map((benefit, index) => (
-                    <div key={index} className={styles.benefitItem}>
-                      <span>{benefit}</span>
-                    </div>
-                  ))}
+                  <ul className={styles.benefitsList}>
+                    <li className={styles.benefitItem}>
+                      <span className={styles.checkmark}>✓</span>
+                      <span>Personalized security recommendations matched to your profile</span>
+                    </li>
+                    <li className={styles.benefitItem}>
+                      <span className={styles.checkmark}>✓</span>
+                      <span>Protection level assessment and appropriate driver assignment</span>
+                    </li>
+                    <li className={styles.benefitItem}>
+                      <span className={styles.checkmark}>✓</span>
+                      <span>Optimized routes with security-conscious planning</span>
+                    </li>
+                    <li className={styles.benefitItem}>
+                      <span className={styles.checkmark}>✓</span>
+                      <span>Exclusive 50% discount on your first professional booking</span>
+                    </li>
+                  </ul>
+                  <div className={styles.timeIndicator}>
+                    <span className={styles.timeIcon}>⏱️</span>
+                    <span>Complete in under 3 minutes</span>
+                  </div>
+                  
+                  {/* How to Answer Section */}
+                  <div className={styles.howToAnswer}>
+                    <h4 className={styles.howToAnswerTitle}>
+                      <span>📝</span>
+                      <span>How to Answer</span>
+                    </h4>
+                    <p className={styles.howToAnswerText}>
+                      Select the option that best matches your professional role. This helps us understand the level of discretion and security protocols required for your transport needs.
+                    </p>
+                  </div>
                 </div>
               </div>
               
-              {/* Privacy & Security disclaimer moved to appear between options at the bottom of the page */}
-            </header>
-            
-            {/* Trust Indicators */}
-      <div className={styles.trustIndicators}>
-              <div className={styles.securityBadges}>
-        <div className={styles.badge}>SIA Licensed</div>
-        <div className={styles.badge}>256-bit Encryption</div>
-        <div className={styles.badge}>Government Approved</div>
-        <div className={styles.badge}>TFL Private Hire</div>
-        <div className={styles.badge}>SIA Close Protection (CP) Officers</div>
-              </div>
-              
-              <div className={styles.dataUsageNote}>
-        <span>Your responses are used exclusively for security service matching and are never shared externally.</span>
+              {/* Box 2: Security & Privacy Assurance */}
+              <div className={styles.layoutBox}>
+                <div className={styles.boxHeader}>
+                  <span className={styles.boxIcon}>🛡️</span>
+                  <h3>Our Credentials</h3>
+                </div>
+                <div className={styles.credentialBadges}>
+                  <div className={styles.badge}>SIA Licensed</div>
+                  <div className={styles.badge}>256-bit Encryption</div>
+                  <div className={styles.badge}>Government Approved</div>
+                  <div className={styles.badge}>TfL Private Hire</div>
+                  <div className={styles.badge}>SIA Close Protection Officers</div>
+                </div>
+                
+                <div className={styles.boxSubsection}>
+                  <div className={styles.boxSubheader}>
+                    <span className={styles.boxIcon}>🔒</span>
+                    <h4>Your Data Protection</h4>
+                  </div>
+                  <p className={styles.boxContent}>
+                    {step.processOverview?.securityAssurance || 
+                     'Your responses are used exclusively for security service matching and are never shared externally. All data is encrypted using industry-leading 256-bit encryption and stored in compliance with UK data protection regulations.'}
+                  </p>
+                </div>
               </div>
             </div>
           </div>
@@ -627,36 +644,22 @@ Your privacy is important to us. All questions are optional and you can use "Pre
             <h1 className={styles.title}>{step.title}</h1>
             {step.subtitle && <p className={styles.subtitle}>{step.subtitle}</p>}
             
-            {/* Step Guidance for non-first steps */}
-      {(dynamicContent.stepDescription || step.stepDescription) && (
-    <div className={styles.stepGuidance}>
-        <div className={styles.guidanceContent}>
-      <h4>How This Step Helps:</h4>
-                  <p>{dynamicContent.stepDescription || step.stepDescription}</p>
-                </div>
-              </div>
-            )}
-            
-            {/* Dynamic Progress Message */}
-            {dynamicContent.progressMessage && step.id > 1 && (
-              <div className={styles.progressMessage}>
-                <p>{dynamicContent.progressMessage}</p>
+            {/* Unified Content Box for non-first steps */}
+            {step.stepDescription && (
+              <div className={styles.unifiedContentBox}>
+                <section className={styles.stepExplanation}>
+                  <h4>📋 How This Step Helps</h4>
+                  <p>{step.stepDescription}</p>
+                </section>
               </div>
             )}
           </header>
         )}
 
         <div className={styles.questionSection}>
-          <h2 className={styles.question}>{dynamicContent.questionText}</h2>
+          <h2 className={styles.question}>{step.question}</h2>
           {step.helpText && <p className={styles.helpText}>{step.helpText}</p>}
           
-          {/* Step-by-step guidance for all steps */}
-          <div className={styles.stepInstructions}>
-            <div className={styles.instructionContent}>
-              <h4>How to Answer:</h4>
-              <p>{getStepGuidance(step.id)}</p>
-            </div>
-          </div>
         </div>
 
         <div className={styles.inputSection}>
@@ -704,15 +707,13 @@ Your privacy is important to us. All questions are optional and you can use "Pre
         )}
       </div>
 
-      {/* Step-specific CTA Buttons with Dynamic Text */}
+      {/* Step-specific CTA Buttons */}
       {step.id === 2 ? (
         <Step2BottomCTA
           onBack={onPrevious || (() => {})}
           onSaveExit={handleSaveExit}
           onContinue={handleSubmit}
           canContinue={canProceed()}
-          dynamicBackText={dynamicContent.backText}
-          dynamicContinueText={dynamicContent.ctaText}
         />
       ) : (
         <CTAButtons
@@ -725,8 +726,6 @@ Your privacy is important to us. All questions are optional and you can use "Pre
           onHelp={handleHelp}
           onSkip={handleSkip}
           isLastStep={Boolean(isLastStep)}
-          dynamicBackText={dynamicContent.backText}
-          dynamicContinueText={dynamicContent.ctaText}
         />
       )}
     </div>

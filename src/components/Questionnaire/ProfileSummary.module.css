@@ -1,0 +1,249 @@
+/* Profile Summary Component Styles */
+
+.profileSummaryContainer {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+.profileSection {
+  margin-bottom: 2rem;
+  padding: 1.5rem;
+  background: transparent;
+  border: var(--armora-gold-dotted);
+  border-radius: 12px;
+  transition: all 0.3s ease;
+}
+
+.profileSection:hover {
+  border-color: rgba(255, 215, 0, 0.5);
+  box-shadow: 0 4px 20px rgba(255, 215, 0, 0.1);
+}
+
+.sectionHeader {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.sectionIcon {
+  font-size: 1.5rem;
+  filter: drop-shadow(0 0 4px rgba(255, 215, 0, 0.3));
+}
+
+.sectionHeader h3 {
+  color: #FFD700;
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin: 0;
+  letter-spacing: 0.5px;
+}
+
+.sectionContent {
+  color: #e0e0e0;
+  font-size: 1rem;
+  line-height: 1.6;
+  margin: 0;
+  font-weight: 400;
+}
+
+.recommendationSection {
+  margin-bottom: 2rem;
+  padding: 2rem;
+  background: linear-gradient(135deg, rgba(255, 215, 0, 0.05) 0%, rgba(255, 215, 0, 0.02) 100%);
+  border: 2px solid var(--armora-gold-alpha);
+  border-radius: 16px;
+  position: relative;
+  overflow: hidden;
+}
+
+.recommendationSection::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #FFD700 0%, #FFA500 100%);
+  border-radius: 16px 16px 0 0;
+}
+
+.recommendationContent {
+  margin-top: 1rem;
+}
+
+.recommendationText {
+  color: #e0e0e0;
+  font-size: 1.1rem;
+  line-height: 1.6;
+  margin: 0 0 1.5rem 0;
+  font-weight: 400;
+}
+
+.recommendationText strong {
+  color: #FFD700;
+  font-weight: 600;
+}
+
+.serviceDetails {
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.servicePrice,
+.confidenceIndicator {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.priceLabel,
+.confidenceLabel {
+  color: #a0a0a0;
+  font-size: 0.9rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.priceValue {
+  color: #FFD700;
+  font-size: 1.5rem;
+  font-weight: 700;
+  text-shadow: 0 0 8px rgba(255, 215, 0, 0.3);
+}
+
+.confidenceValue {
+  color: #4CAF50;
+  font-size: 1rem;
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  .profileSummaryContainer {
+    padding: 0.75rem;
+  }
+
+  .profileSection,
+  .recommendationSection {
+    margin-bottom: 1.5rem;
+    padding: 1.25rem;
+  }
+
+  .sectionHeader h3 {
+    font-size: 1.1rem;
+  }
+
+  .sectionContent {
+    font-size: 0.95rem;
+  }
+
+  .recommendationText {
+    font-size: 1rem;
+  }
+
+  .serviceDetails {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .priceValue {
+    font-size: 1.25rem;
+  }
+
+  .sectionIcon {
+    font-size: 1.25rem;
+  }
+}
+
+/* Tablet Responsive */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .profileSummaryContainer {
+    padding: 1.25rem;
+  }
+
+  .profileSection,
+  .recommendationSection {
+    padding: 1.75rem;
+  }
+
+  .sectionHeader h3 {
+    font-size: 1.3rem;
+  }
+
+  .recommendationText {
+    font-size: 1.05rem;
+  }
+}
+
+/* Desktop Enhancement */
+@media (min-width: 1025px) {
+  .profileSummaryContainer {
+    padding: 1.5rem;
+  }
+
+  .profileSection,
+  .recommendationSection {
+    padding: 2rem;
+  }
+
+  .sectionHeader h3 {
+    font-size: 1.4rem;
+  }
+
+  .sectionContent {
+    font-size: 1.1rem;
+  }
+
+  .recommendationText {
+    font-size: 1.2rem;
+  }
+
+  .priceValue {
+    font-size: 1.75rem;
+  }
+}
+
+/* Animation for profile sections */
+.profileSection {
+  animation: fadeInUp 0.6s ease-out;
+}
+
+.profileSection:nth-child(1) { animation-delay: 0.1s; }
+.profileSection:nth-child(2) { animation-delay: 0.2s; }
+.profileSection:nth-child(3) { animation-delay: 0.3s; }
+.profileSection:nth-child(4) { animation-delay: 0.4s; }
+.recommendationSection { animation-delay: 0.5s; }
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* High contrast support */
+@media (prefers-contrast: high) {
+  .profileSection,
+  .recommendationSection {
+    border-width: 2px;
+  }
+
+  .sectionHeader h3 {
+    color: #FFFF00;
+  }
+
+  .priceValue {
+    color: #FFFF00;
+  }
+}

@@ -96,18 +96,20 @@
   color: var(--accent-primary);
   padding: 0.25rem 0.75rem;
   border-radius: 20px;
-  font-size: 0.75rem;
+  font-size: 0.65rem !important; /* Even smaller - 10.4px */
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.5px;
   border: var(--armora-gold-dotted);
+  opacity: 0.9 !important; /* Slightly faded */
 }
 
 .privacyDescription {
-  font-size: 0.9rem;
-  color: var(--text-secondary);
+  font-size: 0.75rem !important; /* Very small - 12px */
+  color: rgba(224, 224, 224, 0.7) !important; /* Subtle color */
   margin: 0 0 0.75rem 0;
-  line-height: 1.4;
+  line-height: 1.3 !important;
+  opacity: 0.8 !important; /* Slightly faded for less prominence */
 }
 
 .privacyMessage {
@@ -115,8 +117,10 @@
   background: transparent; /* Remove white background to eliminate double border effect */
   border-radius: 8px;
   border: var(--armora-gold-dotted) !important; /* Solid golden border via token */
-  font-size: 0.85rem;
-  line-height: 1.4;
+  font-size: 0.7rem !important; /* Very small - 11.2px */
+  line-height: 1.3 !important;
+  color: rgba(224, 224, 224, 0.6) !important; /* Subtle color */
+  opacity: 0.7 !important; /* More faded for less distraction */
 }
 
 .privacyMessage strong {
@@ -140,18 +144,21 @@
   }
   
   .privacyBadge {
-    font-size: 0.7rem;
+    font-size: 0.6rem !important; /* Even smaller for mobile - 9.6px */
     padding: 0.2rem 0.6rem;
+    opacity: 0.8 !important;
   }
   
   .privacyDescription {
-    font-size: 0.85rem;
+    font-size: 0.65rem !important; /* Even smaller for mobile - 10.4px */
     margin-bottom: 0.6rem;
+    opacity: 0.7 !important;
   }
   
   .privacyMessage {
     padding: 0.6rem;
-    font-size: 0.8rem;
+    font-size: 0.6rem !important; /* Even smaller for mobile - 9.6px */
+    opacity: 0.6 !important;
   }
 }
 
@@ -166,10 +173,12 @@
   }
   
   .privacyDescription {
-    font-size: 1rem;
+    font-size: 0.8rem !important; /* Small desktop font - 12.8px */
+    opacity: 0.8 !important;
   }
   
   .privacyMessage {
-    font-size: 0.9rem;
+    font-size: 0.75rem !important; /* Small desktop font - 12px */
+    opacity: 0.8 !important;
   }
 }

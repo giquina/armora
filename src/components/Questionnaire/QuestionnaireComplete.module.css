@@ -74,9 +74,10 @@
 }
 
 .loadingSubtitle {
-  font-size: 1rem;
-  color: var(--text-secondary);
+  font-size: 0.85rem !important; /* Smaller instructional text - 13.6px */
+  color: rgba(224, 224, 224, 0.7) !important; /* Subtle color */
   margin: 0 0 2rem 0;
+  opacity: 0.8 !important; /* Slightly faded for less prominence */
 }
 
 .progressBar {
@@ -385,8 +386,9 @@
 }
 
 .summaryLabel {
-  font-size: 0.9rem;
-  color: var(--text-secondary);
+  font-size: 0.75rem !important; /* Very small - 12px */
+  color: rgba(224, 224, 224, 0.7) !important; /* Subtle color */
+  opacity: 0.8 !important; /* Slightly faded for less prominence */
 }
 
 .summaryValue {
@@ -473,8 +475,9 @@
 }
 
 .badgeText {
-  font-size: 0.8rem;
-  color: var(--text-secondary);
+  font-size: 0.65rem !important; /* Even smaller - 10.4px */
+  color: rgba(224, 224, 224, 0.6) !important; /* Subtle color */
+  opacity: 0.7 !important; /* More faded for less distraction */
 }
 
 /* Mobile-first responsive design */
