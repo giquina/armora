@@ -62,7 +62,7 @@ const ARMORA_SERVICES: ServiceLevel[] = [
 ];
 
 export function Dashboard() {
-  const { state, navigateToView } = useApp();
+  const { state, navigateToView, setSelectedService: setAppSelectedService } = useApp();
   const { user, questionnaireData, deviceCapabilities } = state;
   const [selectedService, setSelectedService] = useState<'standard' | 'executive' | 'shadow' | null>(null);
   const [showRewardBanner, setShowRewardBanner] = useState(false);
@@ -78,6 +78,13 @@ export function Dashboard() {
     setSelectedService(serviceId);
     // Store selected service for booking flow
     localStorage.setItem('armora_selected_service', serviceId);
+    
+    // Set service in app context and navigate to subscription offer
+    const selectedServiceData = ARMORA_SERVICES.find(s => s.id === serviceId);
+    if (selectedServiceData) {
+      setAppSelectedService(serviceId);
+      navigateToView('subscription-offer');
+    }
   };
 
   const handleBookNow = () => {

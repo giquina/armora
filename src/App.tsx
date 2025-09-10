@@ -9,6 +9,7 @@ import { GuestDisclaimer } from './components/Auth/GuestDisclaimer';
 import { QuestionnaireFlow } from './components/Questionnaire/QuestionnaireFlow';
 import AchievementUnlock from './components/Achievement/AchievementUnlock';
 import { Dashboard } from './components/Dashboard';
+import { SubscriptionOffer } from './components/Subscription/SubscriptionOffer';
 import { VehicleSelection, LocationPicker, BookingConfirmation, BookingSuccess } from './components/Booking';
 import { ServiceLevel, BookingData, LocationData } from './types';
 import './styles/globals.css';
@@ -130,6 +131,11 @@ function AppRouter() {
         );
       case 'dashboard':
         return <Dashboard />;
+      case 'subscription-offer':
+        // Get selected service data from localStorage for pricing
+        const selectedServiceId = localStorage.getItem('armora_selected_service');
+        const servicePrice = selectedServiceId === 'standard' ? 45 : selectedServiceId === 'executive' ? 75 : selectedServiceId === 'shadow' ? 65 : 45;
+        return <SubscriptionOffer selectedService={selectedServiceId || undefined} servicePrice={servicePrice} />;
       case 'booking':
         return <BookingFlow />;
       case 'profile':

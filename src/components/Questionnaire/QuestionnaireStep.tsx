@@ -556,26 +556,26 @@ Your privacy is important to us. All questions are optional and you can use "Pre
               </header>
             </div>
             
-            {/* Consolidated 2-Box Layout for Step 1 */}
-            <div className={styles.twoBoxLayout}>
-              {/* Box 1: Assessment Overview & Benefits */}
-              <div className={styles.layoutBox}>
-                <div className={styles.boxHeader}>
-                  <span className={styles.boxIcon}>📋</span>
-                  <h3>Why This Assessment Matters</h3>
+            {/* Single Consolidated Introduction Box */}
+            <div className={styles.singleIntroContainer}>
+              <div className={styles.consolidatedBox}>
+                {/* Primary Headline */}
+                <div className={styles.primaryHeadline}>
+                  <span className={styles.headlineIcon}>🛡️</span>
+                  <h3>Professional Security Assessment</h3>
                 </div>
-                <p className={styles.boxContent}>
-                  Unlock personalized security transport tailored to your professional needs.
-                </p>
-                <p className={styles.boxContent}>
-                  Our SIA-licensed security drivers provide both premium chauffeur services and trained protection awareness - ensuring your safety whether you're a business executive, government official, or international visitor requiring discrete, professional transport.
+                
+                {/* Value Proposition */}
+                <p className={styles.valueProposition}>
+                  Unlock personalized VIP transport with security-trained drivers tailored to your professional requirements. Our comprehensive assessment ensures the right protection level and service features for your specific needs.
                 </p>
                 
-                <div className={styles.boxSubsection}>
-                  <div className={styles.boxSubheader}>
-                    <span className={styles.boxIcon}>✨</span>
-                    <h4>What You'll Receive</h4>
-                  </div>
+                {/* Benefits List */}
+                <div className={styles.benefitsSection}>
+                  <h4 className={styles.sectionHeading}>
+                    <span>✨</span>
+                    <span>What You'll Receive</span>
+                  </h4>
                   <ul className={styles.benefitsList}>
                     <li className={styles.benefitItem}>
                       <span className={styles.checkmark}>✓</span>
@@ -583,57 +583,52 @@ Your privacy is important to us. All questions are optional and you can use "Pre
                     </li>
                     <li className={styles.benefitItem}>
                       <span className={styles.checkmark}>✓</span>
-                      <span>Protection level assessment and appropriate driver assignment</span>
+                      <span>Protection level assessment with appropriate driver assignment</span>
                     </li>
                     <li className={styles.benefitItem}>
                       <span className={styles.checkmark}>✓</span>
-                      <span>Optimized routes with security-conscious planning</span>
+                      <span>Security-conscious route planning and venue coordination</span>
                     </li>
                     <li className={styles.benefitItem}>
                       <span className={styles.checkmark}>✓</span>
                       <span>Exclusive 50% discount on your first professional booking</span>
                     </li>
                   </ul>
-                  <div className={styles.timeIndicator}>
-                    <span className={styles.timeIcon}>⏱️</span>
-                    <span>Complete in under 3 minutes</span>
+                </div>
+                
+                {/* Inline Credentials */}
+                <div className={styles.credentialsSection}>
+                  <h4 className={styles.sectionHeading}>
+                    <span>🏆</span>
+                    <span>Our Credentials</span>
+                  </h4>
+                  <div className={styles.inlineCredentials}>
+                    <div className={styles.credentialBadge}>SIA Licensed</div>
+                    <div className={styles.credentialBadge}>256-bit Encryption</div>
+                    <div className={styles.credentialBadge}>Government Approved</div>
+                    <div className={styles.credentialBadge}>TfL Private Hire</div>
+                    <div className={styles.credentialBadge}>Close Protection</div>
                   </div>
-                  
-                  {/* How to Answer Section */}
-                  <div className={styles.howToAnswer}>
-                    <h4 className={styles.howToAnswerTitle}>
-                      <span>📝</span>
-                      <span>How to Answer</span>
-                    </h4>
-                    <p className={styles.howToAnswerText}>
-                      Select the option that best matches your professional role. This helps us understand the level of discretion and security protocols required for your transport needs.
+                </div>
+                
+                {/* Time Estimate and Instructions */}
+                <div className={styles.instructionsSection}>
+                  <div className={styles.timeAndInstructions}>
+                    <div className={styles.timeIndicator}>
+                      <span className={styles.timeIcon}>⏱️</span>
+                      <span>Complete in 2-3 minutes</span>
+                    </div>
+                    <p className={styles.instructionText}>
+                      Select the option that best matches your professional role below. This helps us understand the discretion and security protocols required for your transport.
                     </p>
                   </div>
                 </div>
-              </div>
-              
-              {/* Box 2: Security & Privacy Assurance */}
-              <div className={styles.layoutBox}>
-                <div className={styles.boxHeader}>
-                  <span className={styles.boxIcon}>🛡️</span>
-                  <h3>Our Credentials</h3>
-                </div>
-                <div className={styles.credentialBadges}>
-                  <div className={styles.badge}>SIA Licensed</div>
-                  <div className={styles.badge}>256-bit Encryption</div>
-                  <div className={styles.badge}>Government Approved</div>
-                  <div className={styles.badge}>TfL Private Hire</div>
-                  <div className={styles.badge}>SIA Close Protection Officers</div>
-                </div>
                 
-                <div className={styles.boxSubsection}>
-                  <div className={styles.boxSubheader}>
-                    <span className={styles.boxIcon}>🔒</span>
-                    <h4>Your Data Protection</h4>
-                  </div>
-                  <p className={styles.boxContent}>
-                    {step.processOverview?.securityAssurance || 
-                     'Your responses are used exclusively for security service matching and are never shared externally. All data is encrypted using industry-leading 256-bit encryption and stored in compliance with UK data protection regulations.'}
+                {/* Condensed Privacy Statement */}
+                <div className={styles.privacyFooter}>
+                  <p className={styles.privacyText}>
+                    <span>🔒</span>
+                    All responses encrypted • Service matching only • Complete confidentiality
                   </p>
                 </div>
               </div>

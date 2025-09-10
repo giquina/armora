@@ -1,6 +1,6 @@
 // Armora Security Transport - TypeScript Interfaces
 
-export type ViewState = 'splash' | 'welcome' | 'login' | 'signup' | 'guest-disclaimer' | 'questionnaire' | 'achievement' | 'dashboard' | 'booking' | 'profile';
+export type ViewState = 'splash' | 'welcome' | 'login' | 'signup' | 'guest-disclaimer' | 'questionnaire' | 'achievement' | 'dashboard' | 'subscription-offer' | 'trial-setup' | 'member-dashboard' | 'booking' | 'profile';
 
 export type UserType = 'registered' | 'google' | 'guest' | null;
 
@@ -194,6 +194,8 @@ export interface AppState {
   user: User | null;
   questionnaireData: PersonalizationData | null;
   deviceCapabilities: DeviceCapabilities;
+  subscription: UserSubscription | null;
+  selectedServiceForBooking?: string;
   isLoading: boolean;
   error: string | null;
 }
@@ -231,4 +233,62 @@ export interface BookingRecord {
   additionalRequirements?: string;
   createdAt: Date;
   status: 'confirmed' | 'in-progress' | 'completed' | 'cancelled';
+}
+
+// Subscription System Types
+export type SubscriptionTier = 'essential' | 'executive' | 'elite';
+export type SubscriptionStatus = 'none' | 'trial' | 'active' | 'cancelled' | 'expired';
+
+export interface SubscriptionPlan {
+  tier: SubscriptionTier;
+  name: string;
+  price: number;
+  monthlyPrice: string;
+  originalPrice?: number;
+  discount: number;
+  features: string[];
+  description: string;
+  isAvailable: boolean;
+  isPopular?: boolean;
+  trialDays?: number;
+  responseTime: string;
+  bookingFee: number;
+  originalBookingFee: number;
+}
+
+export interface UserSubscription {
+  tier: SubscriptionTier;
+  status: SubscriptionStatus;
+  trialStartDate?: Date;
+  trialEndDate?: Date;
+  subscriptionStartDate?: Date;
+  subscriptionEndDate?: Date;
+  isTrialActive: boolean;
+  daysRemainingInTrial?: number;
+  memberBenefits: {
+    discountPercentage: number;
+    bookingFee: number;
+    priorityBooking: boolean;
+    flexibleCancellation: boolean;
+    dedicatedManager?: boolean;
+    responseTime: string;
+  };
+}
+
+export interface PremiumInterest {
+  tier: SubscriptionTier;
+  userEmail: string;
+  expectedUsage: string;
+  timestamp: Date;
+  userType: UserType;
+  questionnaire?: boolean;
+}
+
+export interface NotificationData {
+  type: 'premium_interest' | 'trial_signup' | 'subscription_activated';
+  userEmail: string;
+  tier?: SubscriptionTier;
+  expectedUsage?: string;
+  timestamp: Date;
+  totalInterestCount?: number;
 }

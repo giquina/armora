@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useReducer, useEffect, useCallback, ReactNode } from 'react';
-import { AppState, ViewState, User, PersonalizationData, DeviceCapabilities } from '../types';
+import { AppState, ViewState, User, PersonalizationData, DeviceCapabilities, UserSubscription, SubscriptionTier, PremiumInterest, NotificationData } from '../types';
 
 // Initial state
 const initialState: AppState = {
@@ -15,6 +15,8 @@ const initialState: AppState = {
     orientation: window.innerWidth > window.innerHeight ? 'landscape' : 'portrait',
     supportsInstallPrompt: 'serviceWorker' in navigator,
   },
+  subscription: null,
+  selectedServiceForBooking: undefined,
   isLoading: false,
   error: null,
 };
@@ -25,6 +27,8 @@ type AppAction =
   | { type: 'SET_USER'; payload: User | null }
   | { type: 'SET_QUESTIONNAIRE_DATA'; payload: PersonalizationData }
   | { type: 'UPDATE_DEVICE_CAPABILITIES'; payload: Partial<DeviceCapabilities> }
+  | { type: 'SET_SUBSCRIPTION'; payload: UserSubscription | null }
+  | { type: 'SET_SELECTED_SERVICE'; payload: string }
   | { type: 'SET_LOADING'; payload: boolean }
   | { type: 'SET_ERROR'; payload: string | null }
   | { type: 'CLEAR_ERROR' }
@@ -48,6 +52,10 @@ function appReducer(state: AppState, action: AppAction): AppState {
       return { ...state, isLoading: action.payload };
     case 'SET_ERROR':
       return { ...state, error: action.payload, isLoading: false };
+    case 'SET_SUBSCRIPTION':
+      return { ...state, subscription: action.payload };
+    case 'SET_SELECTED_SERVICE':
+      return { ...state, selectedServiceForBooking: action.payload };
     case 'CLEAR_ERROR':
       return { ...state, error: null };
     case 'RESET_APP':
@@ -69,6 +77,12 @@ interface AppContextType {
   clearError: () => void;
   setLoading: (loading: boolean) => void;
   resetApp: () => void;
+  // Subscription actions
+  setSubscription: (subscription: UserSubscription | null) => void;
+  setSelectedService: (service: string) => void;
+  startFreeTrial: (tier: SubscriptionTier) => Promise<void>;
+  recordPremiumInterest: (data: PremiumInterest) => Promise<void>;
+  sendOwnerNotification: (data: NotificationData) => Promise<boolean>;
 }
 
 // Create context
@@ -134,6 +148,119 @@ export function AppProvider({ children }: { children: ReactNode }) {
 
   const resetApp = () => {
     dispatch({ type: 'RESET_APP' });
+  };
+
+  // Subscription actions
+  const setSubscription = (subscription: UserSubscription | null) => {
+    dispatch({ type: 'SET_SUBSCRIPTION', payload: subscription });
+  };
+
+  const setSelectedService = (service: string) => {
+    dispatch({ type: 'SET_SELECTED_SERVICE', payload: service });
+  };
+
+  const startFreeTrial = async (tier: SubscriptionTier) => {
+    try {
+      setLoading(true);
+      const trialStart = new Date();
+      const trialEnd = new Date(trialStart.getTime() + 30 * 24 * 60 * 60 * 1000); // 30 days
+
+      const trialSubscription: UserSubscription = {
+        tier,
+        status: 'trial',
+        trialStartDate: trialStart,
+        trialEndDate: trialEnd,
+        isTrialActive: true,
+        daysRemainingInTrial: 30,
+        memberBenefits: {
+          discountPercentage: tier === 'essential' ? 10 : tier === 'executive' ? 20 : 30,
+          bookingFee: 0,
+          priorityBooking: true,
+          flexibleCancellation: true,
+          dedicatedManager: tier !== 'essential',
+          responseTime: tier === 'essential' ? '2 hours' : tier === 'executive' ? '45 minutes' : '30 minutes'
+        }
+      };
+
+      setSubscription(trialSubscription);
+      
+      // Save to localStorage
+      localStorage.setItem('armora_subscription', JSON.stringify(trialSubscription));
+      
+      // Send notification to owner
+      await sendOwnerNotification({
+        type: 'trial_signup',
+        userEmail: state.user?.email || 'unknown@email.com',
+        tier,
+        timestamp: new Date()
+      });
+
+      console.log('🎉 Free trial started:', trialSubscription);
+    } catch (error) {
+      console.error('Error starting free trial:', error);
+      setError('Failed to start free trial. Please try again.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const recordPremiumInterest = async (data: PremiumInterest) => {
+    try {
+      setLoading(true);
+      
+      // Save interest to localStorage (in real app, would be API call)
+      const existingInterests = JSON.parse(localStorage.getItem('armora_premium_interests') || '[]');
+      existingInterests.push(data);
+      localStorage.setItem('armora_premium_interests', JSON.stringify(existingInterests));
+      
+      // Send notification to owner
+      await sendOwnerNotification({
+        type: 'premium_interest',
+        userEmail: data.userEmail,
+        tier: data.tier,
+        expectedUsage: data.expectedUsage,
+        timestamp: new Date(),
+        totalInterestCount: existingInterests.length
+      });
+
+      console.log('📧 Premium interest recorded:', data);
+    } catch (error) {
+      console.error('Error recording premium interest:', error);
+      setError('Failed to record interest. Please try again.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const sendOwnerNotification = async (data: NotificationData) => {
+    try {
+      // In real app, this would be an API call to send email
+      // For now, we'll just log and simulate the notification
+      
+      console.log('📧 OWNER NOTIFICATION:', {
+        to: 'owner@armora-transport.co.uk',
+        subject: data.type === 'premium_interest' 
+          ? `🚨 NEW ${data.tier?.toUpperCase()} INTEREST` 
+          : data.type === 'trial_signup'
+          ? '🎉 NEW TRIAL SIGNUP'
+          : '✅ SUBSCRIPTION ACTIVATED',
+        body: {
+          userEmail: data.userEmail,
+          tier: data.tier,
+          expectedUsage: data.expectedUsage,
+          timestamp: data.timestamp,
+          totalInterestCount: data.totalInterestCount
+        }
+      });
+
+      // Simulate API delay
+      await new Promise(resolve => setTimeout(resolve, 500));
+      
+      return true;
+    } catch (error) {
+      console.error('Error sending owner notification:', error);
+      throw error;
+    }
   };
 
   // Monitor device capabilities
@@ -218,6 +345,11 @@ export function AppProvider({ children }: { children: ReactNode }) {
     clearError,
     setLoading,
     resetApp,
+    setSubscription,
+    setSelectedService,
+    startFreeTrial,
+    recordPremiumInterest,
+    sendOwnerNotification,
   };
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
