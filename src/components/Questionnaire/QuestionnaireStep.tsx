@@ -68,6 +68,8 @@ export function QuestionnaireStep({
     return () => clearTimeout(timer);
   }, [step.id, currentValue, step.type]);
 
+  // Edge-to-edge is now default via global-container.css
+
   // Force remove golden lines after render
   useEffect(() => {
     const removeGoldenLines = () => {
@@ -685,7 +687,7 @@ Your privacy is important to us. All questions are optional and you can use "Pre
                   <div className={styles.timeAndInstructions}>
                     <div className={styles.timeIndicator}>
                       <span className={styles.timeIcon}>⏱️</span>
-                      <span>Complete in ~{Math.max(2, Math.round((9 - step.id + 1) * 1.1))} minutes</span>
+                      <span>Complete in {Math.max(2, Math.round((9 - step.id + 1) * 1.1))} minutes</span>
                     </div>
                     <div className={styles.spacer}></div>
                     <p className={styles.instructionText}>

@@ -3,11 +3,11 @@
 
 :root {
   /* CARD DIMENSIONS - EXTREME MOBILE WIDTH OPTIMIZATION */
-  --card-padding-mobile: 16px 12px; /* Minimal but usable padding */
+  --card-padding-mobile: 12px 10px; /* Edge-to-edge: keep content readable */
   --card-padding-tablet: 20px;
   --card-padding-desktop: 24px;
   
-  --card-margin-mobile: 8px; /* Minimal safe margins */
+  --card-margin-mobile: 2px; /* Micro gutter */
   --card-margin-tablet: 12px; /* Minimal safe margins */
   --card-margin-desktop: 20px; /* Minimal safe margins */
   
@@ -18,10 +18,10 @@
   
   --card-backdrop-blur: 10px;
   /* AGGRESSIVE full-width utilization on ALL devices */
-  --card-max-width-mobile: calc(100vw - 12px); /* Nearly full screen width */
-  --card-max-width-tablet: calc(100vw - 24px); /* Nearly full screen width */
-  --card-max-width-desktop: calc(100vw - 40px); /* Nearly full screen width */
-  --card-max-width-large: min(calc(100vw - 60px), 1400px); /* Cap only at very large sizes */
+  --card-max-width-mobile: calc(100vw - 4px); /* Edge-to-edge with tiny gutter */
+  --card-max-width-tablet: calc(100vw - 6px);
+  --card-max-width-desktop: calc(100vw - 8px);
+  --card-max-width-large: min(calc(100vw - 16px), 1800px);
   
   /* MODAL SPECIFIC - Also nearly full width */
   --modal-max-width: calc(100vw - 40px);
@@ -51,8 +51,8 @@
 @media (min-width: 768px) {
   .armora-card-standard {
     padding: var(--card-padding-tablet);
-    margin-left: auto;
-    margin-right: auto;
+  margin-left: var(--card-margin-mobile);
+  margin-right: var(--card-margin-mobile);
     max-width: var(--card-max-width-tablet);
   }
 }
@@ -61,7 +61,9 @@
 @media (min-width: 1024px) {
   .armora-card-standard {
     padding: var(--card-padding-desktop);
-    max-width: var(--card-max-width-desktop);
+  margin-left: var(--card-margin-mobile);
+  margin-right: var(--card-margin-mobile);
+  max-width: var(--card-max-width-desktop);
   }
 }
 
@@ -163,8 +165,9 @@
 }
 
 /* UTILITY CLASSES FOR QUICK APPLICATION */
-.armora-card-sm { max-width: 480px; }
-.armora-card-md { max-width: 680px; }
-.armora-card-lg { max-width: 85vw; }
-.armora-card-xl { max-width: 90vw; }
-.armora-card-xxl { max-width: 1200px; }
+/* Relax max-width helpers to allow near full-bleed when used */
+.armora-card-sm { max-width: 95vw; }
+.armora-card-md { max-width: 96vw; }
+.armora-card-lg { max-width: 98vw; }
+.armora-card-xl { max-width: 99vw; }
+.armora-card-xxl { max-width: 1600px; }

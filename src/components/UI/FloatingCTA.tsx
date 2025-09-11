@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import styles from './FloatingCTA.module.css';
+import { getRemainingMinutes, formatMinutesLeft } from '../../utils/timeEstimate';
 
 interface FloatingCTAProps {
   currentStep: number;
@@ -17,6 +18,7 @@ export function FloatingCTA({
   canProceed = true 
 }: FloatingCTAProps) {
   const [isExpanded, setIsExpanded] = useState(false);
+  const ignoreNextClick = useRef(false);
   const [isVisible, setIsVisible] = useState(false);
   const [showAttentionBounce, setShowAttentionBounce] = useState(false);
   const panelRef = useRef<HTMLDivElement>(null);
@@ -43,57 +45,36 @@ export function FloatingCTA({
     return () => clearInterval(bounceTimer);
   }, [isExpanded, isVisible]);
 
-  // Step names and time estimates
+  // Step names and dynamic time estimates (without the word "approximately")
   const getStepInfo = () => {
-    const stepData: Record<number, { name: string; timeLeft: string; description: string }> = {
-      1: { 
-        name: "Security Assessment", 
-        timeLeft: "approximately 8 minutes left",
-        description: "We assess your security requirements to match you with qualified SIA licensed close protection officers and appropriate minicab services. This helps us understand your protection needs and recommend suitable security officers for your transport requirements."
-      },
-      2: { 
-        name: "Frequency Planning", 
-        timeLeft: "approximately 7 minutes left",
-        description: "Understanding your travel patterns helps us optimize our minicab and taxi service delivery. Regular users benefit from consistent SIA security officers and route planning, while occasional users receive flexible on-demand close protection services."
-      },
-      3: { 
-        name: "Service Matching", 
-        timeLeft: "approximately 6 minutes left", 
-        description: "These preferences help us match you with the appropriate service level and qualified security officers. We analyze your selections to recommend whether our Standard, Executive, or Shadow protection with personal bodyguards best meets your specific transport security needs."
-      },
-      4: { 
-        name: "Coverage Planning", 
-        timeLeft: "approximately 5 minutes left",
-        description: "Knowing your primary locations helps us ensure appropriate SIA licensed security officers and minicab coverage. We pre-position qualified close protection officers and establish secure taxi routes in your key areas."
-      },
-      5: { 
-        name: "Special Locations", 
-        timeLeft: "approximately 4 minutes left",
-        description: "Additional coverage areas help us provide comprehensive protection services. Airport transfers, government buildings, and entertainment venues each require specialized SIA security officers and trained personal bodyguards with our professional minicab services."
-      },
-      6: { 
-        name: "Emergency Protocols", 
-        timeLeft: "approximately 3 minutes left",
-        description: "Emergency contacts and communication preferences ensure rapid response coordination with our SIA licensed close protection officers. This follows security industry best practices for duty of care and incident management with professional taxi services."
-      },
-      7: { 
-        name: "Custom Requirements", 
-        timeLeft: "approximately 2 minutes left",
-        description: "Special requirements ensure our qualified security officers and minicab drivers are prepared to provide appropriate professional services. Accessibility, medical, and private security accommodations are configured in advance with our SIA licensed personnel."
-      },
-      8: { 
-        name: "Communication Setup", 
-        timeLeft: "approximately 1 minute left", 
-        description: "Communication preferences ensure seamless coordination between you, your team, and our close protection officers. Clear communication is essential for effective security transport operations with our professional taxi and minicab services."
-      },
-      9: { 
-        name: "Profile Completion", 
-        timeLeft: "Almost done!",
-        description: "Final review ensures your security profile is complete and accurate. This comprehensive assessment enables us to deliver the most appropriate protection service with qualified SIA security officers and professional minicab transport for your specific requirements."
-      }
+    const minutesLeft = formatMinutesLeft(getRemainingMinutes(totalSteps, currentStep));
+    const stepNames: Record<number, string> = {
+      1: 'Security Assessment',
+      2: 'Frequency Planning',
+      3: 'Service Matching',
+      4: 'Coverage Planning',
+      5: 'Special Locations',
+      6: 'Emergency Protocols',
+      7: 'Custom Requirements',
+      8: 'Communication Setup',
+      9: 'Profile Completion',
     };
-    
-    return stepData[currentStep] || { name: "Assessment", timeLeft: "Loading...", description: "Completing your security profile for professional transport services with qualified SIA licensed officers..." };
+
+    const descriptions: Record<number, string> = {
+      1: "We assess your security requirements to match you with qualified SIA licensed close protection officers and appropriate minicab services. This helps us understand your protection needs and recommend suitable security officers for your transport requirements.",
+      2: "Understanding your travel patterns helps us optimize our minicab and taxi service delivery. Regular users benefit from consistent SIA security officers and route planning, while occasional users receive flexible on-demand close protection services.",
+      3: "These preferences help us match you with the appropriate service level and qualified security officers. We analyze your selections to recommend whether our Standard, Executive, or Shadow protection with personal bodyguards best meets your specific transport security needs.",
+      4: "Knowing your primary locations helps us ensure appropriate SIA licensed security officers and minicab coverage. We pre-position qualified close protection officers and establish secure taxi routes in your key areas.",
+      5: "Additional coverage areas help us provide comprehensive protection services. Airport transfers, government buildings, and entertainment venues each require specialized SIA security officers and trained personal bodyguards with our professional minicab services.",
+      6: "Emergency contacts and communication preferences ensure rapid response coordination with our SIA licensed close protection officers. This follows security industry best practices for duty of care and incident management with professional taxi services.",
+      7: "Special requirements ensure our qualified security officers and minicab drivers are prepared to provide appropriate professional services. Accessibility, medical, and private security accommodations are configured in advance with our SIA licensed personnel.",
+      8: "Communication preferences ensure seamless coordination between you, your team, and our close protection officers. Clear communication is essential for effective security transport operations with our professional taxi and minicab services.",
+      9: "Final review ensures your security profile is complete and accurate. This comprehensive assessment enables us to deliver the most appropriate protection service with qualified SIA security officers and professional minicab transport for your specific requirements.",
+    };
+
+    const name = stepNames[currentStep] || 'Assessment';
+    const description = descriptions[currentStep] || 'Completing your security profile for professional transport services with qualified SIA licensed officers...';
+    return { name, timeLeft: minutesLeft, description };
   };
 
   // Enhanced message for floating bar
@@ -108,28 +89,51 @@ export function FloatingCTA({
   const progressPercentage = Math.round((currentStep / totalSteps) * 100);
 
   // Touch event handlers for swipe gestures
+  const isTap = useRef<boolean>(false);
+  const touchStartTime = useRef<number>(0);
+
   const handleTouchStart = (e: React.TouchEvent) => {
     startY.current = e.touches[0].clientY;
+    currentY.current = startY.current;
+    isTap.current = true;
+    touchStartTime.current = Date.now();
   };
 
   const handleTouchMove = (e: React.TouchEvent) => {
     currentY.current = e.touches[0].clientY;
+    // If finger moved notably, it's not a simple tap
+    if (Math.abs(currentY.current - startY.current) > 10) {
+      isTap.current = false;
+    }
   };
 
-  const handleTouchEnd = () => {
+  const handleTouchEnd = (e: React.TouchEvent) => {
     const deltaY = startY.current - currentY.current;
-    
-    // Swipe up to open (minimum 50px swipe)
-    if (deltaY > 50 && !isExpanded) {
+    const duration = Date.now() - touchStartTime.current;
+
+    // Treat short, minimal-movement touch as a tap for instant toggle
+    if (isTap.current && Math.abs(deltaY) < 10 && duration < 300) {
+      e.preventDefault();
+  ignoreNextClick.current = true;
+  setIsExpanded(prev => !prev);
+      return;
+    }
+
+    // Swipe up to open (reduced threshold for responsiveness)
+    if (deltaY > 30 && !isExpanded) {
       setIsExpanded(true);
     }
-    // Swipe down to close (minimum 50px swipe)
-    else if (deltaY < -50 && isExpanded) {
+    // Swipe down to close
+    else if (deltaY < -30 && isExpanded) {
       setIsExpanded(false);
     }
   };
 
   const handleClick = () => {
+    if (ignoreNextClick.current) {
+      ignoreNextClick.current = false;
+      return;
+    }
     // Add haptic feedback on mobile
     if ('vibrate' in navigator) {
       navigator.vibrate(50);

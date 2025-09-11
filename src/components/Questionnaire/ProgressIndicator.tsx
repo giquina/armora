@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styles from './ProgressIndicator.module.css';
 import '../../styles/questionnaire-animations.css';
+import { getRemainingMinutes, formatMinutesLeft } from '../../utils/timeEstimate';
 
 interface ProgressIndicatorProps {
   currentStep: number;
@@ -100,7 +101,7 @@ export function ProgressIndicator({
           {Math.round(progressPercentage)}% complete
         </span>
         <span className={`${styles.estimatedTime} ${isUpdating ? styles.updating : ''}`}>
-          ~{Math.max(1, Math.round((totalSteps - currentStep + 1) * 1.1))} min remaining
+          {formatMinutesLeft(getRemainingMinutes(totalSteps, currentStep))}
         </span>
       </div>
 

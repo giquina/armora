@@ -45,7 +45,7 @@
   width: 100%;
   height: 52px; /* More compact height */
   border: 2px solid var(--armora-gold);
-  border-bottom: none; /* Remove bottom border to connect seamlessly with nav */
+  border-bottom: none; /* Remove bottom border to connect seamlessly with panel when expanded */
   border-radius: 16px 16px 0 0; /* Rounded top, flat bottom to connect with nav */
   background: var(--armora-gold-muted) !important; /* FIXED: Use muted gold for subtler appearance */
   background-color: var(--armora-gold-muted) !important; /* Double ensure solid background */
@@ -61,8 +61,10 @@
   overflow: visible; /* Allow shadows and effects to show fully */
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
   font-weight: 600;
-  font-size: 14px; /* Match message text size */
+  font-size: 13px; /* Slightly larger now that text is shorter */
   color: #1a1a2e; /* Dark text on gold background for readability */
+  touch-action: manipulation; /* Faster taps, no 300ms delay */
+  -webkit-tap-highlight-color: transparent; /* Remove tap highlight */
   
   /* Subtle glow animation */
   animation: subtleGlow 3s infinite ease-in-out;
@@ -126,12 +128,17 @@
   align-items: center;
   justify-content: center;
   gap: 8px;
-  font-size: 14px; /* Smaller font for mobile fitting */
+  font-size: 13px; /* Increase for readability; still single-line */
   font-weight: 600;
   letter-spacing: 0.2px;
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2); /* Subtle shadow for dark text on gold */
   margin-bottom: 4px;
   transition: all 0.3s ease;
+  /* Force single line and truncate if needed */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 92%;
 }
 
 .spinner {
@@ -156,6 +163,7 @@
   border-radius: 1px;
   overflow: hidden;
   position: relative;
+  margin-top: 0; /* Tighten spacing */
 }
 
 .progressBar {
@@ -324,7 +332,7 @@
   }
   
   .messageText {
-    font-size: 13px; /* Smaller for tablet fitting */
+    font-size: 14px; /* Increase for tablet while preserving fit */
   }
 }
 
@@ -367,7 +375,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(26, 26, 46, 0.8);
+  background: rgba(26, 26, 46, 0.5); /* Lighter so users can see content behind */
   backdrop-filter: blur(4px);
   -webkit-backdrop-filter: blur(4px);
   z-index: -1; /* Behind the panel */
@@ -391,7 +399,7 @@
   bottom: 52px; /* Connect seamlessly with CTA button height */
   left: 0;
   right: 0;
-  max-height: calc(100vh - 180px); /* Dynamic height: full viewport minus top content and bottom space */
+  max-height: 50vh; /* Do not exceed half of the screen */
   min-height: 250px; /* Ensure minimum content visibility */
   background: var(--armora-gold-muted); /* Match CTA background exactly */
   border: 2px solid var(--armora-gold);
@@ -578,15 +586,15 @@
 
 .companyFeatures {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 8px;
+  grid-template-columns: repeat(2, minmax(0, 1fr)); /* Two per row */
+  gap: 6px; /* Slightly tighter gap */
 }
 
 .feature {
   background: rgba(26, 26, 46, 0.1);
-  padding: 8px 12px;
+  padding: 6px 10px;
   border-radius: 8px;
-  font-size: 12px;
+  font-size: 11px; /* Smaller to help two-per-row fit */
   font-weight: 500;
   color: var(--armora-dark);
   text-align: center;
@@ -600,9 +608,9 @@
   /* Remove any visual separation */
   position: relative;
   z-index: 1000; /* Below panel */
+  box-shadow: none; /* Remove glow so there is no seam under panel */
 }
 
-/* Expand indicator with bouncy animation */
 .expandIndicator {
   margin-left: 8px;
   font-size: 12px;
@@ -637,20 +645,24 @@
   align-items: center;
   justify-content: center;
   gap: 8px;
-  font-size: 13px; /* Smaller to fit more content */
+  font-size: 13px; /* Slightly larger, text now shorter */
   font-weight: 600;
   letter-spacing: 0.2px;
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
   margin-bottom: 4px;
   transition: all 0.3s ease;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 92%;
 }
 
 /* Mobile responsive panel */
 @media (max-width: 480px) {
   .expandablePanel {
-    max-height: calc(100vh - 140px); /* More space on mobile - account for smaller top section */
+  max-height: 50vh; /* Explicit cap to half screen on mobile */
     min-height: 220px; /* Ensure minimum visibility on small screens */
-    bottom: 54px; /* Slightly closer to CTA on mobile */
+  bottom: 50px; /* Maintain slight overlap */
     border-radius: 12px 12px 0 0;
   }
   
@@ -665,9 +677,18 @@
     font-size: 16px;
   }
   
-  .companyFeatures {
-    grid-template-columns: 1fr; /* Single column on mobile */
-  }
+  /* Keep two-per-row on mobile as requested */
+  .companyFeatures { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .feature { font-size: 10.5px; padding: 6px 8px; }
+}
+
+/* Extra-small screens: ensure one-line fit */
+@media (max-width: 360px) {
+  .messageText { font-size: 12px; max-width: 94%; letter-spacing: 0; }
+}
+
+@media (max-width: 320px) {
+  .messageText { font-size: 11px; }
 }
 
 /* Tablet responsive panel */
