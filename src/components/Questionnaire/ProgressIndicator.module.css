@@ -9,6 +9,7 @@
   z-index: 10;
   width: 100%;
   overflow-x: hidden;
+  box-sizing: border-box; /* Ensure padding doesn't cause overflow */
   /* Apply progress indicator entrance animation */
   animation: slideDownFromTop 0.8s 0.1s cubic-bezier(0.215, 0.61, 0.355, 1);
   animation-fill-mode: both;
@@ -22,6 +23,8 @@
   gap: 0.25rem;
   margin-bottom: 1rem;
   font-size: 1rem; /* Increase step counter size for better readability */
+  white-space: nowrap; /* Prevent clipping */
+  flex-shrink: 0; /* Do not shrink */
 }
 
 .currentStep {
@@ -136,6 +139,9 @@
   margin-bottom: 1rem;
   opacity: 0.8 !important; /* Faded for less prominence */
   color: rgba(224, 224, 224, 0.7) !important; /* Subtle color */
+  white-space: nowrap; /* Keep on one line */
+  overflow: hidden; /* Avoid right cutoff */
+  text-overflow: ellipsis; /* Truncate gracefully */
 }
 
 .progressPercentage {

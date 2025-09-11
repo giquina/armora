@@ -503,7 +503,7 @@ Your privacy is important to us. All questions are optional and you can use "Pre
             <h4>Your Privacy & Security</h4>
             <p>Your comprehensive security profile is encrypted and used exclusively for service matching. Complete confidentiality guaranteed.</p>
           </div>
-          
+            
           <CTAButtons
             currentStep={step.id}
             totalSteps={9}
@@ -592,15 +592,13 @@ Your privacy is important to us. All questions are optional and you can use "Pre
                     <span>Our Credentials</span>
                   </h4>
                   <div className={styles.inlineCredentials}>
-                    <div className={styles.credentialBadge}>🛡️ SIA Licensed</div>
-                    <div className={styles.credentialBadge}>🔒 256-bit Encryption</div>
-                    <div className={styles.credentialBadge}>✅ Government Approved</div>
-                    <div className={styles.credentialBadge}>🚗 TfL Private Hire</div>
-                    <div className={styles.credentialBadge}>👮 Close Protection</div>
+                    <div className={styles.credentialBadge}>SIA Licensed</div>
+                    <div className={styles.credentialBadge}>256-bit Encryption</div>
+                    <div className={styles.credentialBadge}>Government Approved</div>
+                    <div className={styles.credentialBadge}>TfL Private Hire</div>
+                    <div className={styles.credentialBadge}>Close Protection</div>
                   </div>
                 </div>
-                
-                <div className={styles.spacer}></div>
                 
                 {/* Time Estimate and Instructions */}
                 <div className={styles.instructionsSection}>
@@ -609,7 +607,6 @@ Your privacy is important to us. All questions are optional and you can use "Pre
                       <span className={styles.timeIcon}>⏱️</span>
                       <span>Complete in 2-3 minutes</span>
                     </div>
-                    <div className={styles.spacer}></div>
                     <p className={styles.instructionText}>
                       Select the option that best matches your professional role below. This helps us understand the discretion and security protocols required for your transport.
                     </p>
@@ -685,11 +682,12 @@ Your privacy is important to us. All questions are optional and you can use "Pre
           </div>
         )}
 
-        {/* Privacy & Security section - positioned at bottom inside content container */}
-        <div className={`${styles.securityAssurance} ${styles.securityAssuranceFooter}`}>
-          <h4>Your Privacy & Security</h4>
-          <p>{step.processOverview?.securityAssurance || 'All responses are encrypted and used exclusively for service matching. Your privacy is our priority.'}</p>
-        </div>
+      </div>
+
+      {/* Privacy & Security section - positioned at bottom before CTA buttons */}
+      <div className={`${styles.securityAssurance} ${styles.securityAssuranceFooter}`}>
+        <h4>Your Privacy & Security</h4>
+        <p>{step.processOverview?.securityAssurance || 'All responses are encrypted and used exclusively for service matching. Your privacy is our priority.'}</p>
       </div>
 
       {/* Step-specific CTA Buttons */}

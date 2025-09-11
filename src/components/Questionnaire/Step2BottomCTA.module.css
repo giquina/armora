@@ -3,8 +3,8 @@
 .ctaContainer {
   display: flex;
   flex-direction: column;
-  gap: 12px;
-  padding: 16px;
+  gap: 16px;
+  padding: 20px 16px;
   background: linear-gradient(180deg, rgba(26, 26, 46, 0.95) 0%, #1a1a2e 100%);
   border-top: var(--armora-gold-dotted);
   border-bottom: var(--armora-gold-dotted); /* Add bottom border */
@@ -36,27 +36,30 @@
   font-family: inherit;
   position: relative;
   overflow: hidden;
-  min-height: 44px;
   box-sizing: border-box;
   white-space: nowrap; /* Keep label on one line */
+  font-size: 1rem !important; /* Normalize */
+  line-height: 1.2 !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
 }
 
 /* Step 2 Layout - 3 buttons only */
 .step2Layout {
   display: flex;
   justify-content: center;
-  align-items: center;
-  gap: 12px;
+  align-items: stretch; /* Ensure equal heights */
+  gap: 16px; /* Consistent gap with other components */
   width: 100%;
   max-width: 100%;
   margin: 0 auto;
-  padding: 0 16px;
+  padding: 0;
 }
 
 .ctaButtonsRow {
   display: flex;
-  gap: 8px; /* Match shared CTA */
-  align-items: center;
+  gap: 16px; /* Consistent with other components */
+  align-items: stretch; /* Ensure equal heights */
   justify-content: center;
   width: 100%;
   flex-wrap: nowrap; /* Keep on one line */
@@ -69,32 +72,32 @@
   /* Thin default border matching content boxes */
   border: 1px solid rgba(255, 215, 0, 0.3);
   color: #FFD700;
-  font-size: 1.05rem; /* Match shared secondaryCTA updated */
-  min-height: 44px; /* Match shared secondaryCTA */
+  font-size: 0.95rem; /* Slightly smaller in 3-button layout */
+  height: 64px; /* Fixed height matching other buttons */
   padding: 0 16px;
   text-align: center;
 }
 
 .backButton:hover {
-  background: rgba(255, 215, 0, 0.05);
-  border: 2px solid #FFD700; /* THICK border on hover */
-  color: #FFE55C;
+  /* Subtle hover - no color change, only slight opacity */
+  opacity: 0.9;
   transform: translateY(-1px);
-  box-shadow: 0 4px 15px rgba(255, 215, 0, 0.2);
+  transition: all 0.2s ease;
 }
 
 .backButton:active {
-  background: rgba(255, 215, 0, 0.1);
-  border: 2px solid #FFD700; /* THICK border when clicked */
+  background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%) !important;
+  color: #1a1a2e !important;
+  border: 1px solid #FFD700;
   transform: translateY(0);
-  box-shadow: none;
+  box-shadow: 0 4px 15px rgba(255, 215, 0, 0.4);
+  transition: all 0.1s ease;
 }
 
 /* Focus state for back button */
 .backButton:focus {
-  background: rgba(255, 215, 0, 0.05);
-  border: 2px solid #FFD700; /* THICK border on focus */
-  outline: none;
+  outline: 2px solid #FFD700;
+  outline-offset: 2px;
   box-shadow: 0 0 0 2px rgba(255, 215, 0, 0.3);
 }
 
@@ -105,34 +108,33 @@
   /* Thin default border matching content boxes */
   border: 1px solid rgba(255, 215, 0, 0.3);
   color: #ffffff !important; /* White text by default */
-  font-size: 1.05rem; /* Match shared secondaryCTA updated */
-  min-height: 44px; /* Match shared secondaryCTA */
+  font-size: 0.95rem; /* Slightly smaller in 3-button layout */
+  height: 64px; /* Fixed height matching other buttons */
   padding: 0 16px;
   text-align: center;
   transition: color 0.3s ease;
 }
 
 .saveExitButton:hover {
-  background: rgba(255, 215, 0, 0.05);
-  border: 2px solid #FFD700; /* THICK border on hover */
-  color: #FFE55C;
+  /* Subtle hover - no color change, only slight opacity */
+  opacity: 0.9;
   transform: translateY(-1px);
-  box-shadow: 0 4px 15px rgba(255, 215, 0, 0.2);
+  transition: all 0.2s ease;
 }
 
 .saveExitButton:active {
-  background: rgba(255, 215, 0, 0.1);
-  border: 2px solid #FFD700; /* THICK border when clicked */
-  color: #FFD700 !important; /* Golden text when clicked */
+  background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%) !important;
+  color: #1a1a2e !important;
+  border: 1px solid #FFD700;
   transform: translateY(0);
-  box-shadow: none;
+  box-shadow: 0 4px 15px rgba(255, 215, 0, 0.4);
+  transition: all 0.1s ease;
 }
 
 /* Focus state for save & exit button */
 .saveExitButton:focus {
-  background: rgba(255, 215, 0, 0.05);
-  border: 2px solid #FFD700; /* THICK border on focus */
-  outline: none;
+  outline: 2px solid #FFD700;
+  outline-offset: 2px;
   box-shadow: 0 0 0 2px rgba(255, 215, 0, 0.3);
 }
 
@@ -141,9 +143,9 @@
   flex: 1; /* Equal width with other buttons */
   background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
   color: #1a1a2e;
-  font-size: 18px; /* Consistent font size */
+  font-size: 0.95rem; /* Slightly smaller in 3-button layout */
   font-weight: 600;
-  height: 56px; /* Fixed height matching all buttons */
+  height: 64px; /* Taller height matching CTAButtons */
   box-shadow: 0 4px 20px rgba(255, 215, 0, 0.3);
   padding: 0 20px;
   text-align: center;
@@ -152,13 +154,15 @@
 
 .continueButton:hover:not(:disabled) {
   background: linear-gradient(135deg, #FFE55C 0%, #FFB84D 100%);
-  transform: translateY(-2px);
-  box-shadow: 0 8px 30px rgba(255, 215, 0, 0.4);
+  transform: translateY(-3px);
+  box-shadow: 0 12px 40px rgba(255, 215, 0, 0.5);
+  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
 .continueButton:active:not(:disabled) {
-  transform: translateY(0);
-  box-shadow: 0 4px 20px rgba(255, 215, 0, 0.3);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 25px rgba(255, 215, 0, 0.4);
+  transition: all 0.15s ease;
 }
 
 .continueButton:disabled {
@@ -171,7 +175,7 @@
 
 /* CTA Icons */
 .ctaIcon {
-  font-size: 1rem;
+  font-size: 1.2rem; /* Scaled to match balanced button text */
   opacity: 0.9;
 }
 
@@ -189,26 +193,26 @@
   }
 
   .step2Layout {
-    gap: 10px;
+    gap: 12px; /* Consistent mobile gap */
     max-width: 100%;
-    padding: 0 12px;
+    padding: 0;
   }
 
   .backButton,
   .saveExitButton {
-    height: 52px; /* Fixed height on mobile */
-    font-size: 16px; /* Proportional font */
+    height: 60px; /* Taller on mobile for better touch targets */
+    font-size: 0.95rem; /* Fixed mobile size - properly readable */
     padding: 0 10px;
   }
 
   .continueButton {
-    height: 52px; /* Same height as other buttons */
-    font-size: 16px; /* Same font size */
+    height: 60px; /* Same height as other buttons */
+    font-size: 0.95rem; /* Fixed mobile size - consistent with other buttons */
     padding: 0 12px;
   }
 
   .ctaIcon {
-    font-size: 0.9rem;
+    font-size: 1.1rem; /* Scaled down to match fixed mobile button text */
   }
 }
 
@@ -227,14 +231,14 @@
 
   .backButton,
   .saveExitButton {
-    min-height: 56px; /* Match shared secondaryCTA updated */
-    font-size: 1.08rem; /* Slightly larger */
+    height: 66px; /* Taller for tablet comfort */
+    font-size: 1.05rem; /* Balanced tablet size for good visibility */
     padding: 0 16px;
   }
 
   .continueButton {
-  min-height: 60px; /* Match shared primaryCTA updated */
-  font-size: 1.2rem; /* Match shared primaryCTA updated */
+  height: 66px; /* Taller for tablet comfort */
+  font-size: 1rem; /* Fixed tablet size - properly readable */
   }
 }
 
@@ -254,18 +258,18 @@
 
   .backButton,
   .saveExitButton {
-  min-height: 60px; /* Match shared secondaryCTA updated */
-  font-size: 1.1rem; /* Larger but keep one line */
+  height: 68px; /* Tallest for desktop presence */
+  font-size: 1rem; /* Fixed desktop size - consistent across devices */
     padding: 0 16px;
   }
 
   .continueButton {
-  min-height: 62px; /* Slightly reduced */
-  font-size: 1.25rem; /* Larger primary */
+  height: 68px; /* Tallest for desktop presence */
+  font-size: 1rem; /* Fixed desktop size - consistent across devices */
   }
 
   .ctaIcon {
-    font-size: 1.1rem;
+    font-size: 1.2rem; /* Scaled to match balanced desktop button text */
   }
 }
 

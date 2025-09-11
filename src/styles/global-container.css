@@ -1,0 +1,286 @@
+/* ARMORA GLOBAL CONTENT WIDTH STANDARDIZATION SYSTEM */
+/* Everything in the app uses these consistent widths */
+
+:root {
+  /* MASTER WIDTH CONTROL */
+  --content-max-width: 680px;
+  --content-padding-mobile: 16px;
+  --content-padding-tablet: 20px;
+  --content-padding-desktop: 24px;
+  
+  /* Calculated values for consistent spacing */
+  --content-width-mobile: calc(100vw - (var(--content-padding-mobile) * 2));
+  --content-width-tablet: min(680px, calc(100vw - (var(--content-padding-tablet) * 2)));
+  --content-width-desktop: 680px;
+}
+
+/* ========================================
+   MASTER CONTENT CONTAINER
+   Use this for ALL page-level containers
+   ======================================== */
+.armora-content-container {
+  width: 100%;
+  max-width: var(--content-max-width);
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: var(--content-padding-mobile);
+  padding-right: var(--content-padding-mobile);
+  box-sizing: border-box;
+}
+
+/* ========================================
+   TEXT CONTENT WRAPPER
+   Use this for text sections within containers
+   ======================================== */
+.armora-text-content {
+  width: 100%;
+  max-width: var(--content-max-width);
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* ========================================
+   FULL WIDTH SECTION
+   For sections that need background but content stays at 680px
+   ======================================== */
+.armora-section-wrapper {
+  width: 100%;
+  padding: 0;
+}
+
+.armora-section-wrapper .armora-section-content {
+  max-width: var(--content-max-width);
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: var(--content-padding-mobile);
+  padding-right: var(--content-padding-mobile);
+}
+
+/* ========================================
+   PAGE CONTAINER
+   Main wrapper for entire views
+   ======================================== */
+.armora-page-container {
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.armora-page-content {
+  flex: 1;
+  width: 100%;
+  max-width: var(--content-max-width);
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: var(--content-padding-mobile);
+  padding-right: var(--content-padding-mobile);
+  box-sizing: border-box;
+}
+
+/* ========================================
+   FORM CONTAINER
+   Ensures forms use full 680px width
+   ======================================== */
+.armora-form-container {
+  width: 100%;
+  max-width: var(--content-max-width);
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.armora-form-container input,
+.armora-form-container textarea,
+.armora-form-container select {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* ========================================
+   CARD CONTAINER UPDATE
+   Ensures cards fill the 680px properly
+   ======================================== */
+.armora-card-container {
+  width: 100%;
+  max-width: var(--content-max-width);
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: var(--content-padding-mobile);
+  padding-right: var(--content-padding-mobile);
+}
+
+.armora-card-container .armora-card-standard {
+  width: 100%;
+  margin-left: 0;
+  margin-right: 0;
+}
+
+/* ========================================
+   HEADER/FOOTER CONTENT
+   Keeps navigation within 680px
+   ======================================== */
+.armora-header-content,
+.armora-footer-content {
+  width: 100%;
+  max-width: var(--content-max-width);
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: var(--content-padding-mobile);
+  padding-right: var(--content-padding-mobile);
+}
+
+/* ========================================
+   RESPONSIVE ADJUSTMENTS
+   ======================================== */
+
+/* Tablet - 768px to 1023px */
+/* CRITICAL: 320px minimum width support */
+@media (max-width: 320px) {
+  :root {
+    --content-padding-mobile: 8px;
+  }
+  
+  .armora-content-container,
+  .armora-page-content,
+  .armora-section-wrapper .armora-section-content,
+  .armora-card-container,
+  .armora-header-content,
+  .armora-footer-content {
+    padding-left: 8px;
+    padding-right: 8px;
+  }
+}
+
+@media (min-width: 768px) {
+  .armora-content-container,
+  .armora-page-content,
+  .armora-section-wrapper .armora-section-content,
+  .armora-card-container,
+  .armora-header-content,
+  .armora-footer-content {
+    padding-left: var(--content-padding-tablet);
+    padding-right: var(--content-padding-tablet);
+  }
+}
+
+/* Desktop - 1024px+ */
+@media (min-width: 1024px) {
+  .armora-content-container,
+  .armora-page-content,
+  .armora-section-wrapper .armora-section-content,
+  .armora-card-container,
+  .armora-header-content,
+  .armora-footer-content {
+    padding-left: var(--content-padding-desktop);
+    padding-right: var(--content-padding-desktop);
+  }
+}
+
+/* ========================================
+   UTILITY CLASSES
+   ======================================== */
+
+/* Remove padding when needed */
+.armora-no-padding {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+
+/* Full width within container */
+.armora-full-width {
+  width: 100% !important;
+}
+
+/* Center content */
+.armora-center {
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* ========================================
+   BUTTON GROUP STANDARDIZATION
+   ======================================== */
+.armora-button-group {
+  display: flex;
+  gap: 12px;
+  width: 100%;
+  max-width: var(--content-max-width);
+  margin-top: 20px;
+}
+
+.armora-button-group button {
+  flex: 1;
+  min-height: 44px;
+}
+
+.armora-button-group.armora-button-group-vertical {
+  flex-direction: column;
+}
+
+.armora-button-group.armora-button-group-horizontal {
+  flex-direction: row;
+}
+
+@media (max-width: 480px) {
+  .armora-button-group.armora-button-group-responsive {
+    flex-direction: column;
+  }
+}
+
+/* ========================================
+   PROGRESS BAR WIDTH FIX
+   ======================================== */
+.armora-progress-container {
+  width: 100%;
+  max-width: var(--content-max-width);
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: var(--content-padding-mobile);
+  padding-right: var(--content-padding-mobile);
+}
+
+/* ========================================
+   LIST AND TABLE CONTAINERS
+   ======================================== */
+.armora-list-container,
+.armora-table-container {
+  width: 100%;
+  max-width: var(--content-max-width);
+  margin-left: auto;
+  margin-right: auto;
+  overflow-x: auto; /* Allow horizontal scroll for tables if needed */
+}
+
+/* ========================================
+   IMAGE CONTAINER
+   ======================================== */
+.armora-image-container {
+  width: 100%;
+  max-width: var(--content-max-width);
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.armora-image-container img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* ========================================
+   MODAL CONTENT WIDTH
+   ======================================== */
+.armora-modal-content {
+  max-width: var(--content-max-width) !important;
+}
+
+/* ========================================
+   DEBUG HELPERS (Remove in production)
+   ======================================== */
+.debug-680 {
+  outline: 2px dashed red;
+}
+
+.debug-content {
+  outline: 2px dashed blue;
+}

@@ -1,0 +1,267 @@
+/* YesNoToggle Component Styles */
+
+.toggleContainer {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  width: 100%;
+}
+
+.label {
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--text-primary);
+  flex: 1;
+  line-height: 1.4;
+}
+
+.toggle {
+  position: relative;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  outline: none;
+  border-radius: 22px;
+  padding: 0;
+  background: transparent;
+  border: none;
+  min-width: 88px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.toggle:hover {
+  box-shadow: 0 0 12px rgba(255, 215, 0, 0.15);
+}
+
+.toggle:focus-visible {
+  outline: 2px solid rgba(255, 215, 0, 0.8);
+  outline-offset: 2px;
+}
+
+.toggle.disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.toggle.disabled:hover {
+  box-shadow: none;
+}
+
+.track {
+  position: relative;
+  width: 80px;
+  height: 36px;
+  border-radius: 18px;
+  background: rgba(120, 120, 120, 0.2);
+  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 4px;
+}
+
+.textLabel {
+  font-size: 0.85rem;
+  font-weight: 600;
+  z-index: 2;
+  transition: all 0.3s ease;
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 28px;
+  line-height: 1;
+}
+
+.noText {
+  color: rgba(224, 224, 224, 0.9);
+  transform: translateX(0);
+}
+
+.yesText {
+  color: rgba(224, 224, 224, 0.5);
+  transform: translateX(0);
+}
+
+.indicator {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 32px;
+  height: 32px;
+  background: linear-gradient(135deg, rgba(255, 215, 0, 0.9), rgba(255, 215, 0, 0.7));
+  border-radius: 16px;
+  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  box-shadow: 
+    0 2px 8px rgba(0, 0, 0, 0.15),
+    0 0 0 1px rgba(255, 215, 0, 0.2);
+  z-index: 1;
+  opacity: 0;
+  transform: scale(0.8);
+}
+
+/* No State (Default) */
+.toggle.no .track {
+  background: rgba(120, 120, 120, 0.15);
+  border: 1px solid rgba(224, 224, 224, 0.1);
+}
+
+.toggle.no .noText {
+  color: rgba(224, 224, 224, 0.9);
+  font-weight: 700;
+}
+
+.toggle.no .yesText {
+  color: rgba(224, 224, 224, 0.4);
+  font-weight: 500;
+}
+
+.toggle.no .indicator {
+  opacity: 0.3;
+  transform: translateX(0) scale(0.7);
+  background: rgba(200, 200, 200, 0.6);
+  box-shadow: 
+    0 1px 4px rgba(0, 0, 0, 0.1),
+    0 0 0 1px rgba(200, 200, 200, 0.3);
+}
+
+/* Yes State (Active) */
+.toggle.yes .track {
+  background: linear-gradient(135deg, rgba(255, 215, 0, 0.25), rgba(255, 215, 0, 0.15));
+  border: 1px solid rgba(255, 215, 0, 0.4);
+  box-shadow: 0 0 16px rgba(255, 215, 0, 0.1);
+}
+
+.toggle.yes .noText {
+  color: rgba(224, 224, 224, 0.4);
+  font-weight: 500;
+}
+
+.toggle.yes .yesText {
+  color: rgba(255, 215, 0, 0.95);
+  font-weight: 700;
+  text-shadow: 0 0 8px rgba(255, 215, 0, 0.3);
+}
+
+.toggle.yes .indicator {
+  opacity: 1;
+  transform: translateX(44px) scale(1);
+  background: linear-gradient(135deg, #FFD700, rgba(255, 215, 0, 0.8));
+  box-shadow: 
+    0 3px 12px rgba(255, 215, 0, 0.3),
+    0 0 0 1px rgba(255, 215, 0, 0.5),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+/* Active/Pressed States */
+.toggle:active .indicator {
+  transform: scale(0.95);
+}
+
+.toggle.yes:active .indicator {
+  transform: translateX(44px) scale(0.95);
+}
+
+/* Mobile Responsive Adjustments */
+@media (max-width: 767px) {
+  .toggleContainer {
+    gap: 0.5rem;
+  }
+  
+  .label {
+    font-size: 1.1rem;
+    line-height: 1.3;
+  }
+  
+  .toggle {
+    min-width: 92px;
+    height: 48px;
+  }
+  
+  .track {
+    width: 84px;
+    height: 40px;
+    border-radius: 20px;
+  }
+  
+  .textLabel {
+    font-size: 0.9rem;
+    width: 36px;
+    height: 32px;
+  }
+  
+  .indicator {
+    width: 36px;
+    height: 36px;
+    border-radius: 18px;
+  }
+  
+  .toggle.yes .indicator {
+    transform: translateX(44px) scale(1);
+  }
+}
+
+/* Tablet Responsive Adjustments */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .toggle {
+    min-width: 90px;
+    height: 46px;
+  }
+  
+  .track {
+    width: 82px;
+    height: 38px;
+    border-radius: 19px;
+  }
+  
+  .textLabel {
+    font-size: 0.875rem;
+    width: 34px;
+    height: 30px;
+  }
+  
+  .indicator {
+    width: 34px;
+    height: 34px;
+    border-radius: 17px;
+  }
+  
+  .toggle.yes .indicator {
+    transform: translateX(44px) scale(1);
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .toggle.no .track {
+    border: 2px solid #666;
+    background: #000;
+  }
+  
+  .toggle.yes .track {
+    border: 2px solid #FFD700;
+    background: rgba(255, 215, 0, 0.1);
+  }
+  
+  .toggle.no .noText {
+    color: #fff;
+  }
+  
+  .toggle.yes .yesText {
+    color: #FFD700;
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .toggle,
+  .track,
+  .indicator,
+  .textLabel {
+    transition: none;
+  }
+}

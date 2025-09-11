@@ -1,0 +1,154 @@
+/* ARMORA CARD/MODAL STANDARDIZATION SYSTEM */
+/* Based on NameCollection welcome card dimensions */
+
+:root {
+  /* CARD DIMENSIONS - Standard widths for all cards/modals */
+  --card-padding-mobile: 20px 16px;
+  --card-padding-tablet: 28px;
+  --card-padding-desktop: 32px;
+  
+  --card-margin-mobile: 16px;
+  --card-margin-tablet: 20px;
+  --card-margin-desktop: 24px;
+  
+  --card-border-radius: 12px;
+  --card-border-width: 2px;
+  --card-border-color: rgba(255, 215, 0, 0.4);
+  --card-border: var(--card-border-width) solid var(--card-border-color);
+  
+  --card-backdrop-blur: 10px;
+  /* Use parent width to avoid overflow inside padded containers on mobile */
+  --card-max-width-mobile: calc(100% - 36px); /* 16px margins + 2px borders on each side */
+  --card-max-width-tablet: 600px;
+  --card-max-width-desktop: 680px;
+  
+  /* MODAL SPECIFIC */
+  --modal-max-width: 680px;
+  --modal-backdrop: rgba(26, 26, 46, 0.95);
+}
+
+/* STANDARD CARD CLASS - Apply to all cards/modals */
+.armora-card-standard {
+  background: transparent;
+  border: var(--card-border);
+  border-radius: var(--card-border-radius);
+  backdrop-filter: blur(var(--card-backdrop-blur));
+  -webkit-backdrop-filter: blur(var(--card-backdrop-blur));
+  width: 100%;
+  box-sizing: border-box;
+  transition: all 0.3s ease;
+  
+  /* Mobile First - 320px+ */
+  padding: var(--card-padding-mobile);
+  margin-left: var(--card-margin-mobile);
+  margin-right: var(--card-margin-mobile);
+  max-width: var(--card-max-width-mobile);
+}
+
+/* Tablet - 768px+ */
+@media (min-width: 768px) {
+  .armora-card-standard {
+    padding: var(--card-padding-tablet);
+    margin-left: auto;
+    margin-right: auto;
+    max-width: var(--card-max-width-tablet);
+  }
+}
+
+/* Desktop - 1024px+ */
+@media (min-width: 1024px) {
+  .armora-card-standard {
+    padding: var(--card-padding-desktop);
+    max-width: var(--card-max-width-desktop);
+  }
+}
+
+/* CENTERED CARD VARIANT */
+.armora-card-centered {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* FULL WIDTH CARD VARIANT (for dashboard grids) */
+.armora-card-full {
+  max-width: 100%;
+  margin-left: 0;
+  margin-right: 0;
+}
+
+/* MODAL OVERLAY STANDARD */
+.armora-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--modal-backdrop);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: var(--z-modal-backdrop);
+  padding: var(--card-margin-mobile);
+}
+
+.armora-modal-content {
+  background: var(--bg-primary);
+  border: var(--card-border);
+  border-radius: var(--card-border-radius);
+  backdrop-filter: blur(var(--card-backdrop-blur));
+  -webkit-backdrop-filter: blur(var(--card-backdrop-blur));
+  width: 100%;
+  max-width: var(--modal-max-width);
+  max-height: 90vh;
+  overflow-y: auto;
+  padding: var(--card-padding-mobile);
+}
+
+@media (min-width: 768px) {
+  .armora-modal-overlay {
+    padding: var(--card-margin-tablet);
+  }
+  
+  .armora-modal-content {
+    padding: var(--card-padding-tablet);
+  }
+}
+
+@media (min-width: 1024px) {
+  .armora-modal-overlay {
+    padding: var(--card-margin-desktop);
+  }
+  
+  .armora-modal-content {
+    padding: var(--card-padding-desktop);
+  }
+}
+
+/* HOVER STATES */
+.armora-card-standard:hover,
+.armora-modal-content:hover {
+  border-color: rgba(255, 215, 0, 0.6);
+  box-shadow: 0 0 20px rgba(255, 215, 0, 0.1);
+}
+
+/* ANIMATION HELPERS */
+.armora-card-animate-in {
+  animation: slideInFromTop 0.5s ease-out;
+}
+
+@keyframes slideInFromTop {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* UTILITY CLASSES FOR QUICK APPLICATION */
+.armora-card-sm { max-width: 480px; }
+.armora-card-md { max-width: 680px; }
+.armora-card-lg { max-width: 960px; }
+.armora-card-xl { max-width: 1200px; }

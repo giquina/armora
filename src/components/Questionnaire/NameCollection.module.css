@@ -63,15 +63,18 @@
 
 .confirmButton {
   margin-top: 10px;
-  padding: 8px 14px;
+  padding: 12px 20px; /* Increased padding for better proportions */
   border: 2px solid rgba(255, 215, 0, 0.4) !important; /* Border on the button only */
   border-radius: 8px;
   background: transparent;
   color: #FFFFFF;
-  font-size: 0.75rem !important; /* Small button text - 12px */
+  font-size: 16px; /* Match welcome paragraph text size */
+  font-weight: 600; /* Keep semi-bold for button emphasis */
   cursor: pointer;
   transition: all 0.2s ease-in-out;
   opacity: 0.8 !important; /* Slightly faded for less prominence */
+  line-height: 1.5; /* Match welcome paragraph line-height */
+  min-height: 48px; /* Ensure adequate touch target */
 }
 
 .confirmButton:hover:not(:disabled) {
@@ -110,6 +113,12 @@
   
   .nameInput { font-size: 15px; padding: 12px 14px; }
   
+  .confirmButton { 
+    font-size: 15px; /* Match mobile welcome paragraph text size */
+    padding: 10px 18px; /* Proportional mobile padding */
+    min-height: 46px; /* Adequate mobile touch target */
+  }
+  
   .nameInputContainer { max-width: 100%; }
 }
 
@@ -127,6 +136,12 @@
     padding: 16px 18px;
     font-size: 17px;
   }
+  
+  .confirmButton {
+    font-size: 16px; /* Match tablet welcome paragraph text size (default) */
+    padding: 12px 20px; /* Proportional tablet padding */
+    min-height: 48px; /* Adequate tablet touch target */
+  }
 }
 
 /* Desktop Styles */
@@ -142,6 +157,12 @@
   .nameInput {
     padding: 18px 20px;
     font-size: 18px;
+  }
+  
+  .confirmButton {
+    font-size: 16px; /* Match desktop welcome paragraph text size (default) */
+    padding: 14px 24px; /* Proportional desktop padding */
+    min-height: 48px; /* Adequate desktop touch target */
   }
 }
 

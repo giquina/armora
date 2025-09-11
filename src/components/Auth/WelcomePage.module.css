@@ -28,15 +28,17 @@
 .welcomeContainer {
   height: 100vh;
   min-height: 100vh;
-  max-height: 100vh; /* ENFORCE viewport limit */
+  max-height: 100vh;
   display: flex;
   flex-direction: column;
-  justify-content: space-between; /* DISTRIBUTE content evenly */
-  padding: clamp(0.5rem, 2vh, 1rem) clamp(1rem, 4vw, 2rem) clamp(0.25rem, 1vh, 0.5rem); /* COMPRESSED padding */
+  justify-content: space-between;
   position: relative;
   z-index: 2;
-  overflow: hidden; /* PREVENT scrolling */
+  overflow: hidden;
   overscroll-behavior: none;
+  max-width: var(--content-max-width);
+  margin: 0 auto;
+  padding: clamp(1rem, 3vh, 2rem) var(--content-padding-mobile) clamp(0.5rem, 1.5vh, 1rem);
 }
 
 /* HEADER SECTION - LOGO & TITLE */
@@ -44,12 +46,14 @@
   flex: 0 0 auto;
   text-align: center;
   animation: headerSlideIn 0.5s ease-out 0.1s both;
+  margin-top: clamp(0.5rem, 2vh, 1rem); /* Compressed top spacing for mobile fit */
 }
 
 .logoContainer {
   position: relative;
   display: inline-block;
-  margin-bottom: clamp(0.25rem, 1vh, 0.5rem);
+  margin-bottom: clamp(0.5rem, 2vh, 1rem);
+  transform: scale(0.85); /* Reduce logo size to 85% */
 }
 
 .orbitalRing {
@@ -124,28 +128,46 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: clamp(0.25rem, 1vh, 0.75rem) 0; /* COMPRESSED margins */
+  margin: clamp(0.25rem, 1vh, 0.5rem) 0; /* Ultra-compressed margin for mobile fit */
+  padding: 0 var(--content-padding-mobile); /* Match button alignment */
 }
 
 .features {
   display: grid;
   grid-template-columns: 1fr 1fr; /* FORCE 2 columns */
   grid-template-rows: auto auto;   /* 2 rows */
-  gap: clamp(2px, 0.8vh, 6px); /* Compressed gap for tighter spacing */
+  gap: clamp(8px, 1.5vh, 16px); /* Increased gap for better readability */
   opacity: 0;
   transform: translateY(20px);
-  max-width: 600px;
+  max-width: var(--content-max-width); /* Match content width */
   margin: 0 auto;
   width: 100%;
 }
 
 /* Mobile responsive - single column only on small screens */
 @media (max-width: 767px) {
+  .welcomeContent {
+    padding: 0 24px; /* Match action button padding */
+  }
+  
   .features {
     grid-template-columns: 1fr; /* Single column on mobile */
     grid-template-rows: repeat(4, auto);
-    gap: clamp(3px, 1vh, 6px); /* Compressed gap for mobile */
+    gap: clamp(2px, 0.5vh, 4px); /* Ultra-compressed gap for mobile fit */
     max-width: 100%;
+  }
+  
+  .feature {
+    padding: clamp(4px, 0.5vh, 6px); /* Ultra-compressed padding for mobile fit */
+  }
+  
+  .featureContent {
+    gap: clamp(10px, 2vh, 14px); /* Consistent mobile gap */
+  }
+  
+  .featureLogo {
+    width: 22px; /* Slightly smaller on mobile */
+    height: 22px;
   }
 }
 
@@ -159,7 +181,7 @@
   /* REMOVE large box styling */
   background: none;           /* No background */
   border: none;              /* No border */
-  padding: clamp(6px, 1.5vh, 10px);   /* COMPRESSED padding for horizontal layout */
+  padding: clamp(6px, 1vh, 10px);   /* Compressed padding for mobile fit */
   border-radius: 0;          /* No rounded corners */
   
   /* HORIZONTAL layout with icon on left */
@@ -225,7 +247,7 @@
   display: flex;
   flex-direction: row; /* HORIZONTAL: icon and text side by side */
   align-items: flex-start; /* Align to top for multi-line content */
-  gap: clamp(8px, 2vh, 12px); /* Gap between icon and text */
+  gap: clamp(12px, 2.5vh, 16px); /* Increased gap between icon and text */
   width: 100%;
 }
 
@@ -233,15 +255,15 @@
   flex: 1;
   text-align: left; /* Left align text */
   width: 100%;
-  max-width: calc(100% - 32px); /* Account for icon + gap */
+  max-width: calc(100% - 40px); /* Account for larger icon + gap */
   min-height: auto; /* Allow natural height for multi-line text */
 }
 
 .featureLogo {
-  width: 20px; /* Smaller size for horizontal layout */
-  height: 20px;
+  width: 24px; /* Larger size for better visual balance */
+  height: 24px;
   flex-shrink: 0; /* Prevent icon from shrinking */
-  margin-top: 2px; /* Align with first line of text */
+  margin-top: 1px; /* Better align with first line of text */
   color: var(--armora-gold);
   fill: var(--armora-gold);
   filter: drop-shadow(0 1px 2px rgba(255, 215, 0, 0.3));
@@ -331,7 +353,12 @@
   flex: 0 0 auto;
   opacity: 0;
   transform: translateY(30px);
-  margin-bottom: clamp(0.5rem, 1.5vh, 0.75rem);
+  margin-bottom: clamp(0.375rem, 1.2vh, 0.625rem); /* Reduced bottom margin */
+  margin-top: clamp(0.125rem, 0.5vh, 0.25rem); /* Ultra-compressed top margin for mobile fit */
+  max-width: var(--content-max-width);
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0 var(--content-padding-mobile);
 }
 
 .actionsVisible {
@@ -343,8 +370,9 @@
 .authButtons {
   display: flex;
   flex-direction: column;
-  gap: clamp(0.5rem, 1.5vh, 0.75rem);
-  margin-bottom: clamp(0.5rem, 1.5vh, 0.75rem);
+  gap: clamp(0.25rem, 1vh, 0.5rem); /* Ultra-compressed gap between auth buttons */
+  margin-bottom: clamp(0.25rem, 1vh, 0.5rem); /* Ultra-compressed bottom margin */
+  width: 100%;
 }
 
 /* AUTHENTICATION BUTTONS */
@@ -354,6 +382,7 @@
   justify-content: center;
   gap: clamp(0.5rem, 2vw, 0.75rem);
   font-weight: 600;
+  font-size: 1rem; /* Match body text size for consistency */
 }
 
 .authIcon {
@@ -389,9 +418,8 @@
 
 .googleButton:hover {
   background: var(--hover-gold) !important;
-  transform: translateY(-2px) scale(1.02);
-  box-shadow: 0 12px 30px rgba(255, 215, 0, 0.4) !important;
-  animation: magneticPulse 0.3s ease-out;
+  transform: translateY(-2px) scale(1.01);
+  box-shadow: 0 8px 25px rgba(255, 215, 0, 0.4) !important;
 }
 
 .emailButton {
@@ -404,9 +432,8 @@
 .emailButton:hover {
   background: rgba(255, 215, 0, 0.1) !important;
   border-color: var(--armora-gold) !important;
-  transform: translateY(-2px) scale(1.02);
+  transform: translateY(-2px) scale(1.01);
   box-shadow: 0 8px 25px rgba(255, 215, 0, 0.3);
-  animation: magneticPulse 0.3s ease-out;
 }
 
 .phoneButton {
@@ -419,14 +446,13 @@
 .phoneButton:hover {
   background: rgba(255, 215, 0, 0.1) !important;
   border-color: var(--armora-gold) !important;
-  transform: translateY(-2px) scale(1.02);
+  transform: translateY(-2px) scale(1.01);
   box-shadow: 0 8px 25px rgba(255, 215, 0, 0.3);
-  animation: magneticPulse 0.3s ease-out;
 }
 
 .divider {
   position: relative;
-  margin: clamp(0.5rem, 1.5vh, 0.75rem) 0;
+  margin: clamp(0.25rem, 1vh, 0.5rem) 0; /* Ultra-compressed divider margins */
   text-align: center;
 }
 
@@ -608,6 +634,7 @@
   flex-direction: column;
   gap: 2px;
   align-items: center;
+  font-size: 1rem; /* Match body text size for consistency */
 }
 
 .devNote {
@@ -622,6 +649,7 @@
   flex-direction: column;
   gap: 2px;
   align-items: center;
+  font-size: 1rem; /* Match body text size for consistency */
 }
 
 .guestNote {
@@ -647,7 +675,7 @@
   background: none;
   border: none;
   font-family: Arial, sans-serif;
-  font-size: clamp(12px, 3vw, 14px);
+  font-size: 1rem; /* Match body text size for consistency */
   font-weight: 500;
   color: #9CA3AF; /* Changed from blue to grey */
   text-decoration: underline;
@@ -921,11 +949,7 @@
   100% { transform: rotate(360deg) scale(1); }
 }
 
-@keyframes magneticPulse {
-  0% { transform: translateY(-2px) scale(1.02); }
-  50% { transform: translateY(-3px) scale(1.03); }
-  100% { transform: translateY(-2px) scale(1.02); }
-}
+/* Removed magneticPulse animation - caused double hover effects */
 
 @keyframes credentialReveal {
   0% {
@@ -1139,39 +1163,156 @@
   }
   
   .welcomeContent {
-    margin: 0.5rem 0;
+    margin: 0.125rem 0; /* Ultra-minimal margin */
   }
   
   .features {
-    gap: 3px; /* Increased gap even on shortest screens */
+    gap: 1px; /* Absolute minimal gap for very short screens */
   }
   
   .feature {
-    padding: 2px 4px; /* More padding */
+    padding: 1px 2px; /* Absolute minimal padding */
   }
   
   .featureTitleOnly {
-    font-size: 0.75rem; /* Keep larger font on very short screens */
-    line-height: 1.15;
+    font-size: 0.65rem; /* Smaller for tight fit */
+    line-height: 1.05;
   }
   
   .featureSubtitle {
-    font-size: 0.625rem; /* Keep readable size */
-    margin: 1px 0 0 0;
+    font-size: 0.55rem; /* Much smaller to save space */
+    margin: 0;
+    line-height: 1.1;
   }
   
   .authButtons {
-    gap: 0.375rem;
-    margin-bottom: 0.375rem;
+    gap: 0.125rem; /* Ultra-minimal gap between buttons */
+    margin-bottom: 0.125rem;
   }
   
   .divider {
-    margin: 0.375rem 0;
+    margin: 0.125rem 0; /* Ultra-minimal divider margin */
+  }
+  
+  .welcomeActions {
+    margin-top: 0; /* Remove top margin */
+    margin-bottom: 0.125rem;
+  }
+  
+  .welcomeHeader {
+    margin-top: 0.25rem; /* Minimal header top margin */
+  }
+  
+  .logoContainer {
+    margin-bottom: 0.125rem; /* Minimal logo bottom margin */
+    transform: scale(0.8); /* Reduce logo size further on very short screens */
+  }
+  
+  .welcomeTitle {
+    font-size: 1rem; /* Smaller title */
+    margin: 0.0625rem 0;
+  }
+  
+  .tagline {
+    font-size: 0.5625rem; /* Smaller tagline */
+    margin-bottom: 0.125rem;
   }
   
   .governmentLicensedButton {
-    font-size: 11px;
-    padding: 6px 16px;
+    font-size: 9px;
+    padding: 2px 8px; /* Minimal padding */
+  }
+  
+  /* Hide development buttons on very short screens to save space */
+  .devSkipButton,
+  .devQuestionnaireButton {
+    display: none !important;
+  }
+}
+
+/* CRITICAL: Ultra-short screens (under 600px height) */
+@media (max-height: 600px) {
+  .welcomeContainer {
+    padding: 0.25rem 1rem 0.125rem;
+  }
+  
+  .logoContainer {
+    transform: scale(0.75); /* Even smaller logo */
+  }
+  
+  .welcomeTitle {
+    font-size: 0.875rem;
+    margin: 0.03125rem 0;
+  }
+  
+  .tagline {
+    font-size: 0.5rem;
+    margin-bottom: 0.0625rem;
+  }
+  
+  .features {
+    gap: 0px; /* No gap at all */
+  }
+  
+  .feature {
+    padding: 0px 1px;
+  }
+  
+  .featureTitleOnly {
+    font-size: 0.6rem;
+    line-height: 1;
+  }
+  
+  .featureSubtitle {
+    font-size: 0.5rem;
+    line-height: 1.05;
+  }
+  
+  .authButtons {
+    gap: 0.0625rem; /* Minimal possible gap */
+  }
+  
+  .divider {
+    margin: 0.0625rem 0;
+  }
+  
+  .governmentLicensedButton {
+    font-size: 8px;
+    padding: 1px 6px;
+  }
+  
+  /* Hide the floating dev button to save screen real estate */
+  div[style*="position: fixed"] {
+    display: none !important;
+  }
+}
+
+/* MOBILE RESPONSIVE - Better button spacing */
+@media (max-width: 767px) {
+  .welcomeContainer {
+    padding: clamp(0.75rem, 2vh, 1.5rem) 24px clamp(0.5rem, 1.5vh, 1rem);
+  }
+  
+  .welcomeHeader {
+    margin-top: clamp(0.5rem, 2vh, 1rem); /* Reduced top margin on mobile */
+  }
+  
+  .welcomeActions {
+    padding: 0 24px;
+  }
+}
+
+/* TABLET RESPONSIVE */
+@media (min-width: 768px) {
+  .welcomeActions {
+    padding: 0 var(--content-padding-tablet);
+  }
+}
+
+/* DESKTOP RESPONSIVE */
+@media (min-width: 1024px) {
+  .welcomeActions {
+    padding: 0 var(--content-padding-desktop);
   }
 }
 
@@ -1179,6 +1320,10 @@
 @media (max-width: 320px) {
   .welcomeContainer {
     padding: 1rem 0.75rem 0.5rem;
+  }
+  
+  .welcomeActions {
+    padding: 0 8px;
   }
   
   .orbitalRing {

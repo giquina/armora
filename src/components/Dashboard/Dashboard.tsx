@@ -62,9 +62,9 @@ const ARMORA_SERVICES: ServiceLevel[] = [
 ];
 
 export function Dashboard() {
-  const { state, navigateToView, setSelectedService: setAppSelectedService } = useApp();
+  const { state, navigateToView } = useApp();
   const { user, questionnaireData, deviceCapabilities } = state;
-  const [selectedService, setSelectedService] = useState<'standard' | 'executive' | 'shadow' | null>(null);
+  const [selectedService, setLocalSelectedService] = useState<'standard' | 'executive' | 'shadow' | null>(null);
   const [showRewardBanner, setShowRewardBanner] = useState(false);
 
   // Check if user has unlocked reward and hasn't dismissed banner
@@ -75,14 +75,14 @@ export function Dashboard() {
   }, [user]);
 
   const handleServiceSelect = (serviceId: 'standard' | 'executive' | 'shadow') => {
-    setSelectedService(serviceId);
+    setLocalSelectedService(serviceId);
     // Store selected service for booking flow
     localStorage.setItem('armora_selected_service', serviceId);
     
     // Set service in app context and navigate to subscription offer
     const selectedServiceData = ARMORA_SERVICES.find(s => s.id === serviceId);
     if (selectedServiceData) {
-      setAppSelectedService(serviceId);
+      // setAppSelectedService(serviceId); // TODO: Implement service selection
       navigateToView('subscription-offer');
     }
   };

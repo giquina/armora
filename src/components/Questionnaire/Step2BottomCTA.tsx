@@ -27,21 +27,21 @@ export function Step2BottomCTA({
           disabled={!canContinue}
           className={`${styles.ctaButton} ${styles.continueButton}`}
         >
-          <span className={styles.ctaLabel}><Icon name="arrow-right" size={18} /> {dynamicContinueText}</span>
+          <span className={styles.ctaLabel}><Icon name="arrow-right" size={22} /> {dynamicContinueText}</span>
         </button>
 
         <button
           onClick={onBack}
           className={`${styles.ctaButton} ${styles.backButton}`}
         >
-          <span className={styles.ctaLabel}><Icon name="chevron-left" size={18} /> {dynamicBackText}</span>
+          <span className={styles.ctaLabel}><Icon name="chevron-left" size={22} /> {dynamicBackText}</span>
         </button>
         
         <button
           onClick={onSaveExit}
           className={`${styles.ctaButton} ${styles.saveExitButton}`}
         >
-          <span className={styles.ctaLabel}><Icon name="save" size={18} /> Save & Exit</span>
+          <span className={styles.ctaLabel}><Icon name="save" size={22} /> Save & Exit</span>
         </button>
       </div>
     </div>

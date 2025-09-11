@@ -14,7 +14,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: var(--space-md, 16px);
+  padding: var(--content-padding-mobile);
   overflow: hidden;
   z-index: 1000;
 }

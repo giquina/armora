@@ -241,13 +241,19 @@ button:disabled {
 
 /* CRITICAL: PREVENT HORIZONTAL SCROLLING ON ALL BREAKPOINTS */
 body,
-html,
-#root {
+html {
   overflow-x: hidden;
   max-width: 100vw;
 }
 
-* {
+/* Allow #root to show card borders properly */
+#root {
+  max-width: 100vw;
+  overflow-x: visible; /* Allow borders to show */
+}
+
+/* Remove global max-width constraint that clips card borders */
+img, video, iframe {
   max-width: 100%;
 }
 

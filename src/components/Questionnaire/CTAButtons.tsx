@@ -76,7 +76,7 @@ export function CTAButtons({
           disabled={primaryCTA.disabled}
           className={`${styles.ctaButton} ${styles.primaryCTA} premium-button`}
         >
-          <span className={styles.ctaLabel}><Icon name="arrow-right" size={18} /> {primaryCTA.text}</span>
+          <span className={styles.ctaLabel}><Icon name="arrow-right" size={22} /> {primaryCTA.text}</span>
         </button>
 
         {/* Secondary CTAs */}
@@ -88,7 +88,7 @@ export function CTAButtons({
               disabled={cta.disabled}
               className={`${styles.ctaButton} ${styles.secondaryCTA} premium-button micro-bounce`}
             >
-              {cta.icon && <Icon name={cta.icon as any} size={18} />}
+              {cta.icon && <Icon name={cta.icon as any} size={22} />}
               <span className={styles.ctaLabel}>{cta.text}</span>
             </button>
           )
