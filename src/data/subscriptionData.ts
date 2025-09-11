@@ -15,7 +15,9 @@ export const subscriptionPlans: SubscriptionPlan[] = [
       '£0 booking fees (save £5 per trip)',
       'Flexible cancellation policy',
       'Member-only vehicle preferences',
-      'SMS booking confirmations'
+      'SMS booking confirmations',
+      'First aid trained drivers',
+      'SIA Close Protection Officers'
     ],
     description: 'Perfect for regular travelers who want reliable savings and priority service.',
     isAvailable: true,
@@ -40,7 +42,9 @@ export const subscriptionPlans: SubscriptionPlan[] = [
       'Advanced route planning',
       'Real-time tracking & updates',
       '24/7 emergency support line',
-      'Complimentary travel risk assessment'
+      'Complimentary travel risk assessment',
+      'First aid trained drivers',
+      'SIA Close Protection Officers'
     ],
     description: 'Comprehensive security transport for executives and high-profile clients.',
     isAvailable: false,
@@ -64,7 +68,9 @@ export const subscriptionPlans: SubscriptionPlan[] = [
       'Advance security reconnaissance',
       'VIP lounge access at airports',
       'Concierge travel arrangements',
-      'Personal protection consultation'
+      'Personal protection consultation',
+      'First aid trained drivers',
+      'SIA Close Protection Officers'
     ],
     description: 'Ultimate VIP experience with maximum security and luxury benefits.',
     isAvailable: false,

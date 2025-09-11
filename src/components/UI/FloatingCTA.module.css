@@ -1,0 +1,808 @@
+/* Armora FloatingCTA - Premium Security Brand Styling */
+
+/* Brand color variables - Updated to match bottom navigation */
+:root {
+  --armora-dark: #1a1a2e;
+  --armora-gold: #FFD700;
+  --armora-gold-rich: #E6C200; /* Richer gold to match bottom nav */
+  --armora-gold-muted: #D4B366; /* Muted gold for panel background */
+  --armora-amber-soft: #E6D09B; /* Soft amber for subtle backgrounds */
+  --armora-gold-glow: rgba(255, 215, 0, 0.3);
+  --armora-gold-subtle: rgba(255, 215, 0, 0.2);
+  --armora-white: #FFFFFF;
+  --armora-gray: #666666;
+}
+
+.container {
+  position: fixed;
+  bottom: max(84px, calc(84px + env(safe-area-inset-bottom))); /* Seamlessly connect to bottom nav */
+  left: 8px; /* Reduced from 12px */
+  right: 8px; /* Reduced from 12px */
+  z-index: 1050; /* Below modals but above content */
+  opacity: 0;
+  transform: translateY(100px);
+  transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  pointer-events: none;
+  /* FIXED: Remove problematic padding/margin that clips sides */
+  padding: 0;
+  margin: 0;
+  /* FIXED: Ensure container isn't clipped by parent overflow */
+  width: calc(100vw - 16px);
+  max-width: none;
+  /* Add safe area support for iOS */
+  padding-bottom: env(safe-area-inset-bottom);
+  /* Ensure content doesn't get hidden behind the CTA */
+  margin-top: -8px; /* Small negative margin to reduce gap */
+}
+
+.container.visible {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.floatingCTA {
+  width: 100%;
+  height: 52px; /* More compact height */
+  border: 2px solid var(--armora-gold);
+  border-bottom: none; /* Remove bottom border to connect seamlessly with nav */
+  border-radius: 16px 16px 0 0; /* Rounded top, flat bottom to connect with nav */
+  background: var(--armora-gold-muted) !important; /* FIXED: Use muted gold for subtler appearance */
+  background-color: var(--armora-gold-muted) !important; /* Double ensure solid background */
+  backdrop-filter: none !important; /* Remove any transparency effects */
+  -webkit-backdrop-filter: none !important;
+  box-shadow: 
+    0 16px 40px var(--armora-gold-glow),
+    0 8px 20px rgba(0, 0, 0, 0.4),
+    0 4px 8px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: visible; /* Allow shadows and effects to show fully */
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+  font-weight: 600;
+  font-size: 14px; /* Match message text size */
+  color: #1a1a2e; /* Dark text on gold background for readability */
+  
+  /* Subtle glow animation */
+  animation: subtleGlow 3s infinite ease-in-out;
+}
+
+@keyframes subtleGlow {
+  0%, 100% { 
+    box-shadow: 
+      0 16px 40px var(--armora-gold-glow),
+      0 8px 20px rgba(0, 0, 0, 0.4),
+      0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+  50% { 
+    box-shadow: 
+      0 20px 50px rgba(255, 215, 0, 0.4),
+      0 10px 25px rgba(0, 0, 0, 0.4),
+      0 5px 10px rgba(0, 0, 0, 0.3);
+  }
+}
+
+.floatingCTA:hover {
+  transform: scale(1.02);
+  box-shadow: 
+    0 20px 50px rgba(255, 215, 0, 0.5),
+    0 10px 25px rgba(0, 0, 0, 0.4),
+    0 5px 10px rgba(0, 0, 0, 0.3);
+  background: #FFE55C !important; /* Lighter gold on hover */
+  border-color: #FFE55C;
+}
+
+.floatingCTA:active {
+  transform: scale(0.98);
+  background: #E6C200 !important; /* Darker gold on active/pressed */
+  border-color: #FFEB3B;
+}
+
+.floatingCTA.loading {
+  opacity: 0.7;
+  cursor: not-allowed;
+  animation: none;
+}
+
+.floatingCTA.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  animation: none;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  position: relative;
+  z-index: 2;
+}
+
+.messageText {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-size: 14px; /* Smaller font for mobile fitting */
+  font-weight: 600;
+  letter-spacing: 0.2px;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2); /* Subtle shadow for dark text on gold */
+  margin-bottom: 4px;
+  transition: all 0.3s ease;
+}
+
+.spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(26, 26, 46, 0.3); /* Dark border on gold background */
+  border-top: 2px solid #1a1a2e; /* Dark spinner on gold background */
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.progressContainer {
+  width: 80%;
+  max-width: 240px;
+  height: 2px;
+  background: rgba(26, 26, 46, 0.3); /* Dark progress track on gold background */
+  border-radius: 1px;
+  overflow: hidden;
+  position: relative;
+}
+
+.progressBar {
+  height: 100%;
+  background: #1a1a2e; /* Dark progress bar on gold background */
+  border-radius: 1px;
+  transition: width 0.6s ease;
+  box-shadow: 0 0 4px rgba(26, 26, 46, 0.4);
+}
+
+@keyframes progressShimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+/* Subtle shimmer overlay effect - only on hover */
+.shimmer {
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.1),
+    transparent
+  );
+  animation: none;
+  pointer-events: none;
+}
+
+@keyframes shimmer {
+  0% { left: -100%; }
+  50% { left: -50%; }
+  100% { left: 100%; }
+}
+
+/* Information Modal Styles */
+.infoModal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(26, 26, 46, 0.95);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1200;
+  padding: 20px;
+  animation: modalFadeIn 0.3s ease-out;
+}
+
+@keyframes modalFadeIn {
+  from {
+    opacity: 0;
+    backdrop-filter: blur(0px);
+  }
+  to {
+    opacity: 1;
+    backdrop-filter: blur(10px);
+  }
+}
+
+.infoContent {
+  background: #1a1a2e;
+  border: 2px solid #FFD700;
+  border-radius: 16px;
+  padding: 24px;
+  max-width: 400px;
+  width: 100%;
+  max-height: 80vh;
+  overflow-y: auto;
+  position: relative;
+  animation: modalSlideIn 0.4s ease-out;
+}
+
+@keyframes modalSlideIn {
+  from {
+    transform: scale(0.9) translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1) translateY(0);
+    opacity: 1;
+  }
+}
+
+.infoContent h3 {
+  color: #FFD700;
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 16px;
+  text-align: center;
+}
+
+.infoContent p {
+  color: #e0e0e0;
+  font-size: 14px;
+  line-height: 1.6;
+  margin-bottom: 16px;
+}
+
+.infoContent ul {
+  color: #e0e0e0;
+  font-size: 14px;
+  line-height: 1.6;
+  margin-bottom: 16px;
+  padding-left: 20px;
+}
+
+.infoContent li {
+  margin-bottom: 8px;
+}
+
+.closeButton {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: none;
+  border: none;
+  color: #FFD700;
+  font-size: 20px;
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.closeButton:hover {
+  background: rgba(255, 215, 0, 0.1);
+  transform: rotate(90deg);
+}
+
+/* Mobile-specific positioning */
+@media (max-width: 480px) {
+  .container {
+    bottom: max(80px, calc(80px + env(safe-area-inset-bottom))); /* Seamlessly connect to mobile bottom nav */
+  }
+}
+
+/* Tablet responsive design */
+@media (min-width: 481px) and (max-width: 768px) {
+  .container {
+    left: 50%;
+    right: auto;
+    bottom: 86px; /* Seamlessly connect to tablet bottom nav */
+    transform: translateX(-50%) translateY(100px);
+    max-width: 500px;
+    width: calc(100% - 16px); /* FIXED: Simpler width calculation */
+    padding: 0; /* FIXED: Remove problematic padding */
+    margin: 0; /* FIXED: Remove problematic margin */
+  }
+  
+  .container.visible {
+    bottom: 86px; /* Maintain consistent bottom position when visible */
+    transform: translateX(-50%) translateY(0);
+  }
+  
+  .messageText {
+    font-size: 13px; /* Smaller for tablet fitting */
+  }
+}
+
+/* Hide on desktop - mobile-first approach */
+@media (min-width: 769px) {
+  .container {
+    display: none;
+  }
+}
+
+/* ===== EXPANDABLE PANEL STYLES ===== */
+
+/* Container expanded state */
+.container.expanded {
+  z-index: 1150; /* Higher when expanded to overlay everything */
+}
+
+/* Background overlay */
+.backgroundOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(26, 26, 46, 0.8);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  z-index: -1; /* Behind the panel */
+  animation: overlayFadeIn 0.3s ease-out;
+}
+
+@keyframes overlayFadeIn {
+  from { 
+    opacity: 0; 
+    backdrop-filter: blur(0px);
+  }
+  to { 
+    opacity: 1; 
+    backdrop-filter: blur(4px);
+  }
+}
+
+/* Expandable panel */
+.expandablePanel {
+  position: absolute;
+  bottom: 52px; /* Connect seamlessly with CTA button height */
+  left: 0;
+  right: 0;
+  max-height: calc(100vh - 180px); /* Dynamic height: full viewport minus top content and bottom space */
+  min-height: 250px; /* Ensure minimum content visibility */
+  background: var(--armora-gold-muted); /* Match CTA background exactly */
+  border: 2px solid var(--armora-gold);
+  border-bottom: none; /* No bottom border to connect seamlessly */
+  border-radius: 16px 16px 0 0;
+  box-shadow: 
+    0 -16px 40px var(--armora-gold-glow),
+    0 -8px 20px rgba(0, 0, 0, 0.4),
+    0 -4px 8px rgba(0, 0, 0, 0.2);
+  animation: panelSlideUp 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  overflow: visible; /* Allow content to be fully visible */
+  display: flex;
+  flex-direction: column;
+  /* Ensure seamless connection */
+  margin: 0;
+  z-index: 1001; /* Just above CTA button */
+}
+
+@keyframes panelSlideUp {
+  0% {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  70% {
+    transform: translateY(-5px);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Bounce attention animation for periodic attention */
+@keyframes panelBounceAttention {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-8px);
+  }
+  60% {
+    transform: translateY(-4px);
+  }
+}
+
+/* Opening bounce animation */
+@keyframes openingBounce {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* Panel content */
+.panelContent {
+  padding: 20px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  flex: 1; /* Take available space in flex container */
+  color: var(--armora-dark);
+  /* Ensure content is fully scrollable */
+  height: 100%;
+  max-height: none;
+  /* Add padding at bottom to prevent cutoff */
+  padding-bottom: 24px;
+  /* Smooth scrolling */
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Panel header */
+.panelHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.panelHeader h3 {
+  color: var(--armora-dark);
+  font-size: 18px;
+  font-weight: 600;
+  margin: 0;
+}
+
+.closeButton {
+  background: none;
+  border: none;
+  color: var(--armora-dark);
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 50%;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.closeButton:hover {
+  background: rgba(26, 26, 46, 0.1);
+  transform: rotate(90deg);
+}
+
+/* Step section */
+.stepSection {
+  margin-bottom: 20px;
+}
+
+.stepProgress {
+  margin-bottom: 16px;
+}
+
+.progressInfo {
+  color: rgba(26, 26, 46, 0.8);
+  font-size: 12px;
+  font-weight: 500;
+  margin-bottom: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.progressTrack {
+  width: 100%;
+  height: 4px;
+  background: rgba(26, 26, 46, 0.2);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.progressFill {
+  height: 100%;
+  background: var(--armora-dark);
+  border-radius: 2px;
+  transition: width 0.6s ease;
+}
+
+.stepDescription {
+  color: var(--armora-dark);
+  font-size: 14px;
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* Company section */
+.companySection {
+  padding-top: 16px;
+}
+
+.divider {
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(
+    90deg, 
+    transparent, 
+    var(--armora-dark), 
+    transparent
+  );
+  margin-bottom: 16px;
+}
+
+.companySection h4 {
+  color: var(--armora-dark);
+  font-size: 16px;
+  font-weight: 600;
+  margin: 0 0 12px 0;
+}
+
+.companySection p {
+  color: rgba(26, 26, 46, 0.9);
+  font-size: 13px;
+  line-height: 1.5;
+  margin: 0 0 16px 0;
+}
+
+.companyFeatures {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.feature {
+  background: rgba(26, 26, 46, 0.1);
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--armora-dark);
+  text-align: center;
+}
+
+/* CTA button expanded state */
+.floatingCTA.expanded {
+  border-radius: 0 0 16px 16px; /* Rounded bottom corners when expanded */
+  border-top: none; /* Remove top border to connect seamlessly with panel */
+  background: var(--armora-gold-muted) !important; /* Match panel background exactly */
+  /* Remove any visual separation */
+  position: relative;
+  z-index: 1000; /* Below panel */
+}
+
+/* Expand indicator with bouncy animation */
+.expandIndicator {
+  margin-left: 8px;
+  font-size: 12px;
+  transition: transform 0.2s ease;
+  animation: bounceHint 2s infinite ease-in-out;
+}
+
+@keyframes bounceHint {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-3px);
+  }
+  60% {
+    transform: translateY(-1px);
+  }
+}
+
+/* Stop bouncing when expanded */
+.floatingCTA.expanded .expandIndicator {
+  animation: none;
+}
+
+/* Periodic attention animation for the main CTA */
+.floatingCTA.attentionBounce {
+  animation: panelBounceAttention 0.6s ease-in-out;
+}
+
+.messageText {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-size: 13px; /* Smaller to fit more content */
+  font-weight: 600;
+  letter-spacing: 0.2px;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  margin-bottom: 4px;
+  transition: all 0.3s ease;
+}
+
+/* Mobile responsive panel */
+@media (max-width: 480px) {
+  .expandablePanel {
+    max-height: calc(100vh - 140px); /* More space on mobile - account for smaller top section */
+    min-height: 220px; /* Ensure minimum visibility on small screens */
+    bottom: 54px; /* Slightly closer to CTA on mobile */
+    border-radius: 12px 12px 0 0;
+  }
+  
+  .panelContent {
+    padding: 16px;
+    padding-bottom: 20px; /* Extra bottom padding on mobile */
+    /* Better scroll handling on mobile */
+    overscroll-behavior: contain;
+  }
+  
+  .panelHeader h3 {
+    font-size: 16px;
+  }
+  
+  .companyFeatures {
+    grid-template-columns: 1fr; /* Single column on mobile */
+  }
+}
+
+/* Tablet responsive panel */
+@media (min-width: 481px) and (max-width: 768px) {
+  .expandablePanel {
+    max-height: calc(100vh - 160px); /* More space on tablets - account for tablet nav and content */
+    min-height: 280px; /* Larger minimum for tablet screens */
+  }
+  
+  .panelContent {
+    padding: 18px;
+    padding-bottom: 22px; /* Adequate bottom spacing */
+  }
+}
+
+/* Landscape mode optimizations for content visibility */
+@media (max-width: 896px) and (orientation: landscape) {
+  .expandablePanel {
+    max-height: calc(100vh - 100px); /* Use most of available vertical space in landscape */
+    min-height: 180px; /* Smaller minimum for landscape constraints */
+    bottom: 50px; /* Closer to CTA in landscape */
+  }
+  
+  .panelContent {
+    padding: 12px 16px; /* Reduce vertical padding in landscape */
+    padding-bottom: 16px;
+  }
+  
+  .panelHeader {
+    margin-bottom: 12px; /* Tighter spacing */
+  }
+  
+  .stepSection {
+    margin-bottom: 16px; /* Reduced section spacing */
+  }
+  
+  .companySection {
+    padding-top: 12px; /* Tighter section spacing */
+  }
+}
+
+/* Transition animation between steps */
+.floatingCTA.transitioning {
+  animation: goldenFlash 0.6s ease-out;
+}
+
+@keyframes goldenFlash {
+  0% { 
+    background: linear-gradient(135deg, var(--armora-dark) 0%, var(--armora-gold) 100%);
+  }
+  50% { 
+    background: linear-gradient(135deg, #FFE55C 0%, #FFEB3B 100%);
+    box-shadow: 
+      0 15px 40px rgba(255, 235, 59, 0.5),
+      0 8px 20px rgba(0, 0, 0, 0.4);
+  }
+  100% { 
+    background: linear-gradient(135deg, var(--armora-dark) 0%, var(--armora-gold) 100%);
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .floatingCTA {
+    border-width: 2px;
+    box-shadow: 
+      0 10px 30px rgba(255, 215, 0, 0.5),
+      0 4px 12px rgba(0, 0, 0, 0.5);
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .floatingCTA {
+    animation: none;
+  }
+  
+  .shimmer {
+    animation: none;
+  }
+  
+  .progressBar {
+    animation: none;
+  }
+  
+  .container {
+    transition: opacity 0.3s ease;
+  }
+}
+
+/* Enhanced Expand Indicator Styling */
+.expandIndicator {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 0.5rem;
+  transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  will-change: transform;
+}
+
+.expandIcon {
+  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.2));
+  will-change: transform;
+}
+
+.iconPath {
+  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* Collapsed state - pointing up (CTA closed, panel can open) */
+.expandIndicator.collapsed {
+  transform: rotate(0deg);
+}
+
+.expandIndicator.collapsed .expandIcon {
+  transform: scale(1);
+}
+
+/* Expanded state - pointing down (CTA open, panel can close) */
+.expandIndicator.expanded {
+  transform: rotate(180deg);
+}
+
+.expandIndicator.expanded .expandIcon {
+  transform: scale(1.1);
+}
+
+/* Interactive states */
+.floatingCTA:hover .expandIndicator.collapsed {
+  animation: bounceUp 0.6s ease-out;
+}
+
+.floatingCTA:hover .expandIndicator.expanded {
+  animation: bounceDown 0.6s ease-out;
+}
+
+/* Bounce animations for expand indicator */
+@keyframes bounceUp {
+  0%, 20%, 50%, 80%, 100% { transform: translateY(0) rotate(0deg); }
+  40% { transform: translateY(-4px) rotate(0deg); }
+  60% { transform: translateY(-2px) rotate(0deg); }
+}
+
+@keyframes bounceDown {
+  0%, 20%, 50%, 80%, 100% { transform: translateY(0) rotate(180deg); }
+  40% { transform: translateY(2px) rotate(180deg); }
+  60% { transform: translateY(1px) rotate(180deg); }
+}
+
+/* Dark mode adjustments */
+@media (prefers-color-scheme: dark) {
+  .floatingCTA {
+    background: linear-gradient(135deg, #2a2a3e 0%, var(--armora-gold) 100%);
+  }
+}

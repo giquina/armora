@@ -142,7 +142,7 @@ export const questionnaireSteps: QuestionnaireStep[] = [
     helpText: "Tell us about yourself so we can match you with the perfect transport experience. There are no wrong answers - just honest ones.",
     isFirstStep: true,
     processOverview: {
-      timeRequired: "2-3 minutes",
+      timeRequired: "8-9 minutes",
       benefits: [
         "Personalized security recommendations",
         "Matched with appropriate protection level",
@@ -974,7 +974,9 @@ export const serviceData = {
       "Premium vehicles (Mercedes, BMW, Audi)",
       "Basic security protocols",
       "24/7 booking availability",
-      "Real-time tracking"
+      "Real-time tracking",
+      "First aid trained drivers",
+      "SIA Close Protection Officers"
     ],
     price: "£45/hour",
     confidence: 85,
@@ -990,7 +992,9 @@ export const serviceData = {
       "Enhanced security protocols",
       "Business facilities (WiFi, charging, privacy glass)",
       "Preferred driver assignment",
-      "Airport meet & greet"
+      "Airport meet & greet",
+      "First aid trained drivers",
+      "SIA Close Protection Officers"
     ],
     price: "£75/hour",
     confidence: 92,
@@ -1006,7 +1010,8 @@ export const serviceData = {
       "Advanced security protocols", 
       "Route security planning",
       "Counter-surveillance awareness",
-      "Emergency response coordination"
+      "Emergency response coordination",
+      "First aid trained drivers"
     ],
     price: "£65/hour",
     confidence: 89,

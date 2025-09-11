@@ -55,6 +55,18 @@ const ExecutiveOnboarding: React.FC<ExecutiveOnboardingProps> = ({
       title: 'Full Insurance',
       description: '£10M professional indemnity and comprehensive coverage',
       verified: true
+    },
+    {
+      icon: '🏥',
+      title: 'First Aid Trained Drivers',
+      description: 'All drivers certified in emergency first aid response',
+      verified: true
+    },
+    {
+      icon: '👮',
+      title: 'SIA Close Protection Officers',
+      description: 'Specialist bodyguard services with advanced training',
+      verified: true
     }
   ];
 
