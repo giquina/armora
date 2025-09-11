@@ -4,7 +4,7 @@
 :root {
   /* MASTER WIDTH CONTROL */
   --content-max-width: 680px;
-  --content-padding-mobile: 16px;
+  --content-padding-mobile: 10px; /* Reduced for wider mobile content */
   --content-padding-tablet: 20px;
   --content-padding-desktop: 24px;
   
@@ -12,6 +12,40 @@
   --content-width-mobile: calc(100vw - (var(--content-padding-mobile) * 2));
   --content-width-tablet: min(680px, calc(100vw - (var(--content-padding-tablet) * 2)));
   --content-width-desktop: 680px;
+}
+
+/* ========================================
+   GLOBAL VIEWPORT AND CONTAINER CLASSES
+   Used by QuestionnaireStep and other components
+   ======================================== */
+.global-viewport {
+  min-height: 100vh;
+  width: 100%;
+  background: #1a1a2e; /* Dark theme background */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0;
+}
+
+.global-container {
+  width: 100%;
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 0 10px; /* Reduced for wider mobile content */
+  box-sizing: border-box;
+}
+
+@media (min-width: 768px) {
+  .global-container {
+    padding: 0 24px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .global-container {
+    padding: 0 32px;
+  }
 }
 
 /* ========================================
@@ -137,7 +171,7 @@
 /* CRITICAL: 320px minimum width support */
 @media (max-width: 320px) {
   :root {
-    --content-padding-mobile: 8px;
+    --content-padding-mobile: 6px; /* Minimal padding for very small screens */
   }
   
   .armora-content-container,

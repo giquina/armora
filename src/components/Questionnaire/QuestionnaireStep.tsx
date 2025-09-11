@@ -7,6 +7,7 @@ import ProfileSummaryComponent from './ProfileSummary';
 import YesNoToggle from '../UI/YesNoToggle';
 import styles from './QuestionnaireStep.module.css';
 import '../../styles/questionnaire-animations.css';
+import '../../styles/global-container.css';
 
 interface QuestionnaireStepProps {
   step: IQuestionnaireStep;
@@ -286,6 +287,29 @@ Your privacy is important to us. All questions are optional and you can use "Pre
             key={option.id} 
             className={`${styles.option} questionnaire-option option-select-effect ${selectedValue === option.value ? styles.optionSelected : ''}`} 
             data-option-value={option.value}
+            onClick={() => {
+              // Toggle behavior: if already selected, deselect it; if not selected, select it
+              if (selectedValue === option.value) {
+                setSelectedValue(''); // Deselect if already selected
+                setErrors([]);
+              } else {
+                handleSingleSelect(option.value); // Select if not selected
+              }
+            }}
+            role="button"
+            tabIndex={0}
+            onKeyPress={(e) => {
+              if (e.key === ' ' || e.key === 'Enter') {
+                e.preventDefault();
+                // Same toggle logic for keyboard
+                if (selectedValue === option.value) {
+                  setSelectedValue(''); // Deselect if already selected
+                  setErrors([]);
+                } else {
+                  handleSingleSelect(option.value); // Select if not selected
+                }
+              }
+            }}
           >
             {/* HIGH DEMAND badge - responsive positioning */}
             {option.value === 'international_visitor' && (
@@ -307,12 +331,19 @@ Your privacy is important to us. All questions are optional and you can use "Pre
                     </div>
                   )}
                 </div>
-                <div className={styles.toggleGroup}>
+                <div 
+                  className={styles.toggleGroup}
+                  onClick={(e) => e.stopPropagation()} // Prevent double-toggle when clicking on toggle itself
+                >
                   <YesNoToggle
                     value={selectedValue === option.value}
                     onChange={(isSelected) => {
                       if (isSelected) {
                         handleSingleSelect(option.value);
+                      } else {
+                        // Allow deselection via toggle
+                        setSelectedValue('');
+                        setErrors([]);
                       }
                     }}
                     label=""
@@ -324,6 +355,7 @@ Your privacy is important to us. All questions are optional and you can use "Pre
                       className={styles.helpButton}
                       onClick={(e) => {
                         e.preventDefault();
+                        e.stopPropagation(); // Prevent triggering option click
                         alert(option.helpText);
                       }}
                     >
@@ -339,7 +371,24 @@ Your privacy is important to us. All questions are optional and you can use "Pre
         return optionNode;
       } else if (step.type === 'checkbox') {
         return (
-          <div key={option.id} className={`${styles.option} questionnaire-option option-select-effect ${selectedValues.includes(option.value) ? styles.optionSelected : ''}`}>
+          <div 
+            key={option.id} 
+            className={`${styles.option} questionnaire-option option-select-effect ${selectedValues.includes(option.value) ? styles.optionSelected : ''}`}
+            onClick={() => {
+              // Toggle checkbox behavior
+              const isCurrentlySelected = selectedValues.includes(option.value);
+              handleMultiSelect(option.value, !isCurrentlySelected);
+            }}
+            role="button"
+            tabIndex={0}
+            onKeyPress={(e) => {
+              if (e.key === ' ' || e.key === 'Enter') {
+                e.preventDefault();
+                const isCurrentlySelected = selectedValues.includes(option.value);
+                handleMultiSelect(option.value, !isCurrentlySelected);
+              }
+            }}
+          >
             <div className={styles.optionContent}>
               <div className={styles.optionHeader}>
                 <div className={styles.optionTextGroup}>
@@ -353,7 +402,10 @@ Your privacy is important to us. All questions are optional and you can use "Pre
                     </div>
                   )}
                 </div>
-                <div className={styles.toggleGroup}>
+                <div 
+                  className={styles.toggleGroup}
+                  onClick={(e) => e.stopPropagation()} // Prevent double-toggle when clicking on toggle itself
+                >
                   <YesNoToggle
                     value={selectedValues.includes(option.value)}
                     onChange={(isSelected) => handleMultiSelect(option.value, isSelected)}
@@ -450,8 +502,10 @@ Your privacy is important to us. All questions are optional and you can use "Pre
     const prompt = step.showConversionPrompt;
     
     return (
-      <div className={styles.container}>
-        <div className={styles.conversionPrompt}>
+      <div className="global-viewport">
+        <div className="global-container">
+          <div className={styles.container}>
+            <div className={styles.conversionPrompt}>
           <div className={styles.promptContent}>
             <h2 className={styles.promptTitle}>{prompt.title}</h2>
             <p className={styles.promptDescription}>{prompt.description}</p>
@@ -479,6 +533,8 @@ Your privacy is important to us. All questions are optional and you can use "Pre
               </button>
             </div>
           </div>
+            </div>
+          </div>
         </div>
       </div>
     );
@@ -487,8 +543,10 @@ Your privacy is important to us. All questions are optional and you can use "Pre
   // Special handling for Step 8 - Profile Summary
   if (step.id === 8) {
     return (
-      <div className={`${styles.container} ${isAnimatingIn ? styles.animatingIn : ''} questionnaire-background`}>
-        <div className={styles.content}>
+      <div className="global-viewport">
+        <div className="global-container">
+          <div className={`${styles.container} ${isAnimatingIn ? styles.animatingIn : ''} questionnaire-background`}>
+            <div className={styles.content}>
           <header className={styles.header}>
             <h1 className={styles.title}>Your Armora Security Profile</h1>
             <p className={styles.subtitle}>Comprehensive analysis of your transport requirements</p>
@@ -515,18 +573,22 @@ Your privacy is important to us. All questions are optional and you can use "Pre
             onSkip={handleSkip}
             isLastStep={false}
           />
+            </div>
+          </div>
         </div>
       </div>
     );
   }
 
   return (
-    <div className={`${styles.container} ${isAnimatingIn ? styles.animatingIn : ''} questionnaire-background`}>
-      {/* Floating Background Elements */}
-      <div className="floating-elements">
-      </div>
-      
-      <div className={styles.content}>
+    <div className="global-viewport">
+      <div className="global-container">
+        <div className={`${styles.container} ${isAnimatingIn ? styles.animatingIn : ''} questionnaire-background`}>
+          {/* Floating Background Elements */}
+          <div className="floating-elements">
+          </div>
+          
+          <div className={styles.content}>
         {/* Enhanced Step 1 Introduction with Name Collection */}
         {step.isFirstStep && step.processOverview ? (
           <div className={styles.stepIntroComprehensive}>
@@ -713,6 +775,8 @@ Your privacy is important to us. All questions are optional and you can use "Pre
           isLastStep={Boolean(isLastStep)}
         />
       )}
+        </div>
+      </div>
     </div>
   );
 }

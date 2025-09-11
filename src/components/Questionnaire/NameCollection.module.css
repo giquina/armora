@@ -89,7 +89,7 @@
 
 .privacyNote small {
   color: rgba(224, 224, 224, 0.6) !important; /* Subtle color */
-  font-size: 0.7rem !important; /* Very small - 11.2px */
+  font-size: 16px !important; /* Match welcome paragraph text size */
   line-height: 1.3 !important;
   display: inline-block;
   max-width: 350px;
@@ -120,6 +120,10 @@
   }
   
   .nameInputContainer { max-width: 100%; }
+  
+  .privacyNote small {
+    font-size: 15px !important; /* Match mobile welcome paragraph text size */
+  }
 }
 
 /* Tablet Styles */

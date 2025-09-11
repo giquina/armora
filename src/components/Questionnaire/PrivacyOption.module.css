@@ -6,7 +6,7 @@
   margin-bottom: 1.5rem; /* Increased bottom spacing for border visibility */
   background: transparent; /* Remove white background to eliminate double border effect */
   border-radius: 8px;
-  border: var(--armora-gold-dotted) !important; /* Solid golden border via token */
+  /* Remove the golden border */
 }
 
 .privacyOption {

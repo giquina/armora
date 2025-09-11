@@ -13,129 +13,129 @@ export const questionnaireSteps: QuestionnaireStep[] = [
     options: [
       {
         id: "executive",
-        label: "Are you an executive or business professional?",
+        label: "🏢 Are you an executive or business professional?",
         value: "executive",
         description: "Do you need reliable transport for high-stakes meetings, corporate events, or daily commutes? We understand that in your world, time is money and first impressions matter.",
-        examples: "Choose this if you hold a senior position and need transport that reflects your professional status."
+        examples: "*Choose this if you hold a senior position and need transport that reflects your professional status."
       },
       {
         id: "entrepreneur", 
-        label: "Are you a business owner or entrepreneur?",
+        label: "💼 Are you a business owner or entrepreneur?",
         value: "entrepreneur",
         description: "Are you building your empire, meeting investors, or managing multiple ventures? Your transport needs are as dynamic as your business decisions.",
-        examples: "Choose this if you own a business or are self-employed with professional transport needs."
+        examples: "*Choose this if you own a business or are self-employed with professional transport needs."
       },
       {
         id: "celebrity",
-        label: "Are you in entertainment or media?",
+        label: "🎭 Are you in entertainment or media?",
         value: "celebrity",
         description: "Do you need discrete transport to studios, premieres, or appearances? Whether you're in front of the camera or behind the scenes, privacy and timing are everything.",
-        examples: "Choose this if you're an actor, musician, TV personality, producer, or media professional."
+        examples: "*Choose this if you're an actor, musician, TV personality, producer, or media professional."
       },
       {
         id: "athlete",
-        label: "Are you a sports professional or athlete?", 
+        label: "⚽ Are you a sports professional or athlete?", 
         value: "athlete",
         description: "Do you need transport to training, competitions, or sports events? We understand the importance of arriving relaxed and focused on your performance.",
-        examples: "Choose this if you're an athlete, coach, or sports professional."
+        examples: "*Choose this if you're an athlete, coach, or sports professional."
       },
       {
         id: "government",
-        label: "Are you a government or public sector official?",
+        label: "🏛️ Are you a government or public sector official?",
         value: "government", 
         description: "Do your responsibilities require secure, punctual transport to sensitive locations? Whether it's council meetings, government buildings, or public events, we understand protocol matters.",
-        examples: "Choose this if you work in any level of government, civil service, or public administration."
+        examples: "*Choose this if you work in any level of government, civil service, or public administration."
       },
       {
         id: "diplomat",
-        label: "Are you part of an international delegation?",
+        label: "🌍 Are you part of an international delegation?",
         value: "diplomat",
         description: "Are you coordinating transport for diplomatic visits, international business groups, or foreign delegations? Protocol and cultural sensitivity are paramount.",
-        examples: "Choose this if you're organizing or part of international group travel."
+        examples: "*Choose this if you're organizing or part of international group travel."
       },
       {
         id: "medical",
-        label: "Are you a senior healthcare professional?",
+        label: "🏥 Are you a senior healthcare professional?",
         value: "medical",
         description: "Do you move between hospitals, clinics, or emergency calls? Perhaps you need reliable transport after exhausting shifts or for important medical conferences?",
-        examples: "Choose this if you're a doctor, surgeon, senior nurse, or healthcare administrator."
+        examples: "*Choose this if you're a doctor, surgeon, senior nurse, or healthcare administrator."
       },
       {
         id: "legal",
-        label: "Are you a legal professional?",
+        label: "⚖️ Are you a legal professional?",
         value: "legal",
         description: "Do you need dependable transport between courts, chambers, and client meetings? We know your reputation depends on punctuality and maintaining client confidentiality.",
-        examples: "Choose this if you're a barrister, solicitor, judge, or other legal professional requiring discrete transport."
+        examples: "*Choose this if you're a barrister, solicitor, judge, or other legal professional requiring discrete transport."
       },
       {
         id: "creative",
-        label: "Are you a creative professional?",
+        label: "🎨 Are you a creative professional?",
         value: "creative",
         description: "Are you an artist, designer, or creative consultant moving between studios, galleries, or client presentations? Your creative energy shouldn't be wasted on travel stress.",
-        examples: "Choose this if you work in creative industries."
+        examples: "*Choose this if you work in creative industries."
       },
       {
         id: "academic",
-        label: "Are you an academic or educational professional?",
+        label: "🎓 Are you an academic or educational professional?",
         value: "academic",
         description: "Do you travel between universities, conferences, or research facilities? Perhaps you're a visiting professor or education administrator who values intellectual conversation during commutes?",
-        examples: "Choose this if you work in education, research, or academic administration."
+        examples: "*Choose this if you work in education, research, or academic administration."
       },
       {
         id: "student",
-        label: "Are you a student?",
+        label: "📚 Are you a student?",
         value: "student",
         description: "Are you studying at university or college? Need safe transport for late library sessions, social events, or trips home? We understand student life has unique transport needs.",
-        examples: "Choose this if you're currently in full-time education."
+        examples: "*Choose this if you're currently in full-time education."
       },
       {
         id: "international_visitor",
-        label: "Are you visiting the UK?",
+        label: "✈️ Are you visiting the UK?",
         value: "international_visitor",
         description: "Are you here for tourism, temporary work, or visiting family? Do you need reliable transport to explore safely without worrying about navigation or parking?",
-        examples: "Choose this if you're a tourist or temporary visitor to the UK."
+        examples: "*Choose this if you're a tourist or temporary visitor to the UK."
       },
       {
         id: "finance",
-        label: "Are you a financial services professional?",
+        label: "📊 Are you a financial services professional?",
         value: "finance",
         description: "Do you work in banking, investment, or insurance? Are early morning market hours and late client dinners part of your routine? Your transport should match your professional standards.",
-        examples: "Choose this if you work in finance, banking, trading, or insurance at any level."
+        examples: "*Choose this if you work in finance, banking, trading, or insurance at any level."
       },
       {
         id: "security",
-        label: "Are you in security or law enforcement?",
+        label: "🛡️ Are you in security or law enforcement?",
         value: "security",
         description: "Do you work in private security, police services, or military? You understand protocols and appreciate professional standards in transport services.",
-        examples: "Choose this if you're in any security, police, or military role requiring civilian transport."
+        examples: "*Choose this if you're in any security, police, or military role requiring civilian transport."
       },
       {
         id: "family",
-        label: "Are you looking for secure family transport?",
+        label: "👨‍👩‍👧‍👦 Are you looking for secure family transport?",
         value: "family",
         description: "Do you need safe, reliable transport for your loved ones? Whether it's school runs, family outings, or airport transfers, your family's safety and comfort come first.",
-        examples: "Choose this if you're primarily booking for family activities and personal use."
+        examples: "*Choose this if you're primarily booking for family activities and personal use."
       },
       {
         id: "general",
-        label: "Are you looking for general premium transport?",
+        label: "🚗 Are you looking for general premium transport?",
         value: "general",
         description: "Do you simply want reliable, comfortable transport without specific professional requirements? Sometimes you just need a dependable ride.",
-        examples: "Choose this if you need quality transport but don't fit other specific categories."
+        examples: "*Choose this if you need quality transport but don't fit other specific categories."
       },
       {
         id: "high_profile",
-        label: "Are you a high-profile individual requiring maximum discretion?",
+        label: "🔒 Are you a high-profile individual requiring maximum discretion?",
         value: "high_profile",
         description: "Is your privacy paramount? Do you need the highest level of discretion and security for your movements? We understand some clients need invisible excellence.",
-        examples: "Choose this if you require enhanced security measures and complete confidentiality."
+        examples: "*Choose this if you require enhanced security measures and complete confidentiality."
       },
       {
         id: "prefer_not_to_say",
-        label: "Prefer not to say",
+        label: "❓ Prefer not to say",
         value: "prefer_not_to_say",
         description: "No problem at all. We can work with you to understand your needs as we go.",
-        examples: "Choose this if you prefer to keep your professional background private."
+        examples: "*Choose this if you prefer to keep your professional background private."
       }
     ],
     validation: { required: true, errorMessage: "Please select your professional profile" },
@@ -162,87 +162,87 @@ export const questionnaireSteps: QuestionnaireStep[] = [
     options: [
       {
         id: "daily",
-        label: "Do you need daily transport?",
+        label: "📅 Do you need daily transport?",
         value: "daily",
         description: "Is secure transport part of your everyday routine? Whether it's your commute to work or multiple daily appointments, we'll become part of your daily life.",
-        examples: "Choose this if you need transport 5 or more times per week."
+        examples: "*Choose this if you need transport 5 or more times per week."
       },
       {
         id: "weekly",
-        label: "Do you need regular business transport?",
+        label: "🗓️ Do you need regular business transport?",
         value: "weekly",
         description: "Are you traveling for business several times a week? Client meetings, office visits, or regular business entertainment?",
-        examples: "Choose this if you need transport 2-4 times per week."
+        examples: "*Choose this if you need transport 2-4 times per week."
       },
       {
         id: "monthly",
-        label: "Do you need monthly transport?",
+        label: "📆 Do you need monthly transport?",
         value: "monthly",
         description: "Are your transport needs periodic? Monthly board meetings, regular check-ups, or social events?",
-        examples: "Choose this if you need transport 1-3 times per month."
+        examples: "*Choose this if you need transport 1-3 times per month."
       },
       {
         id: "project_based",
-        label: "Do you have project-based transport needs?",
+        label: "🎯 Do you have project-based transport needs?",
         value: "project_based",
         description: "Is your need temporary but intensive? Perhaps a film shoot, business project, or temporary assignment?",
-        examples: "Choose this if you need intensive transport for specific time periods."
+        examples: "*Choose this if you need intensive transport for specific time periods."
       },
       {
         id: "emergency",
-        label: "Are your transport needs unpredictable?",
+        label: "❓ Are your transport needs unpredictable?",
         value: "emergency",
         description: "Is your schedule too variable to predict? Last-minute meetings or spontaneous travel requirements?",
-        examples: "Choose this if you can't predict your transport frequency."
+        examples: "*Choose this if you can't predict your transport frequency."
       },
       {
         id: "special_events",
-        label: "Do you only need transport for special events?",
+        label: "🎪 Do you only need transport for special events?",
         value: "special_events",
         description: "Are you looking for transport just for important occasions? Galas, premieres, or special celebrations?",
-        examples: "Choose this if you only need occasional event transport."
+        examples: "*Choose this if you only need occasional event transport."
       },
       {
         id: "seasonal",
-        label: "Are you here for holiday or tourist purposes?",
+        label: "🏦 Are you here for holiday or tourist purposes?",
         value: "seasonal",
         description: "Are you visiting the UK for leisure? Need reliable transport to explore without the stress of driving?",
-        examples: "Choose this if you're a tourist or holiday visitor."
+        examples: "*Choose this if you're a tourist or holiday visitor."
       },
       {
         id: "weekly_appointments",
-        label: "Do you have weekly appointments?",
+        label: "📅 Do you have weekly appointments?",
         value: "weekly_appointments",
         description: "Do you have regular weekly commitments? Perhaps standing meetings, medical appointments, or social engagements?",
-        examples: "Choose this if you need transport 1-2 times per week."
+        examples: "*Choose this if you need transport 1-2 times per week."
       },
       {
         id: "biweekly",
-        label: "Do you travel every other week?",
+        label: "🗓️ Do you travel every other week?",
         value: "biweekly",
         description: "Is your schedule more spread out? Perhaps alternating between offices or bi-weekly business trips?",
-        examples: "Choose this if you need transport every other week."
+        examples: "*Choose this if you need transport every other week."
       },
       {
         id: "quarterly",
-        label: "Do you travel quarterly?",
+        label: "📆 Do you travel quarterly?",
         value: "quarterly",
         description: "Are your transport needs tied to quarterly business cycles? Perhaps investor meetings or seasonal events?",
-        examples: "Choose this if you need transport every few months."
+        examples: "*Choose this if you need transport every few months."
       },
       {
         id: "term_time",
-        label: "Do you need term-time transport only?",
+        label: "🎓 Do you need term-time transport only?",
         value: "term_time",
         description: "Are your transport needs tied to the academic calendar? University terms or school schedules?",
-        examples: "Choose this if you're a student needing term-time transport."
+        examples: "*Choose this if you're a student needing term-time transport."
       },
       {
         id: "prefer_not_to_say",
-        label: "I'd rather not specify right now",
+        label: "❓ I'd rather not specify right now",
         value: "prefer_not_to_say",
         description: "No problem at all. We can work with you to understand your needs as we go.",
-        examples: "Choose this if you prefer to keep your travel patterns private."
+        examples: "*Choose this if you prefer to keep your travel patterns private."
       }
     ],
     validation: { required: true, errorMessage: "Please select your travel frequency requirements" },
@@ -258,101 +258,101 @@ export const questionnaireSteps: QuestionnaireStep[] = [
     options: [
       {
         id: "privacy_discretion",
-        label: "Is absolute privacy and confidentiality essential?",
+        label: "🔒 Is absolute privacy and confidentiality essential?",
         value: "privacy_discretion",
         description: "Do your conversations and destinations need to remain completely confidential? No questions asked?",
-        examples: "Select this if discretion is paramount to your needs."
+        examples: "*Select this if discretion is paramount to your needs."
       },
       {
         id: "security_awareness",
-        label: "Do you need security that blends in seamlessly?",
+        label: "🛡️ Do you need security that blends in seamlessly?",
         value: "security_awareness",
         description: "Would you feel safer knowing trained professionals are watching over you without drawing unwanted attention to your movements?",
-        examples: "Select this if you want protection without the obvious security presence."
+        examples: "*Select this if you want protection without the obvious security presence."
       },
       {
         id: "luxury_comfort",
-        label: "Do you expect the finest vehicles?",
+        label: "🚗 Do you expect the finest vehicles?",
         value: "luxury_comfort",
         description: "Is the vehicle itself part of your image? Do you need premium cars that make the right statement?",
-        examples: "Select this if vehicle quality and presentation matter to you."
+        examples: "*Select this if vehicle quality and presentation matter to you."
       },
       {
         id: "professional_service",
-        label: "Is your driver's presentation crucial for your image?",
+        label: "👤 Is your driver's presentation crucial for your image?",
         value: "professional_service",
         description: "Do your drivers need to match your professional standards when meeting clients or arriving at important events?",
-        examples: "Select this if your driver's appearance reflects on your reputation."
+        examples: "*Select this if your driver's appearance reflects on your reputation."
       },
       {
         id: "reliability_tracking",
-        label: "Is punctuality absolutely critical?",
+        label: "⏰ Is punctuality absolutely critical?",
         value: "reliability_tracking",
         description: "Can't afford to be late? Is your schedule so precise that every minute counts?",
-        examples: "Select this if being on time is non-negotiable for you."
+        examples: "*Select this if being on time is non-negotiable for you."
       },
       {
         id: "flexibility_coverage",
-        label: "Do you need 24/7 availability?",
+        label: "📁 Do you need 24/7 availability?",
         value: "flexibility_coverage",
         description: "Are your hours unpredictable? Early flights, late meetings, or middle-of-the-night emergencies?",
-        examples: "Select this if you need round-the-clock service availability."
+        examples: "*Select this if you need round-the-clock service availability."
       },
       {
         id: "specialized_needs",
-        label: "Do you need group or family transport?",
+        label: "👥 Do you need group or family transport?",
         value: "specialized_needs",
         description: "Are you booking for multiple people? Need vehicles that accommodate your entire family or team?",
-        examples: "Select this if you regularly need multi-passenger transport."
+        examples: "*Select this if you regularly need multi-passenger transport."
       },
       {
         id: "communication_skills",
-        label: "Do you value excellent communication?",
+        label: "💬 Do you value excellent communication?",
         value: "communication_skills",
         description: "Do you need drivers who can engage professionally when needed but also respect when you need quiet time?",
-        examples: "Select this if driver communication skills matter to you."
+        examples: "*Select this if driver communication skills matter to you."
       },
       {
         id: "route_knowledge",
-        label: "Do you need expert route planning?",
+        label: "🗺️ Do you need expert route planning?",
         value: "route_knowledge",
         description: "Want to avoid traffic, know shortcuts, or need someone who truly knows the city inside out?",
-        examples: "Select this if journey efficiency and route knowledge are important."
+        examples: "*Select this if journey efficiency and route knowledge are important."
       },
       {
         id: "real_time_tracking",
-        label: "Do you want real-time tracking and updates?",
+        label: "📱 Do you want real-time tracking and updates?",
         value: "real_time_tracking",
         description: "Do you or your team need to track journeys, receive updates, or coordinate schedules digitally?",
-        examples: "Select this if you want full digital visibility of your transport."
+        examples: "*Select this if you want full digital visibility of your transport."
       },
       {
         id: "emergency_response",
-        label: "Do you need emergency response capability?",
+        label: "🆘 Do you need emergency response capability?",
         value: "emergency_response",
         description: "Would you feel better knowing your transport team can handle unexpected situations or emergencies?",
-        examples: "Select this if you want drivers trained in emergency protocols."
+        examples: "*Select this if you want drivers trained in emergency protocols."
       },
       {
         id: "payment_flexibility",
-        label: "Do you need flexible payment options?",
+        label: "💳 Do you need flexible payment options?",
         value: "payment_flexibility",
         description: "Do you need corporate billing, multiple payment methods, or special invoicing arrangements?",
-        examples: "Select this if standard payment doesn't suit your needs."
+        examples: "*Select this if standard payment doesn't suit your needs."
       },
       {
         id: "multi_city_coverage",
-        label: "Do you travel across multiple cities?",
+        label: "🌍 Do you travel across multiple cities?",
         value: "multi_city_coverage",
         description: "Do you need consistent service whether you're in London, Manchester, or Edinburgh?",
-        examples: "Select this if you need nationwide coverage."
+        examples: "*Select this if you need nationwide coverage."
       },
       {
         id: "prefer_not_to_say",
-        label: "Prefer not to say",
+        label: "❓ Prefer not to say",
         value: "prefer_not_to_say",
         description: "That's perfectly fine. We'll adapt to your needs as we learn what works best for you.",
-        examples: "Our specialists will provide adaptable service recommendations based on your booking patterns while maintaining complete confidentiality about your specific requirements."
+        examples: "*Our specialists will provide adaptable service recommendations based on your booking patterns while maintaining complete confidentiality about your specific requirements."
       }
     ],
     validation: { required: true, minSelections: 2, maxSelections: 5, errorMessage: "Please select 2-5 requirements" },
@@ -368,101 +368,101 @@ export const questionnaireSteps: QuestionnaireStep[] = [
     options: [
       {
         id: "central_london",
-        label: "Do you primarily travel within Greater London?",
+        label: "📍 Do you primarily travel within Greater London?",
         value: "central_london",
         description: "Is London your main base? From the City to Canary Wharf, Mayfair to Shoreditch, we know every street and shortcut.",
-        examples: "Select this if London is your primary location."
+        examples: "*Select this if London is your primary location."
       },
       {
         id: "financial_district",
-        label: "Do you regularly need transport in Manchester?",
+        label: "🏭 Do you regularly need transport in Manchester?",
         value: "financial_district",
         description: "Are you part of the Northern Powerhouse? From MediaCity to the business district, we cover all of Greater Manchester.",
-        examples: "Select this if Manchester is a regular destination."
+        examples: "*Select this if Manchester is a regular destination."
       },
       {
         id: "government_quarter",
-        label: "Do you frequently travel to Birmingham?",
+        label: "🏙️ Do you frequently travel to Birmingham?",
         value: "government_quarter",
         description: "Is the Midlands your territory? From the Jewellery Quarter to the NEC, we know Birmingham inside out.",
-        examples: "Select this if Birmingham features in your travel plans."
+        examples: "*Select this if Birmingham features in your travel plans."
       },
       {
         id: "west_end",
-        label: "Do you need coverage in Edinburgh?",
+        label: "🏴󠁧󠁢󠁳󠁣󠁴󠁿 Do you need coverage in Edinburgh?",
         value: "west_end",
         description: "Do you work in Scotland's capital? From the financial district to the airport, we navigate Edinburgh expertly.",
-        examples: "Select this if Edinburgh is part of your regular travel."
+        examples: "*Select this if Edinburgh is part of your regular travel."
       },
       {
         id: "greater_london",
-        label: "Do you require transport in Glasgow?",
+        label: "🏴󠁧󠁢󠁳󠁣󠁴󠁿 Do you require transport in Glasgow?",
         value: "greater_london",
         description: "Is Glasgow your Scottish base? We know the city from the merchant quarter to the West End.",
-        examples: "Select this if Glasgow is in your travel rotation."
+        examples: "*Select this if Glasgow is in your travel rotation."
       },
       {
         id: "airport_transfers",
-        label: "Do you frequently fly from UK airports?",
+        label: "✈️ Do you frequently fly from UK airports?",
         value: "airport_transfers",
         description: "Are you constantly catching flights? Whether it's Heathrow at 5am or a late arrival at Gatwick, we'll get you there stress-free.",
-        examples: "Select this if you regularly need airport transfers."
+        examples: "*Select this if you regularly need airport transfers."
       },
       {
         id: "tourist_destinations",
-        label: "Do you need transport for entertainment venues and events?",
+        label: "🎭 Do you need transport for entertainment venues and events?",
         value: "tourist_destinations",
         description: "From West End shows to arena concerts, do you need transport to entertainment venues where timing and discretion matter?",
-        examples: "Select this if you frequent entertainment venues."
+        examples: "*Select this if you frequent entertainment venues."
       },
       {
         id: "entertainment_events",
-        label: "Do you stay at luxury hotels?",
+        label: "🏨 Do you stay at luxury hotels?",
         value: "entertainment_events",
         description: "Are five-star hotels your second home? Do you need drivers who understand luxury hospitality standards?",
-        examples: "Select this if you regularly use high-end hotels."
+        examples: "*Select this if you regularly use high-end hotels."
       },
       {
         id: "luxury_shopping",
-        label: "Do you visit government buildings or courts?",
+        label: "⚖️ Do you visit government buildings or courts?",
         value: "luxury_shopping",
         description: "Do you have business in Westminster, attend court hearings, or visit government offices? We understand the security protocols.",
-        examples: "Select this if you regularly visit official buildings."
+        examples: "*Select this if you regularly visit official buildings."
       },
       {
         id: "healthcare_professional",
-        label: "Do you need transport across multiple UK cities?",
+        label: "🚌 Do you need transport across multiple UK cities?",
         value: "healthcare_professional",
         description: "Do you travel between London, Manchester, Birmingham, or other major cities? We provide consistent service nationwide.",
-        examples: "Select this if you regularly travel between major UK cities."
+        examples: "*Select this if you regularly travel between major UK cities."
       },
       {
         id: "university_business_towns",
-        label: "Do you travel to university towns or tech centers?",
+        label: "🎓 Do you travel to university towns or tech centers?",
         value: "university_business_towns",
         description: "Do you visit Oxford, Cambridge, Reading, or Brighton? Academic and tech hubs where intellectual conversations matter?",
-        examples: "Select this if you regularly travel to academic or technology centers."
+        examples: "*Select this if you regularly travel to academic or technology centers."
       },
       {
         id: "scotland_wales",
-        label: "Do you need international coordination?",
+        label: "🌐 Do you need international coordination?",
         value: "scotland_wales",
         description: "Does your travel extend beyond the UK? Do you need transport that coordinates with international security teams?",
-        examples: "Select this if you have international transport needs."
+        examples: "*Select this if you have international transport needs."
       },
       {
         id: "international_specialized",
-        label: "Are you sometimes in high-security situations?",
+        label: "🚨 Are you sometimes in high-security situations?",
         value: "international_specialized",
         description: "Do you ever need transport in sensitive areas, during protests, or in situations requiring enhanced security awareness?",
-        examples: "Select this if you face elevated security situations."
+        examples: "*Select this if you face elevated security situations."
       },
       {
         id: "prefer_not_to_say",
-        label: "Prefer not to say",
+        label: "❓ Prefer not to say",
         value: "prefer_not_to_say",
         description: "We completely understand. Your privacy and security come first.",
-        examples: "Choose this if you prefer to keep your location preferences confidential."
+        examples: "*Choose this if you prefer to keep your location preferences confidential."
       }
     ],
     validation: { required: true, minSelections: 1, maxSelections: 8, errorMessage: "Please select 1-8 coverage areas" },
@@ -478,66 +478,66 @@ export const questionnaireSteps: QuestionnaireStep[] = [
     options: [
       {
         id: "london_suburbs",
-        label: "Do you frequently fly from UK airports?",
+        label: "✈️ Do you frequently fly from UK airports?",
         value: "london_suburbs",
         description: "Are you constantly catching flights? Whether it's Heathrow at 5am or a late arrival at Gatwick, we'll get you there stress-free.",
-        examples: "Select this if you regularly need airport transfers."
+        examples: "*Select this if you regularly need airport transfers."
       },
       {
         id: "business_parks",
-        label: "Do you visit government buildings or courts?",
+        label: "⚖️ Do you visit government buildings or courts?",
         value: "business_parks",
         description: "Do you have business in Westminster, attend court hearings, or visit government offices? We understand the security protocols.",
-        examples: "Select this if you regularly visit official buildings."
+        examples: "*Select this if you regularly visit official buildings."
       },
       {
         id: "event_venues",
-        label: "Do you attend entertainment venues and events?",
+        label: "🎭 Do you attend entertainment venues and events?",
         value: "event_venues",
         description: "From West End shows to arena concerts, do you need transport to entertainment venues where timing and discretion matter?",
-        examples: "Select this if you frequent entertainment venues."
+        examples: "*Select this if you frequent entertainment venues."
       },
       {
         id: "private_aviation",
-        label: "Do you stay at luxury hotels?",
+        label: "🏨 Do you stay at luxury hotels?",
         value: "private_aviation",
         description: "Are five-star hotels your second home? Do you need drivers who understand luxury hospitality standards?",
-        examples: "Select this if you regularly use high-end hotels."
+        examples: "*Select this if you regularly use high-end hotels."
       },
       {
         id: "healthcare_medical",
-        label: "Do you need international coordination?",
+        label: "🌐 Do you need international coordination?",
         value: "healthcare_medical",
         description: "Does your travel extend beyond the UK? Do you need transport that coordinates with international security teams?",
-        examples: "Select this if you have international transport needs."
+        examples: "*Select this if you have international transport needs."
       },
       {
         id: "educational_training",
-        label: "Are you sometimes in high-security situations?",
+        label: "🚨 Are you sometimes in high-security situations?",
         value: "educational_training",
         description: "Do you ever need transport in sensitive areas, during protests, or in situations requiring enhanced security awareness?",
-        examples: "Select this if you face elevated security situations."
+        examples: "*Select this if you face elevated security situations."
       },
       {
         id: "leisure_recreation",
-        label: "No additional coverage needed",
+        label: "✅ No additional coverage needed",
         value: "leisure_recreation",
         description: "My requirements are fully covered by my primary areas",
-        examples: "Select this if you only need coverage in your primary locations."
+        examples: "*Select this if you only need coverage in your primary locations."
       },
       {
         id: "none_required",
-        label: "None of the above apply to me",
+        label: "❌ None of the above apply to me",
         value: "none_required",
         description: "My requirements are fully covered by my primary locations",
-        examples: "Select this if you only need coverage in your primary areas."
+        examples: "*Select this if you only need coverage in your primary areas."
       },
       {
         id: "prefer_not_to_say",
-        label: "Prefer not to say",
+        label: "❓ Prefer not to say",
         value: "prefer_not_to_say",
         description: "That's perfectly fine. We'll adapt to your needs as we learn what works best for you.",
-        examples: "Our specialists will provide flexible coverage recommendations while maintaining complete confidentiality about your additional location requirements."
+        examples: "*Our specialists will provide flexible coverage recommendations while maintaining complete confidentiality about your additional location requirements."
       }
     ],
     validation: { required: false },
@@ -553,56 +553,56 @@ export const questionnaireSteps: QuestionnaireStep[] = [
     options: [
       {
         id: "primary_emergency_contact",
-        label: "Do you have someone who worries about your safety?",
+        label: "👪 Do you have someone who worries about your safety?",
         value: "primary_emergency_contact",
         description: "Is there someone special who likes to know you've arrived safely? A partner, family member, or assistant who coordinates your life?",
-        examples: "Provide their details if you'd like us to keep them informed in emergencies."
+        examples: "*Provide their details if you'd like us to keep them informed in emergencies."
       },
       {
         id: "business_emergency_contact",
-        label: "Does your company have security protocols?",
+        label: "🏢 Does your company have security protocols?",
         value: "business_emergency_contact",
         description: "Does your organization have specific procedures we should follow? A security office or HR department we should coordinate with?",
-        examples: "Provide company contacts if corporate protocols apply to you."
+        examples: "*Provide company contacts if corporate protocols apply to you."
       },
       {
         id: "medical_alert_information",
-        label: "Medical Alert Information",
+        label: "🏥 Medical Alert Information",
         value: "medical_alert_information",
         description: "Important medical information for emergency response",
         examples: "*Critical medical alerts (allergies, medical devices, mobility assistance needs), preferred hospital, or medical insurance information for emergency medical situations."
       },
       {
         id: "security_coordination",
-        label: "Security Team Coordination",
+        label: "🛡️ Security Team Coordination",
         value: "security_coordination",
         description: "Corporate security or protection team contacts",
         examples: "*Company security office, personal protection team, or designated security coordinator who manages your security protocols and emergency response procedures."
       },
       {
         id: "communication_preferences",
-        label: "Emergency Communication Preferences",
+        label: "📞 Emergency Communication Preferences",
         value: "communication_preferences",
         description: "How you prefer to be contacted during emergencies",
         examples: "*Preferred contact methods (phone, text, email), emergency communication protocols, safe words for verification, or specific instructions for emergency situations."
       },
       {
         id: "family_notification",
-        label: "Family Notification Protocol",
+        label: "👨‍👩‍👧‍👦 Family Notification Protocol",
         value: "family_notification",
         description: "Family members who should be informed of incidents",
         examples: "*Immediate family members, their contact details, notification preferences, and any specific family communication protocols for emergency situations."
       },
       {
         id: "no_emergency_contact",
-        label: "No Emergency Contact Required",
+        label: "❌ No Emergency Contact Required",
         value: "no_emergency_contact",
         description: "I prefer not to provide emergency contact information",
         examples: "*Skip emergency contact setup. Note: This may limit our ability to provide immediate assistance or coordination during emergency situations."
       },
       {
         id: "prefer_not_to_say",
-        label: "Prefer not to say",
+        label: "❓ Prefer not to say",
         value: "prefer_not_to_say",
         description: "That's perfectly fine. We'll adapt to your needs as we learn what works best for you.",
         examples: "*Our specialists will use standard emergency protocols while maintaining complete confidentiality about your personal contacts and emergency preferences."
@@ -705,7 +705,7 @@ export const questionnaireSteps: QuestionnaireStep[] = [
       },
       {
         id: "prefer_not_to_say",
-        label: "Prefer not to say",
+        label: "❓ Prefer not to say",
         value: "prefer_not_to_say",
         description: "That's perfectly fine. We'll adapt to your needs as we learn what works best for you.",
         examples: "*Our specialists will provide standard service arrangements while maintaining complete confidentiality about any specific requirements you may have."
@@ -724,84 +724,84 @@ export const questionnaireSteps: QuestionnaireStep[] = [
     options: [
       {
         id: "sms_updates",
-        label: "SMS Updates",
+        label: "📱 SMS Updates",
         value: "sms_updates",
         description: "Text messages for booking confirmations and driver updates",
         examples: "*Real-time booking confirmations, driver arrival notifications, journey progress updates, and immediate security alerts delivered via SMS. Best for busy professionals who check messages frequently."
       },
       {
         id: "email_communication",
-        label: "Email Communications",
+        label: "📧 Email Communications",
         value: "email_communication",
         description: "Detailed email confirmations and documentation",
         examples: "*Professional email communications with booking confirmations, detailed journey information, receipts, and comprehensive documentation. Best for formal business environments and record keeping."
       },
       {
         id: "app_notifications",
-        label: "App Notifications",
+        label: "🔔 App Notifications",
         value: "app_notifications",
         description: "Push notifications through Armora Transport app",
         examples: "*Modern push notifications through our secure mobile app, including real-time tracking, driver updates, and booking management. Best for tech-savvy users seeking streamlined experience."
       },
       {
         id: "phone_calls",
-        label: "Phone Calls",
+        label: "📞 Phone Calls",
         value: "phone_calls",
         description: "Voice communication for important updates",
         examples: "*Direct phone calls from our operations team for important updates, booking confirmations, and security coordination. Best for senior executives preferring traditional business communication."
       },
       {
         id: "through_assistant",
-        label: "Through Personal Assistant",
+        label: "👤 Through Personal Assistant",
         value: "through_assistant",
         description: "All communications via personal assistant or PA",
         examples: "*All transport communications directed through your personal assistant or PA, including booking coordination, updates, and scheduling. Best for C-level executives and high-profile individuals."
       },
       {
         id: "business_contact",
-        label: "Business/Corporate Contact",
+        label: "🏢 Business/Corporate Contact",
         value: "business_contact",
         description: "Communications through company contact",
         examples: "*All communications routed through designated business contact, travel coordinator, or corporate security office. Ideal for company-managed transport arrangements and corporate protocols."
       },
       {
         id: "secure_messaging",
-        label: "Secure Messaging Platform",
+        label: "🔒 Secure Messaging Platform",
         value: "secure_messaging",
         description: "Encrypted messaging for sensitive communications",
         examples: "*End-to-end encrypted messaging platform for security-sensitive communications, route information, and confidential transport coordination. Best for high-security requirements."
       },
       {
         id: "communication_timing",
-        label: "Communication Timing Preferences",
+        label: "⏰ Communication Timing Preferences",
         value: "communication_timing",
         description: "Specific timing and frequency preferences",
         examples: "*Business hours only (9:00-17:00 GMT), extended hours (8:00-20:00), custom hours, or 24/7 availability for emergencies. Includes time zone considerations for international clients."
       },
       {
         id: "emergency_override",
-        label: "Emergency Communication Protocol",
+        label: "🆘 Emergency Communication Protocol",
         value: "emergency_override",
         description: "How to handle urgent security situations",
         examples: "*Emergency situations override all preferences with immediate contact via all available methods. Security alerts, driver safety updates, and urgent coordination delivered immediately regardless of timing preferences."
       },
       {
         id: "privacy_minimal",
-        label: "Privacy & Minimal Contact",
+        label: "🔕 Privacy & Minimal Contact",
         value: "privacy_minimal",
         description: "Essential communications only with maximum privacy",
         examples: "*Driver arrival notifications and emergency communications only. Discrete, minimal interruption approach with strong privacy protection. Best for privacy-focused users and confidential transport needs."
       },
       {
         id: "no_communications",
-        label: "No Non-Essential Communications",
+        label: "❌ No Non-Essential Communications",
         value: "no_communications",
         description: "Driver coordination only, no booking communications",
         examples: "*Direct driver coordination only. No booking confirmations, updates, or administrative communications. Emergency alerts still delivered for safety and security purposes."
       },
       {
         id: "prefer_not_to_say",
-        label: "Prefer not to say",
+        label: "❓ Prefer not to say",
         value: "prefer_not_to_say",
         description: "That's perfectly fine. We'll adapt to your needs as we learn what works best for you.",
         examples: "*Our specialists will use standard professional communication methods while maintaining complete confidentiality about your preferred contact and communication preferences."
