@@ -2,11 +2,14 @@
 /* Everything in the app uses these consistent widths */
 
 :root {
-  /* MASTER WIDTH CONTROL */
-  --content-max-width: 680px;
-  --content-padding-mobile: 10px; /* Reduced for wider mobile content */
-  --content-padding-tablet: 20px;
-  --content-padding-desktop: 24px;
+  /* MASTER WIDTH CONTROL - AGGRESSIVE FULL-WIDTH EXPERIENCE */
+  --content-max-width: calc(100vw - 16px); /* Nearly full width on mobile */
+  --content-max-width-tablet: calc(100vw - 24px); /* Nearly full width on tablet */
+  --content-max-width-desktop: calc(100vw - 40px); /* Nearly full width on desktop */
+  --content-max-width-large: min(calc(100vw - 60px), 1400px); /* Cap only at very large sizes */
+  --content-padding-mobile: 8px; /* Minimal safe padding */
+  --content-padding-tablet: 12px; /* Minimal safe padding */
+  --content-padding-desktop: 20px; /* Minimal safe padding */
   
   /* Calculated values for consistent spacing */
   --content-width-mobile: calc(100vw - (var(--content-padding-mobile) * 2));
@@ -30,21 +33,30 @@
 
 .global-container {
   width: 100%;
-  max-width: 680px;
+  max-width: var(--content-max-width);
   margin: 0 auto;
-  padding: 0 10px; /* Reduced for wider mobile content */
+  padding: 0 var(--content-padding-mobile);
   box-sizing: border-box;
 }
 
 @media (min-width: 768px) {
   .global-container {
-    padding: 0 24px;
+    max-width: var(--content-max-width-tablet);
+    padding: 0 var(--content-padding-tablet);
   }
 }
 
 @media (min-width: 1024px) {
   .global-container {
-    padding: 0 32px;
+    max-width: var(--content-max-width-desktop);
+    padding: 0 var(--content-padding-desktop);
+  }
+}
+
+@media (min-width: 1400px) {
+  .global-container {
+    max-width: var(--content-max-width-large);
+    padding: 0 30px;
   }
 }
 
@@ -171,7 +183,11 @@
 /* CRITICAL: 320px minimum width support */
 @media (max-width: 320px) {
   :root {
-    --content-padding-mobile: 6px; /* Minimal padding for very small screens */
+    --content-padding-mobile: 6px; /* Improved minimum for tiny screens */
+  }
+  
+  .global-container {
+    padding: 0 6px; /* Improved width utilization with adequate margins */
   }
   
   .armora-content-container,
@@ -180,8 +196,8 @@
   .armora-card-container,
   .armora-header-content,
   .armora-footer-content {
-    padding-left: 8px;
-    padding-right: 8px;
+    padding-left: 6px;
+    padding-right: 6px;
   }
 }
 
@@ -192,6 +208,7 @@
   .armora-card-container,
   .armora-header-content,
   .armora-footer-content {
+    max-width: var(--content-max-width-tablet);
     padding-left: var(--content-padding-tablet);
     padding-right: var(--content-padding-tablet);
   }
@@ -205,8 +222,22 @@
   .armora-card-container,
   .armora-header-content,
   .armora-footer-content {
+    max-width: var(--content-max-width-desktop);
     padding-left: var(--content-padding-desktop);
     padding-right: var(--content-padding-desktop);
+  }
+}
+
+@media (min-width: 1400px) {
+  .armora-content-container,
+  .armora-page-content,
+  .armora-section-wrapper .armora-section-content,
+  .armora-card-container,
+  .armora-header-content,
+  .armora-footer-content {
+    max-width: var(--content-max-width-large);
+    padding-left: 40px;
+    padding-right: 40px;
   }
 }
 

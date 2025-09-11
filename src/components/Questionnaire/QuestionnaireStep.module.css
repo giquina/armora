@@ -1,5 +1,17 @@
 /* Armora Security Transport - Questionnaire Step Styles */
 
+/* NUCLEAR MOBILE BORDER REMOVAL - Kill ALL vertical lines on mobile */
+@media (max-width: 768px) {
+  * {
+    border-left: none !important;
+    border-right: none !important;
+  }
+  *::before, *::after {
+    border-left: none !important;
+    border-right: none !important;
+  }
+}
+
 /* Standard Text Sizing for All Questionnaire Content */
 .standardText {
   font-size: 16px;
@@ -214,6 +226,11 @@
   /* Apply header entrance animation with glow sweep effect */
   position: relative;
   overflow: hidden;
+  border: none !important;
+  border-left: none !important;
+  border-right: none !important;
+  outline: none !important;
+  box-shadow: none !important;
 }
 
 .header::before {
@@ -264,11 +281,11 @@
 }
 
 .question {
-  font-size: 16px !important; /* Standardized font size */
-  font-weight: 600; /* Match welcome title weight */
+  font-size: 1.75rem !important; /* Significantly larger - was 16px */
+  font-weight: 700; /* Bolder weight for prominence */
   color: var(--text-primary);
-  line-height: 1.6 !important;
-  margin: 0 0 0.5rem 0;
+  line-height: 1.4 !important; /* Tighter line height for larger text */
+  margin: 0 0 1rem 0; /* More bottom margin */
   text-align: center;
 }
 
@@ -293,7 +310,7 @@
   gap: 0.5rem; /* Smaller gaps between options */
   overflow: visible !important; /* Force visible to prevent border clipping */
   flex: 1; /* Take available space */
-  padding: 6px 0 20px 0; /* Reduced bottom padding from 40px to 20px */
+  padding: 24px 0 20px 0; /* Increased top padding for space after intro text */
   margin: 0; /* Remove negative margins */
   /* Remove height constraints that could clip borders */
   min-height: fit-content;
@@ -329,9 +346,10 @@
   box-shadow: none !important;
   outline: none !important;
   
-  /* Layout */
+  /* Layout - Vertical stacking */
   display: flex !important;
-  align-items: center !important;
+  flex-direction: column !important;
+  align-items: stretch !important;
   box-sizing: border-box !important;
   
   /* Prevent Overflow */
@@ -393,13 +411,17 @@
   color: #ffffff !important; /* Change examples text to white on hover */
 }
 
-.option.selected {
-  background: rgba(255, 215, 0, 0.08) !important;
-  border: 2px solid #FFD700 !important; /* THICK border when selected */
-  box-shadow: 0 0 0 1px rgba(255, 215, 0, 0.2) !important;
-  /* No animation to prevent movement */
-  animation: none !important; /* Disable any animation that might cause movement */
-  transform: translateZ(0) !important; /* Keep GPU acceleration, no movement */
+/* Selected state styling - both .selected and .optionSelected for compatibility */
+.option.selected,
+.optionSelected,
+.option.optionSelected {
+  background: rgba(255, 215, 0, 0.18) !important; /* More prominent golden background */
+  border: 2px solid #FFD700 !important; /* Golden border when selected */
+  box-shadow: 0 0 25px rgba(255, 215, 0, 0.4), inset 0 0 15px rgba(255, 215, 0, 0.1) !important; /* Enhanced golden glow */
+  /* Smooth transition animation for selection feedback */
+  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important;
+  transform: scale(1.02) !important; /* Slight scale for selection feedback */
+  position: relative !important;
 }
 
 /* Focus state for keyboard accessibility - no movement */
@@ -424,6 +446,13 @@
 .option {
   cursor: pointer !important; /* Make it clear the option is clickable */
   user-select: none !important; /* Prevent text selection when clicking */
+  /* Disable mobile tap highlights - prevents blue flash on mobile */
+  -webkit-tap-highlight-color: transparent !important;
+  -webkit-touch-callout: none !important;
+  -webkit-user-select: none !important;
+  -moz-user-select: none !important;
+  -ms-user-select: none !important;
+  tap-highlight-color: transparent !important;
   /* Transition only visual properties, not transforms */
   transition: background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease !important;
   /* Prevent any accidental movement */
@@ -439,14 +468,128 @@
   box-shadow: 0 2px 8px rgba(255, 215, 0, 0.1) !important; /* Subtle shadow without lift */
 }
 
-.option.selected .optionLabel {
-  color: #FFD700; /* Gold when selected */
-  /* NO UNDERLINES - Clean selected state */
-  text-decoration: none !important;
+/* Selected option label styling - both .selected and .optionSelected for compatibility */
+.option.selected .optionLabel,
+.optionSelected .optionLabel,
+.option.optionSelected .optionLabel {
+  color: #FFD700 !important; /* Golden title when selected */
+  text-decoration: none !important; /* NO underlines - Clean selected state */
+  font-weight: 700 !important; /* Make selected title more prominent */
+  text-shadow: 0 0 12px rgba(255, 215, 0, 0.5) !important; /* More prominent golden glow on text */
+  transition: color 0.3s ease !important;
 }
 
-.option.selected .optionDescription {
-  text-decoration: none; /* NO underline on subtitle when selected */
+/* Selected option description styling - white for better readability */
+.option.selected .optionDescription,
+.optionSelected .optionDescription,
+.option.optionSelected .optionDescription {
+  color: #FFFFFF !important; /* Bright white description when selected */
+  text-decoration: none !important; /* NO underline on subtitle when selected */
+  font-weight: 500 !important; /* Slightly more prominent when selected */
+  opacity: 1 !important; /* Full opacity for selected descriptions */
+  transition: color 0.3s ease !important;
+}
+
+/* Selected option examples styling - keep them visible */
+.option.selected .optionExamples,
+.optionSelected .optionExamples,
+.option.optionSelected .optionExamples {
+  color: rgba(255, 215, 0, 0.9) !important; /* Keep golden color for examples */
+}
+
+/* Golden text styling for asterisk-marked content */
+.goldenText {
+  color: #FFD700 !important; /* Bright golden color */
+  font-weight: 500;
+  font-style: normal; /* Normal text for better readability */
+  text-shadow: 0 0 4px rgba(255, 215, 0, 0.3);
+}
+
+/* Enhanced golden text on mobile */
+@media (max-width: 767px) {
+  .goldenText {
+    font-weight: 600; /* Slightly bolder on mobile */
+    text-shadow: 0 0 6px rgba(255, 215, 0, 0.4); /* More prominent glow */
+  }
+  
+  .goldenAsterisk {
+    font-weight: 800; /* Extra bold on mobile for better visibility */
+    text-shadow: 0 0 6px rgba(255, 215, 0, 0.5); /* Stronger glow on mobile */
+    margin-right: 6px; /* Slightly more spacing on mobile */
+  }
+}
+
+/* HIGH SPECIFICITY OVERRIDE - Ensure selected states always work */
+.questionnaire-option.option.optionSelected,
+.questionnaire-option.optionSelected,
+.option.optionSelected.questionnaire-option {
+  background: rgba(255, 215, 0, 0.18) !important;
+  border: 2px solid #FFD700 !important;
+  box-shadow: 0 0 25px rgba(255, 215, 0, 0.4), inset 0 0 15px rgba(255, 215, 0, 0.1) !important;
+  transform: scale(1.02) !important;
+  position: relative !important;
+}
+
+/* Add checkmark for selected options */
+.questionnaire-option.option.optionSelected::after,
+.questionnaire-option.optionSelected::after,
+.option.optionSelected.questionnaire-option::after {
+  content: '✓' !important;
+  position: absolute !important;
+  top: 8px !important;
+  right: 12px !important;
+  color: #FFD700 !important;
+  font-size: 18px !important;
+  font-weight: bold !important;
+  text-shadow: 0 0 8px rgba(255, 215, 0, 0.8) !important;
+  z-index: 10 !important;
+}
+
+.questionnaire-option.option.optionSelected .optionLabel,
+.questionnaire-option.optionSelected .optionLabel,
+.option.optionSelected.questionnaire-option .optionLabel {
+  color: #FFD700 !important;
+  font-weight: 700 !important;
+  text-shadow: 0 0 12px rgba(255, 215, 0, 0.5) !important;
+}
+
+.questionnaire-option.option.optionSelected .optionDescription,
+.questionnaire-option.optionSelected .optionDescription,
+.option.optionSelected.questionnaire-option .optionDescription {
+  color: #FFFFFF !important;
+  font-weight: 500 !important;
+  opacity: 1 !important;
+}
+
+/* Standalone optionSelected class for CSS Modules compatibility */
+.optionSelected {
+  background: rgba(255, 215, 0, 0.12) !important; /* Slightly more prominent background */
+  border: 2px solid #FFD700 !important; /* Golden border when selected */
+  box-shadow: 0 0 16px rgba(255, 215, 0, 0.25) !important; /* Enhanced golden glow */
+  /* Smooth transition animation for selection feedback */
+  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important;
+  transform: translateZ(0) !important; /* Keep GPU acceleration, no movement */
+}
+
+/* Standalone optionSelected label styling */
+.optionSelected .optionLabel {
+  color: #FFD700 !important; /* Golden title when selected */
+  text-decoration: none !important; /* NO underlines - Clean selected state */
+  font-weight: 700 !important; /* Make selected title more prominent */
+  text-shadow: 0 0 8px rgba(255, 215, 0, 0.3); /* Subtle golden glow on text */
+}
+
+/* Standalone optionSelected description styling */
+.optionSelected .optionDescription {
+  color: #FFFFFF !important; /* Bright white description when selected */
+  text-decoration: none !important; /* NO underline on subtitle when selected */
+  font-weight: 500 !important; /* Slightly more prominent when selected */
+  opacity: 1 !important; /* Full opacity for selected descriptions */
+}
+
+/* Standalone optionSelected examples styling */
+.optionSelected .optionExamples {
+  color: rgba(255, 215, 0, 0.9) !important; /* Keep golden color for examples */
 }
 
 .option:focus-within {
@@ -538,6 +681,9 @@
 }
 
 .optionContent {
+  display: flex;
+  flex-direction: column;
+  gap: 14px; /* Space between content sections */
   flex: 1;
   min-width: 0;
   /* Ensure text wrapping works properly */
@@ -549,9 +695,9 @@
 
 .optionHeader {
   display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  margin-bottom: 0.25rem;
+  flex-direction: column;
+  gap: 0;
+  margin-bottom: 0;
 }
 
 .optionIcon {
@@ -559,11 +705,30 @@
   flex-shrink: 0;
 }
 
+/* Toggle container at bottom of option card */
+.toggleContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding-top: 20px;
+  margin-top: auto;
+  border-top: 1px solid rgba(255, 215, 0, 0.2);
+  gap: 0.5rem;
+}
+
+.toggleGroup {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
 .optionLabel {
   font-size: 1.25rem; /* Match content box titles */
   font-weight: 600;
   color: #FFFFFF; /* White by default */
-  margin-bottom: 8px;
+  margin-bottom: 14px; /* Space after title before description */
   transition: all 0.3s ease;
   /* REMOVE UNDERLINES - Clean title styling */
   text-decoration: none !important;
@@ -579,11 +744,11 @@
 
 .optionDescription {
   font-size: 14px !important; /* Standardized description font size */
-  color: rgba(224, 224, 224, 0.7) !important; /* Subtle grey for descriptions */
+  color: rgba(224, 224, 224, 0.8) !important; /* Improved readability with less transparency */
   font-weight: 400 !important;
-  font-style: italic !important; /* Italic for descriptions */
+  font-style: normal !important; /* Regular text instead of italic for better readability */
   line-height: 1.5 !important;
-  margin-bottom: 12px;
+  margin-bottom: 12px; /* Space after description before helper text */
   text-decoration: none !important;
   transition: color 0.3s ease;
   word-wrap: break-word;
@@ -600,7 +765,21 @@
   line-height: 1.5 !important;
   font-style: italic !important;
   transition: color 0.3s ease; /* Smooth color transition on hover */
-  margin-top: 8px;
+  margin-bottom: 20px; /* Space before toggle */
+}
+
+/* Golden text for asterisk-marked content */
+.goldenText {
+  color: #FFD700 !important; /* Armora's signature golden color */
+  font-weight: 500; /* Slightly bolder to make it stand out */
+}
+
+/* Specific styling for the golden asterisk */
+.goldenAsterisk {
+  color: #FFD700 !important; /* Branded golden color */
+  font-weight: 700; /* Bold to make it stand out */
+  margin-right: 4px; /* Small gap between asterisk and text */
+  text-shadow: 0 0 4px rgba(255, 215, 0, 0.4); /* Golden glow */
 }
 
 
@@ -789,22 +968,35 @@
 
 .enhancedHeader {
   text-align: center;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
 }
 
 .titleEnhanced {
   font-size: 1.3rem;
   font-weight: 700;
-  color: var(--accent-primary);
+  color: #ffffff;
   margin: 0 0 0.5rem 0;
   line-height: 1.2;
+  text-decoration: none !important;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  text-underline-offset: none !important;
 }
 
 .subtitleEnhanced {
   font-size: 1rem;
   font-weight: 500;
-  color: var(--text-primary);
+  color: rgba(255, 255, 255, 0.9);
   margin: 0 0 1rem 0;
   line-height: 1.3;
+  text-decoration: none !important;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  text-underline-offset: none !important;
 }
 
 .whyQuestionnaire {
@@ -897,7 +1089,7 @@
   padding: 1.5rem;
   background: transparent;
   border-radius: 12px !important;
-  border: 2px solid #FFD700 !important; /* Solid golden border - visible on all screen sizes */
+  border: 2px solid rgba(255, 215, 0, 0.4) !important; /* Solid golden border - visible on all screen sizes */
   overflow: visible;
   box-sizing: border-box;
   position: relative;
@@ -1402,6 +1594,43 @@
   font-size: 0.7rem;
 }
 
+/* AGGRESSIVE MOBILE BORDER REMOVAL - Nuclear option for vertical lines */
+@media (max-width: 767px) {
+  /* Remove ALL left/right borders from everything on mobile */
+  * {
+    border-left: none !important;
+    border-right: none !important;
+  }
+  
+  /* Specifically target all containers, headers, and sections */
+  .container,
+  .stepHeaderSection,
+  .header,
+  .enhancedHeader,
+  .title,
+  .titleEnhanced,
+  .subtitle,
+  .subtitleEnhanced,
+  .profileHeader,
+  .sectionHeader,
+  .stepHeader,
+  div[class*="header"],
+  div[class*="section"],
+  div[class*="container"],
+  div[class*="step"] {
+    border-left: none !important;
+    border-right: none !important;
+    outline: none !important;
+  }
+  
+  /* Remove all pseudo-element left/right borders */
+  *::before,
+  *::after {
+    border-left: none !important;
+    border-right: none !important;
+  }
+}
+
 /* Mobile-first responsive design - CRITICAL FOR VIEWPORT */
 /* Mobile Animation Optimizations */
 @media (max-width: 767px) {
@@ -1437,7 +1666,7 @@
 
 @media (min-width: 320px) and (max-width: 767px) {
   .content {
-  padding: 1rem 4px 60px 4px; /* Reduced bottom padding from 140px to 60px */
+  padding: 1rem 3px 60px 3px; /* EXTREME mobile optimization - nearly edge-to-edge */
   width: 100% !important;
   max-width: 100% !important;
   margin: 0 !important; /* Remove any centering margins */
@@ -1465,8 +1694,8 @@
   }
 
   .question {
-    font-size: 15px !important; /* Standardized mobile font size */
-    line-height: 1.6 !important;
+    font-size: 1.5rem !important; /* Larger on mobile - was 15px */
+    line-height: 1.4 !important; /* Tighter line height for larger text */
   }
 
   .helpText {
@@ -1476,7 +1705,6 @@
 
   .option {
     padding: 16px 8px !important; /* Optimized padding for mobile text with minimal side padding */
-    gap: 0.6rem; /* Smaller gap */
     margin: 0 2px 12px 2px !important; /* Reduced margins for better space usage */
     min-height: auto; /* Let content determine height */
     /* Enhanced mobile text layout - MAXIMIZE WIDTH */
@@ -1524,9 +1752,18 @@
     font-size: 0.8rem;
   }
 
+  /* Mobile responsive styles for toggle container */
+  .toggleContainer {
+    padding-top: 16px; /* Slightly less padding on mobile */
+  }
+
+  .toggleGroup {
+    gap: 0.4rem; /* Smaller gap on mobile */
+  }
+
   .optionsContainer {
     gap: 0.4rem; /* Smaller gaps */
-    padding: 8px 0 25px 0; /* Use full width */
+    padding: 20px 0 25px 0; /* Maintain top spacing on mobile */
     width: 100% !important;
     margin-left: 0 !important;
     margin-right: 0 !important;
@@ -1562,11 +1799,46 @@
   .titleEnhanced {
     font-size: 1.6rem !important; /* Much larger mobile title */
     line-height: 1.3 !important;
+    border: none !important;
+    text-decoration: none !important;
+    outline: none !important;
+    box-shadow: none !important;
   }
 
   .subtitleEnhanced {
     font-size: 1.3rem !important; /* Much larger mobile subtitle */
     line-height: 1.4 !important;
+    border: none !important;
+    text-decoration: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+  }
+
+  /* Ensure header containers have no borders on mobile */
+  .stepHeaderSection,
+  .enhancedHeader,
+  .header,
+  .title,
+  .subtitle,
+  .titleEnhanced,
+  .subtitleEnhanced {
+    border: none !important;
+    border-left: none !important;
+    border-right: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+    text-decoration: none !important;
+  }
+  
+  /* Remove any pseudo-element borders on mobile */
+  .stepHeaderSection::before,
+  .stepHeaderSection::after,
+  .header::before,
+  .header::after {
+    display: none !important;
+    border: none !important;
+    border-left: none !important;
+    border-right: none !important;
   }
 
   .whyQuestionnaire h3 {
@@ -1730,7 +2002,7 @@
 /* Desktop styles */
 @media (min-width: 1024px) {
   .content {
-  padding: 1.25rem 1rem 80px 1rem; /* Reduced bottom padding from 220px to 80px */
+  padding: 1.25rem 1rem 110px 1rem; /* Increased bottom padding for floating CTA clearance */
   width: 95%;
   max-width: 1200px; /* Wider content area */
   margin: 0 auto; /* Center */
@@ -1763,11 +2035,11 @@
 /* Extra small screens - Very conservative hover effects */
 @media (max-width: 360px) {
   .content {
-    padding: 1rem 0.75rem 50px 0.75rem; /* Reduced bottom padding from 120px to 50px */
+    padding: 1rem 3px 50px 3px; /* ABSOLUTE minimum padding for tiny screens */
   }
 
   .optionsContainer {
-    padding: 6px 4px 0 4px; /* Minimal top padding for very small screens */
+    padding: 18px 4px 0 4px; /* Maintain spacing even on very small screens */
   }
 
 
@@ -2178,7 +2450,7 @@
 /* Mobile responsive fixes for border clipping */
 @media (max-width: 767px) {
   .content {
-    padding-bottom: 70px; /* Reduced mobile action bar spacing from 180px to 70px */
+    padding-bottom: 110px; /* Increased to ensure clearance for 84px floating CTA */
   }
   
   .stepGuidance,
@@ -2199,11 +2471,11 @@
 /* Make key sections stretch from left to right on small screens */
 /* ============================= */
 @media (max-width: 480px) {
-  /* Remove side padding so content can truly reach the edges */
+  /* AGGRESSIVE width optimization for mobile */
   .content {
-    /* Align with new reduced mobile padding */
-    padding-left: 10px;
-    padding-right: 10px;
+    /* EXTREME width utilization - nearly edge-to-edge */
+    padding-left: 3px;
+    padding-right: 3px;
   }
 
   /* Intro should have no outer box on mobile either */
@@ -2292,9 +2564,47 @@
   }
 
   /* Typography scale-up for better mobile readability */
-  .titleEnhanced { font-size: 1.5rem; }
-  .subtitleEnhanced { font-size: 1.1rem; }
-  .question { font-size: 16px !important; } /* Standardized desktop font size */
+  .titleEnhanced { 
+    font-size: 1.5rem; 
+    border: none !important;
+    text-decoration: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+  }
+  .subtitleEnhanced { 
+    font-size: 1.1rem; 
+    border: none !important;
+    text-decoration: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+  }
+
+  /* Ensure no borders on very small screens */
+  .stepHeaderSection,
+  .enhancedHeader,
+  .header,
+  .title,
+  .subtitle,
+  .titleEnhanced,
+  .subtitleEnhanced {
+    border: none !important;
+    border-left: none !important;
+    border-right: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+  }
+  
+  /* Remove any pseudo-element borders on very small screens */
+  .stepHeaderSection::before,
+  .stepHeaderSection::after,
+  .header::before,
+  .header::after {
+    display: none !important;
+    border: none !important;
+    border-left: none !important;
+    border-right: none !important;
+  }
+  .question { font-size: 1.75rem !important; } /* Significantly larger desktop font size */
   .helpText { font-size: 1.125rem; } /* Match welcome desktop subtitle size */
   .optionLabel { font-size: 1.3rem; }
   .optionDescription { font-size: 14px !important; }
@@ -2329,6 +2639,21 @@
   text-align: center;
   margin: 1.5rem 0;
   padding: 1rem 0;
+  position: relative;
+  border: none !important;
+  border-left: none !important;
+  border-right: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+/* Ensure stepHeaderSection has no pseudo-element borders */
+.stepHeaderSection::before,
+.stepHeaderSection::after {
+  display: none !important;
+  border: none !important;
+  border-left: none !important;
+  border-right: none !important;
 }
 
 .stepHeaderSection .stepBadge {
@@ -2337,6 +2662,7 @@
 
 .stepHeaderSection .enhancedHeader {
   margin-bottom: 0;
+  padding-bottom: 1rem;
 }
 
 .twoBoxLayout {
@@ -2485,9 +2811,9 @@
 
 /* Responsive adjustments for 2-box layout */
 @media (min-width: 768px) {
-  /* TABLET - Slightly more comfortable padding */
+  /* TABLET - More width for better readability */
   .content {
-    padding: 1.25rem 8px 80px 8px; /* Reduced bottom padding from 220px to 80px */
+    padding: 1.25rem 12px 110px 12px; /* Increased bottom padding for floating CTA clearance */
   }
   
   .option {
@@ -2507,9 +2833,9 @@
 }
 
 @media (min-width: 1024px) {
-  /* DESKTOP - Existing comfortable padding */
+  /* DESKTOP - Standard comfortable padding */
   .content {
-    padding: 1.25rem 16px 80px 16px; /* Reduced bottom padding from 220px to 80px */
+    padding: 1.25rem 20px 110px 20px; /* Increased bottom padding for floating CTA clearance */
   }
   
   .option {

@@ -142,9 +142,9 @@
 }
 
 .toggle.yes .yesText {
-  color: rgba(255, 215, 0, 0.95);
+  color: #000000 !important;
   font-weight: 700;
-  text-shadow: 0 0 8px rgba(255, 215, 0, 0.3);
+  text-shadow: none;
 }
 
 .toggle.yes .indicator {
@@ -252,7 +252,7 @@
   }
   
   .toggle.yes .yesText {
-    color: #FFD700;
+    color: #000000 !important;
   }
 }
 

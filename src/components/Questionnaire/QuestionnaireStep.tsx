@@ -5,7 +5,9 @@ import { Step2BottomCTA } from './Step2BottomCTA';
 import { NameCollection } from './NameCollection';
 import ProfileSummaryComponent from './ProfileSummary';
 import YesNoToggle from '../UI/YesNoToggle';
+import { FloatingCTA } from '../UI/FloatingCTA';
 import styles from './QuestionnaireStep.module.css';
+import spacingStyles from './BenefitListSpacing.module.css';
 import '../../styles/questionnaire-animations.css';
 import '../../styles/global-container.css';
 
@@ -275,6 +277,20 @@ Your privacy is important to us. All questions are optional and you can use "Pre
     onComplete(step.id, value);
   };
 
+  // Helper function to render golden text for asterisk-marked content
+  const renderGoldenText = (text: string) => {
+    if (text.startsWith('*')) {
+      // Keep the asterisk and style it with golden color, along with the text
+      return (
+        <span className={styles.goldenText}>
+          <span className={styles.goldenAsterisk}>*</span>
+          <span>{text.substring(1)}</span>
+        </span>
+      );
+    }
+    return text;
+  };
+
   // Render enhanced options with examples and help
   const renderOptions = () => {
     const optionsToRender = step.options;
@@ -320,17 +336,17 @@ Your privacy is important to us. All questions are optional and you can use "Pre
             
             <div className={styles.optionContent}>
               <div className={styles.optionHeader}>
-                <div className={styles.optionTextGroup}>
-                  <span className={styles.optionLabel}>{option.label}</span>
-                  {option.description && (
-                    <p className={styles.optionDescription}>{option.description}</p>
-                  )}
-                  {option.examples && (
-                    <div className={styles.optionExamples}>
-                      {option.examples}
-                    </div>
-                  )}
-                </div>
+                <span className={styles.optionLabel}>{option.label}</span>
+                {option.description && (
+                  <p className={styles.optionDescription}>{option.description}</p>
+                )}
+                {option.examples && (
+                  <div className={styles.optionExamples}>
+                    {renderGoldenText(option.examples)}
+                  </div>
+                )}
+              </div>
+              <div className={styles.toggleContainer}>
                 <div 
                   className={styles.toggleGroup}
                   onClick={(e) => e.stopPropagation()} // Prevent double-toggle when clicking on toggle itself
@@ -391,17 +407,17 @@ Your privacy is important to us. All questions are optional and you can use "Pre
           >
             <div className={styles.optionContent}>
               <div className={styles.optionHeader}>
-                <div className={styles.optionTextGroup}>
-                  <span className={styles.optionLabel}>{option.label}</span>
-                  {option.description && (
-                    <p className={styles.optionDescription}>{option.description}</p>
-                  )}
-                  {option.examples && (
-                    <div className={styles.optionExamples}>
-                      {option.examples}
-                    </div>
-                  )}
-                </div>
+                <span className={styles.optionLabel}>{option.label}</span>
+                {option.description && (
+                  <p className={styles.optionDescription}>{option.description}</p>
+                )}
+                {option.examples && (
+                  <div className={styles.optionExamples}>
+                    {renderGoldenText(option.examples)}
+                  </div>
+                )}
+              </div>
+              <div className={styles.toggleContainer}>
                 <div 
                   className={styles.toggleGroup}
                   onClick={(e) => e.stopPropagation()} // Prevent double-toggle when clicking on toggle itself
@@ -601,9 +617,9 @@ Your privacy is important to us. All questions are optional and you can use "Pre
             
             {/* Header - Outside the boxes */}
             <div className={styles.stepHeaderSection}>
-              <header className={styles.enhancedHeader}>
-                <h1 className={styles.titleEnhanced}>{step.title}</h1>
-                <h2 className={styles.subtitleEnhanced}>{step.subtitle}</h2>
+              <header className={styles.header}>
+                <h1 className={styles.title}>{step.title}</h1>
+                <p className={styles.subtitle}>{step.subtitle}</p>
               </header>
             </div>
             
@@ -627,20 +643,20 @@ Your privacy is important to us. All questions are optional and you can use "Pre
                     <span>✨</span>
                     <span>What You'll Receive</span>
                   </h4>
-                  <ul className={styles.benefitsList}>
-                    <li className={styles.benefitItem}>
+                  <ul className={spacingStyles.tightBenefitsList}>
+                    <li className={spacingStyles.tightBenefitItem}>
                       <span className={styles.checkmark}>✓</span>
                       <span>Personalized security recommendations matched to your profile</span>
                     </li>
-                    <li className={styles.benefitItem}>
+                    <li className={spacingStyles.tightBenefitItem}>
                       <span className={styles.checkmark}>✓</span>
                       <span>Protection level assessment with appropriate driver assignment</span>
                     </li>
-                    <li className={styles.benefitItem}>
+                    <li className={spacingStyles.tightBenefitItem}>
                       <span className={styles.checkmark}>✓</span>
                       <span>Security-conscious route planning and venue coordination</span>
                     </li>
-                    <li className={styles.benefitItem}>
+                    <li className={spacingStyles.tightBenefitItem}>
                       <span className={styles.checkmark}>✓</span>
                       <span>Exclusive 50% discount on your first professional booking</span>
                     </li>
@@ -669,7 +685,7 @@ Your privacy is important to us. All questions are optional and you can use "Pre
                   <div className={styles.timeAndInstructions}>
                     <div className={styles.timeIndicator}>
                       <span className={styles.timeIcon}>⏱️</span>
-                      <span>Complete in 2-3 minutes</span>
+                      <span>Complete in ~{Math.max(2, Math.round((9 - step.id + 1) * 1.1))} minutes</span>
                     </div>
                     <div className={styles.spacer}></div>
                     <p className={styles.instructionText}>
@@ -775,6 +791,15 @@ Your privacy is important to us. All questions are optional and you can use "Pre
           isLastStep={Boolean(isLastStep)}
         />
       )}
+
+      {/* Floating CTA with dynamic messaging */}
+      <FloatingCTA 
+        currentStep={step.id}
+        totalSteps={9}
+        onContinue={handleSubmit}
+        isLoading={false}
+        canProceed={canProceed()}
+      />
         </div>
       </div>
     </div>

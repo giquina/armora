@@ -4,7 +4,7 @@
   display: flex;
   flex-direction: column;
   gap: 16px;
-  padding: 20px 16px;
+  padding: 20px 8px; /* Improved mobile width with adequate margins */
   background: linear-gradient(180deg, rgba(26, 26, 46, 0.95) 0%, #1a1a2e 100%);
   /* Solid gold lines for the bar container */
   border-top: var(--armora-gold-dotted);
@@ -253,7 +253,7 @@
   .ctaContainer {
     padding: 16px 12px;
     width: 95%;
-    max-width: 1200px;
+    max-width: var(--content-max-width-tablet);
     margin: 0 auto;
     left: 50%;
     right: auto;
@@ -277,7 +277,7 @@
   .ctaContainer {
     padding: 16px 12px;
     width: 95%;
-    max-width: 1200px;
+    max-width: var(--content-max-width-tablet);
     margin: 0 auto;
     left: 50%;
     right: auto;

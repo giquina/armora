@@ -1,18 +1,30 @@
 /* Armora Security Transport - Progress Indicator Styles */
+/* Enhanced color variables to match bottom panel */
+:root {
+  --progress-bg: var(--armora-dark, #1a1a2e);
+  --progress-gold: var(--armora-gold-muted, #D4B366);
+  --progress-accent: var(--armora-gold, #FFD700);
+  --progress-text: rgba(224, 224, 224, 0.9);
+  --progress-glow: rgba(255, 215, 0, 0.3);
+}
 
 .container {
-  background: var(--bg-primary);
+  background: var(--progress-bg);
   padding: 1rem;
-  border: var(--armora-gold-dotted) !important;
+  border: 1px solid var(--progress-gold) !important;
   position: sticky;
   top: 0;
   z-index: 10;
   width: 100%;
   overflow-x: hidden;
-  box-sizing: border-box; /* Ensure padding doesn't cause overflow */
+  box-sizing: border-box;
   /* Apply progress indicator entrance animation */
   animation: slideDownFromTop 0.8s 0.1s cubic-bezier(0.215, 0.61, 0.355, 1);
   animation-fill-mode: both;
+  /* Add subtle glow to match bottom panel */
+  box-shadow: 
+    0 4px 12px rgba(0, 0, 0, 0.3),
+    0 2px 6px var(--progress-glow);
 }
 
 /* Step Counter */
@@ -28,12 +40,13 @@
 }
 
 .currentStep {
-  color: var(--accent-primary);
+  color: var(--progress-accent);
   font-weight: 600;
+  text-shadow: 0 0 4px var(--progress-glow);
 }
 
 .totalSteps {
-  color: var(--text-secondary);
+  color: var(--progress-text);
 }
 
 /* Progress Bar */
@@ -44,20 +57,22 @@
 .progressTrack {
   width: 100%;
   height: 4px;
-  background: rgba(255, 255, 255, 0.1);
-  /* UNIFIED PROGRESS RADIUS - Slightly rounded for progress elements */
+  background: rgba(212, 179, 102, 0.2);
   border-radius: 4px !important;
   position: relative;
   overflow: hidden;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.3);
 }
 
 .progressFill {
   height: 100%;
-  background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
-  /* UNIFIED PROGRESS RADIUS - Match progress track */
+  background: linear-gradient(90deg, var(--progress-gold), var(--progress-accent));
   border-radius: 4px !important;
-  transition: width 0.3s ease;
+  transition: width 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   position: relative;
+  box-shadow: 
+    0 0 8px var(--progress-glow),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
 }
 
 .progressGlow {
@@ -108,20 +123,24 @@
 .dot:nth-child(9) { animation-delay: 1.0s; }
 
 .dotCompleted {
-  background: var(--accent-primary);
+  background: var(--progress-accent);
   transform: scale(1.2);
-  box-shadow: 0 0 8px rgba(255, 215, 0, 0.5);
+  box-shadow: 0 0 8px var(--progress-glow);
   /* Apply completion animation */
   animation: dotCompleteSlideGlow 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 .dotCurrent {
-  background: var(--accent-primary);
+  background: var(--progress-gold);
   animation: breathingPulse 2s infinite ease-in-out;
+  box-shadow: 
+    0 0 6px var(--progress-glow),
+    0 0 12px rgba(212, 179, 102, 0.4);
 }
 
 .dotUpcoming {
-  background: rgba(255, 255, 255, 0.2);
+  background: rgba(212, 179, 102, 0.3);
+  border: 1px solid rgba(212, 179, 102, 0.5);
 }
 
 @keyframes pulse {
@@ -145,8 +164,9 @@
 }
 
 .progressPercentage {
-  color: var(--accent-primary);
+  color: var(--progress-accent);
   font-weight: 500;
+  text-shadow: 0 0 3px var(--progress-glow);
   /* Apply counter update animation on change */
   transition: all 0.3s cubic-bezier(0.215, 0.61, 0.355, 1);
 }
@@ -156,7 +176,7 @@
 }
 
 .estimatedTime {
-  color: var(--text-secondary);
+  color: var(--progress-text);
   /* Apply time update animation */
   transition: all 0.3s cubic-bezier(0.215, 0.61, 0.355, 1);
 }
@@ -172,37 +192,103 @@
   align-items: center;
   font-size: 0.65rem !important; /* Even smaller - 10.4px */
   opacity: 0.7 !important; /* More faded for less distraction */
+  /* Add subtle entrance animation */
+  animation: fadeUpText 0.8s 1.5s cubic-bezier(0.215, 0.61, 0.355, 1);
+  animation-fill-mode: both;
 }
 
 .navigationTip {
-  color: rgba(224, 224, 224, 0.6) !important; /* Subtle color */
+  color: var(--progress-text); /* Use consistent color variable */
   text-align: right;
   font-style: italic;
   font-size: 0.65rem !important; /* Even smaller - 10.4px */
   opacity: 0.7 !important; /* More faded for less distraction */
 }
 
-/* Mobile-first responsive design */
-@media (min-width: 320px) and (max-width: 767px) {
+/* Extra Small Screens - 320px to 375px (iPhone SE, older Android) */
+@media (min-width: 320px) and (max-width: 375px) {
   .container {
-  padding: 0.75rem 1rem;
-  /* Only bottom divider on mobile (no full frame) */
-  border-left: none !important;
-  border-right: none !important;
-  border-top: none !important;
-  border-bottom: var(--armora-gold-dotted) !important;
+    padding: 0.5rem 0.75rem;
+    border-left: none !important;
+    border-right: none !important;
+    border-top: none !important;
+    border-bottom: 1px solid var(--progress-gold) !important;
+    box-shadow: 
+      0 2px 6px rgba(0, 0, 0, 0.15),
+      0 1px 3px var(--progress-glow);
+  }
+
+  .stepCounter {
+    font-size: 0.8rem;
+    gap: 0.125rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .progressTrack {
+    height: 2px;
+  }
+
+  .progressDots {
+    gap: 0.3rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .dot {
+    width: 5px;
+    height: 5px;
+  }
+
+  .progressText {
+    font-size: 0.6rem !important;
+    opacity: 0.8 !important;
+    margin-bottom: 0.5rem;
+  }
+
+  .navigationHints {
+    font-size: 0.55rem !important;
+    opacity: 0.7 !important;
+  }
+
+  .navigationTip {
+    display: none; /* Hide on very small screens */
+  }
+
+  /* Reduce animation intensity for performance */
+  .dot {
+    animation-duration: 0.4s;
+  }
+
+  .container {
+    animation-duration: 0.6s;
+  }
+}
+
+/* Small Mobile Screens - 376px to 430px (iPhone 12/13/14, Pixel) */
+@media (min-width: 376px) and (max-width: 430px) {
+  .container {
+    padding: 0.6rem 0.85rem;
+    border-left: none !important;
+    border-right: none !important;
+    border-top: none !important;
+    border-bottom: 1px solid var(--progress-gold) !important;
+    box-shadow: 
+      0 3px 8px rgba(0, 0, 0, 0.18),
+      0 1px 4px var(--progress-glow);
   }
 
   .stepCounter {
     font-size: 0.85rem;
+    gap: 0.2rem;
+    margin-bottom: 0.85rem;
   }
 
   .progressTrack {
-    height: 3px;
+    height: 2.5px;
   }
 
   .progressDots {
-    gap: 0.4rem;
+    gap: 0.35rem;
+    margin-bottom: 0.85rem;
   }
 
   .dot {
@@ -211,17 +297,68 @@
   }
 
   .progressText {
-    font-size: 0.65rem !important; /* Even smaller for mobile - 10.4px */
-    opacity: 0.7 !important;
+    font-size: 0.65rem !important;
+    opacity: 0.8 !important;
+    margin-bottom: 0.75rem;
   }
 
   .navigationHints {
-    font-size: 0.6rem !important; /* Even smaller for mobile - 9.6px */
-    opacity: 0.6 !important;
+    font-size: 0.58rem !important;
+    opacity: 0.75 !important;
   }
 
   .navigationTip {
-    display: none; /* Hide on very small screens to save space */
+    display: block;
+    font-size: 0.55rem !important;
+  }
+}
+
+/* Large Mobile Screens - 431px to 767px (iPhone Plus/Pro Max, large Android) */
+@media (min-width: 431px) and (max-width: 767px) {
+  .container {
+    padding: 0.75rem 1rem;
+    border-left: none !important;
+    border-right: none !important;
+    border-top: none !important;
+    border-bottom: 1px solid var(--progress-gold) !important;
+    box-shadow: 
+      0 3px 8px rgba(0, 0, 0, 0.2),
+      0 1px 4px var(--progress-glow);
+  }
+
+  .stepCounter {
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+  }
+
+  .progressTrack {
+    height: 3px;
+  }
+
+  .progressDots {
+    gap: 0.4rem;
+    margin-bottom: 1rem;
+  }
+
+  .dot {
+    width: 7px;
+    height: 7px;
+  }
+
+  .progressText {
+    font-size: 0.7rem !important;
+    opacity: 0.85 !important;
+    margin-bottom: 1rem;
+  }
+
+  .navigationHints {
+    font-size: 0.62rem !important;
+    opacity: 0.8 !important;
+  }
+
+  .navigationTip {
+    display: block;
+    font-size: 0.6rem !important;
   }
 }
 
@@ -242,12 +379,95 @@
   }
 }
 
+/* Mobile Landscape Orientation Support */
+@media (max-width: 896px) and (orientation: landscape) {
+  .container {
+    padding: 0.4rem 1rem;
+    position: sticky;
+    top: 0;
+  }
+
+  .stepCounter {
+    margin-bottom: 0.5rem;
+  }
+
+  .progressDots {
+    margin-bottom: 0.5rem;
+  }
+
+  .progressText {
+    margin-bottom: 0.5rem;
+    font-size: 0.6rem !important;
+  }
+
+  .navigationHints {
+    display: none; /* Hide to save vertical space in landscape */
+  }
+
+  /* Faster animations for landscape to save battery */
+  .dot {
+    animation-duration: 0.3s;
+  }
+
+  .container {
+    animation-duration: 0.4s;
+  }
+}
+
+/* Performance Optimizations for Low-End Devices */
+@media (max-width: 767px) {
+  /* Reduce heavy effects on mobile */
+  .container {
+    will-change: transform;
+    transform: translateZ(0);
+    backface-visibility: hidden;
+  }
+
+  .dot {
+    will-change: transform, opacity;
+    transform: translateZ(0);
+  }
+
+  .progressFill {
+    will-change: width;
+    transform: translateZ(0);
+  }
+
+  /* Simplify glow effects on mobile */
+  .dotCurrent {
+    box-shadow: 0 0 4px var(--progress-glow);
+  }
+
+  .progressPercentage {
+    text-shadow: none; /* Remove text shadow on mobile for performance */
+  }
+
+  /* Reduce shadow complexity on mobile */
+  .container {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+}
+
+/* High DPI/Retina Display Support */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  .progressTrack,
+  .progressFill {
+    /* Ensure crisp lines on retina displays */
+    border-radius: 2px;
+  }
+
+  .dot {
+    /* Ensure crisp circles on retina displays */
+    border-radius: 50%;
+  }
+}
+
 /* Desktop styles */
 @media (min-width: 1024px) {
   .container {
   padding: 1rem 1.25rem;
   width: 95%;
-  max-width: 1200px;
+  max-width: var(--content-max-width-desktop);
   margin: 0 auto;
   }
 
@@ -280,6 +500,77 @@
 
   .navigationTip {
     display: block;
+  }
+}
+
+/* Accessibility and Reduced Motion Support */
+@media (prefers-reduced-motion: reduce) {
+  .container,
+  .dot,
+  .progressFill,
+  .progressPercentage,
+  .estimatedTime,
+  .navigationHints {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .dotCurrent {
+    animation: none !important;
+    transform: scale(1.1);
+  }
+
+  .progressGlow {
+    animation: none !important;
+    opacity: 0.3;
+  }
+}
+
+/* Touch Device Optimizations */
+@media (pointer: coarse) {
+  /* Enhance touch targets and feedback */
+  .container {
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+  }
+
+  /* Ensure minimum touch target sizes */
+  .dot {
+    min-width: 44px;
+    min-height: 44px;
+    padding: 0;
+    margin: 0;
+  }
+}
+
+/* Dark Mode Support for Mobile Devices */
+@media (prefers-color-scheme: dark) and (max-width: 767px) {
+  :root {
+    --progress-bg: #1a1a2e;
+    --progress-gold: #D4B366;
+    --progress-accent: #FFD700;
+    --progress-text: rgba(255, 255, 255, 0.9);
+    --progress-glow: rgba(255, 215, 0, 0.4);
+  }
+}
+
+/* Battery-Conscious Animation Control */
+@media (max-width: 767px) {
+  /* Pause non-essential animations when battery is low (if supported) */
+  .container.low-battery,
+  .container.low-battery .dot,
+  .container.low-battery .progressGlow {
+    animation-play-state: paused;
+  }
+}
+
+/* Ensure proper spacing coordination with bottom floating CTA */
+@media (max-width: 767px) {
+  .container {
+    /* Account for floating CTA positioning */
+    margin-bottom: env(safe-area-inset-bottom, 0px);
+    z-index: 10; /* Ensure it stays below floating CTA */
   }
 }
 

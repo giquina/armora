@@ -4,7 +4,7 @@
   display: flex;
   flex-direction: column;
   gap: 16px;
-  padding: 20px 16px;
+  padding: 20px 3px; /* EXTREME mobile width optimization */
   background: linear-gradient(180deg, rgba(26, 26, 46, 0.95) 0%, #1a1a2e 100%);
   border-top: var(--armora-gold-dotted);
   border-bottom: var(--armora-gold-dotted); /* Add bottom border */
@@ -221,7 +221,7 @@
   .ctaContainer {
   padding: 16px 12px;
   width: 95%;
-  max-width: 1200px;
+  max-width: var(--content-max-width-desktop);
   margin: 0 auto;
   left: 50%;
   right: auto;
@@ -247,7 +247,7 @@
   .ctaContainer {
   padding: 16px 12px;
   width: 95%;
-  max-width: 1200px;
+  max-width: var(--content-max-width-desktop);
   margin: 0 auto;
   left: 50%;
   right: auto;

@@ -38,7 +38,7 @@
   overscroll-behavior: none;
   max-width: var(--content-max-width);
   margin: 0 auto;
-  padding: clamp(1rem, 3vh, 2rem) 10px clamp(0.5rem, 1.5vh, 1rem); /* Match reduced mobile padding */
+  padding: clamp(1rem, 3vh, 2rem) 3px clamp(0.5rem, 1.5vh, 1rem); /* EXTREME mobile width optimization */
 }
 
 /* HEADER SECTION - LOGO & TITLE */
@@ -129,7 +129,7 @@
   align-items: center;
   justify-content: center;
   margin: clamp(0.25rem, 1vh, 0.5rem) 0; /* Ultra-compressed margin for mobile fit */
-  padding: 0 10px; /* Match reduced mobile padding */
+  padding: 0 3px; /* EXTREME mobile width optimization */
 }
 
 .features {
@@ -147,7 +147,7 @@
 /* Mobile responsive - single column only on small screens */
 @media (max-width: 767px) {
   .welcomeContent {
-    padding: 0 10px; /* Match reduced mobile padding */
+    padding: 0 3px; /* EXTREME mobile width optimization */
   }
   
   .features {
@@ -313,9 +313,59 @@
 
 /* Responsive adjustments for readability */
 @media (max-width: 480px) {
+  .welcomeContainer {
+    padding: clamp(0.75rem, 2vh, 1rem) 3px clamp(0.5rem, 1.5vh, 0.75rem); /* EXTREME mobile width */
+  }
+  
+  .welcomeActions {
+    padding: 0 3px; /* EXTREME mobile width optimization */
+    width: 100%;
+  }
+  
+  .authButtons {
+    width: 100%;
+  }
+  
+  /* Ensure full width buttons */
+  .googleButton,
+  .emailButton,
+  .phoneButton,
+  .guestButton {
+    width: 100% !important;
+    max-width: none !important;
+    padding: 14px 4px !important; /* ABSOLUTE EXTREME mobile width optimization */
+    min-height: 50px !important;
+    font-size: 1rem !important;
+  }
+  
   .featureSubtitle {
     font-size: 0.65rem; /* Slightly smaller on mobile if needed */
     line-height: 1.4;
+  }
+}
+
+/* iPhone SE/6/7/8 - 375px */
+@media (max-width: 375px) {
+  .welcomeContainer {
+    padding: clamp(0.75rem, 2vh, 1rem) 8px clamp(0.5rem, 1.5vh, 0.75rem);
+  }
+  
+  .welcomeActions {
+    padding: 0 8px; /* Very minimal padding for max button width */
+    width: 100%;
+  }
+  
+  /* Full width auth buttons for iPhone */
+  .googleButton,
+  .emailButton,
+  .phoneButton,
+  .guestButton {
+    width: 100% !important;
+    max-width: none !important;
+    padding: 14px 16px !important;
+    min-height: 48px !important; /* Apple HIG touch target */
+    font-size: 1rem !important;
+    border-radius: 12px !important; /* Modern iOS style */
   }
 }
 
@@ -358,7 +408,7 @@
   max-width: var(--content-max-width);
   margin-left: auto;
   margin-right: auto;
-  padding: 0 10px; /* Match reduced mobile padding */
+  padding: 0 3px; /* EXTREME mobile width optimization */
 }
 
 .actionsVisible {
@@ -370,7 +420,7 @@
 .authButtons {
   display: flex;
   flex-direction: column;
-  gap: clamp(0.25rem, 1vh, 0.5rem); /* Ultra-compressed gap between auth buttons */
+  gap: clamp(0.375rem, 1.2vh, 0.625rem); /* Slightly larger gap for better touch separation */
   margin-bottom: clamp(0.25rem, 1vh, 0.5rem); /* Ultra-compressed bottom margin */
   width: 100%;
 }
@@ -382,7 +432,7 @@
   justify-content: center;
   gap: clamp(0.5rem, 2vw, 0.75rem);
   font-weight: 600;
-  font-size: 1rem; /* Match body text size for consistency */
+  font-size: clamp(0.95rem, 3.5vw, 1.05rem); /* Responsive text size */
 }
 
 .authIcon {
@@ -476,7 +526,7 @@
 }
 
 .guestButton {
-  padding: clamp(0.5rem, 2vh, 0.75rem) clamp(1rem, 4vw, 1.5rem) !important;
+  padding: clamp(0.5rem, 2vh, 0.75rem) clamp(6px, 2vw, 1.5rem) !important; /* EXTREME mobile width optimization */
   min-height: auto !important;
   transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
   position: relative;
@@ -507,7 +557,7 @@
 
 /* DEVELOPMENT-ONLY SKIP BUTTON */
 .devSkipButton {
-  padding: clamp(0.5rem, 2vh, 0.75rem) clamp(1rem, 4vw, 1.5rem) !important;
+  padding: clamp(0.5rem, 2vh, 0.75rem) clamp(6px, 2vw, 1.5rem) !important; /* EXTREME mobile width optimization */
   min-height: auto !important;
   margin-top: clamp(0.75rem, 2vh, 1rem) !important;
   background: linear-gradient(135deg, #ff4444, #ff6b6b) !important;
@@ -521,7 +571,7 @@
 
 /* DEVELOPMENT-ONLY QUESTIONNAIRE BUTTON */
 .devQuestionnaireButton {
-  padding: clamp(0.5rem, 2vh, 0.75rem) clamp(1rem, 4vw, 1.5rem) !important;
+  padding: clamp(0.5rem, 2vh, 0.75rem) clamp(6px, 2vw, 1.5rem) !important; /* EXTREME mobile width optimization */
   min-height: auto !important;
   margin-top: clamp(0.5rem, 1.5vh, 0.75rem) !important;
   background: linear-gradient(135deg, #ff6b6b, #ff8e8e) !important;
@@ -1290,7 +1340,7 @@
 /* MOBILE RESPONSIVE - Better button spacing */
 @media (max-width: 767px) {
   .welcomeContainer {
-    padding: clamp(0.75rem, 2vh, 1.5rem) 24px clamp(0.5rem, 1.5vh, 1rem);
+    padding: clamp(0.75rem, 2vh, 1.5rem) 3px clamp(0.5rem, 1.5vh, 1rem); /* EXTREME mobile width */
   }
   
   .welcomeHeader {
@@ -1298,7 +1348,24 @@
   }
   
   .welcomeActions {
-    padding: 0 24px;
+    padding: 0 3px; /* EXTREME mobile width optimization */
+    width: 100%;
+  }
+  
+  .authButtons {
+    width: 100%;
+  }
+  
+  /* Make auth buttons full width on mobile */
+  .googleButton,
+  .emailButton,
+  .phoneButton,
+  .guestButton {
+    width: 100% !important;
+    max-width: none !important;
+    padding: 14px 4px !important; /* ABSOLUTE EXTREME mobile width optimization */
+    min-height: 50px !important;
+    font-size: clamp(0.95rem, 3.5vw, 1.05rem) !important;
   }
 }
 
@@ -1319,11 +1386,12 @@
 /* ULTRA-SMALL SCREENS */
 @media (max-width: 320px) {
   .welcomeContainer {
-    padding: 1rem 0.75rem 0.5rem;
+    padding: 1rem 6px 0.5rem; /* Very minimal padding */
   }
   
   .welcomeActions {
-    padding: 0 8px;
+    padding: 0 6px; /* Match very minimal padding */
+    width: 100%;
   }
   
   .orbitalRing {

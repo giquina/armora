@@ -128,7 +128,7 @@
 @media (min-width: 1024px) {
   .container {
     padding: 2rem;
-    max-width: 1200px;
+    max-width: var(--content-max-width-desktop);
     margin: 0 auto;
   }
 

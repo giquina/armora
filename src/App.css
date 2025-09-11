@@ -27,7 +27,7 @@ body {
   line-height: 1.5;
   min-height: 100vh;
   min-height: 100dvh; /* Dynamic viewport height for mobile */
-  overflow-x: hidden; /* CRITICAL: Prevent horizontal scroll */
+  overflow-x: visible; /* FIXED: Allow CTA button effects to show */
 }
 
 .App {
@@ -45,7 +45,7 @@ html, body, #root, .App {
   max-width: 100% !important;
   margin: 0 !important;
   padding: 0 !important;
-  overflow-x: hidden !important;
+  overflow-x: visible !important; /* FIXED: Allow CTA button shadows and effects to show */
 }
 
 /* Some containers clamp width. On small screens, relax those clamps. */
@@ -176,10 +176,36 @@ button svg {
 /* Global content wrappers used by questionnaire content */
 .content-container,
 .questionnaire-content {
-  max-width: 100% !important;
+  max-width: var(--content-max-width) !important;
   width: 100% !important;
-  padding: 0 16px !important;
+  padding: 0 var(--content-padding-mobile) !important;
   box-sizing: border-box !important;
+  margin: 0 auto !important;
+}
+
+/* Responsive adjustments for content containers */
+@media (min-width: 768px) {
+  .content-container,
+  .questionnaire-content {
+    max-width: var(--content-max-width-tablet) !important;
+    padding: 0 var(--content-padding-tablet) !important;
+  }
+}
+
+@media (min-width: 1024px) {
+  .content-container,
+  .questionnaire-content {
+    max-width: var(--content-max-width-desktop) !important;
+    padding: 0 var(--content-padding-desktop) !important;
+  }
+}
+
+@media (min-width: 1400px) {
+  .content-container,
+  .questionnaire-content {
+    max-width: var(--content-max-width-large) !important;
+    padding: 0 30px !important;
+  }
 }
 
 /* Ensure questionnaire options/cards fill available width cleanly */

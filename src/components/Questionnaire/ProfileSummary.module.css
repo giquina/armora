@@ -1,9 +1,9 @@
 /* Profile Summary Component Styles */
 
 .profileSummaryContainer {
-  max-width: 800px;
+  max-width: var(--content-max-width);
   margin: 0 auto;
-  padding: 1rem;
+  padding: var(--content-padding-mobile);
 }
 
 .profileSection {
@@ -126,7 +126,8 @@
 /* Mobile Responsive */
 @media (max-width: 768px) {
   .profileSummaryContainer {
-    padding: 0.75rem;
+    max-width: var(--content-max-width);
+    padding: var(--content-padding-mobile);
   }
 
   .profileSection,
@@ -165,7 +166,8 @@
 /* Tablet Responsive */
 @media (min-width: 769px) and (max-width: 1024px) {
   .profileSummaryContainer {
-    padding: 1.25rem;
+    max-width: var(--content-max-width-tablet);
+    padding: var(--content-padding-tablet);
   }
 
   .profileSection,
@@ -185,7 +187,15 @@
 /* Desktop Enhancement */
 @media (min-width: 1025px) {
   .profileSummaryContainer {
-    padding: 1.5rem;
+    max-width: var(--content-max-width-desktop);
+    padding: var(--content-padding-desktop);
+  }
+}
+
+@media (min-width: 1400px) {
+  .profileSummaryContainer {
+    max-width: var(--content-max-width-large);
+    padding: 30px;
   }
 
   .profileSection,

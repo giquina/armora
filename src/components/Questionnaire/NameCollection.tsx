@@ -26,8 +26,9 @@ export function NameCollection({ userName, onNameChange, className = '' }: NameC
         try {
           // Focus without scrolling the page
           inputRef.current.focus({ preventScroll: true } as any);
-          // Also manually set the cursor position to ensure it's visible
-          inputRef.current.setSelectionRange(inputRef.current.value.length, inputRef.current.value.length);
+          // Set cursor position to the beginning for new input, or end for existing content
+          const cursorPos = inputRef.current.value.length;
+          inputRef.current.setSelectionRange(cursorPos, cursorPos);
         } catch (error) {
           console.log('Focus attempt failed:', error);
         }
@@ -49,9 +50,18 @@ export function NameCollection({ userName, onNameChange, className = '' }: NameC
   };
 
   const handleInputClick = () => {
-    // Ensure focus is set when user clicks, in case autofocus didn't work
-    if (inputRef.current && !isMobile()) {
-  inputRef.current.focus({ preventScroll: true } as any);
+    // Ensure proper cursor positioning for both mobile and desktop
+    if (inputRef.current) {
+      if (!isMobile()) {
+        inputRef.current.focus({ preventScroll: true } as any);
+      }
+      // Set cursor to appropriate position (beginning for empty, end for existing content)
+      setTimeout(() => {
+        if (inputRef.current) {
+          const cursorPos = inputRef.current.value.length;
+          inputRef.current.setSelectionRange(cursorPos, cursorPos);
+        }
+      }, 0);
     }
   };
 
