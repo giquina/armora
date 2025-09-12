@@ -8,6 +8,7 @@ import { ArmoraLogo } from '../UI/ArmoraLogo';
 import { CredentialsModal } from '../UI/CredentialsModal';
 import SafeRideFundCTA from '../SafeRideFund/SafeRideFundCTA';
 import SafeRideFundModal from '../SafeRideFund/SafeRideFundModal';
+import SafeRideFundBanner from '../SafeRideFund/SafeRideFundBanner';
 import styles from './WelcomePage.module.css';
 
 export function WelcomePage() {
@@ -18,6 +19,45 @@ export function WelcomePage() {
   const [showSafeRideModal, setShowSafeRideModal] = useState(false);
   const [impactCounter, setImpactCounter] = useState(0);
   const [showTodayIncrement, setShowTodayIncrement] = useState(false);
+  const [isCounterVisible, setIsCounterVisible] = useState(
+    localStorage.getItem('hideImpactCounter') !== 'true'
+  );
+  const [currentMessageIndex, setCurrentMessageIndex] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
+
+  // Responsive banner messages about Safe Ride Fund
+  const getBannerMessages = () => {
+    const isTablet = window.innerWidth <= 768 && window.innerWidth > 480;
+    const isMobile = window.innerWidth <= 480;
+    
+    if (isMobile) {
+      return [
+        "safe rides funded",
+        "people supported", 
+        "transport assistance delivered",
+        "vulnerable communities helped",
+        "safe journeys provided"
+      ];
+    } else if (isTablet) {
+      return [
+        "safe rides funded by community",
+        "vulnerable people supported",
+        "transport assistance delivered",
+        "communities helped access services",
+        "safe journeys for those in need"
+      ];
+    } else {
+      return [
+        "safe rides funded by our community",
+        "vulnerable individuals supported through member contributions", 
+        "community-funded transport assistance sessions delivered",
+        "communities helped through collective security support",
+        "safe rides provided to those needing transport"
+      ];
+    }
+  };
+
+  const [bannerMessages] = useState(getBannerMessages());
 
   // Development environment detection - ALWAYS SHOW IN DEV
   const isDevelopment = process.env.NODE_ENV === 'development';
@@ -51,6 +91,15 @@ export function WelcomePage() {
     const randomIncrementTimer = setInterval(() => {
       setImpactCounter(prev => prev + 1);
     }, Math.random() * (90000 - 45000) + 45000);
+
+    // Rotating banner message timer
+    const messageRotationTimer = setInterval(() => {
+      if (!isPaused) {
+        setCurrentMessageIndex(prevIndex => 
+          (prevIndex + 1) % bannerMessages.length
+        );
+      }
+    }, 4000); // Change message every 4 seconds
     
     // Debug development button visibility
     console.log('WelcomePage Debug:', { 
@@ -65,8 +114,9 @@ export function WelcomePage() {
       clearTimeout(contentTimer);
       clearTimeout(counterTimer);
       clearInterval(randomIncrementTimer);
+      clearInterval(messageRotationTimer);
     };
-  }, [isDevelopment, showDevButton]);
+  }, [isDevelopment, showDevButton, isPaused, bannerMessages.length]);
 
   // Helper function for navigation
   const handleNavigate = (destination: string) => {
@@ -81,6 +131,16 @@ export function WelcomePage() {
 
   const handleCounterClick = () => {
     setShowSafeRideModal(true);
+  };
+
+  const handleCloseCounter = (e: React.MouseEvent) => {
+    e.stopPropagation(); // Prevent opening the modal
+    setIsCounterVisible(false);
+    localStorage.setItem('hideImpactCounter', 'true');
+    // Optional: Set expiry for 24 hours
+    const expiry = new Date();
+    expiry.setHours(expiry.getHours() + 24);
+    localStorage.setItem('hideImpactCounterExpiry', expiry.toISOString());
   };
 
   // Development-only function to skip to dashboard with mock data
@@ -132,48 +192,74 @@ export function WelcomePage() {
   return (
     <SeasonalTheme className={styles.welcomePage}>
       {/* Impact Counter Bar - MOVED TO VERY TOP */}
-      <div 
-        className={styles.impactCounterTop}
-        onMouseEnter={handleCounterHover}
-        onClick={handleCounterClick}
-      >
-        <span className={styles.shieldIcon}>🛡️</span>
-        <span className={styles.counterNumber}>
-          {impactCounter.toLocaleString()}
-        </span>
-        <span className={styles.counterText}>
-          safe rides funded by our community
-        </span>
-        {showTodayIncrement && (
-          <span className={styles.todayIncrement}>+12 today</span>
-        )}
-      </div>
+      {isCounterVisible && (
+        <div 
+          className={styles.impactCounterTop}
+          onMouseEnter={() => {
+            handleCounterHover();
+            setIsPaused(true);
+          }}
+          onMouseLeave={() => setIsPaused(false)}
+          onClick={handleCounterClick}
+        >
+          <span className={styles.shieldIcon}>🛡️</span>
+          <span className={styles.counterNumber}>
+            {impactCounter.toLocaleString()}
+          </span>
+          <span 
+            className={`${styles.counterText} ${styles.rotatingText}`}
+            key={currentMessageIndex}
+          >
+            {bannerMessages[currentMessageIndex]}
+          </span>
+          {showTodayIncrement && (
+            <span className={styles.todayIncrement}>+12 today</span>
+          )}
+          <button 
+            className={styles.closeBtn}
+            onClick={handleCloseCounter}
+            aria-label="Close impact counter"
+          >
+            ×
+          </button>
+        </div>
+      )}
 
-      <div className={styles.welcomeContainer}>
-        {/* Header Section */}
+      <div className={`${styles.welcomeContainer} ${!isCounterVisible ? styles.noCounter : ''}`}>
+        {/* Improved Header Section */}
         <header className={styles.welcomeHeader}>
-          <ArmoraLogo 
-            size="large"
-            variant="full"
-            showOrbits={true}
-            interactive={true}
-            className={styles.logoContainer}
-          />
-          
-          <AnimatedTitle 
-            text="Welcome to Armora" 
-            highlightWord="Armora"
-            className={styles.welcomeTitle}
-            delay={400}
-          />
-          
-          <div className={styles.taglineContainer}>
-            <p className={styles.tagline}>
-              Your Personal Security Driver Team
-            </p>
-            <p className={styles.taglineSubtext}>
-              Protection for You. Safety for All.
-            </p>
+          <div className={styles.headerSection}>
+            {/* Centered Logo Section */}
+            <div className={styles.logoSection}>
+              <div className={styles.logoContainer}>
+                <ArmoraLogo 
+                  size="medium"
+                  variant="full"
+                  showOrbits={true}
+                  interactive={true}
+                />
+              </div>
+            </div>
+            
+            {/* Stacked Text Section */}
+            <div className={styles.textSection}>
+              <div className={styles.textContainer}>
+                <AnimatedTitle 
+                  text="Welcome to Armora" 
+                  highlightWord="Armora"
+                  className={styles.welcomeTitle}
+                  delay={400}
+                />
+                <div className={styles.taglineStack}>
+                  <p className={styles.tagline}>
+                    Your Personal Security Driver Team
+                  </p>
+                  <p className={styles.taglineSubtext}>
+                    Protection for You. Safety for All.
+                  </p>
+                </div>
+              </div>
+            </div>
           </div>
         </header>
 
@@ -211,9 +297,10 @@ export function WelcomePage() {
             
             <div className={styles.feature} style={{ animationDelay: '200ms', '--delay': 2 } as React.CSSProperties}>
               <div className={styles.featureContent}>
-                <div className={styles.featureLogo} style={{ color: '#FFD700', fontSize: '2rem' }}>
-                  🛡️
-                </div>
+                <svg className={styles.featureLogo} viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12 2L4 7V14C4 19 12 22 12 22S20 19 20 14V7L12 2Z" />
+                  <path d="M10 14L8 12L9.5 10.5L10 11L14.5 6.5L16 8L10 14Z" />
+                </svg>
                 <div className={styles.featureText}>
                   <h3 className={styles.featureTitleOnly}>Safe Ride Fund Initiative</h3>
                   <p className={styles.featureSubtitle}>Your membership funds safe rides for those in danger</p>

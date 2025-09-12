@@ -10,16 +10,19 @@
 }
 
 .ctaButton {
-  background: linear-gradient(135deg, #FFD700, #FFA500);
+  background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
   color: #1a1a2e;
   border: none;
-  border-radius: 8px 0 0 8px;
+  border-radius: 12px 0 0 12px;
   padding: 16px 12px;
   font-weight: 600;
   font-size: 0.9rem;
   cursor: pointer;
   pointer-events: all;
-  box-shadow: 0 2px 10px rgba(255, 215, 0, 0.3);
+  box-shadow: 
+    -4px 0 10px rgba(0, 0, 0, 0.3),
+    -2px 0 20px rgba(255, 215, 0, 0.4),
+    inset 0 2px 4px rgba(255, 255, 255, 0.3);
   opacity: 0.95;
   transition: all 0.3s ease;
   writing-mode: vertical-rl;
@@ -38,8 +41,11 @@
 }
 
 .ctaButton:hover {
-  transform: rotate(180deg) translateX(10px);
-  box-shadow: 0 4px 20px rgba(255, 215, 0, 0.4);
+  transform: rotate(180deg) translateX(-5px);
+  box-shadow: 
+    -6px 0 15px rgba(0, 0, 0, 0.4),
+    -3px 0 30px rgba(255, 215, 0, 0.5),
+    inset 0 2px 6px rgba(255, 255, 255, 0.4);
   opacity: 1;
 }
 
@@ -62,8 +68,27 @@
   animation: gentleBounce 15s infinite;
 }
 
-/* Mobile responsive - switch to bottom bar */
-@media (max-width: 768px) {
+/* Force side tab even on smaller screens */
+@media (min-width: 600px) {
+  .ctaContainer {
+    position: fixed;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 100;
+  }
+  
+  .ctaButton {
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    transform: rotate(180deg);
+    padding: 16px 12px;
+    border-radius: 12px 0 0 12px;
+  }
+}
+
+/* Only use bottom position on very small mobile */
+@media (max-width: 599px) {
   .ctaContainer {
     position: fixed;
     bottom: 80px; /* Above auth buttons */
@@ -86,7 +111,9 @@
     height: 48px;
     font-size: 0.85rem;
   }
+}
 
+@media (max-width: 599px) {
   .ctaButton:hover {
     transform: scale(1.02);
   }

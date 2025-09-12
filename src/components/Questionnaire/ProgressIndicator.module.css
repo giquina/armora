@@ -2,16 +2,16 @@
 /* Enhanced color variables to match bottom panel */
 :root {
   --progress-bg: var(--armora-dark, #1a1a2e);
-  --progress-gold: var(--armora-gold-muted, #D4B366);
-  --progress-accent: var(--armora-gold, #FFD700);
+  --progress-gold: #FFA500;
+  --progress-accent: #FFD700;
   --progress-text: rgba(224, 224, 224, 0.9);
-  --progress-glow: rgba(255, 215, 0, 0.3);
+  --progress-glow: rgba(255, 215, 0, 0.4);
 }
 
 .container {
   background: var(--progress-bg);
   padding: 1rem;
-  border: 1px solid var(--progress-gold) !important;
+  border: 1px solid var(--progress-accent) !important;
   position: sticky;
   top: 0;
   z-index: 10;
@@ -21,10 +21,11 @@
   /* Apply progress indicator entrance animation */
   animation: slideDownFromTop 0.8s 0.1s cubic-bezier(0.215, 0.61, 0.355, 1);
   animation-fill-mode: both;
-  /* Add subtle glow to match bottom panel */
+  /* Enhanced 3D glow to match impact button */
   box-shadow: 
     0 4px 12px rgba(0, 0, 0, 0.3),
-    0 2px 6px var(--progress-glow);
+    0 2px 20px var(--progress-glow),
+    inset 0 1px 2px rgba(255, 255, 255, 0.1);
 }
 
 /* Step Counter */
@@ -66,13 +67,14 @@
 
 .progressFill {
   height: 100%;
-  background: linear-gradient(90deg, var(--progress-gold), var(--progress-accent));
+  background: linear-gradient(90deg, #FFD700 0%, #FFA500 100%);
   border-radius: 4px !important;
   transition: width 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   position: relative;
   box-shadow: 
-    0 0 8px var(--progress-glow),
-    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    0 2px 10px rgba(0, 0, 0, 0.2),
+    0 1px 20px var(--progress-glow),
+    inset 0 2px 4px rgba(255, 255, 255, 0.3);
 }
 
 .progressGlow {
@@ -132,16 +134,16 @@
 }
 
 .dotCurrent {
-  background: var(--progress-gold);
+  background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
   animation: breathingPulse 2s infinite ease-in-out, ringPulse 3s ease-in-out infinite;
   box-shadow: 
     0 0 6px var(--progress-glow),
-    0 0 12px rgba(212, 179, 102, 0.4);
+    0 0 12px rgba(255, 165, 0, 0.4);
 }
 
 .dotUpcoming {
-  background: rgba(212, 179, 102, 0.3);
-  border: 1px solid rgba(212, 179, 102, 0.5);
+  background: rgba(255, 215, 0, 0.3);
+  border: 1px solid rgba(255, 165, 0, 0.5);
   /* Gentle twinkle so upcoming steps feel alive */
   animation: twinkle 4.5s ease-in-out infinite;
 }
@@ -159,9 +161,9 @@
 }
 
 @keyframes ringPulse {
-  0% { box-shadow: 0 0 6px var(--progress-glow), 0 0 12px rgba(212, 179, 102, 0.4); }
-  50% { box-shadow: 0 0 10px var(--progress-glow), 0 0 18px rgba(212, 179, 102, 0.55); }
-  100% { box-shadow: 0 0 6px var(--progress-glow), 0 0 12px rgba(212, 179, 102, 0.4); }
+  0% { box-shadow: 0 0 6px var(--progress-glow), 0 0 12px rgba(255, 165, 0, 0.4); }
+  50% { box-shadow: 0 0 10px var(--progress-glow), 0 0 18px rgba(255, 165, 0, 0.55); }
+  100% { box-shadow: 0 0 6px var(--progress-glow), 0 0 12px rgba(255, 165, 0, 0.4); }
 }
 
 @keyframes twinkle {
@@ -232,7 +234,7 @@
     border-left: none !important;
     border-right: none !important;
     border-top: none !important;
-    border-bottom: 1px solid var(--progress-gold) !important;
+    border-bottom: 1px solid var(--progress-accent) !important;
     box-shadow: 
       0 2px 6px rgba(0, 0, 0, 0.15),
       0 1px 3px var(--progress-glow);
@@ -295,7 +297,7 @@
     border-left: none !important;
     border-right: none !important;
     border-top: none !important;
-    border-bottom: 1px solid var(--progress-gold) !important;
+    border-bottom: 1px solid var(--progress-accent) !important;
     box-shadow: 
       0 3px 8px rgba(0, 0, 0, 0.18),
       0 1px 4px var(--progress-glow);
@@ -346,7 +348,7 @@
     border-left: none !important;
     border-right: none !important;
     border-top: none !important;
-    border-bottom: 1px solid var(--progress-gold) !important;
+    border-bottom: 1px solid var(--progress-accent) !important;
     box-shadow: 
       0 3px 8px rgba(0, 0, 0, 0.2),
       0 1px 4px var(--progress-glow);
@@ -537,7 +539,7 @@
     border-left: none !important;
     border-right: none !important;
     border-top: none !important;
-    border-bottom: 1px solid var(--progress-gold) !important;
+    border-bottom: 1px solid var(--progress-accent) !important;
   }
 
   .stepCounter {

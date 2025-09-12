@@ -20,6 +20,9 @@ Armora is a React 19.1.1 TypeScript application for premium VIP security transpo
 - `npm test` - Run tests in watch mode (Jest + React Testing Library)
 - `npm test -- --coverage` - Coverage report
 - `npm test -- --watchAll=false` - Single test run (CI)
+- `npm test -- [test-file]` - Run specific test file
+
+**Note**: No separate lint/typecheck commands exist - type checking happens during build. Always run `npm run build` to verify code correctness.
 
 ## Development Infrastructure
 Includes automated hooks system and AI task management:
@@ -34,6 +37,13 @@ Includes automated hooks system and AI task management:
 **Hooks System**: 7 tools including mobile viewport tester (prevents horizontal scrolling), auto-saver, dev server monitor, and brand compliance.
 
 **Task Management**: Integrated AI-powered suggestion system tracks development tasks, priorities, and completion status through `.claude/` directory.
+
+## TypeScript Configuration
+**Strict mode enabled** (`tsconfig.json`):
+- Target: ES2018
+- JSX: react-jsx (React 19 transform)
+- Module: ESNext with Node resolution
+- All strict checks enabled
 
 ## Architecture
 
@@ -87,6 +97,11 @@ Multi-layered shield with 4D effects, metallic textures, orbital animations. Res
 **User Journey**: splash → welcome → auth → questionnaire → achievement → dashboard → booking  
 **User Capabilities**: Registered/Google users get direct booking + 50% reward; guests get quotes only
 
+### Safe Ride Fund Initiative
+- **Impact Counter**: Live counter showing 3,741+ safe rides delivered (animated on WelcomePage)
+- **Components**: `SafeRideFundCTA`, `SafeRideFundModal` with interactive contribution system
+- **Development Mode**: Credentials modal always visible in dev mode (`showDevButton` in WelcomePage)
+
 ## CSS Architecture & Design System
 
 ### Global Styling Structure
@@ -103,8 +118,20 @@ Multi-layered shield with 4D effects, metallic textures, orbital animations. Res
 - **8px grid spacing**: `--space-xs: 4px` through `--space-xxl: 48px`
 - **Viewport constraints**: Cards use `calc(100vw - 36px)` to account for borders
 
-## Specialized Agents (`.claude/agents/`)
+## Development Tools & Automation
+
+### Hooks System (`dev-tools/hooks/`)
+- **armora-brand-compliance.js** - Enforces brand standards
+- **auto-github-saver.js** - Automated Git operations
+- **codebase-reviewer-suggester.js** - AI-powered task suggestions
+- **dev-server-monitor.js** - Development server monitoring
+- **file-structure-organizer.js** - Code organization
+- **mobile-viewport-tester.js** - Prevents horizontal scrolling
+- **hooks-manager.js** - Central hooks control
+
+### Specialized Agents (`.claude/agents/`)
 5 agents for specialized development: mobile-tester, pwa-optimizer, ux-validator, booking-flow-manager, server-keeper
+**Full documentation**: See [agents.md](.claude/agents.md) for detailed agent information, commands, and development guidelines
 
 ## Development Standards
 - **Mobile-first**: Start at 320px, NO horizontal scrolling allowed
@@ -120,8 +147,14 @@ Multi-layered shield with 4D effects, metallic textures, orbital animations. Res
 - **Current coverage**: Minimal (only App.test.tsx exists)
 
 ## Current Status
-✅ **Complete**: Auth, Questionnaire (9-step + privacy), Dashboard, Booking flow, Achievement, 4D logo system  
-⏳ **Needs**: Test coverage (critical), PWA service worker, payment integration, real-time tracking
+✅ **Complete**: Auth, Questionnaire (9-step + privacy), Dashboard, Booking flow, Achievement, 4D logo system, Safe Ride Fund integration  
+⚠️ **Critical Needs**: Test coverage (only App.test.tsx exists), PWA service worker, payment integration  
+🔜 **Planned**: Real-time tracking, push notifications, offline mode
+
+## Key Utility Functions
+- **timeEstimate** (`src/utils/timeEstimate.ts`) - Standardized time formatting across app
+- **seasonalThemes** (`src/utils/seasonalThemes.ts`) - Dynamic seasonal theming
+- **dynamicPersonalization** (`src/utils/dynamicPersonalization.ts`) - User-specific content
 
 ## Critical Implementation Notes
 
@@ -129,7 +162,13 @@ Multi-layered shield with 4D effects, metallic textures, orbital animations. Res
 Dynamic 9-step system with privacy options. Enhanced mobile typography (1.4-1.5rem) and `calc(100vw - 8px)` width utilization.
 
 ### Booking Flow Architecture
-Complete flow: VehicleSelection → LocationPicker → BookingConfirmation → BookingSuccess. State managed in App.tsx BookingFlow component with service level selection and location handling.
+Complete flow: VehicleSelection → LocationPicker → BookingConfirmation → BookingSuccess. State managed in App.tsx BookingFlow component (`src/App.tsx:17-95`) with service level selection and location handling.
+
+### WelcomePage Features (`src/components/Auth/WelcomePage.tsx`)
+- **Animated impact counter**: Shows 3,741+ safe rides with random increments
+- **Seasonal themes**: Dynamic theming based on date
+- **Credentials modal**: Development mode toggle for testing
+- **Safe Ride Fund integration**: Prominent CTAs and donation modal
 
 ### TypeScript Configuration  
 Strict mode enabled with React 19 JSX transform. All interfaces in `/src/types/index.ts`.
@@ -167,4 +206,24 @@ Verify view state in `AppContext` and check if component is included in App.tsx 
 ### Styling Not Applied
 Ensure CSS Module imports use correct syntax: `import styles from './Component.module.css'`
 
-Last updated: 2025-09-12T03:58:38.310Z
+## Development Workflow Best Practices
+
+### Before Making Changes
+1. **Always run `npm run build` after changes**: This project has no separate lint command - type checking happens during build
+2. **Test on multiple breakpoints**: Use mobile viewport tester hook to verify no horizontal scrolling
+3. **Follow existing patterns**: Study similar components before creating new ones
+4. **Use TypeScript strict mode**: All new code must be properly typed
+
+### Common Debugging Steps
+1. **State issues**: Check AppContext state and view navigation logic in App.tsx
+2. **Styling issues**: Verify CSS Module imports and check responsive breakpoints
+3. **Build failures**: Run `npm run build` to catch type errors before committing
+4. **Mobile issues**: Use `npm run hooks:start` to enable mobile viewport testing
+
+### File Conventions
+- Components: PascalCase with matching .module.css files
+- Utilities: camelCase in `/src/utils/`
+- Types: Centralized in `/src/types/index.ts`
+- Data: Static data in `/src/data/`
+
+Last updated: 2025-09-12T15:00:51.238Z

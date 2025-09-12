@@ -36,12 +36,12 @@
   gap: 8px;
   font-family: inherit;
   position: relative;
-  overflow: hidden;
+  overflow: visible; /* Allow borders to show completely */
   box-sizing: border-box;
   white-space: nowrap; /* Force single line */
   font-size: 1rem !important; /* Normalize font size to prevent overflow */
   line-height: 1.2 !important;
-  overflow: hidden !important;
+  /* overflow: hidden !important; */ /* Removed - was clipping button borders */
   text-overflow: ellipsis !important;
 }
 
@@ -150,6 +150,11 @@
   display: inline-flex;
   align-items: center;
   gap: 8px;
+  /* Handle text overflow at the label level, not button level */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 100%;
 }
 
 /* Progress Information */

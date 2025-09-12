@@ -149,6 +149,10 @@ export interface QuestionnaireData {
 
 export interface PersonalizationData extends QuestionnaireData {
   firstName?: string; // Optional name for personalization
+  profileSelection?: string; // Step 1 profile selection for personalization
+  nameConfirmed?: boolean; // Whether user confirmed their name via modal
+  nameConfirmationTimestamp?: string; // ISO string of when name was confirmed
+  skippedNameEntry?: boolean; // Whether user chose to skip name personalization
   completedAt?: Date;
   recommendedService?: string;
   conversionAttempts?: number;
@@ -197,6 +201,7 @@ export interface AppState {
   deviceCapabilities: DeviceCapabilities;
   subscription: UserSubscription | null;
   selectedServiceForBooking?: string;
+  userProfileSelection?: string; // Step 1 profile for FloatingCTA personalization
   safeRideFundMetrics: SafeRideFundMetrics | null;
   communityImpactData: CommunityImpactData | null;
   isLoading: boolean;

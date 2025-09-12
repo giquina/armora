@@ -29,14 +29,14 @@ const safeRideFundData = {
   impactStories: [
     {
       id: 1,
-      title: "Late Night Emergency",
+      title: "Safe Late Night Transport",
       story: "Thanks to the Safe Ride Fund, Sarah was able to leave a dangerous situation at 2 AM when she had no money for transport.",
       date: "3 days ago",
       isAnonymous: true
     },
     {
       id: 2,
-      title: "Hospital Visit", 
+      title: "Essential Healthcare Access", 
       story: "The fund helped Mark visit his daughter in hospital when unexpected medical costs left him unable to afford transport.",
       date: "1 week ago",
       isAnonymous: false
@@ -121,7 +121,7 @@ export function SafeRideFundExplainer({
             <div className={styles.breakdownBar}>
               <div className={`${styles.breakdownFill} ${styles.impactFill}`} style={{ width: '7%' }}></div>
             </div>
-            <div className={styles.breakdownDesc}>Emergency Safe Rides</div>
+            <div className={styles.breakdownDesc}>Safe Transport Assistance</div>
           </div>
         </div>
       </div>
@@ -184,7 +184,7 @@ export function SafeRideFundExplainer({
               </div>
               <div className={styles.allocationItem}>
                 <div className={styles.allocationAmount}>£1.00</div>
-                <div className={styles.allocationDesc}>Emergency safe rides for vulnerable people</div>
+                <div className={styles.allocationDesc}>Safe transport assistance for vulnerable communities</div>
               </div>
             </div>
           </div>

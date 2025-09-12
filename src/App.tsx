@@ -14,6 +14,11 @@ import { VehicleSelection, LocationPicker, BookingConfirmation, BookingSuccess }
 import { ServiceLevel, BookingData, LocationData } from './types';
 import './styles/globals.css';
 
+// Development tools for testing user scenarios
+if (process.env.NODE_ENV === 'development') {
+  import('./utils/testUserScenarios');
+}
+
 function BookingFlow() {
   const { state } = useApp();
   const [currentStep, setCurrentStep] = useState<'vehicle-selection' | 'location-picker' | 'booking-confirmation' | 'booking-success'>('vehicle-selection');

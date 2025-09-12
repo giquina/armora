@@ -6,6 +6,7 @@ import { NameCollection } from './NameCollection';
 import ProfileSummaryComponent from './ProfileSummary';
 import YesNoToggle from '../UI/YesNoToggle';
 import { FloatingCTA } from '../UI/FloatingCTA';
+import { useApp } from '../../contexts/AppContext';
 import styles from './QuestionnaireStep.module.css';
 import spacingStyles from './BenefitListSpacing.module.css';
 import '../../styles/questionnaire-animations.css';
@@ -36,6 +37,8 @@ export function QuestionnaireStep({
   userResponses = {},
   currentStepNumber = 1
 }: QuestionnaireStepProps) {
+  const { state, setUserProfileSelection } = useApp();
+  
   // Local state for form values
   const [selectedValue, setSelectedValue] = useState<string>('');
   const [selectedValues, setSelectedValues] = useState<string[]>([]);
@@ -124,6 +127,11 @@ export function QuestionnaireStep({
   const handleSingleSelect = (value: string) => {
     setSelectedValue(value);
     setErrors([]);
+    
+    // Store profile selection for Step 1 (ID 1) for FloatingCTA personalization
+    if (step.id === 1) {
+      setUserProfileSelection(value);
+    }
   };
 
   // Enhanced CTA handlers
@@ -612,7 +620,7 @@ Your privacy is important to us. All questions are optional and you can use "Pre
           <div className={styles.stepIntroComprehensive}>
             {/* Name Collection Section */}
             <NameCollection 
-              userName={userResponses?.userName || ''}
+              userName={state.questionnaireData?.firstName || ''}
               onNameChange={() => {}}
               className={styles.nameCollectionWrapper}
             />

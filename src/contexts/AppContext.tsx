@@ -17,6 +17,7 @@ const initialState: AppState = {
   },
   subscription: null,
   selectedServiceForBooking: undefined,
+  userProfileSelection: undefined,
   safeRideFundMetrics: null,
   communityImpactData: null,
   isLoading: false,
@@ -28,6 +29,7 @@ type AppAction =
   | { type: 'SET_VIEW'; payload: ViewState }
   | { type: 'SET_USER'; payload: User | null }
   | { type: 'SET_QUESTIONNAIRE_DATA'; payload: PersonalizationData }
+  | { type: 'SET_USER_PROFILE_SELECTION'; payload: string | undefined }
   | { type: 'UPDATE_DEVICE_CAPABILITIES'; payload: Partial<DeviceCapabilities> }
   | { type: 'SET_SUBSCRIPTION'; payload: UserSubscription | null }
   | { type: 'SET_SELECTED_SERVICE'; payload: string }
@@ -47,6 +49,8 @@ function appReducer(state: AppState, action: AppAction): AppState {
       return { ...state, user: action.payload };
     case 'SET_QUESTIONNAIRE_DATA':
       return { ...state, questionnaireData: action.payload };
+    case 'SET_USER_PROFILE_SELECTION':
+      return { ...state, userProfileSelection: action.payload };
     case 'UPDATE_DEVICE_CAPABILITIES':
       return { 
         ...state, 
@@ -81,6 +85,7 @@ interface AppContextType {
   navigateToView: (view: ViewState) => void;
   setUser: (user: User | null) => void;
   updateQuestionnaireData: (data: PersonalizationData) => void;
+  setUserProfileSelection: (profileSelection: string | undefined) => void;
   setError: (error: string | null) => void;
   clearError: () => void;
   setLoading: (loading: boolean) => void;
@@ -135,6 +140,11 @@ export function AppProvider({ children }: { children: ReactNode }) {
   const updateQuestionnaireData = useCallback((data: PersonalizationData) => {
     dispatch({ type: 'SET_QUESTIONNAIRE_DATA', payload: data });
     
+    // Store profile selection for personalization
+    if (data.profileSelection) {
+      dispatch({ type: 'SET_USER_PROFILE_SELECTION', payload: data.profileSelection });
+    }
+    
     // If questionnaire is completed, mark user as completed
     if (data.completedAt && state.user) {
       const updatedUser = { 
@@ -145,6 +155,10 @@ export function AppProvider({ children }: { children: ReactNode }) {
       dispatch({ type: 'SET_USER', payload: updatedUser });
     }
   }, [state.user]);
+
+  const setUserProfileSelection = (profileSelection: string | undefined) => {
+    dispatch({ type: 'SET_USER_PROFILE_SELECTION', payload: profileSelection });
+  };
 
   const setError = (error: string | null) => {
     dispatch({ type: 'SET_ERROR', payload: error });
@@ -401,6 +415,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
     navigateToView,
     setUser,
     updateQuestionnaireData,
+    setUserProfileSelection,
     setError,
     clearError,
     setLoading,

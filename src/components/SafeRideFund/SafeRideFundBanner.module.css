@@ -1,0 +1,245 @@
+/* Safe Ride Fund Banner Styles */
+
+.bannerContainer {
+  width: 100%;
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #1a1a2e 100%);
+  border: 1px solid #2a2a4e;
+  border-radius: 8px;
+  overflow: hidden;
+  position: relative;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  margin: var(--space-sm) 0;
+}
+
+.bannerContainer.compact {
+  border-radius: 6px;
+  margin: var(--space-xs) 0;
+}
+
+.bannerContent {
+  display: flex;
+  align-items: center;
+  padding: var(--space-sm) var(--space-md);
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  min-height: 48px;
+}
+
+.compact .bannerContent {
+  padding: var(--space-xs) var(--space-sm);
+  min-height: 40px;
+}
+
+.bannerContent:hover {
+  background-color: rgba(255, 215, 0, 0.05);
+}
+
+.bannerContent:focus {
+  outline: 2px solid #FFD700;
+  outline-offset: -2px;
+}
+
+.iconContainer {
+  flex-shrink: 0;
+  margin-right: var(--space-sm);
+  display: flex;
+  align-items: center;
+}
+
+.compact .iconContainer {
+  margin-right: var(--space-xs);
+}
+
+.fundIcon {
+  font-size: 1.5rem;
+  filter: drop-shadow(0 0 4px rgba(255, 215, 0, 0.4));
+  animation: iconGlow 3s ease-in-out infinite alternate;
+}
+
+.compact .fundIcon {
+  font-size: 1.25rem;
+}
+
+@keyframes iconGlow {
+  0% { filter: drop-shadow(0 0 4px rgba(255, 215, 0, 0.4)); }
+  100% { filter: drop-shadow(0 0 8px rgba(255, 215, 0, 0.6)); }
+}
+
+.messageContainer {
+  flex: 1;
+  overflow: hidden;
+  position: relative;
+  height: 1.5em;
+  display: flex;
+  align-items: center;
+}
+
+.compact .messageContainer {
+  height: 1.25em;
+}
+
+.messageScroller {
+  display: flex;
+  width: fit-content;
+  transition: transform 0.5s ease-in-out;
+}
+
+.messageScroller.paused {
+  transition: none;
+}
+
+.message {
+  white-space: nowrap;
+  color: #e0e0e0;
+  font-size: 0.9rem;
+  font-weight: 500;
+  min-width: 100vw;
+  padding-right: var(--space-xl);
+  display: flex;
+  align-items: center;
+}
+
+.compact .message {
+  font-size: 0.8rem;
+  padding-right: var(--space-lg);
+}
+
+.actionIndicator {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  margin-left: var(--space-sm);
+  gap: var(--space-xs);
+  opacity: 0.8;
+  transition: opacity 0.2s ease;
+}
+
+.bannerContent:hover .actionIndicator {
+  opacity: 1;
+}
+
+.compact .actionIndicator {
+  margin-left: var(--space-xs);
+  gap: 4px;
+}
+
+.learnMore {
+  color: #FFD700;
+  font-size: 0.8rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.compact .learnMore {
+  font-size: 0.7rem;
+}
+
+.arrow {
+  color: #FFD700;
+  font-weight: bold;
+  font-size: 0.9rem;
+  transform: translateX(0);
+  transition: transform 0.2s ease;
+}
+
+.compact .arrow {
+  font-size: 0.8rem;
+}
+
+.bannerContent:hover .arrow {
+  transform: translateX(2px);
+}
+
+.progressIndicator {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 2px;
+  width: 100%;
+  background-color: rgba(255, 215, 0, 0.2);
+  overflow: hidden;
+}
+
+.progressBar {
+  height: 100%;
+  width: 100%;
+  background: linear-gradient(90deg, transparent 0%, #FFD700 50%, transparent 100%);
+  animation: progressSlide 8s linear infinite;
+  transform: translateX(-100%);
+}
+
+@keyframes progressSlide {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+/* Responsive Design */
+@media (max-width: 480px) {
+  .bannerContent {
+    padding: var(--space-xs) var(--space-sm);
+  }
+  
+  .message {
+    font-size: 0.85rem;
+  }
+  
+  .compact .message {
+    font-size: 0.75rem;
+  }
+  
+  .actionIndicator {
+    display: none; /* Hide on very small screens to save space */
+  }
+}
+
+@media (max-width: 320px) {
+  .fundIcon {
+    font-size: 1.25rem;
+  }
+  
+  .compact .fundIcon {
+    font-size: 1rem;
+  }
+  
+  .message {
+    font-size: 0.8rem;
+    padding-right: var(--space-lg);
+  }
+  
+  .compact .message {
+    font-size: 0.7rem;
+    padding-right: var(--space-md);
+  }
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .messageScroller {
+    transition: none;
+  }
+  
+  .progressBar {
+    animation: none;
+  }
+  
+  .iconGlow {
+    animation: none;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .bannerContainer {
+    border: 2px solid #FFD700;
+    background: #000;
+  }
+  
+  .message {
+    color: #fff;
+  }
+  
+  .learnMore,
+  .arrow {
+    color: #FFD700;
+  }
+}

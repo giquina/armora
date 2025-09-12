@@ -292,3 +292,7 @@ armora-transport-app/
 **Armora Transport** - *Your Personal Security Driver Team*
 
 *Built with React TypeScript • Mobile-First Design • SIA Compliant • UK Coverage*
+
+---
+
+Last updated: 2025-09-12T15:00:51.605Z

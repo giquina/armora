@@ -8,18 +8,18 @@ interface SafeRideFundModalProps {
 const successStories = [
   {
     id: 1,
-    story: "Thanks to the Safe Ride Fund, Sarah could leave a dangerous situation at 2 AM when she had no money for transport. The emergency ride got her to a safe space where she could call family.",
+    story: "Thanks to the Safe Ride Fund, Sarah could leave a dangerous situation at 2 AM when she had no money for transport. The safe ride helped her reach a refuge where she could contact family.",
     impact: "Domestic violence survivor"
   },
   {
     id: 2,
     story: "Marcus was stranded after his phone was stolen, leaving him without access to banking apps or money. A Safe Ride Fund journey got him home safely at midnight.",
-    impact: "Crime victim assistance"
+    impact: "Community support"
   },
   {
     id: 3,
-    story: "When Emma's mental health crisis escalated late at night, the Safe Ride Fund provided immediate transport to emergency services, potentially saving her life.",
-    impact: "Mental health emergency"
+    story: "When Emma needed support for her mental health late at night, the Safe Ride Fund provided safe transport to reach her counseling service appointment the next day.",
+    impact: "Mental health support access"
   }
 ];
 
@@ -108,7 +108,7 @@ const SafeRideFundModal: React.FC<SafeRideFundModalProps> = ({ onClose }) => {
           <section className={styles.mission}>
             <p>
               At Armora, protection extends beyond our members. £4 from every Essential membership 
-              directly funds emergency transportation for vulnerable people in crisis.
+              directly funds safe transportation for vulnerable communities who cannot afford transport.
             </p>
           </section>
 
@@ -125,7 +125,7 @@ const SafeRideFundModal: React.FC<SafeRideFundModalProps> = ({ onClose }) => {
               </div>
               <div className={styles.breakdownItem}>
                 <span className={styles.amount}>£1.00</span>
-                <span className={styles.description}>Emergency safe rides pool</span>
+                <span className={styles.description}>Safe transport assistance fund</span>
               </div>
               <div className={styles.total}>
                 <span className={styles.totalAmount}>£14.99</span>

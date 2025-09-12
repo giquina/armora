@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useApp } from '../../contexts/AppContext';
 import styles from './FloatingCTA.module.css';
 import { getRemainingMinutes, formatMinutesLeft } from '../../utils/timeEstimate';
+import { getPersonalizedContent } from '../../data/personalizedContent';
 
 interface FloatingCTAProps {
   currentStep: number;
@@ -124,57 +125,19 @@ export function FloatingCTA({
       ])
     );
 
-    // Step-specific security examples and benefits
+    // Get personalized content based on user's profile selection
     const getStepExample = (step: number) => {
-      const stepExamples: Record<number, { title: string; example: string; benefit: string }> = {
-        1: {
-          title: "Your Professional Profile",
-          example: "A legal professional recently needed court transport with specific security protocols. Their profile helped us assign an officer familiar with court security procedures and legal confidentiality requirements.",
-          benefit: "Your professional profile determines the expertise level and specialized training of your security team."
-        },
-        2: {
-          title: "Frequency Planning Benefits",
-          example: "Daily commuters get consistent officers who learn their patterns. One CEO's regular morning driver now anticipates traffic issues 15 minutes before they occur and knows exactly which secure entrance to use.",
-          benefit: "Regular patterns = dedicated security team that learns your routines. Irregular travel = flexible specialist pool available 24/7."
-        },
-        3: {
-          title: "Service Level Matching",
-          example: "An executive needed 'Discrete Security Presence' for sensitive meetings. We assigned plainclothes officers with unmarked vehicles who blended seamlessly while maintaining full protection protocols.",
-          benefit: "Your service preferences create a custom security profile that every assigned officer studies before your journey."
-        },
-        4: {
-          title: "Location-Based Security",
-          example: "A client traveling between London and Birmingham gets pre-positioned officers who know the secure routes, safe stops, and potential risk areas along their regular corridor.",
-          benefit: "We pre-position qualified officers and establish secure routes in your key areas for faster response times."
-        },
-        5: {
-          title: "Specialized Coverage",
-          example: "Airport transfers require officers trained in aviation security protocols. One client's officer coordinates directly with airport security for seamless VIP processing through private terminals.",
-          benefit: "Special locations get officers with venue-specific training - airports, government buildings, courts, or entertainment venues."
-        },
-        6: {
-          title: "Emergency Response Network",
-          example: "When a client's meeting ran late, their emergency contacts were automatically notified, and backup transport was deployed within 8 minutes using their pre-configured communication preferences.",
-          benefit: "Your emergency network enables rapid response coordination following industry best practices for duty of care."
-        },
-        7: {
-          title: "Tailored Accommodations", 
-          example: "A client requiring wheelchair accessibility gets officers trained in disability assistance and vehicles equipped with proper access. Their medical requirements are discretely communicated to the team in advance.",
-          benefit: "Special requirements ensure your security team arrives fully prepared with appropriate equipment and training."
-        },
-        8: {
-          title: "Communication Protocols",
-          example: "A business executive's team receives live updates during transport, while personal trips maintain complete privacy. All preferences are configured based on this step's selections.",
-          benefit: "Clear communication protocols ensure seamless coordination between you, your team, and security officers for each journey type."
-        },
-        9: {
-          title: "Complete Security Profile",
-          example: "Your comprehensive profile enables us to provide the most appropriate protection service. One recent client's detailed profile helped us identify their need for a female officer with financial sector experience.",
-          benefit: "This complete assessment delivers perfectly matched security services tailored to your specific professional and personal requirements."
-        }
-      };
+      const personalizedContent = getPersonalizedContent(
+        state.userProfileSelection || state.questionnaireData?.profileSelection,
+        `step${step}`,
+        firstName
+      );
       
-      return stepExamples[step] || stepExamples[1];
+      return {
+        title: personalizedContent.title,
+        example: firstName ? personalizedContent.withName : personalizedContent.example,
+        benefit: personalizedContent.benefits.join(', ')
+      };
     };
 
     const name = stepNames[currentStep] || 'Assessment';
