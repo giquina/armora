@@ -1,5 +1,23 @@
 /* Safe Ride Fund Modal Styles */
 
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(to bottom, transparent 0%, rgba(0, 0, 0, 0.3) 50%, rgba(26, 26, 46, 0.7) 100%);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  display: flex;
+  align-items: flex-end; /* Align to bottom */
+  justify-content: center;
+  padding: 0;
+  z-index: 100002 !important; /* Higher than everything including WelcomePage */
+  animation: backdropFadeIn 0.4s ease-out;
+  overflow: hidden;
+}
+
 .backdrop {
   position: fixed;
   top: 0;
@@ -13,7 +31,7 @@
   align-items: flex-end; /* Align to bottom */
   justify-content: center;
   padding: 0;
-  z-index: 1000;
+  z-index: 100002; /* Higher than WelcomePage and CTA button */
   animation: backdropFadeIn 0.4s ease-out;
   overflow: hidden;
 }
@@ -36,6 +54,7 @@
   height: 60vh; /* Take up bottom 60% of screen */
   max-height: 800px;
   position: relative;
+  z-index: 100003; /* Higher than modalOverlay */
   box-shadow: 
     0 -20px 40px rgba(0, 0, 0, 0.5),
     0 -10px 20px rgba(0, 0, 0, 0.3),
@@ -323,7 +342,7 @@
 
 .impact {
   background: linear-gradient(135deg, rgba(15, 15, 31, 0.95) 0%, rgba(26, 26, 46, 0.9) 50%, rgba(30, 30, 58, 0.95) 100%);
-  padding: 50px 30px;
+  padding: 50px 40px;
   margin: 0;
   position: relative;
   overflow: hidden;
@@ -349,6 +368,21 @@
   100% { opacity: 1; }
 }
 
+@keyframes cardReveal {
+  0% {
+    opacity: 0;
+    transform: translateY(30px) translateZ(0) scale(0.9);
+  }
+  60% {
+    opacity: 0.8;
+    transform: translateY(-5px) translateZ(0) scale(1.05);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) translateZ(0) scale(1);
+  }
+}
+
 .impact h3 {
   color: #FFD700;
   font-size: clamp(1.4rem, 3.5vw, 2rem);
@@ -360,38 +394,120 @@
   z-index: 2;
 }
 
-.stats {
+.statsGrid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 20px;
-  max-width: 700px;
+  gap: 24px;
+  max-width: 800px;
   margin: 0 auto;
   align-items: stretch;
+  padding: 0 8px; /* Extra edge padding for premium spacing */
 }
 
-.stat {
-  background: linear-gradient(135deg, rgba(255, 215, 0, 0.08) 0%, rgba(255, 165, 0, 0.04) 100%);
-  padding: 24px 20px;
-  border-radius: 16px;
+.statCard {
+  background: linear-gradient(135deg, rgba(255, 215, 0, 0.12) 0%, rgba(255, 165, 0, 0.06) 100%);
+  padding: 32px 24px;
+  border-radius: 20px;
   text-align: center;
-  border: 1px solid rgba(255, 215, 0, 0.25);
-  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  border: 2px solid rgba(255, 215, 0, 0.35);
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   position: relative;
   overflow: hidden;
-  backdrop-filter: blur(8px);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   box-shadow: 
-    0 4px 12px rgba(0, 0, 0, 0.15),
-    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    0 8px 24px rgba(0, 0, 0, 0.25),
+    0 2px 8px rgba(255, 215, 0, 0.15),
+    inset 0 2px 0 rgba(255, 255, 255, 0.15),
+    inset 0 -2px 0 rgba(0, 0, 0, 0.1);
+  transform: translateZ(0); /* GPU acceleration */
+  will-change: transform, box-shadow;
+  
+  /* Entrance animation setup */
+  opacity: 0;
+  transform: translateY(30px) translateZ(0) scale(0.9);
+  animation: cardReveal 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
 }
 
-.stat:hover {
-  transform: translateY(-3px) scale(1.02);
+/* Sequential animation delays */
+.statCard:nth-child(1) { animation-delay: 0.1s; }
+.statCard:nth-child(2) { animation-delay: 0.25s; }
+.statCard:nth-child(3) { animation-delay: 0.4s; }
+.statCard:nth-child(4) { 
+  animation-delay: 0.55s;
+  /* Special effects for success rate */
+  position: relative;
+}
+
+/* Special pulsing effect for success rate card (4th card - 98%) */
+.statCard:nth-child(4)::after {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  border: 2px solid rgba(255, 215, 0, 0.4);
+  border-radius: 22px;
+  animation: successPulse 3s ease-in-out infinite;
+  pointer-events: none;
+  z-index: -1;
+}
+
+@keyframes successPulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.4;
+    border-color: rgba(255, 215, 0, 0.4);
+  }
+  50% {
+    transform: scale(1.05);
+    opacity: 0.8;
+    border-color: rgba(255, 215, 0, 0.8);
+  }
+}
+
+/* Accessibility: Respect user preference for reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .statCard {
+    animation: none;
+    opacity: 1;
+    transform: translateY(0) translateZ(0) scale(1);
+  }
+  
+  .statCard:nth-child(4)::after {
+    animation: none;
+    opacity: 0.6;
+    transform: scale(1);
+  }
+  
+  .statNumber {
+    animation: none;
+    filter: drop-shadow(0 3px 12px rgba(255, 215, 0, 0.4));
+  }
+  
+  .statNumber::before {
+    animation: none;
+    opacity: 0.4;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  
+  .impact::before {
+    animation: none;
+    opacity: 0.7;
+  }
+}
+
+.statCard:hover {
+  transform: translateY(-6px) scale(1.03) translateZ(0);
   box-shadow: 
-    0 12px 24px rgba(0, 0, 0, 0.25),
-    0 4px 12px rgba(255, 215, 0, 0.2),
-    inset 0 1px 0 rgba(255, 255, 255, 0.15);
-  background: linear-gradient(135deg, rgba(255, 215, 0, 0.12) 0%, rgba(255, 165, 0, 0.06) 100%);
-  border-color: rgba(255, 215, 0, 0.35);
+    0 16px 40px rgba(0, 0, 0, 0.35),
+    0 6px 16px rgba(255, 215, 0, 0.25),
+    inset 0 2px 0 rgba(255, 255, 255, 0.2),
+    inset 0 -2px 0 rgba(0, 0, 0, 0.1),
+    0 0 30px rgba(255, 215, 0, 0.15);
+  background: linear-gradient(135deg, rgba(255, 215, 0, 0.18) 0%, rgba(255, 165, 0, 0.09) 100%);
+  border-color: rgba(255, 215, 0, 0.5);
 }
 
 /* Style third stat to span both columns on desktop, but keep grid for better balance */
@@ -408,7 +524,11 @@
 
 .statNumber {
   display: block;
-  color: #FFD700;
+  background: linear-gradient(135deg, #FFD700 0%, #FFA500 50%, #FFD700 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: #FFD700; /* fallback */
   font-size: clamp(2rem, 5vw, 3rem);
   font-weight: 800;
   line-height: 0.9;
@@ -416,6 +536,43 @@
   text-shadow: 0 3px 12px rgba(255, 215, 0, 0.4);
   position: relative;
   z-index: 2;
+  animation: numberGlow 2s ease-in-out infinite alternate;
+}
+
+@keyframes numberGlow {
+  0% {
+    filter: drop-shadow(0 3px 12px rgba(255, 215, 0, 0.4));
+  }
+  100% {
+    filter: drop-shadow(0 6px 20px rgba(255, 215, 0, 0.6));
+  }
+}
+
+/* Particle effect for high-impact numbers */
+.statNumber::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100px;
+  height: 100px;
+  background: radial-gradient(circle, rgba(255, 215, 0, 0.1) 0%, transparent 70%);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  animation: particlePulse 3s ease-in-out infinite;
+  pointer-events: none;
+  z-index: -1;
+}
+
+@keyframes particlePulse {
+  0%, 100% {
+    transform: translate(-50%, -50%) scale(0.8);
+    opacity: 0.3;
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(1.2);
+    opacity: 0.6;
+  }
 }
 
 .statLabel {
@@ -676,20 +833,22 @@
     padding: 32px 20px;
   }
 
-  .stats {
+  .statsGrid {
     grid-template-columns: 1fr; /* Stack vertically on mobile */
-    gap: 16px;
+    gap: 20px;
     max-width: none;
+    padding: 0 16px; /* Increased mobile edge padding */
   }
 
-  .stat:nth-child(3) {
+  .statCard:nth-child(3) {
     grid-column: 1; /* Reset to single column */
     max-width: none;
     margin: 0;
   }
 
-  .stat {
-    padding: 20px 16px;
+  .statCard {
+    padding: 28px 20px; /* Better mobile touch targets */
+    min-height: 44px; /* Ensure proper touch targets */
   }
 
   .ctaButtons {

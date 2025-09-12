@@ -41,11 +41,11 @@
 .sectionHeader,
 .stepHeader,
 .profileHeader {
-  font-size: 16px;
-  line-height: 1.6;
+  font-size: clamp(1.25rem, 3.5vw, 1.75rem); /* Much larger, responsive headers */
+  line-height: 1.4; /* Better line height for larger text */
   color: #e0e0e0;
-  font-weight: 500;
-  margin-bottom: 16px;
+  font-weight: 600; /* Bolder for better prominence */
+  margin-bottom: 1.25rem; /* More spacing for larger text */
 }
 
 /* Main descriptive text - "Unlock personalized VIP transport..." */
@@ -86,10 +86,11 @@
 /* Question prompts - "Do you need reliable transport..." */
 .questionPrompt,
 .assessmentQuestion {
-  font-size: 16px;
-  line-height: 1.6;
+  font-size: clamp(1.1rem, 3vw, 1.5rem); /* Larger, responsive question prompts */
+  line-height: 1.5; /* Better line height for readability */
   color: #ffffff;
-  margin-bottom: 20px;
+  font-weight: 600; /* Bolder for better prominence */
+  margin-bottom: 1.5rem; /* More spacing */
 }
 
 /* Personal message text - "Tell us about yourself..." */
@@ -251,10 +252,11 @@
 }
 
 .title {
-  font-size: 1.1rem; /* Smaller title */
-  font-weight: 600;
+  font-size: clamp(1.5rem, 4vw, 2.25rem); /* Much larger, responsive title */
+  font-weight: 700; /* Bolder weight for better prominence */
   color: var(--accent-primary);
-  margin: 0 0 0.25rem 0; /* Reduced margin */
+  margin: 0 0 0.5rem 0; /* Increased margin for better spacing */
+  line-height: 1.3; /* Better line height for larger text */
   /* Apply main title entrance animation */
   animation: slideUpWithFade 1.2s 0.7s cubic-bezier(0.215, 0.61, 0.355, 1);
   animation-fill-mode: both;
@@ -263,10 +265,11 @@
 }
 
 .subtitle {
-  font-size: 0.85rem; /* Smaller subtitle */
+  font-size: clamp(1rem, 3vw, 1.25rem); /* Larger, responsive subtitle */
   color: var(--text-secondary);
-  margin: 0;
-  font-weight: 400;
+  margin: 0 0 0.5rem 0; /* Added bottom margin for spacing */
+  font-weight: 500; /* Slightly bolder for better readability */
+  line-height: 1.4; /* Better line height */
   /* Apply subtitle entrance animation */
   animation: slideInFromRight 0.8s 0.9s cubic-bezier(0.215, 0.61, 0.355, 1);
   animation-fill-mode: both;
@@ -282,11 +285,11 @@
 }
 
 .question {
-  font-size: 1.75rem !important; /* Significantly larger - was 16px */
+  font-size: clamp(1.8rem, 5vw, 2.5rem) !important; /* Much larger, responsive question text */
   font-weight: 700; /* Bolder weight for prominence */
   color: var(--text-primary);
-  line-height: 1.4 !important; /* Tighter line height for larger text */
-  margin: 0 0 1rem 0; /* More bottom margin */
+  line-height: 1.3 !important; /* Optimized line height for larger text */
+  margin: 0 0 1.5rem 0; /* More bottom margin for better spacing */
   text-align: center;
 }
 
@@ -1689,13 +1692,13 @@
   }
 
   .title {
-    font-size: 1.5rem !important; /* Much larger mobile title for readability */
-    line-height: 1.3 !important;
+    /* Use responsive clamp() values instead of fixed mobile sizes */
+    line-height: 1.2 !important; /* Tighter line height on mobile */
   }
 
   .subtitle {
-    font-size: 1.2rem !important; /* Much larger mobile subtitle for readability */
-    line-height: 1.4 !important;
+    /* Use responsive clamp() values instead of fixed mobile sizes */
+    line-height: 1.3 !important; /* Tighter line height on mobile */
   }
 
   .questionSection {
@@ -1707,8 +1710,8 @@
   }
 
   .question {
-    font-size: 1.5rem !important; /* Larger on mobile - was 15px */
-    line-height: 1.4 !important; /* Tighter line height for larger text */
+    /* Use responsive clamp() values for consistent scaling */
+    line-height: 1.25 !important; /* Tighter line height on mobile for larger text */
   }
 
   .helpText {

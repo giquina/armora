@@ -17,6 +17,11 @@ export function WelcomePage() {
   const [showContent, setShowContent] = useState(false);
   const [showCredentialsModal, setShowCredentialsModal] = useState(false);
   const [showSafeRideModal, setShowSafeRideModal] = useState(false);
+
+  // Debug modal state changes
+  useEffect(() => {
+    console.log('🛡️ WelcomePage: showSafeRideModal state changed to:', showSafeRideModal);
+  }, [showSafeRideModal]);
   // Removed impact counter + rotating message specific states
 
   // Development environment detection - ALWAYS SHOW IN DEV
@@ -327,7 +332,10 @@ export function WelcomePage() {
       </div>
 
       {/* Safe Ride Fund CTA */}
-      <SafeRideFundCTA onClick={() => setShowSafeRideModal(true)} />
+      <SafeRideFundCTA onClick={() => {
+        console.log('🛡️ WelcomePage: SafeRideFundCTA onClick handler called!');
+        setShowSafeRideModal(true);
+      }} />
 
       {/* Credentials Modal */}
       <CredentialsModal
