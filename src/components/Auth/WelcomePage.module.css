@@ -445,16 +445,17 @@
     width: 100%;
   }
   
-  /* Ensure full width buttons */
+  /* Ensure full width buttons with consistent styling */
   .googleButton,
   .emailButton,
   .phoneButton,
   .guestButton {
     width: 100% !important;
     max-width: none !important;
-    padding: 14px 4px !important; /* ABSOLUTE EXTREME mobile width optimization */
+    padding: 14px 8px !important;
     min-height: 50px !important;
-    font-size: 1rem !important;
+    font-size: 0.95rem !important;
+    border-radius: 12px !important;
   }
   
   .featureSubtitle {
@@ -474,16 +475,16 @@
     width: 100%;
   }
   
-  /* Full width auth buttons for iPhone */
+  /* Full width auth buttons for iPhone with consistent styling */
   .googleButton,
   .emailButton,
   .phoneButton,
   .guestButton {
     width: 100% !important;
     max-width: none !important;
-    padding: 14px 16px !important;
+    padding: 14px 12px !important;
     min-height: 48px !important; /* Apple HIG touch target */
-    font-size: 1rem !important;
+    font-size: 0.95rem !important;
     border-radius: 12px !important; /* Modern iOS style */
   }
 }
@@ -578,14 +579,16 @@
   margin: 0 auto; /* Center it */
 }
 
-/* AUTHENTICATION BUTTONS */
+/* AUTHENTICATION BUTTONS - PROFESSIONAL STYLING */
 .buttonContent {
   display: flex;
   align-items: center;
   justify-content: center;
   gap: clamp(0.5rem, 2vw, 0.75rem);
   font-weight: 600;
-  font-size: clamp(0.95rem, 3.5vw, 1.05rem); /* Responsive text size */
+  font-size: clamp(0.9rem, 3.2vw, 1rem); /* More controlled size */
+  text-align: center;
+  line-height: 1.3;
 }
 
 .authIcon {
@@ -596,12 +599,14 @@
 
 .googleButton {
   position: relative;
-  overflow: hidden;
-  background: var(--armora-gold) !important;
+  background: linear-gradient(135deg, var(--armora-gold) 0%, var(--hover-gold) 100%) !important;
   color: var(--armora-dark) !important;
-  border: none !important;
-  transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 2px solid var(--armora-gold) !important;
+  border-radius: 12px !important;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
   cursor: pointer;
+  min-height: 52px;
+  box-shadow: 0 4px 12px rgba(255, 215, 0, 0.25);
 }
 
 .googleButton::before {
@@ -611,8 +616,8 @@
   left: -100%;
   width: 100%;
   height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-  transition: left 0.25s ease;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.3s ease;
 }
 
 .googleButton:hover::before {
@@ -620,37 +625,43 @@
 }
 
 .googleButton:hover {
-  background: var(--hover-gold) !important;
-  transform: translateY(-2px) scale(1.01);
-  box-shadow: 0 8px 25px rgba(255, 215, 0, 0.4) !important;
+  background: linear-gradient(135deg, var(--hover-gold) 0%, var(--active-gold) 100%) !important;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(255, 215, 0, 0.4) !important;
 }
 
 .emailButton {
   position: relative;
-  border: 2px solid rgba(255, 215, 0, 0.3) !important;
-  background: rgba(255, 215, 0, 0.05) !important;
+  border: 2px solid rgba(255, 215, 0, 0.4) !important;
+  background: rgba(255, 215, 0, 0.08) !important;
   color: var(--armora-gold) !important;
+  border-radius: 12px !important;
+  min-height: 52px;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .emailButton:hover {
-  background: rgba(255, 215, 0, 0.1) !important;
+  background: rgba(255, 215, 0, 0.15) !important;
   border-color: var(--armora-gold) !important;
-  transform: translateY(-2px) scale(1.01);
-  box-shadow: 0 8px 25px rgba(255, 215, 0, 0.3);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(255, 215, 0, 0.25);
 }
 
 .phoneButton {
   position: relative;
-  border: 2px solid rgba(255, 215, 0, 0.3) !important;
-  background: rgba(255, 215, 0, 0.05) !important;
+  border: 2px solid rgba(255, 215, 0, 0.4) !important;
+  background: rgba(255, 215, 0, 0.08) !important;
   color: var(--armora-gold) !important;
+  border-radius: 12px !important;
+  min-height: 52px;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .phoneButton:hover {
-  background: rgba(255, 215, 0, 0.1) !important;
+  background: rgba(255, 215, 0, 0.15) !important;
   border-color: var(--armora-gold) !important;
-  transform: translateY(-2px) scale(1.01);
-  box-shadow: 0 8px 25px rgba(255, 215, 0, 0.3);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(255, 215, 0, 0.25);
 }
 
 .divider {

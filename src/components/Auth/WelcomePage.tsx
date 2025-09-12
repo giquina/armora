@@ -205,7 +205,7 @@ export function WelcomePage() {
             
             <div className={styles.feature} style={{ animationDelay: '200ms', '--delay': 2 } as React.CSSProperties}>
               <div className={styles.featureContent}>
-                <div className={styles.featureLogo} style={{ color: '#FFD700', fontSize: '2rem' }}>
+                <div className={styles.featureLogo} style={{ color: '#FFD700' }}>
                   🛡️
                 </div>
                 <div className={styles.featureText}>
