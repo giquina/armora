@@ -14,6 +14,27 @@ export interface PersonalizedContentMap {
 }
 
 export const profileKeyMap: { [key: string]: string } = {
+  // Map actual questionnaire values to personalization content keys
+  'executive': 'executive',                    // 🏢 Executive/Business Professional
+  'entrepreneur': 'entrepreneur',              // 💼 Business Owner/Entrepreneur  
+  'celebrity': 'entertainment',                // 🎭 Entertainment/Media Professional
+  'athlete': 'sports',                        // ⚽ Sports Professional/Athlete
+  'government': 'government',                 // 🏛️ Government/Public Sector Official
+  'diplomat': 'delegation',                   // 🌍 International Delegation
+  'medical': 'healthcare',                    // 🏥 Healthcare Professional
+  'legal': 'legal',                          // ⚖️ Legal Professional
+  'creative': 'creative',                    // 🎨 Creative Professional
+  'academic': 'academic',                    // 🎓 Academic/Educational Professional
+  'student': 'student',                      // 📚 Student
+  'international_visitor': 'tourist',        // ✈️ International Visitor/Tourist
+  'finance': 'financial',                    // 📊 Financial Services Professional
+  'security': 'security',                   // 🛡️ Security/Law Enforcement
+  'family': 'family',                       // 👨‍👩‍👧‍👦 Family/Personal Use
+  'general': 'general',                     // 🚗 General Premium Transport
+  'high_profile': 'vip',                    // 🔒 High-Profile Individual
+  'prefer_not_to_say': 'default',           // ❓ Prefer not to say
+  
+  // Legacy mapping for backward compatibility (kept for any existing data)
   'Executive/Business Professional': 'executive',
   'Corporate Management': 'corporate',
   'Government/Public Sector Official': 'government',
@@ -1223,8 +1244,25 @@ export function getPersonalizedContent(
     (profileKeyMap[profileSelection] || 'default') : 
     'default';
   
+  // Debug logging to track mapping flow
+  console.log('🎯 Personalization Debug:', {
+    profileSelection,
+    mappedProfileKey: profileKey,
+    currentStep,
+    hasUserName: !!userName,
+    availableProfiles: Object.keys(personalizedContent)
+  });
+  
   const profileContent = personalizedContent[profileKey] || personalizedContent.default;
   const stepContent = profileContent[currentStep] || profileContent.step2;
+  
+  // Additional debug info
+  console.log('✅ Content Selected:', {
+    profileKey,
+    stepKey: currentStep,
+    contentTitle: stepContent.title,
+    fallbackUsed: profileKey === 'default' && profileSelection !== 'prefer_not_to_say'
+  });
   
   if (userName && userName.trim()) {
     return {

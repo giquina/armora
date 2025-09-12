@@ -1,63 +1,82 @@
-/* Safe Ride Fund Banner Styles */
+/* Enhanced Safe Ride Fund Banner Styles - Fix Disappearing Text Issue */
 
-.bannerContainer {
-  width: 100%;
-  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #1a1a2e 100%);
-  border: 1px solid #2a2a4e;
+/* Enhanced announcement banner container */
+.banner {
+  position: relative;
+  background: 
+    linear-gradient(135deg, rgba(26, 26, 46, 0.95) 0%, rgba(22, 33, 62, 0.95) 100%),
+    linear-gradient(90deg, transparent 0%, rgba(255, 215, 0, 0.03) 50%, transparent 100%);
+  border: 1px solid rgba(255, 215, 0, 0.2);
   border-radius: 8px;
   overflow: hidden;
-  position: relative;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  min-height: 52px; /* Slightly taller for professional look */
+  box-shadow: 
+    0 4px 12px rgba(0, 0, 0, 0.4),
+    0 1px 3px rgba(255, 215, 0, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
   margin: var(--space-sm) 0;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
 }
 
-.bannerContainer.compact {
+.banner:hover {
+  transform: translateY(-2px);
+  box-shadow: 
+    0 8px 20px rgba(0, 0, 0, 0.5),
+    0 2px 6px rgba(255, 215, 0, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  background: 
+    linear-gradient(135deg, rgba(30, 30, 50, 0.98) 0%, rgba(26, 26, 66, 0.98) 100%),
+    linear-gradient(90deg, transparent 0%, rgba(255, 215, 0, 0.05) 50%, transparent 100%);
+  border-color: rgba(255, 215, 0, 0.3);
+}
+
+/* Compact variant */
+.banner.compact {
   border-radius: 6px;
   margin: var(--space-xs) 0;
-}
-
-.bannerContent {
-  display: flex;
-  align-items: center;
-  padding: var(--space-sm) var(--space-md);
-  cursor: pointer;
-  transition: background-color 0.2s ease;
-  min-height: 48px;
-}
-
-.compact .bannerContent {
-  padding: var(--space-xs) var(--space-sm);
   min-height: 40px;
 }
 
-.bannerContent:hover {
-  background-color: rgba(255, 215, 0, 0.05);
+/* Content wrapper */
+.content {
+  display: flex;
+  align-items: center;
+  padding: 12px 16px;
+  gap: 12px;
+  position: relative;
 }
 
-.bannerContent:focus {
-  outline: 2px solid #FFD700;
-  outline-offset: -2px;
+.compact .content {
+  padding: 8px 12px;
+  gap: 8px;
 }
 
-.iconContainer {
+/* Icon section */
+.iconSection {
   flex-shrink: 0;
-  margin-right: var(--space-sm);
   display: flex;
   align-items: center;
 }
 
-.compact .iconContainer {
-  margin-right: var(--space-xs);
+.shieldIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
 }
 
-.fundIcon {
-  font-size: 1.5rem;
+.shieldEmoji {
+  font-size: 1.25rem;
   filter: drop-shadow(0 0 4px rgba(255, 215, 0, 0.4));
   animation: iconGlow 3s ease-in-out infinite alternate;
 }
 
-.compact .fundIcon {
-  font-size: 1.25rem;
+.compact .shieldEmoji {
+  font-size: 1rem;
 }
 
 @keyframes iconGlow {
@@ -65,181 +84,293 @@
   100% { filter: drop-shadow(0 0 8px rgba(255, 215, 0, 0.6)); }
 }
 
-.messageContainer {
+/* Enhanced message section */
+.messageSection {
   flex: 1;
+  min-width: 0; /* Allow text scrolling */
   overflow: hidden;
   position: relative;
-  height: 1.5em;
   display: flex;
-  align-items: center;
-}
-
-.compact .messageContainer {
-  height: 1.25em;
-}
-
-.messageScroller {
-  display: flex;
-  width: fit-content;
-  transition: transform 0.5s ease-in-out;
-}
-
-.messageScroller.paused {
-  transition: none;
-}
-
-.message {
-  white-space: nowrap;
-  color: #e0e0e0;
-  font-size: 0.9rem;
-  font-weight: 500;
-  min-width: 100vw;
-  padding-right: var(--space-xl);
-  display: flex;
-  align-items: center;
-}
-
-.compact .message {
-  font-size: 0.8rem;
-  padding-right: var(--space-lg);
-}
-
-.actionIndicator {
-  flex-shrink: 0;
-  display: flex;
-  align-items: center;
-  margin-left: var(--space-sm);
-  gap: var(--space-xs);
-  opacity: 0.8;
-  transition: opacity 0.2s ease;
-}
-
-.bannerContent:hover .actionIndicator {
-  opacity: 1;
-}
-
-.compact .actionIndicator {
-  margin-left: var(--space-xs);
+  flex-direction: column;
   gap: 4px;
 }
 
-.learnMore {
-  color: #FFD700;
-  font-size: 0.8rem;
-  font-weight: 600;
+/* Message indicators */
+.messageIndicators {
+  display: flex;
+  justify-content: center;
+  gap: 4px;
+  opacity: 0.6;
+  transition: opacity 0.3s ease;
+}
+
+.banner:hover .messageIndicators {
+  opacity: 0.8;
+}
+
+.indicator {
+  width: 4px;
+  height: 4px;
+  border-radius: 2px;
+  background: rgba(255, 215, 0, 0.3);
+  transition: all 0.3s ease;
+}
+
+.indicator.active {
+  background: rgba(255, 215, 0, 0.8);
+  width: 12px;
+  box-shadow: 0 0 4px rgba(255, 215, 0, 0.4);
+}
+
+.compact .messageIndicators {
+  gap: 3px;
+}
+
+.compact .indicator {
+  width: 3px;
+  height: 3px;
+  border-radius: 1.5px;
+}
+
+.compact .indicator.active {
+  width: 8px;
+}
+
+.messageContainer {
+  overflow: hidden;
+  height: 22px; /* Fixed height prevents layout shift */
+  display: flex;
+  align-items: center;
+  position: relative;
+  width: 100%;
+}
+
+.compact .messageContainer {
+  height: 20px;
+}
+
+.scrollingText {
+  display: inline-block;
+  animation: marquee 18s linear infinite;
   white-space: nowrap;
+  will-change: transform;
+  /* Ensure the text always animates even if it might fit */
+  min-width: 150%;
+}
+
+/* Enhanced animation for dynamic messages */
+.dynamicMessage {
+  animation: marqueeEnhanced 18s linear infinite;
+}
+
+@keyframes marqueeEnhanced {
+  0% {
+    transform: translateX(100%);
+    opacity: 0.8;
+  }
+  5% {
+    opacity: 1;
+  }
+  95% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(-100%);
+    opacity: 0.8;
+  }
+}
+
+/* Pause scrolling on hover for better readability */
+.messageContainer:hover .scrollingText {
+  animation-play-state: paused;
+}
+
+.messageText {
+  font-size: 0.95rem;
+  line-height: 22px;
+  color: #f5f5f5;
+  margin: 0;
+  white-space: nowrap;
+  display: inline-block;
+  /* Add extra spacing to create gap between animation loops */
+  padding-right: 200px;
+  font-weight: 600;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+  letter-spacing: 0.02em;
+  /* Add gradient text effect for emojis and key numbers */
+  background: linear-gradient(90deg, #f5f5f5 0%, #FFD700 15%, #f5f5f5 30%, #f5f5f5 100%);
+  background-size: 400% 100%;
+  background-clip: text;
+  -webkit-background-clip: text;
+  animation: textShimmer 8s ease-in-out infinite;
+}
+
+@keyframes textShimmer {
+  0%, 100% { background-position: 100% 0; }
+  50% { background-position: 0% 0; }
+}
+
+/* Smooth marquee animation - text moves continuously from right to left */
+@keyframes marquee {
+  0% {
+    /* Start completely off-screen to the right */
+    transform: translateX(100%);
+  }
+  100% {
+    /* End completely off-screen to the left (text width + padding) */
+    transform: translateX(-100%);
+  }
+}
+
+.compact .messageText {
+  font-size: 0.85rem;
+  line-height: 20px;
+}
+
+/* Progress indicator removed - using simple marquee */
+
+/* Controls section */
+.controlsSection {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+}
+
+.compact .controlsSection {
+  gap: 8px;
+}
+
+/* Learn More button */
+.learnMore {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #FFD700;
+  font-size: 0.9rem;
+  font-weight: 700;
+  white-space: nowrap;
+  opacity: 0.95;
+  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  letter-spacing: 0.01em;
 }
 
 .compact .learnMore {
-  font-size: 0.7rem;
+  font-size: 0.75rem;
+}
+
+.banner:hover .learnMore {
+  opacity: 1;
+  transform: translateX(-2px);
 }
 
 .arrow {
-  color: #FFD700;
-  font-weight: bold;
-  font-size: 0.9rem;
-  transform: translateX(0);
   transition: transform 0.2s ease;
+  font-weight: bold;
 }
 
-.compact .arrow {
-  font-size: 0.8rem;
-}
-
-.bannerContent:hover .arrow {
+.banner:hover .arrow {
   transform: translateX(2px);
 }
 
-.progressIndicator {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  height: 2px;
-  width: 100%;
-  background-color: rgba(255, 215, 0, 0.2);
-  overflow: hidden;
-}
+/* Navigation controls removed - using simple marquee */
 
-.progressBar {
-  height: 100%;
-  width: 100%;
-  background: linear-gradient(90deg, transparent 0%, #FFD700 50%, transparent 100%);
-  animation: progressSlide 8s linear infinite;
-  transform: translateX(-100%);
-}
-
-@keyframes progressSlide {
-  0% { transform: translateX(-100%); }
-  100% { transform: translateX(100%); }
-}
-
-/* Responsive Design */
-@media (max-width: 480px) {
-  .bannerContent {
-    padding: var(--space-xs) var(--space-sm);
+/* Responsive design */
+@media (max-width: 768px) {
+  .banner {
+    margin: var(--space-xs) 0;
   }
   
-  .message {
+  .content {
+    padding: 10px 12px;
+    gap: 10px;
+  }
+  
+  .messageText {
     font-size: 0.85rem;
   }
   
-  .compact .message {
-    font-size: 0.75rem;
+  .controlsSection {
+    gap: 6px;
+  }
+}
+
+@media (max-width: 480px) {
+  .banner {
+    border-radius: 0;
+    border-left: none;
+    border-right: none;
   }
   
-  .actionIndicator {
-    display: none; /* Hide on very small screens to save space */
+  .content {
+    padding: 8px 10px;
+    gap: 8px;
+  }
+  
+  .messageText {
+    font-size: 0.8rem;
+    line-height: 20px;
+  }
+  
+  .learnMore {
+    font-size: 0.75rem;
   }
 }
 
 @media (max-width: 320px) {
-  .fundIcon {
-    font-size: 1.25rem;
-  }
-  
-  .compact .fundIcon {
+  .shieldEmoji {
     font-size: 1rem;
   }
   
-  .message {
-    font-size: 0.8rem;
-    padding-right: var(--space-lg);
-  }
-  
-  .compact .message {
-    font-size: 0.7rem;
-    padding-right: var(--space-md);
+  .messageText {
+    font-size: 0.75rem;
   }
 }
 
-/* Accessibility */
+/* Accessibility - Only disable non-essential animations */
 @media (prefers-reduced-motion: reduce) {
-  .messageScroller {
-    transition: none;
-  }
-  
-  .progressBar {
+  .shieldEmoji {
     animation: none;
   }
   
-  .iconGlow {
-    animation: none;
+  .banner,
+  .arrow,
+  .learnMore {
+    transition: none !important;
+  }
+  
+  /* For reduced motion, use a slower, less jarring scroll */
+  .scrollingText {
+    animation: marqueeReduced 25s linear infinite;
+  }
+}
+
+/* Alternative animation for reduced motion users - slower and less intense */
+@keyframes marqueeReduced {
+  0% {
+    transform: translateX(50%);
+  }
+  100% {
+    transform: translateX(-50%);
   }
 }
 
 /* High contrast mode support */
 @media (prefers-contrast: high) {
-  .bannerContainer {
+  .banner {
     border: 2px solid #FFD700;
     background: #000;
   }
   
-  .message {
+  .messageText {
     color: #fff;
+    font-weight: 500;
   }
   
   .learnMore,
   .arrow {
     color: #FFD700;
+    font-weight: 700;
   }
 }

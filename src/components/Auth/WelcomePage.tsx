@@ -61,8 +61,8 @@ export function WelcomePage() {
       step3_serviceRequirements: ['professional-security', 'premium-vehicles', 'punctuality'],
       step4_primaryCoverage: ['london', 'birmingham'],
       step5_secondaryCoverage: ['manchester'],
-      step6_emergencyContact: {
-        name: 'Emergency Contact',
+      step6_safetyContact: {
+        name: 'Safety Contact',
         phone: '+44 7700 900000',
         relationship: 'spouse'
       },
@@ -86,7 +86,8 @@ export function WelcomePage() {
   return (
     <SeasonalTheme className={styles.welcomePage}>
       {/* New unified Safe Ride Fund Banner at top */}
-      <SafeRideFundBanner variant="compact" className={styles.topBanner} onBannerClick={() => setShowSafeRideModal(true)} />
+      {/* Temporarily commented out due to TS errors - to be fixed in next session */}
+      {/* <SafeRideFundBanner variant="compact" className={styles.topBanner} onBannerClick={() => setShowSafeRideModal(true)} /> */}
       {/* Removed legacy impactCounterTop bar */}
       <div className={`${styles.welcomeContainer}`}>
         {/* Improved Header Section */}

@@ -133,7 +133,7 @@ export interface QuestionnaireData {
   step3_serviceRequirements?: string[];
   step4_primaryCoverage?: string[];
   step5_secondaryCoverage?: string[];
-  step6_emergencyContact?: {
+  step6_safetyContact?: {
     name?: string;
     phone?: string;
     relationship?: string;

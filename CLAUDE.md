@@ -75,7 +75,7 @@ Includes automated hooks system and AI task management:
 src/
 ├── App.tsx                     - Main router with view switching
 ├── contexts/AppContext.tsx     - Global state management
-├── types/index.ts              - TypeScript interfaces (293 lines)
+├── types/index.ts              - TypeScript interfaces (336 lines)
 ├── components/
 │   ├── Auth/                   - Authentication flow
 │   ├── Questionnaire/          - 9-step onboarding system  
@@ -226,4 +226,4 @@ Ensure CSS Module imports use correct syntax: `import styles from './Component.m
 - Types: Centralized in `/src/types/index.ts`
 - Data: Static data in `/src/data/`
 
-Last updated: 2025-09-12T15:00:51.238Z
+Last updated: 2025-09-12T17:27:00.000Z

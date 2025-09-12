@@ -248,7 +248,7 @@ Your privacy is important to us. All questions are optional and you can use "Pre
     }
 
     // Selection count validations for checkboxes
-    if (step.type === 'checkbox' && hasValue) {
+    if (step.type === 'checkbox') {
       if (validation.minSelections && selectionCount < validation.minSelections) {
         newErrors.push(`Please select at least ${validation.minSelections} option${validation.minSelections > 1 ? 's' : ''}`);
       }
@@ -498,12 +498,27 @@ Your privacy is important to us. All questions are optional and you can use "Pre
 
   // Check if we can proceed to next step
   const canProceed = () => {
+    const { validation } = step;
+    
     if (step.type === 'checkbox') {
-      return selectedValues.length > 0;
+      const hasMinSelections = !validation.minSelections || selectedValues.length >= validation.minSelections;
+      const hasMaxSelections = !validation.maxSelections || selectedValues.length <= validation.maxSelections;
+      const hasValue = selectedValues.length > 0;
+      
+      if (validation.required) {
+        return hasValue && hasMinSelections && hasMaxSelections;
+      } else {
+        return !hasValue || (hasMinSelections && hasMaxSelections);
+      }
     } else if (step.type === 'radio' || step.type === 'select') {
-      return selectedValue.length > 0;
+      return validation.required ? selectedValue.length > 0 : true;
     } else {
-      return textValue.trim().length > 0;
+      const hasValue = textValue.trim().length > 0;
+      if (validation.required) {
+        return hasValue;
+      } else {
+        return true;
+      }
     }
   };
 

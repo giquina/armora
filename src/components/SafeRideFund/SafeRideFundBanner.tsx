@@ -1,96 +1,97 @@
+// SafeRideFund Banner with CSS Marquee Animation
+// File: src/components/SafeRideFund/SafeRideFundBanner.tsx
+
 import React, { useState, useEffect, useRef } from 'react';
 import styles from './SafeRideFundBanner.module.css';
 
 interface SafeRideFundBannerProps {
+  variant?: 'full' | 'compact';
   className?: string;
   onBannerClick?: () => void;
-  variant?: 'full' | 'compact';
 }
 
-const getTimeBasedMessages = () => {
-  const hour = new Date().getHours();
-  const isWeekend = [0, 6].includes(new Date().getDay());
-  
-  if (isWeekend) {
-    return [
-      "💛 Weekend support active for vulnerable communities",
-      "🚗 Ensuring everyone can travel safely, regardless of income", 
-      "🤝 Community solidarity in action every day of the week"
-    ];
-  }
-  
-  if (hour >= 18 || hour <= 6) {
-    return [
-      "🌙 Safe evening transport for vulnerable individuals",
-      "🛡️ No one left stranded due to financial constraints",
-      "💪 Supporting those who need transport to safety"
-    ];
-  }
-  
-  return [
-    "🛡️ Helping vulnerable communities access work and services",
-    "🤝 Your rides fund transport for those in need",
-    "📍 Supporting people getting to essential appointments"
-  ];
-};
-
-const bannerMessages = [
-  "🛡️ 3,773 safe rides provided for vulnerable communities since January 2024",
-  "💛 Every Armora membership contributes to transport assistance for those who cannot afford it",
-  "🤝 Partnering with women's refuges, community centers, and support organizations",
-  "📍 Active across London, Manchester, Birmingham, and expanding nationwide", 
-  "✨ 12 rides funded today for individuals accessing support services",
-  "🚗 Together we're ensuring transport isn't a barrier to safety and support",
-  "👥 Join 1,247 members making a difference in vulnerable communities",
-  "💪 Your journey funds someone else's path to safety",
-  "🏠 Supporting women's shelters and domestic violence refuges",
-  "🤲 Transport assistance for low-income families",
-  "📈 23% more people helped access services this month",
-  "🎯 Working with 23 community organizations across the UK",
-  "💛 Community-funded safe rides for those without options",
-  "🛡️ Providing dignity through reliable, safe transport",
-  "👨‍👩‍👧‍👦 Supporting families in temporary accommodation",
-  "🌟 Bridging the transport gap for vulnerable communities",
-  "💝 Every ride you book helps someone in need travel safely"
-];
-
 const SafeRideFundBanner: React.FC<SafeRideFundBannerProps> = ({ 
-  className = '', 
-  onBannerClick,
-  variant = 'full' 
+  variant = 'full',
+  className = '',
+  onBannerClick 
 }) => {
+  // Rotating announcement messages for dynamic content
+  const announcementMessages = [
+    "🛡️ Every membership supports safe transport for vulnerable communities",
+    "📊 3,741+ safe rides funded • 834 people reached safety this month",
+    "🤝 Partnering with Crisis UK, Women's Aid, Mind Mental Health & more",
+    "🚗 £4 from each membership directly funds emergency transport assistance",
+    "⚡ 24/7 availability • Average 12min response time • 98% success rate"
+  ];
+
   const [currentMessageIndex, setCurrentMessageIndex] = useState(0);
-  const [messages, setMessages] = useState<string[]>([]);
+  const [isHovered, setIsHovered] = useState(false);
   const [isPaused, setIsPaused] = useState(false);
-  const scrollRef = useRef<HTMLDivElement>(null);
-  const animationRef = useRef<number | null>(null);
+  const [progress, setProgress] = useState(0);
+  const [showControls, setShowControls] = useState(false);
 
+  const progressRef = useRef<number>(0);
+  const intervalRef = useRef<NodeJS.Timeout | null>(null);
+
+  // Rotate messages every 20 seconds
   useEffect(() => {
-    // Combine time-based and general messages
-    const timeBasedMessages = getTimeBasedMessages();
-    const combinedMessages = [...timeBasedMessages, ...bannerMessages];
-    
-    // Shuffle messages for variety
-    const shuffledMessages = [...combinedMessages].sort(() => Math.random() - 0.5);
-    setMessages(shuffledMessages);
-  }, []);
+    if (!isPaused && !isHovered) {
+      const messageRotationInterval = setInterval(() => {
+        setCurrentMessageIndex((prev) => (prev + 1) % announcementMessages.length);
+        progressRef.current = 0;
+        setProgress(0);
+      }, 20000); // 20 seconds per message
 
+      return () => clearInterval(messageRotationInterval);
+    }
+  }, [announcementMessages.length, isPaused, isHovered]);
+
+  // Progress animation
   useEffect(() => {
-    if (messages.length === 0 || isPaused) return;
+    if (!isPaused && !isHovered) {
+      const progressInterval = setInterval(() => {
+        progressRef.current += 0.5; // 0.5% every 100ms = 100% in 20 seconds
+        setProgress(progressRef.current);
+        if (progressRef.current >= 100) {
+          progressRef.current = 0;
+        }
+      }, 100);
 
-    const interval = setInterval(() => {
-      setCurrentMessageIndex((prev) => (prev + 1) % messages.length);
-    }, 8000); // 8 seconds per message
-
-    return () => clearInterval(interval);
-  }, [messages.length, isPaused]);
+      intervalRef.current = progressInterval;
+      return () => clearInterval(progressInterval);
+    }
+  }, [isPaused, isHovered]);
 
   const handleMouseEnter = () => {
-    setIsPaused(true);
+    setIsHovered(true);
+    setShowControls(true);
   };
 
   const handleMouseLeave = () => {
-    setIsPaused(false);
+    setIsHovered(false);
+    setShowControls(false);
+  };
+
+  const togglePause = () => {
+    setIsPaused(!isPaused);
+  };
+
+  const goToNext = () => {
+    setCurrentMessageIndex((prev) => (prev + 1) % announcementMessages.length);
+    progressRef.current = 0;
+    setProgress(0);
+  };
+
+  const goToPrevious = () => {
+    setCurrentMessageIndex((prev) => prev === 0 ? announcementMessages.length - 1 : prev - 1);
+    progressRef.current = 0;
+    setProgress(0);
+  };
+
+  const goToMessage = (index: number) => {
+    setCurrentMessageIndex(index);
+    progressRef.current = 0;
+    setProgress(0);
   };
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
@@ -100,61 +101,117 @@ const SafeRideFundBanner: React.FC<SafeRideFundBannerProps> = ({
     }
   };
 
-  if (messages.length === 0) return null;
-
   return (
     <div 
-      className={`${styles.bannerContainer} ${styles[variant]} ${className}`}
+      className={`${styles.banner} ${styles[variant]} ${className}`}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
+      onClick={onBannerClick}
+      onKeyDown={handleKeyDown}
+      role="button"
+      tabIndex={onBannerClick ? 0 : -1}
+      aria-label="Safe Ride Fund information - click to learn more"
+      aria-live="polite"
     >
-      <div 
-        className={styles.bannerContent}
-        onClick={onBannerClick}
-        onKeyDown={handleKeyDown}
-        tabIndex={onBannerClick ? 0 : -1}
-        role={onBannerClick ? "button" : "status"}
-        aria-label={onBannerClick ? "Learn more about Safe Ride Fund" : undefined}
-        aria-live="polite"
-        aria-atomic="true"
-      >
-        <div className={styles.iconContainer}>
-          <span className={styles.fundIcon}>🛡️</span>
-        </div>
-        
-        <div className={styles.messageContainer} ref={scrollRef}>
-          <div 
-            className={`${styles.messageScroller} ${isPaused ? styles.paused : ''}`}
-            style={{ 
-              transform: `translateX(-${currentMessageIndex * 100}%)`,
-              transition: isPaused ? 'none' : 'transform 0.5s ease-in-out'
-            }}
-          >
-            {messages.map((message, index) => (
-              <div key={index} className={styles.message}>
-                {message}
-              </div>
-            ))}
+      <div className={styles.content}>
+        {/* Static shield icon */}
+        <div className={styles.iconSection}>
+          <div className={styles.shieldIcon}>
+            <span className={styles.shieldEmoji}>🛡️</span>
           </div>
         </div>
 
-        {onBannerClick && (
-          <div className={styles.actionIndicator}>
-            <span className={styles.learnMore}>Learn More</span>
-            <span className={styles.arrow}>→</span>
+        {/* Dynamic scrolling message section */}
+        <div className={styles.messageSection}>
+          <div className={styles.messageContainer}>
+            <div 
+              className={`${styles.scrollingText} ${styles.dynamicMessage}`}
+              key={currentMessageIndex} // Force re-animation on message change
+            >
+              <p className={styles.messageText}>
+                {announcementMessages[currentMessageIndex]}
+              </p>
+            </div>
           </div>
-        )}
+          
+          {/* Progress bar */}
+          <div className={styles.progressContainer}>
+            <div 
+              className={styles.progressBar}
+              style={{ 
+                width: `${progress}%`,
+                transition: isPaused || isHovered ? 'none' : 'width 0.1s linear'
+              }}
+            />
+          </div>
+
+          {/* Message indicator dots */}
+          <div className={styles.messageIndicators}>
+            {announcementMessages.map((_, index) => (
+              <span 
+                key={index}
+                className={`${styles.indicator} ${index === currentMessageIndex ? styles.active : ''}`}
+              />
+            ))}
+          </div>
+
+          {/* Show controls on hover or when paused */}
+          {showControls && (
+            <div className={styles.navigationControls}>
+              <button 
+                className={styles.controlButton}
+                onClick={goToPrevious}
+                aria-label="Previous message"
+              >
+                ‹
+              </button>
+
+              <button 
+                className={styles.controlButton}
+                onClick={togglePause}
+                aria-label={isPaused ? "Resume rotation" : "Pause rotation"}
+              >
+                {isPaused ? '▶' : '❚❚'}
+              </button>
+
+              <button 
+                className={styles.controlButton}
+                onClick={goToNext}
+                aria-label="Next message"
+              >
+                ›
+              </button>
+            </div>
+          )}
+        </div>
+
+        {/* Learn More button */}
+        <div className={styles.controlsSection}>
+          {onBannerClick && (
+            <div className={styles.learnMore}>
+              <span>Learn More</span>
+              <span className={styles.arrow}>→</span>
+            </div>
+          )}
+        </div>
       </div>
-      
-      <div className={styles.progressIndicator}>
-        <div 
-          className={styles.progressBar}
-          style={{ 
-            animationDuration: isPaused ? 'infinite' : '8s',
-            animationPlayState: isPaused ? 'paused' : 'running'
-          }}
-        />
-      </div>
+
+      {/* Dot navigation (like Instagram stories) */}
+      {announcementMessages.length > 1 && variant === 'full' && (
+        <div className={styles.dotNavigation}>
+          {announcementMessages.map((_, index) => (
+            <button
+              key={index}
+              className={`${styles.dot} ${index === currentMessageIndex ? styles.activeDot : ''}`}
+              onClick={(e) => { 
+                e.stopPropagation(); 
+                goToMessage(index);
+              }}
+              aria-label={`Go to message ${index + 1} of ${announcementMessages.length}`}
+            />
+          ))}
+        </div>
+      )}
     </div>
   );
 };

@@ -189,9 +189,9 @@ export const questionnaireSteps: QuestionnaireStep[] = [
         examples: "*Choose this if you need intensive transport for specific time periods."
       },
       {
-        id: "emergency",
+        id: "unpredictable",
         label: "❓ Are your transport needs unpredictable?",
-        value: "emergency",
+        value: "unpredictable",
         description: "Is your schedule too variable to predict? Last-minute meetings or spontaneous travel requirements?",
         examples: "*Choose this if you can't predict your transport frequency."
       },
@@ -327,11 +327,11 @@ export const questionnaireSteps: QuestionnaireStep[] = [
         examples: "*Select this if you want full digital visibility of your transport."
       },
       {
-        id: "emergency_response",
-        label: "🆘 Do you need emergency response capability?",
-        value: "emergency_response",
-        description: "Would you feel better knowing your transport team can handle unexpected situations or emergencies?",
-        examples: "*Select this if you want drivers trained in emergency protocols."
+        id: "trained_professionals",
+        label: "🛡️ Do you prefer highly trained professional drivers?",
+        value: "trained_professionals",
+        description: "Would you feel more confident with drivers who have advanced professional training and situational awareness?",
+        examples: "*Select this if you want drivers with enhanced professional qualifications."
       },
       {
         id: "payment_flexibility",
@@ -355,8 +355,8 @@ export const questionnaireSteps: QuestionnaireStep[] = [
         examples: "*Our specialists will provide adaptable service recommendations based on your booking patterns while maintaining complete confidentiality about your specific requirements."
       }
     ],
-    validation: { required: true, minSelections: 2, maxSelections: 5, errorMessage: "Please select 2-5 requirements" },
-    helpText: "Pick what matters most to you. Every detail helps us create your perfect transport experience.",
+    validation: { required: true, minSelections: 1, maxSelections: 5, errorMessage: "Please select 1-5 requirements" },
+    helpText: "Pick what matters most to you (select 1-5 options). Every detail helps us create your perfect transport experience.",
     stepDescription: "Choose the security and service features that matter most to you. We'll use your selections to recommend the most suitable Armora service level and match you with appropriately trained drivers."
   },
   {
@@ -546,22 +546,22 @@ export const questionnaireSteps: QuestionnaireStep[] = [
   },
   {
     id: 6,
-    title: "Emergency Contact",
+    title: "Safety Contact",
     subtitle: "For your safety and peace of mind",
     question: "Who should we contact if needed? (This is optional but helps us serve you better)",
     type: "checkbox",
     options: [
       {
-        id: "primary_emergency_contact",
+        id: "primary_safety_contact",
         label: "👪 Do you have someone who worries about your safety?",
-        value: "primary_emergency_contact",
+        value: "primary_safety_contact",
         description: "Is there someone special who likes to know you've arrived safely? A partner, family member, or assistant who coordinates your life?",
-        examples: "*Provide their details if you'd like us to keep them informed in emergencies."
+        examples: "*Provide their details if you'd like us to keep them informed for safety coordination."
       },
       {
-        id: "business_emergency_contact",
+        id: "business_safety_contact",
         label: "🏢 Does your company have security protocols?",
-        value: "business_emergency_contact",
+        value: "business_safety_contact",
         description: "Does your organization have specific procedures we should follow? A security office or HR department we should coordinate with?",
         examples: "*Provide company contacts if corporate protocols apply to you."
       },
@@ -569,48 +569,48 @@ export const questionnaireSteps: QuestionnaireStep[] = [
         id: "medical_alert_information",
         label: "🏥 Medical Alert Information",
         value: "medical_alert_information",
-        description: "Important medical information for emergency response",
-        examples: "*Critical medical alerts (allergies, medical devices, mobility assistance needs), preferred hospital, or medical insurance information for emergency medical situations."
+        description: "Important medical information for safety coordination",
+        examples: "*Critical medical alerts (allergies, medical devices, mobility assistance needs), preferred hospital, or medical insurance information for safety coordination."
       },
       {
         id: "security_coordination",
         label: "🛡️ Security Team Coordination",
         value: "security_coordination",
         description: "Corporate security or protection team contacts",
-        examples: "*Company security office, personal protection team, or designated security coordinator who manages your security protocols and emergency response procedures."
+        examples: "*Company security office, personal protection team, or designated security coordinator who manages your security protocols and safety procedures."
       },
       {
         id: "communication_preferences",
-        label: "📞 Emergency Communication Preferences",
+        label: "📞 Priority Communication Preferences",
         value: "communication_preferences",
-        description: "How you prefer to be contacted during emergencies",
-        examples: "*Preferred contact methods (phone, text, email), emergency communication protocols, safe words for verification, or specific instructions for emergency situations."
+        description: "How you prefer to be contacted for urgent matters",
+        examples: "*Preferred contact methods (phone, text, email), priority communication protocols, safe words for verification, or specific instructions for urgent situations."
       },
       {
         id: "family_notification",
         label: "👨‍👩‍👧‍👦 Family Notification Protocol",
         value: "family_notification",
         description: "Family members who should be informed of incidents",
-        examples: "*Immediate family members, their contact details, notification preferences, and any specific family communication protocols for emergency situations."
+        examples: "*Immediate family members, their contact details, notification preferences, and any specific family communication protocols for safety coordination."
       },
       {
-        id: "no_emergency_contact",
-        label: "❌ No Emergency Contact Required",
-        value: "no_emergency_contact",
-        description: "I prefer not to provide emergency contact information",
-        examples: "*Skip emergency contact setup. Note: This may limit our ability to provide immediate assistance or coordination during emergency situations."
+        id: "no_safety_contact",
+        label: "❌ No Safety Contact Required",
+        value: "no_safety_contact",
+        description: "I prefer not to provide safety contact information",
+        examples: "*Skip safety contact setup. Note: This may limit our ability to provide immediate assistance or coordination during urgent situations."
       },
       {
         id: "prefer_not_to_say",
         label: "❓ Prefer not to say",
         value: "prefer_not_to_say",
         description: "That's perfectly fine. We'll adapt to your needs as we learn what works best for you.",
-        examples: "*Our specialists will use standard emergency protocols while maintaining complete confidentiality about your personal contacts and emergency preferences."
+        examples: "*Our specialists will use standard safety protocols while maintaining complete confidentiality about your personal contacts and safety preferences."
       }
     ],
-    validation: { required: false, minSelections: 0, maxSelections: 6, errorMessage: "Please select your emergency contact preferences" },
+    validation: { required: false, minSelections: 0, maxSelections: 6, errorMessage: "Please select your safety contact preferences" },
     helpText: "These details help us take better care of you. All information stays completely private.",
-    stepDescription: "Choose how we should handle emergency situations and who to contact if needed. This helps us provide appropriate emergency response coordination while respecting your privacy preferences."
+    stepDescription: "Choose how we should handle urgent situations and who to contact if needed. This helps us provide appropriate safety coordination while respecting your privacy preferences."
   },
   {
     id: 7,
@@ -694,7 +694,7 @@ export const questionnaireSteps: QuestionnaireStep[] = [
         label: "📱 Technology Requirements",
         value: "technology_requirements",
         description: "Communication and device needs",
-        examples: "*Mobile Signal Boosters, Multiple Device Charging, Satellite Communication, Emergency Communication Backup, Real-Time Tracking Privacy, Communication Blackout Periods"
+        examples: "*Mobile Signal Boosters, Multiple Device Charging, Satellite Communication, Priority Communication Backup, Real-Time Tracking Privacy, Communication Blackout Periods"
       },
       {
         id: "no_special_requirements",
@@ -779,25 +779,25 @@ export const questionnaireSteps: QuestionnaireStep[] = [
         examples: "*Business hours only (9:00-17:00 GMT), extended hours (8:00-20:00), custom hours, or 24/7 availability for emergencies. Includes time zone considerations for international clients."
       },
       {
-        id: "emergency_override",
-        label: "🆘 Emergency Communication Protocol",
-        value: "emergency_override",
-        description: "How to handle urgent security situations",
-        examples: "*Emergency situations override all preferences with immediate contact via all available methods. Security alerts, driver safety updates, and urgent coordination delivered immediately regardless of timing preferences."
+        id: "priority_alerts",
+        label: "⚡ Priority Alert Communications",
+        value: "priority_alerts",
+        description: "How to handle urgent transport coordination",
+        examples: "*Important transport situations may override preferences for immediate contact via available methods. Driver safety updates, schedule changes, and urgent coordination delivered immediately for service continuity."
       },
       {
         id: "privacy_minimal",
         label: "🔕 Privacy & Minimal Contact",
         value: "privacy_minimal",
         description: "Essential communications only with maximum privacy",
-        examples: "*Driver arrival notifications and emergency communications only. Discrete, minimal interruption approach with strong privacy protection. Best for privacy-focused users and confidential transport needs."
+        examples: "*Driver arrival notifications and priority communications only. Discrete, minimal interruption approach with strong privacy protection. Best for privacy-focused users and confidential transport needs."
       },
       {
         id: "no_communications",
         label: "❌ No Non-Essential Communications",
         value: "no_communications",
         description: "Driver coordination only, no booking communications",
-        examples: "*Direct driver coordination only. No booking confirmations, updates, or administrative communications. Emergency alerts still delivered for safety and security purposes."
+        examples: "*Direct driver coordination only. No booking confirmations, updates, or administrative communications. Priority alerts still delivered for safety and security purposes."
       },
       {
         id: "prefer_not_to_say",
@@ -809,7 +809,7 @@ export const questionnaireSteps: QuestionnaireStep[] = [
     ],
     validation: { required: true, minSelections: 1, maxSelections: 8, errorMessage: "Please select 1-8 communication preferences" },
     helpText: "How would you like us to stay in touch? We'll only contact you when we need to.",
-    stepDescription: "Choose how you'd like to receive transport communications, from booking confirmations to emergency alerts. Emergency situations will override preferences to ensure your safety and security coordination."
+    stepDescription: "Choose how you'd like to receive transport communications, from booking confirmations to priority alerts. Urgent situations may override preferences to ensure your safety and security coordination."
   },
   {
     id: 9,
@@ -857,7 +857,7 @@ export const questionnaireSteps: QuestionnaireStep[] = [
         },
         {
           title: "🔒 SECURITY & REQUIREMENTS",
-          fields: ["emergencyContact", "specialRequirements", "communicationPreferences"]
+          fields: ["safetyContact", "specialRequirements", "communicationPreferences"]
         }
       ]
     },
@@ -1010,7 +1010,7 @@ export const serviceData = {
       "Advanced security protocols", 
       "Route security planning",
       "Counter-surveillance awareness",
-      "Emergency response coordination",
+      "Safety coordination protocols",
       "First aid trained drivers"
     ],
     price: "£65/hour",

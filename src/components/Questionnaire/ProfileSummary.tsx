@@ -22,7 +22,7 @@ export default function ProfileSummaryComponent({ userResponses, userName }: Pro
   const serviceRequirements = userResponses?.step3 || [];
   const primaryAreas = userResponses?.step4 || [];
   const secondaryAreas = userResponses?.step5 || [];
-  const emergencyContact = userResponses?.step6 || [];
+  const safetyContact = userResponses?.step6 || [];
   const specialRequirements = userResponses?.step7 || [];
 
   // Profile analysis functions
@@ -267,14 +267,14 @@ export default function ProfileSummaryComponent({ userResponses, userName }: Pro
         </div>
       </section>
 
-      {(emergencyContact.length > 0 || specialRequirements.length > 0) && (
+      {(safetyContact.length > 0 || specialRequirements.length > 0) && (
         <section className={styles.profileSection}>
           <div className={styles.sectionHeader}>
             <span className={styles.sectionIcon}>⚙️</span>
             <h3>Additional Requirements</h3>
           </div>
           <p className={styles.sectionContent}>
-            We've noted your specific requirements for emergency coordination and specialized accommodations to ensure optimal service delivery.
+            We've noted your specific requirements for safety coordination and specialized accommodations to ensure optimal service delivery.
           </p>
         </section>
       )}

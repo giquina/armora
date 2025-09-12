@@ -5,20 +5,21 @@
   right: 0;
   top: 50%;
   transform: translateY(-50%);
-  z-index: 100;
+  z-index: 100001; /* Higher than all other elements including dev buttons */
   pointer-events: none;
 }
 
 .ctaButton {
   background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
   color: #1a1a2e;
-  border: none;
+  border: 1px solid rgba(255, 215, 0, 0.5); /* Add subtle border for better definition */
+  border-right: none; /* No border on the right edge */
   border-radius: 12px 0 0 12px;
   padding: 16px 12px;
   font-weight: 600;
   font-size: 0.9rem;
   cursor: pointer;
-  pointer-events: all;
+  pointer-events: all !important; /* Force clickable, override any conflicts */
   box-shadow: 
     -4px 0 10px rgba(0, 0, 0, 0.3),
     -2px 0 20px rgba(255, 215, 0, 0.4),
@@ -32,6 +33,8 @@
   align-items: center;
   justify-content: center;
   transform: rotate(180deg);
+  /* Ensure button extends fully to screen edge */
+  margin-right: -1px; /* Extend slightly beyond container edge */
 }
 
 .ctaText {
@@ -87,73 +90,66 @@
   }
 }
 
-/* Only use bottom position on very small mobile */
+/* Keep middle-right position on mobile screens */
 @media (max-width: 599px) {
   .ctaContainer {
     position: fixed;
-    bottom: 80px; /* Above auth buttons */
-    left: 50%;
-    right: auto;
-    top: auto;
-    transform: translateX(-50%);
-    width: calc(100vw - 32px);
-    max-width: 400px;
+    right: 0; /* Stay on right edge */
+    top: 50%; /* Keep in middle */
+    transform: translateY(-50%); /* Center vertically */
+    z-index: 100;
+    pointer-events: none;
   }
 
   .ctaButton {
-    writing-mode: horizontal-tb;
-    text-orientation: initial;
-    transform: none;
-    border-radius: 8px;
-    padding: 12px 20px;
-    width: 100%;
-    min-height: auto;
-    height: 48px;
-    font-size: 0.85rem;
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    transform: rotate(180deg);
+    border-radius: 8px 0 0 8px; /* Slightly smaller border radius on mobile */
+    padding: 12px 8px; /* Slightly smaller padding */
+    min-height: 120px; /* Smaller height on mobile */
+    font-size: 0.8rem;
+    pointer-events: all;
   }
 }
 
 @media (max-width: 599px) {
   .ctaButton:hover {
-    transform: scale(1.02);
+    transform: rotate(180deg) translateX(-3px); /* Smaller hover movement on mobile */
   }
 
   .ctaButton:active {
-    transform: scale(0.98);
+    transform: rotate(180deg) scale(0.95);
   }
 
   .ctaText {
     text-align: center;
   }
 
-  /* Mobile bounce animation */
+  /* Mobile bounce animation - keep vertical orientation */
   .ctaContainer:not(.reduced) .ctaButton {
-    animation: mobileBounce 5s infinite;
+    animation: mobileVerticalBounce 5s infinite;
   }
 
-  @keyframes mobileBounce {
-    0%, 95%, 100% { transform: none; }
-    97.5% { transform: scale(1.02); }
+  @keyframes mobileVerticalBounce {
+    0%, 95%, 100% { transform: rotate(180deg); }
+    97.5% { transform: rotate(180deg) scale(1.03); }
   }
 
   .reduced .ctaButton {
-    animation: mobileBounce 15s infinite;
+    animation: mobileVerticalBounce 15s infinite;
   }
 }
 
 /* Very small mobile screens */
 @media (max-width: 480px) {
-  .ctaContainer {
-    width: calc(100vw - 24px);
-  }
-
   .ctaButton {
-    font-size: 0.8rem;
-    padding: 10px 16px;
-    height: 44px;
+    font-size: 0.75rem;
+    padding: 10px 6px; /* Even smaller padding */
+    min-height: 100px; /* Smaller height on very small screens */
   }
 
   .ctaText {
-    font-size: 0.8rem;
+    font-size: 0.75rem;
   }
 }

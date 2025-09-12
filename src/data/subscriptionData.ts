@@ -41,7 +41,7 @@ export const subscriptionPlans: SubscriptionPlan[] = [
       'Luxury vehicle fleet access',
       'Advanced route planning',
       'Real-time tracking & updates',
-      '24/7 emergency support line',
+      '24/7 client support line',
       'Complimentary travel risk assessment',
       'First aid trained drivers',
       'SIA Close Protection Officers'

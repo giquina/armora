@@ -13,13 +13,19 @@ const SafeRideFundCTA: React.FC<SafeRideFundCTAProps> = ({ onClick }) => {
     if (viewed) {
       setHasViewedModal(true);
     }
+    console.log('🛡️ SafeRideFundCTA mounted, hasViewedModal:', !!viewed);
   }, []);
+
+  const handleClick = () => {
+    console.log('🛡️ SafeRideFundCTA clicked! Opening modal...');
+    onClick();
+  };
 
   return (
     <div className={`${styles.ctaContainer} ${hasViewedModal ? styles.reduced : ''}`}>
       <button
         className={styles.ctaButton}
-        onClick={onClick}
+        onClick={handleClick}
         aria-label="Learn about Safe Ride Fund impact"
       >
         <span className={styles.ctaText}>
