@@ -69,7 +69,7 @@ const SafeRideFundModal: React.FC<SafeRideFundModalProps> = ({ onClose }) => {
 
   useEffect(() => {
     const storyInterval = setInterval(() => {
-      setCurrentStoryIndex((prev) => (prev + 1) % successStories.length);
+      setCurrentStoryIndex((prev) => (prev + 1) % organizationTestimonials.length);
     }, 8000);
 
     return () => clearInterval(storyInterval);
@@ -160,11 +160,11 @@ const SafeRideFundModal: React.FC<SafeRideFundModalProps> = ({ onClose }) => {
                   </div>
                 </div>
                 <p className={styles.storyText}>
-                  "{successStories[currentStoryIndex].testimonial}"
+                  "{organizationTestimonials[currentStoryIndex].testimonial}"
                 </p>
                 <div className={styles.testimonialFooter}>
                   <span className={styles.storyImpact}>
-                    {successStories[currentStoryIndex].impact}
+                    {organizationTestimonials[currentStoryIndex].impact}
                   </span>
                   <span className={styles.impactStats}>
                     {organizationTestimonials[currentStoryIndex].stats}
@@ -172,7 +172,7 @@ const SafeRideFundModal: React.FC<SafeRideFundModalProps> = ({ onClose }) => {
                 </div>
               </div>
               <div className={styles.storyIndicators}>
-                {successStories.map((_, index) => (
+                {organizationTestimonials.map((_, index) => (
                   <button
                     key={index}
                     className={`${styles.indicator} ${index === currentStoryIndex ? styles.active : ''}`}

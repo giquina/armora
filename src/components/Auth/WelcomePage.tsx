@@ -8,7 +8,7 @@ import { ArmoraLogo } from '../UI/ArmoraLogo';
 import { CredentialsModal } from '../UI/CredentialsModal';
 import SafeRideFundCTA from '../SafeRideFund/SafeRideFundCTA';
 import SafeRideFundModal from '../SafeRideFund/SafeRideFundModal';
-import SafeRideFundBanner from '../SafeRideFund/SafeRideFundBanner';
+// import SafeRideFundBanner from '../SafeRideFund/SafeRideFundBanner';
 import styles from './WelcomePage.module.css';
 
 export function WelcomePage() {
