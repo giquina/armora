@@ -135,10 +135,12 @@ export function WelcomePage() {
           <div className={`${styles.features} ${showFeatures ? styles.featuresVisible : ''}`}>
             <div className={styles.feature} style={{ animationDelay: '0ms', '--delay': 0 } as React.CSSProperties}>
               <div className={styles.featureContent}>
-                <svg className={styles.featureLogo} viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M12 2L4 7V14C4 19 12 22 12 22S20 19 20 14V7L12 2Z" />
-                  <path d="M10 14L8 12L9.5 10.5L10 11L14.5 6.5L16 8L10 14Z" />
-                </svg>
+                <div className={styles.featureIconWrapper}>
+                  <svg className={styles.featureLogo} viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 2L4 7V14C4 19 12 22 12 22S20 19 20 14V7L12 2Z" />
+                    <path d="M10 14L8 12L9.5 10.5L10 11L14.5 6.5L16 8L10 14Z" />
+                  </svg>
+                </div>
                 <div className={styles.featureText}>
                   <h3 className={styles.featureTitleOnly}>Government-Licensed Security Cab Drivers</h3>
                   <p className={styles.featureSubtitle}>SIA-certified drivers with enhanced background screening</p>
@@ -148,12 +150,14 @@ export function WelcomePage() {
             
             <div className={styles.feature} style={{ animationDelay: '100ms', '--delay': 1 } as React.CSSProperties}>
               <div className={styles.featureContent}>
-                <svg className={styles.featureLogo} viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M18.92 6.01C18.72 5.42 18.16 5 17.5 5H6.5C5.84 5 5.28 5.42 5.08 6.01L3 12V20C3 20.55 3.45 21 4 21H5C5.55 21 6 20.55 6 20V19H18V20C18 20.55 18.45 21 19 21H20C20.55 21 21 20.55 21 20V12L18.92 6.01Z"/>
-                  <circle cx="7.5" cy="16.5" r="1.5"/>
-                  <circle cx="16.5" cy="16.5" r="1.5"/>
-                  <path d="M12 8L10 10L14 14L12 16" stroke="currentColor" strokeWidth="1" fill="none"/>
-                </svg>
+                <div className={styles.featureIconWrapper}>
+                  <svg className={styles.featureLogo} viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M18.92 6.01C18.72 5.42 18.16 5 17.5 5H6.5C5.84 5 5.28 5.42 5.08 6.01L3 12V20C3 20.55 3.45 21 4 21H5C5.55 21 6 20.55 6 20V19H18V20C18 20.55 18.45 21 19 21H20C20.55 21 21 20.55 21 20V12L18.92 6.01Z"/>
+                    <circle cx="7.5" cy="16.5" r="1.5"/>
+                    <circle cx="16.5" cy="16.5" r="1.5"/>
+                    <path d="M12 8L10 10L14 14L12 16" stroke="currentColor" strokeWidth="1" fill="none"/>
+                  </svg>
+                </div>
                 <div className={styles.featureText}>
                   <h3 className={styles.featureTitleOnly}>Secure Private Hire Transport</h3>
                   <p className={styles.featureSubtitle}>Licensed transport with enhanced safety protocols</p>
@@ -163,24 +167,28 @@ export function WelcomePage() {
             
             <div className={styles.feature} style={{ animationDelay: '200ms', '--delay': 2 } as React.CSSProperties}>
               <div className={styles.featureContent}>
-                <svg className={styles.featureLogo} viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M12 2L4 7V14C4 19 12 22 12 22S20 19 20 14V7L12 2Z" />
-                  <path d="M10 14L8 12L9.5 10.5L10 11L14.5 6.5L16 8L10 14Z" />
-                </svg>
+                <div className={styles.featureIconWrapper}>
+                  <svg className={styles.featureLogo} viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 2L4 7V14C4 19 12 22 12 22S20 19 20 14V7L12 2Z" />
+                    <path d="M10 14L8 12L9.5 10.5L10 11L14.5 6.5L16 8L10 14Z" />
+                  </svg>
+                </div>
                 <div className={styles.featureText}>
                   <h3 className={styles.featureTitleOnly}>Safe Ride Fund Initiative</h3>
-                  <p className={styles.featureSubtitle}>Your membership funds safe rides for those in danger</p>
+                  <p className={styles.featureSubtitle}>Your membership helps vulnerable communities access safe transport</p>
                 </div>
               </div>
             </div>
             
             <div className={styles.feature} style={{ animationDelay: '300ms', '--delay': 3 } as React.CSSProperties}>
               <div className={styles.featureContent}>
-                <svg className={styles.featureLogo} viewBox="0 0 24 24" fill="currentColor">
-                  <circle cx="12" cy="12" r="10"/>
-                  <polyline points="12,6 12,12 16,14" stroke="white" strokeWidth="2" fill="none"/>
-                  <text x="12" y="4" textAnchor="middle" fontSize="3" fill="currentColor">24/7</text>
-                </svg>
+                <div className={styles.featureIconWrapper}>
+                  <svg className={styles.featureLogo} viewBox="0 0 24 24" fill="currentColor">
+                    <circle cx="12" cy="12" r="10"/>
+                    <polyline points="12,6 12,12 16,14" stroke="white" strokeWidth="2" fill="none"/>
+                    <text x="12" y="4" textAnchor="middle" fontSize="3" fill="currentColor">24/7</text>
+                  </svg>
+                </div>
                 <div className={styles.featureText}>
                   <h3 className={styles.featureTitleOnly}>24/7 Protection Booking</h3>
                   <p className={styles.featureSubtitle}>Instant booking with security-conscious drivers available anytime</p>
@@ -190,10 +198,12 @@ export function WelcomePage() {
             
             <div className={styles.feature} style={{ animationDelay: '400ms', '--delay': 4 } as React.CSSProperties}>
               <div className={styles.featureContent}>
-                <svg className={styles.featureLogo} viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M5 16L3 7L7 10L12 6L17 10L21 7L19 16H5Z"/>
-                  <text x="12" y="20" textAnchor="middle" fontSize="3" fill="currentColor">VIP</text>
-                </svg>
+                <div className={styles.featureIconWrapper}>
+                  <svg className={styles.featureLogo} viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M5 16L3 7L7 10L12 6L17 10L21 7L19 16H5Z"/>
+                    <text x="12" y="20" textAnchor="middle" fontSize="3" fill="currentColor">VIP</text>
+                  </svg>
+                </div>
                 <div className={styles.featureText}>
                   <h3 className={styles.featureTitleOnly}>Discrete Professional Service</h3>
                   <p className={styles.featureSubtitle}>VIP-level confidential transport standards</p>
@@ -214,7 +224,7 @@ export function WelcomePage() {
               size="lg"
               isFullWidth
               onClick={() => handleNavigate('signup')}
-              className={styles.googleButton}
+              className={`${styles.googleButton} ${styles.authButtonBase}`}
             >
               <span className={styles.buttonContent}>
                 <GoogleIcon className={styles.authIcon} size={20} />
@@ -228,7 +238,7 @@ export function WelcomePage() {
                 variant="outline"
                 size="lg"
                 onClick={() => handleNavigate('login')}
-                className={styles.emailButton}
+                className={`${styles.emailButton} ${styles.authButtonBase}`}
               >
                 <span className={styles.buttonContent}>
                   <svg className={styles.authIcon} viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor">
@@ -243,7 +253,7 @@ export function WelcomePage() {
                 variant="outline"
                 size="lg"
                 onClick={() => handleNavigate('signup')}
-                className={styles.phoneButton}
+                className={`${styles.phoneButton} ${styles.authButtonBase}`}
               >
                 <span className={styles.buttonContent}>
                   <svg className={styles.authIcon} viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor">

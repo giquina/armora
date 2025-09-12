@@ -1,6 +1,18 @@
 /* ARMORA PREMIUM WELCOME PAGE - VIEWPORT OPTIMIZED */
 
-/* TOP IMPACT COUNTER BAR */
+/* TOP SAFE RIDE FUND BANNER */
+.topBanner {
+  width: 100%;
+  margin: 0;
+  border-radius: 0;
+  border-left: none;
+  border-right: none;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+/* LEGACY TOP IMPACT COUNTER BAR */
 .impactCounterTop {
   width: 100%;
   height: 48px;
@@ -516,9 +528,14 @@
     gap: clamp(10px, 2vh, 14px); /* Consistent mobile gap */
   }
   
-  .featureLogo {
+  .featureIconWrapper {
     width: 22px; /* Slightly smaller on mobile */
     height: 22px;
+  }
+  
+  .featureLogo {
+    width: 100%; /* Fill the wrapper */
+    height: 100%; /* Fill the wrapper */
   }
 }
 
@@ -610,11 +627,21 @@
   min-height: auto; /* Allow natural height for multi-line text */
 }
 
-.featureLogo {
-  width: 24px; /* Larger size for better visual balance */
+/* Standardized icon wrapper for consistent sizing */
+.featureIconWrapper {
+  width: 24px;
   height: 24px;
-  flex-shrink: 0; /* Prevent icon from shrinking */
-  margin-top: 1px; /* Better align with first line of text */
+  flex-shrink: 0;
+  margin-top: 1px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+}
+
+.featureLogo {
+  width: 100%; /* Fill the wrapper */
+  height: 100%; /* Fill the wrapper */
   color: var(--armora-gold);
   fill: var(--armora-gold);
   filter: drop-shadow(0 1px 2px rgba(255, 215, 0, 0.3));
@@ -743,9 +770,14 @@
     gap: 8px; /* Better spacing between icon and text for readability */
   }
   
-  .featureLogo {
+  .featureIconWrapper {
     width: 18px; /* Slightly smaller on very small screens */
     height: 18px;
+  }
+  
+  .featureLogo {
+    width: 100%; /* Fill the wrapper */
+    height: 100%; /* Fill the wrapper */
   }
 }
 
@@ -811,6 +843,21 @@
   margin: 0 auto; /* Center it */
 }
 
+/* AUTH BUTTON BASE STYLING */
+.authButtonBase {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px !important;
+  padding: 12px 16px !important;
+  gap: 0.5rem;
+  font-weight: 600;
+  font-size: clamp(0.95rem, 3.5vw, 1.05rem);
+  line-height: 1.2;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+}
+
 /* AUTHENTICATION BUTTONS */
 .buttonContent {
   display: flex;
@@ -819,6 +866,7 @@
   gap: clamp(0.5rem, 2vw, 0.75rem);
   font-weight: 600;
   font-size: clamp(0.95rem, 3.5vw, 1.05rem); /* Responsive text size */
+  width: 100%;
 }
 
 .authIcon {

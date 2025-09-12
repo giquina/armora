@@ -30,7 +30,7 @@ const safeRideFundData = {
     {
       id: 1,
       title: "Safe Late Night Transport",
-      story: "Thanks to the Safe Ride Fund, Sarah was able to leave a dangerous situation at 2 AM when she had no money for transport.",
+      story: "Thanks to the Safe Ride Fund, Sarah was able to reach a women's refuge at 2 AM when she had no money for transport.",
       date: "3 days ago",
       isAnonymous: true
     },

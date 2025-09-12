@@ -8,7 +8,7 @@ interface SafeRideFundModalProps {
 const successStories = [
   {
     id: 1,
-    story: "Thanks to the Safe Ride Fund, Sarah could leave a dangerous situation at 2 AM when she had no money for transport. The safe ride helped her reach a refuge where she could contact family.",
+    story: "Thanks to the Safe Ride Fund, Sarah could reach a women's refuge at 2 AM when she had no money for transport. The safe ride helped her get to safety where she could contact family.",
     impact: "Domestic violence survivor"
   },
   {
