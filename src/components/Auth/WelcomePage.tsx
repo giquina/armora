@@ -17,9 +17,6 @@ export function WelcomePage() {
   const [showContent, setShowContent] = useState(false);
   const [showCredentialsModal, setShowCredentialsModal] = useState(false);
   const [showSafeRideModal, setShowSafeRideModal] = useState(false);
-  const [isCounterVisible, setIsCounterVisible] = useState(
-    localStorage.getItem('hideImpactCounter') !== 'true'
-  );
   // Removed impact counter + rotating message specific states
 
   // Development environment detection - ALWAYS SHOW IN DEV
