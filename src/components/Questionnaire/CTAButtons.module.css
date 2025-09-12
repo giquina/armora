@@ -3,8 +3,8 @@
 .ctaContainer {
   display: flex;
   flex-direction: column;
-  gap: 16px;
-  padding: 20px 8px; /* Improved mobile width with adequate margins */
+  gap: clamp(12px, 3vh, 20px); /* Responsive container gap */
+  padding: clamp(16px, 4vh, 24px) clamp(12px, 3vw, 20px); /* Better responsive padding */
   background: linear-gradient(180deg, rgba(26, 26, 46, 0.95) 0%, #1a1a2e 100%);
   /* Solid gold lines for the bar container */
   border-top: var(--armora-gold-dotted);
@@ -24,8 +24,8 @@
 }
 
 .ctaButton {
-  /* Thin default border matching content boxes */
-  border: 1px solid rgba(255, 215, 0, 0.3);
+  /* Consistent border and sizing */
+  border: 2px solid rgba(255, 215, 0, 0.4);
   border-radius: 12px;
   font-weight: 600;
   cursor: pointer;
@@ -33,33 +33,30 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
+  gap: clamp(6px, 1.5vw, 10px); /* Responsive gap */
   font-family: inherit;
   position: relative;
-  overflow: hidden;
   box-sizing: border-box;
-  white-space: nowrap; /* Force single line */
-  font-size: 1rem !important; /* Normalize font size to prevent overflow */
-  line-height: 1.2 !important;
-  overflow: hidden !important;
-  text-overflow: ellipsis !important;
+  white-space: nowrap;
+  font-size: clamp(0.95rem, 2.2vw, 1rem); /* Consistent with buttons */
+  line-height: 1.3;
+  text-align: center;
+  min-width: 0; /* Allow flexbox shrinking */
+  flex-shrink: 1; /* Allow buttons to shrink if needed */
+  padding: clamp(14px, 3vh, 18px) clamp(10px, 2.5vw, 16px); /* Better responsive padding */
 }
 
 /* Primary CTA */
 .primaryCTA {
   flex: 1; /* Equal width with secondary */
-  height: 64px; /* Taller buttons for better presence */
+  height: clamp(56px, 8vh, 68px); /* Responsive height scaling */
+  min-height: clamp(56px, 8vh, 68px); /* Ensure minimum height */
   background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
   color: #1a1a2e;
-  font-size: 1rem; /* Balanced size for good readability without overwhelming */
+  font-size: clamp(0.95rem, 2.2vw, 1rem); /* Smooth font scaling */
   font-weight: 600;
   box-shadow: 0 4px 20px rgba(255, 215, 0, 0.3);
-  /* Ensure the solid border is the vivid brand gold on primary */
   border-color: #FFD700;
-  border-top-color: #FFD700;
-  border-right-color: #FFD700;
-  border-bottom-color: #FFD700;
-  border-left-color: #FFD700;
 }
 
 .primaryCTA:hover:not(:disabled) {
@@ -86,7 +83,7 @@
 /* CTA Buttons Row - Horizontal Layout */
 .ctaButtonsRow {
   display: flex;
-  gap: 16px; /* Consistent gap with container */
+  gap: clamp(12px, 2.5vw, 20px); /* Responsive gap scaling */
   align-items: stretch; /* Ensure equal heights */
   justify-content: center; /* Center the CTAs */
   width: 100%;
@@ -95,11 +92,12 @@
 
 .secondaryCTA {
   flex: 1; /* Equal width with primary */
-  height: 64px; /* Same height as primary for perfect alignment */
+  height: clamp(56px, 8vh, 68px); /* Same responsive height as primary */
+  min-height: clamp(56px, 8vh, 68px); /* Ensure minimum height */
   background: transparent;
-  border: 1px solid rgba(255, 215, 0, 0.3); /* Thin default border */
+  border: 2px solid rgba(255, 215, 0, 0.4); /* Consistent with primary */
   color: #FFD700;
-  font-size: 1rem; /* Balanced size matching primary button */
+  font-size: clamp(0.95rem, 2.2vw, 1rem); /* Match primary font scaling */
   font-weight: 600;
 }
 
@@ -205,53 +203,52 @@
 /* Mobile Optimizations */
 @media (min-width: 320px) and (max-width: 767px) {
   .ctaContainer {
-    padding: 12px;
-    gap: 10px;
+    padding: clamp(14px, 3.5vh, 18px) clamp(10px, 2.5vw, 16px);
+    gap: clamp(10px, 2.5vh, 14px);
   }
 
   .ctaButtonsRow {
-    gap: 12px; /* Slightly smaller gap on mobile but still proportional */
+    gap: clamp(10px, 2vw, 16px); /* Consistent responsive gap */
   }
 
   .primaryCTA {
-    height: 60px; /* Taller on mobile for better touch targets */
-    font-size: 0.95rem; /* Fixed mobile size - properly readable */
-    flex: 1; /* Equal width */
+    height: clamp(52px, 7vh, 60px); /* Slightly smaller on mobile but still substantial */
+    min-height: clamp(52px, 7vh, 60px);
+    font-size: clamp(0.9rem, 2vw, 0.95rem);
+    padding: clamp(12px, 2.5vh, 16px) clamp(8px, 2vw, 12px);
   }
 
   .secondaryCTA {
-    height: 60px; /* Same height as primary */
-    font-size: 0.95rem; /* Fixed mobile size - consistent with primary */
-    padding: 0 12px;
-    flex: 1; /* Equal width */
+    height: clamp(52px, 7vh, 60px); /* Match primary height exactly */
+    min-height: clamp(52px, 7vh, 60px);
+    font-size: clamp(0.9rem, 2vw, 0.95rem);
+    padding: clamp(12px, 2.5vh, 16px) clamp(8px, 2vw, 12px);
   }
 
-  /* Utility CTAs removed */
-
   .ctaIcon {
-    font-size: 1.1rem; /* Scaled down to match fixed mobile button text */
+    font-size: clamp(1rem, 2.2vw, 1.1rem);
   }
 
   .progressInfo {
-    margin-top: 6px;
-    padding-top: 10px;
-    gap: 6px;
+    margin-top: clamp(8px, 2vh, 12px);
+    padding-top: clamp(10px, 2.5vh, 14px);
+    gap: clamp(6px, 1.5vh, 10px);
   }
 
   .stepCounter {
-    font-size: 0.6rem !important; /* Even smaller for mobile - 9.6px */
+    font-size: clamp(0.6rem, 1.5vw, 0.65rem) !important;
     opacity: 0.6 !important;
   }
 
   .progressBar {
-    height: 4px;
+    height: clamp(3px, 1vh, 5px);
   }
 }
 
 /* Tablet Styles */
 @media (min-width: 768px) and (max-width: 1023px) {
   .ctaContainer {
-    padding: 16px 12px;
+    padding: clamp(16px, 3vh, 20px) clamp(12px, 2.5vw, 18px);
     width: 95%;
     max-width: var(--content-max-width-tablet);
     margin: 0 auto;
@@ -261,21 +258,25 @@
     border-radius: 12px 12px 0 0;
   }
 
+  .ctaButtonsRow {
+    gap: clamp(16px, 3vw, 24px);
+  }
+
   .primaryCTA {
-    height: 66px; /* Taller for tablet comfort */
-    font-size: 1rem; /* Fixed tablet size - properly readable */
+    height: clamp(60px, 8vh, 68px); /* Responsive tablet scaling */
+    font-size: clamp(0.95rem, 2vw, 1rem);
   }
 
   .secondaryCTA {
-    height: 66px; /* Same height as primary */
-    font-size: 1rem; /* Fixed tablet size - consistent with primary */
+    height: clamp(60px, 8vh, 68px); /* Match primary exactly */
+    font-size: clamp(0.95rem, 2vw, 1rem);
   }
 }
 
 /* Desktop Styles */
 @media (min-width: 1024px) {
   .ctaContainer {
-    padding: 16px 12px;
+    padding: clamp(18px, 3vh, 24px) clamp(16px, 2.5vw, 24px);
     width: 95%;
     max-width: var(--content-max-width-tablet);
     margin: 0 auto;
@@ -283,33 +284,35 @@
     right: auto;
     transform: translateX(-50%);
     border-radius: 12px 12px 0 0;
-    gap: 12px;
+    gap: clamp(16px, 3vh, 20px);
+  }
+
+  .ctaButtonsRow {
+    gap: clamp(20px, 3vw, 28px);
   }
 
   .primaryCTA {
-    height: 68px; /* Tallest for desktop presence */
-    font-size: 1rem; /* Fixed desktop size - consistent across devices */
+    height: clamp(64px, 8vh, 72px); /* Largest on desktop but still responsive */
+    font-size: clamp(0.95rem, 1.8vw, 1.05rem);
   }
 
   .secondaryCTA {
-    height: 68px; /* Same height as primary */
-    font-size: 1rem; /* Fixed desktop size - consistent across devices */
+    height: clamp(64px, 8vh, 72px); /* Match primary exactly */
+    font-size: clamp(0.95rem, 1.8vw, 1.05rem);
   }
 
-  /* Utility CTAs removed */
-
   .progressInfo {
-    margin-top: 12px;
-    padding-top: 16px;
+    margin-top: clamp(12px, 3vh, 18px);
+    padding-top: clamp(16px, 3vh, 20px);
   }
 
   .stepCounter {
-    font-size: 0.7rem !important; /* Small desktop font - 11.2px */
+    font-size: clamp(0.65rem, 1.5vw, 0.75rem) !important;
     opacity: 0.8 !important;
   }
 
   .progressBar {
-    height: 8px;
+    height: clamp(6px, 1.5vh, 8px);
   }
 }
 

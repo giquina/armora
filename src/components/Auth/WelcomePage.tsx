@@ -27,12 +27,12 @@ export function WelcomePage() {
     const featureTimer = setTimeout(() => setShowFeatures(true), 1400);
     const contentTimer = setTimeout(() => setShowContent(true), 1600);
     
-    // Animate impact counter immediately - it's now at the top
+    // Simple counter animation - count up once on load
     const counterTimer = setTimeout(() => {
       let current = 0;
-      const target = 3741;
-      const duration = 2000; // 2 seconds
-      const increment = target / (duration / 50); // Smooth animation
+      const target = 3743; // Updated number
+      const duration = 1500; // 1.5 seconds
+      const increment = target / (duration / 50);
       
       const counterInterval = setInterval(() => {
         current += increment;
@@ -45,12 +45,7 @@ export function WelcomePage() {
       }, 50);
       
       return () => clearInterval(counterInterval);
-    }, 500); // Start after slide-down animation
-    
-    // Random increment every 45-90 seconds
-    const randomIncrementTimer = setInterval(() => {
-      setImpactCounter(prev => prev + 1);
-    }, Math.random() * (90000 - 45000) + 45000);
+    }, 300); // Start after fadeIn
     
     // Debug development button visibility
     console.log('WelcomePage Debug:', { 
@@ -64,7 +59,6 @@ export function WelcomePage() {
       clearTimeout(featureTimer);
       clearTimeout(contentTimer);
       clearTimeout(counterTimer);
-      clearInterval(randomIncrementTimer);
     };
   }, [isDevelopment, showDevButton]);
 
@@ -211,7 +205,7 @@ export function WelcomePage() {
             
             <div className={styles.feature} style={{ animationDelay: '200ms', '--delay': 2 } as React.CSSProperties}>
               <div className={styles.featureContent}>
-                <div className={styles.featureLogo} style={{ color: '#FFD700', fontSize: '2rem' }}>
+                <div className={styles.featureLogo} style={{ color: '#FFD700' }}>
                   🛡️
                 </div>
                 <div className={styles.featureText}>

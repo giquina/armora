@@ -1,17 +1,11 @@
 /* ARMORA PREMIUM WELCOME PAGE - VIEWPORT OPTIMIZED */
 
-/* TOP IMPACT COUNTER BAR */
+/* TOP IMPACT BANNER - CLEAN AND SIMPLE */
 .impactCounterTop {
   width: 100%;
-  height: 48px;
-  background: linear-gradient(
-    90deg,
-    rgba(26, 26, 46, 0.95) 0%,
-    rgba(255, 215, 0, 0.1) 50%,
-    rgba(26, 26, 46, 0.95) 100%
-  );
-  background-size: 200% 100%;
-  border-bottom: 2px solid rgba(255, 215, 0, 0.4);
+  height: 44px;
+  background: #1a1a2e;
+  border-bottom: 2px solid rgba(255, 215, 0, 0.3);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -19,132 +13,55 @@
   position: relative;
   z-index: 10;
   cursor: pointer;
-  animation: slideDown 0.5s ease-out, shimmer 10s infinite;
-  box-shadow: 0 2px 20px rgba(255, 215, 0, 0.2);
-  transition: all 0.3s ease;
+  animation: fadeIn 0.3s ease-out;
+  transition: border-bottom-color 0.2s ease;
 }
 
 .impactCounterTop:hover {
-  background: linear-gradient(
-    90deg,
-    rgba(26, 26, 46, 0.98) 0%,
-    rgba(255, 215, 0, 0.15) 50%,
-    rgba(26, 26, 46, 0.98) 100%
-  );
-  box-shadow: 0 4px 30px rgba(255, 215, 0, 0.3);
-  border-bottom-color: rgba(255, 215, 0, 0.6);
+  border-bottom-color: rgba(255, 215, 0, 0.5);
 }
 
 .shieldIcon {
-  font-size: 18px;
-  animation: bounce 5s infinite, rotate360 1s ease-out 0.5s;
-  filter: drop-shadow(0 0 8px rgba(255, 215, 0, 0.3));
+  font-size: 16px;
+  color: #FFD700;
 }
 
 .counterNumber {
-  font-size: clamp(20px, 4vw, 24px);
-  font-weight: 700;
+  font-size: 16px;
+  font-weight: bold;
   color: #FFD700;
-  text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
-  animation: countUp 2s ease-out 0.5s both, pulse 3s infinite 2.5s;
+  margin: 0 4px;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  letter-spacing: 0.5px;
+  text-shadow: 0 0 8px rgba(255, 215, 0, 0.3);
 }
 
 .counterText {
-  font-size: clamp(12px, 3vw, 16px);
-  color: #e0e0e0;
+  font-size: 14px;
+  color: white;
   font-weight: 500;
-  opacity: 0.9;
-  animation: fadeIn 0.5s ease-out 0.7s both;
 }
 
 .todayIncrement {
   position: absolute;
   right: 16px;
-  font-size: 12px;
+  font-size: 11px;
   color: #FFD700;
   font-weight: 600;
   background: rgba(255, 215, 0, 0.1);
   padding: 2px 8px;
   border-radius: 12px;
-  animation: slideInRight 0.3s ease-out, fadeOut 2s ease-out 0.5s forwards;
   border: 1px solid rgba(255, 215, 0, 0.3);
-}
-
-/* ANIMATIONS */
-@keyframes slideDown {
-  from {
-    transform: translateY(-100%);
-    opacity: 0;
-  }
-  to {
-    transform: translateY(0);
-    opacity: 1;
-  }
-}
-
-@keyframes countUp {
-  from {
-    transform: scale(1.2);
-    opacity: 0;
-  }
-  to {
-    transform: scale(1);
-    opacity: 1;
-  }
-}
-
-@keyframes pulse {
-  0%, 100% { 
-    text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
-  }
-  50% { 
-    text-shadow: 0 0 20px rgba(255, 215, 0, 0.8);
-  }
-}
-
-@keyframes shimmer {
-  0% {
-    background-position: -200% center;
-  }
-  100% {
-    background-position: 200% center;
-  }
-}
-
-@keyframes bounce {
-  0%, 98%, 100% { 
-    transform: translateY(0);
-  }
-  99% { 
-    transform: translateY(-2px);
-  }
-}
-
-@keyframes rotate360 {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 0.9; }
-}
-
-@keyframes slideInRight {
-  from { 
-    transform: translateX(20px);
-    opacity: 0;
-  }
-  to { 
-    transform: translateX(0);
-    opacity: 1;
-  }
+  animation: fadeIn 0.3s ease-out, fadeOut 2s ease-out 0.5s forwards;
 }
 
 @keyframes fadeOut {
   to { opacity: 0; }
+}
+
+/* SIMPLE ANIMATIONS */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
 /* RESPONSIVE DESIGN */
@@ -216,9 +133,9 @@
 
 /* VIEWPORT-FITTED CONTAINER - COMPRESSED FOR NO-SCROLL */
 .welcomeContainer {
-  height: calc(100vh - 48px); /* Account for top impact counter bar */
-  min-height: calc(100vh - 48px);
-  max-height: calc(100vh - 48px);
+  height: calc(100vh - 44px); /* Account for top impact counter bar */
+  min-height: calc(100vh - 44px);
+  max-height: calc(100vh - 44px);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -232,10 +149,14 @@
 }
 
 @media (min-width: 769px) {
+  .impactCounterTop {
+    height: 48px; /* Slightly taller on desktop */
+  }
+  
   .welcomeContainer {
-    height: calc(100vh - 56px); /* Account for taller desktop counter */
-    min-height: calc(100vh - 56px);
-    max-height: calc(100vh - 56px);
+    height: calc(100vh - 48px); /* Account for taller desktop counter */
+    min-height: calc(100vh - 48px);
+    max-height: calc(100vh - 48px);
   }
 }
 
@@ -524,16 +445,17 @@
     width: 100%;
   }
   
-  /* Ensure full width buttons */
+  /* Ensure full width buttons with consistent styling */
   .googleButton,
   .emailButton,
   .phoneButton,
   .guestButton {
     width: 100% !important;
     max-width: none !important;
-    padding: 14px 4px !important; /* ABSOLUTE EXTREME mobile width optimization */
+    padding: 14px 8px !important;
     min-height: 50px !important;
-    font-size: 1rem !important;
+    font-size: 0.95rem !important;
+    border-radius: 12px !important;
   }
   
   .featureSubtitle {
@@ -553,16 +475,16 @@
     width: 100%;
   }
   
-  /* Full width auth buttons for iPhone */
+  /* Full width auth buttons for iPhone with consistent styling */
   .googleButton,
   .emailButton,
   .phoneButton,
   .guestButton {
     width: 100% !important;
     max-width: none !important;
-    padding: 14px 16px !important;
+    padding: 14px 12px !important;
     min-height: 48px !important; /* Apple HIG touch target */
-    font-size: 1rem !important;
+    font-size: 0.95rem !important;
     border-radius: 12px !important; /* Modern iOS style */
   }
 }
@@ -626,29 +548,29 @@
 /* 2-Column Button Rows for Mobile Space Optimization */
 .buttonRow {
   display: flex;
-  gap: clamp(0.25rem, 1vw, 0.5rem);
+  gap: clamp(0.5rem, 2vw, 1rem); /* Better responsive gap */
   width: 100%;
 }
 
 .buttonRow > button {
   flex: 1;
-  min-height: clamp(44px, 6vh, 52px); /* Ensure proper touch targets */
-  font-size: clamp(0.85rem, 3vw, 0.95rem) !important; /* Smaller text for side-by-side */
-  padding: clamp(10px, 2vh, 14px) clamp(6px, 1.5vw, 10px) !important;
+  min-height: clamp(50px, 7vh, 56px); /* Consistent with main buttons */
+  font-size: clamp(0.85rem, 2vw, 0.95rem) !important;
+  padding: clamp(12px, 2.5vh, 16px) clamp(8px, 2vw, 12px) !important; /* Better responsive padding */
 }
 
 .bottomButtonRow {
   display: flex;
-  gap: clamp(0.25rem, 1vw, 0.5rem);
+  gap: clamp(0.5rem, 2vw, 1rem); /* Match buttonRow gap */
   width: 100%;
-  margin-top: clamp(0.25rem, 1vh, 0.5rem);
+  margin-top: clamp(0.5rem, 1.5vh, 1rem);
 }
 
 .bottomButtonRow > button {
   flex: 1;
-  min-height: clamp(40px, 5vh, 48px); /* Slightly smaller for secondary actions */
-  font-size: clamp(0.8rem, 2.8vw, 0.9rem) !important; /* Even smaller for guest/dev buttons */
-  padding: clamp(8px, 1.8vh, 12px) clamp(4px, 1.2vw, 8px) !important;
+  min-height: clamp(44px, 6vh, 52px); /* Slightly smaller for secondary actions */
+  font-size: clamp(0.8rem, 1.8vw, 0.9rem) !important;
+  padding: clamp(10px, 2vh, 14px) clamp(6px, 1.5vw, 10px) !important;
 }
 
 /* Handle single button in bottom row (when dev button not showing) */
@@ -657,30 +579,34 @@
   margin: 0 auto; /* Center it */
 }
 
-/* AUTHENTICATION BUTTONS */
+/* AUTHENTICATION BUTTONS - PROFESSIONAL STYLING */
 .buttonContent {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: clamp(0.5rem, 2vw, 0.75rem);
+  gap: clamp(0.5rem, 1.5vw, 0.75rem);
   font-weight: 600;
-  font-size: clamp(0.95rem, 3.5vw, 1.05rem); /* Responsive text size */
+  font-size: clamp(0.9rem, 2.2vw, 1rem); /* Better mobile-desktop scaling */
+  text-align: center;
+  line-height: 1.3;
 }
 
 .authIcon {
   flex-shrink: 0;
-  width: clamp(18px, 4vw, 20px);
-  height: clamp(18px, 4vw, 20px);
+  width: clamp(18px, 3vw, 20px);
+  height: clamp(18px, 3vw, 20px);
 }
 
 .googleButton {
   position: relative;
-  overflow: hidden;
-  background: var(--armora-gold) !important;
+  background: linear-gradient(135deg, var(--armora-gold) 0%, var(--hover-gold) 100%) !important;
   color: var(--armora-dark) !important;
-  border: none !important;
-  transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 2px solid var(--armora-gold) !important;
+  border-radius: 12px !important;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
   cursor: pointer;
+  min-height: clamp(50px, 7vh, 56px); /* Smooth responsive scaling */
+  box-shadow: 0 4px 12px rgba(255, 215, 0, 0.25);
 }
 
 .googleButton::before {
@@ -690,8 +616,8 @@
   left: -100%;
   width: 100%;
   height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-  transition: left 0.25s ease;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.3s ease;
 }
 
 .googleButton:hover::before {
@@ -699,37 +625,43 @@
 }
 
 .googleButton:hover {
-  background: var(--hover-gold) !important;
-  transform: translateY(-2px) scale(1.01);
-  box-shadow: 0 8px 25px rgba(255, 215, 0, 0.4) !important;
+  background: linear-gradient(135deg, var(--hover-gold) 0%, var(--active-gold) 100%) !important;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(255, 215, 0, 0.4) !important;
 }
 
 .emailButton {
   position: relative;
-  border: 2px solid rgba(255, 215, 0, 0.3) !important;
-  background: rgba(255, 215, 0, 0.05) !important;
+  border: 2px solid rgba(255, 215, 0, 0.4) !important;
+  background: rgba(255, 215, 0, 0.08) !important;
   color: var(--armora-gold) !important;
+  border-radius: 12px !important;
+  min-height: clamp(50px, 7vh, 56px); /* Match googleButton scaling */
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .emailButton:hover {
-  background: rgba(255, 215, 0, 0.1) !important;
+  background: rgba(255, 215, 0, 0.15) !important;
   border-color: var(--armora-gold) !important;
-  transform: translateY(-2px) scale(1.01);
-  box-shadow: 0 8px 25px rgba(255, 215, 0, 0.3);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(255, 215, 0, 0.25);
 }
 
 .phoneButton {
   position: relative;
-  border: 2px solid rgba(255, 215, 0, 0.3) !important;
-  background: rgba(255, 215, 0, 0.05) !important;
+  border: 2px solid rgba(255, 215, 0, 0.4) !important;
+  background: rgba(255, 215, 0, 0.08) !important;
   color: var(--armora-gold) !important;
+  border-radius: 12px !important;
+  min-height: clamp(50px, 7vh, 56px); /* Match googleButton scaling */
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .phoneButton:hover {
-  background: rgba(255, 215, 0, 0.1) !important;
+  background: rgba(255, 215, 0, 0.15) !important;
   border-color: var(--armora-gold) !important;
-  transform: translateY(-2px) scale(1.01);
-  box-shadow: 0 8px 25px rgba(255, 215, 0, 0.3);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(255, 215, 0, 0.25);
 }
 
 .divider {
@@ -1598,16 +1530,17 @@
     width: 100%;
   }
   
-  /* Make auth buttons full width on mobile */
+  /* Make auth buttons consistent with CTA button scaling */
   .googleButton,
   .emailButton,
   .phoneButton,
   .guestButton {
     width: 100% !important;
     max-width: none !important;
-    padding: 14px 4px !important; /* ABSOLUTE EXTREME mobile width optimization */
-    min-height: 50px !important;
-    font-size: clamp(0.95rem, 3.5vw, 1.05rem) !important;
+    padding: clamp(12px, 2.5vh, 16px) clamp(8px, 2vw, 12px) !important; /* Match CTA button padding */
+    min-height: clamp(50px, 7vh, 56px) !important; /* Match CTA button heights */
+    font-size: clamp(0.9rem, 2.2vw, 1rem) !important; /* Match CTA button font scaling */
+    border-radius: 12px !important;
   }
 }
 
