@@ -17,130 +17,27 @@ export function WelcomePage() {
   const [showContent, setShowContent] = useState(false);
   const [showCredentialsModal, setShowCredentialsModal] = useState(false);
   const [showSafeRideModal, setShowSafeRideModal] = useState(false);
-  const [impactCounter, setImpactCounter] = useState(0);
-  const [showTodayIncrement, setShowTodayIncrement] = useState(false);
   const [isCounterVisible, setIsCounterVisible] = useState(
     localStorage.getItem('hideImpactCounter') !== 'true'
   );
-  const [currentMessageIndex, setCurrentMessageIndex] = useState(0);
-  const [isPaused, setIsPaused] = useState(false);
-
-  // Responsive banner messages about Safe Ride Fund
-  const getBannerMessages = () => {
-    const isTablet = window.innerWidth <= 768 && window.innerWidth > 480;
-    const isMobile = window.innerWidth <= 480;
-    
-    if (isMobile) {
-      return [
-        "safe rides funded",
-        "people supported", 
-        "transport assistance delivered",
-        "vulnerable communities helped",
-        "safe journeys provided"
-      ];
-    } else if (isTablet) {
-      return [
-        "safe rides funded by community",
-        "vulnerable people supported",
-        "transport assistance delivered",
-        "communities helped access services",
-        "safe journeys for those in need"
-      ];
-    } else {
-      return [
-        "safe rides funded by our community",
-        "vulnerable individuals supported through member contributions", 
-        "community-funded transport assistance sessions delivered",
-        "communities helped through collective security support",
-        "safe rides provided to those needing transport"
-      ];
-    }
-  };
-
-  const [bannerMessages] = useState(getBannerMessages());
+  // Removed impact counter + rotating message specific states
 
   // Development environment detection - ALWAYS SHOW IN DEV
   const isDevelopment = process.env.NODE_ENV === 'development';
-  const showDevButton = isDevelopment; // Always show if development mode
+  const showDevButton = isDevelopment;
 
   useEffect(() => {
     const featureTimer = setTimeout(() => setShowFeatures(true), 1400);
     const contentTimer = setTimeout(() => setShowContent(true), 1600);
-    
-    // Animate impact counter immediately - it's now at the top
-    const counterTimer = setTimeout(() => {
-      let current = 0;
-      const target = 3741;
-      const duration = 2000; // 2 seconds
-      const increment = target / (duration / 50); // Smooth animation
-      
-      const counterInterval = setInterval(() => {
-        current += increment;
-        if (current >= target) {
-          setImpactCounter(target);
-          clearInterval(counterInterval);
-        } else {
-          setImpactCounter(Math.floor(current));
-        }
-      }, 50);
-      
-      return () => clearInterval(counterInterval);
-    }, 500); // Start after slide-down animation
-    
-    // Random increment every 45-90 seconds
-    const randomIncrementTimer = setInterval(() => {
-      setImpactCounter(prev => prev + 1);
-    }, Math.random() * (90000 - 45000) + 45000);
-
-    // Rotating banner message timer
-    const messageRotationTimer = setInterval(() => {
-      if (!isPaused) {
-        setCurrentMessageIndex(prevIndex => 
-          (prevIndex + 1) % bannerMessages.length
-        );
-      }
-    }, 4000); // Change message every 4 seconds
-    
-    // Debug development button visibility
-    console.log('WelcomePage Debug:', { 
-      isDevelopment, 
-      showDevButton, 
-      nodeEnv: process.env.NODE_ENV,
-      hostname: window.location.hostname 
-    });
-    
     return () => {
       clearTimeout(featureTimer);
       clearTimeout(contentTimer);
-      clearTimeout(counterTimer);
-      clearInterval(randomIncrementTimer);
-      clearInterval(messageRotationTimer);
     };
-  }, [isDevelopment, showDevButton, isPaused, bannerMessages.length]);
+  }, []);
 
   // Helper function for navigation
   const handleNavigate = (destination: string) => {
     navigateToView(destination as any);
-  };
-
-  // Handle impact counter interactions
-  const handleCounterHover = () => {
-    setShowTodayIncrement(true);
-    setTimeout(() => setShowTodayIncrement(false), 2000);
-  };
-
-  const handleCounterClick = () => {
-    setShowSafeRideModal(true);
-  };
-
-  const handleCloseCounter = (e: React.MouseEvent) => {
-    e.stopPropagation(); // Prevent opening the modal
-    setIsCounterVisible(false);
-    localStorage.setItem('hideImpactCounter', 'true');
-    // Optional: Set expiry for 24 hours
-    const expiry = new Date();
-    expiry.setHours(expiry.getHours() + 24);
-    localStorage.setItem('hideImpactCounterExpiry', expiry.toISOString());
   };
 
   // Development-only function to skip to dashboard with mock data
@@ -191,41 +88,10 @@ export function WelcomePage() {
 
   return (
     <SeasonalTheme className={styles.welcomePage}>
-      {/* Impact Counter Bar - MOVED TO VERY TOP */}
-      {isCounterVisible && (
-        <div 
-          className={styles.impactCounterTop}
-          onMouseEnter={() => {
-            handleCounterHover();
-            setIsPaused(true);
-          }}
-          onMouseLeave={() => setIsPaused(false)}
-          onClick={handleCounterClick}
-        >
-          <span className={styles.shieldIcon}>🛡️</span>
-          <span className={styles.counterNumber}>
-            {impactCounter.toLocaleString()}
-          </span>
-          <span 
-            className={`${styles.counterText} ${styles.rotatingText}`}
-            key={currentMessageIndex}
-          >
-            {bannerMessages[currentMessageIndex]}
-          </span>
-          {showTodayIncrement && (
-            <span className={styles.todayIncrement}>+12 today</span>
-          )}
-          <button 
-            className={styles.closeBtn}
-            onClick={handleCloseCounter}
-            aria-label="Close impact counter"
-          >
-            ×
-          </button>
-        </div>
-      )}
-
-      <div className={`${styles.welcomeContainer} ${!isCounterVisible ? styles.noCounter : ''}`}>
+      {/* New unified Safe Ride Fund Banner at top */}
+      <SafeRideFundBanner variant="compact" className={styles.topBanner} onBannerClick={() => setShowSafeRideModal(true)} />
+      {/* Removed legacy impactCounterTop bar */}
+      <div className={`${styles.welcomeContainer}`}>
         {/* Improved Header Section */}
         <header className={styles.welcomeHeader}>
           <div className={styles.headerSection}>
@@ -491,7 +357,6 @@ export function WelcomePage() {
           🔴 TEST QUESTIONNAIRE 🔴
         </div>
       )}
-      
     </SeasonalTheme>
   );
 }
