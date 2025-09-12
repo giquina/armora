@@ -6,6 +6,8 @@ import SeasonalTheme from '../UI/SeasonalTheme';
 import GoogleIcon from '../UI/GoogleIcon';
 import { ArmoraLogo } from '../UI/ArmoraLogo';
 import { CredentialsModal } from '../UI/CredentialsModal';
+import SafeRideFundCTA from '../SafeRideFund/SafeRideFundCTA';
+import SafeRideFundModal from '../SafeRideFund/SafeRideFundModal';
 import styles from './WelcomePage.module.css';
 
 export function WelcomePage() {
@@ -13,6 +15,8 @@ export function WelcomePage() {
   const [showFeatures, setShowFeatures] = useState(false);
   const [showContent, setShowContent] = useState(false);
   const [showCredentialsModal, setShowCredentialsModal] = useState(false);
+  const [showSafeRideModal, setShowSafeRideModal] = useState(false);
+  const [impactCounter, setImpactCounter] = useState(3700);
 
   // Development environment detection - ALWAYS SHOW IN DEV
   const isDevelopment = process.env.NODE_ENV === 'development';
@@ -21,6 +25,25 @@ export function WelcomePage() {
   useEffect(() => {
     const featureTimer = setTimeout(() => setShowFeatures(true), 900);
     const contentTimer = setTimeout(() => setShowContent(true), 1100);
+    
+    // Animate impact counter after features appear
+    const counterTimer = setTimeout(() => {
+      let current = 3700;
+      const target = 3741;
+      const increment = 1;
+      const duration = 41; // 41 steps to get from 3700 to 3741
+      
+      const counterInterval = setInterval(() => {
+        current += increment;
+        setImpactCounter(current);
+        
+        if (current >= target) {
+          clearInterval(counterInterval);
+        }
+      }, 50); // 50ms per increment = ~2 second animation
+      
+      return () => clearInterval(counterInterval);
+    }, 1300); // Start after features are visible
     
     // Debug development button visibility
     console.log('WelcomePage Debug:', { 
@@ -33,8 +56,14 @@ export function WelcomePage() {
     return () => {
       clearTimeout(featureTimer);
       clearTimeout(contentTimer);
+      clearTimeout(counterTimer);
     };
   }, [isDevelopment, showDevButton]);
+
+  // Helper function for navigation
+  const handleNavigate = (destination: string) => {
+    navigateToView(destination as any);
+  };
 
   // Development-only function to skip to dashboard with mock data
   const handleDevSkipToDashboard = () => {
@@ -102,9 +131,14 @@ export function WelcomePage() {
             delay={400}
           />
           
-          <p className={styles.tagline}>
-            Your Personal Security Driver Team
-          </p>
+          <div className={styles.taglineContainer}>
+            <p className={styles.tagline}>
+              Your Personal Security Driver Team
+            </p>
+            <p className={styles.taglineSubtext}>
+              Protection for You. Safety for All.
+            </p>
+          </div>
         </header>
 
         {/* Main Content */}
@@ -118,7 +152,7 @@ export function WelcomePage() {
                   <path d="M10 14L8 12L9.5 10.5L10 11L14.5 6.5L16 8L10 14Z" />
                 </svg>
                 <div className={styles.featureText}>
-                  <h3 className={styles.featureTitleOnly}>Government-Licensed Security Taxi Drivers</h3>
+                  <h3 className={styles.featureTitleOnly}>Government-Licensed Security Cab Drivers</h3>
                   <p className={styles.featureSubtitle}>SIA-certified drivers with enhanced background screening</p>
                 </div>
               </div>
@@ -141,6 +175,18 @@ export function WelcomePage() {
             
             <div className={styles.feature} style={{ animationDelay: '200ms', '--delay': 2 } as React.CSSProperties}>
               <div className={styles.featureContent}>
+                <div className={styles.featureLogo} style={{ color: '#FFD700', fontSize: '2rem' }}>
+                  🛡️
+                </div>
+                <div className={styles.featureText}>
+                  <h3 className={styles.featureTitleOnly}>Safe Ride Fund Initiative</h3>
+                  <p className={styles.featureSubtitle}>Your membership funds safe rides for those in danger</p>
+                </div>
+              </div>
+            </div>
+            
+            <div className={styles.feature} style={{ animationDelay: '300ms', '--delay': 3 } as React.CSSProperties}>
+              <div className={styles.featureContent}>
                 <svg className={styles.featureLogo} viewBox="0 0 24 24" fill="currentColor">
                   <circle cx="12" cy="12" r="10"/>
                   <polyline points="12,6 12,12 16,14" stroke="white" strokeWidth="2" fill="none"/>
@@ -153,7 +199,7 @@ export function WelcomePage() {
               </div>
             </div>
             
-            <div className={styles.feature} style={{ animationDelay: '300ms', '--delay': 3 } as React.CSSProperties}>
+            <div className={styles.feature} style={{ animationDelay: '400ms', '--delay': 4 } as React.CSSProperties}>
               <div className={styles.featureContent}>
                 <svg className={styles.featureLogo} viewBox="0 0 24 24" fill="currentColor">
                   <path d="M5 16L3 7L7 10L12 6L17 10L21 7L19 16H5Z"/>
@@ -168,72 +214,100 @@ export function WelcomePage() {
           </div>
         </main>
 
+        {/* Impact Counter */}
+        <div className={`${styles.impactCounter} ${showContent ? styles.impactCounterVisible : ''}`}>
+          <span className={styles.impactNumber}>
+            {impactCounter.toLocaleString()}
+          </span>
+          <span className={styles.impactText}>safe rides funded by our community</span>
+        </div>
+
+
         {/* Action Section */}
         <section className={`${styles.welcomeActions} ${showContent ? styles.actionsVisible : ''}`}>
           <div className={styles.authButtons}>
+            {/* Primary CTA - Full Width */}
             <Button
               variant="primary"
               size="lg"
               isFullWidth
-              onClick={() => navigateToView('signup')}
+              onClick={() => handleNavigate('signup')}
               className={styles.googleButton}
             >
               <span className={styles.buttonContent}>
                 <GoogleIcon className={styles.authIcon} size={20} />
-                Continue with Google
+                Join 1,247 Members - Continue with Google
               </span>
             </Button>
             
-            <Button
-              variant="outline"
-              size="lg"
-              isFullWidth
-              onClick={() => navigateToView('login')}
-              className={styles.emailButton}
-            >
-              <span className={styles.buttonContent}>
-                <svg className={styles.authIcon} viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor">
-                  <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
-                  <polyline points="22,6 12,13 2,6"/>
-                </svg>
-                Continue with Email
-              </span>
-            </Button>
+            {/* Email + Phone Row */}
+            <div className={styles.buttonRow}>
+              <Button
+                variant="outline"
+                size="lg"
+                onClick={() => handleNavigate('login')}
+                className={styles.emailButton}
+              >
+                <span className={styles.buttonContent}>
+                  <svg className={styles.authIcon} viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor">
+                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                    <polyline points="22,6 12,13 2,6"/>
+                  </svg>
+                  Continue with Email
+                </span>
+              </Button>
 
-            <Button
-              variant="outline"
-              size="lg"
-              isFullWidth
-              onClick={() => navigateToView('signup')}
-              className={styles.phoneButton}
-            >
-              <span className={styles.buttonContent}>
-                <svg className={styles.authIcon} viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor">
-                  <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
-                </svg>
-                Continue with Phone
-              </span>
-            </Button>
+              <Button
+                variant="outline"
+                size="lg"
+                onClick={() => handleNavigate('signup')}
+                className={styles.phoneButton}
+              >
+                <span className={styles.buttonContent}>
+                  <svg className={styles.authIcon} viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor">
+                    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+                  </svg>
+                  Continue with Phone
+                </span>
+              </Button>
+            </div>
           </div>
 
           <div className={styles.divider}>
             <span className={styles.dividerText}>or</span>
           </div>
 
-          <Button
-            variant="ghost"
-            size="md"
-            isFullWidth
-            onClick={() => navigateToView('guest-disclaimer')}
-            className={styles.guestButton}
-          >
-            <span className={styles.guestButtonContent}>
-              <span>Continue as Guest</span>
-              <span className={styles.guestNote}>(Limited features)</span>
-            </span>
-          </Button>
+          {/* Guest + Dev Buttons Row */}
+          <div className={styles.bottomButtonRow}>
+            <Button
+              variant="ghost"
+              size="md"
+              onClick={() => handleNavigate('guest-disclaimer')}
+              className={styles.guestButton}
+            >
+              <span className={styles.guestButtonContent}>
+                <span>Continue as Guest</span>
+                <span className={styles.guestNote}>(Limited features)</span>
+              </span>
+            </Button>
 
-          {/* Development-only skip button */}
+            {/* Development-only questionnaire button */}
+            {showDevButton && (
+              <Button
+                variant="ghost"
+                size="md"
+                onClick={() => navigateToView('questionnaire')}
+                className={styles.devQuestionnaireButton}
+              >
+                <span className={styles.devButtonContent}>
+                  <span>📝 TEST QUESTIONNAIRE</span>
+                  <span className={styles.devNote}>(DEVELOPMENT ONLY)</span>
+                </span>
+              </Button>
+            )}
+          </div>
+
+          {/* Development-only skip button - keep separate/full width */}
           {showDevButton && (
             <Button
               variant="ghost"
@@ -244,22 +318,6 @@ export function WelcomePage() {
             >
               <span className={styles.devButtonContent}>
                 <span>🚀 SKIP TO DASHBOARD</span>
-                <span className={styles.devNote}>(DEVELOPMENT ONLY)</span>
-              </span>
-            </Button>
-          )}
-
-          {/* Development-only questionnaire button */}
-          {showDevButton && (
-            <Button
-              variant="ghost"
-              size="md"
-              isFullWidth
-              onClick={() => navigateToView('questionnaire')}
-              className={styles.devQuestionnaireButton}
-            >
-              <span className={styles.devButtonContent}>
-                <span>📝 TEST QUESTIONNAIRE</span>
                 <span className={styles.devNote}>(DEVELOPMENT ONLY)</span>
               </span>
             </Button>
@@ -278,11 +336,19 @@ export function WelcomePage() {
         </footer>
       </div>
 
+      {/* Safe Ride Fund CTA */}
+      <SafeRideFundCTA onClick={() => setShowSafeRideModal(true)} />
+
       {/* Credentials Modal */}
       <CredentialsModal
         isOpen={showCredentialsModal}
         onClose={() => setShowCredentialsModal(false)}
       />
+
+      {/* Safe Ride Fund Modal */}
+      {showSafeRideModal && (
+        <SafeRideFundModal onClose={() => setShowSafeRideModal(false)} />
+      )}
 
       {/* SUPER VISIBLE RED DEVELOPMENT BUTTON */}
       {showDevButton && (

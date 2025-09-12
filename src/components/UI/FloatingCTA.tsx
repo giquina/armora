@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { useApp } from '../../contexts/AppContext';
 import styles from './FloatingCTA.module.css';
 import { getRemainingMinutes, formatMinutesLeft } from '../../utils/timeEstimate';
 
@@ -17,6 +18,7 @@ export function FloatingCTA({
   isLoading = false,
   canProceed = true 
 }: FloatingCTAProps) {
+  const { state } = useApp();
   const [isExpanded, setIsExpanded] = useState(false);
   const ignoreNextClick = useRef(false);
   const [isVisible, setIsVisible] = useState(false);
@@ -45,12 +47,25 @@ export function FloatingCTA({
     return () => clearInterval(bounceTimer);
   }, [isExpanded, isVisible]);
 
-  // Step names and dynamic time estimates (without the word "approximately")
+  // Step names and dynamic time estimates with smart personalization
   const getStepInfo = () => {
     const minutesLeft = formatMinutesLeft(getRemainingMinutes(totalSteps, currentStep));
-    const stepNames: Record<number, string> = {
+    const firstName = state.questionnaireData?.firstName;
+    
+    // Personalized step names - strategic usage (not excessive)
+    const getPersonalizedStepName = (step: number, baseName: string): string => {
+      if (!firstName) return baseName;
+      
+      // Personalize every 3rd step + final step for natural feel
+      if (step === 3 || step === 6 || step === 9) {
+        return `${firstName}'s ${baseName}`;
+      }
+      return baseName;
+    };
+    
+    const baseStepNames: Record<number, string> = {
       1: 'Security Assessment',
-      2: 'Frequency Planning',
+      2: 'Frequency Planning', 
       3: 'Service Matching',
       4: 'Coverage Planning',
       5: 'Special Locations',
@@ -59,22 +74,113 @@ export function FloatingCTA({
       8: 'Communication Setup',
       9: 'Profile Completion',
     };
+    
+    const stepNames: Record<number, string> = Object.fromEntries(
+      Object.entries(baseStepNames).map(([step, name]) => [
+        step,
+        getPersonalizedStepName(parseInt(step), name)
+      ])
+    );
 
-    const descriptions: Record<number, string> = {
-      1: "We assess your security requirements to match you with qualified SIA licensed close protection officers and appropriate minicab services. This helps us understand your protection needs and recommend suitable security officers for your transport requirements.",
-      2: "Understanding your travel patterns helps us optimize our minicab and taxi service delivery. Regular users benefit from consistent SIA security officers and route planning, while occasional users receive flexible on-demand close protection services.",
-      3: "These preferences help us match you with the appropriate service level and qualified security officers. We analyze your selections to recommend whether our Standard, Executive, or Shadow protection with personal bodyguards best meets your specific transport security needs.",
-      4: "Knowing your primary locations helps us ensure appropriate SIA licensed security officers and minicab coverage. We pre-position qualified close protection officers and establish secure taxi routes in your key areas.",
-      5: "Additional coverage areas help us provide comprehensive protection services. Airport transfers, government buildings, and entertainment venues each require specialized SIA security officers and trained personal bodyguards with our professional minicab services.",
-      6: "Emergency contacts and communication preferences ensure rapid response coordination with our SIA licensed close protection officers. This follows security industry best practices for duty of care and incident management with professional taxi services.",
-      7: "Special requirements ensure our qualified security officers and minicab drivers are prepared to provide appropriate professional services. Accessibility, medical, and private security accommodations are configured in advance with our SIA licensed personnel.",
-      8: "Communication preferences ensure seamless coordination between you, your team, and our close protection officers. Clear communication is essential for effective security transport operations with our professional taxi and minicab services.",
-      9: "Final review ensures your security profile is complete and accurate. This comprehensive assessment enables us to deliver the most appropriate protection service with qualified SIA security officers and professional minicab transport for your specific requirements.",
+    // Smart personalization in descriptions with greetings
+    const getPersonalizedDescription = (step: number): string => {
+      const baseDescriptions: Record<number, string> = {
+        1: "We assess your security requirements to match you with qualified SIA licensed close protection officers and appropriate security cab services. This helps us understand your protection needs and recommend suitable security officers for your transport requirements.",
+        2: "Understanding your travel patterns helps us optimize our security cab service delivery. Regular users benefit from consistent SIA security officers and route planning, while occasional users receive flexible on-demand close protection services.",
+        3: "These preferences help us match you with the appropriate service level and qualified security officers. We analyze your selections to recommend whether our Standard, Executive, or Shadow protection with personal bodyguards best meets your specific transport security needs.",
+        4: "Knowing your primary locations helps us ensure appropriate SIA licensed security officers and security cab coverage. We pre-position qualified close protection officers and establish secure cab routes in your key areas.",
+        5: "Additional coverage areas help us provide comprehensive protection services. Airport transfers, government buildings, and entertainment venues each require specialized SIA security officers and trained personal bodyguards with our professional security cab services.",
+        6: "Emergency contacts and communication preferences ensure rapid response coordination with our SIA licensed close protection officers. This follows security industry best practices for duty of care and incident management with professional security cab services.",
+        7: "Special requirements ensure our qualified security officers and security cab drivers are prepared to provide appropriate professional services. Accessibility, medical, and private security accommodations are configured in advance with our SIA licensed personnel.",
+        8: "Communication preferences ensure seamless coordination between you, your team, and our close protection officers. Clear communication is essential for effective security transport operations with our professional security cab services.",
+        9: "Final review ensures your security profile is complete and accurate. This comprehensive assessment enables us to deliver the most appropriate protection service with qualified SIA security officers and professional security cab transport for your specific requirements.",
+      };
+
+      const baseDescription = baseDescriptions[step];
+      
+      // Add personalized greetings at strategic steps
+      if (firstName) {
+        if (step === 2) {
+          return `Hi ${firstName}, understanding your travel patterns helps us optimize our security cab service delivery. Regular users benefit from consistent SIA security officers and route planning, while occasional users receive flexible on-demand close protection services.`;
+        }
+        if (step === 3) {
+          return `Hi ${firstName}, your service priorities help us match you with the right security officers and qualified personnel. We analyze your selections to recommend whether our Standard, Executive, or Shadow protection with personal bodyguards best meets your specific transport security needs.`;
+        }
+        if (step === 6) {
+          return `Hi ${firstName}, emergency preparedness is crucial for your safety. Emergency contacts and communication preferences ensure rapid response coordination with our SIA licensed close protection officers. This follows security industry best practices for duty of care and incident management.`;
+        }
+        if (step === 9) {
+          return `${firstName}, you're almost done! ${baseDescription}`;
+        }
+      }
+      
+      return baseDescription;
+    };
+    
+    const descriptions: Record<number, string> = Object.fromEntries(
+      Object.entries({1: '', 2: '', 3: '', 4: '', 5: '', 6: '', 7: '', 8: '', 9: ''}).map(([step]) => [
+        step,
+        getPersonalizedDescription(parseInt(step))
+      ])
+    );
+
+    // Step-specific security examples and benefits
+    const getStepExample = (step: number) => {
+      const stepExamples: Record<number, { title: string; example: string; benefit: string }> = {
+        1: {
+          title: "Your Professional Profile",
+          example: "A legal professional recently needed court transport with specific security protocols. Their profile helped us assign an officer familiar with court security procedures and legal confidentiality requirements.",
+          benefit: "Your professional profile determines the expertise level and specialized training of your security team."
+        },
+        2: {
+          title: "Frequency Planning Benefits",
+          example: "Daily commuters get consistent officers who learn their patterns. One CEO's regular morning driver now anticipates traffic issues 15 minutes before they occur and knows exactly which secure entrance to use.",
+          benefit: "Regular patterns = dedicated security team that learns your routines. Irregular travel = flexible specialist pool available 24/7."
+        },
+        3: {
+          title: "Service Level Matching",
+          example: "An executive needed 'Discrete Security Presence' for sensitive meetings. We assigned plainclothes officers with unmarked vehicles who blended seamlessly while maintaining full protection protocols.",
+          benefit: "Your service preferences create a custom security profile that every assigned officer studies before your journey."
+        },
+        4: {
+          title: "Location-Based Security",
+          example: "A client traveling between London and Birmingham gets pre-positioned officers who know the secure routes, safe stops, and potential risk areas along their regular corridor.",
+          benefit: "We pre-position qualified officers and establish secure routes in your key areas for faster response times."
+        },
+        5: {
+          title: "Specialized Coverage",
+          example: "Airport transfers require officers trained in aviation security protocols. One client's officer coordinates directly with airport security for seamless VIP processing through private terminals.",
+          benefit: "Special locations get officers with venue-specific training - airports, government buildings, courts, or entertainment venues."
+        },
+        6: {
+          title: "Emergency Response Network",
+          example: "When a client's meeting ran late, their emergency contacts were automatically notified, and backup transport was deployed within 8 minutes using their pre-configured communication preferences.",
+          benefit: "Your emergency network enables rapid response coordination following industry best practices for duty of care."
+        },
+        7: {
+          title: "Tailored Accommodations", 
+          example: "A client requiring wheelchair accessibility gets officers trained in disability assistance and vehicles equipped with proper access. Their medical requirements are discretely communicated to the team in advance.",
+          benefit: "Special requirements ensure your security team arrives fully prepared with appropriate equipment and training."
+        },
+        8: {
+          title: "Communication Protocols",
+          example: "A business executive's team receives live updates during transport, while personal trips maintain complete privacy. All preferences are configured based on this step's selections.",
+          benefit: "Clear communication protocols ensure seamless coordination between you, your team, and security officers for each journey type."
+        },
+        9: {
+          title: "Complete Security Profile",
+          example: "Your comprehensive profile enables us to provide the most appropriate protection service. One recent client's detailed profile helped us identify their need for a female officer with financial sector experience.",
+          benefit: "This complete assessment delivers perfectly matched security services tailored to your specific professional and personal requirements."
+        }
+      };
+      
+      return stepExamples[step] || stepExamples[1];
     };
 
     const name = stepNames[currentStep] || 'Assessment';
     const description = descriptions[currentStep] || 'Completing your security profile for professional transport services with qualified SIA licensed officers...';
-    return { name, timeLeft: minutesLeft, description };
+    const stepExample = getStepExample(currentStep);
+    return { name, timeLeft: minutesLeft, description, stepExample };
   };
 
   // Enhanced message for floating bar
@@ -193,22 +299,31 @@ export function FloatingCTA({
               </p>
             </div>
 
-            {/* Company Information */}
+            {/* Step-Specific Security Information */}
             <div className={styles.companySection}>
               <div className={styles.divider}></div>
               
-              <h4>Professional Security Transport</h4>
-              <p>
-                We provide discreet minicab and taxi services with SIA licensed close protection officers for high-profile clients. Our qualified security officers and personal bodyguards ensure your safety and privacy for every journey, whether you need a secure cab for business or personal protection services.
-              </p>
+              <h4>{stepInfo.stepExample.title}</h4>
               
-              <div className={styles.companyFeatures}>
-                <div className={styles.feature}>🛡️ SIA Licensed Security</div>
-                <div className={styles.feature}>🚗 Professional Vehicle Fleet</div>
-                <div className={styles.feature}>🔒 Complete Discretion</div>
-                <div className={styles.feature}>⏰ 24/7 Availability</div>
-                <div className={styles.feature}>🏥 First aid trained drivers</div>
-                <div className={styles.feature}>👮 SIA Close Protection Officers</div>
+              <div className={styles.stepExample}>
+                <div className={styles.exampleTitle}>Real Example:</div>
+                <p className={styles.exampleText}>
+                  {stepInfo.stepExample.example}
+                </p>
+              </div>
+              
+              <div className={styles.securityBenefit}>
+                <div className={styles.benefitTitle}>How This Shapes Your Protection:</div>
+                <p className={styles.benefitText}>
+                  {stepInfo.stepExample.benefit}
+                </p>
+              </div>
+              
+              <div className={styles.stepFeatures}>
+                <div className={styles.feature}>✅ Personalized Security Profile</div>
+                <div className={styles.feature}>🎯 Matched Officer Expertise</div>
+                <div className={styles.feature}>🛡️ SIA Licensed Professionals</div>
+                <div className={styles.feature}>📋 Tailored Protocols</div>
               </div>
             </div>
           </div>

@@ -275,6 +275,7 @@
 }
 
 .questionSection {
+  margin-top: 2.5rem; /* Add top spacing from privacy section */
   margin-bottom: 0.75rem; /* Slightly tighter spacing */
   text-align: center;
   flex-shrink: 0; /* Don't let shrink */
@@ -1687,6 +1688,7 @@
   }
 
   .questionSection {
+    margin-top: 2rem; /* Mobile: slightly less top spacing */
     margin-bottom: 0.75rem; /* Less space */
     width: 100% !important; /* Full width usage */
     margin-left: 0 !important;
@@ -1997,6 +1999,11 @@
   .actions {
   padding: 1rem 1.25rem;
   }
+
+  /* Tablet: Medium spacing for question section */
+  .questionSection {
+    margin-top: 2.5rem; /* Tablet: medium spacing */
+  }
 }
 
 /* Desktop styles */
@@ -2291,6 +2298,11 @@
   .optionsContainer {
     max-width: 600px;
   }
+
+  /* Desktop: Maximum spacing for better visual separation */
+  .questionSection {
+    margin-top: 3rem; /* Desktop: maximum spacing */
+  }
   
   .actions {
     max-width: 600px;
@@ -2445,6 +2457,12 @@
   box-sizing: border-box !important;
   position: relative !important;
   z-index: 10 !important;
+}
+
+/* Privacy Footer Spacing */
+.privacyFooter {
+  margin-bottom: 2rem; /* Add significant space after privacy section */
+  padding-bottom: 1rem; /* Additional padding for separation */
 }
 
 /* Mobile responsive fixes for border clipping */

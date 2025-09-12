@@ -3,6 +3,8 @@ import { useApp } from '../../contexts/AppContext';
 import { Button } from '../UI/Button';
 import { ServiceCard } from './ServiceCard';
 import { QuickBooking } from './QuickBooking';
+import { ImpactDashboardWidget } from './ImpactDashboardWidget';
+import { MarketingBanner } from './MarketingBanner';
 import { ServiceLevel } from '../../types';
 import styles from './Dashboard.module.css';
 
@@ -255,6 +257,9 @@ export function Dashboard() {
         />
       </div>
 
+      {/* Impact Widget for Essential Members */}
+      <ImpactDashboardWidget />
+
       {/* Service Selection */}
       <div className={styles.servicesSection}>
         <h2 className={styles.sectionTitle}>Select Your Security Level</h2>
@@ -313,6 +318,13 @@ export function Dashboard() {
           </Button>
         )}
       </div>
+
+      {/* Marketing Banner for Non-Members */}
+      <MarketingBanner 
+        onTrialStart={handleBookNow}
+        currentUser={user}
+        variant="savings"
+      />
     </div>
   );
 }

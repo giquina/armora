@@ -4,6 +4,12 @@
 :root {
   --armora-dark: #1a1a2e;
   --armora-gold: #FFD700;
+  
+  /* CONSISTENT CTA GOLD COLORS - All states use same values */
+  --armora-gold-primary: rgba(255, 215, 0, 0.95);   /* Primary CTA gold */
+  --armora-gold-secondary: rgba(255, 229, 92, 0.9); /* Mid-tone gold */
+  --armora-gold-tertiary: rgba(255, 200, 0, 0.85);  /* Deeper gold */
+  
   --armora-gold-rich: #E6C200; /* Richer gold to match bottom nav */
   --armora-gold-muted: #D4B366; /* Muted gold for panel background */
   --armora-amber-soft: #E6D09B; /* Soft amber for subtle backgrounds */
@@ -15,7 +21,7 @@
 
 .container {
   position: fixed;
-  bottom: max(84px, calc(84px + env(safe-area-inset-bottom))); /* Seamlessly connect to bottom nav */
+  bottom: max(60px, calc(60px + env(safe-area-inset-bottom))); /* FIXED: Connect directly to bottom nav (calculated: 8px top padding + 44px min content + 8px bottom = 60px) */
   left: 8px; /* Reduced from 12px */
   right: 8px; /* Reduced from 12px */
   z-index: 1050; /* Below modals but above content */
@@ -43,68 +49,157 @@
 
 .floatingCTA {
   width: 100%;
-  height: 52px; /* More compact height */
-  border: 2px solid var(--armora-gold);
-  border-bottom: none; /* Remove bottom border to connect seamlessly with panel when expanded */
-  border-radius: 16px 16px 0 0; /* Rounded top, flat bottom to connect with nav */
-  background: var(--armora-gold-muted) !important; /* FIXED: Use muted gold for subtler appearance */
-  background-color: var(--armora-gold-muted) !important; /* Double ensure solid background */
-  backdrop-filter: none !important; /* Remove any transparency effects */
-  -webkit-backdrop-filter: none !important;
+  height: 56px; /* Slightly taller for 3D bubble effect */
+  /* 3D BUBBLE TRANSFORMATION */
+  border-radius: 32px; /* High border-radius for pill/bubble shape */
+  border: 1px solid rgba(255, 255, 255, 0.2); /* Subtle glass border */
+  
+  /* CONSISTENT GLASS-MORPHISM GRADIENT BACKGROUND */
+  background: linear-gradient(
+    135deg,
+    var(--armora-gold-primary) 0%,
+    var(--armora-gold-secondary) 50%,
+    var(--armora-gold-tertiary) 100%
+  );
+  
+  /* GLASS EFFECT */
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  
+  /* 3D DEPTH SHADOWS */
   box-shadow: 
-    0 16px 40px var(--armora-gold-glow),
-    0 8px 20px rgba(0, 0, 0, 0.4),
-    0 4px 8px rgba(0, 0, 0, 0.2);
+    0 20px 40px -12px rgba(0, 0, 0, 0.35),  /* Deep shadow */
+    0 10px 20px -8px rgba(255, 215, 0, 0.25), /* Gold glow */
+    0 4px 6px -2px rgba(0, 0, 0, 0.15),      /* Close shadow */
+    inset 0 2px 4px rgba(255, 255, 255, 0.3); /* Inner highlight */
+  
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   position: relative;
-  overflow: visible; /* Allow shadows and effects to show fully */
+  overflow: visible;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
   font-weight: 600;
-  font-size: 13px; /* Slightly larger now that text is shorter */
-  color: #1a1a2e; /* Dark text on gold background for readability */
-  touch-action: manipulation; /* Faster taps, no 300ms delay */
-  -webkit-tap-highlight-color: transparent; /* Remove tap highlight */
+  font-size: 13px;
+  color: #1a1a2e;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
   
-  /* Subtle glow animation */
-  animation: subtleGlow 3s infinite ease-in-out;
+  /* 3D PERSPECTIVE & FLOATING */
+  transform: perspective(1000px) rotateX(-2deg);
+  transform-style: preserve-3d;
+  animation: float3D 4s ease-in-out infinite;
 }
 
-@keyframes subtleGlow {
-  0%, 100% { 
+/* 3D FLOATING ANIMATION */
+@keyframes float3D {
+  0% { 
+    transform: translateY(0px) perspective(1000px) rotateX(-2deg);
     box-shadow: 
-      0 16px 40px var(--armora-gold-glow),
-      0 8px 20px rgba(0, 0, 0, 0.4),
-      0 4px 8px rgba(0, 0, 0, 0.2);
+      0 20px 40px -12px rgba(0, 0, 0, 0.35),
+      0 10px 20px -8px rgba(255, 215, 0, 0.25),
+      0 4px 6px -2px rgba(0, 0, 0, 0.15),
+      inset 0 2px 4px rgba(255, 255, 255, 0.3);
   }
   50% { 
+    transform: translateY(-6px) perspective(1000px) rotateX(-2deg);
     box-shadow: 
-      0 20px 50px rgba(255, 215, 0, 0.4),
-      0 10px 25px rgba(0, 0, 0, 0.4),
-      0 5px 10px rgba(0, 0, 0, 0.3);
+      0 25px 50px -12px rgba(0, 0, 0, 0.4),
+      0 15px 30px -8px rgba(255, 215, 0, 0.3),
+      0 8px 12px -2px rgba(0, 0, 0, 0.2),
+      inset 0 2px 4px rgba(255, 255, 255, 0.4);
+  }
+  100% { 
+    transform: translateY(0px) perspective(1000px) rotateX(-2deg);
+    box-shadow: 
+      0 20px 40px -12px rgba(0, 0, 0, 0.35),
+      0 10px 20px -8px rgba(255, 215, 0, 0.25),
+      0 4px 6px -2px rgba(0, 0, 0, 0.15),
+      inset 0 2px 4px rgba(255, 255, 255, 0.3);
   }
 }
 
 .floatingCTA:hover {
-  transform: scale(1.02);
+  /* 3D LIFT EFFECT ON HOVER */
+  transform: 
+    translateY(-4px) 
+    perspective(1000px) 
+    rotateX(-2deg);
   box-shadow: 
-    0 20px 50px rgba(255, 215, 0, 0.5),
-    0 10px 25px rgba(0, 0, 0, 0.4),
-    0 5px 10px rgba(0, 0, 0, 0.3);
-  background: #FFE55C !important; /* Lighter gold on hover */
-  border-color: #FFE55C;
+    0 25px 50px -12px rgba(0, 0, 0, 0.4),
+    0 15px 30px -8px rgba(255, 215, 0, 0.35),
+    0 8px 12px -2px rgba(0, 0, 0, 0.2),
+    inset 0 3px 6px rgba(255, 255, 255, 0.4);
+  background: linear-gradient(
+    135deg,
+    var(--armora-gold-secondary) 0%,
+    var(--armora-gold-primary) 50%,
+    var(--armora-gold-tertiary) 100%
+  );
+  border-color: rgba(255, 255, 255, 0.3);
 }
 
 .floatingCTA:active {
-  transform: scale(0.98);
-  background: #E6C200 !important; /* Darker gold on active/pressed */
-  border-color: #FFEB3B;
+  /* 3D PRESS DOWN EFFECT */
+  transform: 
+    translateY(1px) 
+    perspective(1000px) 
+    rotateX(-1deg);
+  box-shadow: 
+    0 15px 30px -12px rgba(0, 0, 0, 0.3),
+    0 8px 15px -8px rgba(255, 215, 0, 0.2),
+    0 2px 4px -2px rgba(0, 0, 0, 0.1),
+    inset 0 1px 2px rgba(255, 255, 255, 0.2);
+  background: linear-gradient(
+    135deg,
+    var(--armora-gold-tertiary) 0%,
+    var(--armora-gold-primary) 50%,
+    var(--armora-gold-tertiary) 100%
+  );
+}
+
+/* GLOSSY SURFACE REFLECTION */
+.floatingCTA::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 50%;
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.4) 0%,
+    rgba(255, 255, 255, 0.1) 50%,
+    transparent 100%
+  );
+  border-radius: 32px 32px 16px 16px;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* BOTTOM SHADOW FOR FLOATING EFFECT */
+.floatingCTA::after {
+  content: '';
+  position: absolute;
+  bottom: -15px;
+  left: 15%;
+  right: 15%;
+  height: 25px;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(0, 0, 0, 0.2) 0%,
+    rgba(0, 0, 0, 0.1) 50%,
+    transparent 100%
+  );
+  filter: blur(12px);
+  pointer-events: none;
+  z-index: -1;
 }
 
 .floatingCTA.loading {
   opacity: 0.7;
   cursor: not-allowed;
   animation: none;
+  transform: perspective(1000px) rotateX(-2deg); /* Maintain 3D shape */
 }
 
 .floatingCTA.disabled {
@@ -306,10 +401,32 @@
   transform: rotate(90deg);
 }
 
+/* 3D BUBBLE RESPONSIVE DESIGN */
+
 /* Mobile-specific positioning */
 @media (max-width: 480px) {
   .container {
-    bottom: max(80px, calc(80px + env(safe-area-inset-bottom))); /* Seamlessly connect to mobile bottom nav */
+    bottom: max(56px, calc(56px + env(safe-area-inset-bottom))); /* FIXED: Mobile nav is shorter */
+  }
+  
+  .floatingCTA {
+    height: 52px; /* Slightly smaller on mobile */
+    border-radius: 28px; /* Adjusted radius for mobile */
+    /* Reduce 3D effects on mobile for performance */
+    transform: perspective(800px) rotateX(-1deg);
+    animation: float3DMobile 5s ease-in-out infinite;
+  }
+  
+  .expandablePanel {
+    bottom: 52px; /* Match mobile button height */
+    border-radius: 20px 20px 0 0;
+  }
+  
+  /* Simplified floating animation for mobile */
+  @keyframes float3DMobile {
+    0% { transform: translateY(0px) perspective(800px) rotateX(-1deg); }
+    50% { transform: translateY(-4px) perspective(800px) rotateX(-1deg); }
+    100% { transform: translateY(0px) perspective(800px) rotateX(-1deg); }
   }
 }
 
@@ -318,7 +435,7 @@
   .container {
     left: 50%;
     right: auto;
-    bottom: 86px; /* Seamlessly connect to tablet bottom nav */
+    bottom: 60px; /* FIXED: Match calculated nav height */
     transform: translateX(-50%) translateY(100px);
     max-width: 500px;
     width: calc(100% - 16px); /* FIXED: Simpler width calculation */
@@ -327,7 +444,7 @@
   }
   
   .container.visible {
-    bottom: 86px; /* Maintain consistent bottom position when visible */
+    bottom: 60px; /* FIXED: Consistent positioning */
     transform: translateX(-50%) translateY(0);
   }
   
@@ -336,15 +453,15 @@
   }
 }
 
-/* Desktop and large screen support */
+/* Desktop and large screen support - Enhanced 3D */
 @media (min-width: 769px) {
   .container {
     left: 50%;
     right: auto;
-    bottom: 86px;
+    bottom: 60px; /* FIXED: Desktop nav positioning */
     transform: translateX(-50%) translateY(100px);
     width: 90%;
-    max-width: 480px; /* Reasonable max width for larger screens */
+    max-width: 520px; /* Slightly larger for desktop 3D effect */
   }
   
   .container.visible {
@@ -355,9 +472,47 @@
     transform: translateX(-50%) translateY(0);
   }
   
+  .floatingCTA {
+    height: 60px; /* Larger on desktop for better 3D visibility */
+    border-radius: 36px; /* Larger radius for desktop */
+    /* Enhanced 3D effects on larger screens */
+    transform: perspective(1200px) rotateX(-3deg);
+    animation: float3DDesktop 4s ease-in-out infinite;
+  }
+  
   .expandablePanel {
+    bottom: 60px; /* Match desktop button height */
     max-height: calc(100vh - 200px);
     min-height: 320px;
+    border-radius: 28px 28px 0 0;
+  }
+  
+  /* Enhanced floating animation for desktop */
+  @keyframes float3DDesktop {
+    0% { 
+      transform: translateY(0px) perspective(1200px) rotateX(-3deg);
+      box-shadow: 
+        0 25px 50px -12px rgba(0, 0, 0, 0.35),
+        0 12px 25px -8px rgba(255, 215, 0, 0.25),
+        0 6px 8px -2px rgba(0, 0, 0, 0.15),
+        inset 0 3px 6px rgba(255, 255, 255, 0.3);
+    }
+    50% { 
+      transform: translateY(-8px) perspective(1200px) rotateX(-3deg);
+      box-shadow: 
+        0 35px 70px -12px rgba(0, 0, 0, 0.4),
+        0 18px 35px -8px rgba(255, 215, 0, 0.3),
+        0 10px 15px -2px rgba(0, 0, 0, 0.2),
+        inset 0 4px 8px rgba(255, 255, 255, 0.4);
+    }
+    100% { 
+      transform: translateY(0px) perspective(1200px) rotateX(-3deg);
+      box-shadow: 
+        0 25px 50px -12px rgba(0, 0, 0, 0.35),
+        0 12px 25px -8px rgba(255, 215, 0, 0.25),
+        0 6px 8px -2px rgba(0, 0, 0, 0.15),
+        inset 0 3px 6px rgba(255, 255, 255, 0.3);
+    }
   }
 }
 
@@ -393,43 +548,60 @@
   }
 }
 
-/* Expandable panel */
+/* Expandable panel - 3D bubble complement */
 .expandablePanel {
   position: absolute;
-  bottom: 52px; /* Connect seamlessly with CTA button height */
+  bottom: 56px; /* Connect with taller 3D bubble button */
   left: 0;
   right: 0;
-  max-height: 50vh; /* Do not exceed half of the screen */
-  min-height: 250px; /* Ensure minimum content visibility */
-  background: var(--armora-gold-muted); /* Match CTA background exactly */
-  border: 2px solid var(--armora-gold);
-  border-bottom: none; /* No bottom border to connect seamlessly */
-  border-radius: 16px 16px 0 0;
-  box-shadow: 
-    0 -16px 40px var(--armora-gold-glow),
-    0 -8px 20px rgba(0, 0, 0, 0.4),
-    0 -4px 8px rgba(0, 0, 0, 0.2);
-  animation: panelSlideUp 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  overflow: visible; /* Allow content to be fully visible */
+  max-height: 50vh;
+  min-height: 250px;
+  /* CONSISTENT 3D BUBBLE PANEL STYLING - MATCH BUTTON EXACTLY */
+  background: linear-gradient(
+    135deg,
+    var(--armora-gold-primary) 0%,
+    var(--armora-gold-secondary) 50%,
+    var(--armora-gold-tertiary) 100%
+  );
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-bottom: none; /* No bottom border for seamless connection */
+  border-radius: 24px 24px 0 0; /* Match 3D bubble radius */
+  /* REMOVED: Box-shadow creates visual separation - eliminated for seamless connection */
+  box-shadow: none;
+  animation: panelSlideUp3D 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  overflow: visible;
   display: flex;
   flex-direction: column;
-  /* Ensure seamless connection */
+  /* SEAMLESS CONNECTION - Remove all margins */
   margin: 0;
-  z-index: 1001; /* Just above CTA button */
+  padding: 0; 
+  /* CRITICAL: No margin-bottom gap */
+  margin-bottom: 0;
+  z-index: 1001;
+  /* 3D PERSPECTIVE */
+  transform-style: preserve-3d;
+  /* PERFECT ALIGNMENT */
+  position: absolute;
 }
 
-@keyframes panelSlideUp {
+/* SEAMLESS PANEL SLIDE UP ANIMATION */
+@keyframes panelSlideUp3D {
   0% {
-    transform: translateY(100%);
+    transform: translateY(100%) perspective(1000px) rotateX(5deg);
     opacity: 0;
+    /* No box-shadow for seamless connection */
   }
   70% {
-    transform: translateY(-5px);
+    transform: translateY(-4px) perspective(1000px) rotateX(-1deg);
     opacity: 1;
+    /* No box-shadow for seamless connection */
   }
   100% {
-    transform: translateY(0);
+    transform: translateY(0) perspective(1000px) rotateX(0deg);
     opacity: 1;
+    /* No box-shadow for seamless connection */
   }
 }
 
@@ -600,15 +772,85 @@
   text-align: center;
 }
 
-/* CTA button expanded state */
+/* STEP-SPECIFIC CONTENT STYLES */
+.stepExample {
+  margin: 16px 0;
+  padding: 12px;
+  background: rgba(26, 26, 46, 0.05);
+  border-left: 3px solid var(--armora-dark);
+  border-radius: 0 8px 8px 0;
+}
+
+.exampleTitle {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--armora-dark);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 6px;
+}
+
+.exampleText {
+  font-size: 13px;
+  line-height: 1.4;
+  color: rgba(26, 26, 46, 0.9);
+  margin: 0;
+  font-style: italic;
+}
+
+.securityBenefit {
+  margin: 12px 0 16px 0;
+  padding: 10px 12px;
+  background: rgba(26, 26, 46, 0.08);
+  border-radius: 8px;
+  border: 1px solid rgba(26, 26, 46, 0.1);
+}
+
+.benefitTitle {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--armora-dark);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 6px;
+}
+
+.benefitText {
+  font-size: 13px;
+  line-height: 1.4;
+  color: var(--armora-dark);
+  margin: 0;
+  font-weight: 500;
+}
+
+.stepFeatures {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 6px;
+}
+
+/* CTA button expanded state - SEAMLESS connection */
 .floatingCTA.expanded {
-  border-radius: 0 0 16px 16px; /* Rounded bottom corners when expanded */
-  border-top: none; /* Remove top border to connect seamlessly with panel */
-  background: var(--armora-gold-muted) !important; /* Match panel background exactly */
-  /* Remove any visual separation */
+  border-radius: 0 0 24px 24px; /* Larger radius for 3D bubble connection */
+  border-top: none; /* CRITICAL: Remove top border to eliminate dividing line */
+  border: 1px solid rgba(255, 255, 255, 0.2); /* Match panel border exactly */
+  border-top: none !important; /* Force removal of top border */
+  background: linear-gradient(
+    135deg,
+    var(--armora-gold-primary) 0%,
+    var(--armora-gold-secondary) 50%,
+    var(--armora-gold-tertiary) 100%
+  ) !important; /* EXACT match to panel background */
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   position: relative;
-  z-index: 1000; /* Below panel */
-  box-shadow: none; /* Remove glow so there is no seam under panel */
+  z-index: 1002; /* Above panel for proper layering */
+  /* Remove animation and shadows for seamless connection */
+  animation: none;
+  box-shadow: none;
+  transform: perspective(1000px) rotateX(0deg); /* Flatten when expanded */
+  /* SEAMLESS CONNECTION */
+  margin-top: -1px; /* Overlap by 1px to eliminate any gap */
 }
 
 .expandIndicator {
@@ -662,7 +904,7 @@
   .expandablePanel {
   max-height: 50vh; /* Explicit cap to half screen on mobile */
     min-height: 220px; /* Ensure minimum visibility on small screens */
-  bottom: 50px; /* Maintain slight overlap */
+  bottom: 52px; /* FIXED: Match mobile button height exactly for seamless connection */
     border-radius: 12px 12px 0 0;
   }
   
@@ -709,7 +951,7 @@
   .expandablePanel {
     max-height: calc(100vh - 100px); /* Use most of available vertical space in landscape */
     min-height: 180px; /* Smaller minimum for landscape constraints */
-    bottom: 50px; /* Closer to CTA in landscape */
+    bottom: 52px; /* FIXED: Consistent positioning for seamless connection */
   }
   
   .panelContent {
@@ -817,9 +1059,29 @@
   transform: scale(1.1);
 }
 
+/* DISABLE HOVER EFFECTS WHEN PANEL IS EXPANDED */
+.floatingCTA.expanded:hover {
+  transform: perspective(1000px) rotateX(0deg) !important; /* Maintain flat expanded state */
+  /* FIXED: Use consistent color variables to match panel exactly */
+  background: linear-gradient(
+    135deg,
+    var(--armora-gold-primary) 0%,
+    var(--armora-gold-secondary) 50%,
+    var(--armora-gold-tertiary) 100%
+  ) !important;
+  border-color: rgba(255, 255, 255, 0.2) !important;
+  box-shadow: none !important;
+  animation: none !important;
+}
+
 /* Interactive states */
 .floatingCTA:hover .expandIndicator.collapsed {
   animation: bounceUp 0.6s ease-out;
+}
+
+/* FIXED: Disable expand indicator hover animation when expanded */
+.floatingCTA.expanded:hover .expandIndicator.expanded {
+  animation: none !important; /* No bounce when expanded for seamless connection */
 }
 
 .floatingCTA:hover .expandIndicator.expanded {

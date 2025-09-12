@@ -81,12 +81,12 @@
 - **Premium UX**: Feels like high-end security service application
 
 ## 🛡️ SECURITY TRANSPORT MESSAGING GUIDELINES:
-- Emphasize "professional security transport" not "taxi service"
+- Emphasize "professional security transport" not "cab service"
 - Reference "security specialists" and "protection protocols"
 - Highlight "discrete professional service" and "confidentiality"
 - Use "VIP transport" and "executive protection" terminology
 - Focus on "safety," "security," and "professional standards"
-- Avoid generic taxi/ride-share language
+- Avoid generic cab/ride-share language
 
 ## 🔧 TECHNICAL IMPLEMENTATION RULES:
 - **CSS Modules**: Use for component-specific styling

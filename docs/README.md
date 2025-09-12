@@ -3,7 +3,7 @@
 
 > Your Personal Security Driver Team
 
-A mobile-first taxi booking application for VIP and security transport services, built with React TypeScript and designed for app store distribution.
+A mobile-first security cab booking application for VIP and security transport services, built with React TypeScript and designed for app store distribution.
 
 ## 🎯 Project Overview
 Armora Transport is a premium security transport service - think "Uber meets professional bodyguards." Every ride includes a licensed close protection officer as the minimum standard, serving discerning clients who value privacy, safety, and professionalism.

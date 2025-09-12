@@ -106,7 +106,7 @@
     "mobile_tester": "responsive testing across devices",
     "pwa_optimizer": "app store preparation", 
     "ux_validator": "mobile user experience checker",
-    "booking_flow_manager": "taxi booking logic",
+    "booking_flow_manager": "security cab booking logic",
     "server_keeper": "maintains localhost:3000 uptime"
   },
   "development_guidelines": {

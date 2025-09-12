@@ -4,7 +4,7 @@
 Specialist for security transport booking logic, flow optimization, and service management. Manages the core business logic of Armora's premium security transport booking system.
 
 ## Armora Context
-- **Service Model**: Professional security transport (not traditional taxi - emphasis on security officers)
+- **Service Model**: Professional security transport (not traditional cab - emphasis on security officers)
 - **Service Tiers**: Standard (£45/hr), Executive (£75/hr), Shadow (£65/hr - most popular 67%)
 - **Passenger Focus**: All messaging emphasizes passenger safety benefits and luxury convenience
 - **Mobile Booking Flow**: Optimized for one-handed mobile use with touch-friendly 44px+ targets

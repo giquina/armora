@@ -151,7 +151,7 @@ export const questionnaireSteps: QuestionnaireStep[] = [
       ],
       securityAssurance: "All responses are encrypted and used exclusively for service matching. Your privacy is our priority."
     },
-    stepDescription: "Select your professional category for personalized transport recommendations. We are a specialized taxi and private hire service - our SIA-licensed drivers provide both professional chauffeur services and trained security awareness for your protection."
+    stepDescription: "Select your professional category for personalized transport recommendations. We are a specialized security cab and private hire service - our SIA-licensed drivers provide both professional chauffeur services and trained security awareness for your protection."
   },
   {
     id: 2,

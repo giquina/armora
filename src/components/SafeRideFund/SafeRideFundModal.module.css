@@ -1,0 +1,414 @@
+/* Safe Ride Fund Modal Styles */
+
+.backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(26, 26, 46, 0.95);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  z-index: 1000;
+  animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.modal {
+  background: linear-gradient(135deg, #1a1a2e 0%, #1e1e3a 100%);
+  border-radius: 12px;
+  width: 100%;
+  max-width: 500px;
+  max-height: 80vh;
+  position: relative;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+  animation: slideUp 0.4s ease-out;
+  overflow: hidden;
+}
+
+@keyframes slideUp {
+  from { 
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to { 
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.closeButton {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  background: none;
+  border: none;
+  font-size: 24px;
+  color: #e0e0e0;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 50%;
+  transition: all 0.2s ease;
+  z-index: 10;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.closeButton:hover {
+  background: rgba(255, 215, 0, 0.1);
+  color: #FFD700;
+}
+
+.content {
+  padding: 24px;
+  overflow-y: auto;
+  max-height: calc(80vh - 48px);
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.title {
+  color: #FFD700;
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin: 0 0 8px 0;
+  line-height: 1.2;
+}
+
+.subtitle {
+  color: #e0e0e0;
+  font-size: 1rem;
+  margin: 0;
+  opacity: 0.9;
+}
+
+.mission {
+  margin-bottom: 24px;
+}
+
+.mission p {
+  color: #e0e0e0;
+  font-size: 1rem;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.breakdown {
+  margin-bottom: 24px;
+}
+
+.breakdown h3 {
+  color: #FFD700;
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin: 0 0 16px 0;
+}
+
+.breakdownChart {
+  background: rgba(255, 215, 0, 0.05);
+  border-radius: 8px;
+  padding: 16px;
+  border: 1px solid rgba(255, 215, 0, 0.2);
+}
+
+.breakdownItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+  padding: 8px 0;
+  border-bottom: 1px solid rgba(255, 215, 0, 0.1);
+}
+
+.breakdownItem:last-of-type {
+  margin-bottom: 16px;
+}
+
+.amount {
+  color: #FFD700;
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+.description {
+  color: #e0e0e0;
+  font-size: 0.9rem;
+  text-align: right;
+  flex: 1;
+  margin-left: 16px;
+}
+
+.total {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 0 8px 0;
+  border-top: 2px solid #FFD700;
+}
+
+.totalAmount {
+  color: #FFD700;
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
+.totalLabel {
+  color: #FFD700;
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+.impact {
+  margin-bottom: 24px;
+}
+
+.impact h3 {
+  color: #FFD700;
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin: 0 0 16px 0;
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.stat {
+  background: rgba(255, 215, 0, 0.05);
+  padding: 16px;
+  border-radius: 8px;
+  text-align: center;
+  border: 1px solid rgba(255, 215, 0, 0.2);
+}
+
+.stat:last-child {
+  grid-column: 1 / -1;
+}
+
+.statNumber {
+  display: block;
+  color: #FFD700;
+  font-size: 1.5rem;
+  font-weight: 700;
+  line-height: 1;
+  margin-bottom: 4px;
+}
+
+.statLabel {
+  color: #e0e0e0;
+  font-size: 0.85rem;
+  opacity: 0.9;
+}
+
+.stories {
+  margin-bottom: 24px;
+}
+
+.stories h3 {
+  color: #FFD700;
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin: 0 0 16px 0;
+}
+
+.storyContainer {
+  background: rgba(255, 215, 0, 0.05);
+  border-radius: 8px;
+  padding: 20px;
+  border: 1px solid rgba(255, 215, 0, 0.2);
+  min-height: 120px;
+  position: relative;
+}
+
+.story {
+  animation: fadeInStory 0.5s ease-in;
+}
+
+@keyframes fadeInStory {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.storyText {
+  color: #e0e0e0;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  font-style: italic;
+  margin: 0 0 12px 0;
+}
+
+.storyImpact {
+  color: #FFD700;
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.storyIndicators {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+.indicator {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(255, 215, 0, 0.3);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.indicator.active {
+  background: #FFD700;
+  transform: scale(1.2);
+}
+
+.indicator:hover {
+  background: rgba(255, 215, 0, 0.6);
+}
+
+.cta {
+  text-align: center;
+}
+
+.cta h3 {
+  color: #FFD700;
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin: 0 0 8px 0;
+}
+
+.cta p {
+  color: #e0e0e0;
+  font-size: 0.95rem;
+  margin: 0 0 20px 0;
+  opacity: 0.9;
+}
+
+.ctaButtons {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+}
+
+.primaryCta {
+  background: linear-gradient(135deg, #FFD700, #FFA500);
+  color: #1a1a2e;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  min-width: 120px;
+}
+
+.primaryCta:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(255, 215, 0, 0.3);
+}
+
+.secondaryCta {
+  background: transparent;
+  color: #FFD700;
+  border: 2px solid #FFD700;
+  padding: 10px 24px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  min-width: 120px;
+}
+
+.secondaryCta:hover {
+  background: rgba(255, 215, 0, 0.1);
+  transform: translateY(-1px);
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+  .backdrop {
+    padding: 0;
+    align-items: stretch;
+  }
+
+  .modal {
+    max-width: 100%;
+    max-height: 100%;
+    border-radius: 0;
+    height: 100vh;
+  }
+
+  .content {
+    max-height: calc(100vh - 48px);
+    padding: 20px;
+  }
+
+  .title {
+    font-size: 1.3rem;
+  }
+
+  .stats {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+
+  .stat:last-child {
+    grid-column: auto;
+  }
+
+  .ctaButtons {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .primaryCta,
+  .secondaryCta {
+    width: 100%;
+    min-width: auto;
+  }
+}
+
+/* Very small screens */
+@media (max-width: 480px) {
+  .content {
+    padding: 16px;
+  }
+
+  .title {
+    font-size: 1.2rem;
+  }
+
+  .subtitle {
+    font-size: 0.9rem;
+  }
+
+  .breakdown h3,
+  .impact h3,
+  .stories h3,
+  .cta h3 {
+    font-size: 1.1rem;
+  }
+
+  .statNumber {
+    font-size: 1.3rem;
+  }
+}

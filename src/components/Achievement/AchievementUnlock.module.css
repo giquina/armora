@@ -951,3 +951,67 @@
     transform: none;
   }
 }
+
+/* Safe Ride Fund Section */
+.safeRideFundSection {
+  background: linear-gradient(135deg, rgba(255, 215, 0, 0.1) 0%, rgba(255, 215, 0, 0.05) 100%);
+  border: 1px solid rgba(255, 215, 0, 0.2);
+  border-radius: 12px;
+  padding: var(--space-md, 16px);
+  margin: var(--space-md, 16px) 0;
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm, 8px);
+  animation: safeRideFundGlow 2s ease-in-out infinite alternate;
+}
+
+@keyframes safeRideFundGlow {
+  from {
+    box-shadow: 0 0 20px rgba(255, 215, 0, 0.2);
+  }
+  to {
+    box-shadow: 0 0 30px rgba(255, 215, 0, 0.4);
+  }
+}
+
+.safeRideFundIcon {
+  font-size: 1.5rem;
+  flex-shrink: 0;
+  filter: drop-shadow(0 0 8px rgba(255, 215, 0, 0.6));
+}
+
+.safeRideFundMessage {
+  font-size: 0.9rem;
+  color: var(--text-secondary, #e0e0e0);
+  line-height: 1.4;
+  margin: 0;
+  text-align: left;
+}
+
+.highlight {
+  color: var(--accent-gold, #FFD700);
+  font-weight: 700;
+  text-shadow: 0 0 8px rgba(255, 215, 0, 0.5);
+}
+
+@media (max-width: 480px) {
+  .safeRideFundSection {
+    flex-direction: column;
+    text-align: center;
+    padding: var(--space-sm, 8px);
+  }
+  
+  .safeRideFundMessage {
+    font-size: 0.85rem;
+  }
+  
+  .safeRideFundIcon {
+    font-size: 1.3rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .safeRideFundSection {
+    animation: none;
+  }
+}

@@ -165,6 +165,15 @@ const AchievementUnlock: React.FC<AchievementUnlockProps> = ({
             You've unlocked 50% off your first ride!
           </p>
           
+          <div className={styles.safeRideFundSection}>
+            <div className={styles.safeRideFundIcon}>🛡️</div>
+            <p className={styles.safeRideFundMessage}>
+              Want to make every ride count? Join Essential to save money 
+              <span className={styles.highlight}> AND </span>
+              help others stay safe too.
+            </p>
+          </div>
+          
           <p className={styles.profileMessage}>
             Your security transport profile is now complete
           </p>

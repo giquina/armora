@@ -1,0 +1,132 @@
+/* Safe Ride Fund CTA Component Styles */
+
+.ctaContainer {
+  position: fixed;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 100;
+  pointer-events: none;
+}
+
+.ctaButton {
+  background: linear-gradient(135deg, #FFD700, #FFA500);
+  color: #1a1a2e;
+  border: none;
+  border-radius: 8px 0 0 8px;
+  padding: 16px 12px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+  pointer-events: all;
+  box-shadow: 0 2px 10px rgba(255, 215, 0, 0.3);
+  opacity: 0.95;
+  transition: all 0.3s ease;
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  min-height: 160px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: rotate(180deg);
+}
+
+.ctaText {
+  display: block;
+  line-height: 1.2;
+  letter-spacing: 0.5px;
+}
+
+.ctaButton:hover {
+  transform: rotate(180deg) translateX(10px);
+  box-shadow: 0 4px 20px rgba(255, 215, 0, 0.4);
+  opacity: 1;
+}
+
+.ctaButton:active {
+  transform: rotate(180deg) scale(0.95);
+}
+
+/* Bounce animation */
+.ctaContainer:not(.reduced) .ctaButton {
+  animation: gentleBounce 5s infinite;
+}
+
+@keyframes gentleBounce {
+  0%, 95%, 100% { transform: rotate(180deg); }
+  97.5% { transform: rotate(180deg) scale(1.05); }
+}
+
+/* Reduced animation for users who have viewed the modal */
+.reduced .ctaButton {
+  animation: gentleBounce 15s infinite;
+}
+
+/* Mobile responsive - switch to bottom bar */
+@media (max-width: 768px) {
+  .ctaContainer {
+    position: fixed;
+    bottom: 80px; /* Above auth buttons */
+    left: 50%;
+    right: auto;
+    top: auto;
+    transform: translateX(-50%);
+    width: calc(100vw - 32px);
+    max-width: 400px;
+  }
+
+  .ctaButton {
+    writing-mode: horizontal-tb;
+    text-orientation: initial;
+    transform: none;
+    border-radius: 8px;
+    padding: 12px 20px;
+    width: 100%;
+    min-height: auto;
+    height: 48px;
+    font-size: 0.85rem;
+  }
+
+  .ctaButton:hover {
+    transform: scale(1.02);
+  }
+
+  .ctaButton:active {
+    transform: scale(0.98);
+  }
+
+  .ctaText {
+    text-align: center;
+  }
+
+  /* Mobile bounce animation */
+  .ctaContainer:not(.reduced) .ctaButton {
+    animation: mobileBounce 5s infinite;
+  }
+
+  @keyframes mobileBounce {
+    0%, 95%, 100% { transform: none; }
+    97.5% { transform: scale(1.02); }
+  }
+
+  .reduced .ctaButton {
+    animation: mobileBounce 15s infinite;
+  }
+}
+
+/* Very small mobile screens */
+@media (max-width: 480px) {
+  .ctaContainer {
+    width: calc(100vw - 24px);
+  }
+
+  .ctaButton {
+    font-size: 0.8rem;
+    padding: 10px 16px;
+    height: 44px;
+  }
+
+  .ctaText {
+    font-size: 0.8rem;
+  }
+}

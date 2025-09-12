@@ -148,6 +148,7 @@ export interface QuestionnaireData {
 }
 
 export interface PersonalizationData extends QuestionnaireData {
+  firstName?: string; // Optional name for personalization
   completedAt?: Date;
   recommendedService?: string;
   conversionAttempts?: number;
@@ -196,6 +197,8 @@ export interface AppState {
   deviceCapabilities: DeviceCapabilities;
   subscription: UserSubscription | null;
   selectedServiceForBooking?: string;
+  safeRideFundMetrics: SafeRideFundMetrics | null;
+  communityImpactData: CommunityImpactData | null;
   isLoading: boolean;
   error: string | null;
 }
@@ -263,6 +266,7 @@ export interface UserSubscription {
   trialEndDate?: Date;
   subscriptionStartDate?: Date;
   subscriptionEndDate?: Date;
+  startDate?: Date; // For Safe Ride Fund metrics calculation
   isTrialActive: boolean;
   daysRemainingInTrial?: number;
   memberBenefits: {
@@ -291,4 +295,38 @@ export interface NotificationData {
   expectedUsage?: string;
   timestamp: Date;
   totalInterestCount?: number;
+}
+
+// Safe Ride Fund Types
+export interface SafeRideFundMetrics {
+  personalRidesFunded: number;
+  totalContributed: number;
+  currentStreak: number; // months active
+  monthlyContribution: number; // £4 for Essential
+  joinDate: Date;
+  nextMilestone: number;
+  progressToNextMilestone: number; // percentage
+}
+
+export interface CommunityImpactData {
+  totalMembers: number;
+  monthlyRidesFunded: number;
+  totalRidesFunded: number;
+  lastUpdated: Date;
+}
+
+export interface CharityPartner {
+  name: string;
+  description: string;
+  monthlyAmount: number;
+  logo?: string;
+}
+
+export interface ImpactStory {
+  id: number;
+  title: string;
+  story: string;
+  impact?: string;
+  timeframe: string;
+  isAnonymous?: boolean;
 }

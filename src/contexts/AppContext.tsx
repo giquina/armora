@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useReducer, useEffect, useCallback, ReactNode } from 'react';
-import { AppState, ViewState, User, PersonalizationData, DeviceCapabilities, UserSubscription, SubscriptionTier, PremiumInterest, NotificationData } from '../types';
+import { AppState, ViewState, User, PersonalizationData, DeviceCapabilities, UserSubscription, SubscriptionTier, PremiumInterest, NotificationData, SafeRideFundMetrics, CommunityImpactData } from '../types';
 
 // Initial state
 const initialState: AppState = {
@@ -17,6 +17,8 @@ const initialState: AppState = {
   },
   subscription: null,
   selectedServiceForBooking: undefined,
+  safeRideFundMetrics: null,
+  communityImpactData: null,
   isLoading: false,
   error: null,
 };
@@ -29,6 +31,8 @@ type AppAction =
   | { type: 'UPDATE_DEVICE_CAPABILITIES'; payload: Partial<DeviceCapabilities> }
   | { type: 'SET_SUBSCRIPTION'; payload: UserSubscription | null }
   | { type: 'SET_SELECTED_SERVICE'; payload: string }
+  | { type: 'SET_SAFE_RIDE_FUND_METRICS'; payload: SafeRideFundMetrics | null }
+  | { type: 'SET_COMMUNITY_IMPACT_DATA'; payload: CommunityImpactData | null }
   | { type: 'SET_LOADING'; payload: boolean }
   | { type: 'SET_ERROR'; payload: string | null }
   | { type: 'CLEAR_ERROR' }
@@ -56,6 +60,10 @@ function appReducer(state: AppState, action: AppAction): AppState {
       return { ...state, subscription: action.payload };
     case 'SET_SELECTED_SERVICE':
       return { ...state, selectedServiceForBooking: action.payload };
+    case 'SET_SAFE_RIDE_FUND_METRICS':
+      return { ...state, safeRideFundMetrics: action.payload };
+    case 'SET_COMMUNITY_IMPACT_DATA':
+      return { ...state, communityImpactData: action.payload };
     case 'CLEAR_ERROR':
       return { ...state, error: null };
     case 'RESET_APP':
@@ -83,6 +91,10 @@ interface AppContextType {
   startFreeTrial: (tier: SubscriptionTier) => Promise<void>;
   recordPremiumInterest: (data: PremiumInterest) => Promise<void>;
   sendOwnerNotification: (data: NotificationData) => Promise<boolean>;
+  // Safe Ride Fund actions
+  updateSafeRideFundMetrics: (metrics: SafeRideFundMetrics | null) => void;
+  updateCommunityImpactData: (data: CommunityImpactData | null) => void;
+  initializeSafeRideFundData: () => void;
 }
 
 // Create context
@@ -263,6 +275,54 @@ export function AppProvider({ children }: { children: ReactNode }) {
     }
   };
 
+  // Safe Ride Fund actions
+  const updateSafeRideFundMetrics = (metrics: SafeRideFundMetrics | null) => {
+    dispatch({ type: 'SET_SAFE_RIDE_FUND_METRICS', payload: metrics });
+  };
+
+  const updateCommunityImpactData = (data: CommunityImpactData | null) => {
+    dispatch({ type: 'SET_COMMUNITY_IMPACT_DATA', payload: data });
+  };
+
+  const initializeSafeRideFundData = useCallback(() => {
+    // Only initialize for Essential subscribers
+    if (state.subscription?.tier === 'essential') {
+      const joinDate = state.subscription.startDate || new Date();
+      const monthsSinceJoined = Math.max(1, Math.floor((new Date().getTime() - joinDate.getTime()) / (1000 * 60 * 60 * 24 * 30)));
+      
+      const metrics: SafeRideFundMetrics = {
+        personalRidesFunded: monthsSinceJoined,
+        totalContributed: monthsSinceJoined * 4, // £4 per month
+        currentStreak: monthsSinceJoined,
+        monthlyContribution: 4,
+        joinDate,
+        nextMilestone: Math.ceil(monthsSinceJoined / 5) * 5,
+        progressToNextMilestone: ((monthsSinceJoined % 5) || 5) / 5 * 100
+      };
+
+      updateSafeRideFundMetrics(metrics);
+    }
+
+    // Community impact data (mock data)
+    const communityData: CommunityImpactData = {
+      totalMembers: 1247,
+      monthlyRidesFunded: 278,
+      totalRidesFunded: 3741,
+      lastUpdated: new Date()
+    };
+
+    updateCommunityImpactData(communityData);
+  }, [state.subscription]);
+
+  // Initialize Safe Ride Fund data when subscription changes
+  useEffect(() => {
+    if (state.subscription?.tier === 'essential') {
+      initializeSafeRideFundData();
+    } else {
+      updateSafeRideFundMetrics(null);
+    }
+  }, [state.subscription, initializeSafeRideFundData]);
+
   // Monitor device capabilities
   useEffect(() => {
     const handleResize = () => {
@@ -350,6 +410,9 @@ export function AppProvider({ children }: { children: ReactNode }) {
     startFreeTrial,
     recordPremiumInterest,
     sendOwnerNotification,
+    updateSafeRideFundMetrics,
+    updateCommunityImpactData,
+    initializeSafeRideFundData,
   };
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;

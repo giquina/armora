@@ -473,3 +473,115 @@
     font-size: 22px;
   }
 }
+
+/* Safe Ride Fund Enhancement Styles */
+.socialProofContainer {
+  margin-top: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: center;
+}
+
+.socialProof {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  color: #e0e0e0;
+}
+
+.socialProofIcon {
+  font-size: 16px;
+}
+
+.socialProofText {
+  opacity: 0.9;
+}
+
+.impactCounter {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  background: linear-gradient(90deg, rgba(255, 215, 0, 0.1) 0%, rgba(255, 215, 0, 0.05) 100%);
+  padding: 4px 12px;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 215, 0, 0.2);
+}
+
+.counterNumber {
+  font-size: 16px;
+  font-weight: 700;
+  color: #FFD700;
+}
+
+.counterText {
+  font-size: 12px;
+  color: #e0e0e0;
+  opacity: 0.8;
+}
+
+.impactBadge {
+  background: linear-gradient(90deg, rgba(255, 215, 0, 0.15) 0%, rgba(255, 215, 0, 0.1) 100%);
+  color: #FFD700;
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 10px;
+  font-weight: 600;
+  margin-left: 8px;
+  border: 1px solid rgba(255, 215, 0, 0.3);
+}
+
+.safeRideFundSection {
+  margin: 16px 0;
+}
+
+.learnMoreButton {
+  width: 100%;
+  background: rgba(255, 215, 0, 0.08);
+  border: 1px solid rgba(255, 215, 0, 0.2);
+  border-radius: 8px;
+  padding: 10px 16px;
+  color: #FFD700;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-size: 14px;
+}
+
+.learnMoreButton:hover {
+  background: rgba(255, 215, 0, 0.12);
+  border-color: rgba(255, 215, 0, 0.3);
+}
+
+.toggleIcon {
+  font-size: 12px;
+  transition: transform 0.2s ease;
+}
+
+@media (max-width: 480px) {
+  .socialProofContainer {
+    gap: 6px;
+  }
+  
+  .socialProof {
+    font-size: 13px;
+  }
+  
+  .counterNumber {
+    font-size: 15px;
+  }
+  
+  .counterText {
+    font-size: 11px;
+  }
+  
+  .impactBadge {
+    font-size: 9px;
+    padding: 3px 6px;
+  }
+}

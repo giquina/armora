@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import { useApp } from '../../contexts/AppContext';
 import { subscriptionPlans, calculateSavings, formatSavings } from '../../data/subscriptionData';
 import { PremiumInterest } from '../../types';
+import { SafeRideFundExplainer } from '../Common/SafeRideFundExplainer';
 import styles from './SubscriptionOffer.module.css';
 
 interface SubscriptionOfferProps {
@@ -17,6 +18,7 @@ export function SubscriptionOffer({ selectedService, servicePrice = 45 }: Subscr
   const [emailForInterest, setEmailForInterest] = useState('');
   const [expectedUsage, setExpectedUsage] = useState('');
   const [showInterestForm, setShowInterestForm] = useState<string | null>(null);
+  const [showSafeRideFund, setShowSafeRideFund] = useState(false);
 
   const essentialPlan = subscriptionPlans.find(p => p.tier === 'essential')!;
   const executivePlan = subscriptionPlans.find(p => p.tier === 'executive')!;
@@ -80,10 +82,22 @@ export function SubscriptionOffer({ selectedService, servicePrice = 45 }: Subscr
     <div className={styles.container}>
       <div className={styles.content}>
         <header className={styles.header}>
-          <h1 className={styles.title}>💰 Save Money on This Booking!</h1>
+          <h1 className={styles.title}>💰 Save Money AND Save Lives!</h1>
           <p className={styles.subtitle}>
             Choose your membership level and start saving immediately
           </p>
+          <div className={styles.socialProofContainer}>
+            <div className={styles.socialProof}>
+              <span className={styles.socialProofIcon}>🛡️</span>
+              <span className={styles.socialProofText}>
+                Join <strong>1,247 members</strong> protecting themselves AND others
+              </span>
+            </div>
+            <div className={styles.impactCounter}>
+              <span className={styles.counterNumber}>278</span>
+              <span className={styles.counterText}>safe rides funded this month</span>
+            </div>
+          </div>
         </header>
 
         <div className={styles.plansContainer}>
@@ -91,6 +105,7 @@ export function SubscriptionOffer({ selectedService, servicePrice = 45 }: Subscr
           <div className={`${styles.planCard} ${styles.primaryPlan}`}>
             <div className={styles.planBadge}>
               <span className={styles.badge}>🟢 AVAILABLE NOW</span>
+              <span className={styles.impactBadge}>🛡️ Protection Plus Impact</span>
             </div>
             
             <div className={styles.planHeader}>
@@ -113,6 +128,22 @@ export function SubscriptionOffer({ selectedService, servicePrice = 45 }: Subscr
               <div className={styles.savingsBreakdown}>
                 • Priority {essentialPlan.responseTime} response
               </div>
+            </div>
+
+            <SafeRideFundExplainer variant="compact" showAnimation={false} />
+            
+            <div className={styles.safeRideFundSection}>
+              <button 
+                className={styles.learnMoreButton}
+                onClick={() => setShowSafeRideFund(!showSafeRideFund)}
+              >
+                {showSafeRideFund ? 'Hide Impact Details' : 'Why this matters'} 
+                <span className={styles.toggleIcon}>{showSafeRideFund ? '▲' : '▼'}</span>
+              </button>
+              
+              {showSafeRideFund && (
+                <SafeRideFundExplainer variant="breakdown" showAnimation={false} />
+              )}
             </div>
 
             <button 
