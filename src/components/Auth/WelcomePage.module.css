@@ -1,5 +1,195 @@
 /* ARMORA PREMIUM WELCOME PAGE - VIEWPORT OPTIMIZED */
 
+/* TOP IMPACT COUNTER BAR */
+.impactCounterTop {
+  width: 100%;
+  height: 48px;
+  background: linear-gradient(
+    90deg,
+    rgba(26, 26, 46, 0.95) 0%,
+    rgba(255, 215, 0, 0.1) 50%,
+    rgba(26, 26, 46, 0.95) 100%
+  );
+  background-size: 200% 100%;
+  border-bottom: 2px solid rgba(255, 215, 0, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  position: relative;
+  z-index: 10;
+  cursor: pointer;
+  animation: slideDown 0.5s ease-out, shimmer 10s infinite;
+  box-shadow: 0 2px 20px rgba(255, 215, 0, 0.2);
+  transition: all 0.3s ease;
+}
+
+.impactCounterTop:hover {
+  background: linear-gradient(
+    90deg,
+    rgba(26, 26, 46, 0.98) 0%,
+    rgba(255, 215, 0, 0.15) 50%,
+    rgba(26, 26, 46, 0.98) 100%
+  );
+  box-shadow: 0 4px 30px rgba(255, 215, 0, 0.3);
+  border-bottom-color: rgba(255, 215, 0, 0.6);
+}
+
+.shieldIcon {
+  font-size: 18px;
+  animation: bounce 5s infinite, rotate360 1s ease-out 0.5s;
+  filter: drop-shadow(0 0 8px rgba(255, 215, 0, 0.3));
+}
+
+.counterNumber {
+  font-size: clamp(20px, 4vw, 24px);
+  font-weight: 700;
+  color: #FFD700;
+  text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+  animation: countUp 2s ease-out 0.5s both, pulse 3s infinite 2.5s;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  letter-spacing: 0.5px;
+}
+
+.counterText {
+  font-size: clamp(12px, 3vw, 16px);
+  color: #e0e0e0;
+  font-weight: 500;
+  opacity: 0.9;
+  animation: fadeIn 0.5s ease-out 0.7s both;
+}
+
+.todayIncrement {
+  position: absolute;
+  right: 16px;
+  font-size: 12px;
+  color: #FFD700;
+  font-weight: 600;
+  background: rgba(255, 215, 0, 0.1);
+  padding: 2px 8px;
+  border-radius: 12px;
+  animation: slideInRight 0.3s ease-out, fadeOut 2s ease-out 0.5s forwards;
+  border: 1px solid rgba(255, 215, 0, 0.3);
+}
+
+/* ANIMATIONS */
+@keyframes slideDown {
+  from {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes countUp {
+  from {
+    transform: scale(1.2);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes pulse {
+  0%, 100% { 
+    text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+  }
+  50% { 
+    text-shadow: 0 0 20px rgba(255, 215, 0, 0.8);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% center;
+  }
+  100% {
+    background-position: 200% center;
+  }
+}
+
+@keyframes bounce {
+  0%, 98%, 100% { 
+    transform: translateY(0);
+  }
+  99% { 
+    transform: translateY(-2px);
+  }
+}
+
+@keyframes rotate360 {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 0.9; }
+}
+
+@keyframes slideInRight {
+  from { 
+    transform: translateX(20px);
+    opacity: 0;
+  }
+  to { 
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  to { opacity: 0; }
+}
+
+/* RESPONSIVE DESIGN */
+@media (max-width: 768px) {
+  .impactCounterTop {
+    height: 48px;
+    gap: 6px;
+    padding: 0 8px;
+  }
+  
+  .counterText {
+    display: none; /* Hide on very small screens */
+  }
+  
+  .todayIncrement {
+    right: 8px;
+    font-size: 11px;
+  }
+}
+
+@media (min-width: 769px) {
+  .impactCounterTop {
+    height: 56px;
+    gap: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .counterText {
+    font-size: 11px;
+    display: block; /* Show abbreviated version */
+  }
+  
+  .counterText::after {
+    content: " funded";
+  }
+  
+  .counterText {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    max-width: 100px;
+  }
+}
+
 .welcomePage {
   position: fixed;
   top: 0;
@@ -26,9 +216,9 @@
 
 /* VIEWPORT-FITTED CONTAINER - COMPRESSED FOR NO-SCROLL */
 .welcomeContainer {
-  height: 100vh;
-  min-height: 100vh;
-  max-height: 100vh;
+  height: calc(100vh - 48px); /* Account for top impact counter bar */
+  min-height: calc(100vh - 48px);
+  max-height: calc(100vh - 48px);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -39,6 +229,14 @@
   max-width: var(--content-max-width);
   margin: 0 auto;
   padding: clamp(0.5rem, 2vh, 1rem) 3px clamp(0.25rem, 1vh, 0.5rem); /* COMPRESSED PADDING */
+}
+
+@media (min-width: 769px) {
+  .welcomeContainer {
+    height: calc(100vh - 56px); /* Account for taller desktop counter */
+    min-height: calc(100vh - 56px);
+    max-height: calc(100vh - 56px);
+  }
 }
 
 /* HEADER SECTION - LOGO & TITLE */

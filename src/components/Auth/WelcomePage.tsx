@@ -16,34 +16,41 @@ export function WelcomePage() {
   const [showContent, setShowContent] = useState(false);
   const [showCredentialsModal, setShowCredentialsModal] = useState(false);
   const [showSafeRideModal, setShowSafeRideModal] = useState(false);
-  const [impactCounter, setImpactCounter] = useState(3700);
+  const [impactCounter, setImpactCounter] = useState(0);
+  const [showTodayIncrement, setShowTodayIncrement] = useState(false);
 
   // Development environment detection - ALWAYS SHOW IN DEV
   const isDevelopment = process.env.NODE_ENV === 'development';
   const showDevButton = isDevelopment; // Always show if development mode
 
   useEffect(() => {
-    const featureTimer = setTimeout(() => setShowFeatures(true), 900);
-    const contentTimer = setTimeout(() => setShowContent(true), 1100);
+    const featureTimer = setTimeout(() => setShowFeatures(true), 1400);
+    const contentTimer = setTimeout(() => setShowContent(true), 1600);
     
-    // Animate impact counter after features appear
+    // Animate impact counter immediately - it's now at the top
     const counterTimer = setTimeout(() => {
-      let current = 3700;
+      let current = 0;
       const target = 3741;
-      const increment = 1;
-      const duration = 41; // 41 steps to get from 3700 to 3741
+      const duration = 2000; // 2 seconds
+      const increment = target / (duration / 50); // Smooth animation
       
       const counterInterval = setInterval(() => {
         current += increment;
-        setImpactCounter(current);
-        
         if (current >= target) {
+          setImpactCounter(target);
           clearInterval(counterInterval);
+        } else {
+          setImpactCounter(Math.floor(current));
         }
-      }, 50); // 50ms per increment = ~2 second animation
+      }, 50);
       
       return () => clearInterval(counterInterval);
-    }, 1300); // Start after features are visible
+    }, 500); // Start after slide-down animation
+    
+    // Random increment every 45-90 seconds
+    const randomIncrementTimer = setInterval(() => {
+      setImpactCounter(prev => prev + 1);
+    }, Math.random() * (90000 - 45000) + 45000);
     
     // Debug development button visibility
     console.log('WelcomePage Debug:', { 
@@ -57,12 +64,23 @@ export function WelcomePage() {
       clearTimeout(featureTimer);
       clearTimeout(contentTimer);
       clearTimeout(counterTimer);
+      clearInterval(randomIncrementTimer);
     };
   }, [isDevelopment, showDevButton]);
 
   // Helper function for navigation
   const handleNavigate = (destination: string) => {
     navigateToView(destination as any);
+  };
+
+  // Handle impact counter interactions
+  const handleCounterHover = () => {
+    setShowTodayIncrement(true);
+    setTimeout(() => setShowTodayIncrement(false), 2000);
+  };
+
+  const handleCounterClick = () => {
+    setShowSafeRideModal(true);
   };
 
   // Development-only function to skip to dashboard with mock data
@@ -113,6 +131,24 @@ export function WelcomePage() {
 
   return (
     <SeasonalTheme className={styles.welcomePage}>
+      {/* Impact Counter Bar - MOVED TO VERY TOP */}
+      <div 
+        className={styles.impactCounterTop}
+        onMouseEnter={handleCounterHover}
+        onClick={handleCounterClick}
+      >
+        <span className={styles.shieldIcon}>🛡️</span>
+        <span className={styles.counterNumber}>
+          {impactCounter.toLocaleString()}
+        </span>
+        <span className={styles.counterText}>
+          safe rides funded by our community
+        </span>
+        {showTodayIncrement && (
+          <span className={styles.todayIncrement}>+12 today</span>
+        )}
+      </div>
+
       <div className={styles.welcomeContainer}>
         {/* Header Section */}
         <header className={styles.welcomeHeader}>
@@ -214,13 +250,6 @@ export function WelcomePage() {
           </div>
         </main>
 
-        {/* Impact Counter */}
-        <div className={`${styles.impactCounter} ${showContent ? styles.impactCounterVisible : ''}`}>
-          <span className={styles.impactNumber}>
-            {impactCounter.toLocaleString()}
-          </span>
-          <span className={styles.impactText}>safe rides funded by our community</span>
-        </div>
 
 
         {/* Action Section */}
