@@ -35,7 +35,6 @@ const organizationTestimonials = [
   }
 ];
 
-const successStories = organizationTestimonials; // Alias for compatibility
 
 const SafeRideFundModal: React.FC<SafeRideFundModalProps> = ({ onClose }) => {
   const [currentStoryIndex, setCurrentStoryIndex] = useState(0);
