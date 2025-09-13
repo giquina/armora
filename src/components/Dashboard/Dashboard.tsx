@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useApp } from '../../contexts/AppContext';
 import { Button } from '../UI/Button';
+import { LoadingSpinner } from '../UI/LoadingSpinner';
 import { ServiceCard } from './ServiceCard';
 import { QuickBooking } from './QuickBooking';
 import { ImpactDashboardWidget } from './ImpactDashboardWidget';
@@ -21,7 +22,7 @@ const ARMORA_SERVICES: ServiceLevel[] = [
       'Real-time GPS tracking',
       'Secure communication protocols',
       'Basic threat assessment',
-      '24/7 emergency support'
+      '24/7 priority support'
     ]
   },
   {
@@ -36,7 +37,7 @@ const ARMORA_SERVICES: ServiceLevel[] = [
       'Luxury vehicle fleet',
       'Advanced route planning',
       'Executive assistance services',
-      'Priority emergency response',
+      'Priority rapid response',
       'Discrete security protocols'
     ]
   },
@@ -68,6 +69,7 @@ export function Dashboard() {
   const { user, questionnaireData, deviceCapabilities } = state;
   const [selectedService, setLocalSelectedService] = useState<'standard' | 'executive' | 'shadow' | null>(null);
   const [showRewardBanner, setShowRewardBanner] = useState(false);
+  const [isNavigating, setIsNavigating] = useState(false);
 
   // Check if user has unlocked reward and hasn't dismissed banner
   useEffect(() => {
@@ -89,15 +91,21 @@ export function Dashboard() {
     }
   };
 
-  const handleBookNow = () => {
+  const handleBookNow = async () => {
+    setIsNavigating(true);
+    
+    // Brief loading for better UX
+    await new Promise(resolve => setTimeout(resolve, 500));
+    
     if (user?.userType === 'guest') {
       // Guest users need to create account first
       navigateToView('signup');
-      return;
+    } else {
+      // Navigate to booking flow
+      navigateToView('booking');
     }
     
-    // Navigate to booking flow
-    navigateToView('booking');
+    setIsNavigating(false);
   };
 
   const handleUpgradeAccount = () => {
@@ -160,9 +168,14 @@ export function Dashboard() {
                 size="lg" 
                 isFullWidth={deviceCapabilities.isMobile}
                 onClick={handleUpgradeAccount}
+                disabled={isNavigating}
                 className={styles.upgradeButton}
               >
-                Create Free Account
+                {isNavigating ? (
+                  <LoadingSpinner size="small" variant="light" text="Redirecting..." inline />
+                ) : (
+                  'Create Free Account'
+                )}
               </Button>
             </div>
           </div>
@@ -194,7 +207,7 @@ export function Dashboard() {
             </p>
             <div className={styles.contactDetails}>
               <div className={styles.contactItem}>
-                <span className={styles.contactLabel}>Emergency Hotline:</span>
+                <span className={styles.contactLabel}>Priority Support:</span>
                 <a href="tel:+442071234567" className={styles.contactLink}>
                   +44 20 7123 4567
                 </a>
@@ -219,11 +232,12 @@ export function Dashboard() {
       {showRewardBanner && (
         <div className={styles.rewardBanner}>
           <div className={styles.rewardContent}>
-            <div className={styles.rewardIcon}>🎉</div>
+            <div className={styles.rewardIcon}>🏆</div>
             <div className={styles.rewardText}>
-              <h3 className={styles.rewardTitle}>50% Off Unlocked!</h3>
+              <h3 className={styles.rewardTitle}>🎉 ACHIEVEMENT UNLOCKED!</h3>
+              <div className={styles.discountValue}>50% OFF</div>
               <p className={styles.rewardDescription}>
-                You've earned 50% off your first ride (up to £15)
+                Your first ride (up to £15) • Valid 30 days
               </p>
             </div>
             <button 
@@ -251,9 +265,11 @@ export function Dashboard() {
 
       {/* Quick Booking Section */}
       <div className={styles.quickBookingSection}>
-        <QuickBooking 
+        <QuickBooking
           onBookNow={handleBookNow}
           selectedService={selectedService}
+          isLoading={isNavigating}
+          userType={user?.userType || 'guest'}
         />
       </div>
 
@@ -300,10 +316,16 @@ export function Dashboard() {
           size="lg"
           isFullWidth={deviceCapabilities.isMobile}
           onClick={handleBookNow}
-          disabled={!selectedService}
+          disabled={!selectedService || isNavigating}
           className={styles.bookButton}
         >
-          {selectedService ? `Book ${ARMORA_SERVICES.find(s => s.id === selectedService)?.name}` : 'Select Service to Book'}
+          {isNavigating ? (
+            <LoadingSpinner size="small" variant="light" text="Preparing Booking..." inline />
+          ) : selectedService ? (
+            `Book ${ARMORA_SERVICES.find(s => s.id === selectedService)?.name}`
+          ) : (
+            'Select Service to Book'
+          )}
         </Button>
         
         {deviceCapabilities.isMobile && (

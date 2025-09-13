@@ -505,3 +505,652 @@
     min-height: calc(var(--touch-target-lg) + var(--space-sm));
   }
 }
+
+/* ========================================
+   ENHANCED FEATURES - MAP INTEGRATION & ADVANCED OPTIONS
+======================================== */
+
+/* Header Actions */
+.headerActions {
+  display: flex;
+  gap: var(--space-sm);
+  margin-top: var(--space-sm);
+  justify-content: center;
+}
+
+.toggleButton {
+  background: var(--bg-secondary);
+  border: 1px solid var(--bg-card);
+  border-radius: var(--radius-md);
+  color: var(--text-secondary);
+  padding: var(--space-xs) var(--space-sm);
+  font-size: var(--font-xs);
+  font-weight: 500;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  touch-action: manipulation;
+  min-height: var(--touch-target);
+}
+
+.toggleButton:hover {
+  background: var(--bg-card);
+  color: var(--text-primary);
+  transform: translateY(-1px);
+}
+
+.toggleButton.active {
+  background: var(--accent);
+  color: var(--text-dark);
+  border-color: var(--accent);
+  font-weight: 600;
+}
+
+.toggleButton:active {
+  transform: translateY(0);
+}
+
+/* Map Section */
+.mapSection {
+  margin: var(--space-lg) 0;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  animation: mapSlideIn 0.3s ease-out;
+}
+
+@keyframes mapSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+    max-height: 0;
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    max-height: 300px;
+  }
+}
+
+/* Enhanced Input Actions */
+.inputActions {
+  position: absolute;
+  right: var(--space-xs);
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  gap: var(--space-xs);
+}
+
+.mapEditButton {
+  width: calc(var(--touch-target) - var(--space-xs));
+  height: calc(var(--touch-target) - var(--space-xs));
+  background: var(--bg-secondary);
+  border: none;
+  border-radius: var(--radius-sm);
+  color: var(--text-secondary);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--transition-fast);
+  touch-action: manipulation;
+  font-size: 12px;
+}
+
+.mapEditButton:hover {
+  background: var(--accent);
+  color: var(--text-dark);
+  transform: scale(1.05);
+}
+
+.mapEditButton.active {
+  background: var(--accent);
+  color: var(--text-dark);
+  animation: editPulse 2s infinite;
+}
+
+.mapEditButton:active {
+  transform: scale(0.95);
+}
+
+@keyframes editPulse {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(255, 215, 0, 0.7);
+  }
+  70% {
+    box-shadow: 0 0 0 6px rgba(255, 215, 0, 0);
+  }
+}
+
+/* Editing Indicator */
+.editingIndicator {
+  color: var(--accent);
+  font-size: var(--font-xs);
+  font-weight: 500;
+  margin-left: auto;
+  animation: editingBlink 1s infinite;
+}
+
+@keyframes editingBlink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0.5; }
+}
+
+.locationInput.editing {
+  border-color: var(--accent);
+  background: rgba(255, 215, 0, 0.05);
+  box-shadow: 0 0 0 3px rgba(255, 215, 0, 0.2);
+}
+
+/* Advanced Options */
+.advancedOptions {
+  background: var(--bg-primary);
+  border: 1px solid var(--bg-secondary);
+  border-radius: var(--radius-md);
+  padding: var(--space-md);
+  margin: var(--space-md) 0;
+  animation: advancedSlideIn 0.3s ease-out;
+}
+
+@keyframes advancedSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+    max-height: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    max-height: 500px;
+    padding-top: var(--space-md);
+    padding-bottom: var(--space-md);
+  }
+}
+
+/* Multi-Stop Section */
+.multiStopSection {
+  margin-bottom: var(--space-md);
+}
+
+.multiStopHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--space-sm);
+}
+
+.checkboxLabel {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  cursor: pointer;
+  font-size: var(--font-sm);
+  color: var(--text-primary);
+}
+
+.checkbox {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--accent);
+  cursor: pointer;
+}
+
+.checkboxText {
+  font-weight: 500;
+}
+
+.addStopButton {
+  background: var(--accent);
+  color: var(--text-dark);
+  border: none;
+  border-radius: var(--radius-sm);
+  padding: var(--space-xs) var(--space-sm);
+  font-size: var(--font-xs);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  touch-action: manipulation;
+}
+
+.addStopButton:hover {
+  background: var(--hover-gold);
+  transform: translateY(-1px);
+}
+
+.addStopButton:active {
+  transform: translateY(0);
+}
+
+.multiStopInput {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-sm);
+  animation: stopSlideIn 0.3s ease-out;
+}
+
+@keyframes stopSlideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.removeStopButton {
+  width: var(--touch-target);
+  height: var(--touch-target);
+  background: rgba(255, 107, 107, 0.1);
+  border: 1px solid rgba(255, 107, 107, 0.3);
+  border-radius: var(--radius-sm);
+  color: #ff6b6b;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: bold;
+  transition: all var(--transition-fast);
+  touch-action: manipulation;
+  flex-shrink: 0;
+}
+
+.removeStopButton:hover {
+  background: rgba(255, 107, 107, 0.2);
+  transform: scale(1.05);
+}
+
+.removeStopButton:active {
+  transform: scale(0.95);
+}
+
+/* Scheduling Section */
+.schedulingSection {
+  margin-bottom: var(--space-md);
+}
+
+.schedulingInput {
+  margin-top: var(--space-sm);
+  animation: scheduleSlideIn 0.3s ease-out;
+}
+
+@keyframes scheduleSlideIn {
+  from {
+    opacity: 0;
+    max-height: 0;
+  }
+  to {
+    opacity: 1;
+    max-height: 120px;
+  }
+}
+
+.dateTimeInput {
+  width: 100%;
+  padding: var(--space-md);
+  background: var(--bg-card);
+  border: 2px solid var(--bg-secondary);
+  border-radius: var(--radius-md);
+  color: var(--text-primary);
+  font-size: var(--font-base);
+  line-height: var(--line-base);
+  transition: all var(--transition-fast);
+  box-sizing: border-box;
+  min-height: var(--touch-target);
+}
+
+.dateTimeInput:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(255, 215, 0, 0.1);
+}
+
+.scheduledDisplay {
+  margin-top: var(--space-sm);
+  padding: var(--space-sm);
+  background: rgba(255, 215, 0, 0.1);
+  border: 1px solid rgba(255, 215, 0, 0.3);
+  border-radius: var(--radius-sm);
+  font-size: var(--font-sm);
+  color: var(--text-primary);
+  font-weight: 500;
+  animation: scheduledPulse 0.5s ease-out;
+}
+
+@keyframes scheduledPulse {
+  from {
+    background: rgba(255, 215, 0, 0.3);
+  }
+  to {
+    background: rgba(255, 215, 0, 0.1);
+  }
+}
+
+/* Enhanced Options Info */
+.enhancedOptions {
+  margin-top: var(--space-md);
+}
+
+.optionsHint {
+  text-align: center;
+  font-size: var(--font-xs);
+  color: var(--text-secondary);
+  margin: 0 0 var(--space-sm) 0;
+  font-style: italic;
+}
+
+.scheduledInfo,
+.multiStopInfo {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  padding: var(--space-xs) var(--space-sm);
+  background: rgba(255, 215, 0, 0.1);
+  border-radius: var(--radius-sm);
+  font-size: var(--font-xs);
+  color: var(--text-primary);
+  margin-bottom: var(--space-xs);
+  border: 1px solid rgba(255, 215, 0, 0.2);
+}
+
+.scheduledIcon,
+.multiStopIcon {
+  font-size: 12px;
+}
+
+/* Shadow Service Warning */
+.shadowWarning {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-md);
+  padding: var(--space-md);
+  background: linear-gradient(135deg, rgba(255, 215, 0, 0.1) 0%, rgba(255, 165, 0, 0.05) 100%);
+  border: 2px solid rgba(255, 215, 0, 0.3);
+  border-radius: var(--radius-lg);
+  margin-top: var(--space-lg);
+  animation: warningSlideIn 0.4s ease-out;
+}
+
+@keyframes warningSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.warningIcon {
+  font-size: 24px;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.warningContent {
+  flex: 1;
+}
+
+.warningTitle {
+  font-size: var(--font-base);
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0 0 var(--space-xs) 0;
+}
+
+.warningText {
+  font-size: var(--font-sm);
+  color: var(--text-secondary);
+  margin: 0;
+  line-height: var(--line-base);
+}
+
+.warningText strong {
+  color: var(--accent);
+  font-weight: 600;
+}
+
+/* ========================================
+   MICRO-INTERACTIONS & ANIMATIONS
+======================================== */
+
+/* Button hover animations */
+.bookButton:hover {
+  animation: buttonGlow 0.3s ease-out;
+}
+
+@keyframes buttonGlow {
+  from {
+    box-shadow: 0 0 0 0 rgba(255, 215, 0, 0.4);
+  }
+  to {
+    box-shadow: 0 0 20px 5px rgba(255, 215, 0, 0.2);
+  }
+}
+
+/* Loading state animations */
+.bookButton:disabled {
+  animation: disabledPulse 2s infinite;
+}
+
+@keyframes disabledPulse {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 0.8; }
+}
+
+/* Input focus animations */
+.locationInput:focus {
+  animation: inputFocus 0.3s ease-out;
+}
+
+@keyframes inputFocus {
+  from {
+    box-shadow: 0 0 0 0 rgba(255, 215, 0, 0.1);
+  }
+  to {
+    box-shadow: 0 0 0 3px rgba(255, 215, 0, 0.1);
+  }
+}
+
+/* Service status animations */
+.serviceStatus {
+  animation: statusSuccess 0.5s ease-out;
+}
+
+@keyframes statusSuccess {
+  from {
+    background: rgba(0, 255, 136, 0.2);
+    transform: scale(0.98);
+  }
+  to {
+    background: rgba(0, 255, 136, 0.1);
+    transform: scale(1);
+  }
+}
+
+/* ========================================
+   ENHANCED RESPONSIVE DESIGN
+======================================== */
+
+/* Mobile optimizations for advanced features */
+@media (max-width: 480px) {
+  .headerActions {
+    flex-wrap: wrap;
+    gap: var(--space-xs);
+  }
+
+  .toggleButton {
+    padding: var(--space-xs);
+    font-size: 11px;
+    min-width: auto;
+  }
+
+  .mapSection {
+    margin: var(--space-md) -var(--space-md);
+    border-radius: 0;
+  }
+
+  .advancedOptions {
+    margin: var(--space-md) -var(--space-lg);
+    border-radius: 0;
+    border-left: none;
+    border-right: none;
+  }
+
+  .multiStopInput {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .removeStopButton {
+    align-self: flex-end;
+    width: auto;
+    padding: var(--space-xs) var(--space-sm);
+  }
+
+  .shadowWarning {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .warningIcon {
+    align-self: center;
+    margin-top: 0;
+  }
+}
+
+/* Tablet enhancements */
+@media (min-width: 768px) {
+  .headerActions {
+    margin-top: var(--space-md);
+  }
+
+  .toggleButton {
+    padding: var(--space-sm) var(--space-md);
+    font-size: var(--font-sm);
+  }
+
+  .mapSection {
+    margin: var(--space-xl) 0;
+  }
+
+  .inputActions {
+    right: var(--space-sm);
+  }
+
+  .mapEditButton,
+  .currentLocationButton {
+    width: var(--touch-target);
+    height: var(--touch-target);
+  }
+
+  .advancedOptions {
+    padding: var(--space-lg);
+  }
+
+  .multiStopHeader {
+    margin-bottom: var(--space-md);
+  }
+
+  .checkboxLabel {
+    font-size: var(--font-base);
+  }
+}
+
+/* Desktop optimizations */
+@media (min-width: 1024px) {
+  .headerActions {
+    margin-top: var(--space-lg);
+  }
+
+  .mapSection {
+    margin: var(--space-xl) 0;
+    box-shadow: var(--shadow-gold);
+  }
+
+  .advancedOptions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-lg);
+    padding: var(--space-xl);
+  }
+
+  .multiStopSection,
+  .schedulingSection {
+    margin-bottom: 0;
+  }
+
+  .shadowWarning {
+    max-width: 500px;
+    margin: var(--space-xl) auto 0;
+  }
+}
+
+/* ========================================
+   ACCESSIBILITY ENHANCEMENTS
+======================================== */
+
+/* Enhanced focus states for new elements */
+.toggleButton:focus,
+.mapEditButton:focus,
+.addStopButton:focus,
+.removeStopButton:focus,
+.checkbox:focus,
+.dateTimeInput:focus {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* High contrast support for new elements */
+@media (prefers-contrast: high) {
+  .toggleButton,
+  .mapEditButton,
+  .addStopButton,
+  .removeStopButton {
+    border-width: 2px;
+  }
+
+  .toggleButton.active {
+    border-width: 3px;
+  }
+
+  .advancedOptions,
+  .shadowWarning {
+    border-width: 3px;
+  }
+}
+
+/* Reduced motion for new animations */
+@media (prefers-reduced-motion: reduce) {
+  .mapSection,
+  .advancedOptions,
+  .multiStopInput,
+  .schedulingInput,
+  .scheduledDisplay,
+  .shadowWarning {
+    animation: none;
+  }
+
+  .mapEditButton.active,
+  .editingIndicator,
+  .bookButton:hover,
+  .bookButton:disabled,
+  .serviceStatus {
+    animation: none;
+  }
+
+  .toggleButton:hover,
+  .addStopButton:hover,
+  .removeStopButton:hover,
+  .mapEditButton:hover {
+    transform: none;
+  }
+}

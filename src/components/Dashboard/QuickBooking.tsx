@@ -1,22 +1,47 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Button } from '../UI/Button';
+import { LoadingSpinner } from '../UI/LoadingSpinner';
+import { BookingMap } from '../Map/BookingMap';
 import styles from './QuickBooking.module.css';
+
+interface Location {
+  lat: number;
+  lng: number;
+  address?: string;
+}
 
 interface QuickBookingProps {
   onBookNow: () => void;
   selectedService: 'standard' | 'executive' | 'shadow' | null;
+  isLoading?: boolean;
+  userType?: 'registered' | 'google' | 'guest';
 }
 
-export function QuickBooking({ onBookNow, selectedService }: QuickBookingProps) {
-  const [pickupLocation, setPickupLocation] = useState('');
-  const [dropoffLocation, setDropoffLocation] = useState('');
-  const [currentLocation, setCurrentLocation] = useState<string | null>(null);
+export function QuickBooking({ onBookNow, selectedService, isLoading = false, userType = 'guest' }: QuickBookingProps) {
+  const [pickupLocation, setPickupLocation] = useState<Location | undefined>();
+  const [destinationLocation, setDestinationLocation] = useState<Location | undefined>();
+  const [currentLocation, setCurrentLocation] = useState<Location | null>(null);
   const [isLoadingLocation, setIsLoadingLocation] = useState(false);
+  const [showMap, setShowMap] = useState(false);
+  const [editMode, setEditMode] = useState<'pickup' | 'destination' | null>(null);
+  const [showAdvanced, setShowAdvanced] = useState(false);
+  const [scheduledTime, setScheduledTime] = useState('');
+  const [isScheduled, setIsScheduled] = useState(false);
+  const [multiStops, setMultiStops] = useState<Location[]>([]);
+  const [showMultiStop, setShowMultiStop] = useState(false);
 
   // Get current location on component mount
   useEffect(() => {
     getCurrentLocation();
   }, []);
+
+  // Auto-expand map on mobile for better UX
+  useEffect(() => {
+    const isMobile = window.innerWidth < 768;
+    if (isMobile && (pickupLocation || destinationLocation)) {
+      setShowMap(true);
+    }
+  }, [pickupLocation, destinationLocation]);
 
   const getCurrentLocation = async () => {
     if (!navigator.geolocation) {
@@ -24,22 +49,27 @@ export function QuickBooking({ onBookNow, selectedService }: QuickBookingProps) 
     }
 
     setIsLoadingLocation(true);
-    
+
     try {
       const position = await new Promise<GeolocationPosition>((resolve, reject) => {
         navigator.geolocation.getCurrentPosition(resolve, reject, {
-          enableHighAccuracy: false,
-          timeout: 10000,
-          maximumAge: 300000 // 5 minutes
+          enableHighAccuracy: true,
+          timeout: 15000,
+          maximumAge: 60000 // 1 minute
         });
       });
 
-      // For now, just show generic location text
-      // In a real app, you'd reverse geocode the coordinates
-      const locationText = `Current Location (${position.coords.latitude.toFixed(3)}, ${position.coords.longitude.toFixed(3)})`;
-      setCurrentLocation(locationText);
-      setPickupLocation(locationText);
-      
+      const location: Location = {
+        lat: position.coords.latitude,
+        lng: position.coords.longitude,
+        address: `Current Location (${position.coords.latitude.toFixed(3)}, ${position.coords.longitude.toFixed(3)})`
+      };
+
+      setCurrentLocation(location);
+      if (!pickupLocation) {
+        setPickupLocation(location);
+      }
+
     } catch (error) {
       console.log('Could not get current location:', error);
       setCurrentLocation(null);
@@ -56,20 +86,93 @@ export function QuickBooking({ onBookNow, selectedService }: QuickBookingProps) 
     }
   };
 
+  const handlePickupChange = useCallback((location: Location) => {
+    setPickupLocation(location);
+    setEditMode(null);
+  }, []);
+
+  const handleDestinationChange = useCallback((location: Location) => {
+    setDestinationLocation(location);
+    setEditMode(null);
+  }, []);
+
+  const toggleMapEdit = (mode: 'pickup' | 'destination') => {
+    if (editMode === mode) {
+      setEditMode(null);
+    } else {
+      setEditMode(mode);
+      setShowMap(true);
+    }
+  };
+
+  const addMultiStop = () => {
+    if (multiStops.length < 3) { // Limit to 3 additional stops
+      setMultiStops([...multiStops, { lat: 0, lng: 0, address: '' }]);
+    }
+  };
+
+  const removeMultiStop = (index: number) => {
+    setMultiStops(multiStops.filter((_, i) => i !== index));
+  };
+
+  const updateMultiStop = (index: number, address: string) => {
+    const updated = [...multiStops];
+    updated[index] = { ...updated[index], address };
+    setMultiStops(updated);
+  };
+
+  const formatScheduledTime = () => {
+    if (!scheduledTime) return '';
+    const date = new Date(scheduledTime);
+    return date.toLocaleString('en-GB', {
+      day: 'numeric',
+      month: 'short',
+      hour: '2-digit',
+      minute: '2-digit'
+    });
+  };
+
+  // Get minimum date/time for scheduling (30 minutes from now)
+  const getMinDateTime = () => {
+    const now = new Date();
+    now.setMinutes(now.getMinutes() + 30);
+    return now.toISOString().slice(0, 16);
+  };
+
+  const calculateEstimatedDuration = () => {
+    // Simple duration calculation - in real app would use routing API
+    const baseTime = 30; // 30 minutes base
+    const multiStopTime = multiStops.length * 10; // 10 minutes per stop
+    return baseTime + multiStopTime;
+  };
+
   const handleQuickBook = () => {
-    // Store booking details for the booking flow
+    // Store comprehensive booking details for the booking flow
     const bookingData = {
-      pickupLocation: pickupLocation || 'Current Location',
-      dropoffLocation: dropoffLocation || '',
+      pickupLocation,
+      destinationLocation,
+      multiStops: multiStops.filter(stop => stop.address?.trim()),
       selectedService,
-      timestamp: new Date().toISOString()
+      isScheduled,
+      scheduledTime: scheduledTime || null,
+      userType,
+      timestamp: new Date().toISOString(),
+      estimatedDuration: calculateEstimatedDuration(),
+      features: {
+        multiStop: multiStops.length > 0,
+        scheduled: isScheduled,
+        mapIntegration: true
+      }
     };
-    
+
     localStorage.setItem('armora_booking_draft', JSON.stringify(bookingData));
     onBookNow();
   };
 
-  const isReadyToBook = pickupLocation.trim().length > 0 && selectedService;
+  const isReadyToBook = pickupLocation?.address && selectedService && (!isScheduled || scheduledTime);
+
+  // Check if Shadow service should be available (luxury vehicle owners only)
+  const shouldShowShadow = userType === 'registered' || userType === 'google';
 
   return (
     <div className={styles.quickBooking}>
@@ -77,7 +180,37 @@ export function QuickBooking({ onBookNow, selectedService }: QuickBookingProps) 
       <div className={styles.header}>
         <h2 className={styles.title}>Quick Book</h2>
         <p className={styles.subtitle}>Set your pickup and destination</p>
+        <div className={styles.headerActions}>
+          <button
+            type="button"
+            className={`${styles.toggleButton} ${showMap ? styles.active : ''}`}
+            onClick={() => setShowMap(!showMap)}
+          >
+            {showMap ? '📋 List View' : '🗺️ Map View'}
+          </button>
+          <button
+            type="button"
+            className={`${styles.toggleButton} ${showAdvanced ? styles.active : ''}`}
+            onClick={() => setShowAdvanced(!showAdvanced)}
+          >
+            ⚙️ Advanced
+          </button>
+        </div>
       </div>
+
+      {/* Interactive Map */}
+      {showMap && (
+        <div className={styles.mapSection}>
+          <BookingMap
+            pickup={pickupLocation}
+            destination={destinationLocation}
+            onPickupChange={handlePickupChange}
+            onDestinationChange={handleDestinationChange}
+            editMode={editMode}
+            height={280}
+          />
+        </div>
+      )}
 
       {/* Location Inputs */}
       <div className={styles.locationInputs}>
@@ -86,32 +219,48 @@ export function QuickBooking({ onBookNow, selectedService }: QuickBookingProps) 
           <label className={styles.inputLabel} htmlFor="pickup-location">
             <span className={styles.locationIcon}>📍</span>
             Pickup Location
+            {editMode === 'pickup' && <span className={styles.editingIndicator}>✏️ Editing</span>}
           </label>
           <div className={styles.inputWrapper}>
             <input
               id="pickup-location"
               type="text"
-              className={styles.locationInput}
+              className={`${styles.locationInput} ${editMode === 'pickup' ? styles.editing : ''}`}
               placeholder="Enter pickup address or use current location"
-              value={pickupLocation}
-              onChange={(e) => setPickupLocation(e.target.value)}
+              value={pickupLocation?.address || ''}
+              onChange={(e) => {
+                if (pickupLocation) {
+                  setPickupLocation({ ...pickupLocation, address: e.target.value });
+                }
+              }}
+              onFocus={() => !showMap && setShowMap(true)}
             />
-            <button
-              type="button"
-              className={styles.currentLocationButton}
-              onClick={useCurrentLocation}
-              disabled={isLoadingLocation}
-              title="Use current location"
-            >
-              {isLoadingLocation ? (
-                <div className={styles.locationSpinner}></div>
-              ) : (
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <circle cx="12" cy="12" r="10"/>
-                  <circle cx="12" cy="12" r="3"/>
-                </svg>
-              )}
-            </button>
+            <div className={styles.inputActions}>
+              <button
+                type="button"
+                className={styles.currentLocationButton}
+                onClick={useCurrentLocation}
+                disabled={isLoadingLocation}
+                title="Use current location"
+              >
+                {isLoadingLocation ? (
+                  <LoadingSpinner size="small" variant="primary" />
+                ) : (
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <circle cx="12" cy="12" r="10"/>
+                    <circle cx="12" cy="12" r="3"/>
+                  </svg>
+                )}
+              </button>
+              <button
+                type="button"
+                className={`${styles.mapEditButton} ${editMode === 'pickup' ? styles.active : ''}`}
+                onClick={() => toggleMapEdit('pickup')}
+                title="Edit on map"
+              >
+                🗺️
+              </button>
+            </div>
           </div>
         </div>
 
@@ -125,21 +274,119 @@ export function QuickBooking({ onBookNow, selectedService }: QuickBookingProps) 
           </div>
         </div>
 
-        {/* Dropoff Location */}
+        {/* Destination Location */}
         <div className={styles.inputGroup}>
-          <label className={styles.inputLabel} htmlFor="dropoff-location">
+          <label className={styles.inputLabel} htmlFor="destination-location">
             <span className={styles.locationIcon}>🎯</span>
             Destination
+            {editMode === 'destination' && <span className={styles.editingIndicator}>✏️ Editing</span>}
           </label>
-          <input
-            id="dropoff-location"
-            type="text"
-            className={styles.locationInput}
-            placeholder="Enter destination address"
-            value={dropoffLocation}
-            onChange={(e) => setDropoffLocation(e.target.value)}
-          />
+          <div className={styles.inputWrapper}>
+            <input
+              id="destination-location"
+              type="text"
+              className={`${styles.locationInput} ${editMode === 'destination' ? styles.editing : ''}`}
+              placeholder="Enter destination address"
+              value={destinationLocation?.address || ''}
+              onChange={(e) => {
+                if (destinationLocation) {
+                  setDestinationLocation({ ...destinationLocation, address: e.target.value });
+                } else {
+                  setDestinationLocation({ lat: 0, lng: 0, address: e.target.value });
+                }
+              }}
+              onFocus={() => !showMap && setShowMap(true)}
+            />
+            <div className={styles.inputActions}>
+              <button
+                type="button"
+                className={`${styles.mapEditButton} ${editMode === 'destination' ? styles.active : ''}`}
+                onClick={() => toggleMapEdit('destination')}
+                title="Edit on map"
+              >
+                🗺️
+              </button>
+            </div>
+          </div>
         </div>
+
+        {/* Multi-Stop Option */}
+        {showAdvanced && (
+          <div className={styles.advancedOptions}>
+            <div className={styles.multiStopSection}>
+              <div className={styles.multiStopHeader}>
+                <label className={styles.checkboxLabel}>
+                  <input
+                    type="checkbox"
+                    checked={showMultiStop}
+                    onChange={(e) => setShowMultiStop(e.target.checked)}
+                    className={styles.checkbox}
+                  />
+                  <span className={styles.checkboxText}>Multiple stops</span>
+                </label>
+                {showMultiStop && multiStops.length < 3 && (
+                  <button
+                    type="button"
+                    className={styles.addStopButton}
+                    onClick={addMultiStop}
+                  >
+                    + Add Stop
+                  </button>
+                )}
+              </div>
+
+              {showMultiStop && multiStops.map((stop, index) => (
+                <div key={index} className={styles.multiStopInput}>
+                  <input
+                    type="text"
+                    placeholder={`Stop ${index + 1} address`}
+                    value={stop.address || ''}
+                    onChange={(e) => updateMultiStop(index, e.target.value)}
+                    className={styles.locationInput}
+                  />
+                  <button
+                    type="button"
+                    className={styles.removeStopButton}
+                    onClick={() => removeMultiStop(index)}
+                    title="Remove stop"
+                  >
+                    ✕
+                  </button>
+                </div>
+              ))}
+            </div>
+
+            {/* Scheduling Option */}
+            <div className={styles.schedulingSection}>
+              <label className={styles.checkboxLabel}>
+                <input
+                  type="checkbox"
+                  checked={isScheduled}
+                  onChange={(e) => setIsScheduled(e.target.checked)}
+                  className={styles.checkbox}
+                />
+                <span className={styles.checkboxText}>Schedule for later</span>
+              </label>
+
+              {isScheduled && (
+                <div className={styles.schedulingInput}>
+                  <input
+                    type="datetime-local"
+                    value={scheduledTime}
+                    onChange={(e) => setScheduledTime(e.target.value)}
+                    min={getMinDateTime()}
+                    className={styles.dateTimeInput}
+                  />
+                  {scheduledTime && (
+                    <div className={styles.scheduledDisplay}>
+                      📅 Scheduled for: {formatScheduledTime()}
+                    </div>
+                  )}
+                </div>
+              )}
+            </div>
+          </div>
+        )}
       </div>
 
       {/* Service Selection Status */}
@@ -166,53 +413,99 @@ export function QuickBooking({ onBookNow, selectedService }: QuickBookingProps) 
           <div className={styles.bookingOptionContent}>
             <div className={styles.bookingOptionIcon}>🚗</div>
             <div className={styles.bookingOptionText}>
-              <h3 className={styles.bookingOptionTitle}>Book Now</h3>
+              <h3 className={styles.bookingOptionTitle}>
+                {isScheduled ? 'Schedule Service' : 'Book Now'}
+              </h3>
               <p className={styles.bookingOptionDescription}>
-                Immediate pickup (5-15 minutes)
+                {isScheduled
+                  ? `Pickup at ${formatScheduledTime() || 'your chosen time'}`
+                  : 'Immediate pickup (5-15 minutes)'
+                }
               </p>
             </div>
           </div>
-          
+
           <Button
             variant="primary"
             size="lg"
             isFullWidth
             onClick={handleQuickBook}
-            disabled={!isReadyToBook}
+            disabled={!isReadyToBook || isLoading}
             className={styles.bookButton}
           >
-            {!selectedService 
-              ? 'Select Service First' 
-              : !pickupLocation.trim()
-              ? 'Enter Pickup Location'
-              : 'Book Now'
-            }
+            {isLoading ? (
+              <LoadingSpinner size="small" variant="light" text="Preparing..." inline />
+            ) : !selectedService ? (
+              'Select Service First'
+            ) : !pickupLocation?.address ? (
+              'Enter Pickup Location'
+            ) : isScheduled && !scheduledTime ? (
+              'Set Schedule Time'
+            ) : isScheduled ? (
+              `Schedule ${selectedService.charAt(0).toUpperCase() + selectedService.slice(1)}`
+            ) : multiStops.length > 0 ? (
+              `Book Multi-Stop (${multiStops.length + 1} locations)`
+            ) : (
+              'Book Now'
+            )}
           </Button>
         </div>
 
-        {/* Schedule for Later Option */}
-        <div className={styles.schedulingNote}>
-          <p className={styles.schedulingText}>
-            Need to schedule for later? Complete your booking to set a specific time.
-          </p>
+        {/* Enhanced Options Info */}
+        <div className={styles.enhancedOptions}>
+          {!showAdvanced && (
+            <p className={styles.optionsHint}>
+              💡 Tap "Advanced" for scheduling & multi-stop options
+            </p>
+          )}
+          {isScheduled && scheduledTime && (
+            <div className={styles.scheduledInfo}>
+              <span className={styles.scheduledIcon}>⏰</span>
+              <span>Pickup at {formatScheduledTime()}</span>
+            </div>
+          )}
+          {multiStops.length > 0 && (
+            <div className={styles.multiStopInfo}>
+              <span className={styles.multiStopIcon}>🛣️</span>
+              <span>{multiStops.length} additional stop{multiStops.length > 1 ? 's' : ''}</span>
+            </div>
+          )}
         </div>
       </div>
 
-      {/* Quick Stats */}
+      {/* Enhanced Quick Stats */}
       <div className={styles.quickStats}>
         <div className={styles.statItem}>
           <span className={styles.statNumber}>24/7</span>
           <span className={styles.statLabel}>Available</span>
         </div>
         <div className={styles.statItem}>
-          <span className={styles.statNumber}>5-15</span>
-          <span className={styles.statLabel}>Min pickup</span>
+          <span className={styles.statNumber}>{isScheduled ? 'Custom' : '5-15'}</span>
+          <span className={styles.statLabel}>{isScheduled ? 'Time' : 'Min pickup'}</span>
+        </div>
+        <div className={styles.statItem}>
+          <span className={styles.statNumber}>{calculateEstimatedDuration()}</span>
+          <span className={styles.statLabel}>Est. mins</span>
         </div>
         <div className={styles.statItem}>
           <span className={styles.statNumber}>15k+</span>
           <span className={styles.statLabel}>Secure trips</span>
         </div>
       </div>
+
+      {/* Shadow Service Warning for Guests */}
+      {selectedService === 'shadow' && !shouldShowShadow && (
+        <div className={styles.shadowWarning}>
+          <div className={styles.warningIcon}>🔒</div>
+          <div className={styles.warningContent}>
+            <h4 className={styles.warningTitle}>Shadow Service</h4>
+            <p className={styles.warningText}>
+              Available exclusively for verified luxury vehicle owners.
+              <strong>Register your vehicle</strong> to access this premium service.
+            </p>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
