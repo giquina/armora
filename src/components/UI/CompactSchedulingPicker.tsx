@@ -88,10 +88,14 @@ export function CompactSchedulingPicker({
     onSchedulingToggle?.(checked);
   };
 
-  const handleDateSelect = (date: Date) => {
+  const handleDateSelect = (date: Date | null) => {
     setSelectedDate(date);
-    const combined = combineDateTime(date, selectedTime);
-    onDateTimeChange(combined);
+    if (date) {
+      const combined = combineDateTime(date, selectedTime);
+      onDateTimeChange(combined);
+    } else {
+      onDateTimeChange('');
+    }
   };
 
   const handleTimeSelect = (time: string) => {
