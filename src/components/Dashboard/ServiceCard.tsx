@@ -6,7 +6,8 @@ import styles from './ServiceCard.module.css';
 interface ServiceCardProps {
   service: ServiceLevel;
   isSelected: boolean;
-  onSelect: (serviceId: 'standard' | 'executive' | 'shadow') => void;
+  onBookNow: (serviceId: 'standard' | 'executive' | 'shadow') => void;
+  onScheduleLater: (serviceId: 'standard' | 'executive' | 'shadow') => void;
   mode: 'selection' | 'preview';
   isRecommended?: boolean;
 }
@@ -14,13 +15,22 @@ interface ServiceCardProps {
 export function ServiceCard({ 
   service, 
   isSelected, 
-  onSelect, 
+  onBookNow,
+  onScheduleLater, 
   mode,
   isRecommended = false 
 }: ServiceCardProps) {
-  const handleSelect = () => {
+  const handleBookNow = (e: React.MouseEvent) => {
+    e.stopPropagation();
     if (mode === 'selection') {
-      onSelect(service.id);
+      onBookNow(service.id);
+    }
+  };
+
+  const handleScheduleLater = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (mode === 'selection') {
+      onScheduleLater(service.id);
     }
   };
 
@@ -33,7 +43,7 @@ export function ServiceCard({
   ].filter(Boolean).join(' ');
 
   return (
-    <div className={cardClasses} onClick={handleSelect}>
+    <div className={cardClasses}>
       {/* Popular Badge */}
       {service.isPopular && (
         <div className={styles.popularBadge}>
@@ -111,18 +121,29 @@ export function ServiceCard({
       {/* Card Footer */}
       <div className={styles.cardFooter}>
         {mode === 'selection' ? (
-          <Button
-            variant={isSelected ? "primary" : "outline"}
-            size="md"
-            isFullWidth
-            onClick={(e) => {
-              e.stopPropagation();
-              handleSelect();
-            }}
-            className={styles.selectButton}
-          >
-            {isSelected ? "Selected" : "Select Service"}
-          </Button>
+          <div className={styles.buttonGroup}>
+            {/* Primary Book Now Button - 70-75% width */}
+            <Button
+              variant="primary"
+              size="md"
+              onClick={handleBookNow}
+              className={styles.bookNowButton}
+              leftIcon={<span style={{ fontSize: '16px' }}>🚗</span>}
+            >
+              Book Now
+            </Button>
+            
+            {/* Secondary Schedule Later Button - 25-30% width */}
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={handleScheduleLater}
+              className={styles.scheduleLaterButton}
+              leftIcon={<span style={{ fontSize: '14px' }}>📅</span>}
+            >
+              Later
+            </Button>
+          </div>
         ) : (
           <div className={styles.previewFooter}>
             <p className={styles.previewText}>

@@ -91,6 +91,28 @@ export function Dashboard() {
     }
   };
 
+  const handleServiceBookNow = (serviceId: 'standard' | 'executive' | 'shadow') => {
+    setLocalSelectedService(serviceId);
+    localStorage.setItem('armora_selected_service', serviceId);
+    localStorage.setItem('armora_booking_type', 'immediate');
+    
+    const selectedServiceData = ARMORA_SERVICES.find(s => s.id === serviceId);
+    if (selectedServiceData) {
+      navigateToView('booking');
+    }
+  };
+
+  const handleScheduleLater = (serviceId: 'standard' | 'executive' | 'shadow') => {
+    setLocalSelectedService(serviceId);
+    localStorage.setItem('armora_selected_service', serviceId);
+    localStorage.setItem('armora_booking_type', 'scheduled');
+    
+    const selectedServiceData = ARMORA_SERVICES.find(s => s.id === serviceId);
+    if (selectedServiceData) {
+      navigateToView('booking');
+    }
+  };
+
   const handleBookNow = async () => {
     setIsNavigating(true);
     
@@ -190,7 +212,8 @@ export function Dashboard() {
                 key={service.id}
                 service={service}
                 isSelected={false}
-                onSelect={() => {}} // No selection for guests
+                onBookNow={() => {}} // No booking for guests
+                onScheduleLater={() => {}} // No booking for guests
                 mode="preview"
                 isRecommended={false}
               />
@@ -285,7 +308,8 @@ export function Dashboard() {
               key={service.id}
               service={service}
               isSelected={selectedService === service.id}
-              onSelect={handleServiceSelect}
+              onBookNow={handleServiceBookNow}
+              onScheduleLater={handleScheduleLater}
               mode="selection"
               isRecommended={recommendedService === service.id}
             />
