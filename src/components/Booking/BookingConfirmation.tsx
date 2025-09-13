@@ -1,16 +1,8 @@
 import React, { useState } from 'react';
-import { ServiceLevel, User } from '../../types';
+import { BookingData } from '../../types';
+import { LoadingSpinner } from '../UI/LoadingSpinner';
+import { BookingProgressIndicator } from '../UI/ProgressIndicator';
 import styles from './BookingConfirmation.module.css';
-
-interface BookingData {
-  service: ServiceLevel;
-  pickup: string;
-  destination: string;
-  estimatedDistance: number;
-  estimatedDuration: number;
-  estimatedCost: number;
-  user: User | null;
-}
 
 interface BookingConfirmationProps {
   bookingData: BookingData;
@@ -68,6 +60,9 @@ export function BookingConfirmation({ bookingData, onConfirmBooking, onBack }: B
 
   return (
     <div className={styles.container}>
+      {/* Progress Indicator */}
+      <BookingProgressIndicator currentStep="booking-confirmation" />
+      
       <div className={styles.header}>
         <button className={styles.backButton} onClick={onBack}>
           ← Back
@@ -166,8 +161,8 @@ export function BookingConfirmation({ bookingData, onConfirmBooking, onBack }: B
               className={styles.checkbox}
             />
             <span className={styles.checkboxText}>
-              I agree to the <a href="#" className={styles.termsLink}>Terms of Service</a> and 
-              understand the <a href="#" className={styles.termsLink}>cancellation policy</a>
+              I agree to the <button type="button" className={styles.termsLink}>Terms of Service</button> and 
+              understand the <button type="button" className={styles.termsLink}>cancellation policy</button>
             </span>
           </label>
         </div>
@@ -191,7 +186,7 @@ export function BookingConfirmation({ bookingData, onConfirmBooking, onBack }: B
         >
           {isBooking ? (
             <div className={styles.bookingLoader}>
-              <span className={styles.loadingSpinner}>●●●</span>
+              <LoadingSpinner size="small" variant="light" inline />
               <span>Confirming Your Booking...</span>
             </div>
           ) : (

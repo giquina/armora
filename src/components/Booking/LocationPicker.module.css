@@ -21,18 +21,19 @@
   position: absolute;
   left: 0;
   top: 0;
-  padding: 0.5rem;
+  padding: var(--space-sm);
   background: transparent;
   color: var(--armora-gold);
   border: none;
   font-size: 1rem;
   cursor: pointer;
-  min-height: 44px;
-  min-width: 44px;
+  min-height: var(--touch-target);
+  min-width: var(--touch-target);
   display: flex;
   align-items: center;
   justify-content: center;
   border-radius: var(--radius-md);
+  touch-action: manipulation;
 }
 
 .backButton:hover {
@@ -223,6 +224,31 @@
   margin-top: 0.5rem;
 }
 
+.schedulingSection {
+  background: var(--bg-secondary);
+  border: 2px solid var(--border-secondary);
+  border-radius: var(--radius-lg);
+  padding: var(--space-lg);
+  margin-top: var(--space-lg);
+  transition: all 0.3s ease;
+}
+
+.schedulingSection:hover {
+  border-color: var(--armora-gold);
+  box-shadow: 0 4px 20px rgba(255, 215, 0, 0.1);
+}
+
+.calculatingIndicator {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-primary);
+  border-radius: var(--radius-md);
+  padding: 1rem;
+  margin-top: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .footer {
   position: sticky;
   bottom: 0;
@@ -239,17 +265,18 @@
   background: var(--armora-gold);
   color: var(--armora-dark);
   border: none;
-  padding: 1rem;
+  padding: var(--space-md);
   border-radius: var(--radius-md);
   font-size: 1rem;
   font-weight: 700;
   cursor: pointer;
   transition: all 0.3s ease;
-  min-height: 56px;
+  min-height: var(--touch-target-lg);
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 1rem;
+  margin-bottom: var(--space-md);
+  touch-action: manipulation;
 }
 
 .continueButton:hover:not(:disabled) {

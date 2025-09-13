@@ -1,5 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { ServiceLevel, LocationData } from '../../types';
+import { LoadingSpinner } from '../UI/LoadingSpinner';
+import { LocationSkeletonLoader } from '../UI/SkeletonLoader';
+import { BookingProgressIndicator } from '../UI/ProgressIndicator';
+import { CompactSchedulingPicker } from '../UI/CompactSchedulingPicker';
 import styles from './LocationPicker.module.css';
 
 interface LocationPickerProps {
@@ -13,17 +17,25 @@ export function LocationPicker({ selectedService, onLocationConfirmed, onBack, u
   const [pickup, setPickup] = useState('');
   const [destination, setDestination] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [isCalculatingRoute, setIsCalculatingRoute] = useState(false);
   const [estimatedDistance, setEstimatedDistance] = useState<number>(0);
   const [estimatedDuration, setEstimatedDuration] = useState<number>(0);
   const [errors, setErrors] = useState<{ pickup?: string; destination?: string }>({});
+  const [scheduledDateTime, setScheduledDateTime] = useState<string>('');
+  const [isScheduled, setIsScheduled] = useState(false);
 
-  // Mock distance/duration calculation
-  const calculateEstimate = (pickup: string, destination: string) => {
+  // Mock distance/duration calculation with loading state
+  const calculateEstimate = async (pickup: string, destination: string) => {
     if (!pickup || !destination) {
       setEstimatedDistance(0);
       setEstimatedDuration(0);
       return;
     }
+
+    setIsCalculatingRoute(true);
+    
+    // Simulate API call delay
+    await new Promise(resolve => setTimeout(resolve, 1200));
 
     // Mock calculation - in real app this would use Google Maps API or similar
     const mockDistance = Math.floor(Math.random() * 20) + 5; // 5-25 miles
@@ -31,6 +43,7 @@ export function LocationPicker({ selectedService, onLocationConfirmed, onBack, u
     
     setEstimatedDistance(mockDistance);
     setEstimatedDuration(mockDuration);
+    setIsCalculatingRoute(false);
   };
 
   useEffect(() => {
@@ -74,7 +87,7 @@ export function LocationPicker({ selectedService, onLocationConfirmed, onBack, u
     if (!validateInputs()) return;
 
     setIsLoading(true);
-    
+
     // Simulate API call delay
     await new Promise(resolve => setTimeout(resolve, 1000));
 
@@ -83,6 +96,8 @@ export function LocationPicker({ selectedService, onLocationConfirmed, onBack, u
       destination: destination.trim(),
       estimatedDistance,
       estimatedDuration,
+      scheduledDateTime: isScheduled ? scheduledDateTime : undefined,
+      isScheduled
     };
 
     const estimatedCost = calculateCost();
@@ -104,6 +119,9 @@ export function LocationPicker({ selectedService, onLocationConfirmed, onBack, u
 
   return (
     <div className={styles.container}>
+      {/* Progress Indicator */}
+      <BookingProgressIndicator currentStep="location-picker" />
+      
       <div className={styles.header}>
         <button className={styles.backButton} onClick={onBack}>
           ← Back
@@ -169,28 +187,54 @@ export function LocationPicker({ selectedService, onLocationConfirmed, onBack, u
           )}
         </div>
 
-        {estimatedDistance > 0 && estimatedDuration > 0 && (
+        {/* Route Calculation and Estimate */}
+        {(isCalculatingRoute || estimatedDistance > 0 || estimatedDuration > 0) && (
           <div className={styles.estimate}>
             <h3 className={styles.estimateTitle}>Trip Estimate</h3>
-            <div className={styles.estimateDetails}>
-              <div className={styles.estimateItem}>
-                <span className={styles.estimateLabel}>Distance:</span>
-                <span className={styles.estimateValue}>{estimatedDistance} miles</span>
-              </div>
-              <div className={styles.estimateItem}>
-                <span className={styles.estimateLabel}>Duration:</span>
-                <span className={styles.estimateValue}>{formatDuration(estimatedDuration)}</span>
-              </div>
-              <div className={styles.estimateItem}>
-                <span className={styles.estimateLabel}>Estimated Cost:</span>
-                <span className={styles.estimateCost}>£{calculateCost()}</span>
-              </div>
-              {user?.hasUnlockedReward && user?.userType !== 'guest' && (
-                <div className={styles.rewardApplied}>
-                  50% reward discount applied!
+            {isCalculatingRoute ? (
+              <LocationSkeletonLoader />
+            ) : (
+              <div className={styles.estimateDetails}>
+                <div className={styles.estimateItem}>
+                  <span className={styles.estimateLabel}>Distance:</span>
+                  <span className={styles.estimateValue}>{estimatedDistance} miles</span>
                 </div>
-              )}
-            </div>
+                <div className={styles.estimateItem}>
+                  <span className={styles.estimateLabel}>Duration:</span>
+                  <span className={styles.estimateValue}>{formatDuration(estimatedDuration)}</span>
+                </div>
+                <div className={styles.estimateItem}>
+                  <span className={styles.estimateLabel}>Estimated Cost:</span>
+                  <span className={styles.estimateCost}>£{calculateCost()}</span>
+                </div>
+                {user?.hasUnlockedReward && user?.userType !== 'guest' && (
+                  <div className={styles.rewardApplied}>
+                    50% reward discount applied!
+                  </div>
+                )}
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* Scheduling Section */}
+        {estimatedDistance > 0 && estimatedDuration > 0 && !isCalculatingRoute && (
+          <div className={styles.schedulingSection}>
+            <CompactSchedulingPicker
+              selectedDateTime={scheduledDateTime}
+              onDateTimeChange={setScheduledDateTime}
+              onSchedulingToggle={setIsScheduled}
+              disabled={isLoading}
+              label="Schedule for later"
+              autoOpen={true}
+            />
+          </div>
+        )}
+
+        {/* Show route calculation indicator */}
+        {isCalculatingRoute && pickup && destination && (
+          <div className={styles.calculatingIndicator}>
+            <LoadingSpinner size="small" variant="primary" text="Calculating route..." inline />
           </div>
         )}
       </div>
@@ -199,10 +243,12 @@ export function LocationPicker({ selectedService, onLocationConfirmed, onBack, u
         <button
           className={styles.continueButton}
           onClick={handleContinue}
-          disabled={!pickup || !destination || isLoading}
+          disabled={!pickup || !destination || isLoading || isCalculatingRoute}
         >
           {isLoading ? (
-            <span className={styles.loadingSpinner}>●●●</span>
+            <LoadingSpinner size="small" variant="light" text="Processing Location..." inline />
+          ) : isCalculatingRoute ? (
+            <LoadingSpinner size="small" variant="light" text="Calculating..." inline />
           ) : (
             'Continue to Booking'
           )}

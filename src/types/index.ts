@@ -8,6 +8,13 @@ export interface User {
   id?: string;
   email: string;
   name?: string;
+  legalName?: {
+    first: string;
+    last: string;
+  };
+  preferredName?: string;
+  title?: 'Mr.' | 'Mrs.' | 'Ms.' | 'Miss' | 'Mx.' | 'Dr.';
+  nameDisplay?: 'preferred' | 'formal' | 'first';
   isAuthenticated: boolean;
   userType: UserType;
   hasCompletedQuestionnaire?: boolean;
@@ -218,6 +225,8 @@ export interface LocationData {
   destination: string;
   estimatedDistance?: number;
   estimatedDuration?: number;
+  scheduledDateTime?: string;
+  isScheduled?: boolean;
 }
 
 export interface BookingData {
@@ -229,6 +238,8 @@ export interface BookingData {
   estimatedCost: number;
   additionalRequirements?: string;
   user: User | null;
+  scheduledDateTime?: string;
+  isScheduled?: boolean;
 }
 
 export interface BookingRecord {

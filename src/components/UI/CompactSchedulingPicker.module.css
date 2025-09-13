@@ -1,0 +1,323 @@
+.container {
+  width: 100%;
+  max-width: 100%;
+}
+
+.toggleSection {
+  margin-bottom: var(--space-sm, 16px);
+}
+
+.toggleContainer {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm, 12px);
+  cursor: pointer;
+  user-select: none;
+  padding: var(--space-sm, 12px);
+  border-radius: var(--radius-md, 12px);
+  transition: all 0.2s ease;
+}
+
+.toggleContainer:hover {
+  background: rgba(255, 215, 0, 0.05);
+}
+
+.toggleInput {
+  display: none;
+}
+
+.toggleSwitch {
+  position: relative;
+  width: 52px;
+  height: 28px;
+  background: var(--border-primary, #e0e0e0);
+  border-radius: 14px;
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+}
+
+.toggleInput:checked + .toggleSwitch {
+  background: var(--accent-primary, #FFD700);
+}
+
+.toggleSlider {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 24px;
+  height: 24px;
+  background: white;
+  border-radius: 50%;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.toggleInput:checked + .toggleSwitch .toggleSlider {
+  transform: translateX(24px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.toggleLabel {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--text-primary, #1a1a2e);
+  flex: 1;
+}
+
+.schedulingPanel {
+  overflow: hidden;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  opacity: 0;
+  max-height: 0;
+  padding: 0;
+  margin: 0;
+  background: var(--surface-secondary, #ffffff);
+  border-radius: var(--radius-lg, 16px);
+  border: 2px solid transparent;
+}
+
+.schedulingPanel.expanded {
+  opacity: 1;
+  max-height: 600px;
+  padding: var(--space-lg, 24px);
+  margin: var(--space-sm, 16px) 0;
+  border-color: var(--border-secondary, #f0f0f0);
+  box-shadow: 0 4px 20px rgba(26, 26, 46, 0.08);
+}
+
+.dateSection {
+  margin-bottom: var(--space-lg, 24px);
+}
+
+.dateLabel {
+  display: block;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-primary, #1a1a2e);
+  margin-bottom: var(--space-xs, 8px);
+}
+
+.timeSection {
+  margin-bottom: var(--space-lg, 24px);
+}
+
+.validationError {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs, 8px);
+  padding: var(--space-sm, 12px);
+  background: rgba(220, 53, 69, 0.1);
+  border: 1px solid rgba(220, 53, 69, 0.3);
+  border-radius: var(--radius-md, 12px);
+  margin-bottom: var(--space-lg, 20px);
+  color: #dc3545;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.errorIcon {
+  font-size: 1.1rem;
+}
+
+.confirmation {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm, 12px);
+  padding: var(--space-md, 16px);
+  background: rgba(40, 167, 69, 0.1);
+  border: 2px solid rgba(40, 167, 69, 0.2);
+  border-radius: var(--radius-md, 12px);
+  margin-bottom: var(--space-lg, 20px);
+  animation: confirmationSlideIn 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.confirmationIcon {
+  font-size: 1.5rem;
+  animation: confirmationBounce 0.6s ease;
+}
+
+.confirmationText {
+  flex: 1;
+  font-size: 0.95rem;
+  color: #28a745;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.helpText {
+  border-top: 1px solid var(--border-secondary, #f0f0f0);
+  padding-top: var(--space-md, 16px);
+  margin-top: var(--space-sm, 12px);
+}
+
+.helpItem {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs, 8px);
+  margin-bottom: var(--space-xs, 8px);
+  font-size: 0.875rem;
+  color: var(--text-secondary, #666);
+  line-height: 1.4;
+}
+
+.helpItem:last-child {
+  margin-bottom: 0;
+}
+
+.helpIcon {
+  font-size: 1rem;
+  flex-shrink: 0;
+}
+
+/* Mobile Optimizations */
+@media (max-width: 480px) {
+  .schedulingPanel.expanded {
+    padding: var(--space-md, 16px);
+    margin: var(--space-sm, 12px) 0;
+    border-radius: var(--radius-md, 12px);
+  }
+
+  .toggleContainer {
+    padding: var(--space-sm, 10px);
+  }
+
+  .toggleLabel {
+    font-size: 1rem;
+  }
+
+  .toggleSwitch {
+    width: 48px;
+    height: 26px;
+  }
+
+  .toggleSlider {
+    width: 22px;
+    height: 22px;
+  }
+
+  .toggleInput:checked + .toggleSwitch .toggleSlider {
+    transform: translateX(22px);
+  }
+
+  .confirmation {
+    padding: var(--space-sm, 12px);
+    flex-direction: column;
+    text-align: center;
+    gap: var(--space-xs, 8px);
+  }
+
+  .confirmationText {
+    font-size: 0.9rem;
+  }
+
+  .dateSection,
+  .timeSection {
+    margin-bottom: var(--space-md, 16px);
+  }
+
+  .validationError {
+    padding: var(--space-sm, 10px);
+    font-size: 0.85rem;
+  }
+
+  .helpItem {
+    font-size: 0.8rem;
+  }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  .schedulingPanel {
+    background: var(--surface-secondary-dark, #2a2a3e);
+    border-color: var(--border-secondary-dark, #404040);
+  }
+
+  .toggleLabel {
+    color: var(--text-primary-dark, #ffffff);
+  }
+
+  .toggleSwitch {
+    background: var(--border-primary-dark, #404040);
+  }
+
+  .helpText {
+    border-top-color: var(--border-secondary-dark, #404040);
+  }
+
+  .helpItem {
+    color: var(--text-secondary-dark, #aaa);
+  }
+
+  .toggleContainer:hover {
+    background: rgba(255, 215, 0, 0.1);
+  }
+}
+
+/* Animations */
+@keyframes confirmationSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes confirmationBounce {
+  0%, 20%, 53%, 80%, 100% {
+    transform: scale(1);
+  }
+  40%, 43% {
+    transform: scale(1.1);
+  }
+  70% {
+    transform: scale(1.05);
+  }
+  90% {
+    transform: scale(1.02);
+  }
+}
+
+/* Accessibility improvements */
+.toggleContainer:focus-within {
+  outline: 2px solid var(--accent-primary, #FFD700);
+  outline-offset: 2px;
+}
+
+.schedulingPanel.expanded {
+  animation: panelExpand 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes panelExpand {
+  from {
+    opacity: 0;
+    max-height: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    max-height: 600px;
+    transform: translateY(0);
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .toggleSwitch {
+    border: 2px solid currentColor;
+  }
+
+  .schedulingPanel.expanded {
+    border-width: 3px;
+  }
+
+  .confirmation {
+    border-width: 3px;
+  }
+
+  .validationError {
+    border-width: 2px;
+  }
+}
