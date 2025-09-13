@@ -81,7 +81,7 @@ export function BookingSuccess({ bookingId }: BookingSuccessProps) {
           <ul>
             <li>Check your email for detailed booking confirmation</li>
             <li>SMS updates will be sent to your registered phone number</li>
-            <li>Emergency support: Call 0800-ARMORA (0800-276672)</li>
+            <li>24/7 support: Call 0800-ARMORA (0800-276672)</li>
             <li>Cancellations within 30 minutes incur a £15 fee</li>
           </ul>
         </div>

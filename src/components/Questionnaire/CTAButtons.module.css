@@ -76,11 +76,45 @@
 }
 
 .primaryCTA:disabled {
-  background: rgba(255, 215, 0, 0.3);
-  color: rgba(26, 26, 46, 0.6);
+  background: rgba(128, 128, 128, 0.4); /* Gray background when disabled */
+  color: rgba(224, 224, 224, 0.5); /* Muted text */
   cursor: not-allowed;
   transform: none;
   box-shadow: none;
+  border-color: rgba(128, 128, 128, 0.3);
+  opacity: 0.6;
+  /* Add visual feedback that it's disabled */
+  position: relative;
+}
+
+/* Add tooltip-like feedback for disabled state */
+.primaryCTA:disabled:hover::after {
+  content: 'Please answer the question or select "Prefer not to say"';
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(26, 26, 46, 0.95);
+  color: #FFD700;
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  white-space: nowrap;
+  z-index: 1000;
+  margin-bottom: 8px;
+  border: 1px solid rgba(255, 215, 0, 0.3);
+  animation: tooltipFadeIn 0.2s ease-out;
+}
+
+@keyframes tooltipFadeIn {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
 }
 
 /* CTA Buttons Row - Horizontal Layout */

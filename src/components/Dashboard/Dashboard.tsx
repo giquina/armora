@@ -3,10 +3,11 @@ import { useApp } from '../../contexts/AppContext';
 import { Button } from '../UI/Button';
 import { LoadingSpinner } from '../UI/LoadingSpinner';
 import { ServiceCard } from './ServiceCard';
-import { QuickBooking } from './QuickBooking';
 import { ImpactDashboardWidget } from './ImpactDashboardWidget';
 import { MarketingBanner } from './MarketingBanner';
+import { SchedulingPicker } from '../UI/SchedulingPicker';
 import { ServiceLevel } from '../../types';
+import { getDisplayName } from '../../utils/nameUtils';
 import styles from './Dashboard.module.css';
 
 const ARMORA_SERVICES: ServiceLevel[] = [
@@ -70,6 +71,8 @@ export function Dashboard() {
   const [selectedService, setLocalSelectedService] = useState<'standard' | 'executive' | 'shadow' | null>(null);
   const [showRewardBanner, setShowRewardBanner] = useState(false);
   const [isNavigating, setIsNavigating] = useState(false);
+  const [showScheduling, setShowScheduling] = useState(false);
+  const [scheduledDateTime, setScheduledDateTime] = useState('');
 
   // Check if user has unlocked reward and hasn't dismissed banner
   useEffect(() => {
@@ -82,21 +85,42 @@ export function Dashboard() {
     setLocalSelectedService(serviceId);
     // Store selected service for booking flow
     localStorage.setItem('armora_selected_service', serviceId);
-    
-    // Set service in app context and navigate to subscription offer
-    const selectedServiceData = ARMORA_SERVICES.find(s => s.id === serviceId);
-    if (selectedServiceData) {
-      // setAppSelectedService(serviceId); // TODO: Implement service selection
-      navigateToView('subscription-offer');
-    }
+    // Reset scheduling state when changing services
+    setShowScheduling(false);
+    setScheduledDateTime('');
+  };
+
+  const handleScheduleSelect = (serviceId: 'standard' | 'executive' | 'shadow') => {
+    // Set the selected service first
+    setLocalSelectedService(serviceId);
+    localStorage.setItem('armora_selected_service', serviceId);
+    setShowScheduling(true);
+  };
+
+  const handleDirectBooking = (serviceId: 'standard' | 'executive' | 'shadow') => {
+    // Set the selected service first
+    setLocalSelectedService(serviceId);
+    localStorage.setItem('armora_selected_service', serviceId);
+    // Store immediate booking preference and proceed
+    localStorage.setItem('armora_booking_immediate', 'true');
+    handleBookNow();
   };
 
   const handleBookNow = async () => {
     setIsNavigating(true);
-    
+
+    // Store scheduling information for the booking flow
+    if (scheduledDateTime) {
+      localStorage.setItem('armora_scheduled_datetime', scheduledDateTime);
+      localStorage.setItem('armora_booking_immediate', 'false');
+    } else {
+      localStorage.setItem('armora_booking_immediate', 'true');
+      localStorage.removeItem('armora_scheduled_datetime');
+    }
+
     // Brief loading for better UX
     await new Promise(resolve => setTimeout(resolve, 500));
-    
+
     if (user?.userType === 'guest') {
       // Guest users need to create account first
       navigateToView('signup');
@@ -104,7 +128,7 @@ export function Dashboard() {
       // Navigate to booking flow
       navigateToView('booking');
     }
-    
+
     setIsNavigating(false);
   };
 
@@ -255,7 +279,7 @@ export function Dashboard() {
       <div className={styles.header}>
         <div className={styles.headerContent}>
           <h1 className={styles.title}>
-            Welcome back{user?.name ? `, ${user.name}` : ''}
+            Welcome back{user ? `, ${getDisplayName(user)}` : ''}
           </h1>
           <p className={styles.subtitle}>
             Book your security transport
@@ -263,15 +287,6 @@ export function Dashboard() {
         </div>
       </div>
 
-      {/* Quick Booking Section */}
-      <div className={styles.quickBookingSection}>
-        <QuickBooking
-          onBookNow={handleBookNow}
-          selectedService={selectedService}
-          isLoading={isNavigating}
-          userType={user?.userType || 'guest'}
-        />
-      </div>
 
       {/* Impact Widget for Essential Members */}
       <ImpactDashboardWidget />
@@ -284,14 +299,62 @@ export function Dashboard() {
             <ServiceCard
               key={service.id}
               service={service}
-              isSelected={selectedService === service.id}
+              isSelected={false}
               onSelect={handleServiceSelect}
               mode="selection"
               isRecommended={recommendedService === service.id}
+              onBookNow={handleDirectBooking}
+              onScheduleSelect={handleScheduleSelect}
             />
           ))}
         </div>
       </div>
+
+      {/* Progressive Scheduling Section */}
+      {showScheduling && selectedService && (
+        <div className={styles.schedulingSection}>
+          <div className={styles.schedulingCard}>
+            <div className={styles.schedulingHeader}>
+              <h3 className={styles.schedulingTitle}>
+                📅 Schedule Your {ARMORA_SERVICES.find(s => s.id === selectedService)?.name}
+              </h3>
+              <p className={styles.schedulingSubtitle}>
+                Choose your preferred pickup date and time
+              </p>
+            </div>
+
+            <SchedulingPicker
+              selectedDateTime={scheduledDateTime}
+              onDateTimeChange={setScheduledDateTime}
+              label="Select pickup date and time"
+            />
+
+            <div className={styles.schedulingActions}>
+              <Button
+                variant="outline"
+                size="md"
+                onClick={() => setShowScheduling(false)}
+                className={styles.cancelScheduleButton}
+              >
+                Cancel
+              </Button>
+              <Button
+                variant="primary"
+                size="md"
+                onClick={handleBookNow}
+                disabled={!scheduledDateTime || isNavigating}
+                className={styles.scheduleBookButton}
+              >
+                {isNavigating ? (
+                  <LoadingSpinner size="small" variant="light" text="Booking..." inline />
+                ) : (
+                  'Book Scheduled Service'
+                )}
+              </Button>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Personalized Recommendation */}
       {recommendedService && questionnaireData && (
@@ -309,37 +372,6 @@ export function Dashboard() {
         </div>
       )}
 
-      {/* Action Buttons */}
-      <div className={styles.actionSection}>
-        <Button
-          variant="primary"
-          size="lg"
-          isFullWidth={deviceCapabilities.isMobile}
-          onClick={handleBookNow}
-          disabled={!selectedService || isNavigating}
-          className={styles.bookButton}
-        >
-          {isNavigating ? (
-            <LoadingSpinner size="small" variant="light" text="Preparing Booking..." inline />
-          ) : selectedService ? (
-            `Book ${ARMORA_SERVICES.find(s => s.id === selectedService)?.name}`
-          ) : (
-            'Select Service to Book'
-          )}
-        </Button>
-        
-        {deviceCapabilities.isMobile && (
-          <Button
-            variant="outline"
-            size="md"
-            isFullWidth
-            onClick={() => navigateToView('profile')}
-            className={styles.profileButton}
-          >
-            View Profile & Settings
-          </Button>
-        )}
-      </div>
 
       {/* Marketing Banner for Non-Members */}
       <MarketingBanner 

@@ -1,0 +1,405 @@
+/* Achievement Banner Premium Styling */
+
+.achievementBanner {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 9999;
+  max-width: 600px;
+  width: calc(100vw - 32px);
+  border-radius: 16px;
+  background: linear-gradient(135deg, #2a2a3e 0%, #1a1a2e 100%);
+  border: 2px solid #FFD700;
+  box-shadow:
+    0 8px 32px rgba(255, 215, 0, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(10px);
+  animation: slideInBounce 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  padding: 24px;
+  color: #ffffff;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+  user-select: none;
+  overflow: hidden;
+}
+
+.achievementBanner::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.2) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+.achievementBanner:hover {
+  transform: translateX(-50%) scale(1.02);
+  box-shadow: 
+    0 12px 48px rgba(255, 215, 0, 0.5),
+    inset 0 1px 0 rgba(255, 255, 255, 0.6),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.1);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.minimized {
+  width: auto;
+  height: 48px;
+  padding: 8px 16px;
+  top: 20px;
+  right: 20px;
+  left: auto;
+  transform: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  animation: slideInFromRight 0.4s ease-out;
+}
+
+.minimized:hover {
+  transform: scale(1.05);
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 16px;
+  position: relative;
+  z-index: 1;
+}
+
+.achievementTitle {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: #FFD700;
+}
+
+.trophy {
+  font-size: 1.8rem;
+  display: inline-block;
+  position: relative;
+  animation: trophySpin 0.8s ease-out;
+  animation-delay: 0.3s;
+  animation-fill-mode: both;
+}
+
+.orbitalRing {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 4px;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 50%;
+  animation: orbit 3s linear infinite;
+  animation-delay: 2s;
+  animation-fill-mode: both;
+}
+
+.closeButton {
+  background: rgba(26, 26, 46, 0.1);
+  border: none;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  color: #1a1a2e;
+  transition: all 0.2s ease;
+  z-index: 2;
+}
+
+.closeButton:hover {
+  background: rgba(26, 26, 46, 0.2);
+  transform: scale(1.1);
+}
+
+.mainContent {
+  text-align: center;
+  margin-bottom: 20px;
+  position: relative;
+  z-index: 1;
+}
+
+.discountValue {
+  font-size: 3.5rem;
+  font-weight: 900;
+  line-height: 0.9;
+  margin: 8px 0;
+  text-shadow: 
+    2px 2px 4px rgba(0, 0, 0, 0.1),
+    0 0 20px rgba(255, 255, 255, 0.5);
+  background: linear-gradient(135deg, #1a1a2e 0%, #000 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.discountDescription {
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: #1a1a2e;
+  opacity: 0.9;
+  margin-bottom: 8px;
+}
+
+.progressSection {
+  margin: 20px 0;
+  position: relative;
+  z-index: 1;
+}
+
+.progressBar {
+  background: rgba(26, 26, 46, 0.2);
+  border-radius: 12px;
+  height: 8px;
+  margin: 12px 0;
+  overflow: hidden;
+  position: relative;
+}
+
+.progressFill {
+  background: linear-gradient(90deg, #1a1a2e 0%, #333 100%);
+  height: 100%;
+  border-radius: 12px;
+  transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+}
+
+.progressFill::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.3) 50%, transparent 100%);
+  animation: shimmer 2s ease-in-out infinite;
+}
+
+.progressText {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #1a1a2e;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.socialProof {
+  font-size: 0.95rem;
+  color: #ffffff;
+  opacity: 0.8;
+  margin: 12px 0;
+  font-weight: 500;
+}
+
+.claimButton {
+  background: linear-gradient(135deg, #1a1a2e 0%, #333 100%);
+  color: #FFD700;
+  border: none;
+  border-radius: 12px;
+  padding: 14px 32px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin: 8px 0;
+  position: relative;
+  overflow: hidden;
+  animation: buttonPulse 2s ease-in-out infinite;
+  animation-delay: 1.5s;
+  z-index: 1;
+}
+
+.claimButton::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 215, 0, 0.3), transparent);
+  transition: left 0.6s ease;
+}
+
+.claimButton:hover::before {
+  left: 100%;
+}
+
+.claimButton:hover {
+  transform: translateY(-2px);
+  box-shadow: 
+    0 8px 24px rgba(26, 26, 46, 0.3),
+    0 0 0 2px rgba(255, 215, 0, 0.3);
+}
+
+.claimButton:active {
+  transform: translateY(0);
+}
+
+.validityText {
+  font-size: 0.85rem;
+  color: #ffffff;
+  opacity: 0.7;
+  margin-top: 8px;
+  font-weight: 500;
+}
+
+.miniContent {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.9rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+/* Animations */
+
+@keyframes slideInBounce {
+  0% {
+    transform: translateX(-50%) translateY(-100px);
+    opacity: 0;
+  }
+  70% {
+    transform: translateX(-50%) translateY(10px);
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(-50%) translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideInFromRight {
+  0% {
+    transform: translateX(100px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes trophySpin {
+  0% {
+    transform: scale(0) rotate(0deg);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.3) rotate(180deg);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1) rotate(360deg);
+    opacity: 1;
+  }
+}
+
+@keyframes orbit {
+  0% {
+    transform: rotate(0deg) translateX(30px) rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg) translateX(30px) rotate(-360deg);
+  }
+}
+
+@keyframes buttonPulse {
+  0%, 100% {
+    box-shadow: 0 4px 16px rgba(26, 26, 46, 0.2);
+  }
+  50% {
+    box-shadow: 0 6px 24px rgba(26, 26, 46, 0.4), 0 0 0 4px rgba(255, 215, 0, 0.2);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+/* Mobile Optimizations */
+
+@media (max-width: 480px) {
+  .achievementBanner {
+    width: calc(100vw - 24px);
+    padding: 20px;
+    top: 16px;
+  }
+  
+  .discountValue {
+    font-size: 2.8rem;
+  }
+  
+  .achievementTitle {
+    font-size: 1rem;
+  }
+  
+  .trophy {
+    font-size: 1.5rem;
+  }
+  
+  .claimButton {
+    padding: 16px 24px;
+    width: 100%;
+    min-height: 48px; /* Touch target */
+  }
+  
+  .minimized {
+    right: 16px;
+    top: 16px;
+    min-height: 44px; /* Touch target */
+  }
+}
+
+@media (max-width: 320px) {
+  .achievementBanner {
+    width: calc(100vw - 16px);
+    padding: 16px;
+  }
+  
+  .discountValue {
+    font-size: 2.4rem;
+  }
+}
+
+/* Reduce motion for users who prefer it */
+@media (prefers-reduced-motion: reduce) {
+  .achievementBanner,
+  .trophy,
+  .claimButton,
+  .orbitalRing,
+  .progressFill::after {
+    animation: none;
+  }
+  
+  .achievementBanner:hover {
+    transform: translateX(-50%);
+  }
+  
+  .minimized:hover {
+    transform: none;
+  }
+}

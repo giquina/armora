@@ -210,7 +210,7 @@ const SafeRideFundModal: React.FC<SafeRideFundModalProps> = ({ onClose }) => {
 
           <section className={styles.mission}>
             <h3>Our Mission</h3>
-            <p>Every Armora membership contributes £4 to our Safe Ride Fund, providing emergency transport for vulnerable individuals when they need it most. Working with Crisis UK, Women's Aid, Mind Mental Health, and other vital organizations, we ensure transport is never a barrier to safety and support.</p>
+            <p>Every Armora membership contributes £4 to our Safe Ride Fund, providing priority transport for vulnerable individuals when they need it most. Working with Crisis UK, Women's Aid, Mind Mental Health, and other vital organizations, we ensure transport is never a barrier to safety and support.</p>
           </section>
 
           <section 
@@ -295,7 +295,7 @@ const SafeRideFundModal: React.FC<SafeRideFundModalProps> = ({ onClose }) => {
                   <span className={styles.amountDesc}>from every membership</span>
                 </div>
                 <div className={styles.contributionResult}>
-                  <span className={styles.result}>= 1 Emergency Journey</span>
+                  <span className={styles.result}>= 1 Priority Journey</span>
                   <span className={styles.resultDesc}>Funded for someone in crisis</span>
                 </div>
               </div>

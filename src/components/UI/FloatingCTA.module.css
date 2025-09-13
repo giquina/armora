@@ -5,10 +5,10 @@
   --armora-dark: #1a1a2e;
   --armora-gold: #FFD700;
   
-  /* CONSISTENT CTA GOLD COLORS - All states use same values */
-  --armora-gold-primary: rgba(255, 215, 0, 0.95);   /* Primary CTA gold */
-  --armora-gold-secondary: rgba(255, 229, 92, 0.9); /* Mid-tone gold */
-  --armora-gold-tertiary: rgba(255, 200, 0, 0.85);  /* Deeper gold */
+  /* CONSISTENT CTA GOLD COLORS - Standardized to match Continue button */
+  --armora-gold-primary: #FFD700;     /* Primary CTA gold - exact match to Continue button */
+  --armora-gold-secondary: #FFE55C;   /* Mid-tone gold - lighter shade */
+  --armora-gold-tertiary: #FFA500;    /* Deeper gold - exact match to Continue button end */
   
   --armora-gold-rich: #E6C200; /* Richer gold to match bottom nav */
   --armora-gold-muted: #D4B366; /* Muted gold for panel background */
@@ -21,7 +21,7 @@
 
 .container {
   position: fixed;
-  bottom: max(60px, calc(60px + env(safe-area-inset-bottom))); /* FIXED: Connect directly to bottom nav (calculated: 8px top padding + 44px min content + 8px bottom = 60px) */
+  bottom: max(60px, calc(60px + env(safe-area-inset-bottom))); /* Connect directly to bottom nav */
   left: 8px; /* Reduced from 12px */
   right: 8px; /* Reduced from 12px */
   z-index: 1050; /* Below modals but above content */
@@ -29,10 +29,10 @@
   transform: translateY(100px);
   transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   pointer-events: none;
-  /* FIXED: Remove problematic padding/margin that clips sides */
+  /* Remove problematic padding/margin that clips sides */
   padding: 0;
   margin: 0;
-  /* FIXED: Ensure container isn't clipped by parent overflow */
+  /* Ensure container isn't clipped by parent overflow */
   width: calc(100vw - 16px);
   max-width: none;
   /* Add safe area support for iOS */
@@ -406,7 +406,7 @@
 /* Mobile-specific positioning */
 @media (max-width: 480px) {
   .container {
-    bottom: max(56px, calc(56px + env(safe-area-inset-bottom))); /* FIXED: Mobile nav is shorter */
+    bottom: max(56px, calc(56px + env(safe-area-inset-bottom))); /* Mobile nav is shorter */
   }
   
   .floatingCTA {
@@ -435,16 +435,16 @@
   .container {
     left: 50%;
     right: auto;
-    bottom: 60px; /* FIXED: Match calculated nav height */
+    bottom: 60px; /* Match calculated nav height */
     transform: translateX(-50%) translateY(100px);
     max-width: 500px;
-    width: calc(100% - 16px); /* FIXED: Simpler width calculation */
-    padding: 0; /* FIXED: Remove problematic padding */
-    margin: 0; /* FIXED: Remove problematic margin */
+    width: calc(100% - 16px);
+    padding: 0;
+    margin: 0;
   }
   
   .container.visible {
-    bottom: 60px; /* FIXED: Consistent positioning */
+    bottom: 60px;
     transform: translateX(-50%) translateY(0);
   }
   
@@ -458,7 +458,7 @@
   .container {
     left: 50%;
     right: auto;
-    bottom: 60px; /* FIXED: Desktop nav positioning */
+    bottom: 60px; /* Desktop nav positioning */
     transform: translateX(-50%) translateY(100px);
     width: 90%;
     max-width: 520px; /* Slightly larger for desktop 3D effect */
@@ -568,7 +568,7 @@
   border: 1px solid rgba(255, 255, 255, 0.2);
   border-bottom: none; /* No bottom border for seamless connection */
   border-radius: 24px 24px 0 0; /* Match 3D bubble radius */
-  /* REMOVED: Box-shadow creates visual separation - eliminated for seamless connection */
+  /* Remove box-shadow for seamless connection */
   box-shadow: none;
   animation: panelSlideUp3D 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   overflow: visible;
@@ -902,9 +902,9 @@
 /* Mobile responsive panel */
 @media (max-width: 480px) {
   .expandablePanel {
-  max-height: 50vh; /* Explicit cap to half screen on mobile */
+    max-height: 50vh; /* Explicit cap to half screen on mobile */
     min-height: 220px; /* Ensure minimum visibility on small screens */
-  bottom: 52px; /* FIXED: Match mobile button height exactly for seamless connection */
+    bottom: 52px; /* Match mobile button height exactly for seamless connection */
     border-radius: 12px 12px 0 0;
   }
   
@@ -951,7 +951,7 @@
   .expandablePanel {
     max-height: calc(100vh - 100px); /* Use most of available vertical space in landscape */
     min-height: 180px; /* Smaller minimum for landscape constraints */
-    bottom: 52px; /* FIXED: Consistent positioning for seamless connection */
+    bottom: 52px; /* Consistent positioning for seamless connection */
   }
   
   .panelContent {

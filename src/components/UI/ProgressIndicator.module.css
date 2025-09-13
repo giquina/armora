@@ -1,0 +1,264 @@
+/* PROGRESS INDICATOR - MOBILE FIRST */
+.container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  position: relative;
+}
+
+.horizontal {
+  flex-direction: column;
+}
+
+.vertical {
+  flex-direction: row;
+  align-items: flex-start;
+}
+
+/* Progress Track */
+.progressTrack {
+  width: 100%;
+  height: 4px;
+  background: var(--bg-tertiary);
+  border-radius: 2px;
+  overflow: hidden;
+  position: relative;
+}
+
+.progressFill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--armora-gold), var(--hover-gold));
+  border-radius: 2px;
+  transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+}
+
+.progressFill::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 8px;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3));
+  animation: progressShimmer 2s infinite;
+}
+
+/* Steps Container */
+.stepsContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: var(--space-sm);
+}
+
+.vertical .stepsContainer {
+  flex-direction: column;
+  justify-content: flex-start;
+  height: 200px;
+}
+
+/* Individual Step */
+.step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-xs);
+  flex: 1;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  min-width: 0;
+}
+
+.vertical .step {
+  flex-direction: row;
+  align-items: center;
+  flex: none;
+  width: 100%;
+}
+
+.step:focus {
+  outline: 2px solid var(--armora-gold);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
+
+/* Step Indicator Circle */
+.stepIndicator {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  border: 2px solid var(--border-primary);
+  background: var(--bg-secondary);
+  color: var(--text-secondary);
+  font-weight: 600;
+  font-size: 0.8rem;
+  position: relative;
+  z-index: 2;
+}
+
+.completed .stepIndicator {
+  background: var(--armora-gold);
+  border-color: var(--armora-gold);
+  color: var(--armora-dark);
+  transform: scale(1.1);
+}
+
+.current .stepIndicator {
+  border-color: var(--armora-gold);
+  background: var(--bg-primary);
+  color: var(--armora-gold);
+  box-shadow: 0 0 0 3px rgba(255, 215, 0, 0.2);
+  animation: pulse 2s infinite;
+}
+
+/* Step Number/Check Icon */
+.stepNumber {
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.checkIcon {
+  width: 14px;
+  height: 14px;
+  color: var(--armora-dark);
+}
+
+/* Step Label */
+.stepLabel {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  text-align: center;
+  font-weight: 500;
+  line-height: 1.2;
+  max-width: 80px;
+  word-wrap: break-word;
+}
+
+.completed .stepLabel {
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+.current .stepLabel {
+  color: var(--armora-gold);
+  font-weight: 700;
+}
+
+.vertical .stepLabel {
+  max-width: none;
+  text-align: left;
+  margin-left: var(--space-sm);
+}
+
+/* Booking-specific styles */
+.bookingProgress {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-primary);
+  border-radius: var(--radius-lg);
+  padding: var(--space-lg);
+  margin-bottom: var(--space-lg);
+}
+
+/* Animations */
+@keyframes progressShimmer {
+  0%, 100% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    box-shadow: 0 0 0 3px rgba(255, 215, 0, 0.2);
+  }
+  50% {
+    box-shadow: 0 0 0 6px rgba(255, 215, 0, 0.1);
+  }
+}
+
+/* High contrast accessibility */
+@media (prefers-contrast: high) {
+  .stepIndicator {
+    border-width: 3px;
+  }
+  
+  .completed .stepIndicator {
+    background: var(--text-primary);
+    border-color: var(--text-primary);
+    color: var(--bg-primary);
+  }
+  
+  .current .stepIndicator {
+    border-color: var(--text-primary);
+    color: var(--text-primary);
+  }
+}
+
+/* Reduced motion accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .progressFill {
+    transition: none;
+  }
+  
+  .stepIndicator {
+    transition: none;
+  }
+  
+  .progressFill::after {
+    animation: none;
+  }
+  
+  .current .stepIndicator {
+    animation: none;
+    box-shadow: 0 0 0 3px rgba(255, 215, 0, 0.3);
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 480px) {
+  .stepIndicator {
+    width: 28px;
+    height: 28px;
+    font-size: 0.7rem;
+  }
+  
+  .stepLabel {
+    font-size: 0.7rem;
+    max-width: 60px;
+  }
+  
+  .checkIcon {
+    width: 12px;
+    height: 12px;
+  }
+  
+  .bookingProgress {
+    padding: var(--space-md);
+  }
+}
+
+@media (min-width: 768px) {
+  .stepIndicator {
+    width: 36px;
+    height: 36px;
+    font-size: 0.85rem;
+  }
+  
+  .stepLabel {
+    font-size: 0.8rem;
+    max-width: 100px;
+  }
+  
+  .checkIcon {
+    width: 16px;
+    height: 16px;
+  }
+}

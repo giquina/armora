@@ -1,0 +1,225 @@
+/* Prefer Not To Say Component - Security Questionnaire */
+
+.container {
+  margin-top: var(--space-lg);
+  margin-bottom: var(--space-md);
+}
+
+/* Visual separator between main options and prefer not to say */
+.separator {
+  display: flex;
+  align-items: center;
+  margin-bottom: var(--space-md);
+  opacity: 0.6;
+}
+
+.separatorLine {
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255, 215, 0, 0.3), transparent);
+}
+
+.separatorText {
+  color: rgba(224, 224, 224, 0.7);
+  font-size: var(--font-xs);
+  font-weight: 500;
+  padding: 0 var(--space-md);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Main prefer not to say option */
+.preferOption {
+  background: rgba(255, 215, 0, 0.02);
+  border: 1px solid rgba(255, 215, 0, 0.15);
+  border-radius: var(--radius-md);
+  padding: var(--space-md);
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  position: relative;
+  min-height: var(--touch-target); /* Ensure 44px+ touch target */
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.preferOption:hover {
+  background: rgba(255, 215, 0, 0.05);
+  border-color: rgba(255, 215, 0, 0.25);
+  transform: translateY(-1px);
+}
+
+.preferOption.selected {
+  background: rgba(255, 215, 0, 0.08);
+  border-color: rgba(255, 215, 0, 0.4);
+  box-shadow: 0 4px 12px rgba(255, 215, 0, 0.15);
+}
+
+.preferOption.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* Toggle and text container */
+.toggleContainer {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  width: 100%;
+}
+
+/* Custom toggle switch */
+.toggle {
+  width: 44px;
+  height: 24px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  position: relative;
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.toggle.toggleActive {
+  background: var(--armora-gold);
+  border-color: var(--armora-gold);
+}
+
+.toggleSlider {
+  width: 20px;
+  height: 20px;
+  background: #ffffff;
+  border-radius: 50%;
+  position: absolute;
+  top: 1px;
+  left: 2px;
+  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.toggleSlider.sliderActive {
+  transform: translateX(20px);
+  background: var(--armora-dark);
+}
+
+/* Text content */
+.textContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex: 1;
+}
+
+.mainText {
+  color: rgba(224, 224, 224, 0.9);
+  font-size: var(--font-sm);
+  font-weight: 500;
+  line-height: 1.3;
+}
+
+.helperText {
+  color: rgba(224, 224, 224, 0.6);
+  font-size: var(--font-xs);
+  font-weight: 400;
+  line-height: 1.2;
+}
+
+/* Confirmation message when selected */
+.confirmationMessage {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  padding: var(--space-xs) var(--space-sm);
+  background: rgba(0, 255, 136, 0.1);
+  border: 1px solid rgba(0, 255, 136, 0.3);
+  border-radius: var(--radius-sm);
+  color: #00ff88;
+  font-size: var(--font-xs);
+  font-weight: 500;
+  animation: fadeInConfirmation 0.3s ease-out;
+  align-self: flex-start;
+}
+
+.confirmationIcon {
+  font-size: var(--font-sm);
+  font-weight: 600;
+}
+
+@keyframes fadeInConfirmation {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive design */
+@media (max-width: 480px) {
+  .container {
+    margin-top: var(--space-md);
+  }
+  
+  .preferOption {
+    padding: var(--space-sm) var(--space-md);
+    min-height: var(--touch-target);
+  }
+  
+  .toggleContainer {
+    gap: var(--space-sm);
+  }
+  
+  .mainText {
+    font-size: var(--font-sm);
+  }
+  
+  .helperText {
+    font-size: 11px;
+  }
+  
+  .separatorText {
+    font-size: 10px;
+    padding: 0 var(--space-sm);
+  }
+}
+
+/* Focus states for accessibility */
+.preferOption:focus {
+  outline: 2px solid var(--armora-gold);
+  outline-offset: 2px;
+}
+
+.preferOption:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .preferOption {
+    border-width: 2px;
+  }
+  
+  .toggle {
+    border-width: 2px;
+  }
+  
+  .mainText {
+    color: #ffffff;
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .preferOption,
+  .toggle,
+  .toggleSlider {
+    transition: none;
+  }
+  
+  .confirmationMessage {
+    animation: none;
+  }
+}

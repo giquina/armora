@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { QuestionnaireStep as IQuestionnaireStep, QuestionnaireOption } from '../../types';
 import { CTAButtons } from './CTAButtons';
-import { Step2BottomCTA } from './Step2BottomCTA';
 import { NameCollection } from './NameCollection';
 import ProfileSummaryComponent from './ProfileSummary';
 import YesNoToggle from '../UI/YesNoToggle';
 import { FloatingCTA } from '../UI/FloatingCTA';
+import { PreferNotToSay } from './PreferNotToSay';
 import { useApp } from '../../contexts/AppContext';
 import styles from './QuestionnaireStep.module.css';
 import spacingStyles from './BenefitListSpacing.module.css';
@@ -45,13 +45,23 @@ export function QuestionnaireStep({
   const [textValue, setTextValue] = useState<string>('');
   const [errors, setErrors] = useState<string[]>([]);
   const [isAnimatingIn, setIsAnimatingIn] = useState(true);
+  // Prefer not to say state
+  const [preferNotToSay, setPreferNotToSay] = useState<boolean>(false);
 
   // Initialize values from current value
   useEffect(() => {
     if (currentValue) {
-      if (Array.isArray(currentValue)) {
+      // Check if the value indicates "prefer not to say"
+      if (currentValue === 'prefer_not_to_say') {
+        setPreferNotToSay(true);
+        setSelectedValue('');
+        setSelectedValues([]);
+        setTextValue('');
+      } else if (Array.isArray(currentValue)) {
         setSelectedValues(currentValue);
+        setPreferNotToSay(false);
       } else {
+        setPreferNotToSay(false);
         if (step.type === 'radio' || step.type === 'select') {
           setSelectedValue(currentValue);
         } else {
@@ -63,6 +73,7 @@ export function QuestionnaireStep({
       setSelectedValue('');
       setSelectedValues([]);
       setTextValue('');
+      setPreferNotToSay(false);
     }
     setErrors([]);
     setIsAnimatingIn(true);
@@ -205,6 +216,10 @@ Your privacy is important to us. All questions are optional and you can use "Pre
   const handleTextChange = (value: string) => {
     setTextValue(value);
     setErrors([]);
+    // Clear prefer not to say when user starts typing
+    if (preferNotToSay) {
+      setPreferNotToSay(false);
+    }
 
     // Real-time validation for text inputs
     if (step.validation.maxLength && value.length > step.validation.maxLength) {
@@ -212,8 +227,23 @@ Your privacy is important to us. All questions are optional and you can use "Pre
     }
   };
 
+  // Handle prefer not to say toggle
+  const handlePreferNotToSay = (selected: boolean) => {
+    setPreferNotToSay(selected);
+    if (selected) {
+      // Clear all other selections when prefer not to say is selected
+      setSelectedValue('');
+      setSelectedValues([]);
+      setTextValue('');
+      setErrors([]);
+    }
+  };
+
   // Validate current input
   const validate = (): boolean => {
+    // If user selected "prefer not to say", validation always passes
+    if (preferNotToSay) return true;
+    
     const newErrors: string[] = [];
     const { validation } = step;
 
@@ -270,6 +300,12 @@ Your privacy is important to us. All questions are optional and you can use "Pre
 
   // Handle form submission
   const handleSubmit = () => {
+    // If user selected "prefer not to say", submit that value
+    if (preferNotToSay) {
+      onComplete(step.id, 'prefer_not_to_say');
+      return;
+    }
+    
     if (!validate()) {
       return;
     }
@@ -498,6 +534,9 @@ Your privacy is important to us. All questions are optional and you can use "Pre
 
   // Check if we can proceed to next step
   const canProceed = () => {
+    // If user selected "prefer not to say", they can always proceed
+    if (preferNotToSay) return true;
+    
     const { validation } = step;
     
     if (step.type === 'checkbox') {
@@ -530,7 +569,7 @@ Your privacy is important to us. All questions are optional and you can use "Pre
       3: "Think about your specific security concerns or requirements. There are no wrong answers - this helps us match appropriate protection levels.",
       4: "Choose the areas where you most frequently need transport. This helps us pre-position resources and establish secure routes.",
       5: "Select any specialized locations you might need. Airport transfers and event venues require enhanced security protocols.",
-      6: "Provide an emergency contact following security industry best practices. This ensures rapid response in any situation.",
+      6: "Provide a priority contact following security industry best practices. This ensures rapid response in any situation.",
       7: "Select any accommodations or special requirements. We ensure all passengers receive appropriate support for comfortable transport.",
       8: "Choose how you'd like to receive updates. Clear communication is essential for effective security operations.",
       9: "Review your complete security profile. This comprehensive assessment ensures we deliver the most appropriate protection service."
@@ -719,6 +758,7 @@ Your privacy is important to us. All questions are optional and you can use "Pre
                   </div>
                 </div>
                 
+                
                 {/* Condensed Privacy Statement */}
                 <div className={styles.privacyFooter}>
                   <p className={styles.privacyText}>
@@ -788,6 +828,13 @@ Your privacy is important to us. All questions are optional and you can use "Pre
           </div>
         )}
 
+        {/* Prefer Not To Say Option */}
+        <PreferNotToSay
+          isSelected={preferNotToSay}
+          onChange={handlePreferNotToSay}
+          disabled={false}
+        />
+
         {/* Privacy & Security section - positioned at bottom inside content container */}
         <div className={`${styles.securityAssurance} ${styles.securityAssuranceFooter}`}>
           <h4>Your Privacy & Security</h4>
@@ -795,27 +842,18 @@ Your privacy is important to us. All questions are optional and you can use "Pre
         </div>
       </div>
 
-      {/* Step-specific CTA Buttons */}
-      {step.id === 2 ? (
-        <Step2BottomCTA
-          onBack={onPrevious || (() => {})}
-          onSaveExit={handleSaveExit}
-          onContinue={handleSubmit}
-          canContinue={canProceed()}
-        />
-      ) : (
-        <CTAButtons
-          currentStep={step.id}
-          totalSteps={9}
-          hasSelection={canProceed()}
-          onNext={handleSubmit}
-          onPrevious={onPrevious}
-          onSaveExit={handleSaveExit}
-          onHelp={handleHelp}
-          onSkip={handleSkip}
-          isLastStep={Boolean(isLastStep)}
-        />
-      )}
+      {/* Standardized CTA Buttons for all steps */}
+      <CTAButtons
+        currentStep={step.id}
+        totalSteps={9}
+        hasSelection={canProceed()}
+        onNext={handleSubmit}
+        onPrevious={onPrevious}
+        onSaveExit={handleSaveExit}
+        onHelp={handleHelp}
+        onSkip={handleSkip}
+        isLastStep={Boolean(isLastStep)}
+      />
 
       {/* Floating CTA with dynamic messaging */}
       <FloatingCTA 

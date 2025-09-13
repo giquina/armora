@@ -19,10 +19,10 @@ Armora is a React 19.1.1 TypeScript application for premium VIP security transpo
 - `npm run build` - Production build with type checking
 - `npm test` - Run tests in watch mode (Jest + React Testing Library)
 - `npm test -- --coverage` - Coverage report
-- `npm test -- --watchAll=false` - Single test run (CI)
-- `npm test -- [test-file]` - Run specific test file
+- `npm test -- --watchAll=false` - Single run (CI mode)
+- `npm test -- src/components/Booking/__tests__/BookingConfirmation.test.tsx` - Run specific test file
 
-**Note**: No separate lint/typecheck commands exist - type checking happens during build. Always run `npm run build` to verify code correctness.
+**CRITICAL**: No separate lint/typecheck commands - always run `npm run build` to verify TypeScript correctness before committing.
 
 ## Development Infrastructure
 Includes automated hooks system and AI task management:
@@ -54,11 +54,11 @@ Includes automated hooks system and AI task management:
 - **Create React App 5.0.1** build system
 
 ### State Management Pattern
-**View-based routing** via AppContext `currentView` state instead of URL routing:
+**View-based routing** (NO React Router - uses AppContext `currentView` state):
 - Views: `splash` → `welcome` → `login`/`signup`/`guest-disclaimer` → `questionnaire` → `achievement` → `dashboard` → `booking` → `profile`
 - User types: `registered` | `google` | `guest`
-- Navigation: `navigateToView(viewName)` function
-- Persistence: localStorage for user data and questionnaire responses
+- Navigation: `navigateToView(viewName)` function from AppContext
+- Persistence: localStorage keys: `armoraUser`, `armoraQuestionnaireResponses`, `armoraBookingData`
 
 **Global State Structure** (`AppContext.tsx`):
 - `useReducer` for state management (no Redux)
@@ -130,8 +130,32 @@ Multi-layered shield with 4D effects, metallic textures, orbital animations. Res
 - **hooks-manager.js** - Central hooks control
 
 ### Specialized Agents (`.claude/agents/`)
-5 agents for specialized development: mobile-tester, pwa-optimizer, ux-validator, booking-flow-manager, server-keeper
+6 agents for specialized development: mobile-tester, pwa-optimizer, ux-validator, booking-flow-manager, server-keeper, orchestration-agent
 **Full documentation**: See [agents.md](.claude/agents.md) for detailed agent information, commands, and development guidelines
+
+### Automatic Agent Activation System
+**Proactive Agent Orchestration**: Agents automatically activate based on context without manual intervention.
+
+**Auto-Activation Rules**:
+- **Component files** (*.tsx) → `mobile-tester` + `ux-validator` automatically engage
+- **Style files** (*.css) → `mobile-tester` tests responsiveness + `ux-validator` checks consistency  
+- **Questionnaire changes** → `mobile-tester` + `ux-validator` + `booking-flow-manager` coordinate testing
+- **Booking components** → `booking-flow-manager` validates logic + `ux-validator` checks UX
+- **Server issues/port conflicts** → `server-keeper` immediately engages (critical priority)
+- **PWA files** (manifest.json, sw.js) → `pwa-optimizer` activates for app store readiness
+- **Build/bundle warnings** → `pwa-optimizer` optimizes + `mobile-tester` validates performance
+
+**Orchestration Commands**:
+- `npm run orchestrate` - Start intelligent agent orchestration service
+- `npm run orchestrate:status` - View active agents and system status  
+- `npm run orchestrate:test <file>` - Test agent activation on specific file
+- `npm run dev` - Start development with full orchestration enabled
+
+**Agent Priorities**:
+- **Critical**: `server-keeper` (immediate activation on server issues)
+- **High**: `mobile-tester`, `ux-validator` (activate within 2 seconds)  
+- **Medium**: `booking-flow-manager` (activate within 10 seconds)
+- **Low**: `pwa-optimizer` (activate when system idle)
 
 ## Development Standards
 - **Mobile-first**: Start at 320px, NO horizontal scrolling allowed
@@ -140,11 +164,12 @@ Multi-layered shield with 4D effects, metallic textures, orbital animations. Res
 - **Testing**: Jest + React Testing Library (only App.test.tsx exists currently)
 - **Error handling**: Components handle loading/error/empty states
 
-## Testing Commands
+## Testing Strategy
 - `npm test` - Interactive watch mode
 - `npm test -- --coverage` - Generate coverage report
 - `npm test -- --watchAll=false` - Single run for CI
-- **Current coverage**: Minimal (only App.test.tsx exists)
+- **Test files location**: `src/components/[Component]/__tests__/[Component].test.tsx`
+- **Current coverage**: Limited - focus on critical booking flow components first
 
 ## Current Status
 ✅ **Complete**: Auth, Questionnaire (9-step + privacy), Dashboard, Booking flow, Achievement, 4D logo system, Safe Ride Fund integration  
@@ -162,7 +187,10 @@ Multi-layered shield with 4D effects, metallic textures, orbital animations. Res
 Dynamic 9-step system with privacy options. Enhanced mobile typography (1.4-1.5rem) and `calc(100vw - 8px)` width utilization.
 
 ### Booking Flow Architecture
-Complete flow: VehicleSelection → LocationPicker → BookingConfirmation → BookingSuccess. State managed in App.tsx BookingFlow component (`src/App.tsx:17-95`) with service level selection and location handling.
+Complete flow: VehicleSelection → LocationPicker → BookingConfirmation → BookingSuccess.
+- State managed in App.tsx BookingFlow component (`src/App.tsx:17-95`)
+- Error boundary wrapper: `BookingErrorBoundary` component
+- Test data available in `src/utils/testUserScenarios.ts`
 
 ### WelcomePage Features (`src/components/Auth/WelcomePage.tsx`)
 - **Animated impact counter**: Shows 3,741+ safe rides with random increments
@@ -195,6 +223,24 @@ Three distinct user types with different capabilities:
 
 **Result**: All card borders now fully visible across all device breakpoints.
 
+## Important Code Patterns
+
+### Achievement System
+- Triggers after questionnaire completion
+- Components: `AchievementUnlock`, `AchievementBanner`, `MiniAchievement`
+- Confetti animation library included
+- Achievement data in `src/components/Achievement/achievementData.ts`
+
+### Loading States
+- Use `LoadingSpinner`, `SkeletonLoader`, or `ProgressIndicator` components
+- Never use external loading libraries
+- All loading states must be mobile-optimized
+
+### Form Validation
+- Client-side only (no server validation yet)
+- Use HTML5 validation attributes
+- Error messages in component state, not global
+
 ## Common Troubleshooting
 
 ### Horizontal Scrolling Issues
@@ -226,4 +272,4 @@ Ensure CSS Module imports use correct syntax: `import styles from './Component.m
 - Types: Centralized in `/src/types/index.ts`
 - Data: Static data in `/src/data/`
 
-Last updated: 2025-09-12T22:27:53.334Z
+Last updated: 2025-09-13T14:06:45.000Z

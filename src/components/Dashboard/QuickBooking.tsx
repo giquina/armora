@@ -2,6 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { Button } from '../UI/Button';
 import { LoadingSpinner } from '../UI/LoadingSpinner';
 import { BookingMap } from '../Map/BookingMap';
+import { SchedulingPicker } from '../UI/SchedulingPicker';
 import styles from './QuickBooking.module.css';
 
 interface Location {
@@ -22,9 +23,7 @@ export function QuickBooking({ onBookNow, selectedService, isLoading = false, us
   const [destinationLocation, setDestinationLocation] = useState<Location | undefined>();
   const [currentLocation, setCurrentLocation] = useState<Location | null>(null);
   const [isLoadingLocation, setIsLoadingLocation] = useState(false);
-  const [showMap, setShowMap] = useState(false);
   const [editMode, setEditMode] = useState<'pickup' | 'destination' | null>(null);
-  const [showAdvanced, setShowAdvanced] = useState(false);
   const [scheduledTime, setScheduledTime] = useState('');
   const [isScheduled, setIsScheduled] = useState(false);
   const [multiStops, setMultiStops] = useState<Location[]>([]);
@@ -33,18 +32,14 @@ export function QuickBooking({ onBookNow, selectedService, isLoading = false, us
   // Get current location on component mount
   useEffect(() => {
     getCurrentLocation();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // Auto-expand map on mobile for better UX
-  useEffect(() => {
-    const isMobile = window.innerWidth < 768;
-    if (isMobile && (pickupLocation || destinationLocation)) {
-      setShowMap(true);
-    }
-  }, [pickupLocation, destinationLocation]);
+  // Map is always visible - no need for auto-expand logic
 
   const getCurrentLocation = async () => {
     if (!navigator.geolocation) {
+      console.warn('Geolocation is not supported by this browser');
       return;
     }
 
@@ -55,24 +50,50 @@ export function QuickBooking({ onBookNow, selectedService, isLoading = false, us
         navigator.geolocation.getCurrentPosition(resolve, reject, {
           enableHighAccuracy: true,
           timeout: 15000,
-          maximumAge: 60000 // 1 minute
+          maximumAge: 0 // Always get fresh location
         });
       });
+
+      const accuracy = Math.round(position.coords.accuracy);
+
+      // Reject inaccurate locations (over 50m)
+      if (accuracy > 50) {
+        console.warn(`Location too inaccurate: ${accuracy}m. GPS required for precise pickup.`);
+        setCurrentLocation(null);
+
+        // You could show a toast notification here
+        alert(`Location accuracy is ${accuracy}m. Please enable precise location/GPS for accurate pickup, or enter your address manually.`);
+        return;
+      }
 
       const location: Location = {
         lat: position.coords.latitude,
         lng: position.coords.longitude,
-        address: `Current Location (${position.coords.latitude.toFixed(3)}, ${position.coords.longitude.toFixed(3)})`
+        address: `Current Location (${accuracy}m accuracy)`
       };
 
+      console.log(`✅ Accurate GPS location: ${accuracy}m accuracy`);
       setCurrentLocation(location);
       if (!pickupLocation) {
         setPickupLocation(location);
       }
 
-    } catch (error) {
-      console.log('Could not get current location:', error);
+    } catch (error: any) {
+      console.error('Geolocation error:', error);
       setCurrentLocation(null);
+
+      // Provide user feedback for different error types
+      let errorMessage = 'Unable to get location';
+      if (error.code === 1) {
+        errorMessage = 'Location access denied';
+      } else if (error.code === 2) {
+        errorMessage = 'Location unavailable';
+      } else if (error.code === 3) {
+        errorMessage = 'Location timeout';
+      }
+
+      // You could show this error to the user via a toast or alert
+      console.warn(`Location error: ${errorMessage}`);
     } finally {
       setIsLoadingLocation(false);
     }
@@ -101,7 +122,6 @@ export function QuickBooking({ onBookNow, selectedService, isLoading = false, us
       setEditMode(null);
     } else {
       setEditMode(mode);
-      setShowMap(true);
     }
   };
 
@@ -130,13 +150,6 @@ export function QuickBooking({ onBookNow, selectedService, isLoading = false, us
       hour: '2-digit',
       minute: '2-digit'
     });
-  };
-
-  // Get minimum date/time for scheduling (30 minutes from now)
-  const getMinDateTime = () => {
-    const now = new Date();
-    now.setMinutes(now.getMinutes() + 30);
-    return now.toISOString().slice(0, 16);
   };
 
   const calculateEstimatedDuration = () => {
@@ -180,37 +193,20 @@ export function QuickBooking({ onBookNow, selectedService, isLoading = false, us
       <div className={styles.header}>
         <h2 className={styles.title}>Quick Book</h2>
         <p className={styles.subtitle}>Set your pickup and destination</p>
-        <div className={styles.headerActions}>
-          <button
-            type="button"
-            className={`${styles.toggleButton} ${showMap ? styles.active : ''}`}
-            onClick={() => setShowMap(!showMap)}
-          >
-            {showMap ? '📋 List View' : '🗺️ Map View'}
-          </button>
-          <button
-            type="button"
-            className={`${styles.toggleButton} ${showAdvanced ? styles.active : ''}`}
-            onClick={() => setShowAdvanced(!showAdvanced)}
-          >
-            ⚙️ Advanced
-          </button>
-        </div>
+        <p className={styles.mapNote}>Map and all options available below</p>
       </div>
 
-      {/* Interactive Map */}
-      {showMap && (
-        <div className={styles.mapSection}>
-          <BookingMap
-            pickup={pickupLocation}
-            destination={destinationLocation}
-            onPickupChange={handlePickupChange}
-            onDestinationChange={handleDestinationChange}
-            editMode={editMode}
-            height={280}
-          />
-        </div>
-      )}
+      {/* Interactive Map - Always Visible */}
+      <div className={styles.mapSection}>
+        <BookingMap
+          pickup={pickupLocation}
+          destination={destinationLocation}
+          onPickupChange={handlePickupChange}
+          onDestinationChange={handleDestinationChange}
+          editMode={editMode}
+          height={280}
+        />
+      </div>
 
       {/* Location Inputs */}
       <div className={styles.locationInputs}>
@@ -233,7 +229,7 @@ export function QuickBooking({ onBookNow, selectedService, isLoading = false, us
                   setPickupLocation({ ...pickupLocation, address: e.target.value });
                 }
               }}
-              onFocus={() => !showMap && setShowMap(true)}
+              onFocus={() => {}} // Map is always visible
             />
             <div className={styles.inputActions}>
               <button
@@ -295,7 +291,7 @@ export function QuickBooking({ onBookNow, selectedService, isLoading = false, us
                   setDestinationLocation({ lat: 0, lng: 0, address: e.target.value });
                 }
               }}
-              onFocus={() => !showMap && setShowMap(true)}
+              onFocus={() => {}} // Map is always visible
             />
             <div className={styles.inputActions}>
               <button
@@ -310,9 +306,8 @@ export function QuickBooking({ onBookNow, selectedService, isLoading = false, us
           </div>
         </div>
 
-        {/* Multi-Stop Option */}
-        {showAdvanced && (
-          <div className={styles.advancedOptions}>
+        {/* Multi-Stop & Scheduling Options - Always Visible */}
+        <div className={styles.advancedOptions}>
             <div className={styles.multiStopSection}>
               <div className={styles.multiStopHeader}>
                 <label className={styles.checkboxLabel}>
@@ -370,23 +365,15 @@ export function QuickBooking({ onBookNow, selectedService, isLoading = false, us
 
               {isScheduled && (
                 <div className={styles.schedulingInput}>
-                  <input
-                    type="datetime-local"
-                    value={scheduledTime}
-                    onChange={(e) => setScheduledTime(e.target.value)}
-                    min={getMinDateTime()}
-                    className={styles.dateTimeInput}
+                  <SchedulingPicker
+                    selectedDateTime={scheduledTime}
+                    onDateTimeChange={setScheduledTime}
+                    label="Choose your pickup date and time"
                   />
-                  {scheduledTime && (
-                    <div className={styles.scheduledDisplay}>
-                      📅 Scheduled for: {formatScheduledTime()}
-                    </div>
-                  )}
                 </div>
               )}
             </div>
-          </div>
-        )}
+        </div>
       </div>
 
       {/* Service Selection Status */}
@@ -451,13 +438,8 @@ export function QuickBooking({ onBookNow, selectedService, isLoading = false, us
           </Button>
         </div>
 
-        {/* Enhanced Options Info */}
-        <div className={styles.enhancedOptions}>
-          {!showAdvanced && (
-            <p className={styles.optionsHint}>
-              💡 Tap "Advanced" for scheduling & multi-stop options
-            </p>
-          )}
+        {/* Booking Summary */}
+        <div className={styles.bookingSummary}>
           {isScheduled && scheduledTime && (
             <div className={styles.scheduledInfo}>
               <span className={styles.scheduledIcon}>⏰</span>

@@ -313,7 +313,7 @@ export const getThemeTransition = (fromTheme: SeasonalTheme, toTheme: SeasonalTh
 
 // Particle animation patterns
 export const getAnimationKeyframes = (theme: SeasonalTheme) => {
-  const { particles, animation } = theme;
+  const { particles } = theme;
   
   switch (particles.direction) {
     case 'up':

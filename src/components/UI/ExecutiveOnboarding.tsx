@@ -59,7 +59,7 @@ const ExecutiveOnboarding: React.FC<ExecutiveOnboardingProps> = ({
     {
       icon: '🏥',
       title: 'First Aid Trained Drivers',
-      description: 'All drivers certified in emergency first aid response',
+      description: 'All drivers certified in priority first aid response',
       verified: true
     },
     {
@@ -91,7 +91,7 @@ const ExecutiveOnboarding: React.FC<ExecutiveOnboardingProps> = ({
             'Advanced threat mitigation',
             'Counter-surveillance techniques',
             'Secure route planning',
-            'Emergency response protocols'
+            'Priority response protocols'
           ]
         };
       default:
@@ -102,7 +102,7 @@ const ExecutiveOnboarding: React.FC<ExecutiveOnboardingProps> = ({
             'Professional security officers',
             'Safe and secure transport',
             'Real-time tracking',
-            'Emergency support available'
+            'Priority support available'
           ]
         };
     }

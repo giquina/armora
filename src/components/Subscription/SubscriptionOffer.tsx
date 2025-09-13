@@ -177,7 +177,7 @@ export function SubscriptionOffer({ selectedService, servicePrice = 45 }: Subscr
               <ul className={styles.featureList}>
                 <li>• {executivePlan.responseTime} priority response</li>
                 <li>• Luxury vehicle fleet access</li>
-                <li>• 24/7 emergency support line</li>
+                <li>• 24/7 priority support line</li>
                 <li>• Personal security consultation</li>
               </ul>
             </div>

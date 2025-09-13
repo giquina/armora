@@ -106,7 +106,7 @@ const ALL_CREDENTIALS: CredentialInfo[] = [
       'Level 3 Close Protection Officer certification with specialized security training',
       'Advanced situational awareness and personal protection protocols',
       'Professional close protection expertise with discrete service delivery',
-      'Emergency response capabilities and security protocol implementation'
+      'Rapid response capabilities and security protocol implementation'
     ],
     significance: 'Advanced personal protection protocols with specialized training',
     category: 'Protection Certification'

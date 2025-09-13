@@ -1,0 +1,298 @@
+/* Armora Security Transport - Name Preferences Styles */
+
+.namePreferences {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: var(--space-lg);
+}
+
+.header {
+  text-align: center;
+  margin-bottom: var(--space-xl);
+}
+
+.title {
+  font-size: var(--font-xl);
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0 0 var(--space-sm) 0;
+}
+
+.subtitle {
+  font-size: var(--font-base);
+  color: var(--text-secondary);
+  margin: 0;
+  opacity: 0.9;
+}
+
+/* Preview Card */
+.previewCard {
+  background: linear-gradient(135deg, var(--bg-card) 0%, var(--bg-secondary) 100%);
+  border: 2px solid var(--armora-gold);
+  border-radius: var(--radius-lg);
+  padding: var(--space-lg);
+  text-align: center;
+  margin-bottom: var(--space-xl);
+  position: relative;
+  overflow: hidden;
+}
+
+.previewCard::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(255, 215, 0, 0.05) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+.previewLabel {
+  font-size: var(--font-sm);
+  color: var(--text-secondary);
+  margin-bottom: var(--space-sm);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-weight: 600;
+}
+
+.previewName {
+  font-size: var(--font-xl);
+  font-weight: 700;
+  color: var(--armora-gold);
+  position: relative;
+  z-index: 1;
+}
+
+/* Form Sections */
+.formSection {
+  margin-bottom: var(--space-xl);
+}
+
+.sectionTitle {
+  font-size: var(--font-lg);
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0 0 var(--space-lg) 0;
+  padding-bottom: var(--space-sm);
+  border-bottom: 1px solid var(--bg-secondary);
+}
+
+.nameFields {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-md);
+}
+
+.field {
+  margin-bottom: var(--space-lg);
+}
+
+.label {
+  display: block;
+  font-size: var(--font-sm);
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: var(--space-sm);
+}
+
+.input,
+.select {
+  width: 100%;
+  padding: var(--space-md);
+  border: 2px solid var(--bg-secondary);
+  border-radius: var(--radius-md);
+  background: var(--bg-card);
+  color: var(--text-primary);
+  font-size: var(--font-base);
+  transition: all var(--transition-base);
+  box-sizing: border-box;
+}
+
+.input:focus,
+.select:focus {
+  outline: none;
+  border-color: var(--armora-gold);
+  box-shadow: 0 0 0 3px rgba(255, 215, 0, 0.1);
+}
+
+.input::placeholder {
+  color: var(--text-secondary);
+  opacity: 0.6;
+}
+
+.fieldHelp {
+  font-size: var(--font-sm);
+  color: var(--text-secondary);
+  margin-top: var(--space-xs);
+  margin-bottom: 0;
+  opacity: 0.8;
+  line-height: 1.4;
+}
+
+/* Radio Group */
+.radioGroup {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.radioOption {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-md);
+  padding: var(--space-md);
+  border: 2px solid var(--bg-secondary);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: all var(--transition-base);
+  background: var(--bg-card);
+}
+
+.radioOption:hover {
+  border-color: rgba(255, 215, 0, 0.3);
+  background: rgba(255, 215, 0, 0.02);
+}
+
+.radioOption:has(.radio:checked) {
+  border-color: var(--armora-gold);
+  background: rgba(255, 215, 0, 0.05);
+}
+
+.radio {
+  width: 20px;
+  height: 20px;
+  border: 2px solid var(--bg-secondary);
+  border-radius: 50%;
+  background: var(--bg-card);
+  cursor: pointer;
+  position: relative;
+  margin: 0;
+  flex-shrink: 0;
+}
+
+.radio:checked {
+  border-color: var(--armora-gold);
+  background: var(--armora-gold);
+}
+
+.radio:checked::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--bg-primary);
+  transform: translate(-50%, -50%);
+}
+
+.radioContent {
+  flex: 1;
+}
+
+.radioLabel {
+  font-size: var(--font-base);
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: var(--space-xs);
+}
+
+.radioDescription {
+  font-size: var(--font-sm);
+  color: var(--text-secondary);
+  opacity: 0.8;
+  line-height: 1.4;
+}
+
+/* Actions */
+.actions {
+  margin-top: var(--space-xl);
+  padding-top: var(--space-lg);
+  border-top: 1px solid var(--bg-secondary);
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+  .namePreferences {
+    padding: var(--space-md);
+  }
+
+  .nameFields {
+    grid-template-columns: 1fr;
+    gap: var(--space-sm);
+  }
+
+  .previewCard {
+    padding: var(--space-md);
+  }
+
+  .previewName {
+    font-size: var(--font-lg);
+  }
+
+  .radioOption {
+    padding: var(--space-sm);
+  }
+
+  .radioGroup {
+    gap: var(--space-sm);
+  }
+}
+
+@media (max-width: 480px) {
+  .title {
+    font-size: var(--font-lg);
+  }
+
+  .sectionTitle {
+    font-size: var(--font-base);
+  }
+
+  .input,
+  .select {
+    padding: var(--space-sm);
+  }
+}
+
+/* Focus Management */
+.input:focus-visible,
+.select:focus-visible,
+.radio:focus-visible {
+  outline: 2px solid var(--armora-gold);
+  outline-offset: 2px;
+}
+
+/* Loading State */
+.namePreferences.loading {
+  opacity: 0.7;
+  pointer-events: none;
+}
+
+/* Error State */
+.field.error .input,
+.field.error .select {
+  border-color: var(--error);
+}
+
+.field.error .label {
+  color: var(--error);
+}
+
+/* Animation */
+.previewCard {
+  animation: slideInUp 0.5s ease-out;
+}
+
+@keyframes slideInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

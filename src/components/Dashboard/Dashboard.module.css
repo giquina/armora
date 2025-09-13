@@ -13,12 +13,20 @@
    REWARD BANNER STYLES
 ======================================== */
 .rewardBanner {
-  background: linear-gradient(135deg, var(--accent), var(--hover-gold));
+  background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
   color: var(--text-dark);
   padding: var(--space-md) 0;
   margin-bottom: var(--space-md);
   position: relative;
   animation: slideInFromTop 0.5s ease-out;
+  border-radius: 16px;
+  box-shadow:
+    0 8px 32px rgba(255, 215, 0, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.5),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(10px);
+  margin: var(--space-md);
+  overflow: hidden;
 }
 
 .rewardContent {
@@ -30,9 +38,33 @@
   padding: 0 var(--content-padding-mobile);
 }
 
+.discountValue {
+  font-size: 2.2rem;
+  font-weight: 900;
+  line-height: 0.9;
+  margin: 4px 0;
+  text-shadow:
+    2px 2px 4px rgba(0, 0, 0, 0.1),
+    0 0 20px rgba(255, 255, 255, 0.5);
+  background: linear-gradient(135deg, #1a1a2e 0%, #000 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
 .rewardIcon {
-  font-size: 24px;
+  font-size: 2.5rem;
   flex-shrink: 0;
+  animation: trophyPulse 2s ease-in-out infinite;
+}
+
+@keyframes trophyPulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
 }
 
 .rewardText {
@@ -55,26 +87,29 @@
 }
 
 .dismissButton {
-  background: none;
+  background: rgba(26, 26, 46, 0.1);
   border: none;
   color: var(--text-dark);
-  font-size: 24px;
+  font-size: 18px;
   line-height: 1;
   cursor: pointer;
   padding: var(--space-xs);
-  border-radius: var(--radius-sm);
-  transition: background-color var(--transition-fast);
+  border-radius: 50%;
+  transition: all 0.2s ease;
   flex-shrink: 0;
   touch-action: manipulation;
   min-width: var(--touch-target);
   min-height: var(--touch-target);
+  width: 32px;
+  height: 32px;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
 .dismissButton:hover {
-  background-color: rgba(0, 0, 0, 0.1);
+  background: rgba(26, 26, 46, 0.2);
+  transform: scale(1.1);
 }
 
 @keyframes slideInFromTop {
@@ -338,6 +373,137 @@
 
 .recommendationDescription strong {
   color: var(--text-primary);
+}
+
+/* ========================================
+   PROGRESSIVE SCHEDULING SECTION
+======================================== */
+.schedulingSection {
+  margin-bottom: var(--space-lg);
+  animation: slideDown 0.3s ease-out;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.schedulingCard {
+  background: var(--bg-card);
+  border: 2px solid var(--accent);
+  border-radius: var(--radius-lg);
+  padding: var(--space-lg);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+  position: relative;
+  overflow: hidden;
+}
+
+.schedulingCard::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--accent) 0%, #ffffff 100%);
+}
+
+.schedulingHeader {
+  text-align: center;
+  margin-bottom: var(--space-lg);
+}
+
+.schedulingTitle {
+  font-size: var(--font-lg);
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0 0 var(--space-xs) 0;
+  line-height: var(--line-tight);
+}
+
+.schedulingSubtitle {
+  font-size: var(--font-sm);
+  color: var(--text-secondary);
+  margin: 0;
+  line-height: var(--line-base);
+}
+
+.schedulingActions {
+  display: flex;
+  gap: var(--space-md);
+  margin-top: var(--space-lg);
+  justify-content: center;
+}
+
+.cancelScheduleButton,
+.scheduleBookButton {
+  min-width: 140px;
+  flex: 0 0 auto;
+}
+
+.scheduleBookButton {
+  background: var(--accent);
+  border-color: var(--accent);
+}
+
+.scheduleBookButton:hover:not(:disabled) {
+  background: #e6c200;
+  border-color: #e6c200;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(255, 215, 0, 0.4);
+}
+
+/* Mobile Responsiveness for Scheduling Section */
+@media (max-width: 768px) {
+  .schedulingCard {
+    padding: var(--space-md);
+    margin: var(--space-sm);
+  }
+
+  .schedulingTitle {
+    font-size: var(--font-base);
+  }
+
+  .schedulingActions {
+    flex-direction: column;
+    gap: var(--space-sm);
+  }
+
+  .cancelScheduleButton,
+  .scheduleBookButton {
+    min-width: auto;
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .schedulingCard {
+    padding: var(--space-sm);
+    margin: var(--space-xs);
+  }
+
+  .schedulingHeader {
+    margin-bottom: var(--space-md);
+  }
+
+  .schedulingTitle {
+    font-size: var(--font-sm);
+  }
+
+  .schedulingSubtitle {
+    font-size: var(--font-xs);
+  }
+
+  .schedulingActions {
+    margin-top: var(--space-md);
+    gap: var(--space-xs);
+  }
 }
 
 /* ========================================

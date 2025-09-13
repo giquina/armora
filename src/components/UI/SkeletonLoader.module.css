@@ -1,0 +1,184 @@
+/* SKELETON LOADER - MOBILE FIRST */
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.skeleton {
+  background: var(--bg-secondary);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  position: relative;
+}
+
+.animated::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 215, 0, 0.1),
+    transparent
+  );
+  animation: shimmer 1.8s infinite;
+}
+
+/* Skeleton Variants */
+.text {
+  height: 1rem;
+  width: 100%;
+  border-radius: var(--radius-xs);
+}
+
+.circular {
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+}
+
+.rectangular {
+  width: 100%;
+  height: 60px;
+  border-radius: var(--radius-md);
+}
+
+.card {
+  width: 100%;
+  height: 200px;
+  border-radius: var(--radius-lg);
+}
+
+/* Pre-built Skeleton Components */
+.locationSkeleton {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  padding: var(--space-md);
+  background: var(--bg-secondary);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-primary);
+}
+
+.inputSkeleton {
+  height: 56px;
+  border-radius: var(--radius-md);
+}
+
+.estimateSkeleton {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  padding: var(--space-md);
+  background: var(--bg-primary);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-primary);
+}
+
+.serviceSkeleton {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  padding: var(--space-lg);
+  background: var(--bg-secondary);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-primary);
+  min-height: 280px;
+}
+
+.bookingSkeleton {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+}
+
+.sectionSkeleton {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  padding: var(--space-lg);
+  background: var(--bg-secondary);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-primary);
+}
+
+/* Animations */
+@keyframes shimmer {
+  0% {
+    left: -100%;
+  }
+  100% {
+    left: 100%;
+  }
+}
+
+/* High contrast accessibility */
+@media (prefers-contrast: high) {
+  .skeleton {
+    background: var(--border-primary);
+  }
+  
+  .animated::after {
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, 0.3),
+      transparent
+    );
+  }
+}
+
+/* Reduced motion accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .animated::after {
+    animation: none;
+    background: rgba(255, 215, 0, 0.05);
+  }
+}
+
+/* Dark mode optimizations */
+@media (prefers-color-scheme: dark) {
+  .skeleton {
+    background: rgba(255, 255, 255, 0.08);
+  }
+  
+  .locationSkeleton,
+  .serviceSkeleton,
+  .sectionSkeleton {
+    background: rgba(255, 255, 255, 0.05);
+  }
+  
+  .estimateSkeleton {
+    background: rgba(255, 255, 255, 0.03);
+  }
+}
+
+/* Responsive adjustments */
+@media (min-width: 768px) {
+  .bookingSkeleton {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-xl);
+  }
+  
+  .sectionSkeleton:last-child {
+    grid-column: 1 / -1;
+  }
+}
+
+/* Touch-friendly sizing */
+@media (max-width: 480px) {
+  .locationSkeleton,
+  .serviceSkeleton,
+  .sectionSkeleton {
+    padding: var(--space-md);
+  }
+  
+  .inputSkeleton {
+    height: 50px;
+  }
+}

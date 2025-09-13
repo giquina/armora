@@ -68,6 +68,19 @@
         "Monitor memory and CPU usage",
         "Auto-restart on failures"
       ]
+    },
+    "orchestration-agent": {
+      "name": "Orchestration Agent Sub-agent",
+      "trigger": "Use orchestration-agent sub-agent",
+      "prompt_prefix": "You are acting as the Orchestration Agent sub-agent. Your specialized role is to coordinate and manage all other agents automatically based on context.",
+      "context": "Focus on: Intelligent agent activation, context analysis, resource management, agent coordination, proactive system monitoring.",
+      "success_criteria": [
+        "Agents activate automatically 95%+ of the time when needed",
+        "Zero false positives for critical-priority activations",
+        "Average agent response time <3 seconds",
+        "System resource usage <20% CPU, <500MB RAM",
+        "Seamless development workflow without manual intervention"
+      ]
     }
   }
 }

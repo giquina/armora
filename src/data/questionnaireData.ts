@@ -57,7 +57,7 @@ export const questionnaireSteps: QuestionnaireStep[] = [
         id: "medical",
         label: "🏥 Are you a senior healthcare professional?",
         value: "medical",
-        description: "Do you move between hospitals, clinics, or emergency calls? Perhaps you need reliable transport after exhausting shifts or for important medical conferences?",
+        description: "Do you move between hospitals, clinics, or urgent calls? Perhaps you need reliable transport after exhausting shifts or for important medical conferences?",
         examples: "*Choose this if you're a doctor, surgeon, senior nurse, or healthcare administrator."
       },
       {
@@ -151,7 +151,7 @@ export const questionnaireSteps: QuestionnaireStep[] = [
       ],
       securityAssurance: "All responses are encrypted and used exclusively for service matching. Your privacy is our priority."
     },
-    stepDescription: "Select your professional category for personalized transport recommendations. We are a specialized security cab and private hire service - our SIA-licensed drivers provide both professional chauffeur services and trained security awareness for your protection."
+    stepDescription: "Tell us what you do so we can match you with the right drivers. A CEO might need someone who understands business confidentiality, while a student might prefer a friendly driver who knows the best late-night food spots. It's all about finding your perfect match."
   },
   {
     id: 2,
@@ -247,7 +247,7 @@ export const questionnaireSteps: QuestionnaireStep[] = [
     ],
     validation: { required: true, errorMessage: "Please select your travel frequency requirements" },
     helpText: "Knowing your rhythm helps us be ready when you need us. Whether daily or occasionally, we adapt to your life.",
-    stepDescription: "Understanding your frequency patterns allows us to optimize our service recommendations and ensure appropriate security protocols are in place for your specific needs."
+    stepDescription: "How often you travel helps us serve you better. Daily commuters get familiar drivers who learn your favorite routes and coffee order. Occasional riders get our most flexible drivers who are great with new destinations. It's like having a regular barista versus a helpful concierge."
   },
   {
     id: 3,
@@ -357,7 +357,7 @@ export const questionnaireSteps: QuestionnaireStep[] = [
     ],
     validation: { required: true, minSelections: 1, maxSelections: 5, errorMessage: "Please select 1-5 requirements" },
     helpText: "Pick what matters most to you (select 1-5 options). Every detail helps us create your perfect transport experience.",
-    stepDescription: "Choose the security and service features that matter most to you. We'll use your selections to recommend the most suitable Armora service level and match you with appropriately trained drivers."
+    stepDescription: "What matters most to you? Some prefer chatty drivers, others want quiet rides. Some need help with luggage, others value privacy. Your preferences help us pick drivers who naturally match your style - no awkward rides."
   },
   {
     id: 4,
@@ -467,7 +467,7 @@ export const questionnaireSteps: QuestionnaireStep[] = [
     ],
     validation: { required: true, minSelections: 1, maxSelections: 8, errorMessage: "Please select 1-8 coverage areas" },
     helpText: "Choose your regular haunts. We'll make sure we're always ready where you need us most.",
-    stepDescription: "Choose the geographic areas where you most frequently require secure transport services. This helps us ensure appropriate driver coverage, security protocols, and local expertise in your priority locations."
+    stepDescription: "Where you travel helps us assign drivers who really know those areas. They'll know the quickest routes, best pickup spots, and even which areas to avoid during rush hour. Local knowledge makes every journey smoother."
   },
   {
     id: 5,
@@ -542,7 +542,7 @@ export const questionnaireSteps: QuestionnaireStep[] = [
     ],
     validation: { required: false },
     helpText: "These are optional extras. Pick any that matter to your travel needs.",
-    stepDescription: "Select any additional areas where you might occasionally need secure transport. These optional selections help us ensure comprehensive coverage and appropriate security protocols for specialized locations."
+    stepDescription: "Airports, hotels, event venues - these places have their own rules and tricks. Drivers familiar with these spots know exactly where to pick you up, which entrances to use, and how to skip the chaos. No more confusion at Terminal 3."
   },
   {
     id: 6,
@@ -610,7 +610,7 @@ export const questionnaireSteps: QuestionnaireStep[] = [
     ],
     validation: { required: false, minSelections: 0, maxSelections: 6, errorMessage: "Please select your safety contact preferences" },
     helpText: "These details help us take better care of you. All information stays completely private.",
-    stepDescription: "Choose how we should handle urgent situations and who to contact if needed. This helps us provide appropriate safety coordination while respecting your privacy preferences."
+    stepDescription: "Having someone we can contact in emergencies gives everyone peace of mind. Like having ICE contacts in your phone, but for your journeys. It's optional but recommended - just in case you ever need help."
   },
   {
     id: 7,
@@ -713,7 +713,7 @@ export const questionnaireSteps: QuestionnaireStep[] = [
     ],
     validation: { required: false, minSelections: 0, maxSelections: 12, errorMessage: "Please select your special requirements" },
     helpText: "Tell us about anything that would make your journey more comfortable. We're here to help.",
-    stepDescription: "Choose any special requirements or accommodations needed for your transport. All information is encrypted and used only to ensure our drivers and vehicles are prepared to provide the best possible service for your specific needs."
+    stepDescription: "Everyone's different. Maybe you travel with a wheelchair, maybe you have a service dog, or maybe you just need extra time getting in and out. Whatever you need, we'll make sure your driver is prepared and comfortable helping."
   },
   {
     id: 8,
@@ -809,7 +809,7 @@ export const questionnaireSteps: QuestionnaireStep[] = [
     ],
     validation: { required: true, minSelections: 1, maxSelections: 8, errorMessage: "Please select 1-8 communication preferences" },
     helpText: "How would you like us to stay in touch? We'll only contact you when we need to.",
-    stepDescription: "Choose how you'd like to receive transport communications, from booking confirmations to priority alerts. Urgent situations may override preferences to ensure your safety and security coordination."
+    stepDescription: "How should we keep in touch? Some people love texts, others prefer calls, and some want everything through their assistant. Tell us what works for you so we're not texting when you're in meetings or calling when you're asleep."
   },
   {
     id: 9,
@@ -842,7 +842,7 @@ export const questionnaireSteps: QuestionnaireStep[] = [
     ],
     validation: { required: true, errorMessage: "Please confirm your profile to complete assessment" },
     helpText: "Almost there! Take a quick look to make sure everything's right before we get started.",
-    stepDescription: "Your security transport profile is now complete. Review the summary below and confirm to access personalized service recommendations and begin booking premium VIP transport services.",
+    stepDescription: "Take a quick look to make sure we've got everything right. This helps your drivers prepare properly and ensures you get exactly the service you're expecting. Think of it as your personal travel preferences saved for every ride.",
     isLastStep: true,
     profileSummary: {
       showSummary: true,

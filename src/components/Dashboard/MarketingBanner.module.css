@@ -12,16 +12,22 @@
 }
 
 .banner {
-  background: linear-gradient(135deg, rgba(26, 26, 46, 0.98) 0%, rgba(15, 15, 30, 0.98) 100%);
-  border: 2px solid rgba(255, 215, 0, 0.3);
+  background: linear-gradient(135deg,
+    rgba(42, 42, 62, 0.95) 0%,
+    rgba(26, 26, 46, 0.95) 100%
+  );
+  border: 2px solid #FFD700;
   border-radius: 16px;
-  box-shadow: 
-    0 4px 30px rgba(0, 0, 0, 0.5),
-    0 0 50px rgba(255, 215, 0, 0.15);
+  box-shadow:
+    0 8px 32px rgba(255, 215, 0, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.1);
   padding: 20px;
   position: relative;
   backdrop-filter: blur(10px);
   overflow: hidden;
+  color: #ffffff;
+  animation: slideUpFade 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 .banner::before {
@@ -66,8 +72,9 @@
   position: absolute;
   top: -8px;
   right: 50px;
-  background: rgba(255, 215, 0, 0.9);
-  color: #1a1a2e;
+  background: rgba(26, 26, 46, 0.9);
+  color: #FFD700;
+  border: 1px solid #FFD700;
   padding: 4px 8px;
   border-radius: 12px;
   font-size: 0.75rem;
@@ -90,7 +97,7 @@
 .headerTitle {
   font-size: 18px;
   font-weight: 700;
-  color: white;
+  color: #FFD700;
   margin: 0 0 8px 0;
   line-height: 1.2;
 }
@@ -185,14 +192,14 @@
   background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
   border: none;
   border-radius: 8px;
-  color: white;
+  color: #1a1a2e;
   font-size: 16px;
   font-weight: 700;
   padding: 14px 24px;
   cursor: pointer;
   transition: all 0.2s ease;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
-  box-shadow: 
+  text-shadow: none;
+  box-shadow:
     0 4px 12px rgba(255, 215, 0, 0.3),
     inset 0 1px 0 rgba(255, 255, 255, 0.2);
   animation: ctaPulse 4s ease-in-out infinite;
@@ -426,5 +433,196 @@
   
   .bounce {
     animation: none;
+  }
+}
+
+/* Enhanced Animations and New Components */
+
+/* Improved slide up animation with bounce */
+@keyframes slideUpFade {
+  0% {
+    opacity: 0;
+    transform: translateX(-50%) translateY(120%);
+  }
+  70% {
+    opacity: 1;
+    transform: translateX(-50%) translateY(-10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+}
+
+/* Shimmer effect for CTA button */
+.ctaButton {
+  position: relative;
+  overflow: hidden;
+}
+
+.ctaButton::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg,
+    transparent,
+    rgba(255, 255, 255, 0.3),
+    transparent
+  );
+  animation: shimmer 3s infinite;
+  z-index: 1;
+}
+
+@keyframes shimmer {
+  to {
+    left: 100%;
+  }
+}
+
+/* Money particles */
+.moneyParticle {
+  position: absolute;
+  font-size: 20px;
+  font-weight: bold;
+  color: #FFD700;
+  animation: floatUp 3s ease-out forwards;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 5;
+  text-shadow:
+    0 0 10px rgba(255, 215, 0, 0.8),
+    0 0 20px rgba(255, 215, 0, 0.4);
+}
+
+@keyframes floatUp {
+  0% {
+    transform: translateY(0) scale(0) rotate(0deg);
+    opacity: 1;
+  }
+  50% {
+    transform: translateY(-30px) scale(1.2) rotate(180deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-60px) scale(0.8) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+/* Reopen button styles */
+.reopenContainer {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 100;
+  animation: slideInFromRight 0.5s ease-out;
+}
+
+.reopenButton {
+  background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+  border: none;
+  border-radius: 25px;
+  color: #1a1a2e;
+  font-size: 14px;
+  font-weight: 600;
+  padding: 12px 16px;
+  cursor: pointer;
+  box-shadow:
+    0 4px 16px rgba(255, 215, 0, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  white-space: nowrap;
+  backdrop-filter: blur(10px);
+}
+
+.reopenButton:hover {
+  transform: translateY(-2px) scale(1.05);
+  box-shadow:
+    0 8px 24px rgba(255, 215, 0, 0.5),
+    inset 0 1px 0 rgba(255, 255, 255, 0.4);
+}
+
+.reopenButton:active {
+  transform: translateY(0) scale(0.98);
+}
+
+@keyframes slideInFromRight {
+  0% {
+    opacity: 0;
+    transform: translateX(100px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Enhanced counter with better glow */
+.counterNumber {
+  animation: counterGlowEnhanced 3s ease-in-out;
+  animation-fill-mode: forwards;
+}
+
+@keyframes counterGlowEnhanced {
+  0% {
+    text-shadow: 0 0 5px rgba(255, 215, 0, 0.3);
+    transform: scale(1);
+  }
+  50% {
+    text-shadow:
+      0 0 15px rgba(255, 215, 0, 0.8),
+      0 0 25px rgba(255, 215, 0, 0.4);
+    transform: scale(1.1);
+  }
+  100% {
+    text-shadow:
+      0 0 10px rgba(255, 215, 0, 0.6),
+      0 0 20px rgba(255, 215, 0, 0.3);
+    transform: scale(1);
+  }
+}
+
+/* Floating background particles */
+.banner::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(circle at 20% 20%, rgba(255, 215, 0, 0.1) 0%, transparent 50%),
+              radial-gradient(circle at 80% 80%, rgba(255, 165, 0, 0.1) 0%, transparent 50%);
+  animation: floatingGlow 4s ease-in-out infinite alternate;
+  pointer-events: none;
+}
+
+@keyframes floatingGlow {
+  0% {
+    opacity: 0.3;
+    transform: scale(1) rotate(0deg);
+  }
+  100% {
+    opacity: 0.7;
+    transform: scale(1.1) rotate(1deg);
+  }
+}
+
+/* Mobile enhancements for reopen button */
+@media (max-width: 480px) {
+  .reopenContainer {
+    bottom: 16px;
+    right: 16px;
+  }
+
+  .reopenButton {
+    font-size: 13px;
+    padding: 10px 14px;
+  }
+
+  .moneyParticle {
+    font-size: 16px;
   }
 }

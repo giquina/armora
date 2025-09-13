@@ -63,9 +63,9 @@ export default function ProfileSummaryComponent({ userResponses, userName }: Pro
         package: 'Project Intensive Package', 
         description: 'project-based intensive periods with flexible scheduling and dedicated support'
       },
-      'emergency': { 
-        package: 'Emergency Response Package', 
-        description: 'on-call emergency transport with immediate response capabilities and 24/7 availability'
+      'priority': {
+        package: 'Priority Response Package',
+        description: 'on-call priority transport with immediate response capabilities and 24/7 availability'
       },
       'special_events': { 
         package: 'VIP Events Package', 

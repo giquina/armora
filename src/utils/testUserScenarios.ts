@@ -1,4 +1,4 @@
-import { clearUserData, saveUserData, markAssessmentComplete } from './userStatus';
+import { clearUserData, saveUserData } from './userStatus';
 import { PersonalizationData } from '../types';
 
 // Development utility for testing different user scenarios

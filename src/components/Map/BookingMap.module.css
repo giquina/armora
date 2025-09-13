@@ -319,6 +319,106 @@
   }
 }
 
+/* Loading State */
+.mapLoading,
+.mapError,
+.mapPlaceholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  background: var(--bg-card);
+  border: 2px solid rgba(255, 215, 0, 0.2);
+  border-radius: var(--radius-lg);
+  text-align: center;
+  padding: var(--space-lg);
+}
+
+.loadingSpinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid rgba(255, 215, 0, 0.2);
+  border-top: 3px solid var(--armora-gold);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: var(--space-md);
+}
+
+.loadingText,
+.errorText,
+.placeholderText {
+  color: var(--text-secondary);
+  font-size: var(--font-sm);
+  margin: 0;
+  opacity: 0.8;
+}
+
+.errorIcon,
+.placeholderIcon {
+  font-size: 2rem;
+  margin-bottom: var(--space-sm);
+  opacity: 0.6;
+}
+
+.errorActions {
+  display: flex;
+  gap: var(--space-sm);
+  margin-top: var(--space-md);
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.retryButton {
+  background: linear-gradient(135deg, var(--armora-gold) 0%, #FFA500 100%);
+  color: var(--text-dark);
+  border: none;
+  border-radius: var(--radius-md);
+  padding: var(--space-sm) var(--space-md);
+  font-size: var(--font-sm);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition-base);
+  white-space: nowrap;
+}
+
+.retryButton:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(255, 215, 0, 0.3);
+}
+
+.retryButton:active {
+  transform: translateY(0);
+}
+
+.manualButton {
+  background: transparent;
+  color: var(--text-secondary);
+  border: 2px solid var(--bg-secondary);
+  border-radius: var(--radius-md);
+  padding: var(--space-sm) var(--space-md);
+  font-size: var(--font-sm);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition-base);
+  white-space: nowrap;
+}
+
+.manualButton:hover {
+  border-color: var(--armora-gold);
+  color: var(--armora-gold);
+  transform: translateY(-1px);
+}
+
+.manualButton:active {
+  transform: translateY(0);
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
 /* Reduced motion preferences */
 @media (prefers-reduced-motion: reduce) {
   .markerIcon {
@@ -335,5 +435,10 @@
 
   .editModeIndicator {
     animation: none;
+  }
+
+  .loadingSpinner {
+    animation: none;
+    border-top-color: transparent;
   }
 }

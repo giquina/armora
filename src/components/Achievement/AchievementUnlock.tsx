@@ -12,7 +12,6 @@ const AchievementUnlock: React.FC<AchievementUnlockProps> = ({
   const { state, setUser } = useApp();
   const [animationStep, setAnimationStep] = useState<'entry' | 'reveal' | 'unlock' | 'reward' | 'preview' | 'details' | 'action'>('entry');
   const [showConfetti, setShowConfetti] = useState(false);
-  const [showServicePreview, setShowServicePreview] = useState(false);
 
   // Generate reward data
   const rewardData: FirstRideReward = {
@@ -59,9 +58,6 @@ const AchievementUnlock: React.FC<AchievementUnlockProps> = ({
             };
             setUser(updatedUser);
           }
-        }
-        if (step === 'preview') {
-          setShowServicePreview(true);
         }
       }, delay)
     );

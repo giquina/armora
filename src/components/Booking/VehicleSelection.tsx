@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
 import { ServiceLevel, User } from '../../types';
+import { LoadingSpinner } from '../UI/LoadingSpinner';
+import { ServiceCardSkeletonLoader } from '../UI/SkeletonLoader';
+import { BookingProgressIndicator } from '../UI/ProgressIndicator';
 import styles from './VehicleSelection.module.css';
 
 interface VehicleSelectionProps {
@@ -21,7 +24,7 @@ const servicelevels: ServiceLevel[] = [
       'Armored vehicle protection',
       'Real-time GPS tracking',
       '24/7 monitoring support',
-      'Emergency response protocol'
+      'Priority response protocol'
     ],
     socialProof: {
       tripsCompleted: 2847,
@@ -57,7 +60,7 @@ const servicelevels: ServiceLevel[] = [
       'Personal security escort',
       'Discrete protection service',
       'Independent travel support',
-      'Emergency backup available',
+      'Priority backup available',
       'Flexible scheduling'
     ],
     isPopular: true,
@@ -70,14 +73,22 @@ const servicelevels: ServiceLevel[] = [
 
 export function VehicleSelection({ user, onServiceSelected, onBack }: VehicleSelectionProps) {
   const [selectedService, setSelectedService] = useState<ServiceLevel | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [servicesLoading] = useState(false);
 
   const handleServiceSelect = (service: ServiceLevel) => {
     setSelectedService(service);
   };
 
-  const handleContinue = () => {
+  const handleContinue = async () => {
     if (selectedService) {
+      setIsLoading(true);
+      
+      // Simulate brief loading for service preparation
+      await new Promise(resolve => setTimeout(resolve, 800));
+      
       onServiceSelected(selectedService);
+      setIsLoading(false);
     }
   };
 
@@ -93,6 +104,9 @@ export function VehicleSelection({ user, onServiceSelected, onBack }: VehicleSel
 
   return (
     <div className={styles.container}>
+      {/* Progress Indicator */}
+      <BookingProgressIndicator currentStep="vehicle-selection" />
+      
       <div className={styles.header}>
         {onBack && (
           <button className={styles.backButton} onClick={onBack}>
@@ -111,7 +125,15 @@ export function VehicleSelection({ user, onServiceSelected, onBack }: VehicleSel
       </div>
 
       <div className={styles.serviceGrid}>
-        {servicelevels.map((service) => (
+        {servicesLoading ? (
+          // Show skeleton loaders while services load
+          <>
+            <ServiceCardSkeletonLoader />
+            <ServiceCardSkeletonLoader />
+            <ServiceCardSkeletonLoader />
+          </>
+        ) : (
+          servicelevels.map((service) => (
           <div
             key={service.id}
             className={`${styles.serviceCard} ${
@@ -164,13 +186,22 @@ export function VehicleSelection({ user, onServiceSelected, onBack }: VehicleSel
               {selectedService?.id === service.id ? '● Selected' : 'Select Service'}
             </div>
           </div>
-        ))}
+          ))
+        )}
       </div>
 
       {selectedService && (
         <div className={styles.footer}>
-          <button className={styles.continueButton} onClick={handleContinue}>
-            Continue with {selectedService.name}
+          <button 
+            className={styles.continueButton} 
+            onClick={handleContinue}
+            disabled={isLoading}
+          >
+            {isLoading ? (
+              <LoadingSpinner size="small" variant="light" text="Preparing Service..." inline />
+            ) : (
+              `Continue with ${selectedService.name}`
+            )}
           </button>
         </div>
       )}

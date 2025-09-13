@@ -21,18 +21,19 @@
   position: absolute;
   left: 0;
   top: 0;
-  padding: 0.5rem;
+  padding: var(--space-sm);
   background: transparent;
   color: var(--armora-gold);
   border: none;
   font-size: 1rem;
   cursor: pointer;
-  min-height: 44px;
-  min-width: 44px;
+  min-height: var(--touch-target);
+  min-width: var(--touch-target);
   display: flex;
   align-items: center;
   justify-content: center;
   border-radius: var(--radius-md);
+  touch-action: manipulation;
 }
 
 .backButton:hover {
@@ -85,6 +86,8 @@
   transition: all 0.3s ease;
   width: 100%;
   overflow: hidden;
+  min-height: var(--touch-target);
+  touch-action: manipulation;
 }
 
 .serviceCard:hover {
@@ -207,10 +210,15 @@
   text-align: center;
   font-size: 0.9rem;
   font-weight: 600;
-  padding: 0.5rem;
+  padding: var(--space-sm);
   border-radius: var(--radius-md);
   transition: all 0.3s ease;
-  margin-top: 0.5rem;
+  margin-top: var(--space-sm);
+  min-height: var(--touch-target);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  touch-action: manipulation;
 }
 
 .serviceCard.selected .selectIndicator {
@@ -239,13 +247,14 @@
   background: var(--armora-gold);
   color: var(--armora-dark);
   border: none;
-  padding: 1rem;
+  padding: var(--space-md);
   border-radius: var(--radius-md);
   font-size: 1rem;
   font-weight: 700;
   cursor: pointer;
   transition: all 0.3s ease;
-  min-height: 56px;
+  min-height: var(--touch-target-lg);
+  touch-action: manipulation;
 }
 
 .continueButton:hover {
@@ -308,5 +317,40 @@
   
   .title {
     font-size: 1.5rem;
+  }
+  
+  .backButton {
+    min-height: var(--touch-target);
+    min-width: var(--touch-target);
+  }
+  
+  .selectIndicator {
+    min-height: var(--touch-target);
+  }
+  
+  .continueButton {
+    min-height: var(--touch-target-lg);
+  }
+}
+
+/* TOUCH DEVICE OPTIMIZATIONS */
+@media (pointer: coarse) {
+  .serviceCard {
+    min-height: calc(var(--touch-target) * 2);
+  }
+  
+  .backButton {
+    min-height: var(--touch-target-lg);
+    min-width: var(--touch-target-lg);
+  }
+  
+  .selectIndicator {
+    min-height: var(--touch-target-lg);
+    padding: var(--space-md);
+  }
+  
+  .continueButton {
+    min-height: calc(var(--touch-target-lg) + var(--space-sm));
+    font-size: var(--font-lg);
   }
 }

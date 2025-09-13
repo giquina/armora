@@ -1,6 +1,7 @@
 import React, { ReactNode } from 'react';
 import { useApp } from '../../contexts/AppContext';
 import { ArmoraLogo } from '../UI/ArmoraLogo';
+import { getDisplayName } from '../../utils/nameUtils';
 import styles from './AppLayout.module.css';
 
 interface AppLayoutProps {
@@ -26,19 +27,23 @@ export function AppLayout({
   const shouldShowHeader = showHeader && currentView !== 'splash';
   const shouldShowNav = showNavigation && user && currentView !== 'splash';
 
-  const getHeaderTitle = () => {
-    if (headerTitle) return headerTitle;
-    
+  const getHeaderInfo = () => {
+    if (headerTitle) return { title: headerTitle, subtitle: '', showServices: false };
+
     switch (currentView) {
-      case 'welcome': return 'Welcome to Armora';
-      case 'login': return 'Sign In';
-      case 'signup': return 'Create Account';
-      case 'guest-disclaimer': return 'Guest Access';
-      case 'questionnaire': return 'Security Assessment';
-      case 'dashboard': return 'Book Your Ride';
-      case 'booking': return 'Booking Details';
-      case 'profile': return 'Your Profile';
-      default: return 'Armora Security Transport';
+      case 'welcome': return { title: 'Welcome to Armora', subtitle: '', showServices: false };
+      case 'login': return { title: 'Sign In', subtitle: '', showServices: false };
+      case 'signup': return { title: 'Create Account', subtitle: '', showServices: false };
+      case 'guest-disclaimer': return { title: 'Guest Access', subtitle: '', showServices: false };
+      case 'questionnaire': return { title: 'Security Assessment', subtitle: '', showServices: false };
+      case 'dashboard': return {
+        title: 'Choose Your Service',
+        subtitle: 'SIA Licensed • 24/7 Available • Premium Fleet',
+        showServices: true
+      };
+      case 'booking': return { title: 'Booking Details', subtitle: 'Secure Transport', showServices: false };
+      case 'profile': return { title: 'Your Profile', subtitle: 'Account Settings', showServices: false };
+      default: return { title: 'Armora Security Transport', subtitle: '', showServices: false };
     }
   };
 
@@ -74,41 +79,79 @@ export function AppLayout({
     className
   ].filter(Boolean).join(' ');
 
+  const headerInfo = getHeaderInfo();
+
   return (
     <div className={layoutClasses}>
       {shouldShowHeader && (
         <header className={styles.header}>
           <div className={styles.headerContent}>
-            {currentView !== 'welcome' && currentView !== 'dashboard' && (
-              <button
-                className={styles.backButton}
-                onClick={handleBack}
-                aria-label="Go back"
-              >
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                  <path d="m15 18-6-6 6-6"/>
-                </svg>
-              </button>
-            )}
-            
-            <div className={styles.headerBrand}>
-              <ArmoraLogo 
-                size="small" 
-                variant="compact" 
-                showOrbits={false}
-                interactive={true}
-                className={styles.headerLogo}
-              />
-              <h1 className={styles.headerTitle}>
-                {getHeaderTitle()}
-              </h1>
+            {/* Left Section - Logo and Brand */}
+            <div className={styles.headerLeft}>
+              {currentView !== 'welcome' && currentView !== 'dashboard' && (
+                <button
+                  className={styles.backButton}
+                  onClick={handleBack}
+                  aria-label="Go back"
+                >
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <path d="m15 18-6-6 6-6"/>
+                  </svg>
+                </button>
+              )}
+
+              <div className={styles.headerBrand}>
+                <ArmoraLogo
+                  size="small"
+                  variant="compact"
+                  showOrbits={false}
+                  interactive={true}
+                  className={styles.headerLogo}
+                />
+                <div className={styles.brandInfo}>
+                  <h1 className={styles.headerTitle}>
+                    {headerInfo.title}
+                  </h1>
+                  {headerInfo.subtitle && (
+                    <p className={styles.headerSubtitle}>
+                      {headerInfo.subtitle}
+                    </p>
+                  )}
+                </div>
+              </div>
             </div>
-            
-            {headerActions && (
-              <div className={styles.headerActions}>
-                {headerActions}
+
+            {/* Center Section - Service Types (Desktop Only) */}
+            {headerInfo.showServices && (
+              <div className={styles.headerCenter}>
+                <div className={styles.serviceTypes}>
+                  <span className={styles.serviceType}>Standard</span>
+                  <span className={styles.serviceType}>Executive</span>
+                  <span className={styles.serviceType}>Shadow</span>
+                </div>
               </div>
             )}
+
+            {/* Right Section - User Info and Actions */}
+            <div className={styles.headerRight}>
+              {user && (
+                <div className={styles.userInfo}>
+                  <span className={styles.welcomeText}>
+                    Welcome, {getDisplayName(user)}
+                  </span>
+                  <span className={styles.userType}>
+                    {user.userType === 'registered' ? 'Premium Member' :
+                     user.userType === 'google' ? 'Premium Member' : 'Guest'}
+                  </span>
+                </div>
+              )}
+
+              {headerActions && (
+                <div className={styles.headerActions}>
+                  {headerActions}
+                </div>
+              )}
+            </div>
           </div>
         </header>
       )}

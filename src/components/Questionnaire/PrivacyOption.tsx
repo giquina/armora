@@ -16,7 +16,7 @@ const privacyMessages = {
   5: "Our drivers are trained to adapt to any service requirements discretely on demand",
   6: "All routes and destinations handled with maximum confidentiality and minimal data retention",
   7: "Special requirements can be communicated directly to your assigned driver without prior disclosure",
-  8: "Emergency protocols available without personal information storage in our systems",
+  8: "Priority protocols available without personal information storage in our systems",
   9: "Service selection available with anonymous booking capabilities and minimal profile requirements"
 };
 

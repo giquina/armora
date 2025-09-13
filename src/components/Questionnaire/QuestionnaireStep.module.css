@@ -19,6 +19,59 @@
   color: #e0e0e0;
 }
 
+/* Visual feedback for validation states */
+.validationSuccessMessage {
+  background: rgba(0, 255, 136, 0.1);
+  border: 1px solid rgba(0, 255, 136, 0.3);
+  border-radius: 8px;
+  padding: 12px 16px;
+  color: #00ff88;
+  font-size: 14px;
+  font-weight: 500;
+  margin-top: 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  animation: fadeInSuccess 0.3s ease-out;
+}
+
+.validationWarningMessage {
+  background: rgba(255, 193, 7, 0.1);
+  border: 1px solid rgba(255, 193, 7, 0.3);
+  border-radius: 8px;
+  padding: 12px 16px;
+  color: #ffc107;
+  font-size: 14px;
+  font-weight: 500;
+  margin-top: 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  animation: fadeInWarning 0.3s ease-out;
+}
+
+@keyframes fadeInSuccess {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInWarning {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 /* Universal text standardization for questionnaire - FORCE OVERRIDE */
 .container p,
 .container span:not(.icon):not(.badge):not(.checkmark):not(.timeIcon),
@@ -3096,4 +3149,19 @@
   width: 100%;
   max-width: 500px;
   margin: 0 auto;
+}
+
+
+/* Enhanced Step Description Panel */
+.stepDescriptionPanel {
+  margin: 1rem 0;
+  width: 100%;
+  max-width: 100%;
+}
+
+/* Mobile-specific styling for step description panel */
+@media (min-width: 320px) and (max-width: 767px) {
+  .stepDescriptionPanel {
+    margin: 0.75rem 0;
+  }
 }

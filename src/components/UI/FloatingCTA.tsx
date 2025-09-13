@@ -70,7 +70,7 @@ export function FloatingCTA({
       3: 'Service Matching',
       4: 'Coverage Planning',
       5: 'Special Locations',
-      6: 'Emergency Protocols',
+      6: 'Priority Protocols',
       7: 'Custom Requirements',
       8: 'Communication Setup',
       9: 'Profile Completion',
@@ -91,7 +91,7 @@ export function FloatingCTA({
         3: "These preferences help us match you with the appropriate service level and qualified security officers. We analyze your selections to recommend whether our Standard, Executive, or Shadow protection with personal bodyguards best meets your specific transport security needs.",
         4: "Knowing your primary locations helps us ensure appropriate SIA licensed security officers and security cab coverage. We pre-position qualified close protection officers and establish secure cab routes in your key areas.",
         5: "Additional coverage areas help us provide comprehensive protection services. Airport transfers, government buildings, and entertainment venues each require specialized SIA security officers and trained personal bodyguards with our professional security cab services.",
-        6: "Emergency contacts and communication preferences ensure rapid response coordination with our SIA licensed close protection officers. This follows security industry best practices for duty of care and incident management with professional security cab services.",
+        6: "Priority contacts and communication preferences ensure rapid response coordination with our SIA licensed close protection officers. This follows security industry best practices for duty of care and incident management with professional security cab services.",
         7: "Special requirements ensure our qualified security officers and security cab drivers are prepared to provide appropriate professional services. Accessibility, medical, and private security accommodations are configured in advance with our SIA licensed personnel.",
         8: "Communication preferences ensure seamless coordination between you, your team, and our close protection officers. Clear communication is essential for effective security transport operations with our professional security cab services.",
         9: "Final review ensures your security profile is complete and accurate. This comprehensive assessment enables us to deliver the most appropriate protection service with qualified SIA security officers and professional security cab transport for your specific requirements.",
@@ -108,7 +108,7 @@ export function FloatingCTA({
           return `Hi ${firstName}, your service priorities help us match you with the right security officers and qualified personnel. We analyze your selections to recommend whether our Standard, Executive, or Shadow protection with personal bodyguards best meets your specific transport security needs.`;
         }
         if (step === 6) {
-          return `Hi ${firstName}, emergency preparedness is crucial for your safety. Emergency contacts and communication preferences ensure rapid response coordination with our SIA licensed close protection officers. This follows security industry best practices for duty of care and incident management.`;
+          return `Hi ${firstName}, priority response is crucial for your safety. Priority contacts and communication preferences ensure rapid response coordination with our SIA licensed close protection officers. This follows security industry best practices for duty of care and incident management.`;
         }
         if (step === 9) {
           return `${firstName}, you're almost done! ${baseDescription}`;

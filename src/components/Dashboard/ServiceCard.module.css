@@ -1,4 +1,4 @@
-/* ARMORA SERVICE CARD - MOBILE-FIRST RESPONSIVE STYLING */
+/* ARMORA SERVICE CARD - FIXED LAYOUT WITH NO OVERLAPS */
 
 .serviceCard {
   background: var(--bg-card);
@@ -9,7 +9,7 @@
   transition: all var(--transition-base);
   position: relative;
   overflow: hidden;
-  min-height: 400px;
+  min-height: 300px;
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -17,12 +17,22 @@
   box-sizing: border-box;
   touch-action: manipulation;
   -webkit-tap-highlight-color: transparent;
+  /* Service-specific theming via CSS custom properties */
+  background: var(--service-gradient, var(--bg-card));
+  border-color: var(--service-accent, transparent);
+  backdrop-filter: blur(10px);
+  box-shadow:
+    0 4px 20px rgba(0, 0, 0, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
 }
 
 .serviceCard:hover {
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-lg);
-  border-color: var(--accent);
+  transform: translateY(-4px) scale(1.02);
+  box-shadow:
+    0 12px 40px rgba(0, 0, 0, 0.15),
+    0 0 0 1px var(--service-accent, var(--accent)),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  border-color: var(--service-accent, var(--accent));
 }
 
 .serviceCard:active {
@@ -31,9 +41,18 @@
 
 /* Selected state */
 .serviceCard.selected {
-  border-color: var(--accent);
-  background: linear-gradient(135deg, var(--bg-card), var(--bg-secondary));
-  box-shadow: var(--shadow-gold);
+  border-color: var(--service-accent, var(--accent));
+  background: var(--service-gradient, linear-gradient(135deg, var(--bg-card), var(--bg-secondary)));
+  box-shadow:
+    0 8px 32px rgba(255, 215, 0, 0.3),
+    0 0 0 2px var(--service-accent, var(--accent)),
+    inset 0 2px 0 rgba(255, 255, 255, 0.2);
+  animation: selectedPulse 2s ease-in-out infinite;
+}
+
+@keyframes selectedPulse {
+  0%, 100% { transform: translateY(-2px) scale(1); }
+  50% { transform: translateY(-2px) scale(1.01); }
 }
 
 /* Recommended state */
@@ -42,7 +61,7 @@
   background: linear-gradient(135deg, var(--bg-card) 0%, rgba(255, 215, 0, 0.05) 100%);
 }
 
-/* Popular badge enhancement */
+/* Popular card enhancement */
 .serviceCard.popular {
   position: relative;
 }
@@ -53,10 +72,22 @@
   top: 0;
   left: 0;
   right: 0;
-  height: 3px;
-  background: linear-gradient(90deg, var(--accent), var(--hover-gold), var(--accent));
+  height: 4px;
+  background: linear-gradient(90deg,
+    transparent 0%,
+    var(--service-accent, var(--accent)) 20%,
+    var(--hover-gold) 50%,
+    var(--service-accent, var(--accent)) 80%,
+    transparent 100%);
   background-size: 200% 100%;
-  animation: shimmer 2s linear infinite;
+  animation: shimmer 3s linear infinite;
+  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+  z-index: 1;
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
 }
 
 /* Preview mode (for guest users) */
@@ -71,45 +102,132 @@
   border-color: var(--bg-secondary);
 }
 
-@keyframes shimmer {
-  0% { background-position: -200% 0; }
-  100% { background-position: 200% 0; }
+/* ========================================
+   TOP SECTION - ICON AND BADGES
+======================================== */
+.topSection {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: var(--space-md);
+  min-height: 48px; /* Ensure consistent height */
 }
 
-/* ========================================
-   BADGES
-======================================== */
-.popularBadge {
-  position: absolute;
-  top: var(--space-md);
-  right: var(--space-md);
-  background: var(--accent);
-  color: var(--text-dark);
+.serviceIconContainer {
+  flex-shrink: 0;
+  z-index: 2;
+}
+
+.serviceIcon {
+  font-size: 2.5rem;
+  opacity: 0.8;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+  transition: all var(--transition-base);
+  display: block;
+}
+
+.serviceCard:hover .serviceIcon {
+  transform: scale(1.1);
+  opacity: 1;
+}
+
+.topRightBadges {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: var(--space-xs);
+  z-index: 3;
+}
+
+/* Availability Indicator */
+.availabilityIndicator {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  background: rgba(0, 0, 0, 0.7);
+  padding: var(--space-xs) var(--space-sm);
+  border-radius: var(--radius-full);
+  backdrop-filter: blur(10px);
+  white-space: nowrap;
+}
+
+.availabilityDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--availability-color);
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+.availabilityText {
   font-size: var(--font-xs);
+  color: white;
   font-weight: 600;
+}
+
+/* Popular Badge - Top Right */
+.popularBadge {
+  background: linear-gradient(45deg, #ff6b35, #f7931e);
+  color: white;
+  font-size: var(--font-xs);
+  font-weight: 700;
   padding: var(--space-xs) var(--space-sm);
   border-radius: var(--radius-full);
   text-transform: uppercase;
   letter-spacing: 0.5px;
-  z-index: 3;
-  box-shadow: var(--shadow-sm);
+  box-shadow:
+    0 4px 12px rgba(255, 107, 53, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  animation: popularGlow 3s ease-in-out infinite;
+  white-space: nowrap;
 }
 
+.popularIcon {
+  font-size: 10px;
+  animation: flicker 2s ease-in-out infinite;
+}
+
+@keyframes popularGlow {
+  0%, 100% { box-shadow: 0 4px 12px rgba(255, 107, 53, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.3); }
+  50% { box-shadow: 0 6px 20px rgba(255, 107, 53, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.4); }
+}
+
+@keyframes flicker {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.2); }
+}
+
+/* Recommended Badge - Top Right */
 .recommendedBadge {
-  position: absolute;
-  top: var(--space-md);
-  left: var(--space-md);
   background: linear-gradient(135deg, var(--accent), var(--hover-gold));
   color: var(--text-dark);
   font-size: var(--font-xs);
-  font-weight: 600;
+  font-weight: 700;
   padding: var(--space-xs) var(--space-sm);
   border-radius: var(--radius-full);
   display: flex;
   align-items: center;
   gap: var(--space-xs);
-  z-index: 3;
-  box-shadow: var(--shadow-sm);
+  box-shadow:
+    0 4px 12px rgba(255, 215, 0, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  animation: recommendedShine 4s ease-in-out infinite;
+  white-space: nowrap;
+}
+
+@keyframes recommendedShine {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(2px); }
+  50% { transform: translateX(0); }
+  75% { transform: translateX(-2px); }
 }
 
 .recommendedIcon {
@@ -118,15 +236,14 @@
 }
 
 /* ========================================
-   CARD HEADER
+   SERVICE HEADER
 ======================================== */
-.cardHeader {
+.serviceHeader {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
   margin-bottom: var(--space-md);
-  gap: var(--space-sm);
-  flex-shrink: 0;
+  gap: var(--space-md);
 }
 
 .serviceInfo {
@@ -147,6 +264,7 @@
   color: var(--text-secondary);
   margin: 0;
   line-height: var(--line-base);
+  opacity: 0.9;
 }
 
 .priceInfo {
@@ -155,27 +273,123 @@
 }
 
 .price {
-  font-size: var(--font-lg);
+  font-size: var(--font-xl);
   font-weight: 700;
-  color: var(--accent);
+  color: var(--service-accent, var(--accent));
   line-height: var(--line-tight);
 }
 
-.originalPrice {
-  font-size: var(--font-sm);
-  color: var(--text-secondary);
-  text-decoration: line-through;
+.surgeIndicator {
+  font-size: var(--font-xs);
+  color: #ef4444;
+  font-weight: 600;
   margin-top: var(--space-xs);
 }
 
 /* ========================================
-   CARD CONTENT
+   VEHICLE AND DRIVER SECTION
 ======================================== */
-.cardContent {
-  flex: 1;
+.vehicleSection {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: var(--radius-md);
+  padding: var(--space-md);
+  margin-bottom: var(--space-md);
+  backdrop-filter: blur(5px);
+}
+
+.vehicleInfo {
+  margin-bottom: var(--space-sm);
+}
+
+.vehicleDetail {
   display: flex;
-  flex-direction: column;
-  gap: var(--space-md);
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--space-xs);
+}
+
+.vehicleDetail:last-child {
+  margin-bottom: 0;
+}
+
+.vehicleLabel {
+  font-size: var(--font-sm);
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.vehicleValue {
+  font-size: var(--font-sm);
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+.driverInfo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: var(--space-sm);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.driverLabel {
+  font-size: var(--font-sm);
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.driverLevel {
+  font-size: var(--font-sm);
+  font-weight: 600;
+  color: var(--service-accent, var(--accent));
+}
+
+/* ========================================
+   RATING SECTION
+======================================== */
+.ratingSection {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-md);
+  padding: var(--space-sm) 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.stars {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.starFilled {
+  font-size: 12px;
+  filter: drop-shadow(0 1px 2px rgba(255, 215, 0, 0.5));
+}
+
+.starEmpty {
+  font-size: 12px;
+  opacity: 0.3;
+}
+
+.ratingNumber {
+  font-size: var(--font-sm);
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-left: var(--space-xs);
+}
+
+.reviewCount {
+  font-size: var(--font-xs);
+  color: var(--text-secondary);
+  opacity: 0.8;
+}
+
+/* ========================================
+   DESCRIPTION SECTION
+======================================== */
+.descriptionSection {
+  margin-bottom: var(--space-md);
 }
 
 .description {
@@ -183,109 +397,111 @@
   color: var(--text-secondary);
   line-height: var(--line-base);
   margin: 0;
+  opacity: 0.9;
 }
 
-/* Features Section */
-.features {
-  flex: 1;
-}
 
-.featuresTitle {
-  font-size: var(--font-sm);
-  font-weight: 600;
-  color: var(--text-primary);
-  margin: 0 0 var(--space-sm) 0;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-}
-
-.featuresList {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-xs);
-}
-
-.featureItem {
-  display: flex;
-  align-items: flex-start;
-  gap: var(--space-sm);
-  font-size: var(--font-sm);
-  color: var(--text-secondary);
-  line-height: var(--line-base);
-}
-
-.featureIcon {
-  color: var(--accent);
-  font-weight: 700;
-  flex-shrink: 0;
-  width: 14px;
-  font-size: 12px;
-  margin-top: 2px;
-}
-
-/* Social Proof */
+/* ========================================
+   SOCIAL PROOF
+======================================== */
 .socialProof {
   display: flex;
-  justify-content: space-between;
-  gap: var(--space-sm);
-  padding: var(--space-sm);
-  background: rgba(255, 215, 0, 0.05);
+  justify-content: space-around;
+  align-items: center;
+  padding: var(--space-md);
+  background: rgba(255, 255, 255, 0.05);
   border-radius: var(--radius-md);
-  border: 1px solid rgba(255, 215, 0, 0.2);
+  margin-bottom: var(--space-md);
+  backdrop-filter: blur(5px);
 }
 
 .socialProofItem {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
   text-align: center;
   flex: 1;
-  min-width: 0;
 }
 
 .socialProofNumber {
-  font-size: var(--font-base);
+  display: block;
+  font-size: var(--font-lg);
   font-weight: 700;
-  color: var(--accent);
+  color: var(--service-accent, var(--accent));
   line-height: var(--line-tight);
 }
 
 .socialProofLabel {
   font-size: var(--font-xs);
   color: var(--text-secondary);
-  margin-top: 2px;
-  line-height: var(--line-tight);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-top: var(--space-xs);
 }
 
 /* ========================================
    CARD FOOTER
 ======================================== */
 .cardFooter {
-  margin-top: var(--space-md);
-  flex-shrink: 0;
+  margin-top: auto; /* Push to bottom */
+  padding-top: var(--space-md);
 }
 
-.selectButton {
+/* Direct booking actions - no more select button */
+.bookingActions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-xs);
   width: 100%;
+}
+
+.bookNowButton,
+.scheduleButton {
+  font-size: var(--font-sm);
+  font-weight: 600;
   min-height: var(--touch-target);
+  padding: var(--space-sm);
+  white-space: nowrap;
+  transition: all var(--transition-base);
+}
+
+.bookNowButton:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(255, 215, 0, 0.3);
+}
+
+.scheduleButton:hover {
+  transform: translateY(-2px);
+  border-color: var(--accent);
+  background: rgba(255, 215, 0, 0.05);
 }
 
 .previewFooter {
   text-align: center;
-  padding: var(--space-sm);
-  background: var(--bg-secondary);
+  padding: var(--space-md);
+  background: rgba(255, 255, 255, 0.05);
   border-radius: var(--radius-md);
-  border: 1px solid var(--bg-card);
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .previewText {
   font-size: var(--font-sm);
   color: var(--text-secondary);
   margin: 0;
-  line-height: var(--line-base);
+  font-style: italic;
+}
+
+/* Removed old selected footer styles - no longer needed */
+
+/* Mobile Responsiveness for Direct Booking Actions */
+@media (max-width: 480px) {
+  .bookingActions {
+    grid-template-columns: 1fr;
+    gap: var(--space-sm);
+  }
+
+  .bookNowButton,
+  .scheduleButton {
+    font-size: var(--font-sm);
+    padding: var(--space-md);
+  }
 }
 
 /* ========================================
@@ -296,94 +512,120 @@
   top: var(--space-md);
   right: var(--space-md);
   z-index: 5;
-  background: var(--accent);
-  border-radius: 50%;
-  padding: var(--space-xs);
-  box-shadow: var(--shadow-sm);
-  animation: scaleIn 0.3s ease-out;
+  animation: selectionAppear 0.3s ease-out;
 }
 
 .selectionCheck {
-  color: var(--text-dark);
+  width: 32px;
+  height: 32px;
+  background: var(--service-accent, var(--accent));
+  border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 16px;
-  height: 16px;
+  color: white;
+  box-shadow: 0 4px 12px rgba(255, 215, 0, 0.4);
 }
 
-@keyframes scaleIn {
-  from {
-    transform: scale(0);
+@keyframes selectionAppear {
+  0% {
+    opacity: 0;
+    transform: scale(0.5);
   }
-  to {
+  100% {
+    opacity: 1;
     transform: scale(1);
   }
 }
 
 /* ========================================
-   RESPONSIVE ADJUSTMENTS
+   RESPONSIVE DESIGN
 ======================================== */
 
-/* Small Mobile (320px) */
-@media (max-width: 359px) {
+/* Small Mobile (320px - 479px) */
+@media (max-width: 479px) {
   .serviceCard {
     padding: var(--space-md);
-    min-height: 350px;
+    min-height: 280px;
   }
-  
+
+  .serviceIcon {
+    font-size: 2rem;
+  }
+
   .serviceName {
     font-size: var(--font-base);
   }
-  
+
   .price {
-    font-size: var(--font-base);
+    font-size: var(--font-lg);
   }
-  
+
+  .vehicleSection {
+    padding: var(--space-sm);
+  }
+
+
+  .topRightBadges {
+    gap: 2px;
+  }
+
   .popularBadge,
   .recommendedBadge {
-    top: var(--space-sm);
-    font-size: 10px;
     padding: 2px var(--space-xs);
-  }
-  
-  .popularBadge {
-    right: var(--space-sm);
-  }
-  
-  .recommendedBadge {
-    left: var(--space-sm);
+    font-size: 10px;
   }
 }
 
-/* Tablet */
-@media (min-width: 768px) {
+/* Large Mobile (480px - 767px) */
+@media (min-width: 480px) and (max-width: 767px) {
   .serviceCard {
-    min-height: 450px;
+    min-height: 320px;
   }
-  
-  .cardHeader {
+}
+
+/* Tablet (768px - 1023px) */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .serviceCard {
+    min-height: 350px;
+    padding: var(--space-lg);
+  }
+
+  .serviceHeader {
     margin-bottom: var(--space-lg);
   }
-  
-  .socialProof {
-    padding: var(--space-md);
+
+  .vehicleSection {
+    padding: var(--space-lg);
   }
 }
 
-/* Desktop */
+/* Desktop (1024px+) */
 @media (min-width: 1024px) {
   .serviceCard {
-    min-height: 500px;
+    min-height: 380px;
     padding: var(--space-xl);
   }
-  
+
+  .serviceIcon {
+    font-size: 3rem;
+  }
+
   .serviceName {
     font-size: var(--font-xl);
   }
-  
-  .price {
-    font-size: var(--font-xl);
+
+  .serviceHeader {
+    margin-bottom: var(--space-xl);
+  }
+
+  .vehicleSection {
+    padding: var(--space-lg);
+  }
+
+
+  .socialProof {
+    padding: var(--space-lg);
   }
 }
 
@@ -402,51 +644,55 @@
   outline-offset: 2px;
 }
 
-/* Reduced motion */
-@media (prefers-reduced-motion: reduce) {
+/* High contrast mode support */
+@media (prefers-contrast: high) {
   .serviceCard {
-    transition: none;
+    border-color: var(--text-primary);
+    border-width: 3px;
   }
-  
-  .serviceCard.popular::before {
-    animation: none;
-  }
-  
-  .selectionIndicator {
-    animation: none;
-  }
-  
-  .serviceCard:hover,
-  .serviceCard:active {
-    transform: none;
+
+
+  .popularBadge,
+  .recommendedBadge {
+    border: 2px solid white;
   }
 }
 
-/* High contrast mode */
-@media (prefers-contrast: high) {
-  .serviceCard {
-    border-width: 3px;
+/* Reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  .serviceCard,
+  .serviceIcon,
+  .selectButton {
+    transition: none;
+    animation: none;
   }
-  
-  .serviceCard.selected,
-  .serviceCard.recommended {
-    border-width: 4px;
+
+  .availabilityDot {
+    animation: none;
   }
-  
+
   .popularBadge,
   .recommendedBadge {
-    border: 2px solid var(--text-primary);
+    animation: none;
+  }
+
+  .serviceCard:hover {
+    transform: none;
+  }
+
+  .serviceCard.selected {
+    animation: none;
   }
 }
 
 /* Touch device optimizations */
 @media (pointer: coarse) {
   .serviceCard {
-    min-height: var(--touch-target-lg);
+    cursor: pointer;
+    -webkit-tap-highlight-color: rgba(255, 215, 0, 0.1);
   }
-  
+
   .selectButton {
-    min-height: var(--touch-target-lg);
-    font-size: var(--font-base);
+    min-height: calc(var(--touch-target-lg) + var(--space-sm));
   }
 }

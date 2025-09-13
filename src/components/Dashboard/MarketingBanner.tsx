@@ -55,6 +55,8 @@ export function MarketingBanner({
 
   const [isAnimating, setIsAnimating] = useState(false);
   const [showBounce, setShowBounce] = useState(false);
+  const [showMoneyParticles, setShowMoneyParticles] = useState(false);
+  const [particles, setParticles] = useState<Array<{id: number; left: string; delay: number}>>([]);
 
   // Load banner state from localStorage
   useEffect(() => {
@@ -102,49 +104,94 @@ export function MarketingBanner({
     return true;
   }, [state.subscription, bannerState.dismissCount, bannerState.lastDismissed, bannerState.hasStartedTrial]);
 
-  // Show banner with delay on dashboard load
-  useEffect(() => {
-    if (shouldShowBanner()) {
-      const showTimer = setTimeout(() => {
-        setBannerState(prev => ({ ...prev, isVisible: true }));
-        
-        // Start counter animation shortly after banner appears
-        setTimeout(() => {
-          setIsAnimating(true);
-          animateCounter();
-        }, 500);
-        
-        // Add attention bounce after banner is visible
-        setTimeout(() => {
-          setShowBounce(true);
-          setTimeout(() => setShowBounce(false), 600);
-        }, 4000);
-      }, 3000); // 3 second delay after dashboard load
-
-      return () => clearTimeout(showTimer);
+  // Generate floating money particles
+  const createMoneyParticles = useCallback(() => {
+    const newParticles = [];
+    for (let i = 0; i < 5; i++) {
+      newParticles.push({
+        id: Date.now() + i,
+        left: Math.random() * 80 + 10 + '%', // Random position between 10-90%
+        delay: i * 200
+      });
     }
-  }, [shouldShowBanner]);
+    setParticles(newParticles);
+    setShowMoneyParticles(true);
 
-  // Animate the rides counter
+    // Clear particles after animation
+    setTimeout(() => {
+      setShowMoneyParticles(false);
+      setParticles([]);
+    }, 3000);
+  }, []);
+
+  // Animate the rides counter with smooth easing
   const animateCounter = useCallback(() => {
-    let current = 3700;
+    const start = 3700;
     const target = marketingData.currentRidesFunded;
-    const increment = 1;
-    const interval = 50; // 50ms between increments
+    const duration = 2000; // 2 seconds
+    const startTime = Date.now();
 
-    const counterInterval = setInterval(() => {
-      current += increment;
+    const update = () => {
+      const elapsed = Date.now() - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+
+      // Ease-out-cubic for smooth deceleration
+      const eased = 1 - Math.pow(1 - progress, 3);
+      const current = Math.floor(start + (target - start) * eased);
+
       setBannerState(prev => ({ ...prev, currentRidesCount: current }));
 
-      if (current >= target) {
-        clearInterval(counterInterval);
+      if (progress < 1) {
+        requestAnimationFrame(update);
+      } else {
         // Add golden glow pulse when complete
         setTimeout(() => {
           setBannerState(prev => ({ ...prev, showAnimation: false }));
+          // Generate money particles effect
+          createMoneyParticles();
         }, 500);
       }
-    }, interval);
-  }, []);
+    };
+
+    requestAnimationFrame(update);
+  }, [createMoneyParticles]);
+
+  // Show banner with delay on dashboard load (FIX: Remove problematic dependencies)
+  useEffect(() => {
+    let showTimer: NodeJS.Timeout;
+    let bounceTimer: NodeJS.Timeout;
+    let animationTimer: NodeJS.Timeout;
+
+    // Only check once on mount, don't re-run when dependencies change
+    const checkAndShow = () => {
+      if (shouldShowBanner()) {
+        showTimer = setTimeout(() => {
+          setBannerState(prev => ({ ...prev, isVisible: true }));
+
+          // Start counter animation shortly after banner appears
+          animationTimer = setTimeout(() => {
+            setIsAnimating(true);
+            animateCounter();
+          }, 500);
+
+          // Add attention bounce after banner is visible
+          bounceTimer = setTimeout(() => {
+            setShowBounce(true);
+            setTimeout(() => setShowBounce(false), 600);
+          }, 4000);
+        }, 3000); // 3 second delay after dashboard load
+      }
+    };
+
+    // Only run once on mount
+    checkAndShow();
+
+    return () => {
+      clearTimeout(showTimer);
+      clearTimeout(bounceTimer);
+      clearTimeout(animationTimer);
+    };
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   // Slowly increment member count occasionally
   useEffect(() => {
@@ -178,13 +225,37 @@ export function MarketingBanner({
     // Save to localStorage
     localStorage.setItem('marketingBannerDismissCount', newDismissCount.toString());
     localStorage.setItem('marketingBannerLastDismissed', dismissTime);
+    localStorage.setItem('marketingBannerDismissed', 'true'); // Flag for reopen button
 
     // Track dismissal
-    console.log('📊 Analytics: banner_dismissed', { 
-      dismissCount: newDismissCount, 
+    console.log('📊 Analytics: banner_dismissed', {
+      dismissCount: newDismissCount,
       variant,
       timeOnScreen: Date.now() // Would calculate actual time in real app
     });
+  };
+
+  // Handle banner reopen
+  const handleReopen = () => {
+    setBannerState(prev => ({
+      ...prev,
+      isVisible: true,
+      dismissCount: 0, // Reset dismiss count on manual reopen
+      lastDismissed: null
+    }));
+
+    // Clear dismissal flags
+    localStorage.removeItem('marketingBannerDismissed');
+    localStorage.removeItem('marketingBannerDismissCount');
+    localStorage.removeItem('marketingBannerLastDismissed');
+
+    // Start animations
+    setTimeout(() => {
+      setIsAnimating(true);
+      animateCounter();
+    }, 500);
+
+    console.log('📊 Analytics: banner_reopened', { variant });
   };
 
   // Handle CTA click
@@ -210,7 +281,25 @@ export function MarketingBanner({
     }
   };
 
-  // Don't render if not visible
+  // Check if banner was dismissed and should show reopen button
+  const isDismissed = localStorage.getItem('marketingBannerDismissed') === 'true';
+
+  // Show reopen button if dismissed and not permanently hidden
+  if (!bannerState.isVisible && isDismissed && bannerState.dismissCount < 3) {
+    return (
+      <div className={styles.reopenContainer}>
+        <button
+          className={styles.reopenButton}
+          onClick={handleReopen}
+          aria-label="View membership offers"
+        >
+          💰 View Special Offers
+        </button>
+      </div>
+    );
+  }
+
+  // Don't render if not visible and not dismissed recently
   if (!bannerState.isVisible) {
     return null;
   }
@@ -279,7 +368,7 @@ export function MarketingBanner({
             </div>
             <div className={styles.benefitItem}>
               <span className={styles.benefitBullet}>•</span>
-              <span className={styles.benefitText}>Fund emergency rides for others (£4/mo)</span>
+              <span className={styles.benefitText}>Fund priority rides for others (£4/mo)</span>
             </div>
           </div>
 
@@ -299,6 +388,20 @@ export function MarketingBanner({
             </div>
           </div>
         </div>
+
+        {/* Money Particles */}
+        {showMoneyParticles && particles.map(particle => (
+          <div
+            key={particle.id}
+            className={styles.moneyParticle}
+            style={{
+              left: particle.left,
+              animationDelay: `${particle.delay}ms`
+            }}
+          >
+            £
+          </div>
+        ))}
       </div>
     </div>
   );

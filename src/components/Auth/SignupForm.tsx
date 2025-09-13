@@ -32,7 +32,7 @@ interface PasswordStrength {
 }
 
 export function SignupForm() {
-  const { navigateToView, setUser, setLoading } = useApp();
+  const { navigateToView, setUser, setLoading, updateQuestionnaireData } = useApp();
   const [formData, setFormData] = useState<FormData>({
     name: '',
     email: '',
@@ -104,7 +104,7 @@ export function SignupForm() {
   };
 
   const validatePhone = (phone: string): boolean => {
-    const phoneRegex = /^[\+]?[1-9][\d]{0,15}$/;
+    const phoneRegex = /^[+]?[1-9][\d]{0,15}$/;
     return phoneRegex.test(phone.replace(/\s/g, ''));
   };
 
@@ -197,6 +197,107 @@ export function SignupForm() {
       setIsSubmitting(false);
       setLoading(false);
     }
+  };
+
+  // Development-only bypass function
+  const handleDevSkipSignup = () => {
+    console.log('🚀 [DEV] Starting signup bypass...');
+    console.log('🚀 [DEV] Current environment:', process.env.NODE_ENV);
+    
+    // Create mock user (WITHOUT completed questionnaire to allow normal flow)
+    const mockUser = {
+      id: 'dev-user-signup-123',
+      name: 'Dev Test User',
+      email: 'dev@armora.test',
+      isAuthenticated: true,
+      userType: 'registered' as const,
+      hasCompletedQuestionnaire: false, // Changed to false to allow questionnaire flow
+      hasUnlockedReward: false,
+      createdAt: new Date()
+    };
+    console.log('🚀 [DEV] Setting mock user:', mockUser);
+    setUser(mockUser);
+
+    // Create mock questionnaire data (same as WelcomePage skip)
+    const mockQuestionnaireData = {
+      step1_transportProfile: 'executive-business',
+      step2_travelFrequency: 'weekly',
+      step3_serviceRequirements: ['professional-security', 'premium-vehicles', 'punctuality'],
+      step4_primaryCoverage: ['london', 'birmingham'],
+      step5_secondaryCoverage: ['manchester'],
+      step6_safetyContact: {
+        name: 'Priority Contact',
+        phone: '+44 7700 900000',
+        relationship: 'spouse'
+      },
+      step7_specialRequirements: ['wheelchair-accessible'],
+      step8_contactPreferences: {
+        email: 'dev@armora.test',
+        phone: '+44 7700 900000',
+        notifications: ['booking-updates', 'driver-arrival']
+      },
+      step9_profileReview: true,
+      completedAt: new Date(),
+      recommendedService: 'executive',
+      conversionAttempts: 0
+    };
+    console.log('🚀 [DEV] Setting questionnaire data:', mockQuestionnaireData);
+    updateQuestionnaireData(mockQuestionnaireData);
+
+    // Navigate to questionnaire (following normal signup flow)
+    console.log('🚀 [DEV] Navigating to questionnaire (normal flow)...');
+    navigateToView('questionnaire');
+    console.log('🚀 [DEV] Navigation complete!');
+  };
+
+  // Development-only function to skip directly to dashboard
+  const handleDevSkipToDashboard = () => {
+    console.log('🚀 [DEV] FULL SKIP - Going directly to dashboard...');
+    
+    // Create mock user WITH completed questionnaire
+    const mockUser = {
+      id: 'dev-user-dashboard-123',
+      name: 'Dashboard Test User',
+      email: 'dashboard@armora.test',
+      isAuthenticated: true,
+      userType: 'registered' as const,
+      hasCompletedQuestionnaire: true, // Set to true for dashboard access
+      hasUnlockedReward: true,
+      createdAt: new Date()
+    };
+    console.log('🚀 [DEV] Setting dashboard-ready user:', mockUser);
+    setUser(mockUser);
+
+    // Create mock questionnaire data
+    const mockQuestionnaireData = {
+      step1_transportProfile: 'executive-business',
+      step2_travelFrequency: 'weekly',
+      step3_serviceRequirements: ['professional-security', 'premium-vehicles', 'punctuality'],
+      step4_primaryCoverage: ['london', 'birmingham'],
+      step5_secondaryCoverage: ['manchester'],
+      step6_safetyContact: {
+        name: 'Priority Contact',
+        phone: '+44 7700 900000',
+        relationship: 'spouse'
+      },
+      step7_specialRequirements: ['wheelchair-accessible'],
+      step8_contactPreferences: {
+        email: 'dashboard@armora.test',
+        phone: '+44 7700 900000',
+        notifications: ['booking-updates', 'driver-arrival']
+      },
+      step9_profileReview: true,
+      completedAt: new Date(),
+      recommendedService: 'executive',
+      conversionAttempts: 0
+    };
+    console.log('🚀 [DEV] Setting complete questionnaire data:', mockQuestionnaireData);
+    updateQuestionnaireData(mockQuestionnaireData);
+
+    // Navigate directly to dashboard
+    console.log('🚀 [DEV] Navigating directly to dashboard...');
+    navigateToView('dashboard');
+    console.log('🚀 [DEV] Full skip complete!');
   };
 
   return (
@@ -442,6 +543,42 @@ export function SignupForm() {
             )}
           </Button>
         </form>
+
+        {/* Development-only skip buttons */}
+        {process.env.NODE_ENV === 'development' && (
+          <div className={styles.devButtonContainer}>
+            <div className={styles.devButtonGrid}>
+              <Button
+                type="button"
+                variant="outline"
+                size="sm"
+                onClick={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  console.log('🔴 DEV BUTTON - NORMAL FLOW!');
+                  handleDevSkipSignup();
+                }}
+                className={styles.devSkipButton}
+              >
+                📝 SKIP TO QUESTIONNAIRE
+              </Button>
+              <Button
+                type="button"
+                variant="outline"
+                size="sm"
+                onClick={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  console.log('🔴 DEV BUTTON - FULL SKIP!');
+                  handleDevSkipToDashboard();
+                }}
+                className={styles.devSkipButton}
+              >
+                🚀 SKIP TO DASHBOARD
+              </Button>
+            </div>
+          </div>
+        )}
 
         {/* Footer */}
         <footer className={styles.footer}>

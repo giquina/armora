@@ -20,7 +20,7 @@ const SafeRideFundBanner: React.FC<SafeRideFundBannerProps> = ({
     "🛡️ Every membership supports safe transport for vulnerable communities",
     "📊 3,741+ safe rides funded • 834 people reached safety this month",
     "🤝 Partnering with Crisis UK, Women's Aid, Mind Mental Health & more",
-    "🚗 £4 from each membership directly funds emergency transport assistance",
+    "🚗 £4 from each membership directly funds priority transport assistance",
     "⚡ 24/7 availability • Average 12min response time • 98% success rate"
   ];
 

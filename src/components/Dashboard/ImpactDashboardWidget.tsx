@@ -35,9 +35,9 @@ const communityImpactData = {
 const impactStories = [
   {
     id: 1,
-    title: "Late Night Emergency",
+    title: "Late Night Assistance",
     story: "Sarah was able to leave a dangerous situation at 2 AM thanks to the Safe Ride Fund.",
-    impact: "Emergency transport when she had no money",
+    impact: "Urgent transport when she had no money",
     timeframe: "3 days ago"
   },
   {
@@ -51,7 +51,7 @@ const impactStories = [
     id: 3,
     title: "Safe Return",
     story: "Emma got home safely after her phone died and she couldn't access her banking app.",
-    impact: "Emergency safe passage home",
+    impact: "Priority safe passage home",
     timeframe: "2 weeks ago"
   }
 ];

@@ -3,59 +3,70 @@
 .profileSummaryContainer {
   max-width: var(--content-max-width);
   margin: 0 auto;
-  padding: var(--content-padding-mobile);
+  padding: 0 var(--content-padding-mobile);
+  background: var(--bg-primary);
+  min-height: 100vh;
 }
 
 .profileSection {
-  margin-bottom: 2rem;
-  padding: 1.5rem;
-  background: transparent;
-  border: var(--armora-gold-dotted);
-  border-radius: 12px;
-  transition: all 0.3s ease;
+  margin-bottom: var(--space-md);
+  padding: var(--space-lg);
+  background: var(--bg-card);
+  border: 1px solid var(--bg-secondary);
+  border-radius: var(--radius-lg);
+  transition: all var(--transition-fast);
+  max-width: var(--content-max-width);
+  margin-left: auto;
+  margin-right: auto;
+  width: calc(100vw - 36px);
 }
 
 .profileSection:hover {
-  border-color: rgba(255, 215, 0, 0.5);
-  box-shadow: 0 4px 20px rgba(255, 215, 0, 0.1);
+  border-color: var(--accent);
+  box-shadow: var(--shadow-gold);
 }
 
 .sectionHeader {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
-  margin-bottom: 1rem;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-md);
 }
 
 .sectionIcon {
-  font-size: 1.5rem;
-  filter: drop-shadow(0 0 4px rgba(255, 215, 0, 0.3));
+  font-size: var(--font-lg);
+  line-height: 1;
 }
 
 .sectionHeader h3 {
-  color: #FFD700;
-  font-size: 1.25rem;
+  color: var(--accent);
+  font-size: var(--font-lg);
   font-weight: 600;
   margin: 0;
-  letter-spacing: 0.5px;
+  line-height: var(--line-tight);
 }
 
 .sectionContent {
-  color: #e0e0e0;
-  font-size: 1rem;
-  line-height: 1.6;
+  color: var(--text-secondary);
+  font-size: var(--font-base);
+  line-height: var(--line-base);
   margin: 0;
   font-weight: 400;
 }
 
 .recommendationSection {
-  margin-bottom: 2rem;
-  padding: 2rem;
-  background: linear-gradient(135deg, rgba(255, 215, 0, 0.05) 0%, rgba(255, 215, 0, 0.02) 100%);
-  border: 2px solid var(--armora-gold-alpha);
-  border-radius: 16px;
+  margin-bottom: var(--space-md);
+  padding: var(--space-lg);
+  background: var(--bg-card);
+  border: 2px solid var(--accent);
+  border-radius: var(--radius-lg);
   position: relative;
   overflow: hidden;
+  max-width: var(--content-max-width);
+  margin-left: auto;
+  margin-right: auto;
+  width: calc(100vw - 36px);
+  box-shadow: var(--shadow-gold);
 }
 
 .recommendationSection::before {
@@ -65,8 +76,8 @@
   left: 0;
   right: 0;
   height: 4px;
-  background: linear-gradient(90deg, #FFD700 0%, #FFA500 100%);
-  border-radius: 16px 16px 0 0;
+  background: var(--accent);
+  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
 }
 
 .recommendationContent {
@@ -74,21 +85,21 @@
 }
 
 .recommendationText {
-  color: #e0e0e0;
-  font-size: 1.1rem;
-  line-height: 1.6;
-  margin: 0 0 1.5rem 0;
+  color: var(--text-secondary);
+  font-size: var(--font-base);
+  line-height: var(--line-base);
+  margin: 0 0 var(--space-lg) 0;
   font-weight: 400;
 }
 
 .recommendationText strong {
-  color: #FFD700;
+  color: var(--text-primary);
   font-weight: 600;
 }
 
 .serviceDetails {
   display: flex;
-  gap: 2rem;
+  gap: var(--space-lg);
   align-items: center;
   flex-wrap: wrap;
 }
@@ -97,28 +108,26 @@
 .confidenceIndicator {
   display: flex;
   flex-direction: column;
-  gap: 0.25rem;
+  gap: var(--space-xs);
 }
 
 .priceLabel,
 .confidenceLabel {
-  color: #a0a0a0;
-  font-size: 0.9rem;
+  color: var(--text-secondary);
+  font-size: var(--font-sm);
   font-weight: 500;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
 }
 
 .priceValue {
-  color: #FFD700;
-  font-size: 1.5rem;
+  color: var(--accent);
+  font-size: var(--font-xl);
   font-weight: 700;
-  text-shadow: 0 0 8px rgba(255, 215, 0, 0.3);
 }
 
 .confidenceValue {
-  color: #4CAF50;
-  font-size: 1rem;
+  color: var(--accent);
+  font-size: var(--font-base);
   font-weight: 600;
   text-transform: capitalize;
 }
@@ -220,40 +229,4 @@
   }
 }
 
-/* Animation for profile sections */
-.profileSection {
-  animation: fadeInUp 0.6s ease-out;
-}
 
-.profileSection:nth-child(1) { animation-delay: 0.1s; }
-.profileSection:nth-child(2) { animation-delay: 0.2s; }
-.profileSection:nth-child(3) { animation-delay: 0.3s; }
-.profileSection:nth-child(4) { animation-delay: 0.4s; }
-.recommendationSection { animation-delay: 0.5s; }
-
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* High contrast support */
-@media (prefers-contrast: high) {
-  .profileSection,
-  .recommendationSection {
-    border-width: 2px;
-  }
-
-  .sectionHeader h3 {
-    color: #FFFF00;
-  }
-
-  .priceValue {
-    color: #FFFF00;
-  }
-}

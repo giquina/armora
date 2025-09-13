@@ -223,8 +223,9 @@
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
-  min-height: 56px;
+  min-height: var(--touch-target-lg);
   border: none;
+  touch-action: manipulation;
 }
 
 .primaryButton {

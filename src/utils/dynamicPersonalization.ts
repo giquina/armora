@@ -80,7 +80,7 @@ export const getDynamicExamples = (professionalProfile: string, baseExamples: st
     'athlete': (base) => base.replace('Including', 'Including training sessions, competitions, sponsorship events, team activities'),
     'government': (base) => base.replace('Including', 'Including official duties, government meetings, public events, administrative responsibilities'),
     'diplomat': (base) => base.replace('Including', 'Including diplomatic meetings, embassy functions, international events, official protocols'),
-    'medical': (base) => base.replace('Including', 'Including hospital rounds, medical conferences, patient consultations, emergency calls'),
+    'medical': (base) => base.replace('Including', 'Including hospital rounds, medical conferences, patient consultations, urgent calls'),
     'legal': (base) => base.replace('Including', 'Including court appearances, client meetings, tribunal hearings, chambers visits'),
     'creative': (base) => base.replace('Including', 'Including studio sessions, premieres, creative meetings, performances, exhibitions'),
     'academic': (base) => base.replace('Including', 'Including conferences, university travel, academic events, research activities'),
@@ -143,7 +143,7 @@ export const getDynamicQuestionText = (
       3: (base, name) => name ? `${name}, as a senior executive, which security features are most important for your transport needs?` : "As a senior executive, which security features are most important for your transport needs?",
       4: (base, name) => name ? `${name}, what are your primary business locations for executive transport?` : "What are your primary business locations for executive transport?",
       5: (base, name) => name ? `${name}, are there any additional areas where you conduct executive business?` : "Are there any additional areas where you conduct executive business?",
-      6: (base, name) => name ? `${name}, who should we contact for executive-level emergency coordination?` : "Who should we contact for executive-level emergency coordination?",
+      6: (base, name) => name ? `${name}, who should we contact for executive-level priority coordination?` : "Who should we contact for executive-level priority coordination?",
       7: (base, name) => name ? `${name}, do you have any special requirements for executive transport?` : "Do you have any special requirements for executive transport?",
       8: (base, name) => name ? `${name}, what's your preferred communication method for executive transport coordination?` : "What's your preferred communication method for executive transport coordination?"
     },
@@ -152,7 +152,7 @@ export const getDynamicQuestionText = (
       3: (base, name) => name ? `${name}, which security features are most important for medical professional transport?` : "Which security features are most important for medical professional transport?",
       4: (base, name) => name ? `${name}, what are your primary medical practice locations requiring transport?` : "What are your primary medical practice locations requiring transport?",
       5: (base, name) => name ? `${name}, are there additional medical facilities you visit regularly?` : "Are there additional medical facilities you visit regularly?",
-      6: (base, name) => name ? `${name}, who should we contact for medical emergency coordination?` : "Who should we contact for medical emergency coordination?",
+      6: (base, name) => name ? `${name}, who should we contact for medical priority coordination?` : "Who should we contact for medical priority coordination?",
       7: (base, name) => name ? `${name}, do you have special medical transport requirements?` : "Do you have special medical transport requirements?",
       8: (base, name) => name ? `${name}, how should we communicate with you regarding medical transport?` : "How should we communicate with you regarding medical transport?"
     },
@@ -161,7 +161,7 @@ export const getDynamicQuestionText = (
       3: (base, name) => name ? `${name}, which security features are most important for legal professional transport?` : "Which security features are most important for legal professional transport?",
       4: (base, name) => name ? `${name}, what are your primary legal practice locations?` : "What are your primary legal practice locations?",
       5: (base, name) => name ? `${name}, are there additional courts or legal venues you visit?` : "Are there additional courts or legal venues you visit?",
-      6: (base, name) => name ? `${name}, who should we contact for legal emergency situations?` : "Who should we contact for legal emergency situations?",
+      6: (base, name) => name ? `${name}, who should we contact for legal priority situations?` : "Who should we contact for legal priority situations?",
       7: (base, name) => name ? `${name}, do you have special requirements for legal transport?` : "Do you have special requirements for legal transport?",
       8: (base, name) => name ? `${name}, what's your preferred communication method for legal transport?` : "What's your preferred communication method for legal transport?"
     },
@@ -170,7 +170,7 @@ export const getDynamicQuestionText = (
       3: (base, name) => name ? `${name}, which privacy and security features are most important for your transport?` : "Which privacy and security features are most important for your transport?",
       4: (base, name) => name ? `${name}, what are your primary locations for secure transport needs?` : "What are your primary locations for secure transport needs?",
       5: (base, name) => name ? `${name}, are there additional venues or events you attend regularly?` : "Are there additional venues or events you attend regularly?",
-      6: (base, name) => name ? `${name}, who should handle emergency coordination for your security team?` : "Who should handle emergency coordination for your security team?",
+      6: (base, name) => name ? `${name}, who should handle priority coordination for your security team?` : "Who should handle priority coordination for your security team?",
       7: (base, name) => name ? `${name}, do you have special privacy or security requirements?` : "Do you have special privacy or security requirements?",
       8: (base, name) => name ? `${name}, how should we coordinate with your team regarding transport?` : "How should we coordinate with your team regarding transport?"
     },
@@ -179,7 +179,7 @@ export const getDynamicQuestionText = (
       3: (base, name) => name ? `${name}, which features are most important for your entrepreneurial transport needs?` : "Which features are most important for your entrepreneurial transport needs?",
       4: (base, name) => name ? `${name}, what are your primary business locations and networking venues?` : "What are your primary business locations and networking venues?",
       5: (base, name) => name ? `${name}, are there additional business or investor locations you visit?` : "Are there additional business or investor locations you visit?",
-      6: (base, name) => name ? `${name}, who should we contact for business emergency coordination?` : "Who should we contact for business emergency coordination?",
+      6: (base, name) => name ? `${name}, who should we contact for business priority coordination?` : "Who should we contact for business priority coordination?",
       7: (base, name) => name ? `${name}, do you have special requirements for business transport?` : "Do you have special requirements for business transport?",
       8: (base, name) => name ? `${name}, what's your preferred method for business transport communication?` : "What's your preferred method for business transport communication?"
     },
@@ -188,7 +188,7 @@ export const getDynamicQuestionText = (
       3: (base, name) => name ? `${name}, which features are most important for international visitor transport?` : "Which features are most important for international visitor transport?",
       4: (base, name) => name ? `${name}, what are your primary destinations and accommodation locations?` : "What are your primary destinations and accommodation locations?",
       5: (base, name) => name ? `${name}, are there additional tourist attractions or business venues you'll visit?` : "Are there additional tourist attractions or business venues you'll visit?",
-      6: (base, name) => name ? `${name}, who should we contact for international visitor emergency coordination?` : "Who should we contact for international visitor emergency coordination?",
+      6: (base, name) => name ? `${name}, who should we contact for international visitor priority coordination?` : "Who should we contact for international visitor priority coordination?",
       7: (base, name) => name ? `${name}, do you have special requirements as an international visitor?` : "Do you have special requirements as an international visitor?",
       8: (base, name) => name ? `${name}, how should we communicate with you during your visit?` : "How should we communicate with you during your visit?"
     }
@@ -199,7 +199,7 @@ export const getDynamicQuestionText = (
     if (baseQuestion.includes('Which security features')) return 3;
     if (baseQuestion.includes('Select your primary locations')) return 4;
     if (baseQuestion.includes('additional areas')) return 5;
-    if (baseQuestion.includes('emergency')) return 6;
+    if (baseQuestion.includes('priority')) return 6;
     if (baseQuestion.includes('special requirements')) return 7;
     if (baseQuestion.includes('communication method')) return 8;
     return 2; // Default for frequency questions
