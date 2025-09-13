@@ -1,0 +1,93 @@
+/* ARMORA DATE PICKER COMPONENT STYLES */
+
+.datePicker {
+  position: relative;
+  width: 100%;
+}
+
+.inputWrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  background: var(--bg-card);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius-md);
+  min-height: var(--touch-target);
+  transition: all var(--transition-base);
+}
+
+.inputWrapper:hover {
+  border-color: var(--armora-gold-alpha);
+  background: var(--bg-secondary);
+}
+
+.inputWrapper:focus-within {
+  border-color: var(--armora-gold);
+  box-shadow: 0 0 0 2px rgba(255, 215, 0, 0.2);
+}
+
+.dateInput {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+  border: none;
+  background: transparent;
+  font-size: var(--font-base);
+}
+
+.dateInput:disabled {
+  cursor: not-allowed;
+}
+
+.displayValue {
+  flex: 1;
+  padding: var(--space-sm) var(--space-md);
+  color: var(--text-primary);
+  font-size: var(--font-base);
+  pointer-events: none;
+  user-select: none;
+}
+
+.calendarIcon {
+  padding: var(--space-sm);
+  color: var(--text-secondary);
+  font-size: var(--font-lg);
+  pointer-events: none;
+  user-select: none;
+}
+
+/* States */
+.inputWrapper:has(.dateInput[disabled]) {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.inputWrapper:has(.dateInput[disabled]) .displayValue {
+  color: var(--disabled);
+}
+
+.inputWrapper:has(.dateInput[disabled]) .calendarIcon {
+  color: var(--disabled);
+}
+
+/* Focus styles for accessibility */
+.dateInput:focus {
+  outline: none;
+}
+
+/* Mobile responsive */
+@media (max-width: 480px) {
+  .displayValue {
+    font-size: var(--font-sm);
+    padding: var(--space-xs) var(--space-sm);
+  }
+  
+  .calendarIcon {
+    font-size: var(--font-base);
+    padding: var(--space-xs);
+  }
+}

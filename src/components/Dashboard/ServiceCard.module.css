@@ -268,6 +268,60 @@
   flex-shrink: 0;
 }
 
+/* NEW BUTTON GROUP LAYOUT */
+.buttonGroup {
+  display: flex;
+  gap: var(--space-sm);
+  width: 100%;
+  align-items: center;
+}
+
+.bookNowButton {
+  flex: 1;
+  min-width: 0;
+  max-width: 75%;
+  background: var(--armora-gold) !important;
+  color: var(--armora-dark) !important;
+  font-weight: 600;
+  position: relative;
+  overflow: visible;
+}
+
+.bookNowButton::after {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: var(--radius-md);
+  padding: 1px;
+  background: linear-gradient(45deg, var(--armora-gold), var(--hover-gold));
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: exclude;
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+}
+
+.bookNowButton:hover {
+  background: var(--hover-gold) !important;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(255, 215, 0, 0.4);
+}
+
+.scheduleLaterButton {
+  flex: 0 0 auto;
+  min-width: 70px;
+  max-width: 30%;
+  background: transparent !important;
+  border: 1px solid var(--armora-gold) !important;
+  color: var(--armora-gold) !important;
+  padding: var(--space-xs) var(--space-sm);
+}
+
+.scheduleLaterButton:hover {
+  background: rgba(255, 215, 0, 0.1) !important;
+  border-color: var(--hover-gold) !important;
+  color: var(--hover-gold) !important;
+}
+
 .selectButton {
   width: 100%;
   min-height: var(--touch-target);

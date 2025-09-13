@@ -75,6 +75,9 @@
   --touch-target: 44px;
   --touch-target-lg: 56px;
   
+  /* NAVIGATION BAR HEIGHT */
+  --nav-height: 80px;
+  
   /* TRANSITIONS */
   --transition-fast: 0.15s ease-out;
   --transition-base: 0.25s ease-out;

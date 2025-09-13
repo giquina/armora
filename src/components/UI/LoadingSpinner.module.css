@@ -1,0 +1,85 @@
+/* ARMORA LOADING SPINNER COMPONENT STYLES */
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-sm);
+}
+
+.containerInline {
+  flex-direction: row;
+  gap: var(--space-xs);
+}
+
+.spinner {
+  position: relative;
+  display: inline-block;
+  border-radius: 50%;
+}
+
+/* SIZES */
+.small {
+  width: 16px;
+  height: 16px;
+}
+
+.medium {
+  width: 24px;
+  height: 24px;
+}
+
+.large {
+  width: 32px;
+  height: 32px;
+}
+
+/* RING ANIMATION */
+.ring {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  border-top: 2px solid currentColor;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* VARIANTS */
+.primary {
+  color: var(--armora-gold);
+}
+
+.light {
+  color: var(--armora-light);
+}
+
+.dark {
+  color: var(--armora-dark);
+}
+
+/* TEXT STYLES */
+.text {
+  font-size: var(--font-sm);
+  color: currentColor;
+  text-align: center;
+}
+
+/* INLINE STYLES */
+.inline .text {
+  margin: 0;
+}
+
+/* Loading state accessibility */
+.spinner[aria-hidden="true"] {
+  pointer-events: none;
+}

@@ -1,6 +1,6 @@
 // Armora Security Transport - TypeScript Interfaces
 
-export type ViewState = 'splash' | 'welcome' | 'login' | 'signup' | 'guest-disclaimer' | 'questionnaire' | 'achievement' | 'dashboard' | 'subscription-offer' | 'trial-setup' | 'member-dashboard' | 'booking' | 'profile';
+export type ViewState = 'splash' | 'welcome' | 'login' | 'signup' | 'guest-disclaimer' | 'questionnaire' | 'achievement' | 'dashboard' | 'subscription-offer' | 'trial-setup' | 'member-dashboard' | 'booking' | 'profile' | 'support';
 
 export type UserType = 'registered' | 'google' | 'guest' | null;
 
