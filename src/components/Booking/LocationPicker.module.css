@@ -350,23 +350,367 @@
   }
 }
 
+/* PREMIUM LOCATION SELECTION CONTAINER */
+.locationSelectionContainer {
+  /* Premium container styling */
+  background: var(--bg-card);
+  border: 2px solid var(--armora-gold);
+  border-radius: 20px;
+  padding: 32px 28px;
+  margin: 24px 0;
+
+  /* Premium shadow effect */
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.3),
+    0 0 0 1px rgba(255, 215, 0, 0.1);
+
+  /* Subtle background gradient */
+  background: linear-gradient(
+    135deg,
+    var(--bg-card) 0%,
+    rgba(255, 215, 0, 0.02) 100%
+  );
+
+  /* Entrance animation */
+  animation: slideIn 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.sectionHeader {
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.mainTitle {
+  color: var(--text-primary);
+  font-size: 22px;
+  font-weight: 600;
+  margin-bottom: 8px;
+  line-height: 1.3;
+}
+
+.progressIndicator {
+  color: var(--text-secondary);
+  font-size: 14px;
+  font-weight: 500;
+}
+
+/* Gold accent line under header */
+.sectionHeader::after {
+  content: '';
+  display: block;
+  width: 80px;
+  height: 3px;
+  background: linear-gradient(90deg,
+    var(--armora-gold) 0%,
+    var(--orange-accent) 100%
+  );
+  margin: 16px auto 0;
+  border-radius: 2px;
+}
+
+.locationInputGroup {
+  margin-bottom: 24px;
+  position: relative;
+}
+
+.locationLabel {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+  color: var(--text-primary);
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.locationIcon {
+  color: var(--armora-gold);
+  font-size: 18px;
+}
+
+.locationInputWrapper {
+  position: relative;
+}
+
+.locationInput {
+  width: 100%;
+  background: var(--bg-secondary);
+  border: 2px solid rgba(255, 215, 0, 0.3);
+  border-radius: 12px;
+  padding: 16px 50px 16px 16px;
+  color: var(--text-primary);
+  font-size: 16px;
+  transition: all 0.3s ease;
+}
+
+.locationInput:focus {
+  outline: none;
+  border-color: var(--armora-gold);
+  box-shadow: 0 0 0 3px rgba(255, 215, 0, 0.2);
+}
+
+.locationInput::placeholder {
+  color: var(--text-secondary);
+  font-style: italic;
+}
+
+.locationInput:hover {
+  border-color: var(--hover-gold);
+  box-shadow: 0 2px 8px rgba(255, 215, 0, 0.1);
+}
+
+.locationInput.loading {
+  background: var(--bg-secondary);
+  position: relative;
+}
+
+.locationInput.loading::after {
+  content: '';
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 16px;
+  height: 16px;
+  border: 2px solid var(--armora-gold);
+  border-top-color: transparent;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: translateY(-50%) rotate(360deg);
+  }
+}
+
+.currentLocationButton {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: var(--armora-gold);
+  color: var(--armora-dark);
+  border: none;
+  border-radius: 8px;
+  padding: 8px 12px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.currentLocationButton:hover {
+  background: var(--hover-gold);
+  transform: translateY(-50%) scale(1.05);
+}
+
+.locationSeparator {
+  display: flex;
+  align-items: center;
+  margin: 20px 0;
+  justify-content: center;
+}
+
+.locationSeparator::before,
+.locationSeparator::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 215, 0, 0.3) 50%,
+    transparent 100%
+  );
+  max-width: 100px;
+}
+
+.separatorIcon {
+  margin: 0 16px;
+  color: var(--armora-gold);
+  font-size: 20px;
+}
+
+.journeyPreviewContainer {
+  background: rgba(255, 215, 0, 0.05);
+  border: 1px solid rgba(255, 215, 0, 0.2);
+  border-radius: 12px;
+  padding: 20px;
+  margin-top: 24px;
+
+  /* Hide by default, show when both locations are filled */
+  opacity: 0;
+  max-height: 0;
+  overflow: hidden;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.journeyPreviewContainer.visible {
+  opacity: 1;
+  max-height: 200px;
+}
+
+.journeyTitle {
+  color: var(--text-primary);
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 12px;
+  text-align: center;
+}
+
+.journeyDetails {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+.detailItem {
+  text-align: center;
+}
+
+.detailValue {
+  color: var(--armora-gold);
+  font-size: 18px;
+  font-weight: 700;
+  display: block;
+}
+
+.detailLabel {
+  color: var(--text-secondary);
+  font-size: 12px;
+  text-transform: uppercase;
+  font-weight: 500;
+  margin-top: 4px;
+}
+
+.progressSteps {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.progressStep {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(255, 215, 0, 0.3);
+  transition: all 0.2s ease;
+}
+
+.progressStep.active {
+  background: var(--armora-gold);
+  transform: scale(1.2);
+}
+
+.progressStep.completed {
+  background: var(--success);
+}
+
+.errorIcon {
+  font-size: 16px;
+}
+
+.locationInput.error {
+  border-color: var(--error);
+  box-shadow: 0 0 0 3px rgba(255, 68, 68, 0.2);
+}
+
+/* MOBILE OPTIMIZATION */
+@media (max-width: 768px) {
+  .locationSelectionContainer {
+    margin: 16px 0;
+    padding: 24px 20px;
+    border-radius: 16px;
+
+    /* Mobile bottom sheet effect */
+    position: relative;
+  }
+
+  .locationSelectionContainer::before {
+    content: '';
+    display: block;
+    width: 40px;
+    height: 4px;
+    background: var(--armora-gold);
+    border-radius: 2px;
+    margin: 0 auto 20px;
+  }
+
+  .mainTitle {
+    font-size: 20px;
+  }
+
+  .locationInput {
+    font-size: 16px; /* Prevent iOS zoom */
+    padding: 14px 45px 14px 14px;
+  }
+
+  .currentLocationButton {
+    padding: 6px 10px;
+    font-size: 11px;
+  }
+
+  .journeyDetails {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .detailItem {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .detailValue,
+  .detailLabel {
+    display: inline;
+  }
+}
+
 /* PREVENT HORIZONTAL SCROLLING */
 @media (max-width: 320px) {
   .container {
     padding: 0.75rem;
   }
-  
+
   .selectedService {
     flex-direction: column;
     gap: 1rem;
     text-align: center;
   }
-  
+
   .title {
     font-size: 1.5rem;
   }
-  
+
   .estimate {
     padding: 1rem;
+  }
+
+  .locationSelectionContainer {
+    padding: 16px 12px;
+    margin: 12px 0;
+  }
+
+  .mainTitle {
+    font-size: 18px;
+  }
+
+  .journeyDetails {
+    gap: 8px;
   }
 }

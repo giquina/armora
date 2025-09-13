@@ -11,7 +11,8 @@ import AchievementUnlock from './components/Achievement/AchievementUnlock';
 import AchievementBanner from './components/Achievement/AchievementBanner';
 import { Dashboard } from './components/Dashboard';
 import { SubscriptionOffer } from './components/Subscription/SubscriptionOffer';
-import { VehicleSelection, LocationPicker, BookingConfirmation, BookingSuccess } from './components/Booking';
+import { VehicleSelection, LocationPicker, BookingSuccess } from './components/Booking';
+import { PaymentIntegration } from './components/Booking/PaymentIntegration';
 import { BookingErrorBoundary } from './components/Booking/BookingErrorBoundary';
 import { ServiceLevel, BookingData, LocationData } from './types';
 import './styles/globals.css';
@@ -164,9 +165,9 @@ function BookingFlow() {
           onNavigateBack={handleErrorNavigateBack}
           preservedState={getPreservedState()}
         >
-          <BookingConfirmation
+          <PaymentIntegration
             bookingData={bookingData}
-            onConfirmBooking={handleBookingConfirmed}
+            onBookingComplete={handleBookingConfirmed}
             onBack={handleBackToLocationPicker}
           />
         </BookingErrorBoundary>

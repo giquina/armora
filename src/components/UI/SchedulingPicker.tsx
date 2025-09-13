@@ -95,7 +95,7 @@ export function SchedulingPicker({
       onDateTimeChange(combined);
       console.log('[Analytics] Auto-selected earliest time', { earliest, date: selectedDate.toISOString() });
     }
-  }, [autoSelectEarliestTime, selectedDate, selectedTime]);
+  }, [autoSelectEarliestTime, selectedDate, selectedTime, onDateTimeChange]);
 
   // Combine date and time into ISO string
   const combineDateTime = (date: Date | null, time: string) => {

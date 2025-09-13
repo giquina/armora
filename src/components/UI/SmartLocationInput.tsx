@@ -282,7 +282,7 @@ export function SmartLocationInput({
     }, 200); // Debounce search
 
     return () => clearTimeout(searchTimer);
-  }, [searchQuery, hasFocus, currentLocation, recentLocations]);
+  }, [searchQuery, hasFocus, currentLocation, recentLocations, generateSmartSuggestions, searchLocations]);
 
   // Handle input focus
   const handleFocus = () => {

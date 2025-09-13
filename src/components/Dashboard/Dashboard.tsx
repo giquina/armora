@@ -5,10 +5,11 @@ import { LoadingSpinner } from '../UI/LoadingSpinner';
 import { ServiceCard } from './ServiceCard';
 import { ImpactDashboardWidget } from './ImpactDashboardWidget';
 import { MarketingBanner } from './MarketingBanner';
+import { LocationPlanningSection } from './LocationPlanningSection';
 // import { SchedulingPicker } from '../UI/SchedulingPicker'; // Replaced with new QuickScheduling system
 import { ResponsiveModal } from '../UI/ResponsiveModal';
 import { QuickScheduling } from '../UI/QuickScheduling';
-import { ServiceLevel } from '../../types';
+import { ServiceLevel, LocationSection } from '../../types';
 import { getDisplayName } from '../../utils/nameUtils';
 import styles from './Dashboard.module.css';
 
@@ -75,7 +76,9 @@ export function Dashboard() {
   const [isNavigating, setIsNavigating] = useState(false);
   const [showScheduling, setShowScheduling] = useState(false);
   const [focusedServiceId, setFocusedServiceId] = useState<string | null>(null);
-  const [bookingMode, setBookingMode] = useState<'book-now' | 'schedule' | null>(null);
+  // const [bookingMode, setBookingMode] = useState<'book-now' | 'schedule' | null>(null);
+  const [locationData, setLocationData] = useState<LocationSection | null>(null);
+  const [showLocationFirst, setShowLocationFirst] = useState(true);
 
   // Handle ESC key to close modal
   useEffect(() => {
@@ -121,7 +124,7 @@ export function Dashboard() {
 
     // Enter focused mode
     setFocusedServiceId(serviceId);
-    setBookingMode('schedule');
+    // setBookingMode('schedule');
     setShowScheduling(true);
 
     // Simple analytics placeholder
@@ -135,7 +138,7 @@ export function Dashboard() {
 
     // Enter focused mode
     setFocusedServiceId(serviceId);
-    setBookingMode('book-now');
+    // setBookingMode('book-now');
 
     // Store immediate booking preference and proceed
     localStorage.setItem('armora_booking_immediate', 'true');
@@ -144,7 +147,7 @@ export function Dashboard() {
 
   const handleCancelFocusedMode = () => {
     setFocusedServiceId(null);
-    setBookingMode(null);
+    // setBookingMode(null);
     setShowScheduling(false);
     setScheduledDateTime('');
     console.log('[Analytics] User cancelled focused mode, returning to service selection');
@@ -189,6 +192,43 @@ export function Dashboard() {
   const handleDismissReward = () => {
     setShowRewardBanner(false);
     localStorage.setItem('armora_reward_banner_dismissed', 'true');
+  };
+
+  const handleLocationSet = (location: LocationSection) => {
+    setLocationData(location);
+    setShowLocationFirst(false);
+
+    // Store location data for booking flow
+    localStorage.setItem('armora_location_data', JSON.stringify({
+      pickup: location.pickupLocation.address,
+      destination: location.dropoffLocation.address,
+      estimatedDistance: location.journeyEstimate ? parseFloat(location.journeyEstimate.distance) : 0,
+      estimatedDuration: location.journeyEstimate ? parseEstimatedMinutes(location.journeyEstimate.duration) : 0,
+      coordinates: {
+        pickup: location.pickupLocation.coordinates,
+        dropoff: location.dropoffLocation.coordinates
+      }
+    }));
+
+    // Analytics
+    console.log('[Analytics] Location set', {
+      hasPickup: Boolean(location.pickupLocation.address),
+      hasDropoff: Boolean(location.dropoffLocation.address),
+      usedCurrentLocation: location.pickupLocation.current,
+      hasEstimate: Boolean(location.journeyEstimate),
+      timestamp: Date.now()
+    });
+  };
+
+  const parseEstimatedMinutes = (duration: string): number => {
+    const hourMatch = duration.match(/(\d+)h/);
+    const minuteMatch = duration.match(/(\d+)m/);
+
+    let totalMinutes = 0;
+    if (hourMatch) totalMinutes += parseInt(hourMatch[1]) * 60;
+    if (minuteMatch) totalMinutes += parseInt(minuteMatch[1]);
+
+    return totalMinutes || 30; // Default to 30 minutes if parsing fails
   };
 
   const getPersonalizedRecommendation = () => {
@@ -357,12 +397,36 @@ export function Dashboard() {
         </div>
       )}
 
+      {/* Location Planning Section - NEW LOCATION-FIRST FLOW */}
+      {showLocationFirst && (
+        <LocationPlanningSection
+          onLocationSet={handleLocationSet}
+          isDisabled={isNavigating}
+        />
+      )}
+
       {/* Service Selection */}
       <div className={styles.servicesSection}>
         <div className={styles.sectionHeader}>
           <h2 className={styles.sectionTitle}>
-            {focusedServiceId ? `Booking ${ARMORA_SERVICES.find(s => s.id === focusedServiceId)?.name}` : 'Select Your Security Level'}
+            {focusedServiceId
+              ? `Booking ${ARMORA_SERVICES.find(s => s.id === focusedServiceId)?.name}`
+              : locationData
+                ? `Step 2 of 3: Choose Your Security Level`
+                : 'Select Your Security Level'}
           </h2>
+          {locationData && (
+            <div className={styles.journeyContext}>
+              <span className={styles.journeyRoute}>
+                📍 {locationData.pickupLocation.address} → 🏁 {locationData.dropoffLocation.address}
+              </span>
+              {locationData.journeyEstimate && (
+                <span className={styles.journeyDetails}>
+                  {locationData.journeyEstimate.distance} • {locationData.journeyEstimate.duration}
+                </span>
+              )}
+            </div>
+          )}
           {focusedServiceId && (
             <button
               className={styles.backToServicesButton}

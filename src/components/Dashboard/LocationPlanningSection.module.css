@@ -1,0 +1,257 @@
+/* Location Planning Section Styles */
+.container {
+  margin: 1.5rem 0;
+  padding: 1.5rem;
+  background: var(--color-navy-dark);
+  border: 2px solid var(--color-gold);
+  border-radius: 12px;
+  width: calc(100vw - 36px);
+  max-width: var(--content-max-width);
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.title {
+  color: var(--color-text-light);
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin: 0 0 0.5rem 0;
+  line-height: 1.3;
+}
+
+.subtitle {
+  color: var(--color-gold);
+  font-size: 1rem;
+  margin: 0;
+  font-weight: 500;
+}
+
+.locationForm {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.inputGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--color-text-light);
+  font-weight: 500;
+  font-size: 1rem;
+}
+
+.icon {
+  font-size: 1.2rem;
+}
+
+.inputContainer {
+  position: relative;
+  display: flex;
+}
+
+.input {
+  flex: 1;
+  padding: 0.875rem 3rem 0.875rem 1rem;
+  font-size: 1rem;
+  background: var(--color-card-bg);
+  border: 2px solid var(--color-border);
+  border-radius: 8px;
+  color: var(--color-text-light);
+  transition: all 0.2s ease;
+  min-height: var(--touch-target);
+  box-sizing: border-box;
+}
+
+.input:focus {
+  outline: none;
+  border-color: var(--color-gold);
+  box-shadow: 0 0 0 2px rgba(255, 215, 0, 0.1);
+}
+
+.input::placeholder {
+  color: var(--color-text-muted);
+}
+
+.input:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.inputError {
+  border-color: var(--color-error);
+}
+
+.currentLocationButton {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: var(--color-gold);
+  border: none;
+  border-radius: 6px;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 1rem;
+}
+
+.currentLocationButton:hover:not(:disabled) {
+  background: var(--color-gold-hover);
+  transform: translateY(-50%) scale(1.05);
+}
+
+.currentLocationButton:active:not(:disabled) {
+  transform: translateY(-50%) scale(0.95);
+}
+
+.currentLocationButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.errorMessage {
+  color: var(--color-error);
+  font-size: 0.875rem;
+  margin-top: 0.25rem;
+}
+
+.estimateSection {
+  margin-top: 1rem;
+  padding: 1rem;
+  background: rgba(255, 215, 0, 0.05);
+  border: 1px solid rgba(255, 215, 0, 0.2);
+  border-radius: 8px;
+}
+
+.estimateTitle {
+  color: var(--color-text-light);
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin: 0 0 0.75rem 0;
+}
+
+.calculatingIndicator {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem 0;
+}
+
+.estimateDetails {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.estimateItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.estimateLabel {
+  color: var(--color-text-muted);
+  font-size: 0.9rem;
+}
+
+.estimateValue {
+  color: var(--color-text-light);
+  font-weight: 500;
+}
+
+.estimatePrice {
+  color: var(--color-gold);
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+
+.estimateNote {
+  color: var(--color-text-muted);
+  font-size: 0.8rem;
+  text-align: center;
+  margin-top: 0.5rem;
+  font-style: italic;
+}
+
+/* Mobile Optimizations */
+@media (max-width: 768px) {
+  .container {
+    width: calc(100vw - 36px);
+    margin: 1rem 0;
+    padding: 1.25rem;
+  }
+
+  .title {
+    font-size: 1.4rem;
+  }
+
+  .subtitle {
+    font-size: 0.95rem;
+  }
+
+  .input {
+    font-size: 1rem;
+    padding: 1rem 3.5rem 1rem 1rem;
+  }
+
+  .currentLocationButton {
+    width: 44px;
+    height: 44px;
+    font-size: 1.1rem;
+  }
+
+  .estimateItem {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.25rem;
+  }
+
+  .estimateValue,
+  .estimatePrice {
+    align-self: flex-end;
+  }
+}
+
+/* Small mobile devices */
+@media (max-width: 480px) {
+  .container {
+    width: calc(100vw - 24px);
+    margin: 0.75rem auto;
+    padding: 1rem;
+  }
+
+  .title {
+    font-size: 1.3rem;
+  }
+
+  .locationForm {
+    gap: 1rem;
+  }
+}
+
+/* High DPI displays */
+@media (-webkit-min-device-pixel-ratio: 2) {
+  .input {
+    border-width: 1px;
+  }
+
+  .input:focus {
+    border-width: 2px;
+  }
+}

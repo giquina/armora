@@ -229,6 +229,23 @@ export interface LocationData {
   isScheduled?: boolean;
 }
 
+export interface LocationSection {
+  pickupLocation: {
+    current: boolean;
+    address: string;
+    coordinates?: [number, number];
+  };
+  dropoffLocation: {
+    address: string;
+    coordinates?: [number, number];
+  };
+  journeyEstimate?: {
+    distance: string;
+    duration: string;
+    basePrice: number;
+  };
+}
+
 export interface BookingData {
   service: ServiceLevel;
   pickup: string;
@@ -252,6 +269,102 @@ export interface BookingRecord {
   additionalRequirements?: string;
   createdAt: Date;
   status: 'confirmed' | 'in-progress' | 'completed' | 'cancelled';
+  paymentIntentId?: string;
+  paymentStatus?: PaymentStatus;
+}
+
+// Payment System Types
+export type PaymentMethodType = 'card' | 'apple_pay' | 'google_pay' | 'paypal' | 'bank_transfer';
+export type PaymentStatus = 'pending' | 'processing' | 'succeeded' | 'failed' | 'cancelled' | 'requires_action' | 'requires_payment_method';
+
+export interface PaymentFlow {
+  bookingDetails: BookingData;
+  paymentMethod: PaymentMethodType;
+  amount: number;
+  currency: 'GBP';
+  description: string;
+  metadata: {
+    serviceType: string;
+    route: string;
+    scheduledTime?: string;
+    corporateBooking?: boolean;
+    vatNumber?: string;
+  };
+}
+
+export interface SavedPaymentMethod {
+  id: string;
+  type: PaymentMethodType;
+  last4?: string;
+  brand?: string;
+  expiryMonth?: number;
+  expiryYear?: number;
+  isDefault: boolean;
+  nickname?: string;
+}
+
+export interface PaymentIntent {
+  id: string;
+  amount: number;
+  currency: string;
+  status: PaymentStatus;
+  clientSecret?: string;
+  paymentMethod?: SavedPaymentMethod;
+  lastPaymentError?: PaymentError;
+}
+
+export interface PaymentError {
+  code: string;
+  message: string;
+  type: 'card_error' | 'network_error' | 'validation_error' | 'fraud_error';
+  suggestedAction?: string;
+  retryable: boolean;
+}
+
+export interface ExpressPayment {
+  applePay: boolean;
+  googlePay: boolean;
+  payPal: boolean;
+  savedCards: SavedPaymentMethod[];
+}
+
+export interface PriceBreakdown {
+  basePrice: number;
+  vatRate: number;
+  vatAmount: number;
+  discountAmount?: number;
+  totalPrice: number;
+  currency: 'GBP';
+  description: string;
+}
+
+export interface CorporateAccount {
+  id: string;
+  companyName: string;
+  vatNumber?: string;
+  billingAddress: Address;
+  paymentTerms: 'immediate' | 'net_7' | 'net_15' | 'net_30';
+  creditLimit?: number;
+  users: CorporateUser[];
+  defaultPaymentMethod?: SavedPaymentMethod;
+}
+
+export interface CorporateUser {
+  id: string;
+  email: string;
+  name: string;
+  role: 'admin' | 'booker' | 'approver';
+  bookingLimit?: number;
+  approvalRequired: boolean;
+}
+
+export interface Address {
+  line1: string;
+  line2?: string;
+  city: string;
+  county?: string;
+  postcode: string;
+  country: string;
 }
 
 // Subscription System Types

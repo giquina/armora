@@ -231,7 +231,10 @@ export function WelcomePage() {
             >
               <span className={styles.buttonContent}>
                 <GoogleIcon className={styles.authIcon} size={20} />
-                Join 1,247 Members - Continue with Google
+                <span className={styles.buttonText}>
+                  <span className={styles.desktopText}>Join 1,247 Members - Continue with Google</span>
+                  <span className={styles.mobileText}>Join 1,247 Members</span>
+                </span>
               </span>
             </Button>
             
@@ -248,7 +251,10 @@ export function WelcomePage() {
                     <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
                     <polyline points="22,6 12,13 2,6"/>
                   </svg>
-                  Continue with Email
+                  <span className={styles.buttonText}>
+                    <span className={styles.desktopText}>Continue with Email</span>
+                    <span className={styles.mobileText}>Email</span>
+                  </span>
                 </span>
               </Button>
 
@@ -262,7 +268,10 @@ export function WelcomePage() {
                   <svg className={styles.authIcon} viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor">
                     <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
                   </svg>
-                  Continue with Phone
+                  <span className={styles.buttonText}>
+                    <span className={styles.desktopText}>Continue with Phone</span>
+                    <span className={styles.mobileText}>Phone</span>
+                  </span>
                 </span>
               </Button>
             </div>
@@ -281,7 +290,10 @@ export function WelcomePage() {
               className={styles.guestButton}
             >
               <span className={styles.guestButtonContent}>
-                <span>Continue as Guest</span>
+                <span className={styles.buttonText}>
+                  <span className={styles.desktopText}>Continue as Guest</span>
+                  <span className={styles.mobileText}>Guest</span>
+                </span>
                 <span className={styles.guestNote}>(Limited features)</span>
               </span>
             </Button>

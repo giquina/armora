@@ -1,0 +1,561 @@
+/* Payment Integration Styles */
+.container {
+  max-width: var(--content-max-width);
+  margin: 0 auto;
+  padding: 1.5rem;
+  min-height: 100vh;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.title {
+  color: var(--color-text-light);
+  font-size: 1.75rem;
+  font-weight: 600;
+  margin: 0 0 0.5rem 0;
+  line-height: 1.3;
+}
+
+.subtitle {
+  color: var(--color-text-muted);
+  font-size: 1rem;
+  margin: 0;
+  font-weight: 400;
+}
+
+/* Summary Card */
+.summaryCard {
+  background: var(--color-navy-dark);
+  border: 2px solid var(--color-gold);
+  border-radius: 16px;
+  padding: 2rem;
+  margin-bottom: 2rem;
+}
+
+.serviceHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid rgba(255, 215, 0, 0.2);
+}
+
+.serviceName {
+  color: var(--color-text-light);
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin: 0;
+  flex: 1;
+}
+
+.servicePrice {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.price {
+  color: var(--color-gold);
+  font-size: 1.75rem;
+  font-weight: 700;
+}
+
+.discountedPrice {
+  color: var(--color-gold);
+  font-size: 1.75rem;
+  font-weight: 700;
+}
+
+.originalPrice {
+  color: var(--color-text-muted);
+  font-size: 1.25rem;
+  text-decoration: line-through;
+}
+
+.rewardBadge {
+  background: #00ff88;
+  color: var(--color-navy-dark);
+  font-size: 0.8rem;
+  font-weight: 700;
+  padding: 0.25rem 0.5rem;
+  border-radius: 6px;
+  white-space: nowrap;
+}
+
+/* Journey Details */
+.journeyDetails {
+  display: grid;
+  gap: 2rem;
+}
+
+.routeInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.routePoint {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.routeIcon {
+  font-size: 1.5rem;
+  flex-shrink: 0;
+  margin-top: 0.25rem;
+}
+
+.routeText {
+  flex: 1;
+}
+
+.routeLabel {
+  color: var(--color-text-muted);
+  font-size: 0.9rem;
+  font-weight: 500;
+  margin-bottom: 0.25rem;
+}
+
+.routeAddress {
+  color: var(--color-text-light);
+  font-size: 1.1rem;
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+.routeLine {
+  width: 2px;
+  height: 2rem;
+  background: linear-gradient(to bottom, var(--color-gold), rgba(255, 215, 0, 0.3));
+  margin-left: 1.75rem;
+  margin-top: -0.5rem;
+  margin-bottom: -0.5rem;
+}
+
+.tripMeta {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 1rem;
+  padding: 1rem;
+  background: rgba(255, 215, 0, 0.05);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 215, 0, 0.2);
+}
+
+.metaItem {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.metaLabel {
+  color: var(--color-text-muted);
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.metaValue {
+  color: var(--color-text-light);
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+/* Form Sections */
+.requirementsSection,
+.corporateSection,
+.termsSection {
+  margin-bottom: 1.5rem;
+}
+
+.sectionTitle {
+  color: var(--color-text-light);
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin: 0 0 1rem 0;
+}
+
+.requirementsTextarea {
+  width: 100%;
+  padding: 1rem;
+  font-size: 1rem;
+  background: var(--color-card-bg);
+  border: 2px solid var(--color-border);
+  border-radius: 12px;
+  color: var(--color-text-light);
+  font-family: inherit;
+  resize: vertical;
+  min-height: 80px;
+  transition: border-color 0.2s ease;
+  box-sizing: border-box;
+}
+
+.requirementsTextarea:focus {
+  outline: none;
+  border-color: var(--color-gold);
+  box-shadow: 0 0 0 2px rgba(255, 215, 0, 0.1);
+}
+
+.requirementsTextarea::placeholder {
+  color: var(--color-text-muted);
+}
+
+/* Checkbox Elements */
+.checkboxLabel {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  cursor: pointer;
+  line-height: 1.5;
+}
+
+.checkbox {
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border: 2px solid var(--color-border);
+  border-radius: 6px;
+  position: relative;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin-top: 0.15rem;
+  flex-shrink: 0;
+}
+
+.checkbox:checked {
+  border-color: var(--color-gold);
+  background: var(--color-gold);
+}
+
+.checkbox:checked::after {
+  content: '✓';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  color: var(--color-navy-dark);
+  font-size: 14px;
+  font-weight: bold;
+  transform: translate(-50%, -50%);
+}
+
+.checkboxText {
+  color: var(--color-text-light);
+  font-weight: 400;
+  flex: 1;
+}
+
+.link {
+  color: var(--color-gold);
+  text-decoration: underline;
+  transition: color 0.2s ease;
+}
+
+.link:hover {
+  color: var(--color-gold-hover);
+}
+
+/* Action Buttons */
+.actions {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  margin-top: 2rem;
+}
+
+.backButton {
+  flex-shrink: 0;
+  min-width: 120px;
+}
+
+.nextButton {
+  flex: 1;
+  min-height: 52px;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+/* Processing State */
+.processingContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 60vh;
+  text-align: center;
+  gap: 2rem;
+}
+
+.processingText {
+  color: var(--color-text-muted);
+  font-size: 1.1rem;
+  line-height: 1.5;
+  max-width: 400px;
+}
+
+/* Error State */
+.errorContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 60vh;
+  text-align: center;
+  gap: 1.5rem;
+  padding: 2rem;
+}
+
+.errorIcon {
+  font-size: 4rem;
+  margin-bottom: 1rem;
+}
+
+.errorTitle {
+  color: #ff6b6b;
+  font-size: 2rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+.errorMessage {
+  color: var(--color-text-light);
+  font-size: 1.1rem;
+  line-height: 1.5;
+  margin: 0;
+  max-width: 500px;
+}
+
+.errorSuggestion {
+  color: var(--color-text-muted);
+  font-size: 1rem;
+  line-height: 1.4;
+  margin: 0;
+  max-width: 450px;
+}
+
+.errorActions {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: 2rem;
+  min-width: 300px;
+}
+
+.retryButton {
+  min-height: 48px;
+}
+
+.cancelButton {
+  min-height: 48px;
+}
+
+/* Mobile Optimizations */
+@media (max-width: 768px) {
+  .container {
+    padding: 1rem;
+  }
+
+  .title {
+    font-size: 1.5rem;
+  }
+
+  .summaryCard {
+    padding: 1.5rem;
+  }
+
+  .serviceHeader {
+    flex-direction: column;
+    gap: 1rem;
+    align-items: flex-start;
+  }
+
+  .servicePrice {
+    width: 100%;
+    justify-content: flex-start;
+  }
+
+  .tripMeta {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
+
+  .metaItem {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .actions {
+    flex-direction: column-reverse;
+  }
+
+  .backButton,
+  .nextButton {
+    width: 100%;
+  }
+
+  .errorActions {
+    width: 100%;
+  }
+}
+
+/* Small mobile devices */
+@media (max-width: 480px) {
+  .container {
+    padding: 0.75rem;
+  }
+
+  .title {
+    font-size: 1.4rem;
+  }
+
+  .summaryCard {
+    padding: 1.25rem;
+  }
+
+  .serviceName {
+    font-size: 1.3rem;
+  }
+
+  .price,
+  .discountedPrice {
+    font-size: 1.5rem;
+  }
+
+  .originalPrice {
+    font-size: 1.1rem;
+  }
+
+  .routePoint {
+    gap: 0.75rem;
+  }
+
+  .routeIcon {
+    font-size: 1.25rem;
+  }
+
+  .routeLine {
+    margin-left: 1.5rem;
+  }
+
+  .requirementsTextarea {
+    padding: 0.875rem;
+  }
+
+  .processingContainer {
+    min-height: 50vh;
+  }
+
+  .errorContainer {
+    min-height: 50vh;
+    padding: 1.5rem;
+  }
+
+  .errorIcon {
+    font-size: 3rem;
+  }
+
+  .errorTitle {
+    font-size: 1.75rem;
+  }
+}
+
+/* High DPI displays */
+@media (-webkit-min-device-pixel-ratio: 2) {
+  .summaryCard {
+    border-width: 1px;
+  }
+
+  .requirementsTextarea,
+  .checkbox {
+    border-width: 1px;
+  }
+
+  .requirementsTextarea:focus,
+  .checkbox:checked {
+    border-width: 2px;
+  }
+}
+
+/* Focus states for accessibility */
+.checkboxLabel:focus-within {
+  outline: 2px solid var(--color-gold);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+.link:focus-visible {
+  outline: 2px solid var(--color-gold);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+/* Loading states */
+.container[data-loading="true"] {
+  opacity: 0.7;
+  pointer-events: none;
+}
+
+/* Animations */
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.summaryCard,
+.requirementsSection,
+.corporateSection,
+.termsSection {
+  animation: slideIn 0.4s ease-out;
+}
+
+.summaryCard {
+  animation-delay: 0.1s;
+}
+
+.requirementsSection {
+  animation-delay: 0.2s;
+}
+
+.corporateSection {
+  animation-delay: 0.3s;
+}
+
+.termsSection {
+  animation-delay: 0.4s;
+}
+
+.actions {
+  animation: slideIn 0.4s ease-out 0.5s both;
+}
+
+/* Hover effects */
+.summaryCard:hover {
+  border-color: rgba(255, 215, 0, 0.8);
+  transition: border-color 0.3s ease;
+}
+
+.checkboxLabel:hover .checkboxText {
+  color: var(--color-text-light);
+  transition: color 0.2s ease;
+}
+
+/* Success state preparation */
+.container[data-step="success"] {
+  background: linear-gradient(135deg, rgba(0, 255, 136, 0.02), rgba(255, 215, 0, 0.02));
+}
+
+/* Error state styling */
+.container[data-step="error"] {
+  background: linear-gradient(135deg, rgba(255, 68, 68, 0.02), rgba(255, 215, 0, 0.02));
+}

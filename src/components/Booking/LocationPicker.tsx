@@ -151,40 +151,101 @@ export function LocationPicker({ selectedService, onLocationConfirmed, onBack, u
       </div>
 
       <div className={styles.locationForm}>
-        <div className={styles.inputGroup}>
-          <label htmlFor="pickup" className={styles.label}>
-            <span className={styles.icon}>📍</span>
-            Pickup Location
-          </label>
-          <input
-            id="pickup"
-            type="text"
-            value={pickup}
-            onChange={(e) => setPickup(e.target.value)}
-            placeholder="Enter pickup address or location"
-            className={`${styles.input} ${errors.pickup ? styles.inputError : ''}`}
-          />
-          {errors.pickup && (
-            <div className={styles.errorMessage}>{errors.pickup}</div>
-          )}
-        </div>
+        {/* Premium Location Selection Container */}
+        <div className={styles.locationSelectionContainer}>
+          <div className={styles.sectionHeader}>
+            <h2 className={styles.mainTitle}>Where would you like to go?</h2>
+            <p className={styles.progressIndicator}>Step 2 of 4 • Location Details</p>
+          </div>
 
-        <div className={styles.inputGroup}>
-          <label htmlFor="destination" className={styles.label}>
-            <span className={styles.icon}>🏁</span>
-            Destination
-          </label>
-          <input
-            id="destination"
-            type="text"
-            value={destination}
-            onChange={(e) => setDestination(e.target.value)}
-            placeholder="Enter destination address"
-            className={`${styles.input} ${errors.destination ? styles.inputError : ''}`}
-          />
-          {errors.destination && (
-            <div className={styles.errorMessage}>{errors.destination}</div>
+          <div className={styles.locationInputGroup}>
+            <label htmlFor="pickup" className={styles.locationLabel}>
+              <span className={styles.locationIcon}>📍</span>
+              Pickup Location
+            </label>
+            <div className={styles.locationInputWrapper}>
+              <input
+                id="pickup"
+                type="text"
+                value={pickup}
+                onChange={(e) => setPickup(e.target.value)}
+                placeholder="Enter pickup address or use current location"
+                className={`${styles.locationInput} ${errors.pickup ? styles.inputError : ''}`}
+              />
+              <button
+                type="button"
+                className={styles.currentLocationButton}
+                onClick={() => {
+                  // Add current location functionality
+                  setPickup("Current Location");
+                }}
+                aria-label="Use current location"
+              >
+                📍 Current
+              </button>
+            </div>
+            {errors.pickup && (
+              <div className={styles.errorMessage}>
+                <span className={styles.errorIcon}>⚠️</span>
+                {errors.pickup}
+              </div>
+            )}
+          </div>
+
+          <div className={styles.locationSeparator}>
+            <span className={styles.separatorIcon}>🗺️</span>
+          </div>
+
+          <div className={styles.locationInputGroup}>
+            <label htmlFor="destination" className={styles.locationLabel}>
+              <span className={styles.locationIcon}>🏁</span>
+              Destination
+            </label>
+            <div className={styles.locationInputWrapper}>
+              <input
+                id="destination"
+                type="text"
+                value={destination}
+                onChange={(e) => setDestination(e.target.value)}
+                placeholder="Enter destination address"
+                className={`${styles.locationInput} ${errors.destination ? styles.inputError : ''}`}
+              />
+            </div>
+            {errors.destination && (
+              <div className={styles.errorMessage}>
+                <span className={styles.errorIcon}>⚠️</span>
+                {errors.destination}
+              </div>
+            )}
+          </div>
+
+          {/* Journey Preview Integration */}
+          {pickup && destination && !isCalculatingRoute && estimatedDistance > 0 && (
+            <div className={`${styles.journeyPreviewContainer} ${styles.visible}`}>
+              <h3 className={styles.journeyTitle}>Journey Preview</h3>
+              <div className={styles.journeyDetails}>
+                <div className={styles.detailItem}>
+                  <span className={styles.detailValue}>{estimatedDistance}</span>
+                  <span className={styles.detailLabel}>MILES</span>
+                </div>
+                <div className={styles.detailItem}>
+                  <span className={styles.detailValue}>{formatDuration(estimatedDuration)}</span>
+                  <span className={styles.detailLabel}>DURATION</span>
+                </div>
+                <div className={styles.detailItem}>
+                  <span className={styles.detailValue}>£{calculateCost()}</span>
+                  <span className={styles.detailLabel}>ESTIMATE</span>
+                </div>
+              </div>
+            </div>
           )}
+
+          {/* Progress Steps */}
+          <div className={styles.progressSteps}>
+            <div className={`${styles.progressStep} ${pickup ? styles.completed : styles.active}`}></div>
+            <div className={`${styles.progressStep} ${destination ? styles.completed : pickup ? styles.active : ''}`}></div>
+            <div className={`${styles.progressStep} ${pickup && destination && estimatedDistance > 0 ? styles.active : ''}`}></div>
+          </div>
         </div>
 
         {/* Route Calculation and Estimate */}

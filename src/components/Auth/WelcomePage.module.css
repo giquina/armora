@@ -869,6 +869,52 @@
   width: 100%;
 }
 
+/* RESPONSIVE BUTTON TEXT */
+.buttonText {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.desktopText {
+  display: block;
+}
+
+.mobileText {
+  display: none;
+}
+
+/* Show mobile text on smaller screens */
+@media (max-width: 480px) {
+  .desktopText {
+    display: none;
+  }
+
+  .mobileText {
+    display: block;
+  }
+}
+
+/* Even more aggressive on very small screens */
+@media (max-width: 375px) {
+  .desktopText {
+    display: none;
+  }
+
+  .mobileText {
+    display: block;
+    font-size: clamp(0.9rem, 3.2vw, 1rem) !important;
+  }
+}
+
+/* Ultra-small screens - keep mobile text but smaller */
+@media (max-width: 320px) {
+  .mobileText {
+    font-size: clamp(0.85rem, 3vw, 0.95rem) !important;
+  }
+}
+
 .authIcon {
   flex-shrink: 0;
   width: clamp(18px, 4vw, 20px);

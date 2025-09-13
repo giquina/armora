@@ -1,0 +1,501 @@
+/* Payment Success Styles */
+.container {
+  max-width: var(--content-max-width);
+  margin: 0 auto;
+  padding: 2rem 1rem;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Success Animation */
+.successAnimation {
+  margin-bottom: 2rem;
+}
+
+.checkmark {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: var(--color-gold);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3rem;
+  font-weight: bold;
+  color: var(--color-navy-dark);
+  animation: successPulse 0.8s ease-out;
+  box-shadow: 0 0 30px rgba(255, 215, 0, 0.3);
+}
+
+@keyframes successPulse {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* Header */
+.header {
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+
+.title {
+  color: var(--color-text-light);
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin: 1rem 0 0.5rem 0;
+  line-height: 1.2;
+}
+
+.subtitle {
+  color: var(--color-gold);
+  font-size: 1.2rem;
+  margin: 0;
+  font-weight: 500;
+}
+
+/* Booking Details Card */
+.bookingCard {
+  background: var(--color-navy-dark);
+  border: 2px solid var(--color-gold);
+  border-radius: 16px;
+  padding: 2rem;
+  margin-bottom: 2rem;
+  width: 100%;
+  max-width: 600px;
+}
+
+.cardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid rgba(255, 215, 0, 0.2);
+}
+
+.bookingInfo {
+  flex: 1;
+}
+
+.bookingTitle {
+  color: var(--color-text-light);
+  font-size: 1.4rem;
+  font-weight: 600;
+  margin: 0 0 0.5rem 0;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.bookingId {
+  color: var(--color-text-muted);
+  font-size: 0.9rem;
+  font-family: 'Monaco', 'Menlo', monospace;
+  letter-spacing: 0.05em;
+}
+
+.paymentAmount {
+  color: var(--color-gold);
+  font-size: 2rem;
+  font-weight: 700;
+  text-align: right;
+}
+
+/* Journey Details */
+.journeyDetails {
+  display: grid;
+  gap: 2rem;
+}
+
+.journeyRoute {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.routePoint {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.routeIcon {
+  font-size: 1.5rem;
+  flex-shrink: 0;
+  margin-top: 0.25rem;
+}
+
+.routeInfo {
+  flex: 1;
+}
+
+.routeLabel {
+  color: var(--color-text-muted);
+  font-size: 0.9rem;
+  font-weight: 500;
+  margin-bottom: 0.25rem;
+}
+
+.routeAddress {
+  color: var(--color-text-light);
+  font-size: 1.1rem;
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+.routeLine {
+  width: 2px;
+  height: 2rem;
+  background: linear-gradient(to bottom, var(--color-gold), rgba(255, 215, 0, 0.3));
+  margin-left: 1.75rem;
+  margin-top: -0.5rem;
+  margin-bottom: -0.5rem;
+}
+
+.journeyMeta {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 1rem;
+  padding: 1rem;
+  background: rgba(255, 215, 0, 0.05);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 215, 0, 0.2);
+}
+
+.metaItem {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.metaLabel {
+  color: var(--color-text-muted);
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.metaValue {
+  color: var(--color-text-light);
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+/* Status Updates */
+.statusCard {
+  background: var(--color-card-bg);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  width: 100%;
+  max-width: 600px;
+}
+
+.statusTitle {
+  color: var(--color-text-light);
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin: 0 0 1.5rem 0;
+  text-align: center;
+}
+
+.statusList {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.statusItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.statusIcon {
+  font-size: 1.5rem;
+  flex-shrink: 0;
+  margin-top: 0.25rem;
+}
+
+.statusText {
+  flex: 1;
+}
+
+.statusStep {
+  color: var(--color-text-light);
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+}
+
+.statusDesc {
+  color: var(--color-text-muted);
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+
+/* Emergency Contact */
+.emergencyCard {
+  background: rgba(255, 68, 68, 0.05);
+  border: 1px solid rgba(255, 68, 68, 0.2);
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  width: 100%;
+  max-width: 600px;
+}
+
+.emergencyTitle {
+  color: #ff6b6b;
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin: 0 0 1rem 0;
+  text-align: center;
+}
+
+.emergencyContact {
+  display: grid;
+  gap: 1rem;
+}
+
+.contactMethod {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.75rem;
+  background: rgba(255, 215, 0, 0.05);
+  border-radius: 8px;
+}
+
+.contactIcon {
+  font-size: 1.25rem;
+  flex-shrink: 0;
+}
+
+.contactInfo {
+  flex: 1;
+}
+
+.contactLabel {
+  color: var(--color-text-muted);
+  font-size: 0.85rem;
+  font-weight: 500;
+  margin-bottom: 0.25rem;
+}
+
+.contactValue {
+  color: var(--color-text-light);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.contactValue:hover {
+  color: var(--color-gold);
+}
+
+/* Action Buttons */
+.actions {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 100%;
+  max-width: 400px;
+  margin-bottom: 2rem;
+}
+
+.receiptButton {
+  min-height: 48px;
+}
+
+.continueButton {
+  min-height: 52px;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+/* Footer */
+.footer {
+  text-align: center;
+  margin-top: auto;
+  padding-top: 2rem;
+}
+
+.paymentSecure {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.secureIcon {
+  font-size: 1rem;
+}
+
+.secureText {
+  color: var(--color-text-muted);
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.confirmationNote {
+  color: var(--color-text-muted);
+  font-size: 0.9rem;
+  line-height: 1.4;
+  max-width: 400px;
+}
+
+/* Mobile Optimizations */
+@media (max-width: 768px) {
+  .container {
+    padding: 1.5rem 1rem;
+  }
+
+  .title {
+    font-size: 2rem;
+  }
+
+  .subtitle {
+    font-size: 1.1rem;
+  }
+
+  .bookingCard {
+    padding: 1.5rem;
+  }
+
+  .cardHeader {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .paymentAmount {
+    font-size: 1.75rem;
+    text-align: left;
+  }
+
+  .journeyMeta {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
+
+  .metaItem {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .statusCard,
+  .emergencyCard {
+    padding: 1.25rem;
+  }
+
+  .emergencyContact {
+    gap: 0.75rem;
+  }
+}
+
+/* Small mobile devices */
+@media (max-width: 480px) {
+  .container {
+    padding: 1rem 0.75rem;
+  }
+
+  .title {
+    font-size: 1.75rem;
+  }
+
+  .checkmark {
+    width: 60px;
+    height: 60px;
+    font-size: 2rem;
+  }
+
+  .bookingCard {
+    padding: 1.25rem;
+  }
+
+  .bookingTitle {
+    font-size: 1.2rem;
+  }
+
+  .paymentAmount {
+    font-size: 1.5rem;
+  }
+
+  .routePoint {
+    gap: 0.75rem;
+  }
+
+  .routeIcon {
+    font-size: 1.25rem;
+  }
+
+  .routeLine {
+    margin-left: 1.5rem;
+  }
+}
+
+/* Animation delays for staggered entrance */
+.bookingCard {
+  animation: slideInUp 0.6s ease-out 0.2s both;
+}
+
+.statusCard {
+  animation: slideInUp 0.6s ease-out 0.4s both;
+}
+
+.emergencyCard {
+  animation: slideInUp 0.6s ease-out 0.6s both;
+}
+
+.actions {
+  animation: slideInUp 0.6s ease-out 0.8s both;
+}
+
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Focus states for accessibility */
+.contactValue:focus-visible {
+  outline: 2px solid var(--color-gold);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Hover effects */
+.contactMethod:hover {
+  background: rgba(255, 215, 0, 0.08);
+  transition: background 0.2s ease;
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .bookingCard,
+  .statusCard,
+  .emergencyCard {
+    border-width: 3px;
+  }
+
+  .checkmark {
+    border: 3px solid var(--color-navy-dark);
+  }
+}

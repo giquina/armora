@@ -1,0 +1,523 @@
+/* Corporate Billing Styles */
+.container {
+  background: var(--color-navy-dark);
+  border: 2px solid var(--color-gold);
+  border-radius: 16px;
+  padding: 2rem;
+  margin: 1.5rem 0;
+  width: calc(100vw - 36px);
+  max-width: var(--content-max-width);
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.title {
+  color: var(--color-text-light);
+  font-size: 1.75rem;
+  font-weight: 600;
+  margin: 0 0 0.5rem 0;
+  line-height: 1.3;
+}
+
+.subtitle {
+  color: var(--color-text-muted);
+  font-size: 1rem;
+  margin: 0;
+  font-weight: 400;
+}
+
+/* Section Styling */
+.section {
+  margin-bottom: 2rem;
+  padding: 1.5rem;
+  background: rgba(255, 215, 0, 0.02);
+  border: 1px solid rgba(255, 215, 0, 0.1);
+  border-radius: 12px;
+}
+
+.sectionTitle {
+  color: var(--color-text-light);
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin: 0 0 1.5rem 0;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid rgba(255, 215, 0, 0.2);
+}
+
+/* Form Elements */
+.inputGroup {
+  margin-bottom: 1.25rem;
+}
+
+.label {
+  display: block;
+  color: var(--color-text-light);
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+  font-size: 0.95rem;
+}
+
+.input {
+  width: 100%;
+  padding: 0.875rem 1rem;
+  font-size: 1rem;
+  background: var(--color-card-bg);
+  border: 2px solid var(--color-border);
+  border-radius: 8px;
+  color: var(--color-text-light);
+  transition: all 0.2s ease;
+  min-height: var(--touch-target);
+  box-sizing: border-box;
+}
+
+.input:focus {
+  outline: none;
+  border-color: var(--color-gold);
+  box-shadow: 0 0 0 2px rgba(255, 215, 0, 0.1);
+}
+
+.input::placeholder {
+  color: var(--color-text-muted);
+}
+
+.inputError {
+  border-color: var(--color-error);
+}
+
+.inputValid {
+  border-color: #00ff88;
+}
+
+.select {
+  width: 100%;
+  padding: 0.875rem 1rem;
+  font-size: 1rem;
+  background: var(--color-card-bg);
+  border: 2px solid var(--color-border);
+  border-radius: 8px;
+  color: var(--color-text-light);
+  transition: all 0.2s ease;
+  min-height: var(--touch-target);
+  cursor: pointer;
+}
+
+.select:focus {
+  outline: none;
+  border-color: var(--color-gold);
+  box-shadow: 0 0 0 2px rgba(255, 215, 0, 0.1);
+}
+
+.errorMessage {
+  color: var(--color-error);
+  font-size: 0.85rem;
+  margin-top: 0.25rem;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.helpText {
+  color: var(--color-text-muted);
+  font-size: 0.85rem;
+  margin-top: 0.25rem;
+  line-height: 1.4;
+}
+
+.validIcon {
+  color: #00ff88;
+  font-weight: bold;
+  margin-left: 0.5rem;
+}
+
+/* Address Grid */
+.addressGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+@media (min-width: 768px) {
+  .addressGrid {
+    grid-template-columns: 2fr 1fr;
+  }
+
+  .addressGrid .inputGroup:nth-child(1),
+  .addressGrid .inputGroup:nth-child(2) {
+    grid-column: 1 / -1;
+  }
+
+  .addressGrid .inputGroup:nth-child(2) {
+    grid-column: 1 / -1;
+  }
+}
+
+/* Payment Terms */
+.paymentTermsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.radioLabel {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem;
+  background: var(--color-card-bg);
+  border: 2px solid var(--color-border);
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  min-height: var(--touch-target);
+}
+
+.radioLabel:hover {
+  border-color: rgba(255, 215, 0, 0.5);
+}
+
+.radioLabel:has(.radio:checked) {
+  border-color: var(--color-gold);
+  background: rgba(255, 215, 0, 0.05);
+}
+
+.radio {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--color-gold);
+  cursor: pointer;
+}
+
+.radioText {
+  color: var(--color-text-light);
+  font-weight: 500;
+  font-size: 0.95rem;
+}
+
+.inputRow {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+@media (min-width: 768px) {
+  .inputRow {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+/* Checkbox */
+.checkboxLabel {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+  cursor: pointer;
+}
+
+.checkbox {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--color-gold);
+  cursor: pointer;
+  margin-top: 0.15rem;
+  flex-shrink: 0;
+}
+
+.checkboxText {
+  color: var(--color-text-light);
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+/* Price Section */
+.priceSection {
+  background: rgba(255, 215, 0, 0.05);
+  border: 1px solid rgba(255, 215, 0, 0.2);
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.priceBreakdown {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.priceItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: var(--color-text-light);
+  font-size: 0.95rem;
+}
+
+.priceTotal {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 0.75rem;
+  border-top: 1px solid rgba(255, 215, 0, 0.3);
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--color-text-light);
+}
+
+.priceTotal span:last-child {
+  color: var(--color-gold);
+  font-size: 1.25rem;
+}
+
+.vatNotice {
+  background: rgba(0, 255, 136, 0.1);
+  border: 1px solid rgba(0, 255, 136, 0.3);
+  border-radius: 8px;
+  padding: 0.75rem;
+  color: #00ff88;
+  font-size: 0.85rem;
+  font-weight: 500;
+  text-align: center;
+  margin-top: 0.5rem;
+}
+
+/* Actions */
+.actions {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.actions button:first-child {
+  flex-shrink: 0;
+}
+
+.actions button:last-child {
+  flex: 1;
+  max-width: 300px;
+}
+
+/* Mobile Optimizations */
+@media (max-width: 768px) {
+  .container {
+    width: calc(100vw - 24px);
+    padding: 1.5rem;
+    margin: 1rem auto;
+  }
+
+  .title {
+    font-size: 1.5rem;
+  }
+
+  .section {
+    padding: 1.25rem;
+  }
+
+  .paymentTermsGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .radioLabel {
+    padding: 0.875rem;
+  }
+
+  .actions {
+    flex-direction: column-reverse;
+  }
+
+  .actions button {
+    width: 100% !important;
+    max-width: none !important;
+  }
+}
+
+/* Small mobile devices */
+@media (max-width: 480px) {
+  .container {
+    width: calc(100vw - 16px);
+    padding: 1rem;
+  }
+
+  .title {
+    font-size: 1.4rem;
+  }
+
+  .section {
+    padding: 1rem;
+  }
+
+  .sectionTitle {
+    font-size: 1.1rem;
+  }
+
+  .priceItem {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.25rem;
+  }
+
+  .priceItem span:last-child {
+    align-self: flex-end;
+    font-weight: 600;
+  }
+
+  .priceTotal {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.25rem;
+  }
+
+  .priceTotal span:last-child {
+    align-self: flex-end;
+  }
+}
+
+/* High DPI displays */
+@media (-webkit-min-device-pixel-ratio: 2) {
+  .container {
+    border-width: 1px;
+  }
+
+  .input,
+  .select,
+  .radioLabel {
+    border-width: 1px;
+  }
+
+  .input:focus,
+  .select:focus,
+  .radioLabel:has(.radio:checked) {
+    border-width: 2px;
+  }
+}
+
+/* Focus states for accessibility */
+.radioLabel:focus-within,
+.checkboxLabel:focus-within {
+  outline: 2px solid var(--color-gold);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Loading state */
+.container[data-loading="true"] {
+  opacity: 0.7;
+  pointer-events: none;
+}
+
+/* Animations */
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.section {
+  animation: slideIn 0.3s ease-out;
+}
+
+.section:nth-child(2) {
+  animation-delay: 0.1s;
+}
+
+.section:nth-child(3) {
+  animation-delay: 0.2s;
+}
+
+.section:nth-child(4) {
+  animation-delay: 0.3s;
+}
+
+.priceSection {
+  animation: slideIn 0.3s ease-out 0.4s both;
+}
+
+.actions {
+  animation: slideIn 0.3s ease-out 0.5s both;
+}
+
+/* Validation feedback */
+.inputValid {
+  box-shadow: 0 0 0 2px rgba(0, 255, 136, 0.1);
+}
+
+.inputError {
+  box-shadow: 0 0 0 2px rgba(255, 68, 68, 0.1);
+}
+
+/* Enhanced radio button styling */
+.radio {
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  border: 2px solid var(--color-border);
+  border-radius: 50%;
+  position: relative;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.radio:checked {
+  border-color: var(--color-gold);
+  background: var(--color-gold);
+}
+
+.radio:checked::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 6px;
+  height: 6px;
+  background: var(--color-navy-dark);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* Enhanced checkbox styling */
+.checkbox {
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  border: 2px solid var(--color-border);
+  border-radius: 4px;
+  position: relative;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.checkbox:checked {
+  border-color: var(--color-gold);
+  background: var(--color-gold);
+}
+
+.checkbox:checked::after {
+  content: '✓';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  color: var(--color-navy-dark);
+  font-size: 12px;
+  font-weight: bold;
+  transform: translate(-50%, -50%);
+}
+
+/* Improved select styling */
+.select {
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%23e0e0e0' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e");
+  background-position: right 0.5rem center;
+  background-repeat: no-repeat;
+  background-size: 1.5em 1.5em;
+  padding-right: 2.5rem;
+}
