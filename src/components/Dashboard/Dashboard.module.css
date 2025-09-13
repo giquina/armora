@@ -204,9 +204,71 @@
     grid-template-columns: repeat(3, 1fr);
     gap: var(--space-xl);
   }
-  
+
   .servicesSection {
     padding: var(--space-xl) var(--space-lg);
+  }
+}
+
+/* ========================================
+   FOCUSED MODE STYLES
+======================================== */
+.sectionHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-md);
+  gap: var(--space-md);
+}
+
+.backToServicesButton {
+  background: rgba(255, 215, 0, 0.1);
+  border: 2px solid rgba(255, 215, 0, 0.3);
+  color: var(--accent);
+  padding: var(--space-sm) var(--space-md);
+  border-radius: var(--radius-md);
+  font-size: var(--font-sm);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+}
+
+.backToServicesButton:hover {
+  background: rgba(255, 215, 0, 0.2);
+  border-color: var(--accent);
+  transform: translateX(-2px);
+}
+
+.servicesGrid.focusedMode {
+  /* Center focused service and expand it */
+  display: flex;
+  justify-content: center;
+  grid-template-columns: none;
+  gap: 0;
+}
+
+.servicesGrid.focusedMode > * {
+  /* Make focused service take optimal width */
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* Mobile adjustments for focused mode */
+@media (max-width: 767px) {
+  .sectionHeader {
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--space-sm);
+  }
+
+  .backToServicesButton {
+    align-self: flex-start;
+    font-size: var(--font-xs);
+    padding: var(--space-xs) var(--space-sm);
   }
 }
 
@@ -336,13 +398,17 @@
 ======================================== */
 .recommendationCard {
   background: linear-gradient(135deg, var(--bg-card), var(--bg-secondary));
-  border: 1px solid var(--accent);
+  border: 2px solid var(--accent); /* Enhanced border thickness */
   border-radius: var(--radius-lg);
   padding: var(--space-lg);
   display: flex;
   align-items: flex-start;
   gap: var(--space-md);
-  box-shadow: var(--shadow-gold);
+  box-shadow:
+    var(--shadow-gold),
+    0 0 20px rgba(255, 215, 0, 0.15); /* Additional glow effect */
+  position: relative;
+  margin-bottom: var(--space-lg); /* Ensure separation from service selection */
 }
 
 .recommendationIcon {
@@ -357,11 +423,12 @@
 }
 
 .recommendationTitle {
-  font-size: var(--font-base);
-  font-weight: 600;
+  font-size: var(--font-lg); /* Increased from base to lg */
+  font-weight: 700; /* Increased from 600 to 700 */
   color: var(--accent);
   margin: 0 0 var(--space-xs) 0;
   line-height: var(--line-tight);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1); /* Subtle text shadow */
 }
 
 .recommendationDescription {
@@ -378,33 +445,78 @@
 /* ========================================
    PROGRESSIVE SCHEDULING SECTION
 ======================================== */
-.schedulingSection {
-  margin-bottom: var(--space-lg);
-  animation: slideDown 0.3s ease-out;
+/* ========================================
+   SCHEDULING MODAL OVERLAY SYSTEM
+======================================== */
+.schedulingModal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 3000; /* Above everything including ServiceCard dropdowns */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: modalFadeIn 0.3s ease-out;
 }
 
-@keyframes slideDown {
+@keyframes modalFadeIn {
   from {
     opacity: 0;
-    transform: translateY(-20px);
   }
   to {
     opacity: 1;
-    transform: translateY(0);
   }
 }
 
-.schedulingCard {
+.modalBackdrop {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(8px);
+  cursor: pointer;
+}
+
+.modalContent {
+  position: relative;
   background: var(--bg-card);
   border: 2px solid var(--accent);
   border-radius: var(--radius-lg);
-  padding: var(--space-lg);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
-  position: relative;
+  padding: 0;
+  box-shadow:
+    0 20px 60px rgba(0, 0, 0, 0.3),
+    0 0 0 1px rgba(255, 215, 0, 0.2);
+  max-width: 95vw;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
   overflow: hidden;
+  width: 600px;
+  min-height: auto; /* Allow dynamic height based on content */
+  overflow-y: auto; /* Enable vertical scrolling if content exceeds max-height */
+  overflow-x: hidden; /* Prevent horizontal overflow */
+  animation: modalSlideIn 0.3s ease-out;
+  backdrop-filter: blur(20px);
+  display: flex;
+  flex-direction: column;
 }
 
-.schedulingCard::before {
+@keyframes modalSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-30px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.modalContent::before {
   content: '';
   position: absolute;
   top: 0;
@@ -414,31 +526,73 @@
   background: linear-gradient(90deg, var(--accent) 0%, #ffffff 100%);
 }
 
-.schedulingHeader {
-  text-align: center;
-  margin-bottom: var(--space-lg);
+.modalHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-lg) var(--space-lg) 0 var(--space-lg);
+  margin-bottom: var(--space-md);
 }
 
-.schedulingTitle {
+.modalTitle {
   font-size: var(--font-lg);
   font-weight: 700;
   color: var(--text-primary);
-  margin: 0 0 var(--space-xs) 0;
-  line-height: var(--line-tight);
-}
-
-.schedulingSubtitle {
-  font-size: var(--font-sm);
-  color: var(--text-secondary);
   margin: 0;
-  line-height: var(--line-base);
+  line-height: var(--line-tight);
+  flex: 1;
 }
 
-.schedulingActions {
+.modalCloseButton {
+  background: none;
+  border: none;
+  font-size: 2rem;
+  color: var(--text-secondary);
+  cursor: pointer;
+  padding: 0;
+  width: 32px;
+  height: 32px;
   display: flex;
-  gap: var(--space-md);
-  margin-top: var(--space-lg);
+  align-items: center;
   justify-content: center;
+  border-radius: var(--radius-sm);
+  transition: all var(--transition-base);
+  margin-left: var(--space-md);
+}
+
+.modalCloseButton:hover {
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+  transform: scale(1.1);
+}
+
+.modalBody {
+  padding: 0 var(--space-lg) var(--space-lg) var(--space-lg);
+  overflow-y: auto; /* Enable scrolling if progressive disclosure fails */
+  flex: 1;
+  min-height: 200px; /* Reduced minimum - progressive disclosure needs less space */
+  max-height: calc(90vh - 160px); /* Reserve space for header and footer */
+  position: relative; /* Create positioning context for calendar */
+}
+
+.modalSubtitle {
+  font-size: var(--font-md);
+  color: var(--text-secondary);
+  margin: 0 0 var(--space-lg) 0;
+  line-height: var(--line-relaxed);
+  text-align: center;
+}
+
+.modalFooter {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-md);
+  padding: var(--space-lg);
+  border-top: 1px solid var(--bg-secondary);
+  background: var(--bg-secondary);
+  margin-top: var(--space-lg); /* Ensure separation from modal body */
+  position: relative; /* Ensure it stays above calendar */
+  z-index: 10; /* Above calendar content */
 }
 
 .cancelScheduleButton,
@@ -459,20 +613,33 @@
   box-shadow: 0 4px 16px rgba(255, 215, 0, 0.4);
 }
 
-/* Mobile Responsiveness for Scheduling Section */
+/* Mobile Modal Optimizations */
 @media (max-width: 768px) {
-  .schedulingCard {
-    padding: var(--space-md);
-    margin: var(--space-sm);
+  .modalContent {
+    width: 98vw;
+    max-height: 85vh;
+    min-height: auto; /* Allow dynamic height */
+    margin: 0 auto;
   }
 
-  .schedulingTitle {
-    font-size: var(--font-base);
-  }
-
-  .schedulingActions {
-    flex-direction: column;
+  .modalFooter {
+    grid-template-columns: 1fr;
     gap: var(--space-sm);
+  }
+
+  .modalHeader {
+    padding: var(--space-md) var(--space-md) 0 var(--space-md);
+  }
+
+  .modalBody {
+    padding: 0 var(--space-md) var(--space-md) var(--space-md);
+    min-height: 150px; /* Reduced minimum - progressive disclosure optimized */
+    max-height: calc(85vh - 120px); /* Reserve space for header and footer on mobile */
+    overflow-y: auto; /* Enable scrolling on mobile if needed */
+  }
+
+  .modalFooter {
+    padding: var(--space-md);
   }
 
   .cancelScheduleButton,

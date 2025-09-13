@@ -68,7 +68,7 @@
   top: 100%;
   left: 0;
   right: 0;
-  z-index: 1000;
+  z-index: 1500; /* Below ServiceCard dropdown (2000) but above regular content */
   background: var(--color-background);
   border: 2px solid var(--color-primary);
   border-top: none;
@@ -77,6 +77,20 @@
   max-height: 400px;
   overflow-y: auto;
   animation: slideDown 0.2s ease;
+}
+
+/* Inline variant (used within scheduling modal to avoid overlay conflicts) */
+.dropdown.inline {
+  position: relative;
+  top: auto;
+  left: auto;
+  right: auto;
+  border-radius: 8px;
+  border-top: 2px solid var(--color-primary); /* keep visual framing */
+  box-shadow: none;
+  max-height: none;
+  z-index: auto;
+  margin-top: 12px;
 }
 
 @keyframes slideDown {

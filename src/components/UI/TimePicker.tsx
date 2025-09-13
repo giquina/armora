@@ -6,15 +6,17 @@ interface TimePickerProps {
   onTimeSelect: (time: string) => void;
   disabled?: boolean;
   placeholder?: string;
+  inline?: boolean; // New: render full grid inline (always visible)
 }
 
 export function TimePicker({
   selectedTime,
   onTimeSelect,
   disabled = false,
-  placeholder = 'Select time'
+  placeholder = 'Select time',
+  inline = false
 }: TimePickerProps) {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(inline); // inline means always "open"
   const [selectedHour, setSelectedHour] = useState<number | null>(null);
   const [selectedMinute, setSelectedMinute] = useState<number | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -37,20 +39,15 @@ export function TimePicker({
 
   // Close dropdown when clicking outside
   useEffect(() => {
+    if (inline) return; // no outside click handling for inline mode
     const handleClickOutside = (event: MouseEvent) => {
       if (containerRef.current && !containerRef.current.contains(event.target as Node)) {
         setIsOpen(false);
       }
     };
-
-    if (isOpen) {
-      document.addEventListener('mousedown', handleClickOutside);
-    }
-
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, [isOpen]);
+    if (isOpen) document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, [isOpen, inline]);
 
   // Generate time slots (15-minute intervals)
   const generateTimeSlots = () => {
@@ -110,31 +107,33 @@ export function TimePicker({
 
   return (
     <div className={styles.container} ref={containerRef}>
-      <button
-        type="button"
-        className={`${styles.trigger} ${isOpen ? styles.open : ''} ${
-          disabled ? styles.disabled : ''
-        }`}
-        onClick={() => !disabled && setIsOpen(!isOpen)}
-        disabled={disabled}
-      >
-        <span className={styles.triggerText}>{formatSelectedTime()}</span>
-        <svg
-          className={styles.triggerIcon}
-          width="20"
-          height="20"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
+      {!inline && (
+        <button
+          type="button"
+          className={`${styles.trigger} ${isOpen ? styles.open : ''} ${
+            disabled ? styles.disabled : ''
+          }`}
+          onClick={() => !disabled && setIsOpen(!isOpen)}
+          disabled={disabled}
         >
-          <circle cx="12" cy="12" r="10"/>
-          <polyline points="12,6 12,12 16,14"/>
-        </svg>
-      </button>
+          <span className={styles.triggerText}>{formatSelectedTime()}</span>
+          <svg
+            className={styles.triggerIcon}
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+          >
+            <circle cx="12" cy="12" r="10"/>
+            <polyline points="12,6 12,12 16,14"/>
+          </svg>
+        </button>
+      )}
 
-      {isOpen && (
-        <div className={styles.dropdown}>
+      {(isOpen || inline) && (
+        <div className={`${styles.dropdown} ${inline ? styles.inline : ''}`}>
           <div className={styles.header}>
             <h4 className={styles.title}>Select Time</h4>
             <p className={styles.subtitle}>Available 24/7</p>

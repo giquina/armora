@@ -1,0 +1,253 @@
+/* RESPONSIVE MODAL - MOBILE FIRST DESIGN */
+
+/* ===== OVERLAY & BACKDROP ===== */
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 9999;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding: 0;
+
+  /* Mobile: Bottom alignment for bottom sheet */
+  align-items: flex-end;
+}
+
+.backdrop {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(8px);
+  animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* ===== MODAL CONTAINER ===== */
+.modal {
+  position: relative;
+  z-index: 10000;
+  width: 100%;
+  max-width: 100%;
+  background: var(--bg-primary, #ffffff);
+  box-shadow: 0 -4px 32px rgba(0, 0, 0, 0.2);
+
+  /* Mobile default: Bottom sheet */
+  border-radius: 20px 20px 0 0;
+  max-height: 90vh;
+  overflow-y: auto;
+
+  /* Smooth scrolling on iOS */
+  -webkit-overflow-scrolling: touch;
+}
+
+/* ===== ANIMATION VARIANTS ===== */
+
+/* Slide Animation (Default for mobile bottom sheet) */
+.animation-slide {
+  animation: slideUp 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+/* Fade Animation */
+.animation-fade {
+  animation: fadeInScale 0.3s ease-out;
+}
+
+@keyframes fadeInScale {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Scale Animation */
+.animation-scale {
+  animation: scaleIn 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* ===== POSITION VARIANTS ===== */
+
+/* Bottom Position (Mobile default) */
+.position-bottom {
+  align-self: flex-end;
+  margin: 0;
+}
+
+/* Center Position (Desktop default) */
+.position-center {
+  align-self: center;
+  margin: 20px;
+  border-radius: 20px;
+  max-height: calc(100vh - 40px);
+}
+
+/* ===== TABLET RESPONSIVE (768px+) ===== */
+@media (min-width: 768px) {
+  .modalOverlay {
+    /* Tablet: Center alignment */
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+
+  .modal {
+    /* Tablet: Rounded modal */
+    border-radius: 20px;
+    max-width: 600px;
+    width: 90vw;
+    max-height: 80vh;
+  }
+
+  .position-bottom {
+    /* Override bottom position on tablet+ */
+    align-self: center;
+    margin: 20px;
+    border-radius: 20px;
+  }
+
+  /* Tablet animations prefer scale/fade over slide */
+  .animation-slide {
+    animation: scaleIn 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+}
+
+/* ===== DESKTOP RESPONSIVE (1024px+) ===== */
+@media (min-width: 1024px) {
+  .modalOverlay {
+    padding: 40px;
+  }
+
+  .modal {
+    max-width: 720px;
+    width: auto;
+    min-width: 600px;
+    max-height: 85vh;
+  }
+
+  .backdrop {
+    /* Stronger backdrop on desktop */
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(12px);
+  }
+}
+
+/* ===== LARGE DESKTOP (1440px+) ===== */
+@media (min-width: 1440px) {
+  .modal {
+    max-width: 800px;
+    min-width: 720px;
+  }
+
+  .modalOverlay {
+    padding: 60px;
+  }
+}
+
+/* ===== ACCESSIBILITY & REDUCED MOTION ===== */
+@media (prefers-reduced-motion: reduce) {
+  .modal,
+  .backdrop {
+    animation: none;
+  }
+
+  .animation-slide,
+  .animation-fade,
+  .animation-scale {
+    animation: none;
+  }
+}
+
+/* ===== HIGH CONTRAST MODE ===== */
+@media (prefers-contrast: high) {
+  .modal {
+    border: 3px solid var(--accent, #FFD700);
+  }
+
+  .backdrop {
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: none;
+  }
+}
+
+/* ===== DARK MODE SUPPORT ===== */
+@media (prefers-color-scheme: dark) {
+  .modal {
+    background: var(--bg-primary-dark, #1a1a2e);
+    box-shadow: 0 -4px 32px rgba(0, 0, 0, 0.4);
+  }
+
+  .backdrop {
+    background: rgba(0, 0, 0, 0.7);
+  }
+}
+
+/* ===== FOCUS MANAGEMENT ===== */
+.modal:focus {
+  outline: none;
+}
+
+/* Focus trap styling */
+.modal *:focus {
+  outline: 2px solid var(--accent, #FFD700);
+  outline-offset: 2px;
+}
+
+/* ===== SAFE AREA SUPPORT (iPhone X+) ===== */
+@supports (padding: max(0px)) {
+  .modal {
+    padding-bottom: max(20px, env(safe-area-inset-bottom));
+  }
+}
+
+/* ===== LANDSCAPE ORIENTATION (Mobile) ===== */
+@media (max-width: 768px) and (orientation: landscape) {
+  .modal {
+    max-height: 85vh;
+    border-radius: 16px 16px 0 0;
+  }
+}
+
+/* ===== HOVER SUPPORT (Desktop) ===== */
+@media (hover: hover) {
+  .backdrop:hover {
+    cursor: pointer;
+  }
+}

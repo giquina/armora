@@ -5,7 +5,9 @@ import { LoadingSpinner } from '../UI/LoadingSpinner';
 import { ServiceCard } from './ServiceCard';
 import { ImpactDashboardWidget } from './ImpactDashboardWidget';
 import { MarketingBanner } from './MarketingBanner';
-import { SchedulingPicker } from '../UI/SchedulingPicker';
+// import { SchedulingPicker } from '../UI/SchedulingPicker'; // Replaced with new QuickScheduling system
+import { ResponsiveModal } from '../UI/ResponsiveModal';
+import { QuickScheduling } from '../UI/QuickScheduling';
 import { ServiceLevel } from '../../types';
 import { getDisplayName } from '../../utils/nameUtils';
 import styles from './Dashboard.module.css';
@@ -72,6 +74,28 @@ export function Dashboard() {
   const [showRewardBanner, setShowRewardBanner] = useState(false);
   const [isNavigating, setIsNavigating] = useState(false);
   const [showScheduling, setShowScheduling] = useState(false);
+  const [focusedServiceId, setFocusedServiceId] = useState<string | null>(null);
+  const [bookingMode, setBookingMode] = useState<'book-now' | 'schedule' | null>(null);
+
+  // Handle ESC key to close modal
+  useEffect(() => {
+    const handleEscKey = (event: KeyboardEvent) => {
+      if (event.key === 'Escape' && showScheduling) {
+        setShowScheduling(false);
+      }
+    };
+
+    if (showScheduling) {
+      document.addEventListener('keydown', handleEscKey);
+      // Prevent body scroll when modal is open
+      document.body.style.overflow = 'hidden';
+    }
+
+    return () => {
+      document.removeEventListener('keydown', handleEscKey);
+      document.body.style.overflow = 'unset';
+    };
+  }, [showScheduling]);
   const [scheduledDateTime, setScheduledDateTime] = useState('');
 
   // Check if user has unlocked reward and hasn't dismissed banner
@@ -94,16 +118,42 @@ export function Dashboard() {
     // Set the selected service first
     setLocalSelectedService(serviceId);
     localStorage.setItem('armora_selected_service', serviceId);
+
+    // Enter focused mode
+    setFocusedServiceId(serviceId);
+    setBookingMode('schedule');
     setShowScheduling(true);
+
+    // Simple analytics placeholder
+    console.log('[Analytics] Scheduling modal opened', { serviceId, ts: Date.now() });
   };
 
   const handleDirectBooking = (serviceId: 'standard' | 'executive' | 'shadow') => {
     // Set the selected service first
     setLocalSelectedService(serviceId);
     localStorage.setItem('armora_selected_service', serviceId);
+
+    // Enter focused mode
+    setFocusedServiceId(serviceId);
+    setBookingMode('book-now');
+
     // Store immediate booking preference and proceed
     localStorage.setItem('armora_booking_immediate', 'true');
     handleBookNow();
+  };
+
+  const handleCancelFocusedMode = () => {
+    setFocusedServiceId(null);
+    setBookingMode(null);
+    setShowScheduling(false);
+    setScheduledDateTime('');
+    console.log('[Analytics] User cancelled focused mode, returning to service selection');
+  };
+
+  // Determine which services should be visible
+  const shouldShowService = (serviceId: string) => {
+    if (!focusedServiceId) return true; // Show all when no service is focused
+    return serviceId === focusedServiceId; // Only show focused service when in focused mode
   };
 
   const handleBookNow = async () => {
@@ -291,11 +341,40 @@ export function Dashboard() {
       {/* Impact Widget for Essential Members */}
       <ImpactDashboardWidget />
 
+      {/* Personalized Recommendation - PRIORITY PLACEMENT */}
+      {recommendedService && questionnaireData && (
+        <div className={styles.recommendationSection}>
+          <div className={styles.recommendationCard}>
+            <div className={styles.recommendationIcon}>⭐</div>
+            <div className={styles.recommendationContent}>
+              <h3 className={styles.recommendationTitle}>Recommended For You</h3>
+              <p className={styles.recommendationDescription}>
+                Based on your security profile, <strong>Armora {ARMORA_SERVICES.find(s => s.id === recommendedService)?.name.split(' ')[1]}</strong> is
+                the optimal choice for your transportation needs.
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* Service Selection */}
       <div className={styles.servicesSection}>
-        <h2 className={styles.sectionTitle}>Select Your Security Level</h2>
-        <div className={styles.servicesGrid}>
-          {ARMORA_SERVICES.map((service) => (
+        <div className={styles.sectionHeader}>
+          <h2 className={styles.sectionTitle}>
+            {focusedServiceId ? `Booking ${ARMORA_SERVICES.find(s => s.id === focusedServiceId)?.name}` : 'Select Your Security Level'}
+          </h2>
+          {focusedServiceId && (
+            <button
+              className={styles.backToServicesButton}
+              onClick={handleCancelFocusedMode}
+              aria-label="Back to service selection"
+            >
+              ← Back to Services
+            </button>
+          )}
+        </div>
+        <div className={`${styles.servicesGrid} ${focusedServiceId ? styles.focusedMode : ''}`}>
+          {ARMORA_SERVICES.filter(service => shouldShowService(service.id)).map((service) => (
             <ServiceCard
               key={service.id}
               service={service}
@@ -310,67 +389,41 @@ export function Dashboard() {
         </div>
       </div>
 
-      {/* Progressive Scheduling Section */}
-      {showScheduling && selectedService && (
-        <div className={styles.schedulingSection}>
-          <div className={styles.schedulingCard}>
-            <div className={styles.schedulingHeader}>
-              <h3 className={styles.schedulingTitle}>
-                📅 Schedule Your {ARMORA_SERVICES.find(s => s.id === selectedService)?.name}
-              </h3>
-              <p className={styles.schedulingSubtitle}>
-                Choose your preferred pickup date and time
-              </p>
-            </div>
+      {/* New Responsive Scheduling Modal */}
+      <ResponsiveModal
+        isOpen={showScheduling}
+        onClose={() => setShowScheduling(false)}
+        position="bottom"
+        animationType="slide"
+      >
+        <QuickScheduling
+          onScheduleConfirmed={(dateTime: string, displayText: string) => {
+            setScheduledDateTime(dateTime);
+            console.log('[Analytics] Schedule confirmed', {
+              service: selectedService,
+              dateTime,
+              displayText,
+              timestamp: Date.now()
+            });
+            handleBookNow();
+          }}
+          onCancel={() => setShowScheduling(false)}
+          isLoading={isNavigating}
+          selectedService={selectedService ? ARMORA_SERVICES.find(s => s.id === selectedService)?.name.split(' ')[1] || 'Standard' : 'Standard'}
+          userProfile={{
+            isBusinessUser: user?.userType === 'registered' || user?.userType === 'google',
+            preferredTime: '9:00', // Would come from user preferences in real implementation
+            timeZone: 'Europe/London',
+            recentBookings: [
+              // This would come from user data in real implementation
+              { time: '9:00 AM', date: 'Last Tuesday' },
+              { time: '6:30 PM', date: 'Friday' }
+            ]
+          }}
+        />
+      </ResponsiveModal>
 
-            <SchedulingPicker
-              selectedDateTime={scheduledDateTime}
-              onDateTimeChange={setScheduledDateTime}
-              label="Select pickup date and time"
-            />
-
-            <div className={styles.schedulingActions}>
-              <Button
-                variant="outline"
-                size="md"
-                onClick={() => setShowScheduling(false)}
-                className={styles.cancelScheduleButton}
-              >
-                Cancel
-              </Button>
-              <Button
-                variant="primary"
-                size="md"
-                onClick={handleBookNow}
-                disabled={!scheduledDateTime || isNavigating}
-                className={styles.scheduleBookButton}
-              >
-                {isNavigating ? (
-                  <LoadingSpinner size="small" variant="light" text="Booking..." inline />
-                ) : (
-                  'Book Scheduled Service'
-                )}
-              </Button>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* Personalized Recommendation */}
-      {recommendedService && questionnaireData && (
-        <div className={styles.recommendationSection}>
-          <div className={styles.recommendationCard}>
-            <div className={styles.recommendationIcon}>⭐</div>
-            <div className={styles.recommendationContent}>
-              <h3 className={styles.recommendationTitle}>Recommended For You</h3>
-              <p className={styles.recommendationDescription}>
-                Based on your security profile, <strong>Armora {ARMORA_SERVICES.find(s => s.id === recommendedService)?.name.split(' ')[1]}</strong> is 
-                the optimal choice for your transportation needs.
-              </p>
-            </div>
-          </div>
-        </div>
-      )}
+      {/* Personalized Recommendation moved above - this section removed */}
 
 
       {/* Marketing Banner for Non-Members */}

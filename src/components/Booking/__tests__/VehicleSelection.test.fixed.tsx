@@ -96,17 +96,17 @@ describe('VehicleSelection Component', () => {
       expect(screen.getByText('Armored vehicle protection')).toBeInTheDocument();
 
       // Executive service features
-      expect(screen.getByText('Premium VIP Protection')).toBeInTheDocument();
-      expect(screen.getByText('Elite security detail')).toBeInTheDocument();
+      expect(screen.getByText('Elite security specialist')).toBeInTheDocument();
+      expect(screen.getByText('Luxury armored vehicle')).toBeInTheDocument();
 
       // Shadow service features
-      expect(screen.getByText('Discreet Protection')).toBeInTheDocument();
-      expect(screen.getByText('Discreet security officers')).toBeInTheDocument();
+      expect(screen.getByText('Discrete protection service')).toBeInTheDocument();
+      expect(screen.getByText('Personal security escort')).toBeInTheDocument();
     });
   });
 
   describe('User Type Behavior', () => {
-    test('should show rewards for registered users', () => {
+    test('should show rewards for registered users', async () => {
       renderWithProvider(
         <VehicleSelection
           user={mockRegisteredUser}
@@ -114,17 +114,27 @@ describe('VehicleSelection Component', () => {
         />
       );
 
-      expect(screen.getByText(/50% rewards on booking/i)).toBeInTheDocument();
+      // Check for reward banner
+      expect(screen.getByText(/50% off your first ride - reward applied!/i)).toBeInTheDocument();
+
+      // Select a service to see the Book Now button
+      const standardCard = screen.getByTestId('service-standard');
+      await userEvent.click(standardCard);
+
       expect(screen.getByText(/book now/i)).toBeInTheDocument();
     });
 
-    test('should show quote-only mode for guest users', () => {
+    test('should show quote-only mode for guest users', async () => {
       renderWithProvider(
         <VehicleSelection
           user={mockGuestUser}
           onServiceSelected={mockOnServiceSelected}
         />
       );
+
+      // Select a service to see the Get Quote button
+      const standardCard = screen.getByTestId('service-standard');
+      await userEvent.click(standardCard);
 
       expect(screen.getByText(/get quote/i)).toBeInTheDocument();
       expect(screen.queryByText(/50% rewards/i)).not.toBeInTheDocument();

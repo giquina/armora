@@ -1,0 +1,132 @@
+# Page snapshot
+
+```yaml
+- generic [ref=e1]:
+  - generic:
+    - generic:
+      - img
+    - generic:
+      - img
+    - generic:
+      - img
+    - generic:
+      - img
+    - generic:
+      - img
+    - generic:
+      - img
+    - generic:
+      - img
+    - generic:
+      - img
+    - generic:
+      - img
+    - generic:
+      - img
+    - generic:
+      - img
+    - generic:
+      - img
+    - generic:
+      - img
+    - generic:
+      - img
+    - generic:
+      - img
+  - generic [ref=e2]:
+    - generic [ref=e3]:
+      - banner [ref=e4]:
+        - generic [ref=e5]:
+          - generic [ref=e14] [cursor=pointer]:
+            - generic [ref=e18] [cursor=pointer]:
+              - generic [ref=e19] [cursor=pointer]: A
+              - generic [ref=e20] [cursor=pointer]: A
+              - generic [ref=e21] [cursor=pointer]: A
+            - img [ref=e23] [cursor=pointer]
+          - generic [ref=e33]:
+            - heading "W e l c o m e t o A r m o r a" [level=1] [ref=e34]:
+              - generic [ref=e35]:
+                - generic [ref=e36]: W
+                - generic [ref=e37]: e
+                - generic [ref=e38]: l
+                - generic [ref=e39]: c
+                - generic [ref=e40]: o
+                - generic [ref=e41]: m
+                - generic [ref=e42]: e
+              - generic [ref=e43]:
+                - generic [ref=e44]: t
+                - generic [ref=e45]: o
+              - generic [ref=e46]:
+                - generic [ref=e47]: A
+                - generic [ref=e48]: r
+                - generic [ref=e49]: m
+                - generic [ref=e50]: o
+                - generic [ref=e51]: r
+                - generic [ref=e52]: a
+            - generic [ref=e53]:
+              - paragraph [ref=e54]: Your Personal Security Driver Team
+              - paragraph [ref=e55]: Protection for You. Safety for All.
+      - main [ref=e56]:
+        - generic [ref=e57]:
+          - generic [ref=e59]:
+            - img [ref=e61]
+            - generic [ref=e64]:
+              - heading "Government-Licensed Security Cab Drivers" [level=3] [ref=e65]
+              - paragraph [ref=e66]: SIA-certified drivers with enhanced background screening
+          - generic [ref=e68]:
+            - img [ref=e70]
+            - generic [ref=e75]:
+              - heading "Secure Private Hire Transport" [level=3] [ref=e76]
+              - paragraph [ref=e77]: Licensed transport with enhanced safety protocols
+          - generic [ref=e79]:
+            - img [ref=e81]
+            - generic [ref=e84]:
+              - heading "Safe Ride Fund Initiative" [level=3] [ref=e85]
+              - paragraph [ref=e86]: Your membership helps vulnerable communities access safe transport
+          - generic [ref=e88]:
+            - img [ref=e90]:
+              - generic [ref=e93]: 24/7
+            - generic [ref=e94]:
+              - heading "24/7 Protection Booking" [level=3] [ref=e95]
+              - paragraph [ref=e96]: Instant booking with security-conscious drivers available anytime
+          - generic [ref=e98]:
+            - img [ref=e100]:
+              - generic [ref=e102]: VIP
+            - generic [ref=e103]:
+              - heading "Discrete Professional Service" [level=3] [ref=e104]
+              - paragraph [ref=e105]: VIP-level confidential transport standards
+      - generic [ref=e106]:
+        - generic [ref=e107]:
+          - button "Join 1,247 Members - Continue with Google" [ref=e108] [cursor=pointer]:
+            - generic [ref=e110] [cursor=pointer]:
+              - img [ref=e111] [cursor=pointer]
+              - text: Join 1,247 Members - Continue with Google
+          - generic [ref=e116]:
+            - button "Continue with Email" [ref=e117] [cursor=pointer]:
+              - generic [ref=e119] [cursor=pointer]:
+                - img [ref=e120] [cursor=pointer]
+                - text: Continue with Email
+            - button "Continue with Phone" [ref=e123] [cursor=pointer]:
+              - generic [ref=e125] [cursor=pointer]:
+                - img [ref=e126] [cursor=pointer]
+                - text: Continue with Phone
+        - generic [ref=e129]: or
+        - generic [ref=e130]:
+          - button "Continue as Guest (Limited features)" [ref=e131] [cursor=pointer]:
+            - generic [ref=e133] [cursor=pointer]:
+              - generic [ref=e134] [cursor=pointer]: Continue as Guest
+              - generic [ref=e135] [cursor=pointer]: (Limited features)
+          - button "📝 TEST QUESTIONNAIRE (DEVELOPMENT ONLY)" [ref=e136] [cursor=pointer]:
+            - generic [ref=e138] [cursor=pointer]:
+              - generic [ref=e139] [cursor=pointer]: 📝 TEST QUESTIONNAIRE
+              - generic [ref=e140] [cursor=pointer]: (DEVELOPMENT ONLY)
+        - button "🚀 SKIP TO DASHBOARD (DEVELOPMENT ONLY)" [ref=e141] [cursor=pointer]:
+          - generic [ref=e143] [cursor=pointer]:
+            - generic [ref=e144] [cursor=pointer]: 🚀 SKIP TO DASHBOARD
+            - generic [ref=e145] [cursor=pointer]: (DEVELOPMENT ONLY)
+      - contentinfo [ref=e146]:
+        - button "View all Government Licensed & Certified Operations credentials" [ref=e147] [cursor=pointer]: Government-Licensed & Certified Operations
+    - button "Learn about Safe Ride Fund impact" [ref=e148] [cursor=pointer]:
+      - generic [ref=e149] [cursor=pointer]: 🛡️ Learn About Our Impact
+    - generic [ref=e150] [cursor=pointer]: 🔴 TEST QUESTIONNAIRE 🔴
+```

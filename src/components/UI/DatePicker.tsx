@@ -7,6 +7,14 @@ interface DatePickerProps {
   minDate?: Date;
   maxDate?: Date;
   disabled?: boolean;
+  autoExpand?: boolean; // New prop to auto-expand calendar
+  /**
+   * Optional number of days from now to use as the minimum selectable offset.
+   * Ignored if explicit minDate prop is provided. Defaults to 1 (tomorrow) to
+   * encourage scheduling ahead, but some flows (e.g. quick scheduled ride) may
+   * allow same‑day selection with offset 0.
+   */
+  minOffsetDays?: number;
 }
 
 export function DatePicker({
@@ -14,44 +22,50 @@ export function DatePicker({
   onDateSelect,
   minDate,
   maxDate,
-  disabled = false
+  disabled = false,
+  autoExpand = false,
+  minOffsetDays = 1
 }: DatePickerProps) {
   const [currentMonth, setCurrentMonth] = useState(() => {
     const now = new Date();
     return new Date(now.getFullYear(), now.getMonth(), 1);
   });
 
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(autoExpand); // Auto-expand if autoExpand is true
   const containerRef = useRef<HTMLDivElement>(null);
 
   // Set default min/max dates
   const today = new Date();
-  const tomorrow = new Date(today);
-  tomorrow.setDate(today.getDate() + 1);
+  const baseMin = new Date(today);
+  baseMin.setHours(0,0,0,0);
+  // Apply offset only if caller didn't explicitly pass a minDate
+  if (!minDate) {
+    baseMin.setDate(baseMin.getDate() + Math.max(0, minOffsetDays));
+  }
 
-  const defaultMinDate = minDate || tomorrow;
+  const defaultMinDate = minDate || baseMin;
   const defaultMaxDate = maxDate || (() => {
     const maxDate = new Date(today);
     maxDate.setDate(today.getDate() + 30);
     return maxDate;
   })();
 
-  // Close calendar when clicking outside
+  // Close calendar when clicking outside (but not if autoExpand is enabled)
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (containerRef.current && !containerRef.current.contains(event.target as Node)) {
+      if (containerRef.current && !containerRef.current.contains(event.target as Node) && !autoExpand) {
         setIsOpen(false);
       }
     };
 
-    if (isOpen) {
+    if (isOpen && !autoExpand) {
       document.addEventListener('mousedown', handleClickOutside);
     }
 
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
-  }, [isOpen]);
+  }, [isOpen, autoExpand]);
 
   const getDaysInMonth = (date: Date) => {
     return new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate();
@@ -88,7 +102,9 @@ export function DatePicker({
   const handleDateClick = (date: Date) => {
     if (!isDateDisabled(date)) {
       onDateSelect(date);
-      setIsOpen(false);
+      if (!autoExpand) {
+        setIsOpen(false);
+      }
     }
   };
 
@@ -131,13 +147,11 @@ export function DatePicker({
         <button
           key={day}
           type="button"
-          className={`${styles.dayButton} ${
-            disabled ? styles.disabled : ''
-          } ${selected ? styles.selected : ''} ${
-            todayClass ? styles.today : ''
-          }`}
+          className={`${styles.dayButton} ${disabled ? styles.disabled : ''} ${selected ? styles.selected : ''} ${todayClass ? styles.today : ''}`}
           onClick={() => handleDateClick(date)}
           disabled={disabled}
+          aria-label={date.toLocaleDateString('en-GB', {weekday: 'long', day: 'numeric', month: 'long', year: 'numeric'})}
+          data-testid={`datepicker-day-${date.getFullYear()}-${(date.getMonth()+1).toString().padStart(2,'0')}-${date.getDate().toString().padStart(2,'0')}`}
         >
           {day}
         </button>
@@ -178,33 +192,35 @@ export function DatePicker({
 
   return (
     <div className={styles.container} ref={containerRef}>
-      <button
-        type="button"
-        className={`${styles.trigger} ${isOpen ? styles.open : ''} ${
-          disabled ? styles.disabled : ''
-        }`}
-        onClick={() => !disabled && setIsOpen(!isOpen)}
-        disabled={disabled}
-      >
-        <span className={styles.triggerText}>{formatDisplayDate()}</span>
-        <svg
-          className={styles.triggerIcon}
-          width="20"
-          height="20"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
+      {!autoExpand && (
+        <button
+          type="button"
+          className={`${styles.trigger} ${isOpen ? styles.open : ''} ${
+            disabled ? styles.disabled : ''
+          }`}
+          onClick={() => !disabled && setIsOpen(!isOpen)}
+          disabled={disabled}
         >
-          <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
-          <line x1="16" y1="2" x2="16" y2="6"/>
-          <line x1="8" y1="2" x2="8" y2="6"/>
-          <line x1="3" y1="10" x2="21" y2="10"/>
-        </svg>
-      </button>
+          <span className={styles.triggerText}>{formatDisplayDate()}</span>
+          <svg
+            className={styles.triggerIcon}
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+          >
+            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+            <line x1="16" y1="2" x2="16" y2="6"/>
+            <line x1="8" y1="2" x2="8" y2="6"/>
+            <line x1="3" y1="10" x2="21" y2="10"/>
+          </svg>
+        </button>
+      )}
 
-      {isOpen && (
-        <div className={styles.calendar}>
+      {(isOpen || autoExpand) && (
+        <div className={`${styles.calendar} ${autoExpand ? styles.autoExpanded : ''}`}>
           <div className={styles.calendarHeader}>
             <button
               type="button"

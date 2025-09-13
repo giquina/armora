@@ -1,0 +1,536 @@
+/* SMART LOCATION INPUT - MOBILE FIRST DESIGN */
+
+/* ===== CONTAINER ===== */
+.locationInputContainer {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  position: relative;
+}
+
+/* ===== LABEL SECTION ===== */
+.locationLabel {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+  padding: 0 4px;
+}
+
+.locationIcon {
+  font-size: 1.1rem;
+  flex-shrink: 0;
+}
+
+.labelText {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-primary, #1a1a2e);
+  flex: 1;
+}
+
+.errorIndicator {
+  background: #dc3545;
+  color: white;
+  font-size: 0.7rem;
+  font-weight: 700;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: errorPulse 2s ease-in-out infinite;
+}
+
+@keyframes errorPulse {
+  0%, 100% {
+    background: #dc3545;
+  }
+  50% {
+    background: #e74c3c;
+  }
+}
+
+/* ===== INPUT WRAPPER ===== */
+.inputWrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  background: var(--bg-secondary, #f8f9fa);
+  border: 2px solid rgba(26, 26, 46, 0.1);
+  border-radius: 12px;
+  transition: all 0.2s ease;
+  overflow: hidden;
+}
+
+.inputWrapper:hover {
+  border-color: rgba(255, 215, 0, 0.3);
+  background: rgba(255, 215, 0, 0.02);
+}
+
+.inputWrapper.focused {
+  border-color: var(--accent, #FFD700);
+  background: rgba(255, 215, 0, 0.05);
+  box-shadow: 0 0 0 3px rgba(255, 215, 0, 0.1);
+}
+
+.inputWrapper.hasError {
+  border-color: #dc3545;
+  background: rgba(220, 53, 69, 0.02);
+}
+
+.inputWrapper.hasError:hover,
+.inputWrapper.hasError.focused {
+  border-color: #dc3545;
+  box-shadow: 0 0 0 3px rgba(220, 53, 69, 0.1);
+}
+
+/* ===== INPUT FIELD ===== */
+.locationInput {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  padding: 16px 18px;
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--text-primary, #1a1a2e);
+
+  /* Mobile optimization */
+  min-height: 20px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+.locationInput::placeholder {
+  color: var(--text-secondary, #666666);
+  opacity: 0.7;
+}
+
+.locationInput:focus::placeholder {
+  opacity: 0.5;
+}
+
+/* ===== ACTION BUTTONS ===== */
+.currentLocationButton {
+  background: var(--accent, #FFD700);
+  border: none;
+  border-radius: 8px;
+  padding: 8px 12px;
+  margin-right: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 40px;
+  height: 36px;
+  flex-shrink: 0;
+}
+
+.currentLocationButton:hover:not(:disabled) {
+  background: #e6c200;
+  transform: scale(1.05);
+}
+
+.currentLocationButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.gpsIcon {
+  font-size: 1rem;
+  color: var(--text-primary, #1a1a2e);
+}
+
+.searchLoader {
+  padding: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ===== ERROR MESSAGE ===== */
+.errorMessage {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 8px;
+  padding: 8px 12px;
+  background: rgba(220, 53, 69, 0.08);
+  border: 1px solid rgba(220, 53, 69, 0.2);
+  border-radius: 8px;
+  animation: slideInError 0.3s ease-out;
+}
+
+@keyframes slideInError {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.errorIcon {
+  font-size: 1rem;
+  color: #dc3545;
+  flex-shrink: 0;
+}
+
+.errorText {
+  font-size: 0.85rem;
+  color: #dc3545;
+  line-height: 1.3;
+  flex: 1;
+}
+
+/* ===== SUGGESTIONS DROPDOWN ===== */
+.suggestionsDropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  background: var(--bg-primary, #ffffff);
+  border: 2px solid rgba(255, 215, 0, 0.2);
+  border-radius: 12px;
+  margin-top: 4px;
+  overflow: hidden;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+  animation: dropdownSlideIn 0.2s ease-out;
+  max-height: 300px;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+@keyframes dropdownSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-8px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.suggestionsHeader {
+  padding: 12px 16px 8px;
+  border-bottom: 1px solid rgba(26, 26, 46, 0.1);
+  background: rgba(255, 215, 0, 0.03);
+}
+
+.suggestionsTitle {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-secondary, #666666);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.suggestionsList {
+  padding: 8px 0;
+}
+
+.suggestionItem {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 12px 16px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  text-align: left;
+  gap: 12px;
+
+  /* Larger touch target for mobile */
+  min-height: 52px;
+}
+
+.suggestionItem:hover {
+  background: rgba(255, 215, 0, 0.08);
+  transform: translateX(4px);
+}
+
+.suggestionItem:active {
+  background: rgba(255, 215, 0, 0.12);
+  transform: translateX(2px);
+}
+
+.suggestionIcon {
+  font-size: 1.2rem;
+  width: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  opacity: 0.8;
+}
+
+.suggestionContent {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0; /* Allow text truncation */
+}
+
+.suggestionAddress {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text-primary, #1a1a2e);
+  line-height: 1.3;
+
+  /* Text truncation for long addresses */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.suggestionDescription {
+  font-size: 0.8rem;
+  color: var(--text-secondary, #666666);
+  line-height: 1.2;
+  opacity: 0.8;
+}
+
+.suggestionBadge {
+  background: var(--accent, #FFD700);
+  color: var(--text-primary, #1a1a2e);
+  font-size: 0.65rem;
+  font-weight: 700;
+  padding: 3px 6px;
+  border-radius: 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  flex-shrink: 0;
+  align-self: flex-start;
+}
+
+/* ===== TABLET RESPONSIVE (768px+) ===== */
+@media (min-width: 768px) {
+  .locationLabel {
+    margin-bottom: 10px;
+  }
+
+  .labelText {
+    font-size: 1rem;
+  }
+
+  .locationInput {
+    padding: 18px 20px;
+    font-size: 1.05rem;
+  }
+
+  .currentLocationButton {
+    padding: 10px 14px;
+    margin-right: 10px;
+    height: 40px;
+  }
+
+  .suggestionItem {
+    padding: 14px 20px;
+    min-height: 56px;
+  }
+
+  .suggestionAddress {
+    font-size: 1rem;
+  }
+
+  .suggestionDescription {
+    font-size: 0.85rem;
+  }
+
+  .errorMessage {
+    margin-top: 10px;
+    padding: 10px 14px;
+  }
+
+  .errorText {
+    font-size: 0.9rem;
+  }
+}
+
+/* ===== DESKTOP RESPONSIVE (1024px+) ===== */
+@media (min-width: 1024px) {
+  .locationInput {
+    padding: 20px 22px;
+    font-size: 1.1rem;
+  }
+
+  .currentLocationButton {
+    padding: 12px 16px;
+    height: 44px;
+
+    /* Enhanced hover on desktop */
+    &:hover:not(:disabled) {
+      background: #e6c200;
+      transform: scale(1.08);
+      box-shadow: 0 4px 12px rgba(255, 215, 0, 0.3);
+    }
+  }
+
+  .suggestionItem {
+    padding: 16px 24px;
+    min-height: 60px;
+
+    /* Enhanced hover on desktop */
+    &:hover {
+      background: rgba(255, 215, 0, 0.1);
+      transform: translateX(6px);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    }
+  }
+
+  .suggestionAddress {
+    font-size: 1.05rem;
+  }
+
+  .suggestionDescription {
+    font-size: 0.9rem;
+  }
+
+  .suggestionsDropdown {
+    max-height: 320px;
+    box-shadow: 0 12px 48px rgba(0, 0, 0, 0.2);
+  }
+}
+
+/* ===== FOCUS STATES & ACCESSIBILITY ===== */
+.suggestionItem:focus {
+  outline: 2px solid var(--accent, #FFD700);
+  outline-offset: -2px;
+  background: rgba(255, 215, 0, 0.1);
+}
+
+.currentLocationButton:focus {
+  outline: 2px solid var(--accent, #FFD700);
+  outline-offset: 2px;
+}
+
+.locationInput:focus {
+  /* Focus handled by inputWrapper */
+}
+
+/* ===== REDUCED MOTION ===== */
+@media (prefers-reduced-motion: reduce) {
+  .suggestionsDropdown,
+  .errorMessage {
+    animation: none;
+  }
+
+  .suggestionItem:hover,
+  .currentLocationButton:hover {
+    transform: none;
+  }
+
+  .errorIndicator {
+    animation: none;
+  }
+}
+
+/* ===== HIGH CONTRAST MODE ===== */
+@media (prefers-contrast: high) {
+  .inputWrapper {
+    border-width: 3px;
+  }
+
+  .inputWrapper.focused {
+    border-width: 4px;
+  }
+
+  .suggestionsDropdown {
+    border-width: 3px;
+  }
+
+  .currentLocationButton {
+    border: 2px solid currentColor;
+  }
+}
+
+/* ===== DARK MODE SUPPORT ===== */
+@media (prefers-color-scheme: dark) {
+  .labelText {
+    color: var(--text-primary-dark, #ffffff);
+  }
+
+  .inputWrapper {
+    background: var(--bg-secondary-dark, #2a2a3e);
+    border-color: rgba(255, 255, 255, 0.1);
+  }
+
+  .inputWrapper:hover {
+    border-color: rgba(255, 215, 0, 0.4);
+    background: rgba(255, 215, 0, 0.05);
+  }
+
+  .inputWrapper.focused {
+    background: rgba(255, 215, 0, 0.08);
+  }
+
+  .locationInput {
+    color: var(--text-primary-dark, #ffffff);
+  }
+
+  .locationInput::placeholder {
+    color: var(--text-secondary-dark, #aaaaaa);
+  }
+
+  .suggestionsDropdown {
+    background: var(--bg-primary-dark, #1a1a2e);
+    border-color: rgba(255, 215, 0, 0.3);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+  }
+
+  .suggestionsHeader {
+    background: rgba(255, 215, 0, 0.05);
+    border-bottom-color: rgba(255, 255, 255, 0.1);
+  }
+
+  .suggestionsTitle {
+    color: var(--text-secondary-dark, #aaaaaa);
+  }
+
+  .suggestionItem:hover {
+    background: rgba(255, 215, 0, 0.1);
+  }
+
+  .suggestionAddress {
+    color: var(--text-primary-dark, #ffffff);
+  }
+
+  .suggestionDescription {
+    color: var(--text-secondary-dark, #aaaaaa);
+  }
+
+  .errorMessage {
+    background: rgba(220, 53, 69, 0.1);
+    border-color: rgba(220, 53, 69, 0.3);
+  }
+}
+
+/* ===== MOBILE LANDSCAPE ===== */
+@media (max-width: 768px) and (orientation: landscape) {
+  .suggestionsDropdown {
+    max-height: 200px;
+  }
+
+  .suggestionItem {
+    min-height: 48px;
+    padding: 10px 16px;
+  }
+}
+
+/* ===== SAFE AREA SUPPORT ===== */
+@supports (padding: max(0px)) {
+  .suggestionsDropdown {
+    padding-bottom: max(8px, env(safe-area-inset-bottom));
+  }
+}

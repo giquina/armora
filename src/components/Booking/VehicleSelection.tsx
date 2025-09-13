@@ -78,6 +78,14 @@ export function VehicleSelection({ user, onServiceSelected, onBack }: VehicleSel
 
   const handleServiceSelect = (service: ServiceLevel) => {
     setSelectedService(service);
+    onServiceSelected(service);
+  };
+
+  const handleKeyDown = (event: React.KeyboardEvent, service: ServiceLevel) => {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault();
+      handleServiceSelect(service);
+    }
   };
 
   const handleContinue = async () => {
@@ -136,10 +144,15 @@ export function VehicleSelection({ user, onServiceSelected, onBack }: VehicleSel
           servicelevels.map((service) => (
           <div
             key={service.id}
+            data-testid={`service-${service.id}`}
             className={`${styles.serviceCard} ${
               selectedService?.id === service.id ? styles.selected : ''
             } ${service.isPopular ? styles.popular : ''}`}
             onClick={() => handleServiceSelect(service)}
+            onKeyDown={(e) => handleKeyDown(e, service)}
+            tabIndex={0}
+            role="button"
+            aria-label={`Select ${service.name} - ${service.tagline}`}
           >
             {service.isPopular && (
               <div className={styles.popularBadge}>Most Popular</div>
@@ -200,7 +213,7 @@ export function VehicleSelection({ user, onServiceSelected, onBack }: VehicleSel
             {isLoading ? (
               <LoadingSpinner size="small" variant="light" text="Preparing Service..." inline />
             ) : (
-              `Continue with ${selectedService.name}`
+              user?.userType === 'guest' ? 'Get Quote' : 'Book Now'
             )}
           </button>
         </div>

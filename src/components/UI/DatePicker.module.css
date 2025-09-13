@@ -68,7 +68,7 @@
   top: 100%;
   left: 0;
   right: 0;
-  z-index: 1000;
+  z-index: 1500; /* Below ServiceCard dropdown (2000) but above regular content */
   background: var(--color-background);
   border: 2px solid var(--color-primary);
   border-top: none;
@@ -76,6 +76,18 @@
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
   padding: 16px;
   animation: slideDown 0.2s ease;
+}
+
+/* Auto-expand calendar stays relative to container */
+.calendar.autoExpanded {
+  position: relative;
+  top: auto;
+  left: auto;
+  right: auto;
+  border: 2px solid var(--color-primary);
+  border-radius: 8px;
+  margin-top: 12px;
+  z-index: auto;
 }
 
 @keyframes slideDown {
@@ -224,7 +236,7 @@
 
 /* Mobile Optimizations */
 @media (max-width: 768px) {
-  .calendar {
+  .calendar:not(.autoExpanded) {
     position: fixed;
     top: auto;
     bottom: 0;
@@ -234,6 +246,15 @@
     animation: slideUp 0.3s ease;
     max-height: 80vh;
     overflow-y: auto;
+  }
+
+  /* Auto-expanded calendar stays in modal flow on mobile */
+  .calendar.autoExpanded {
+    position: relative;
+    border-radius: 8px;
+    max-height: none;
+    overflow-y: visible;
+    animation: slideDown 0.2s ease;
   }
 
   @keyframes slideUp {

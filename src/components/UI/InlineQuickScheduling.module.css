@@ -1,0 +1,560 @@
+/* ARMORA SCHEDULING INTERFACE - PREMIUM VIP TRANSPORT STYLING */
+
+/* ===== CONTAINER ===== */
+.inlineScheduling {
+  /* Armora Dark Theme Background */
+  background: #1a1a2e;
+  border: 2px solid #FFD700;
+  border-radius: 20px;
+  padding: 24px;
+  margin-top: 16px;
+  animation: expandDown 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* Premium Gold Shadow */
+  box-shadow:
+    0 8px 32px rgba(255, 215, 0, 0.3),
+    0 0 0 1px rgba(255, 215, 0, 0.1);
+
+  /* Premium backdrop blur */
+  backdrop-filter: blur(10px);
+}
+
+@keyframes expandDown {
+  from {
+    opacity: 0;
+    max-height: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    margin-top: 0;
+  }
+  to {
+    opacity: 1;
+    max-height: 500px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    margin-top: 16px;
+  }
+}
+
+/* ===== HEADER ===== */
+.header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.title {
+  font-size: 1.125rem;
+  font-weight: 600;
+  /* Armora Light Text on Dark Background */
+  color: #e0e0e0;
+  margin: 0;
+  line-height: 1.3;
+  text-align: center;
+
+  /* Gold accent underline */
+  position: relative;
+}
+
+.title::after {
+  content: '';
+  display: block;
+  width: 60px;
+  height: 3px;
+  background: #FFD700;
+  margin: 8px auto 0;
+  border-radius: 2px;
+}
+
+.closeButton {
+  background: rgba(255, 255, 255, 0.1);
+  border: 2px solid rgba(255, 215, 0, 0.3);
+  font-size: 1.5rem;
+  /* Armora Light Text */
+  color: #e0e0e0;
+  cursor: pointer;
+  padding: 0;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+  font-weight: 700;
+}
+
+.closeButton:hover {
+  /* Red hover for close action */
+  background: #ff4444;
+  border-color: #ff4444;
+  color: white;
+  transform: scale(1.1);
+}
+
+/* ===== TIME SLOTS GRID ===== */
+.timeSlots {
+  display: grid;
+  gap: 8px;
+  margin-bottom: 16px;
+
+  /* Mobile: 2 columns for larger touch targets */
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.timeButton {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 12px 20px;
+  /* Armora Card Background */
+  background: #2a2a4a;
+  border: 2px solid rgba(255, 215, 0, 0.3);
+  border-radius: 16px;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+
+  /* Ensure clickability */
+  pointer-events: auto;
+  user-select: none;
+
+  /* Optimized touch targets for horizontal layout */
+  min-height: 56px;
+  min-width: 120px;
+  gap: 12px;
+
+  /* Premium shadow */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.timeButton:hover:not(:disabled) {
+  /* Armora Hover Gold */
+  border-color: #e6c200;
+  background: rgba(255, 215, 0, 0.1);
+  transform: translateY(-3px);
+  /* Premium Gold Shadow */
+  box-shadow: 0 8px 24px rgba(255, 215, 0, 0.4);
+}
+
+.timeButton.selected {
+  /* Full Gold Background for Selection */
+  border-color: #FFD700;
+  background: #FFD700;
+  /* Dark text on gold background */
+  color: #1a1a2e;
+  font-weight: 700;
+  box-shadow:
+    0 6px 20px rgba(255, 215, 0, 0.5),
+    0 0 0 3px rgba(255, 215, 0, 0.2);
+  transform: translateY(-2px);
+}
+
+.timeButton.selected .timeLabel {
+  color: #1a1a2e;
+  font-weight: 700;
+}
+
+.timeButton:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  position: relative;
+  background: #666666;
+  border-color: #666666;
+  transform: none;
+  box-shadow: none;
+}
+
+.timeButton:active {
+  transform: translateY(-1px);
+}
+
+.timeIcon {
+  font-size: 20px;
+  flex-shrink: 0;
+  width: 24px;
+  text-align: center;
+}
+
+.timeLabel {
+  font-size: 15px;
+  font-weight: 600;
+  /* Armora Light Text */
+  color: #e0e0e0;
+  text-align: center;
+  line-height: 1.2;
+}
+
+.comingSoon {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  /* Armora Premium Gold */
+  background: #FFD700;
+  color: #1a1a2e;
+  font-size: 0.625rem;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  box-shadow: 0 2px 8px rgba(255, 215, 0, 0.4);
+}
+
+/* ===== CONFIRMATION DISPLAY ===== */
+.confirmation {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 18px;
+  /* Armora Success Green with transparency */
+  background: rgba(0, 255, 136, 0.15);
+  border: 2px solid #00ff88;
+  border-radius: 12px;
+  margin-bottom: 16px;
+  animation: slideIn 0.3s ease-out;
+  box-shadow: 0 4px 16px rgba(0, 255, 136, 0.2);
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.confirmationIcon {
+  font-size: 1.4rem;
+  /* Armora Success Green */
+  color: #00ff88;
+  font-weight: 700;
+}
+
+.confirmationText {
+  font-size: 1rem;
+  font-weight: 600;
+  /* Armora Success Green */
+  color: #00ff88;
+  flex: 1;
+}
+
+/* ===== ACTION SECTION ===== */
+.actionSection {
+  margin-bottom: 16px;
+}
+
+.bookButton {
+  height: 56px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  /* Armora Premium Gold Background */
+  background: #FFD700;
+  border: 2px solid #FFD700;
+  /* Dark text on gold - maximum readability */
+  color: #1a1a2e;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  letter-spacing: 0.5px;
+  text-shadow: none;
+
+  /* Premium shadow */
+  box-shadow: 0 4px 16px rgba(255, 215, 0, 0.3);
+}
+
+.bookButton:hover:not(:disabled) {
+  /* Armora Hover Gold */
+  background: #e6c200;
+  border-color: #e6c200;
+  /* Maintain dark text readability */
+  color: #1a1a2e;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 28px rgba(255, 215, 0, 0.5);
+}
+
+.bookButton:disabled {
+  opacity: 0.6;
+  transform: none;
+  cursor: not-allowed;
+  /* Disabled state with readable text */
+  background: rgba(255, 215, 0, 0.3);
+  border-color: rgba(255, 215, 0, 0.3);
+  color: rgba(26, 26, 46, 0.6);
+  box-shadow: none;
+}
+
+.buttonIcon {
+  font-size: 1.1rem;
+}
+
+.loadingSpinner {
+  font-size: 1rem;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ===== BENEFITS SECTION ===== */
+.benefits {
+  display: flex;
+  justify-content: space-around;
+  padding-top: 16px;
+  border-top: 2px solid rgba(255, 215, 0, 0.2);
+  opacity: 0.9;
+}
+
+.benefitItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+
+.benefitIcon {
+  font-size: 1rem;
+}
+
+.benefitText {
+  font-size: 0.75rem;
+  /* Armora Secondary Text */
+  color: #b0b0b0;
+  text-align: center;
+  line-height: 1.2;
+  font-weight: 500;
+}
+
+/* ===== MOBILE RESPONSIVE (max 767px) ===== */
+@media (max-width: 767px) {
+  .timeButton {
+    min-height: 52px;
+    padding: 10px 16px;
+    gap: 10px;
+  }
+
+  .timeIcon {
+    font-size: 18px;
+    width: 20px;
+  }
+
+  .timeLabel {
+    font-size: 14px;
+  }
+}
+
+/* ===== TABLET RESPONSIVE (768px+) ===== */
+@media (min-width: 768px) {
+  .timeSlots {
+    /* Tablet: 3 columns */
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+  }
+
+  .timeButton {
+    min-height: 60px;
+    padding: 14px 24px;
+    gap: 14px;
+    /* Enhanced hover on tablet */
+  }
+
+  .timeButton:hover:not(:disabled) {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 28px rgba(255, 215, 0, 0.4);
+  }
+
+  .timeIcon {
+    font-size: 22px;
+    width: 26px;
+  }
+
+  .timeLabel {
+    font-size: 16px;
+  }
+
+  .title {
+    font-size: 1.3rem;
+  }
+
+  .bookButton {
+    height: 60px;
+    font-size: 1.15rem;
+  }
+
+  .benefitText {
+    font-size: 0.8rem;
+  }
+}
+
+/* ===== DESKTOP RESPONSIVE (1024px+) ===== */
+@media (min-width: 1024px) {
+  .inlineScheduling {
+    padding: 28px;
+    border-radius: 24px;
+  }
+
+  .timeSlots {
+    /* Desktop: 5 columns (all options in one row) */
+    grid-template-columns: repeat(5, 1fr);
+    gap: 18px;
+  }
+
+  .timeButton {
+    min-height: 64px;
+    padding: 16px 28px;
+    gap: 16px;
+  }
+
+  .timeButton:hover:not(:disabled) {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 32px rgba(255, 215, 0, 0.5);
+  }
+
+  .timeIcon {
+    font-size: 24px;
+    width: 28px;
+  }
+
+  .timeLabel {
+    font-size: 17px;
+  }
+
+  .confirmation {
+    padding: 18px 22px;
+  }
+
+  .confirmationText {
+    font-size: 1.1rem;
+  }
+
+  .bookButton {
+    height: 64px;
+    font-size: 1.25rem;
+  }
+
+  .bookButton:hover:not(:disabled) {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 36px rgba(255, 215, 0, 0.6);
+  }
+
+  .benefits {
+    padding-top: 20px;
+  }
+
+  .benefitText {
+    font-size: 0.85rem;
+  }
+}
+
+/* ===== LARGE DESKTOP (1440px+) ===== */
+@media (min-width: 1440px) {
+  .inlineScheduling {
+    padding: 32px;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .timeButton {
+    min-height: 68px;
+    padding: 18px 32px;
+    gap: 18px;
+  }
+
+  .timeIcon {
+    font-size: 26px;
+    width: 30px;
+  }
+
+  .timeLabel {
+    font-size: 18px;
+  }
+
+  .bookButton {
+    height: 68px;
+    font-size: 1.3rem;
+  }
+}
+
+/* ===== ACCESSIBILITY & REDUCED MOTION ===== */
+@media (prefers-reduced-motion: reduce) {
+  .inlineScheduling,
+  .timeButton,
+  .confirmation,
+  .loadingSpinner {
+    animation: none !important;
+    transition: none !important;
+  }
+
+  .timeButton:hover,
+  .bookButton:hover,
+  .closeButton:hover {
+    transform: none !important;
+  }
+
+  .timeButton.selected {
+    transform: none !important;
+  }
+}
+
+/* ===== HIGH CONTRAST MODE ===== */
+@media (prefers-contrast: high) {
+  .inlineScheduling {
+    border-width: 3px;
+  }
+
+  .timeButton {
+    border-width: 3px;
+  }
+
+  .timeButton.selected {
+    border-width: 4px;
+  }
+
+  .confirmation {
+    border-width: 2px;
+  }
+}
+
+/* ===== DARK MODE SUPPORT (Armora uses dark theme by default) ===== */
+/* The interface already uses Armora's dark theme colors */
+/* These overrides ensure compatibility if light theme is forced */
+@media (prefers-color-scheme: light) {
+  .inlineScheduling {
+    /* Force Armora dark theme even in light mode */
+    background: #1a1a2e !important;
+    border-color: #FFD700 !important;
+  }
+
+  .title {
+    color: #e0e0e0 !important;
+  }
+
+  .timeButton {
+    background: #2a2a4a !important;
+    color: #e0e0e0 !important;
+  }
+
+  .timeLabel {
+    color: #e0e0e0 !important;
+  }
+
+  .benefitText {
+    color: #b0b0b0 !important;
+  }
+}
