@@ -10,6 +10,7 @@ import { QuestionnaireFlow } from './components/Questionnaire/QuestionnaireFlow'
 import AchievementUnlock from './components/Achievement/AchievementUnlock';
 import { Dashboard } from './components/Dashboard';
 import { SubscriptionOffer } from './components/Subscription/SubscriptionOffer';
+import { Support } from './components/Support';
 import { VehicleSelection, LocationPicker, BookingConfirmation, BookingSuccess } from './components/Booking';
 import { ServiceLevel, BookingData, LocationData } from './types';
 import './styles/globals.css';
@@ -145,6 +146,8 @@ function AppRouter() {
         return <BookingFlow />;
       case 'profile':
         return <Profile />;
+      case 'support':
+        return <Support />;
       default:
         return <SplashScreen />;
     }
