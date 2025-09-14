@@ -53,6 +53,13 @@ export interface QuestionnaireOption {
   recommendedFor?: string[];
 }
 
+export interface CustomAnswerValue {
+  type: 'custom';
+  value: string;
+}
+
+export type QuestionnaireAnswer = string | string[] | CustomAnswerValue;
+
 export interface SimilarClientExample {
   type: string;
   needs: string;

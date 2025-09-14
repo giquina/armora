@@ -1,11 +1,13 @@
-import React, { useState, useEffect } from 'react';
-import { QuestionnaireStep as IQuestionnaireStep, QuestionnaireOption } from '../../types';
+import React, { useState, useEffect, useCallback } from 'react';
+import { QuestionnaireStep as IQuestionnaireStep, QuestionnaireOption, QuestionnaireAnswer, CustomAnswerValue } from '../../types';
 import { CTAButtons } from './CTAButtons';
 import { NameCollection } from './NameCollection';
 import ProfileSummaryComponent from './ProfileSummary';
 import YesNoToggle from '../UI/YesNoToggle';
 import { FloatingCTA } from '../UI/FloatingCTA';
-import { PreferNotToSay } from './PreferNotToSay';
+import { CustomAnswer } from './CustomAnswer';
+import { SelectionFeedback } from './SelectionFeedback';
+import { getSelectionFeedback, getCombinedFeedback, SelectionFeedback as ISelectionFeedback } from '../../data/selectionFeedbackData';
 import { useApp } from '../../contexts/AppContext';
 import styles from './QuestionnaireStep.module.css';
 import spacingStyles from './BenefitListSpacing.module.css';
@@ -14,8 +16,8 @@ import '../../styles/global-container.css';
 
 interface QuestionnaireStepProps {
   step: IQuestionnaireStep;
-  currentValue?: string | string[];
-  onComplete: (stepId: number, value: string | string[]) => void;
+  currentValue?: QuestionnaireAnswer;
+  onComplete: (stepId: number, value: QuestionnaireAnswer) => void;
   onPrevious?: () => void;
   showConversionPrompt?: boolean;
   onConversionPromptResponse?: (shouldConvert: boolean) => void;
@@ -45,27 +47,42 @@ export function QuestionnaireStep({
   const [textValue, setTextValue] = useState<string>('');
   const [errors, setErrors] = useState<string[]>([]);
   const [isAnimatingIn, setIsAnimatingIn] = useState(true);
-  // Prefer not to say state
-  const [preferNotToSay, setPreferNotToSay] = useState<boolean>(false);
+  // Custom answer state
+  const [customAnswer, setCustomAnswer] = useState<string>('');
+  const [isCustomSelected, setIsCustomSelected] = useState<boolean>(false);
+
+  // Selection feedback state
+  const [selectionFeedback, setSelectionFeedback] = useState<ISelectionFeedback | null>(null);
+  const [showFeedback, setShowFeedback] = useState<boolean>(false);
 
   // Initialize values from current value
   useEffect(() => {
     if (currentValue) {
-      // Check if the value indicates "prefer not to say"
-      if (currentValue === 'prefer_not_to_say') {
-        setPreferNotToSay(true);
+      // Check if the value indicates a custom answer
+      if (typeof currentValue === 'object' && currentValue !== null && !Array.isArray(currentValue) && 'type' in currentValue && currentValue.type === 'custom') {
+        const customValue = currentValue as CustomAnswerValue;
+        setIsCustomSelected(true);
+        setCustomAnswer(customValue.value || '');
+        setSelectedValue('');
+        setSelectedValues([]);
+        setTextValue('');
+      } else if (currentValue === 'prefer_not_to_say') {
+        // Handle legacy prefer_not_to_say values
+        setIsCustomSelected(false);
+        setCustomAnswer('');
         setSelectedValue('');
         setSelectedValues([]);
         setTextValue('');
       } else if (Array.isArray(currentValue)) {
         setSelectedValues(currentValue);
-        setPreferNotToSay(false);
+        setIsCustomSelected(false);
       } else {
-        setPreferNotToSay(false);
+        setIsCustomSelected(false);
+        setCustomAnswer('');
         if (step.type === 'radio' || step.type === 'select') {
-          setSelectedValue(currentValue);
+          setSelectedValue(currentValue as string);
         } else {
-          setTextValue(currentValue);
+          setTextValue(currentValue as string);
         }
       }
     } else {
@@ -73,7 +90,8 @@ export function QuestionnaireStep({
       setSelectedValue('');
       setSelectedValues([]);
       setTextValue('');
-      setPreferNotToSay(false);
+      setIsCustomSelected(false);
+      setCustomAnswer('');
     }
     setErrors([]);
     setIsAnimatingIn(true);
@@ -134,15 +152,67 @@ export function QuestionnaireStep({
     return () => clearTimeout(timer);
   }, [step.id]);
 
+  // Auto-scroll functionality
+  const scrollToBottom = useCallback(() => {
+    // Small delay to ensure state updates have completed
+    setTimeout(() => {
+      const bottomElement = document.getElementById('questionnaire-bottom');
+      if (bottomElement) {
+        bottomElement.scrollIntoView({
+          behavior: 'smooth',
+          block: 'end',
+          inline: 'nearest'
+        });
+      }
+    }, 100);
+  }, []);
+
+  // Update selection feedback
+  const updateSelectionFeedback = useCallback((stepId: number, value?: string, values?: string[]) => {
+    let feedback: ISelectionFeedback | null = null;
+
+    if (isCustomSelected && customAnswer.trim()) {
+      // Show generic feedback for custom answers
+      feedback = {
+        title: 'Custom Requirements Noted',
+        description: 'Your specific requirements have been recorded and will be incorporated into your personalized service.',
+        benefits: [
+          'Customized service approach',
+          'Flexible accommodation of needs',
+          'Personalized attention to details',
+          'Tailored security protocols'
+        ],
+        icon: '📝'
+      };
+    } else if (values && values.length > 0) {
+      // Multiple selections (checkboxes)
+      feedback = getCombinedFeedback(stepId, values);
+    } else if (value && value.trim()) {
+      // Single selection
+      feedback = getSelectionFeedback(stepId, value);
+    }
+
+    setSelectionFeedback(feedback);
+    setShowFeedback(!!feedback);
+
+    // Auto-scroll if we have a selection
+    if (feedback) {
+      scrollToBottom();
+    }
+  }, [isCustomSelected, customAnswer, scrollToBottom]);
+
   // Handle radio/select input - always set new selection (no toggle off)
   const handleSingleSelect = (value: string) => {
     setSelectedValue(value);
     setErrors([]);
-    
+
     // Store profile selection for Step 1 (ID 1) for FloatingCTA personalization
     if (step.id === 1) {
       setUserProfileSelection(value);
     }
+
+    // Update feedback and auto-scroll
+    updateSelectionFeedback(step.id, value);
   };
 
   // Enhanced CTA handlers
@@ -195,13 +265,13 @@ Your privacy is important to us. All questions are optional and you can use "Pre
   // Handle checkbox input
   const handleMultiSelect = (value: string, checked: boolean) => {
     let newValues: string[];
-    
+
     if (checked) {
       newValues = [...selectedValues, value];
     } else {
       newValues = selectedValues.filter(v => v !== value);
     }
-    
+
     setSelectedValues(newValues);
     setErrors([]);
 
@@ -210,15 +280,19 @@ Your privacy is important to us. All questions are optional and you can use "Pre
       setErrors([`Please select no more than ${step.validation.maxSelections} options`]);
       return;
     }
+
+    // Update feedback and auto-scroll
+    updateSelectionFeedback(step.id, undefined, newValues);
   };
 
   // Handle text input
   const handleTextChange = (value: string) => {
     setTextValue(value);
     setErrors([]);
-    // Clear prefer not to say when user starts typing
-    if (preferNotToSay) {
-      setPreferNotToSay(false);
+    // Clear custom answer when user starts typing in regular inputs
+    if (isCustomSelected) {
+      setIsCustomSelected(false);
+      setCustomAnswer('');
     }
 
     // Real-time validation for text inputs
@@ -227,22 +301,38 @@ Your privacy is important to us. All questions are optional and you can use "Pre
     }
   };
 
-  // Handle prefer not to say toggle
-  const handlePreferNotToSay = (selected: boolean) => {
-    setPreferNotToSay(selected);
+  // Handle custom answer toggle
+  const handleCustomAnswerToggle = (selected: boolean) => {
+    setIsCustomSelected(selected);
     if (selected) {
-      // Clear all other selections when prefer not to say is selected
+      // Clear all other selections when custom answer is selected
       setSelectedValue('');
       setSelectedValues([]);
       setTextValue('');
       setErrors([]);
+    } else {
+      setCustomAnswer('');
+    }
+  };
+
+  // Handle custom answer text change
+  const handleCustomAnswerChange = (value: string) => {
+    setCustomAnswer(value);
+    setErrors([]);
+
+    // Update feedback for custom answers
+    if (isCustomSelected && value.trim()) {
+      updateSelectionFeedback(step.id);
+    } else if (!value.trim()) {
+      setShowFeedback(false);
+      setSelectionFeedback(null);
     }
   };
 
   // Validate current input
   const validate = (): boolean => {
-    // If user selected "prefer not to say", validation always passes
-    if (preferNotToSay) return true;
+    // If user provided custom answer, check if it has content
+    if (isCustomSelected && customAnswer.trim().length > 0) return true;
     
     const newErrors: string[] = [];
     const { validation } = step;
@@ -300,9 +390,9 @@ Your privacy is important to us. All questions are optional and you can use "Pre
 
   // Handle form submission
   const handleSubmit = () => {
-    // If user selected "prefer not to say", submit that value
-    if (preferNotToSay) {
-      onComplete(step.id, 'prefer_not_to_say');
+    // If user provided custom answer, submit custom answer object
+    if (isCustomSelected && customAnswer.trim().length > 0) {
+      onComplete(step.id, { type: 'custom', value: customAnswer.trim() });
       return;
     }
     
@@ -310,8 +400,8 @@ Your privacy is important to us. All questions are optional and you can use "Pre
       return;
     }
 
-    let value: string | string[];
-    
+    let value: QuestionnaireAnswer;
+
     if (step.type === 'checkbox') {
       value = selectedValues;
     } else if (step.type === 'radio' || step.type === 'select') {
@@ -534,8 +624,8 @@ Your privacy is important to us. All questions are optional and you can use "Pre
 
   // Check if we can proceed to next step
   const canProceed = () => {
-    // If user selected "prefer not to say", they can always proceed
-    if (preferNotToSay) return true;
+    // If user provided custom answer with content, they can proceed
+    if (isCustomSelected && customAnswer.trim().length > 0) return true;
     
     const { validation } = step;
     
@@ -828,11 +918,21 @@ Your privacy is important to us. All questions are optional and you can use "Pre
           </div>
         )}
 
-        {/* Prefer Not To Say Option */}
-        <PreferNotToSay
-          isSelected={preferNotToSay}
-          onChange={handlePreferNotToSay}
+        {/* Custom Answer Option */}
+        <CustomAnswer
+          value={customAnswer}
+          onChange={handleCustomAnswerChange}
+          isSelected={isCustomSelected}
+          onToggle={handleCustomAnswerToggle}
           disabled={false}
+          stepId={step.id}
+        />
+
+        {/* Selection Feedback Box */}
+        <SelectionFeedback
+          feedback={selectionFeedback}
+          isVisible={showFeedback}
+          className={styles.selectionFeedback}
         />
 
         {/* Privacy & Security section - positioned at bottom inside content container */}
@@ -840,6 +940,9 @@ Your privacy is important to us. All questions are optional and you can use "Pre
           <h4>Your Privacy & Security</h4>
           <p>{step.processOverview?.securityAssurance || 'All responses are encrypted and used exclusively for service matching. Your privacy is our priority.'}</p>
         </div>
+
+        {/* Bottom anchor for auto-scroll */}
+        <div id="questionnaire-bottom" className={styles.bottomAnchor}></div>
       </div>
 
       {/* Standardized CTA Buttons for all steps */}

@@ -1,11 +1,11 @@
-/* Prefer Not To Say Component - Security Questionnaire */
+/* Custom Answer Component - Security Questionnaire */
 
 .container {
   margin-top: var(--space-lg);
   margin-bottom: var(--space-md);
 }
 
-/* Visual separator between main options and prefer not to say */
+/* Visual separator between main options and custom answer */
 .separator {
   display: flex;
   align-items: center;
@@ -28,8 +28,8 @@
   letter-spacing: 0.5px;
 }
 
-/* Main prefer not to say option */
-.preferOption {
+/* Main custom answer option */
+.customOption {
   background: rgba(255, 215, 0, 0.02);
   border: 1px solid rgba(255, 215, 0, 0.15);
   border-radius: var(--radius-md);
@@ -43,19 +43,19 @@
   gap: var(--space-sm);
 }
 
-.preferOption:hover {
+.customOption:hover {
   background: rgba(255, 215, 0, 0.05);
   border-color: rgba(255, 215, 0, 0.25);
   transform: translateY(-1px);
 }
 
-.preferOption.selected {
+.customOption.selected {
   background: rgba(255, 215, 0, 0.08);
   border-color: rgba(255, 215, 0, 0.4);
   box-shadow: 0 4px 12px rgba(255, 215, 0, 0.15);
 }
 
-.preferOption.disabled {
+.customOption.disabled {
   opacity: 0.5;
   cursor: not-allowed;
   pointer-events: none;
@@ -163,7 +163,7 @@
     margin-top: var(--space-md);
   }
   
-  .preferOption {
+  .customOption {
     padding: var(--space-sm) var(--space-md);
     min-height: var(--touch-target);
   }
@@ -187,18 +187,18 @@
 }
 
 /* Focus states for accessibility */
-.preferOption:focus {
+.customOption:focus {
   outline: 2px solid var(--armora-gold);
   outline-offset: 2px;
 }
 
-.preferOption:focus:not(:focus-visible) {
+.customOption:focus:not(:focus-visible) {
   outline: none;
 }
 
 /* High contrast mode support */
 @media (prefers-contrast: high) {
-  .preferOption {
+  .customOption {
     border-width: 2px;
   }
   
@@ -211,15 +211,124 @@
   }
 }
 
+/* Input section for custom answers */
+.inputSection {
+  margin-top: var(--space-md);
+  animation: expandIn 0.3s ease-out;
+}
+
+.textArea {
+  width: 100%;
+  min-height: 80px;
+  padding: var(--space-sm);
+  background: rgba(26, 26, 46, 0.6);
+  border: 1px solid rgba(255, 215, 0, 0.3);
+  border-radius: var(--radius-sm);
+  color: rgba(224, 224, 224, 0.9);
+  font-size: var(--font-sm);
+  font-family: inherit;
+  line-height: 1.4;
+  resize: vertical;
+  transition: all 0.3s ease;
+  box-sizing: border-box;
+}
+
+.textArea:focus {
+  outline: none;
+  border-color: var(--armora-gold);
+  box-shadow: 0 0 0 2px rgba(255, 215, 0, 0.1);
+}
+
+.textArea::placeholder {
+  color: rgba(224, 224, 224, 0.5);
+  font-style: italic;
+}
+
+.inputFooter {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: var(--space-xs);
+}
+
+.characterCount {
+  color: rgba(224, 224, 224, 0.6);
+  font-size: var(--font-xs);
+  font-weight: 400;
+}
+
+.clearButton {
+  background: rgba(255, 215, 0, 0.1);
+  border: 1px solid rgba(255, 215, 0, 0.3);
+  border-radius: var(--radius-sm);
+  color: var(--armora-gold);
+  padding: var(--space-xs) var(--space-sm);
+  font-size: var(--font-xs);
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.clearButton:hover {
+  background: rgba(255, 215, 0, 0.2);
+  border-color: rgba(255, 215, 0, 0.5);
+}
+
+.clearButton:active {
+  transform: scale(0.95);
+}
+
+@keyframes expandIn {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+    max-height: 0;
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    max-height: 200px;
+  }
+}
+
+/* Responsive design for input section */
+@media (max-width: 480px) {
+  .inputSection {
+    margin-top: var(--space-sm);
+  }
+
+  .textArea {
+    font-size: var(--font-sm);
+    min-height: 70px;
+  }
+
+  .characterCount {
+    font-size: 10px;
+  }
+
+  .clearButton {
+    padding: 6px 8px;
+    font-size: 10px;
+  }
+}
+
 /* Reduced motion support */
 @media (prefers-reduced-motion: reduce) {
-  .preferOption,
+  .customOption,
   .toggle,
   .toggleSlider {
     transition: none;
   }
-  
+
   .confirmationMessage {
     animation: none;
+  }
+
+  .inputSection {
+    animation: none;
+  }
+
+  .textArea {
+    transition: none;
   }
 }

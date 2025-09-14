@@ -4,7 +4,7 @@ import { QuestionnaireStep as QuestionnaireStepComponent } from './Questionnaire
 import { ProgressIndicator } from './ProgressIndicator';
 import { QuestionnaireComplete } from './QuestionnaireComplete';
 import { getQuestionsForUserType, getServiceRecommendation } from '../../data/questionnaireData';
-import { QuestionnaireData, PersonalizationData } from '../../types';
+import { QuestionnaireData, PersonalizationData, QuestionnaireAnswer } from '../../types';
 import styles from './QuestionnaireFlow.module.css';
 
 interface QuestionnaireFlowProps {
@@ -44,7 +44,7 @@ export function QuestionnaireFlow({ onComplete }: QuestionnaireFlowProps) {
   const currentStepData = filteredSteps.find(step => step.id === currentStep);
 
   // Handle step completion and navigation
-  const handleStepComplete = (stepId: number, value: string | string[]) => {
+  const handleStepComplete = (stepId: number, value: QuestionnaireAnswer) => {
     const stepKey = `step${stepId}_${currentStepData?.type === 'radio' ? 
       getSingleValueKey(stepId) : 
       getMultiValueKey(stepId)}` as keyof QuestionnaireData;

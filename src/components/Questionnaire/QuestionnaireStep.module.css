@@ -3123,3 +3123,16 @@
     margin: 0.75rem 0;
   }
 }
+
+/* Selection feedback positioning */
+.selectionFeedback {
+  margin: 24px 0;
+}
+
+/* Bottom anchor for auto-scroll */
+.bottomAnchor {
+  height: 1px;
+  width: 100%;
+  margin-bottom: 20px;
+  pointer-events: none;
+}
