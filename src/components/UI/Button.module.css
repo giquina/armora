@@ -19,7 +19,7 @@
   transition: all var(--transition-base);
   outline: none;
   min-height: var(--touch-target);
-  overflow: hidden;
+  overflow: visible; /* Allow borders to show properly */
 }
 
 /* SIZES */

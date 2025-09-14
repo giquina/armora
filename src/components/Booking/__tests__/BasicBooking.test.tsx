@@ -14,7 +14,7 @@ const mockStandardService: ServiceLevel = {
   price: '£45',
   hourlyRate: 45,
   description: 'Professional security officers provide safe, reliable transport.',
-  features: ['Certified security professional', 'Armored vehicle protection'],
+  features: ['Certified security professional', 'Advanced vehicle protection'],
   socialProof: { tripsCompleted: 2847 }
 };
 

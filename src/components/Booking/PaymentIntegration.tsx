@@ -201,7 +201,8 @@ export function PaymentIntegration({
 
         <div className={styles.header}>
           <h1 className={styles.title}>Confirm Your Booking</h1>
-          <p className={styles.subtitle}>Review details before payment</p>
+          <p className={styles.subtitle}>Step 3 of 3 • Payment & Confirmation</p>
+          <p className={styles.description}>Review details before payment</p>
         </div>
 
         {/* Booking Summary */}

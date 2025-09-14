@@ -700,8 +700,8 @@ export const questionnaireSteps: QuestionnaireStep[] = [
         id: "no_special_requirements",
         label: "❌ No Special Requirements",
         value: "no_special_requirements",
-        description: "Standard service is sufficient",
-        examples: "*I have no special requirements, Standard VIP service meets all my needs"
+        description: "Armora Secure service is sufficient",
+        examples: "*I have no special requirements, Armora Secure meets all my needs"
       },
       {
         id: "prefer_not_to_say",
@@ -967,16 +967,16 @@ export const getServiceRecommendation = (responses: Record<string, any>): string
 export const serviceData = {
   "armora-standard": {
     id: "armora-standard",
-    name: "Armora Standard",
+    name: "Armora Secure",
     description: "Professional security transport service",
     features: [
-      "Professional SIA-licensed drivers",
-      "Premium vehicles (Mercedes, BMW, Audi)",
-      "Basic security protocols",
+      "SIA Level 2 security-certified drivers",
+      "Eco-friendly Nissan Leaf EV fleet (discreet)",
+      "Professional security protocols",
       "24/7 booking availability",
-      "Real-time tracking",
-      "First aid trained drivers",
-      "SIA Close Protection Officers"
+      "Real-time safety monitoring",
+      "Background-checked professionals",
+      "Emergency response protocols"
     ],
     price: "£45/hour",
     confidence: 85,

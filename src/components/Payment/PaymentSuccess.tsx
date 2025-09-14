@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { BookingData, PaymentIntent, PriceBreakdown } from '../../types';
+import { BookingData, PaymentIntent } from '../../types';
 import { Button } from '../UI/Button';
 import { ArmoraLogo } from '../UI/ArmoraLogo';
 import styles from './PaymentSuccess.module.css';

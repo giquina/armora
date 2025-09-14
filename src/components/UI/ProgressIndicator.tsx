@@ -84,28 +84,23 @@ export function ProgressIndicator({
   );
 }
 
-// Pre-built progress indicator for booking flow
+// Pre-built progress indicator for booking flow - Updated for consistent 3-step flow
 export function BookingProgressIndicator({ currentStep }: { currentStep: string }) {
   const bookingSteps: ProgressStep[] = [
     {
-      label: 'Select Service',
-      completed: currentStep !== 'vehicle-selection',
+      label: 'Security Level',
+      completed: ['location-picker', 'booking-confirmation', 'booking-success'].includes(currentStep),
       current: currentStep === 'vehicle-selection'
     },
     {
-      label: 'Enter Locations',
+      label: 'Route Planning',
       completed: ['booking-confirmation', 'booking-success'].includes(currentStep),
       current: currentStep === 'location-picker'
     },
     {
-      label: 'Confirm Booking',
+      label: 'Confirmation',
       completed: currentStep === 'booking-success',
       current: currentStep === 'booking-confirmation'
-    },
-    {
-      label: 'Complete',
-      completed: currentStep === 'booking-success',
-      current: currentStep === 'booking-success'
     }
   ];
 

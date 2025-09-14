@@ -62,7 +62,7 @@ export function QuestionnaireComplete({ onRestart, onContinue }: QuestionnaireCo
     },
     {
       icon: '❌',
-      title: 'Basic Support Only',
+      title: 'Standard Support Only',
       description: 'Standard customer service hours'
     }
   ];

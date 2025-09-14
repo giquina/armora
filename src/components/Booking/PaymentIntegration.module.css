@@ -12,7 +12,8 @@
 }
 
 .title {
-  color: var(--color-text-light);
+  /* FIXED: Use proper Armora text color (was undefined var(--color-text-light)) */
+  color: var(--text-primary);
   font-size: 1.75rem;
   font-weight: 600;
   margin: 0 0 0.5rem 0;
@@ -20,11 +21,22 @@
 }
 
 .subtitle {
-  color: var(--color-text-muted);
+  /* Step indicator styling matching other components */
+  color: var(--armora-gold);
   font-size: 1rem;
-  margin: 0;
-  font-weight: 400;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 0.5rem;
 }
+
+.description {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  margin-bottom: 1rem;
+}
+
+/* Old subtitle class removed - replaced with proper step indicator styling above */
 
 /* Summary Card */
 .summaryCard {

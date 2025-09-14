@@ -21,7 +21,7 @@ const servicelevels: ServiceLevel[] = [
     description: 'Professional security officers provide safe, reliable transport with comprehensive protection.',
     features: [
       'Certified security professional',
-      'Armored vehicle protection',
+      'Advanced vehicle protection',
       'Real-time GPS tracking',
       '24/7 monitoring support',
       'Priority response protocol'
@@ -39,7 +39,7 @@ const servicelevels: ServiceLevel[] = [
     description: 'Premium luxury vehicles with elite security professionals for VIP experiences.',
     features: [
       'Elite security specialist',
-      'Luxury armored vehicle',
+      'Luxury reinforced vehicle',
       'Discrete personal protection',
       'Priority response team',
       'Concierge service included',
@@ -122,7 +122,8 @@ export function VehicleSelection({ user, onServiceSelected, onBack }: VehicleSel
           </button>
         )}
         <h1 className={styles.title}>Choose Your Protection</h1>
-        <p className={styles.subtitle}>
+        <p className={styles.subtitle}>Step 1 of 3 • Security Level Selection</p>
+        <p className={styles.description}>
           Select the security service that best fits your needs
         </p>
         {hasReward && (

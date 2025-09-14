@@ -55,21 +55,7 @@ export function StreamlinedBookingModal({
     general?: string;
   }>({});
 
-  // Get current location on modal open
-  useEffect(() => {
-    if (isOpen && !currentLocation) {
-      getCurrentLocation();
-    }
-  }, [isOpen, currentLocation]);
-
-  // Calculate route estimate when both locations are set
-  useEffect(() => {
-    if (pickupLocation && destinationLocation) {
-      calculateRouteEstimate();
-    }
-  }, [pickupLocation, destinationLocation]);
-
-  const getCurrentLocation = async () => {
+  const getCurrentLocation = useCallback(async () => {
     if (!navigator.geolocation) {
       setErrors(prev => ({
         ...prev,
@@ -138,9 +124,9 @@ export function StreamlinedBookingModal({
     } finally {
       setIsLoadingLocation(false);
     }
-  };
+  }, [selectedService.id]);
 
-  const calculateRouteEstimate = async () => {
+  const calculateRouteEstimate = useCallback(async () => {
     if (!pickupLocation || !destinationLocation) return;
 
     setIsCalculatingRoute(true);
@@ -186,7 +172,21 @@ export function StreamlinedBookingModal({
     } finally {
       setIsCalculatingRoute(false);
     }
-  };
+  }, [pickupLocation, destinationLocation, selectedService, userProfile]);
+
+  // Get current location on modal open
+  useEffect(() => {
+    if (isOpen && !currentLocation) {
+      getCurrentLocation();
+    }
+  }, [isOpen, currentLocation]);
+
+  // Calculate route estimate when both locations are set
+  useEffect(() => {
+    if (pickupLocation && destinationLocation) {
+      calculateRouteEstimate();
+    }
+  }, [pickupLocation, destinationLocation]);
 
   const handlePickupLocationSelect = useCallback((location: Location) => {
     setPickupLocation(location);

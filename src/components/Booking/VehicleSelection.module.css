@@ -4,7 +4,7 @@
   min-height: 100vh;
   background: var(--bg-primary);
   color: var(--text-primary);
-  overflow-x: hidden;
+  overflow-x: visible; /* FIXED: Allow golden borders to show on all sides */
 }
 
 .header {
@@ -49,6 +49,16 @@
 }
 
 .subtitle {
+  /* Step indicator styling matching LocationPlanningSection */
+  color: var(--armora-gold);
+  font-size: 1rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 0.5rem;
+}
+
+.description {
   font-size: 1rem;
   color: var(--text-secondary);
   margin-bottom: 1rem;

@@ -1,14 +1,18 @@
-/* Location Planning Section Styles */
+/* Location Planning Section Styles - FIXED WITH PROPER ARMORA VARIABLES */
 .container {
   margin: 1.5rem 0;
   padding: 1.5rem;
-  background: var(--color-navy-dark);
-  border: 2px solid var(--color-gold);
+  /* Fixed: Use proper Armora background */
+  background: var(--bg-card);
+  /* Fixed: Use proper Armora gold */
+  border: 2px solid var(--armora-gold);
   border-radius: 12px;
   width: calc(100vw - 36px);
-  max-width: var(--content-max-width);
+  max-width: 680px;
   margin-left: auto;
   margin-right: auto;
+  /* Add premium shadow effect */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(255, 215, 0, 0.1);
 }
 
 .header {
@@ -17,7 +21,8 @@
 }
 
 .title {
-  color: var(--color-text-light);
+  /* Fixed: Use proper Armora text color */
+  color: var(--text-primary);
   font-size: 1.5rem;
   font-weight: 600;
   margin: 0 0 0.5rem 0;
@@ -25,7 +30,8 @@
 }
 
 .subtitle {
-  color: var(--color-gold);
+  /* Fixed: Use proper Armora gold */
+  color: var(--armora-gold);
   font-size: 1rem;
   margin: 0;
   font-weight: 500;
@@ -41,19 +47,37 @@
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
+  /* Add subtle background card for each input group */
+  background: rgba(26, 26, 46, 0.4);
+  border-radius: 12px;
+  padding: 16px;
+  border: 1px solid rgba(255, 215, 0, 0.15);
+  transition: all 0.3s ease;
+}
+
+.inputGroup:hover {
+  /* Highlight entire group on hover */
+  background: rgba(26, 26, 46, 0.6);
+  border-color: rgba(255, 215, 0, 0.25);
 }
 
 .label {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  color: var(--color-text-light);
-  font-weight: 500;
+  /* Fixed: Use proper Armora text color */
+  color: var(--text-primary);
+  font-weight: 600;
   font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
 .icon {
   font-size: 1.2rem;
+  /* Add golden glow to icons */
+  color: var(--armora-gold);
+  filter: drop-shadow(0 2px 4px rgba(255, 215, 0, 0.3));
 }
 
 .inputContainer {
@@ -65,23 +89,51 @@
   flex: 1;
   padding: 0.875rem 3rem 0.875rem 1rem;
   font-size: 1rem;
-  background: var(--color-card-bg);
-  border: 2px solid var(--color-border);
+  /* FIXED: Use proper Armora background (was undefined var(--color-card-bg)) */
+  background: var(--bg-secondary);
+  /* FIXED: Use proper Armora gold border (was undefined var(--color-border)) */
+  border: 2px solid rgba(255, 215, 0, 0.5);
   border-radius: 8px;
-  color: var(--color-text-light);
-  transition: all 0.2s ease;
-  min-height: var(--touch-target);
+  /* FIXED: Use proper Armora text color (was undefined var(--color-text-light)) */
+  color: var(--text-primary);
+  transition: all 0.3s ease;
+  min-height: 44px;
   box-sizing: border-box;
+  /* Add premium styling */
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.2), 0 2px 8px rgba(255, 215, 0, 0.1);
+  cursor: pointer;
 }
 
 .input:focus {
   outline: none;
-  border-color: var(--color-gold);
-  box-shadow: 0 0 0 2px rgba(255, 215, 0, 0.1);
+  /* FIXED: Use proper Armora gold (was undefined var(--color-gold)) */
+  border-color: var(--armora-gold);
+  /* Enhanced focus glow */
+  box-shadow:
+    0 0 0 4px rgba(255, 215, 0, 0.25),
+    0 4px 16px rgba(255, 215, 0, 0.2),
+    inset 0 1px 3px rgba(0, 0, 0, 0.1);
+  /* Slightly lighter background on focus */
+  background: var(--bg-card);
+  transform: translateY(-1px);
 }
 
 .input::placeholder {
-  color: var(--color-text-muted);
+  /* FIXED: Use proper Armora text color (was undefined var(--color-text-muted)) */
+  color: var(--text-secondary);
+  font-style: normal;
+  opacity: 0.8;
+}
+
+.input:hover:not(:focus):not(:disabled) {
+  /* Clear hover state indication */
+  border-color: rgba(255, 215, 0, 0.7);
+  box-shadow:
+    0 2px 12px rgba(255, 215, 0, 0.15),
+    inset 0 1px 3px rgba(0, 0, 0, 0.15);
+  /* Subtle background lightening on hover */
+  background: var(--bg-card);
+  transform: translateY(-0.5px);
 }
 
 .input:disabled {
@@ -90,7 +142,12 @@
 }
 
 .inputError {
-  border-color: var(--color-error);
+  /* FIXED: Use proper Armora error color (was undefined var(--color-error)) */
+  border-color: var(--error);
+  background: rgba(255, 68, 68, 0.05);
+  box-shadow:
+    0 0 0 3px rgba(255, 68, 68, 0.2),
+    0 4px 12px rgba(255, 68, 68, 0.15);
 }
 
 .currentLocationButton {
@@ -98,8 +155,9 @@
   right: 8px;
   top: 50%;
   transform: translateY(-50%);
-  background: var(--color-gold);
-  border: none;
+  /* FIXED: Use proper Armora gold (was undefined var(--color-gold)) */
+  background: linear-gradient(135deg, var(--armora-gold), var(--hover-gold));
+  border: 1px solid rgba(255, 215, 0, 0.8);
   border-radius: 6px;
   width: 36px;
   height: 36px;
@@ -109,11 +167,15 @@
   cursor: pointer;
   transition: all 0.2s ease;
   font-size: 1rem;
+  color: var(--armora-dark);
+  box-shadow: 0 2px 6px rgba(255, 215, 0, 0.3);
 }
 
 .currentLocationButton:hover:not(:disabled) {
-  background: var(--color-gold-hover);
+  /* FIXED: Use proper Armora hover gold (was undefined var(--color-gold-hover)) */
+  background: linear-gradient(135deg, var(--hover-gold), var(--armora-gold));
   transform: translateY(-50%) scale(1.05);
+  box-shadow: 0 3px 10px rgba(255, 215, 0, 0.4);
 }
 
 .currentLocationButton:active:not(:disabled) {
@@ -126,9 +188,24 @@
 }
 
 .errorMessage {
-  color: var(--color-error);
+  /* FIXED: Use proper Armora error color (was undefined var(--color-error)) */
+  color: var(--error);
   font-size: 0.875rem;
-  margin-top: 0.25rem;
+  margin-top: 8px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255, 68, 68, 0.08);
+  padding: 8px 12px;
+  border-radius: 8px;
+  border-left: 3px solid var(--error);
+  animation: shake 0.3s ease-in-out;
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-4px); }
+  75% { transform: translateX(4px); }
 }
 
 .estimateSection {
@@ -140,7 +217,8 @@
 }
 
 .estimateTitle {
-  color: var(--color-text-light);
+  /* FIXED: Use proper Armora text color (was undefined var(--color-text-light)) */
+  color: var(--text-primary);
   font-size: 1.1rem;
   font-weight: 600;
   margin: 0 0 0.75rem 0;

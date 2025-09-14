@@ -26,13 +26,15 @@ Armora is a React 19.1.1 TypeScript application for premium VIP security transpo
 
 ## Development Infrastructure
 Includes automated hooks system and AI task management:
-- `npm run dev` - Start with hooks system
+- `npm run dev` - Start with hooks system and orchestration
 - `npm run hooks:start/stop/status/restart/emergency` - Manage development hooks
 - `npm run suggest` - AI task suggestions via codebase analysis
 - `npm run add-task/complete-task/start-task/task-status` - Task management system
 - `npm run update-docs` - Update documentation automatically
 - `npm run project-health` - Check overall project health
 - `npm run agents` - Manage specialized agents (.claude/agents/)
+- `npm run orchestrate` - Start intelligent agent orchestration service
+- `npm run orchestrate:status` - View active agents and system status
 
 **Hooks System**: 7 tools including mobile viewport tester (prevents horizontal scrolling), auto-saver, dev server monitor, and brand compliance.
 
@@ -67,7 +69,7 @@ Includes automated hooks system and AI task management:
 - Error handling and loading states
 
 ### Component Architecture
-**Full-screen views** (bypass AppLayout): splash, welcome, auth, questionnaire, achievement  
+**Full-screen views** (bypass AppLayout): splash, welcome, auth, questionnaire, achievement
 **App-wrapped views** (include header): dashboard, booking, profile
 
 ### Key File Structure
@@ -75,10 +77,10 @@ Includes automated hooks system and AI task management:
 src/
 ├── App.tsx                     - Main router with view switching
 ├── contexts/AppContext.tsx     - Global state management
-├── types/index.ts              - TypeScript interfaces (336 lines)
+├── types/index.ts              - TypeScript interfaces
 ├── components/
 │   ├── Auth/                   - Authentication flow
-│   ├── Questionnaire/          - 9-step onboarding system  
+│   ├── Questionnaire/          - 9-step onboarding system
 │   ├── Dashboard/              - Service selection
 │   ├── Booking/                - Complete booking flow
 │   ├── UI/ArmoraLogo.tsx       - Premium 4D logo system
@@ -86,15 +88,9 @@ src/
 └── data/questionnaireData.ts   - Dynamic questionnaire logic
 ```
 
-## Premium 4D Logo System (`ArmoraLogo.tsx`)
-Multi-layered shield with 4D effects, metallic textures, orbital animations. Responsive scaling 320px+.
-
-**Usage**: `<ArmoraLogo size="hero|large|medium|small" variant="animated|full|compact|minimal" />`
-- **Global consistency**: SplashScreen (hero), WelcomePage (large), AppLayout header (small)
-
 ## Business Context
-**Service Levels**: Standard (£45/h), Executive (£75/h), Shadow (£65/h - most popular 67%)  
-**User Journey**: splash → welcome → auth → questionnaire → achievement → dashboard → booking  
+**Service Levels**: Standard (£45/h), Executive (£75/h), Shadow (£65/h - most popular 67%)
+**User Journey**: splash → welcome → auth → questionnaire → achievement → dashboard → booking
 **User Capabilities**: Registered/Google users get direct booking + 50% reward; guests get quotes only
 
 ### Safe Ride Fund Initiative
@@ -106,13 +102,13 @@ Multi-layered shield with 4D effects, metallic textures, orbital animations. Res
 
 ### Global Styling Structure
 - **CSS Modules** for component-scoped styles
-- **Central design system** via `/src/styles/variables.css` (93 lines)
+- **Central design system** via `/src/styles/variables.css`
 - **Card standardization** via `/src/styles/card-standards.css` for consistent UI
-- **Global container** system via `/src/styles/global-container.css` (286 lines)
+- **Global container** system via `/src/styles/global-container.css`
 - **Master width control**: `--content-max-width: 680px` across all views
 
 ### Mobile-First Design (CRITICAL: No horizontal scrolling 320px+)
-- **Colors**: #1a1a2e (navy), #FFD700 (gold), #e0e0e0 (text)  
+- **Colors**: #1a1a2e (navy), #FFD700 (gold), #e0e0e0 (text)
 - **Touch targets**: 44px+ minimum (`--touch-target` CSS variable)
 - **Typography**: Aggressive mobile sizing (1.4-1.5rem), system fonts
 - **8px grid spacing**: `--space-xs: 4px` through `--space-xxl: 48px`
@@ -131,38 +127,15 @@ Multi-layered shield with 4D effects, metallic textures, orbital animations. Res
 
 ### Specialized Agents (`.claude/agents/`)
 6 agents for specialized development: mobile-tester, pwa-optimizer, ux-validator, booking-flow-manager, server-keeper, orchestration-agent
-**Full documentation**: See [agents.md](.claude/agents.md) for detailed agent information, commands, and development guidelines
 
 ### Automatic Agent Activation System
 **Proactive Agent Orchestration**: Agents automatically activate based on context without manual intervention.
 
 **Auto-Activation Rules**:
 - **Component files** (*.tsx) → `mobile-tester` + `ux-validator` automatically engage
-- **Style files** (*.css) → `mobile-tester` tests responsiveness + `ux-validator` checks consistency  
-- **Questionnaire changes** → `mobile-tester` + `ux-validator` + `booking-flow-manager` coordinate testing
-- **Booking components** → `booking-flow-manager` validates logic + `ux-validator` checks UX
+- **Style files** (*.css) → `mobile-tester` tests responsiveness + `ux-validator` checks consistency
 - **Server issues/port conflicts** → `server-keeper` immediately engages (critical priority)
 - **PWA files** (manifest.json, sw.js) → `pwa-optimizer` activates for app store readiness
-- **Build/bundle warnings** → `pwa-optimizer` optimizes + `mobile-tester` validates performance
-
-**Orchestration Commands**:
-- `npm run orchestrate` - Start intelligent agent orchestration service
-- `npm run orchestrate:status` - View active agents and system status  
-- `npm run orchestrate:test <file>` - Test agent activation on specific file
-- `npm run dev` - Start development with full orchestration enabled
-
-**Agent Priorities**:
-- **Critical**: `server-keeper` (immediate activation on server issues)
-- **High**: `mobile-tester`, `ux-validator` (activate within 2 seconds)  
-- **Medium**: `booking-flow-manager` (activate within 10 seconds)
-- **Low**: `pwa-optimizer` (activate when system idle)
-
-## Development Standards
-- **Mobile-first**: Start at 320px, NO horizontal scrolling allowed
-- **TypeScript strict mode**: All components typed
-- **CSS Modules**: Component-scoped styling
-- **Testing**: Jest + React Testing Library (only App.test.tsx exists currently)
-- **Error handling**: Components handle loading/error/empty states
 
 ## Testing Strategy
 - `npm test` - Interactive watch mode
@@ -172,8 +145,8 @@ Multi-layered shield with 4D effects, metallic textures, orbital animations. Res
 - **Current coverage**: Limited - focus on critical booking flow components first
 
 ## Current Status
-✅ **Complete**: Auth, Questionnaire (9-step + privacy), Dashboard, Booking flow, Achievement, 4D logo system, Safe Ride Fund integration  
-⚠️ **Critical Needs**: Test coverage (only App.test.tsx exists), PWA service worker, payment integration  
+✅ **Complete**: Auth, Questionnaire (9-step + privacy), Dashboard, Booking flow, Achievement, 4D logo system, Safe Ride Fund integration
+⚠️ **Critical Needs**: Test coverage (only App.test.tsx exists), PWA service worker, payment integration
 🔜 **Planned**: Real-time tracking, push notifications, offline mode
 
 ## Key Utility Functions
@@ -198,30 +171,11 @@ Complete flow: VehicleSelection → LocationPicker → BookingConfirmation → B
 - **Credentials modal**: Development mode toggle for testing
 - **Safe Ride Fund integration**: Prominent CTAs and donation modal
 
-### TypeScript Configuration  
-Strict mode enabled with React 19 JSX transform. All interfaces in `/src/types/index.ts`.
-
 ### Authentication & User Types
 Three distinct user types with different capabilities:
 - **Registered**: Full booking + 50% rewards
-- **Google**: Same as registered  
+- **Google**: Same as registered
 - **Guest**: Quote-only mode, no direct booking
-
-## Critical Fixes Applied
-
-### Card Border Visibility Issue (2025-09-10)
-**Problem**: Right borders of cards were being cut off due to overflow constraints.
-**Root Causes**: 
-- Global `max-width: 100%` on all elements in `globals.css`
-- `overflow-x: hidden` on #root and .App containers
-- Card width calculation `calc(100vw - 32px)` didn't account for 2px borders
-
-**Fixes Applied**:
-- Changed card width to `calc(100vw - 36px)` in `card-standards.css`
-- Removed global max-width constraint, applied only to media elements
-- Changed containers to `overflow-x: visible` to show borders
-
-**Result**: All card borders now fully visible across all device breakpoints.
 
 ## Important Code Patterns
 
@@ -272,4 +226,4 @@ Ensure CSS Module imports use correct syntax: `import styles from './Component.m
 - Types: Centralized in `/src/types/index.ts`
 - Data: Static data in `/src/data/`
 
-Last updated: 2025-09-13T21:40:16.952Z
+Last updated: 2025-09-14

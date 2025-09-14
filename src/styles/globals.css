@@ -90,6 +90,7 @@ select,
 textarea {
   font: inherit;
   color: inherit;
+  box-sizing: border-box; /* Critical: ensure borders don't expand element size */
 }
 
 button {
@@ -98,6 +99,7 @@ button {
   background: none;
   min-height: var(--touch-target);
   min-width: var(--touch-target);
+  box-sizing: border-box; /* Critical: ensure borders don't expand button size */
 }
 
 button:disabled {
@@ -250,6 +252,25 @@ html {
 #root {
   max-width: 100vw;
   overflow-x: visible; /* Allow borders to show */
+}
+
+/* CRITICAL: Ensure all potentially bordered elements use border-box */
+*[class*="card"],
+*[class*="button"],
+*[class*="input"],
+*[class*="form"],
+.button,
+.outline {
+  box-sizing: border-box !important;
+}
+
+/* CRITICAL: Prevent border clipping on outlined elements */
+button.outline,
+.outline,
+*[class*="outline"],
+button[variant="outline"],
+*[class*="scheduleButton"] {
+  overflow: visible !important; /* Ensure borders are never clipped */
 }
 
 /* Remove global max-width constraint that clips card borders */

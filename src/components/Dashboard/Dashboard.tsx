@@ -6,6 +6,7 @@ import { ServiceCard } from './ServiceCard';
 import { ImpactDashboardWidget } from './ImpactDashboardWidget';
 import { MarketingBanner } from './MarketingBanner';
 import { LocationPlanningSection } from './LocationPlanningSection';
+import { SmartRecommendation } from './SmartRecommendation';
 // import { SchedulingPicker } from '../UI/SchedulingPicker'; // Replaced with new QuickScheduling system
 import { ResponsiveModal } from '../UI/ResponsiveModal';
 import { QuickScheduling } from '../UI/QuickScheduling';
@@ -16,17 +17,21 @@ import styles from './Dashboard.module.css';
 const ARMORA_SERVICES: ServiceLevel[] = [
   {
     id: 'standard',
-    name: 'Armora Standard',
+    name: 'Armora Secure',
     tagline: 'Professional Security Transport',
     price: '£45/hour',
     hourlyRate: 45,
-    description: 'Professional security-aware drivers with basic protection protocols',
+    vehicle: 'Nissan Leaf EV',
+    capacity: '4 passengers',
+    driverQualification: 'SIA Level 2 Security Certified',
+    description: 'Professional security-aware drivers providing discreet protection in eco-friendly vehicles',
     features: [
-      'Security-trained professional drivers',
-      'Real-time GPS tracking',
-      'Secure communication protocols',
-      'Basic threat assessment',
-      '24/7 priority support'
+      'Trained security-aware drivers',
+      'Discreet vehicle selection (Nissan Leaf EV)',
+      'Real-time safety monitoring',
+      'Emergency response protocols',
+      'Background-checked professionals',
+      'Eco-friendly professional transport'
     ]
   },
   {
@@ -35,14 +40,17 @@ const ARMORA_SERVICES: ServiceLevel[] = [
     tagline: 'Enhanced Security & Luxury',
     price: '£75/hour',
     hourlyRate: 75,
-    description: 'Premium luxury vehicles with enhanced security protocols',
+    vehicle: 'BMW 5 Series',
+    capacity: '4 passengers',
+    driverQualification: 'SIA Level 3 Security Certified',
+    description: 'Premium luxury vehicles with enhanced security protocols and executive protection',
     features: [
-      'Executive protection trained drivers',
-      'Luxury vehicle fleet',
-      'Advanced route planning',
-      'Executive assistance services',
-      'Priority rapid response',
-      'Discrete security protocols'
+      'SIA Level 3 certified security drivers',
+      'Advanced threat assessment training',
+      'Luxury vehicle with security modifications',
+      'Priority emergency response',
+      'Executive protection protocols',
+      'Discrete security professionals'
     ]
   },
   {
@@ -51,13 +59,16 @@ const ARMORA_SERVICES: ServiceLevel[] = [
     tagline: 'Maximum Security Protection',
     price: '£65/hour',
     hourlyRate: 65,
-    description: 'Close protection officers with armored vehicles for maximum security',
+    vehicle: 'Armored BMW X5',
+    capacity: '4 passengers',
+    driverQualification: 'Special Forces Trained',
+    description: 'Close protection specialists with reinforced vehicles for maximum security operations',
     features: [
-      'Certified close protection officers',
-      'Armored vehicle options',
-      'Counter-surveillance training',
+      'Special Forces trained drivers',
+      'Armored vehicle specifications',
+      'Counter-surveillance techniques',
       'Tactical route planning',
-      'Immediate threat response',
+      'Close protection specialist team',
       'Government-level security protocols'
     ],
     isPopular: true,
@@ -194,6 +205,22 @@ export function Dashboard() {
     localStorage.setItem('armora_reward_banner_dismissed', 'true');
   };
 
+  const handleServiceSelection = (serviceId: string) => {
+    // Set selected service and navigate directly to service focus
+    setLocalSelectedService(serviceId as 'standard' | 'executive' | 'shadow');
+    setFocusedServiceId(serviceId);
+
+    // Store for booking flow
+    localStorage.setItem('armora_selected_service', serviceId);
+
+    // Analytics
+    console.log('[Analytics] Service selected from recommendation', {
+      serviceId,
+      timestamp: Date.now(),
+      userType: user?.userType
+    });
+  };
+
   const handleLocationSet = (location: LocationSection) => {
     setLocationData(location);
     setShowLocationFirst(false);
@@ -234,19 +261,8 @@ export function Dashboard() {
   const getPersonalizedRecommendation = () => {
     if (!questionnaireData) return null;
 
-    const { step1_transportProfile, step3_serviceRequirements } = questionnaireData;
-    
-    // Business logic for service recommendations
-    if (step3_serviceRequirements?.includes('maximum_security') || 
-        step1_transportProfile === 'high_profile_executive') {
-      return 'shadow';
-    }
-    
-    if (step3_serviceRequirements?.includes('luxury_vehicles') || 
-        step1_transportProfile === 'corporate_executive') {
-      return 'executive';
-    }
-    
+    // UNIVERSAL RECOMMENDATION: Always recommend Armora Secure (Standard)
+    // as it's the only currently available service option
     return 'standard';
   };
 
@@ -381,21 +397,13 @@ export function Dashboard() {
       {/* Impact Widget for Essential Members */}
       <ImpactDashboardWidget />
 
-      {/* Personalized Recommendation - PRIORITY PLACEMENT */}
-      {recommendedService && questionnaireData && (
-        <div className={styles.recommendationSection}>
-          <div className={styles.recommendationCard}>
-            <div className={styles.recommendationIcon}>⭐</div>
-            <div className={styles.recommendationContent}>
-              <h3 className={styles.recommendationTitle}>Recommended For You</h3>
-              <p className={styles.recommendationDescription}>
-                Based on your security profile, <strong>Armora {ARMORA_SERVICES.find(s => s.id === recommendedService)?.name.split(' ')[1]}</strong> is
-                the optimal choice for your transportation needs.
-              </p>
-            </div>
-          </div>
-        </div>
-      )}
+      {/* Smart Recommendation - Condensed Version */}
+      <SmartRecommendation
+        services={ARMORA_SERVICES}
+        user={user}
+        questionnaireData={questionnaireData}
+        onServiceSelect={handleServiceSelection}
+      />
 
       {/* Location Planning Section - NEW LOCATION-FIRST FLOW */}
       {showLocationFirst && (

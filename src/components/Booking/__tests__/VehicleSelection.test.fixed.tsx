@@ -93,11 +93,11 @@ describe('VehicleSelection Component', () => {
       // Standard service features
       expect(screen.getByText('Professional Security Transport')).toBeInTheDocument();
       expect(screen.getByText('Certified security professional')).toBeInTheDocument();
-      expect(screen.getByText('Armored vehicle protection')).toBeInTheDocument();
+      expect(screen.getByText('Advanced vehicle protection')).toBeInTheDocument();
 
       // Executive service features
       expect(screen.getByText('Elite security specialist')).toBeInTheDocument();
-      expect(screen.getByText('Luxury armored vehicle')).toBeInTheDocument();
+      expect(screen.getByText('Luxury reinforced vehicle')).toBeInTheDocument();
 
       // Shadow service features
       expect(screen.getByText('Discrete protection service')).toBeInTheDocument();

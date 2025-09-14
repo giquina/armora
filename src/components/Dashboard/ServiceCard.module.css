@@ -8,7 +8,8 @@
   cursor: pointer;
   transition: all var(--transition-base);
   position: relative;
-  overflow: hidden;
+  overflow-x: visible; /* Allow button borders to show */
+  overflow-y: hidden; /* Keep content contained vertically */
   min-height: 300px;
   display: flex;
   flex-direction: column;
@@ -921,6 +922,7 @@
   grid-template-columns: 1fr 1fr;
   gap: var(--space-xs);
   width: 100%;
+  overflow: visible; /* Ensure button borders show */
 }
 
 .bookNowButton,
@@ -964,14 +966,15 @@
 /* Mobile Responsiveness for Direct Booking Actions */
 @media (max-width: 480px) {
   .bookingActions {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr; /* Single column to prevent border clipping */
     gap: var(--space-sm);
   }
 
   .bookNowButton,
   .scheduleButton {
     font-size: var(--font-sm);
-    padding: var(--space-md);
+    padding: var(--space-sm) var(--space-md); /* Reduce vertical padding */
+    width: 100%; /* Ensure full width usage */
   }
 }
 
@@ -1016,7 +1019,7 @@
 /* Small Mobile (320px - 479px) */
 @media (max-width: 479px) {
   .serviceCard {
-    padding: var(--space-md);
+    padding: var(--space-sm); /* Reduce padding to give buttons more room */
     min-height: 280px;
   }
 

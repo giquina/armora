@@ -7,7 +7,7 @@
   --card-padding-tablet: 20px;
   --card-padding-desktop: 24px;
   
-  --card-margin-mobile: 2px; /* Micro gutter */
+  --card-margin-mobile: 6px; /* Safe margins for border visibility */
   --card-margin-tablet: 12px; /* Minimal safe margins */
   --card-margin-desktop: 20px; /* Minimal safe margins */
   
@@ -17,11 +17,11 @@
   --card-border: var(--card-border-width) solid var(--card-border-color);
   
   --card-backdrop-blur: 10px;
-  /* AGGRESSIVE full-width utilization on ALL devices */
-  --card-max-width-mobile: calc(100vw - 4px); /* Edge-to-edge with tiny gutter */
-  --card-max-width-tablet: calc(100vw - 6px);
-  --card-max-width-desktop: calc(100vw - 8px);
-  --card-max-width-large: min(calc(100vw - 16px), 1800px);
+  /* MOBILE BORDER-SAFE full-width utilization - accounting for 2px borders */
+  --card-max-width-mobile: calc(100vw - 12px); /* 6px gutter each side for borders + safety */
+  --card-max-width-tablet: calc(100vw - 16px);
+  --card-max-width-desktop: calc(100vw - 20px);
+  --card-max-width-large: min(calc(100vw - 32px), 1800px);
   
   /* MODAL SPECIFIC - Also nearly full width */
   --modal-max-width: calc(100vw - 40px);

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { LoadingSpinner } from './LoadingSpinner';
 import styles from './SmartLocationInput.module.css';
 
@@ -61,7 +61,7 @@ export function SmartLocationInput({
   }, [value]);
 
   // Generate smart suggestions based on context
-  const generateSmartSuggestions = (): LocationSuggestion[] => {
+  const generateSmartSuggestions = useCallback((): LocationSuggestion[] => {
     const suggestions: LocationSuggestion[] = [];
 
     // Current Location (for pickup only)
@@ -127,10 +127,10 @@ export function SmartLocationInput({
     }
 
     return suggestions.slice(0, 6); // Limit to 6 suggestions
-  };
+  }, [type, currentLocation, recentLocations]);
 
   // Enhanced location search with intelligent suggestions
-  const searchLocations = async (query: string): Promise<LocationSuggestion[]> => {
+  const searchLocations = useCallback(async (query: string): Promise<LocationSuggestion[]> => {
     if (!query.trim() || query.length < 2) return [];
 
     setIsSearching(true);
@@ -225,7 +225,7 @@ export function SmartLocationInput({
     } finally {
       setIsSearching(false);
     }
-  };
+  }, []);
 
   // Helper function to get location descriptions
   const getLocationDescription = (location: string): string => {
@@ -282,7 +282,7 @@ export function SmartLocationInput({
     }, 200); // Debounce search
 
     return () => clearTimeout(searchTimer);
-  }, [searchQuery, hasFocus, currentLocation, recentLocations, generateSmartSuggestions, searchLocations]);
+  }, [searchQuery, hasFocus, generateSmartSuggestions, searchLocations]);
 
   // Handle input focus
   const handleFocus = () => {

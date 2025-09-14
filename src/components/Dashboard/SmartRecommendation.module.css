@@ -1,0 +1,219 @@
+/* First-time user recommendation (compact) */
+.recommendationCard {
+  max-height: 120px;
+  padding: 16px;
+  margin-bottom: 16px;
+  background: var(--bg-card);
+  border: 2px solid var(--armora-gold);
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  position: relative;
+  overflow: hidden;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.header h3 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--armora-gold);
+  margin: 0;
+}
+
+.icon {
+  font-size: 18px;
+  color: var(--armora-gold);
+}
+
+.compactContent {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.mainMessage {
+  font-size: 0.9rem;
+  color: var(--text-primary);
+  line-height: 1.3;
+  margin: 0;
+}
+
+.quickStats {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.stat {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.urgencyBanner {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 8px;
+  background: rgba(255, 215, 0, 0.1);
+  border-radius: 6px;
+  font-size: 0.8rem;
+  color: var(--armora-gold);
+  font-weight: 600;
+}
+
+.urgencyIcon {
+  font-size: 14px;
+}
+
+.selectServiceBtn {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  padding: 6px 12px;
+  background: var(--armora-gold);
+  color: var(--bg-primary);
+  border: none;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.selectServiceBtn:hover {
+  background: var(--armora-gold-hover);
+  transform: translateY(-1px);
+}
+
+/* Returning user recommendation (minimal) */
+.returningUserRec {
+  max-height: 40px;
+  padding: 12px 16px;
+  background: var(--bg-card);
+  border: 1px solid var(--armora-gold);
+  border-radius: 8px;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+}
+
+.quickRec {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.9rem;
+  color: var(--text-primary);
+  width: 100%;
+}
+
+.checkmark {
+  font-size: 1rem;
+}
+
+.availability {
+  color: var(--text-success);
+  font-weight: 500;
+}
+
+.quickBookBtn {
+  margin-left: auto;
+  padding: 4px 12px;
+  background: var(--armora-gold);
+  color: var(--bg-primary);
+  border: none;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.quickBookBtn:hover {
+  background: var(--armora-gold-hover);
+  transform: scale(1.05);
+}
+
+/* Mobile optimization */
+@media (max-width: 640px) {
+  .recommendationCard {
+    max-height: 140px; /* Slightly more space on mobile */
+    padding: 14px;
+  }
+
+  .header h3 {
+    font-size: 1rem;
+  }
+
+  .mainMessage {
+    font-size: 0.85rem;
+  }
+
+  .quickStats {
+    gap: 8px;
+  }
+
+  .stat {
+    font-size: 0.75rem;
+  }
+
+  .selectServiceBtn {
+    position: static;
+    margin-top: 8px;
+    align-self: flex-start;
+    font-size: 0.75rem;
+    padding: 5px 10px;
+  }
+
+  .returningUserRec {
+    max-height: 50px; /* Slightly taller on mobile for touch */
+  }
+
+  .quickRec {
+    font-size: 0.85rem;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .quickBookBtn {
+    font-size: 0.75rem;
+    padding: 6px 10px;
+  }
+}
+
+/* Extra small screens */
+@media (max-width: 375px) {
+  .recommendationCard {
+    padding: 12px;
+  }
+
+  .compactContent {
+    gap: 4px;
+  }
+
+  .quickStats {
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .urgencyBanner {
+    font-size: 0.75rem;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .recommendationCard {
+    border-width: 3px;
+  }
+
+  .urgencyBanner {
+    background: var(--armora-gold);
+    color: var(--bg-primary);
+  }
+}

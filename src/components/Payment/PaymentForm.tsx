@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { loadStripe } from '@stripe/stripe-js';
 import {
   Elements,
@@ -12,7 +12,6 @@ import {
   PaymentIntent,
   PaymentError,
   PriceBreakdown,
-  PaymentMethodType,
   SavedPaymentMethod,
   ExpressPayment
 } from '../../types';
@@ -53,7 +52,8 @@ function PaymentFormContent({
   const stripe = useStripe();
   const elements = useElements();
 
-  const [selectedPaymentMethod, setSelectedPaymentMethod] = useState<PaymentMethodType>('card');
+  // Payment method is always 'card' for now - future expansion for other methods
+  // const [selectedPaymentMethod, setSelectedPaymentMethod] = useState<PaymentMethodType>('card');
   const [isProcessing, setIsProcessing] = useState(false);
   const [paymentError, setPaymentError] = useState<PaymentError | null>(null);
   const [priceBreakdown, setPriceBreakdown] = useState<PriceBreakdown | null>(null);
@@ -112,6 +112,67 @@ function PaymentFormContent({
     }
   }, [paymentRequest]);
 
+  // Helper functions for error handling
+  const getErrorType = (code: string): PaymentError['type'] => {
+    if (['card_declined', 'insufficient_funds', 'expired_card'].includes(code)) {
+      return 'card_error';
+    }
+    if (['network_error', 'processing_error'].includes(code)) {
+      return 'network_error';
+    }
+    if (['fraud_suspected', 'security_error'].includes(code)) {
+      return 'fraud_error';
+    }
+    return 'validation_error';
+  };
+
+  const getSuggestedAction = (code: string): string => {
+    switch (code) {
+      case 'card_declined':
+        return 'Try a different payment method or contact your bank';
+      case 'insufficient_funds':
+        return 'Try a different card or add funds to your account';
+      case 'expired_card':
+        return 'Please update your card details';
+      case 'network_error':
+        return 'Check your connection and try again';
+      default:
+        return 'Please try again or contact support';
+    }
+  };
+
+  const isRetryableError = (code: string): boolean => {
+    return ['network_error', 'processing_error', 'temporary_failure'].includes(code);
+  };
+
+  // Error handling function - moved before useEffect to avoid hoisting issues
+  const handlePaymentError = useCallback((error: any) => {
+    const paymentError: PaymentError = {
+      code: error.code || 'unknown_error',
+      message: error.message || 'An unexpected error occurred',
+      type: getErrorType(error.code),
+      suggestedAction: getSuggestedAction(error.code),
+      retryable: isRetryableError(error.code)
+    };
+
+    setPaymentError(paymentError);
+    onPaymentError(paymentError);
+  }, [onPaymentError]);
+
+  // Mock payment intent creation (in production, this would be a backend API call)
+  const createPaymentIntent = async (flow: PaymentFlow): Promise<PaymentIntent> => {
+    // Simulate API call
+    await new Promise(resolve => setTimeout(resolve, 500));
+
+    return {
+      id: `pi_${Date.now()}`,
+      amount: flow.amount,
+      currency: flow.currency,
+      status: 'requires_payment_method',
+      clientSecret: `pi_${Date.now()}_secret_${Math.random().toString(36).substring(2)}`
+    };
+  };
+
   // Handle express payment (Apple Pay, Google Pay)
   useEffect(() => {
     if (paymentRequest) {
@@ -151,7 +212,7 @@ function PaymentFormContent({
         setIsProcessing(false);
       });
     }
-  }, [paymentRequest, stripe, paymentFlow, priceBreakdown, onPaymentSuccess]);
+  }, [paymentRequest, stripe, paymentFlow, priceBreakdown, onPaymentSuccess, handlePaymentError]);
 
   // Handle standard card payment
   const handleCardPayment = async () => {
@@ -261,65 +322,7 @@ function PaymentFormContent({
     setIsProcessing(false);
   };
 
-  // Error handling
-  const handlePaymentError = (error: any) => {
-    const paymentError: PaymentError = {
-      code: error.code || 'unknown_error',
-      message: error.message || 'An unexpected error occurred',
-      type: getErrorType(error.code),
-      suggestedAction: getSuggestedAction(error.code),
-      retryable: isRetryableError(error.code)
-    };
-
-    setPaymentError(paymentError);
-    onPaymentError(paymentError);
-  };
-
-  // Mock payment intent creation (in production, this would be a backend API call)
-  const createPaymentIntent = async (flow: PaymentFlow): Promise<PaymentIntent> => {
-    // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 500));
-
-    return {
-      id: `pi_${Date.now()}`,
-      amount: flow.amount,
-      currency: flow.currency,
-      status: 'requires_payment_method',
-      clientSecret: `pi_${Date.now()}_secret_${Math.random().toString(36).substring(2)}`
-    };
-  };
-
-  const getErrorType = (code: string): PaymentError['type'] => {
-    if (['card_declined', 'insufficient_funds', 'expired_card'].includes(code)) {
-      return 'card_error';
-    }
-    if (['network_error', 'processing_error'].includes(code)) {
-      return 'network_error';
-    }
-    if (['fraud_suspected', 'security_error'].includes(code)) {
-      return 'fraud_error';
-    }
-    return 'validation_error';
-  };
-
-  const getSuggestedAction = (code: string): string => {
-    switch (code) {
-      case 'card_declined':
-        return 'Try a different payment method or contact your bank';
-      case 'insufficient_funds':
-        return 'Try a different card or add funds to your account';
-      case 'expired_card':
-        return 'Please update your card details';
-      case 'network_error':
-        return 'Check your connection and try again';
-      default:
-        return 'Please try again or contact support';
-    }
-  };
-
-  const isRetryableError = (code: string): boolean => {
-    return ['network_error', 'processing_error', 'temporary_failure'].includes(code);
-  };
+  // Functions moved above to avoid hoisting issues
 
   if (!priceBreakdown) {
     return <LoadingSpinner size="large" text="Preparing payment..." />;

@@ -155,7 +155,7 @@ export function LocationPicker({ selectedService, onLocationConfirmed, onBack, u
         <div className={styles.locationSelectionContainer}>
           <div className={styles.sectionHeader}>
             <h2 className={styles.mainTitle}>Where would you like to go?</h2>
-            <p className={styles.progressIndicator}>Step 2 of 4 • Location Details</p>
+            <p className={styles.progressIndicator}>Step 2 of 3 • Route Planning</p>
           </div>
 
           <div className={styles.locationInputGroup}>

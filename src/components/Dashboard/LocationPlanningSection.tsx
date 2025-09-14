@@ -145,7 +145,7 @@ export function LocationPlanningSection({ onLocationSet, isDisabled = false }: L
     <div className={styles.container}>
       <div className={styles.header}>
         <h2 className={styles.title}>Where would you like to go?</h2>
-        <p className={styles.subtitle}>Step 1 of 3: Choose Your Route</p>
+        <p className={styles.subtitle}>Plan Your Route • Quick Booking</p>
       </div>
 
       <div className={styles.locationForm}>

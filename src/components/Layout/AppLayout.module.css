@@ -5,7 +5,7 @@
   flex-direction: column;
   min-height: 100vh;
   background: var(--bg-primary);
-  overflow-x: hidden;
+  overflow-x: visible; /* FIXED: Allow golden borders to show on all sides */
 }
 
 /* HEADER STYLES */

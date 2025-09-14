@@ -6,7 +6,7 @@
   padding: 1rem;
   background: var(--bg-primary);
   color: var(--text-primary);
-  overflow-x: hidden;
+  overflow-x: visible; /* FIXED: Allow golden borders to show on all sides */
   display: flex;
   align-items: center;
   justify-content: center;

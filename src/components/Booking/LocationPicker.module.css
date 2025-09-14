@@ -6,7 +6,7 @@
   padding: 1rem;
   background: var(--bg-primary);
   color: var(--text-primary);
-  overflow-x: hidden;
+  overflow-x: visible; /* FIXED: Allow golden borders to show on all sides */
   display: flex;
   flex-direction: column;
 }
@@ -154,11 +154,22 @@
 
 .errorMessage {
   color: #ff4757;
-  font-size: 0.8rem;
-  margin-top: 0.5rem;
+  font-size: 0.85rem;
+  margin-top: 8px;
   display: flex;
   align-items: center;
-  gap: 0.25rem;
+  gap: 6px;
+  background: rgba(255, 71, 87, 0.08);
+  padding: 8px 12px;
+  border-radius: 8px;
+  border-left: 3px solid #ff4757;
+  animation: shake 0.3s ease-in-out;
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-4px); }
+  75% { transform: translateX(4px); }
 }
 
 .estimate {
@@ -352,27 +363,29 @@
 
 /* PREMIUM LOCATION SELECTION CONTAINER */
 .locationSelectionContainer {
-  /* Premium container styling */
-  background: var(--bg-card);
+  /* Premium container styling with enhanced visibility */
+  background: linear-gradient(
+    135deg,
+    rgba(42, 42, 74, 0.95) 0%,
+    rgba(255, 215, 0, 0.05) 100%
+  );
   border: 2px solid var(--armora-gold);
   border-radius: 20px;
   padding: 32px 28px;
   margin: 24px 0;
 
-  /* Premium shadow effect */
+  /* Enhanced premium shadow effect for depth */
   box-shadow:
-    0 8px 32px rgba(0, 0, 0, 0.3),
-    0 0 0 1px rgba(255, 215, 0, 0.1);
-
-  /* Subtle background gradient */
-  background: linear-gradient(
-    135deg,
-    var(--bg-card) 0%,
-    rgba(255, 215, 0, 0.02) 100%
-  );
+    0 8px 32px rgba(0, 0, 0, 0.4),
+    0 0 0 1px rgba(255, 215, 0, 0.2),
+    inset 0 1px 0 rgba(255, 215, 0, 0.1);
 
   /* Entrance animation */
   animation: slideIn 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* Ensure container stands out */
+  position: relative;
+  z-index: 1;
 }
 
 @keyframes slideIn {
@@ -422,6 +435,18 @@
 .locationInputGroup {
   margin-bottom: 24px;
   position: relative;
+  /* Add subtle background card for each input group */
+  background: rgba(26, 26, 46, 0.4);
+  border-radius: 16px;
+  padding: 20px;
+  border: 1px solid rgba(255, 215, 0, 0.15);
+  transition: all 0.3s ease;
+}
+
+.locationInputGroup:hover {
+  /* Highlight entire group on hover */
+  background: rgba(26, 26, 46, 0.6);
+  border-color: rgba(255, 215, 0, 0.25);
 }
 
 .locationLabel {
@@ -431,12 +456,21 @@
   margin-bottom: 12px;
   color: var(--text-primary);
   font-size: 16px;
-  font-weight: 500;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
 .locationIcon {
   color: var(--armora-gold);
-  font-size: 18px;
+  font-size: 20px;
+  filter: drop-shadow(0 2px 4px rgba(255, 215, 0, 0.3));
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.8; }
 }
 
 .locationInputWrapper {
@@ -445,29 +479,54 @@
 
 .locationInput {
   width: 100%;
-  background: var(--bg-secondary);
-  border: 2px solid rgba(255, 215, 0, 0.3);
+  /* Enhanced solid background for better visibility */
+  background: rgba(37, 37, 68, 0.95);
+  /* Prominent golden border with higher opacity */
+  border: 2px solid rgba(255, 215, 0, 0.5);
   border-radius: 12px;
   padding: 16px 50px 16px 16px;
   color: var(--text-primary);
   font-size: 16px;
   transition: all 0.3s ease;
+  /* Subtle inner glow for depth */
+  box-shadow:
+    inset 0 1px 3px rgba(0, 0, 0, 0.2),
+    0 2px 8px rgba(255, 215, 0, 0.1);
+  /* Ensure minimum height for touch targets */
+  min-height: 56px;
+  cursor: pointer;
 }
 
 .locationInput:focus {
   outline: none;
+  /* Strong golden border on focus */
   border-color: var(--armora-gold);
-  box-shadow: 0 0 0 3px rgba(255, 215, 0, 0.2);
+  /* Enhanced focus glow */
+  box-shadow:
+    0 0 0 4px rgba(255, 215, 0, 0.25),
+    0 4px 16px rgba(255, 215, 0, 0.2),
+    inset 0 1px 3px rgba(0, 0, 0, 0.1);
+  /* Slightly lighter background on focus */
+  background: rgba(42, 42, 74, 0.95);
+  transform: translateY(-1px);
 }
 
 .locationInput::placeholder {
-  color: var(--text-secondary);
-  font-style: italic;
+  color: rgba(224, 224, 224, 0.5);
+  font-style: normal;
+  font-weight: 400;
+  opacity: 0.8;
 }
 
-.locationInput:hover {
-  border-color: var(--hover-gold);
-  box-shadow: 0 2px 8px rgba(255, 215, 0, 0.1);
+.locationInput:hover:not(:focus) {
+  /* Clear hover state indication */
+  border-color: rgba(255, 215, 0, 0.7);
+  box-shadow:
+    0 2px 12px rgba(255, 215, 0, 0.15),
+    inset 0 1px 3px rgba(0, 0, 0, 0.15);
+  /* Subtle background lightening on hover */
+  background: rgba(40, 40, 70, 0.95);
+  transform: translateY(-0.5px);
 }
 
 .locationInput.loading {
@@ -500,27 +559,36 @@
   right: 8px;
   top: 50%;
   transform: translateY(-50%);
-  background: var(--armora-gold);
+  /* Vibrant golden button */
+  background: linear-gradient(135deg, var(--armora-gold), var(--hover-gold));
   color: var(--armora-dark);
-  border: none;
+  border: 1px solid rgba(255, 215, 0, 0.8);
   border-radius: 8px;
   padding: 8px 12px;
   font-size: 12px;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.2s ease;
+  box-shadow: 0 2px 6px rgba(255, 215, 0, 0.3);
 }
 
 .currentLocationButton:hover {
-  background: var(--hover-gold);
+  background: linear-gradient(135deg, var(--hover-gold), var(--armora-gold));
   transform: translateY(-50%) scale(1.05);
+  box-shadow: 0 3px 10px rgba(255, 215, 0, 0.4);
+}
+
+.currentLocationButton:active {
+  transform: translateY(-50%) scale(0.98);
 }
 
 .locationSeparator {
   display: flex;
   align-items: center;
-  margin: 20px 0;
+  margin: 24px -20px;
   justify-content: center;
+  position: relative;
+  height: 40px;
 }
 
 .locationSeparator::before,
@@ -539,8 +607,20 @@
 
 .separatorIcon {
   margin: 0 16px;
+  background: var(--bg-primary);
+  padding: 8px 16px;
+  border-radius: 20px;
   color: var(--armora-gold);
-  font-size: 20px;
+  font-size: 24px;
+  z-index: 1;
+  position: relative;
+  box-shadow: 0 2px 8px rgba(255, 215, 0, 0.2);
+  animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-3px); }
 }
 
 .journeyPreviewContainer {
@@ -624,30 +704,50 @@
   font-size: 16px;
 }
 
-.locationInput.error {
-  border-color: var(--error);
-  box-shadow: 0 0 0 3px rgba(255, 68, 68, 0.2);
+.locationInput.inputError {
+  border-color: #ff4757;
+  background: rgba(255, 71, 87, 0.05);
+  box-shadow:
+    0 0 0 3px rgba(255, 71, 87, 0.2),
+    0 4px 12px rgba(255, 71, 87, 0.15);
+}
+
+.locationInput.inputError:focus {
+  border-color: #ff4757;
+  box-shadow:
+    0 0 0 4px rgba(255, 71, 87, 0.25),
+    0 4px 16px rgba(255, 71, 87, 0.2);
 }
 
 /* MOBILE OPTIMIZATION */
 @media (max-width: 768px) {
   .locationSelectionContainer {
-    margin: 16px 0;
-    padding: 24px 20px;
+    margin: 12px -8px;
+    padding: 20px 16px;
     border-radius: 16px;
+    border-width: 2px;
 
     /* Mobile bottom sheet effect */
     position: relative;
+
+    /* Ensure full width on mobile */
+    width: calc(100% + 16px);
   }
 
   .locationSelectionContainer::before {
     content: '';
     display: block;
-    width: 40px;
-    height: 4px;
-    background: var(--armora-gold);
-    border-radius: 2px;
-    margin: 0 auto 20px;
+    width: 50px;
+    height: 5px;
+    background: linear-gradient(90deg, var(--armora-gold), var(--hover-gold));
+    border-radius: 3px;
+    margin: 0 auto 16px;
+    box-shadow: 0 2px 6px rgba(255, 215, 0, 0.3);
+  }
+
+  .locationInputGroup {
+    padding: 16px;
+    margin-bottom: 16px;
   }
 
   .mainTitle {
@@ -656,12 +756,17 @@
 
   .locationInput {
     font-size: 16px; /* Prevent iOS zoom */
-    padding: 14px 45px 14px 14px;
+    padding: 16px 50px 16px 16px;
+    /* Ensure inputs are very visible on mobile */
+    background: rgba(45, 45, 75, 0.98);
+    border-width: 2px;
+    min-height: 52px;
   }
 
   .currentLocationButton {
-    padding: 6px 10px;
-    font-size: 11px;
+    padding: 8px 12px;
+    font-size: 12px;
+    right: 6px;
   }
 
   .journeyDetails {
@@ -673,11 +778,18 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    padding: 8px;
+    background: rgba(255, 215, 0, 0.05);
+    border-radius: 8px;
   }
 
   .detailValue,
   .detailLabel {
     display: inline;
+  }
+
+  .locationSeparator {
+    margin: 20px -16px;
   }
 }
 
@@ -703,14 +815,65 @@
 
   .locationSelectionContainer {
     padding: 16px 12px;
-    margin: 12px 0;
+    margin: 12px -4px;
+    width: calc(100% + 8px);
+  }
+
+  .locationInputGroup {
+    padding: 12px;
   }
 
   .mainTitle {
     font-size: 18px;
   }
 
+  .locationInput {
+    padding: 14px 45px 14px 14px;
+    font-size: 16px;
+  }
+
   .journeyDetails {
     gap: 8px;
   }
+}
+
+/* ADD VISUAL CLICK AFFORDANCE */
+.locationInputWrapper {
+  position: relative;
+}
+
+.locationInputWrapper::after {
+  content: '✏️';
+  position: absolute;
+  right: 52px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 16px;
+  opacity: 0.5;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+}
+
+.locationInputWrapper:hover::after,
+.locationInputWrapper:focus-within::after {
+  opacity: 0.8;
+}
+
+/* ENHANCED VISUAL FEEDBACK */
+.locationInput {
+  position: relative;
+  background-image: linear-gradient(
+    to bottom,
+    rgba(255, 215, 0, 0.02) 0%,
+    transparent 100%
+  );
+}
+
+.locationInput:focus + .currentLocationButton {
+  animation: bounce 0.3s ease;
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(-50%); }
+  50% { transform: translateY(-50%) translateY(-2px); }
 }

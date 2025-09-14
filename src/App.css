@@ -113,7 +113,8 @@ button[class*="CTA"] {
   font-size: 1rem !important;
   line-height: 1.2 !important;
   white-space: nowrap !important;
-  overflow: hidden !important;
+  overflow-x: visible !important; /* Allow horizontal borders to show */
+  overflow-y: hidden !important; /* Keep vertical text clipping */
   text-overflow: ellipsis !important;
 }
 

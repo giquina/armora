@@ -29,6 +29,9 @@ export interface ServiceLevel {
   price: string;
   originalPrice?: string;
   hourlyRate: number;
+  vehicle?: string;
+  capacity?: string;
+  driverQualification?: string;
   description: string;
   features: string[];
   isPopular?: boolean;

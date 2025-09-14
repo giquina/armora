@@ -6,7 +6,7 @@
   padding: 0;
   margin: 0;
   width: 100%;
-  overflow-x: hidden; /* Critical: prevent horizontal scrolling */
+  overflow-x: visible; /* FIXED: Allow golden borders to show on left/right sides */
 }
 
 /* ========================================
@@ -184,14 +184,21 @@
   display: grid;
   gap: var(--space-md);
   width: 100%;
-  /* Mobile-first: single column */
+  /* Default: Single column on mobile to prevent button clipping */
   grid-template-columns: 1fr;
   max-width: var(--content-max-width);
   margin: 0 auto;
 }
 
-/* Tablet: 2 columns for smaller services grid */
-@media (min-width: 768px) {
+/* Small screens: Single column with tighter spacing */
+@media (max-width: 600px) {
+  .servicesGrid {
+    gap: var(--space-sm);
+  }
+}
+
+/* Medium screens: 2 columns when there's enough space for buttons */
+@media (min-width: 700px) {
   .servicesGrid {
     grid-template-columns: 1fr 1fr;
     gap: var(--space-lg);
