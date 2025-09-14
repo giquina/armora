@@ -167,11 +167,11 @@ export function QuestionnaireStep({
     }, 100);
   }, []);
 
-  // Update selection feedback
-  const updateSelectionFeedback = useCallback((stepId: number, value?: string, values?: string[]) => {
+  // Update selection feedback - Fixed to prevent infinite re-renders
+  const updateSelectionFeedback = useCallback((stepId: number, value?: string, values?: string[], isCustom?: boolean, customText?: string) => {
     let feedback: ISelectionFeedback | null = null;
 
-    if (isCustomSelected && customAnswer.trim()) {
+    if (isCustom && customText?.trim()) {
       // Show generic feedback for custom answers
       feedback = {
         title: 'Custom Requirements Noted',
@@ -199,7 +199,7 @@ export function QuestionnaireStep({
     if (feedback) {
       scrollToBottom();
     }
-  }, [isCustomSelected, customAnswer, scrollToBottom]);
+  }, [scrollToBottom]); // Removed dependency on state variables that change frequently
 
   // Handle radio/select input - always set new selection (no toggle off)
   const handleSingleSelect = (value: string) => {
@@ -322,7 +322,7 @@ Your privacy is important to us. All questions are optional and you can use "Pre
 
     // Update feedback for custom answers
     if (isCustomSelected && value.trim()) {
-      updateSelectionFeedback(step.id);
+      updateSelectionFeedback(step.id, undefined, undefined, true, value);
     } else if (!value.trim()) {
       setShowFeedback(false);
       setSelectionFeedback(null);

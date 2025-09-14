@@ -185,31 +185,27 @@
   gap: var(--space-sm);
 }
 
-/* MAIN CONTENT STYLES */
+/* MAIN CONTENT STYLES - SINGLE SCROLL CONTAINER */
 .main {
   flex: 1;
   display: flex;
   flex-direction: column;
-  overflow-y: auto;
+  /* REMOVED: overflow-y to prevent double scrollbar */
 }
 
 .content {
   flex: 1;
   padding: var(--space-lg);
-  padding-bottom: calc(80px + var(--space-lg) + env(safe-area-inset-bottom));
+  padding-bottom: calc(90px + var(--space-lg) + env(safe-area-inset-bottom)); /* FIXED: Extra 10px clearance */
+  min-height: calc(100vh - 80px); /* Ensure content always fills screen */
 }
 
-/* DESKTOP CONTENT OPTIMIZATION */
+/* DESKTOP CONTENT OPTIMIZATION - NO NESTED SCROLL */
 @media (min-width: 1024px) {
-  .main {
-    max-height: calc(100vh - 80px); /* Account for header */
-  }
-
   .content {
     padding: var(--space-md) var(--space-lg);
-    padding-bottom: var(--space-md);
-    max-height: calc(100vh - 80px);
-    overflow-y: auto;
+    padding-bottom: calc(80px + var(--space-xl)); /* Space for bottom nav */
+    /* REMOVED: max-height and overflow-y to fix double scrollbar */
   }
 }
 
@@ -370,7 +366,7 @@
 
   .content {
     padding: var(--space-md);
-    padding-bottom: calc(70px + var(--space-md) + env(safe-area-inset-bottom));
+    padding-bottom: calc(85px + var(--space-md) + env(safe-area-inset-bottom)); /* FIXED: Extra clearance for mobile */
   }
 
   .headerTitle {

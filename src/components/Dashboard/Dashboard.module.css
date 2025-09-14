@@ -9,19 +9,12 @@
   overflow-x: visible; /* FIXED: Allow golden borders to show on left/right sides */
 }
 
-/* DESKTOP NO-SCROLL OPTIMIZATION */
+/* DESKTOP LAYOUT OPTIMIZATION - NO DOUBLE SCROLL */
 @media (min-width: 1024px) {
   .dashboard {
-    min-height: 100vh;
-    max-height: 100vh;
-    overflow-y: auto;
-    display: flex;
-    flex-direction: column;
-  }
-
-  /* Ensure sections use minimal space */
-  .dashboard > * {
-    flex-shrink: 0;
+    min-height: auto;
+    /* REMOVED: max-height and overflow-y to fix double scrollbar */
+    padding-bottom: var(--space-xl); /* Extra space for bottom nav */
   }
 
   /* Compact spacing for desktop */
@@ -74,7 +67,7 @@
 .rewardIcon {
   font-size: 2.5rem;
   flex-shrink: 0;
-  animation: trophyPulse 2s ease-in-out infinite;
+  animation: trophyPulse 3s ease-in-out 3; /* FIXED: Run only 3 times, then stop */
 }
 
 @keyframes trophyPulse {
@@ -82,7 +75,7 @@
     transform: scale(1);
   }
   50% {
-    transform: scale(1.1);
+    transform: scale(1.05); /* Reduced intensity */
   }
 }
 
@@ -368,12 +361,20 @@
   width: 100%;
   height: 2px;
   background: linear-gradient(90deg, transparent, var(--accent), transparent);
-  animation: shimmer 2s infinite;
+  animation: shimmer 4s ease-in-out 2; /* FIXED: Run only twice, then stop */
 }
 
 @keyframes shimmer {
-  to {
+  0% {
+    left: -100%;
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
     left: 100%;
+    opacity: 0;
   }
 }
 
@@ -569,15 +570,11 @@
   max-height: 90vh;
   display: flex;
   flex-direction: column;
-  overflow: hidden;
+  overflow: hidden; /* FIXED: Only allow internal scrolling */
   width: 600px;
-  min-height: auto; /* Allow dynamic height based on content */
-  overflow-y: auto; /* Enable vertical scrolling if content exceeds max-height */
-  overflow-x: hidden; /* Prevent horizontal overflow */
+  min-height: auto;
   animation: modalSlideIn 0.3s ease-out;
   backdrop-filter: blur(20px);
-  display: flex;
-  flex-direction: column;
 }
 
 @keyframes modalSlideIn {
