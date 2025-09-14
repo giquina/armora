@@ -12,12 +12,12 @@ interface FloatingCTAProps {
   canProceed?: boolean;
 }
 
-export function FloatingCTA({ 
-  currentStep, 
-  totalSteps, 
-  onContinue, 
+export function FloatingCTA({
+  currentStep,
+  totalSteps,
+  onContinue,
   isLoading = false,
-  canProceed = true 
+  canProceed = true
 }: FloatingCTAProps) {
   const { state } = useApp();
   const [isExpanded, setIsExpanded] = useState(false);
@@ -27,6 +27,18 @@ export function FloatingCTA({
   const panelRef = useRef<HTMLDivElement>(null);
   const startY = useRef<number>(0);
   const currentY = useRef<number>(0);
+
+  // Desktop detection
+  const [isDesktop, setIsDesktop] = useState(false);
+
+  useEffect(() => {
+    const checkDesktop = () => {
+      setIsDesktop(window.innerWidth >= 1024);
+    };
+    checkDesktop();
+    window.addEventListener('resize', checkDesktop);
+    return () => window.removeEventListener('resize', checkDesktop);
+  }, []);
 
   // Show CTA after component mounts
   useEffect(() => {
@@ -157,6 +169,22 @@ export function FloatingCTA({
   // Calculate progress percentage
   const progressPercentage = Math.round((currentStep / totalSteps) * 100);
 
+  // Get brief step description for desktop bar
+  const getStepBrief = () => {
+    const stepBriefs: Record<number, string> = {
+      1: 'Select your professional profile',
+      2: 'Define travel frequency',
+      3: 'Choose service requirements',
+      4: 'Select primary coverage areas',
+      5: 'Add special locations',
+      6: 'Set priority contacts',
+      7: 'Specify custom requirements',
+      8: 'Configure communication',
+      9: 'Review complete profile',
+    };
+    return stepBriefs[currentStep] || 'Complete your assessment';
+  };
+
   // Touch event handlers for swipe gestures
   const isTap = useRef<boolean>(false);
   const touchStartTime = useRef<number>(0);
@@ -228,104 +256,206 @@ export function FloatingCTA({
         />
       )}
 
-      {/* Expandable Information Panel */}
+      {/* Expandable Information Panel - Enhanced for Desktop */}
       {isExpanded && (
-        <div 
-          className={styles.expandablePanel}
+        <div
+          className={`${styles.expandablePanel} ${isDesktop ? styles.desktopPanel : ''}`}
           ref={panelRef}
           onTouchStart={handleTouchStart}
           onTouchMove={handleTouchMove}
           onTouchEnd={handleTouchEnd}
         >
-          <div className={styles.panelContent}>
-            {/* Step-Specific Information */}
-            <div className={styles.stepSection}>
-              <div className={styles.panelHeader}>
-                <h3>{stepInfo.name}</h3>
-                <button className={styles.closeButton} onClick={closePanel}>✕</button>
-              </div>
-              
-              <div className={styles.stepProgress}>
-                <div className={styles.progressInfo}>
-                  Step {currentStep} of {totalSteps} • {stepInfo.timeLeft}
-                </div>
-                <div className={styles.progressTrack}>
-                  <div 
-                    className={styles.progressFill}
-                    style={{ width: `${progressPercentage}%` }}
-                  />
-                </div>
-              </div>
+          <div className={`${styles.panelContent} ${isDesktop ? styles.desktopPanelContent : ''}`}>
+            {isDesktop ? (
+              // Desktop: Two-column layout
+              <div className={styles.desktopPanelGrid}>
+                <div className={styles.desktopPanelLeft}>
+                  {/* Step Information */}
+                  <div className={styles.stepSection}>
+                    <div className={styles.panelHeader}>
+                      <h3>{stepInfo.name}</h3>
+                      <button className={styles.closeButton} onClick={closePanel}>✕</button>
+                    </div>
 
-              <p className={styles.stepDescription}>
-                {stepInfo.description}
-              </p>
-            </div>
+                    <div className={styles.stepProgress}>
+                      <div className={styles.progressInfo}>
+                        Step {currentStep} of {totalSteps} • {stepInfo.timeLeft}
+                      </div>
+                      <div className={styles.progressTrack}>
+                        <div
+                          className={styles.progressFill}
+                          style={{ width: `${progressPercentage}%` }}
+                        />
+                      </div>
+                    </div>
 
-            {/* Step-Specific Security Information */}
-            <div className={styles.companySection}>
-              <div className={styles.divider}></div>
-              
-              <h4>{stepInfo.stepExample.title}</h4>
-              
-              <div className={styles.stepExample}>
-                <div className={styles.exampleTitle}>Real Example:</div>
-                <p className={styles.exampleText}>
-                  {stepInfo.stepExample.example}
-                </p>
+                    <p className={styles.stepDescription}>
+                      {stepInfo.description}
+                    </p>
+
+                    {/* Real Example */}
+                    <div className={styles.stepExample}>
+                      <div className={styles.exampleTitle}>Real Example:</div>
+                      <p className={styles.exampleText}>
+                        {stepInfo.stepExample.example}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                <div className={styles.desktopPanelRight}>
+                  {/* Security Information */}
+                  <div className={styles.companySection}>
+                    <h4>{stepInfo.stepExample.title}</h4>
+
+                    <div className={styles.securityBenefit}>
+                      <div className={styles.benefitTitle}>How This Shapes Your Protection:</div>
+                      <p className={styles.benefitText}>
+                        {stepInfo.stepExample.benefit}
+                      </p>
+                    </div>
+
+                    <div className={styles.desktopFeatures}>
+                      <div className={styles.featureRow}>
+                        <div className={styles.feature}>✅ Personalized Security Profile</div>
+                        <div className={styles.feature}>🎯 Matched Officer Expertise</div>
+                      </div>
+                      <div className={styles.featureRow}>
+                        <div className={styles.feature}>🛡️ SIA Licensed Professionals</div>
+                        <div className={styles.feature}>📋 Tailored Protocols</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
-              
-              <div className={styles.securityBenefit}>
-                <div className={styles.benefitTitle}>How This Shapes Your Protection:</div>
-                <p className={styles.benefitText}>
-                  {stepInfo.stepExample.benefit}
-                </p>
-              </div>
-              
-              <div className={styles.stepFeatures}>
-                <div className={styles.feature}>✅ Personalized Security Profile</div>
-                <div className={styles.feature}>🎯 Matched Officer Expertise</div>
-                <div className={styles.feature}>🛡️ SIA Licensed Professionals</div>
-                <div className={styles.feature}>📋 Tailored Protocols</div>
-              </div>
-            </div>
+            ) : (
+              // Mobile: Original single column
+              <>
+                {/* Step-Specific Information */}
+                <div className={styles.stepSection}>
+                  <div className={styles.panelHeader}>
+                    <h3>{stepInfo.name}</h3>
+                    <button className={styles.closeButton} onClick={closePanel}>✕</button>
+                  </div>
+
+                  <div className={styles.stepProgress}>
+                    <div className={styles.progressInfo}>
+                      Step {currentStep} of {totalSteps} • {stepInfo.timeLeft}
+                    </div>
+                    <div className={styles.progressTrack}>
+                      <div
+                        className={styles.progressFill}
+                        style={{ width: `${progressPercentage}%` }}
+                      />
+                    </div>
+                  </div>
+
+                  <p className={styles.stepDescription}>
+                    {stepInfo.description}
+                  </p>
+                </div>
+
+                {/* Step-Specific Security Information */}
+                <div className={styles.companySection}>
+                  <div className={styles.divider}></div>
+
+                  <h4>{stepInfo.stepExample.title}</h4>
+
+                  <div className={styles.stepExample}>
+                    <div className={styles.exampleTitle}>Real Example:</div>
+                    <p className={styles.exampleText}>
+                      {stepInfo.stepExample.example}
+                    </p>
+                  </div>
+
+                  <div className={styles.securityBenefit}>
+                    <div className={styles.benefitTitle}>How This Shapes Your Protection:</div>
+                    <p className={styles.benefitText}>
+                      {stepInfo.stepExample.benefit}
+                    </p>
+                  </div>
+
+                  <div className={styles.stepFeatures}>
+                    <div className={styles.feature}>✅ Personalized Security Profile</div>
+                    <div className={styles.feature}>🎯 Matched Officer Expertise</div>
+                    <div className={styles.feature}>🛡️ SIA Licensed Professionals</div>
+                    <div className={styles.feature}>📋 Tailored Protocols</div>
+                  </div>
+                </div>
+              </>
+            )}
           </div>
         </div>
       )}
 
-      {/* Main CTA Button */}
+      {/* Main CTA Button - Enhanced for Desktop */}
       <button
-        className={`${styles.floatingCTA} ${isLoading ? styles.loading : ''} ${isExpanded ? styles.expanded : ''} ${showAttentionBounce ? styles.attentionBounce : ''}`}
+        className={`${styles.floatingCTA} ${isLoading ? styles.loading : ''} ${isExpanded ? styles.expanded : ''} ${showAttentionBounce ? styles.attentionBounce : ''} ${isDesktop ? styles.desktop : ''}`}
         onClick={handleClick}
         onTouchStart={handleTouchStart}
-        onTouchMove={handleTouchMove} 
+        onTouchMove={handleTouchMove}
         onTouchEnd={handleTouchEnd}
       >
         <div className={styles.content}>
-          <div className={styles.messageText}>
-            {isLoading && <div className={styles.spinner}></div>}
-            {getStepMessage()}
-            <div className={`${styles.expandIndicator} ${isExpanded ? styles.expanded : styles.collapsed}`}>
-              <svg 
-                width="14" 
-                height="14" 
-                viewBox="0 0 14 14" 
-                fill="none" 
-                xmlns="http://www.w3.org/2000/svg"
-                className={styles.expandIcon}
-              >
-                <path 
-                  d="M7 1L13 9H1L7 1Z" 
-                  fill="currentColor"
-                  className={styles.iconPath}
-                />
-              </svg>
+          {isDesktop ? (
+            // Desktop: Rich information bar
+            <div className={styles.desktopContent}>
+              <div className={styles.desktopLeft}>
+                <span className={styles.stepCounter}>Step {currentStep} of {totalSteps}</span>
+                <span className={styles.separator}>•</span>
+                <span className={styles.progressPercent}>{progressPercentage}%</span>
+              </div>
+              <div className={styles.desktopCenter}>
+                <span className={styles.stepBrief}>{getStepBrief()}</span>
+              </div>
+              <div className={styles.desktopRight}>
+                <span className={styles.timeRemaining}>{stepInfo.timeLeft}</span>
+                <div className={`${styles.expandIndicator} ${isExpanded ? styles.expanded : styles.collapsed}`}>
+                  <span className={styles.expandHint}>{isExpanded ? 'Close' : 'Details'}</span>
+                  <svg
+                    width="14"
+                    height="14"
+                    viewBox="0 0 14 14"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                    className={styles.expandIcon}
+                  >
+                    <path
+                      d="M7 1L13 9H1L7 1Z"
+                      fill="currentColor"
+                      className={styles.iconPath}
+                    />
+                  </svg>
+                </div>
+              </div>
             </div>
-          </div>
-          
+          ) : (
+            // Mobile: Original compact design
+            <div className={styles.messageText}>
+              {isLoading && <div className={styles.spinner}></div>}
+              {getStepMessage()}
+              <div className={`${styles.expandIndicator} ${isExpanded ? styles.expanded : styles.collapsed}`}>
+                <svg
+                  width="14"
+                  height="14"
+                  viewBox="0 0 14 14"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                  className={styles.expandIcon}
+                >
+                  <path
+                    d="M7 1L13 9H1L7 1Z"
+                    fill="currentColor"
+                    className={styles.iconPath}
+                  />
+                </svg>
+              </div>
+            </div>
+          )}
+
           {/* Progress bar inside button */}
           <div className={styles.progressContainer}>
-            <div 
+            <div
               className={styles.progressBar}
               style={{ width: `${progressPercentage}%` }}
             />

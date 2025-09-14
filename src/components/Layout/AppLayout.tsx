@@ -39,8 +39,8 @@ export function AppLayout({
       case 'guest-disclaimer': return { title: 'Guest Access', subtitle: '', showServices: false };
       case 'questionnaire': return { title: 'Security Assessment', subtitle: '', showServices: false };
       case 'dashboard': return {
-        title: 'Choose Your Service',
-        subtitle: 'SIA Licensed • 24/7 Available • Premium Fleet',
+        title: 'Your Security Detail',
+        subtitle: 'SIA Licensed Drivers • 24/7 Available • Premium Fleet',
         showServices: true
       };
       case 'booking': return { title: 'Booking Details', subtitle: 'Secure Transport', showServices: false };
