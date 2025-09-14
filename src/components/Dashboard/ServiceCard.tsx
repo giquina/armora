@@ -95,12 +95,12 @@ export function ServiceCard({
 
   const config = SERVICE_CONFIG[service.id];
 
-  // Simulate dynamic availability (in real app, this would come from API)
+  // Simulate dynamic availability (in real app, this would come from API) - FIXED: Add empty dependency array
   useEffect(() => {
     const statuses: Array<'available' | 'busy' | 'surge'> = ['available', 'available', 'available', 'busy', 'surge'];
     const randomStatus = statuses[Math.floor(Math.random() * statuses.length)];
     setAvailabilityStatus(randomStatus);
-  }, []);
+  }, []); // Run only once on mount
 
   const handleSelect = () => {
     if (mode === 'selection') {

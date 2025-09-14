@@ -12,67 +12,29 @@ import { ResponsiveModal } from '../UI/ResponsiveModal';
 import { QuickScheduling } from '../UI/QuickScheduling';
 import { ServiceLevel, LocationSection } from '../../types';
 import { getDisplayName } from '../../utils/nameUtils';
+import { getAllServices } from '../../data/standardizedServices';
 import styles from './Dashboard.module.css';
 
-const ARMORA_SERVICES: ServiceLevel[] = [
-  {
-    id: 'standard',
-    name: 'Armora Secure',
-    tagline: 'Professional Security Transport',
-    price: '£45/hour',
-    hourlyRate: 45,
-    vehicle: 'Nissan Leaf EV',
+// Convert standardized services to legacy ServiceLevel format for compatibility
+const convertToServiceLevel = (): ServiceLevel[] => {
+  return getAllServices().map(service => ({
+    id: service.id,
+    name: service.name,
+    tagline: service.tagline,
+    price: service.priceDisplay,
+    hourlyRate: service.hourlyRate,
+    // Vehicle and capacity data - standardized for all services
+    vehicle: service.id === 'standard' ? 'Nissan Leaf EV' :
+             service.id === 'executive' ? 'BMW 5 Series' : 'Armored BMW X5',
     capacity: '4 passengers',
-    driverQualification: 'SIA Level 2 Security Certified',
-    description: 'Professional security-aware drivers providing discreet protection in eco-friendly vehicles',
-    features: [
-      'Trained security-aware drivers',
-      'Discreet vehicle selection (Nissan Leaf EV)',
-      'Real-time safety monitoring',
-      'Emergency response protocols',
-      'Background-checked professionals',
-      'Eco-friendly professional transport'
-    ]
-  },
-  {
-    id: 'executive',
-    name: 'Armora Executive',
-    tagline: 'Enhanced Security & Luxury',
-    price: '£75/hour',
-    hourlyRate: 75,
-    vehicle: 'BMW 5 Series',
-    capacity: '4 passengers',
-    driverQualification: 'SIA Level 3 Security Certified',
-    description: 'Premium luxury vehicles with enhanced security protocols and executive protection',
-    features: [
-      'SIA Level 3 certified security drivers',
-      'Advanced threat assessment training',
-      'Luxury vehicle with security modifications',
-      'Priority safety response',
-      'Executive protection protocols',
-      'Discrete security professionals'
-    ]
-  },
-  {
-    id: 'shadow',
-    name: 'Armora Shadow',
-    tagline: 'Maximum Security Protection',
-    price: '£65/hour',
-    hourlyRate: 65,
-    vehicle: 'Armored BMW X5',
-    capacity: '4 passengers',
-    driverQualification: 'Special Forces Trained',
-    description: 'Premium tactical security transport with specialized protection protocols',
-    features: [
-      'Special Forces trained drivers',
-      'Armored vehicle specifications',
-      'Counter-surveillance techniques',
-      'Tactical route planning',
-      'Close protection specialist team',
-      'Government-level security protocols'
-    ]
-  }
-];
+    driverQualification: service.id === 'standard' ? 'SIA Level 2 Security Certified' :
+                        service.id === 'executive' ? 'SIA Level 3 Security Certified' : 'Special Forces Trained',
+    description: service.description,
+    features: service.features.map(f => f.text) // Convert from {icon, text} to string array
+  }));
+};
+
+const ARMORA_SERVICES: ServiceLevel[] = convertToServiceLevel();
 
 export function Dashboard() {
   const { state, navigateToView } = useApp();
@@ -86,7 +48,7 @@ export function Dashboard() {
   const [locationData, setLocationData] = useState<LocationSection | null>(null);
   const [showLocationFirst, setShowLocationFirst] = useState(true);
 
-  // Handle ESC key to close modal
+  // Handle ESC key to close modal - FIXED: Improved scroll management
   useEffect(() => {
     const handleEscKey = (event: KeyboardEvent) => {
       if (event.key === 'Escape' && showScheduling) {
@@ -96,13 +58,22 @@ export function Dashboard() {
 
     if (showScheduling) {
       document.addEventListener('keydown', handleEscKey);
-      // Prevent body scroll when modal is open
+      // Store original overflow value before hiding
+      const originalOverflow = document.body.style.overflow;
       document.body.style.overflow = 'hidden';
+
+      return () => {
+        document.removeEventListener('keydown', handleEscKey);
+        // Restore original overflow or default to visible
+        document.body.style.overflow = originalOverflow || 'visible';
+      };
+    } else {
+      // Ensure scroll is enabled when modal is not showing
+      document.body.style.overflow = 'visible';
     }
 
     return () => {
       document.removeEventListener('keydown', handleEscKey);
-      document.body.style.overflow = 'unset';
     };
   }, [showScheduling]);
   const [scheduledDateTime, setScheduledDateTime] = useState('');
@@ -257,8 +228,15 @@ export function Dashboard() {
   const getPersonalizedRecommendation = () => {
     if (!questionnaireData) return null;
 
-    // UNIVERSAL RECOMMENDATION: Always recommend Armora Secure (Standard)
-    // as it's the only currently available service option
+    // USE QUESTIONNAIRE-BASED RECOMMENDATION: Use the actual recommendation from questionnaire analysis
+    const questionnaireBased = questionnaireData.recommendedService;
+
+    // Map the questionnaire recommendations to service IDs
+    if (questionnaireBased === 'armora-shadow') return 'shadow';
+    if (questionnaireBased === 'armora-executive') return 'executive';
+    if (questionnaireBased === 'armora-standard' || questionnaireBased === 'armora-secure') return 'standard';
+
+    // Default fallback to standard if no clear recommendation
     return 'standard';
   };
 

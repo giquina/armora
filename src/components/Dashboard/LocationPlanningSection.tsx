@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { LocationSection } from '../../types';
 import { LoadingSpinner } from '../UI/LoadingSpinner';
 import styles from './LocationPlanningSection.module.css';
@@ -81,16 +81,8 @@ export function LocationPlanningSection({ onLocationSet, isDisabled = false }: L
     return mockAddresses[Math.floor(Math.random() * mockAddresses.length)];
   };
 
-  // Calculate journey when both locations are set
-  useEffect(() => {
-    if (pickupAddress.trim() && dropoffAddress.trim()) {
-      calculateJourney();
-    } else {
-      setJourneyEstimate(null);
-    }
-  }, [pickupAddress, dropoffAddress]); // eslint-disable-line react-hooks/exhaustive-deps
-
-  const calculateJourney = async () => {
+  // FIXED: Stable calculateJourney function to prevent infinite loops
+  const calculateJourney = useCallback(async () => {
     setIsCalculatingJourney(true);
 
     try {
@@ -130,7 +122,16 @@ export function LocationPlanningSection({ onLocationSet, isDisabled = false }: L
     } finally {
       setIsCalculatingJourney(false);
     }
-  };
+  }, [pickupAddress, dropoffAddress, useCurrentLocation, onLocationSet]);
+
+  // Calculate journey when both locations are set - FIXED: Include calculateJourney in dependencies
+  useEffect(() => {
+    if (pickupAddress.trim() && dropoffAddress.trim()) {
+      calculateJourney();
+    } else {
+      setJourneyEstimate(null);
+    }
+  }, [pickupAddress, dropoffAddress, calculateJourney]);
 
   const formatDuration = (minutes: number): string => {
     if (minutes < 60) return `${minutes} min`;

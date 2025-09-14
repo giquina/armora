@@ -72,37 +72,6 @@ export function MarketingBanner({
     }));
   }, []);
 
-  // Check if banner should be shown
-  const shouldShowBanner = useCallback(() => {
-    // Don't show to Essential members
-    if (state.subscription?.tier === 'essential') {
-      return false;
-    }
-
-    // Don't show if dismissed too many times
-    if (bannerState.dismissCount >= 3) {
-      const lastDismissed = bannerState.lastDismissed ? new Date(bannerState.lastDismissed) : null;
-      const now = new Date();
-      const daysSinceDismissal = lastDismissed ? 
-        (now.getTime() - lastDismissed.getTime()) / (1000 * 60 * 60 * 24) : 999;
-      
-      if (daysSinceDismissal < 7) {
-        return false;
-      }
-    }
-
-    // Don't show if already started trial
-    if (bannerState.hasStartedTrial) {
-      return false;
-    }
-
-    // Don't show on very small screens
-    if (window.innerHeight < 500) {
-      return false;
-    }
-
-    return true;
-  }, [state.subscription, bannerState.dismissCount, bannerState.lastDismissed, bannerState.hasStartedTrial]);
 
   // Generate floating money particles
   const createMoneyParticles = useCallback(() => {
@@ -156,31 +125,40 @@ export function MarketingBanner({
     requestAnimationFrame(update);
   }, [createMoneyParticles]);
 
-  // Show banner with delay on dashboard load (FIX: Remove problematic dependencies)
+  // Show banner with delay on dashboard load - FIXED: Move shouldShowBanner logic inline
   useEffect(() => {
     let showTimer: NodeJS.Timeout;
     let bounceTimer: NodeJS.Timeout;
     let animationTimer: NodeJS.Timeout;
 
-    // Only check once on mount, don't re-run when dependencies change
+    // Inline banner visibility check to avoid circular dependencies
     const checkAndShow = () => {
-      if (shouldShowBanner()) {
-        showTimer = setTimeout(() => {
-          setBannerState(prev => ({ ...prev, isVisible: true }));
-
-          // Start counter animation shortly after banner appears
-          animationTimer = setTimeout(() => {
-            setIsAnimating(true);
-            animateCounter();
-          }, 500);
-
-          // Add attention bounce after banner is visible
-          bounceTimer = setTimeout(() => {
-            setShowBounce(true);
-            setTimeout(() => setShowBounce(false), 600);
-          }, 4000);
-        }, 3000); // 3 second delay after dashboard load
+      // Don't show to Essential members
+      if (state.subscription?.tier === 'essential') {
+        return;
       }
+
+      // Don't show on very small screens
+      if (window.innerHeight < 500) {
+        return;
+      }
+
+      // Show banner (other checks will be done after state loads)
+      showTimer = setTimeout(() => {
+        setBannerState(prev => ({ ...prev, isVisible: true }));
+
+        // Start counter animation shortly after banner appears
+        animationTimer = setTimeout(() => {
+          setIsAnimating(true);
+          animateCounter();
+        }, 500);
+
+        // Add attention bounce after banner is visible
+        bounceTimer = setTimeout(() => {
+          setShowBounce(true);
+          setTimeout(() => setShowBounce(false), 600);
+        }, 4000);
+      }, 3000); // 3 second delay after dashboard load
     };
 
     // Only run once on mount
@@ -191,7 +169,32 @@ export function MarketingBanner({
       clearTimeout(bounceTimer);
       clearTimeout(animationTimer);
     };
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []); // Only run once on mount - dependencies ignored intentionally
+
+  // Additional visibility checks after banner state loads - FIXED: Separate effect
+  useEffect(() => {
+    if (!bannerState.isVisible) return;
+
+    // Check complex dismissal logic after state is loaded
+    if (bannerState.dismissCount >= 3) {
+      const lastDismissed = bannerState.lastDismissed ? new Date(bannerState.lastDismissed) : null;
+      const now = new Date();
+      const daysSinceDismissal = lastDismissed ?
+        (now.getTime() - lastDismissed.getTime()) / (1000 * 60 * 60 * 24) : 999;
+
+      if (daysSinceDismissal < 7) {
+        setBannerState(prev => ({ ...prev, isVisible: false }));
+        return;
+      }
+    }
+
+    // Don't show if already started trial
+    if (bannerState.hasStartedTrial) {
+      setBannerState(prev => ({ ...prev, isVisible: false }));
+      return;
+    }
+  }, [bannerState.isVisible, bannerState.dismissCount, bannerState.lastDismissed, bannerState.hasStartedTrial]);
 
   // Slowly increment member count occasionally
   useEffect(() => {

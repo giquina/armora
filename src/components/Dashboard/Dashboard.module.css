@@ -67,7 +67,7 @@
 .rewardIcon {
   font-size: 2.5rem;
   flex-shrink: 0;
-  animation: trophyPulse 3s ease-in-out 3; /* FIXED: Run only 3 times, then stop */
+  animation: trophyPulse 3s ease-in-out 1; /* FIXED: Run only once, then stop */
 }
 
 @keyframes trophyPulse {
@@ -361,7 +361,7 @@
   width: 100%;
   height: 2px;
   background: linear-gradient(90deg, transparent, var(--accent), transparent);
-  animation: shimmer 4s ease-in-out 2; /* FIXED: Run only twice, then stop */
+  animation: shimmer 4s ease-in-out 1; /* FIXED: Run only once, then stop */
 }
 
 @keyframes shimmer {

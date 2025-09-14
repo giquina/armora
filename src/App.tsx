@@ -16,6 +16,7 @@ import { PaymentIntegration } from './components/Booking/PaymentIntegration';
 import { BookingErrorBoundary } from './components/Booking/BookingErrorBoundary';
 import { ServiceLevel, BookingData, LocationData } from './types';
 import './styles/globals.css';
+import './styles/disable-infinite-animations.css'; /* CRITICAL FIX: Stop infinite animations causing flashing */
 
 // Development tools for testing user scenarios
 if (process.env.NODE_ENV === 'development') {
