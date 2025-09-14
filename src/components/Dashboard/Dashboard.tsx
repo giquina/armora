@@ -62,7 +62,7 @@ const ARMORA_SERVICES: ServiceLevel[] = [
     vehicle: 'Armored BMW X5',
     capacity: '4 passengers',
     driverQualification: 'Special Forces Trained',
-    description: 'Close protection specialists with reinforced vehicles for maximum security operations',
+    description: 'Premium tactical security transport with specialized protection protocols',
     features: [
       'Special Forces trained drivers',
       'Armored vehicle specifications',
@@ -70,12 +70,7 @@ const ARMORA_SERVICES: ServiceLevel[] = [
       'Tactical route planning',
       'Close protection specialist team',
       'Government-level security protocols'
-    ],
-    isPopular: true,
-    socialProof: {
-      tripsCompleted: 15847,
-      selectionRate: 67
-    }
+    ]
   }
 ];
 
@@ -114,7 +109,8 @@ export function Dashboard() {
 
   // Check if user has unlocked reward and hasn't dismissed banner
   useEffect(() => {
-    const isEligible = user?.userType !== 'guest' && user?.hasUnlockedReward;
+    // ALWAYS show reward banner for eligible users (non-guests)
+    const isEligible = user?.userType !== 'guest';
     const hasSeenBanner = localStorage.getItem('armora_reward_banner_dismissed');
     setShowRewardBanner(Boolean(isEligible && !hasSeenBanner));
   }, [user]);

@@ -19,6 +19,8 @@ export function SubscriptionOffer({ selectedService, servicePrice = 45 }: Subscr
   const [expectedUsage, setExpectedUsage] = useState('');
   const [showInterestForm, setShowInterestForm] = useState<string | null>(null);
   const [showSafeRideFund, setShowSafeRideFund] = useState(false);
+  const [isPanelOpen, setIsPanelOpen] = useState(true);
+  const [isClosing, setIsClosing] = useState(false);
 
   const essentialPlan = subscriptionPlans.find(p => p.tier === 'essential')!;
   const executivePlan = subscriptionPlans.find(p => p.tier === 'executive')!;
@@ -78,9 +80,42 @@ export function SubscriptionOffer({ selectedService, servicePrice = 45 }: Subscr
     navigateToView('booking');
   };
 
+  const handleClosePanel = () => {
+    setIsClosing(true);
+    setTimeout(() => {
+      setIsPanelOpen(false);
+      setIsClosing(false);
+    }, 300);
+  };
+
+  const handleReopenPanel = () => {
+    setIsPanelOpen(true);
+  };
+
   return (
-    <div className={styles.container}>
-      <div className={styles.content}>
+    <>
+      {/* Sticky Reopener Bar - shows when panel is closed */}
+      {!isPanelOpen && (
+        <div className={styles.stickyReopener} onClick={handleReopenPanel}>
+          <div className={styles.reopenerContent}>
+            <span className={styles.reopenerIcon}>💰</span>
+            <span className={styles.reopenerText}>Special Membership Offer</span>
+            <span className={styles.reopenerArrow}>↑</span>
+          </div>
+        </div>
+      )}
+
+      {/* Main Panel */}
+      <div className={`${styles.container} ${isPanelOpen ? styles.panelOpen : styles.panelClosed} ${isClosing ? styles.panelClosing : ''}`}>
+        <div className={styles.content}>
+          {/* Close button */}
+          <button
+            className={styles.panelCloseButton}
+            onClick={handleClosePanel}
+            aria-label="Close membership panel"
+          >
+            ×
+          </button>
         <header className={styles.header}>
           <h1 className={styles.title}>💰 Save Money AND Save Lives!</h1>
           <p className={styles.subtitle}>
@@ -305,7 +340,8 @@ export function SubscriptionOffer({ selectedService, servicePrice = 45 }: Subscr
             No benefits • £{servicePrice} + £5 booking fee = £{servicePrice + 5} total
           </div>
         </div>
+        </div>
       </div>
-    </div>
+    </>
   );
 }

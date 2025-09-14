@@ -13,9 +13,10 @@
   position: sticky;
   top: 0;
   z-index: var(--z-sticky);
-  background: var(--bg-primary);
-  border-bottom: 1px solid var(--bg-secondary);
-  backdrop-filter: blur(8px);
+  background: linear-gradient(135deg, rgba(26, 26, 46, 0.95) 0%, rgba(30, 30, 58, 0.95) 100%);
+  border-bottom: 1px solid var(--gold);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 2px 12px rgba(255, 215, 0, 0.1);
   padding-top: env(safe-area-inset-top);
 }
 
@@ -98,6 +99,10 @@
   line-height: 1.2;
 }
 
+.brandInTitle {
+  font-size: 0.9em !important;
+}
+
 .headerSubtitle {
   font-size: var(--font-xs);
   color: var(--text-secondary);
@@ -162,7 +167,7 @@
 .content {
   flex: 1;
   padding: var(--space-lg);
-  padding-bottom: calc(var(--space-lg) + env(safe-area-inset-bottom));
+  padding-bottom: calc(80px + var(--space-lg) + env(safe-area-inset-bottom));
 }
 
 /* NAVIGATION STYLES */
@@ -255,6 +260,7 @@
 
   .content {
     padding: var(--space-md);
+    padding-bottom: calc(70px + var(--space-md) + env(safe-area-inset-bottom));
   }
 
   .headerTitle {
@@ -286,6 +292,7 @@
   
   .content {
     padding: var(--space-sm);
+    padding-bottom: calc(65px + var(--space-sm) + env(safe-area-inset-bottom));
   }
   
   .navContent {
@@ -322,7 +329,7 @@
   }
   
   .content {
-    padding-bottom: var(--space-lg);
+    padding-bottom: calc(60px + var(--space-lg));
   }
 }
 
