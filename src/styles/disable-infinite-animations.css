@@ -1,0 +1,125 @@
+/* CRITICAL FIX: Disable infinite animations causing flashing/re-render loops */
+
+/* ServiceCard infinite animations - causing maximum update depth exceeded */
+.service.selected {
+  animation: selectedPulse 2s ease-in-out 1 !important; /* Run once only */
+}
+
+.service::after {
+  animation: shimmer 3s linear 1 !important; /* Run once only */
+}
+
+.selectedBadge {
+  animation: pulse 2s 1 !important; /* Run once only */
+}
+
+.popularBadge::before {
+  animation: popularGlow 3s ease-in-out 1 !important; /* Run once only */
+}
+
+.badge.recommended::after {
+  animation: recommendedShine 4s ease-in-out 1 !important; /* Run once only */
+}
+
+/* DynamicRecommendation infinite animations */
+.urgentBadge {
+  animation: pulse 2s ease-in-out 1 !important; /* Run once only */
+}
+
+.confidenceIndicator {
+  animation: glow 3s ease-in-out 1 !important; /* Run once only */
+}
+
+.notificationBadge {
+  animation: bounce 2s 1 !important; /* Run once only */
+}
+
+.flashElement {
+  animation: flash 2s 1 !important; /* Run once only */
+}
+
+.urgentElement {
+  animation: urgentPulse 2s 1 !important; /* Run once only */
+}
+
+.fireIcon {
+  animation: fire 1s ease-in-out 1 !important; /* Run once only */
+}
+
+.shieldIcon {
+  animation: shield 2s ease-in-out 1 !important; /* Run once only */
+}
+
+/* ImpactDashboardWidget infinite animations */
+.impactMetric {
+  animation: pulse 2s ease-in-out 1 !important; /* Run once only */
+}
+
+.shimmerEffect {
+  animation: shimmer 2s ease-in-out 1 !important; /* Run once only */
+}
+
+/* QuickBooking infinite animations */
+.activeBooking {
+  animation: pulse 2s 1 !important; /* Run once only */
+}
+
+.editingMode {
+  animation: editPulse 2s 1 !important; /* Run once only */
+}
+
+.editIndicator {
+  animation: editingBlink 1s 1 !important; /* Run once only */
+}
+
+.disabledState {
+  animation: disabledPulse 2s 1 !important; /* Run once only */
+}
+
+/* MarketingBanner infinite animations */
+.gradientBackground {
+  animation: gradientShift 3s ease-in-out 1 !important; /* Run once only */
+}
+
+.ctaButton {
+  animation: ctaPulseEnhanced 5s ease-in-out 1 !important; /* Run once only */
+}
+
+.shimmerLine {
+  animation: shimmer 3s 1 !important; /* Run once only */
+}
+
+.reopenButton {
+  animation: reopenPulse 3s ease-in-out 1 !important; /* Run once only */
+}
+
+.floatingElement {
+  animation: floatingGlow 4s ease-in-out 1 !important; /* Run once only */
+}
+
+/* Global infinite animation disabling */
+*[class*="pulse"],
+*[class*="glow"],
+*[class*="shimmer"],
+*[class*="flash"],
+*[class*="bounce"] {
+  animation-iteration-count: 1 !important; /* Force all to run once only */
+}
+
+/* Preserve necessary spinning loaders but limit duration */
+*[class*="spin"]:not(.loading):not(.spinner) {
+  animation-iteration-count: 3 !important; /* Limit spins to 3 rotations */
+}
+
+/* Disable animations that use 'infinite' keyword */
+* {
+  animation-iteration-count: 1 !important;
+}
+
+/* But preserve essential loading spinners */
+.spinner,
+.loading,
+*[aria-label*="loading"],
+*[aria-label*="Loading"] {
+  animation-iteration-count: infinite !important;
+}
