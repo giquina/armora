@@ -257,20 +257,16 @@ export function ServiceCard({
         </div>
       </div>
 
-      {/* Vehicle and Driver Info */}
+      {/* Vehicle and Driver Info - Compact Horizontal Layout */}
       <div className={styles.vehicleSection}>
         <div className={styles.vehicleInfo}>
           <div className={styles.vehicleDetail}>
             <span className={styles.vehicleLabel}>Vehicle:</span>
-            <span className={styles.vehicleValue}>{config.vehicle}</span>
-          </div>
-          <div className={styles.vehicleDetail}>
-            <span className={styles.vehicleLabel}>Capacity:</span>
-            <span className={styles.vehicleValue}>{config.capacity}</span>
+            <span className={styles.vehicleValue}>{config.vehicle} | {config.capacity}</span>
           </div>
         </div>
         <div className={styles.driverInfo}>
-          <span className={styles.driverLabel}>Driver Qualification:</span>
+          <span className={styles.driverLabel}>Driver:</span>
           <span className={styles.driverLevel}>{config.driverLevel}</span>
         </div>
       </div>

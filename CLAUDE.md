@@ -14,6 +14,12 @@ Armora is a React 19.1.1 TypeScript application for premium VIP security transpo
 - **CSS Modules** for styling (no CSS-in-JS libraries)
 - **No external UI libraries** - custom components only
 
+### Additional Key Dependencies
+- **Stripe**: Payment processing (@stripe/react-stripe-js, @stripe/stripe-js)
+- **Leaflet**: Maps and location services (react-leaflet)
+- **QR Code**: QR code generation for bookings
+- **Playwright**: End-to-end testing framework
+
 ## Core Development Commands
 - `npm start` - Start development server (localhost:3000)
 - `npm run build` - Production build with type checking
@@ -21,6 +27,7 @@ Armora is a React 19.1.1 TypeScript application for premium VIP security transpo
 - `npm test -- --coverage` - Coverage report
 - `npm test -- --watchAll=false` - Single run (CI mode)
 - `npm test -- src/components/Booking/__tests__/BookingConfirmation.test.tsx` - Run specific test file
+- `npm run test:e2e` - Run Playwright end-to-end tests
 
 **CRITICAL**: No separate lint/typecheck commands - always run `npm run build` to verify TypeScript correctness before committing.
 
@@ -36,7 +43,7 @@ Includes automated hooks system and AI task management:
 - `npm run orchestrate` - Start intelligent agent orchestration service
 - `npm run orchestrate:status` - View active agents and system status
 
-**Hooks System**: 7 tools including mobile viewport tester (prevents horizontal scrolling), auto-saver, dev server monitor, and brand compliance.
+**Hooks System**: 9 tools including mobile viewport tester (prevents horizontal scrolling), auto-saver, dev server monitor, brand compliance, and AI agent management.
 
 **Task Management**: Integrated AI-powered suggestion system tracks development tasks, priorities, and completion status through `.claude/` directory.
 
@@ -117,13 +124,16 @@ src/
 ## Development Tools & Automation
 
 ### Hooks System (`dev-tools/hooks/`)
-- **armora-brand-compliance.js** - Enforces brand standards
-- **auto-github-saver.js** - Automated Git operations
-- **codebase-reviewer-suggester.js** - AI-powered task suggestions
-- **dev-server-monitor.js** - Development server monitoring
-- **file-structure-organizer.js** - Code organization
-- **mobile-viewport-tester.js** - Prevents horizontal scrolling
-- **hooks-manager.js** - Central hooks control
+9 development hooks for automated quality assurance:
+- **armora-brand-compliance.js** - Enforces brand standards and messaging consistency
+- **auto-github-saver.js** - Automated Git operations and backup
+- **codebase-reviewer-suggester.js** - AI-powered task suggestions and code review
+- **dev-server-monitor.js** - Development server monitoring and auto-restart
+- **file-structure-organizer.js** - Code organization and file structure validation
+- **mobile-viewport-tester.js** - Prevents horizontal scrolling across all breakpoints
+- **subagent-manager.js** - Manages specialized development agents
+- **suggestion-selector.js** - Interactive task management system
+- **hooks-manager.js** - Central hooks control and coordination
 
 ### Specialized Agents (`.claude/agents/`)
 6 agents for specialized development: mobile-tester, pwa-optimizer, ux-validator, booking-flow-manager, server-keeper, orchestration-agent

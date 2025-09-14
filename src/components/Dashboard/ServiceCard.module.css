@@ -8,9 +8,8 @@
   cursor: pointer;
   transition: all var(--transition-base);
   position: relative;
-  overflow-x: visible; /* Allow button borders to show */
-  overflow-y: hidden; /* Keep content contained vertically */
-  min-height: 300px;
+  overflow: visible; /* Allow button borders and shadows to show fully */
+  min-height: 280px; /* Reduced from 300px */
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -288,25 +287,25 @@
 }
 
 /* ========================================
-   VEHICLE AND DRIVER SECTION
+   VEHICLE AND DRIVER SECTION - COMPACT HORIZONTAL LAYOUT
 ======================================== */
 .vehicleSection {
   background: rgba(0, 0, 0, 0.2);
   border-radius: var(--radius-md);
-  padding: var(--space-md);
-  margin-bottom: var(--space-md);
+  padding: 8px 12px; /* Even more compact */
+  margin-bottom: var(--space-xs); /* Reduced spacing */
   backdrop-filter: blur(5px);
 }
 
 .vehicleInfo {
-  margin-bottom: var(--space-sm);
+  margin-bottom: var(--space-xs); /* Reduced from var(--space-sm) */
 }
 
 .vehicleDetail {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: var(--space-xs);
+  margin: 0; /* Remove margin for horizontal layout */
 }
 
 .vehicleDetail:last-child {
@@ -329,7 +328,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding-top: var(--space-sm);
+  padding-top: var(--space-xs); /* Reduced from var(--space-sm) */
   border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 
@@ -346,14 +345,14 @@
 }
 
 /* ========================================
-   RATING SECTION
+   RATING SECTION - COMPACT HORIZONTAL
 ======================================== */
 .ratingSection {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: var(--space-md);
-  padding: var(--space-sm) 0;
+  margin-bottom: var(--space-xs); /* Further reduced */
+  padding: 4px 0; /* Minimal padding */
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
@@ -387,10 +386,10 @@
 }
 
 /* ========================================
-   DESCRIPTION SECTION
+   DESCRIPTION SECTION - CONDENSED
 ======================================== */
 .descriptionSection {
-  margin-bottom: var(--space-md);
+  margin-bottom: var(--space-sm); /* Reduced from var(--space-md) */
 }
 
 .description {
@@ -399,20 +398,26 @@
   line-height: var(--line-base);
   margin: 0;
   opacity: 0.9;
+  /* Limit to 1 line on mobile to save space */
+  display: -webkit-box;
+  -webkit-line-clamp: 2; /* Limit to 2 lines maximum */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 
 /* ========================================
-   SOCIAL PROOF
+   SOCIAL PROOF - COMPACT HORIZONTAL
 ======================================== */
 .socialProof {
   display: flex;
   justify-content: space-around;
   align-items: center;
-  padding: var(--space-md);
+  padding: var(--space-sm); /* Reduced from var(--space-md) */
   background: rgba(255, 255, 255, 0.05);
   border-radius: var(--radius-md);
-  margin-bottom: var(--space-md);
+  margin-bottom: var(--space-sm); /* Reduced from var(--space-md) */
   backdrop-filter: blur(5px);
 }
 
@@ -923,6 +928,8 @@
   gap: var(--space-xs);
   width: 100%;
   overflow: visible; /* Ensure button borders show */
+  padding-bottom: 4px; /* Add breathing room for button shadows */
+  margin-bottom: -4px; /* Compensate for the padding */
 }
 
 .bookNowButton,
@@ -1020,7 +1027,12 @@
 @media (max-width: 479px) {
   .serviceCard {
     padding: var(--space-sm); /* Reduce padding to give buttons more room */
-    min-height: 280px;
+    min-height: 240px; /* Further reduced from 280px */
+  }
+
+  /* Hide description on mobile to save space */
+  .description {
+    display: none;
   }
 
   .serviceIcon {
@@ -1054,14 +1066,19 @@
 /* Large Mobile (480px - 767px) */
 @media (min-width: 480px) and (max-width: 767px) {
   .serviceCard {
-    min-height: 320px;
+    min-height: 280px; /* Reduced from 320px */
+  }
+
+  /* Limit description to 1 line on large mobile */
+  .description {
+    -webkit-line-clamp: 1;
   }
 }
 
 /* Tablet (768px - 1023px) */
 @media (min-width: 768px) and (max-width: 1023px) {
   .serviceCard {
-    min-height: 350px;
+    min-height: 300px; /* Reduced from 350px */
     padding: var(--space-lg);
   }
 
@@ -1077,7 +1094,7 @@
 /* Desktop (1024px+) */
 @media (min-width: 1024px) {
   .serviceCard {
-    min-height: 380px;
+    min-height: 320px; /* Reduced from 380px */
     padding: var(--space-xl);
   }
 

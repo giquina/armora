@@ -179,14 +179,14 @@ export function StreamlinedBookingModal({
     if (isOpen && !currentLocation) {
       getCurrentLocation();
     }
-  }, [isOpen, currentLocation]);
+  }, [isOpen, currentLocation, getCurrentLocation]);
 
   // Calculate route estimate when both locations are set
   useEffect(() => {
     if (pickupLocation && destinationLocation) {
       calculateRouteEstimate();
     }
-  }, [pickupLocation, destinationLocation]);
+  }, [pickupLocation, destinationLocation, calculateRouteEstimate]);
 
   const handlePickupLocationSelect = useCallback((location: Location) => {
     setPickupLocation(location);

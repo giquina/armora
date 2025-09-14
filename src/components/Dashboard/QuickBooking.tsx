@@ -29,14 +29,7 @@ export function QuickBooking({ onBookNow, selectedService, isLoading = false, us
   const [multiStops, setMultiStops] = useState<Location[]>([]);
   const [showMultiStop, setShowMultiStop] = useState(false);
 
-  // Get current location on component mount
-  useEffect(() => {
-    getCurrentLocation();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  // Map is always visible - no need for auto-expand logic
-
+  // Define getCurrentLocation before using it
   const getCurrentLocation = async () => {
     if (!navigator.geolocation) {
       console.warn('Geolocation is not supported by this browser');
@@ -98,6 +91,14 @@ export function QuickBooking({ onBookNow, selectedService, isLoading = false, us
       setIsLoadingLocation(false);
     }
   };
+
+  // Get current location on component mount
+  useEffect(() => {
+    getCurrentLocation();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  // Map is always visible - no need for auto-expand logic
 
   const useCurrentLocation = () => {
     if (currentLocation) {

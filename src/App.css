@@ -1,5 +1,7 @@
 /* Mobile-First CSS Reset & Base Styles for Armora */
 
+/* Import critical border fix first */
+@import './styles/border-fix.css';
 /* Import the standardized card/modal system */
 @import './styles/card-standards.css';
 /* Import the global content width system */

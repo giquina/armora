@@ -1,0 +1,56 @@
+/* Border Fix - Resolves button border clipping issues */
+
+/* Allow borders to render properly by ensuring containers don't clip content */
+* {
+  box-sizing: border-box;
+}
+
+/* Critical: Remove overflow hidden from document level elements */
+html {
+  overflow-x: visible !important;
+  max-width: none !important;
+}
+
+body {
+  overflow-x: visible !important;
+  max-width: none !important;
+  padding: 0 2px; /* Small padding to give borders breathing room on mobile */
+}
+
+/* Ensure all containers allow border visibility */
+.container,
+[class*="container"],
+[class*="Card"],
+[class*="card"] {
+  overflow: visible !important;
+}
+
+/* Specific fixes for button containers */
+[class*="service"],
+[class*="Service"],
+[class*="button"],
+[class*="Button"] {
+  overflow: visible !important;
+  margin: 1px; /* Tiny margin to prevent border touching edges */
+}
+
+/* Mobile-specific border safety */
+@media (max-width: 320px) {
+  body {
+    padding: 0 3px; /* Extra padding on very small screens */
+  }
+
+  /* Ensure buttons have space for borders */
+  button,
+  [role="button"] {
+    margin: 2px 1px;
+    max-width: calc(100% - 4px); /* Account for border space */
+  }
+}
+
+/* Prevent any parent from hiding button borders */
+.app,
+#app,
+#root {
+  overflow: visible !important;
+}

@@ -14,9 +14,10 @@
   );
   border: 2px solid var(--armora-gold);
   border-radius: 20px;
-  padding: 24px;
+  padding: 24px 24px 32px; /* Extra bottom padding */
   position: relative;
-  overflow: hidden;
+  overflow: visible; /* Don't clip content */
+  min-height: 200px; /* Increased height for text */
 
   /* Premium shadow effect */
   box-shadow:
@@ -94,6 +95,7 @@
 /* Main Recommendation */
 .mainRecommendation {
   margin-bottom: 20px;
+  min-height: 120px; /* Ensure enough height for text */
 }
 
 .serviceHighlight {
@@ -132,8 +134,12 @@
 .recommendationText {
   color: var(--text-primary);
   font-size: 15px;
-  line-height: 1.5;
+  line-height: 1.6; /* Better line spacing */
   margin: 0;
+  word-wrap: break-word;
+  white-space: normal;
+  overflow: visible;
+  min-height: 60px; /* Ensure text has enough space */
 }
 
 .recommendationText strong {
@@ -311,17 +317,20 @@
 .accessibilityMessage {
   background: linear-gradient(135deg, rgba(255, 215, 0, 0.03), rgba(255, 215, 0, 0.08));
   border-radius: 12px;
-  padding: 16px;
+  padding: 18px; /* Increased padding */
   margin: 20px 0;
   border: 1px solid rgba(255, 215, 0, 0.2);
+  min-height: 60px; /* Ensure minimum height */
 }
 
 .accessibilityText {
   color: var(--text-primary);
   font-size: 14px;
-  line-height: 1.5;
+  line-height: 1.6; /* Better line spacing */
   margin: 0;
   text-align: center;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
 }
 
 .accessibilityText strong {
