@@ -1,15 +1,9 @@
 /* Armora Security Transport - Questionnaire Step Styles */
 
-/* NUCLEAR MOBILE BORDER REMOVAL - Kill ALL vertical lines on mobile */
+/* MOBILE BORDER SAFE DESIGN */
 @media (max-width: 768px) {
-  * {
-    border-left: none !important;
-    border-right: none !important;
-  }
-  *::before, *::after {
-    border-left: none !important;
-    border-right: none !important;
-  }
+  /* Removed nuclear border removal rule - this was hiding ALL left/right borders globally */
+  /* Components that need edge-to-edge design should use specific classes instead */
 }
 
 /* Standard Text Sizing for All Questionnaire Content */
@@ -280,11 +274,7 @@
   /* Apply header entrance animation with glow sweep effect */
   position: relative;
   overflow: hidden;
-  border: none !important;
-  border-left: none !important;
-  border-right: none !important;
   outline: none !important;
-  box-shadow: none !important;
 }
 
 .header::before {
@@ -1662,15 +1652,11 @@
   font-size: 0.7rem;
 }
 
-/* AGGRESSIVE MOBILE BORDER REMOVAL - Nuclear option for vertical lines */
+/* MOBILE RESPONSIVE DESIGN - BORDERS RESTORED */
 @media (max-width: 767px) {
-  /* Remove ALL left/right borders from everything on mobile */
-  * {
-    border-left: none !important;
-    border-right: none !important;
-  }
-  
-  /* Specifically target all containers, headers, and sections */
+  /* Removed aggressive border removal - borders should display properly */
+
+  /* Keep only outline removal for better accessibility */
   .container,
   .stepHeaderSection,
   .header,
@@ -1686,16 +1672,7 @@
   div[class*="section"],
   div[class*="container"],
   div[class*="step"] {
-    border-left: none !important;
-    border-right: none !important;
     outline: none !important;
-  }
-  
-  /* Remove all pseudo-element left/right borders */
-  *::before,
-  *::after {
-    border-left: none !important;
-    border-right: none !important;
   }
 }
 
@@ -1891,23 +1868,17 @@
   .subtitle,
   .titleEnhanced,
   .subtitleEnhanced {
-    border: none !important;
-    border-left: none !important;
-    border-right: none !important;
     outline: none !important;
     box-shadow: none !important;
     text-decoration: none !important;
   }
   
-  /* Remove any pseudo-element borders on mobile */
+  /* Hide pseudo-element decorations on mobile for cleaner design */
   .stepHeaderSection::before,
   .stepHeaderSection::after,
   .header::before,
   .header::after {
     display: none !important;
-    border: none !important;
-    border-left: none !important;
-    border-right: none !important;
   }
 
   .whyQuestionnaire h3 {
@@ -2645,8 +2616,7 @@
   .trustIndicators,
   .processOverview,
   .whyQuestionnaire {
-    border-left: none !important;
-    border-right: none !important;
+    /* Keep natural borders */
   }
 
   /* Option cards should also hit the edges cleanly */
@@ -2672,7 +2642,7 @@
     box-shadow: none !important;
   }
 
-  /* Ensure no borders on very small screens */
+  /* Keep clean appearance on very small screens */
   .stepHeaderSection,
   .enhancedHeader,
   .header,
@@ -2680,22 +2650,16 @@
   .subtitle,
   .titleEnhanced,
   .subtitleEnhanced {
-    border: none !important;
-    border-left: none !important;
-    border-right: none !important;
     outline: none !important;
     box-shadow: none !important;
   }
   
-  /* Remove any pseudo-element borders on very small screens */
+  /* Hide pseudo-element decorations on very small screens */
   .stepHeaderSection::before,
   .stepHeaderSection::after,
   .header::before,
   .header::after {
     display: none !important;
-    border: none !important;
-    border-left: none !important;
-    border-right: none !important;
   }
   .question { font-size: 1.75rem !important; } /* Significantly larger desktop font size */
   .helpText { font-size: 1.125rem; } /* Match welcome desktop subtitle size */
@@ -2733,20 +2697,14 @@
   margin: 1.5rem 0;
   padding: 1rem 0;
   position: relative;
-  border: none !important;
-  border-left: none !important;
-  border-right: none !important;
   outline: none !important;
   box-shadow: none !important;
 }
 
-/* Ensure stepHeaderSection has no pseudo-element borders */
+/* Hide stepHeaderSection pseudo-elements for cleaner design */
 .stepHeaderSection::before,
 .stepHeaderSection::after {
   display: none !important;
-  border: none !important;
-  border-left: none !important;
-  border-right: none !important;
 }
 
 .stepHeaderSection .stepBadge {

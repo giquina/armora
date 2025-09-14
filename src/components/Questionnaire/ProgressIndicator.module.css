@@ -231,8 +231,6 @@
 @media (min-width: 320px) and (max-width: 375px) {
   .container {
   padding: 0.4rem 0.5rem;
-    border-left: none !important;
-    border-right: none !important;
     border-top: none !important;
     border-bottom: 1px solid var(--progress-accent) !important;
     box-shadow: 
@@ -294,8 +292,6 @@
 @media (min-width: 376px) and (max-width: 430px) {
   .container {
   padding: 0.5rem 0.65rem;
-    border-left: none !important;
-    border-right: none !important;
     border-top: none !important;
     border-bottom: 1px solid var(--progress-accent) !important;
     box-shadow: 
@@ -345,8 +341,6 @@
 @media (min-width: 431px) and (max-width: 767px) {
   .container {
     padding: 0.75rem 1rem;
-    border-left: none !important;
-    border-right: none !important;
     border-top: none !important;
     border-bottom: 1px solid var(--progress-accent) !important;
     box-shadow: 
@@ -536,8 +530,6 @@
 @media (max-width: 480px) {
   .container {
     padding: 0.45rem 0.6rem !important;
-    border-left: none !important;
-    border-right: none !important;
     border-top: none !important;
     border-bottom: 1px solid var(--progress-accent) !important;
   }

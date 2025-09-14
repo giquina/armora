@@ -299,8 +299,6 @@
 @media (max-width: 480px) {
   .banner {
     border-radius: 0;
-    border-left: none;
-    border-right: none;
   }
   
   .content {

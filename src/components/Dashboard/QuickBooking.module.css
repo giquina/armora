@@ -1003,8 +1003,6 @@
   .advancedOptions {
     margin: var(--space-md) -var(--space-lg);
     border-radius: 0;
-    border-left: none;
-    border-right: none;
   }
 
   .multiStopInput {
