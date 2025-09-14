@@ -94,7 +94,7 @@ export function DynamicRecommendation({
       'SIA Level 2 security-certified drivers',
       'Eco-friendly Nissan Leaf EV fleet (discreet)',
       'Real-time safety monitoring & GPS tracking',
-      '24/7 emergency response protocols',
+      '24/7 response protocols',
       'Background-checked security professionals'
     ];
 
@@ -103,7 +103,7 @@ export function DynamicRecommendation({
         'SIA Level 3 certified security drivers',
         'BMW 5 Series with security modifications',
         'Advanced threat assessment training',
-        'Priority emergency response team',
+        'Priority safety response team',
         'Executive protection protocols'
       ];
     }

@@ -61,7 +61,7 @@
 .counterNumber {
   font-size: clamp(20px, 4vw, 24px);
   font-weight: 700;
-  color: #FFD700;
+  color: #FFD700; /* Consistent branded gold */
   text-shadow: 0 0 12px rgba(255, 215, 0, 0.6), 0 0 24px rgba(255, 215, 0, 0.3);
   animation: countUp 2s ease-out 0.5s both, pulse 3s infinite 2.5s;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -417,7 +417,7 @@
   left: 50%;
   width: clamp(60px, 15vw, 80px);
   height: clamp(60px, 15vw, 80px);
-  border: 2px solid var(--armora-gold);
+  border: 2px solid #FFD700; /* Consistent branded gold */
   border-radius: 50%;
   transform: translate(-50%, -50%);
   opacity: 0.4;
@@ -428,9 +428,9 @@
   position: absolute;
   width: 4px;
   height: 4px;
-  background: var(--armora-gold);
+  background: #FFD700; /* Consistent branded gold */
   border-radius: 50%;
-  box-shadow: 0 0 8px var(--armora-gold);
+  box-shadow: 0 0 8px #FFD700; /* Consistent branded gold */
 }
 
 .orbitalDot:nth-child(1) {
@@ -471,7 +471,7 @@
 
 .tagline {
   font-size: clamp(0.85rem, 2.5vw, 1.1rem);
-  color: var(--armora-gold);
+  color: #FFD700; /* Consistent branded gold */
   margin: 0;
   font-weight: 400;
   font-style: italic;
@@ -573,7 +573,7 @@
   width: clamp(36px, 10vw, 44px);
   height: clamp(36px, 10vw, 44px);
   background: var(--bg-card);
-  color: var(--armora-gold);
+  color: #FFD700; /* Consistent branded gold */
   border-radius: clamp(8px, 2vw, 12px);
   border: 1px solid rgba(255, 215, 0, 0.2);
   transition: all var(--transition-base);
@@ -598,7 +598,7 @@
 }
 
 .feature:hover .featureIcon {
-  background: linear-gradient(135deg, var(--armora-gold), var(--hover-gold));
+  background: linear-gradient(135deg, #FFD700, #e6c200); /* Consistent branded gold */
   color: var(--armora-dark);
   transform: translateY(-3px) scale(1.08) rotate(5deg);
   box-shadow: 0 12px 30px rgba(255, 215, 0, 0.4);
@@ -640,8 +640,8 @@
 .featureLogo {
   width: 100%; /* Fill the wrapper */
   height: 100%; /* Fill the wrapper */
-  color: var(--armora-gold);
-  fill: var(--armora-gold);
+  color: #FFD700; /* Consistent branded gold */
+  fill: #FFD700; /* Consistent branded gold */
   filter: drop-shadow(0 1px 2px rgba(255, 215, 0, 0.3));
   animation: logoReveal 0.8s ease-in-out forwards, gentlePulse 4s ease-in-out infinite;
   animation-delay: calc(var(--delay, 0) * 0.15s), 1s;
@@ -922,7 +922,7 @@
 .googleButton {
   position: relative;
   overflow: hidden;
-  background: var(--armora-gold) !important;
+  background: #FFD700 !important; /* Consistent branded gold */
   color: var(--armora-dark) !important;
   border: none !important;
   transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
@@ -959,7 +959,7 @@
 
 .emailButton:hover {
   background: rgba(255, 215, 0, 0.1) !important;
-  border-color: var(--armora-gold) !important;
+  border-color: #FFD700 !important; /* Consistent branded gold */
   transform: translateY(-2px) scale(1.01);
   box-shadow: 0 8px 25px rgba(255, 215, 0, 0.3);
 }
@@ -973,7 +973,7 @@
 
 .phoneButton:hover {
   background: rgba(255, 215, 0, 0.1) !important;
-  border-color: var(--armora-gold) !important;
+  border-color: #FFD700 !important; /* Consistent branded gold */
   transform: translateY(-2px) scale(1.01);
   box-shadow: 0 8px 25px rgba(255, 215, 0, 0.3);
 }
@@ -1035,9 +1035,10 @@
 
 /* DEVELOPMENT-ONLY SKIP BUTTON */
 .devSkipButton {
-  padding: clamp(0.5rem, 2vh, 0.75rem) clamp(6px, 2vw, 1.5rem) !important; /* EXTREME mobile width optimization */
-  min-height: auto !important;
-  margin-top: clamp(0.75rem, 2vh, 1rem) !important;
+  padding: clamp(0.75rem, 2vh, 1rem) clamp(12px, 3vw, 1.5rem) !important;
+  min-height: 48px !important; /* Ensure good touch target */
+  margin-top: clamp(0.5rem, 2vh, 0.75rem) !important;
+  margin-bottom: clamp(0.5rem, 1vh, 0.75rem) !important; /* Add bottom margin */
   background: linear-gradient(135deg, #ff4444, #ff6b6b) !important;
   border: 2px solid #ff4444 !important;
   color: white !important;
@@ -1284,7 +1285,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--armora-gold);
+  color: #FFD700; /* Consistent branded gold */
   transition: all 0.15s ease;
 }
 
@@ -1330,7 +1331,7 @@
 .trustNumber {
   font-size: clamp(11px, 2.8vw, 13px);
   font-weight: 600;
-  color: var(--armora-gold);
+  color: #FFD700; /* Consistent branded gold */
   line-height: 1.2;
   text-align: center;
   margin-bottom: 1px;
@@ -1739,10 +1740,13 @@
     padding: 2px 8px; /* Minimal padding */
   }
   
-  /* Hide development buttons on very short screens to save space */
+  /* Keep development buttons visible but with reduced size on very short screens */
   .devSkipButton,
   .devQuestionnaireButton {
-    display: none !important;
+    font-size: 0.75rem !important;
+    padding: 6px 8px !important;
+    min-height: 36px !important;
+    margin-top: 0.25rem !important;
   }
 }
 
@@ -1797,9 +1801,12 @@
     padding: 1px 6px;
   }
   
-  /* Hide the floating dev button to save screen real estate */
+  /* Keep floating dev button visible but smaller */
   div[style*="position: fixed"] {
-    display: none !important;
+    bottom: 10px !important;
+    right: 10px !important;
+    padding: 8px 12px !important;
+    font-size: 10px !important;
   }
 }
 
@@ -2125,7 +2132,7 @@
 
 .taglineSubtext {
   font-size: clamp(0.75rem, 2vw, 0.95rem);
-  color: #FFD700;
+  color: #FFD700; /* Consistent branded gold */
   margin: 0;
   font-weight: 500;
   font-style: normal;
@@ -2167,7 +2174,7 @@
   display: inline; /* INLINE TO SAVE SPACE */
   font-size: clamp(0.75rem, 2.2vw, 0.85rem); /* SMALLER */
   font-weight: 700;
-  color: #FFD700;
+  color: #FFD700; /* Consistent branded gold */
   margin-right: 0.25rem;
   text-shadow: 0 0 8px rgba(255, 215, 0, 0.4);
 }

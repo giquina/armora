@@ -291,9 +291,9 @@ export function MarketingBanner({
         <button
           className={styles.reopenButton}
           onClick={handleReopen}
-          aria-label="View membership offers"
+          aria-label="View Personal Security Detail membership offers"
         >
-          💰 View Special Offers
+          🛡️ Your Security Detail
         </button>
       </div>
     );
@@ -336,10 +336,10 @@ export function MarketingBanner({
           {/* Header */}
           <div className={styles.header}>
             <h3 className={styles.headerTitle}>
-              💰 Members Save £{marketingData.averageSavings}/month on average
+              💰 Your Personal Security Detail Membership
             </h3>
             <p className={styles.headerSubtext}>
-              PLUS your membership saves lives:
+              Save £{marketingData.averageSavings}/month + fund priority security transport:
             </p>
           </div>
 
@@ -359,16 +359,16 @@ export function MarketingBanner({
               <div className={styles.benefitHeader}>Essential Membership - £14.99/month</div>
             </div>
             <div className={styles.benefitItem}>
-              <span className={styles.benefitBullet}>•</span>
-              <span className={styles.benefitText}>Save 10% on every ride (£3-6 per trip)</span>
+              <span className={styles.benefitBullet}>🛡️</span>
+              <span className={styles.benefitText}>Professional security drivers 24/7</span>
             </div>
             <div className={styles.benefitItem}>
-              <span className={styles.benefitBullet}>•</span>
-              <span className={styles.benefitText}>£0 booking fees (save £5 each time)</span>
+              <span className={styles.benefitBullet}>💰</span>
+              <span className={styles.benefitText}>Save £32/month on security transport</span>
             </div>
             <div className={styles.benefitItem}>
-              <span className={styles.benefitBullet}>•</span>
-              <span className={styles.benefitText}>Fund priority rides for others (£4/mo)</span>
+              <span className={styles.benefitBullet}>⭐</span>
+              <span className={styles.benefitText}>£0 booking fees on all driver requests</span>
             </div>
           </div>
 

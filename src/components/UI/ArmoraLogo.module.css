@@ -313,24 +313,49 @@
   50% { transform: scale(1.2); opacity: 1; }
 }
 
+/* LOGO WITH TEXT LAYOUT */
+.logoContent {
+  position: relative;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-md);
+}
+
+.withText.textBeside .logoContent {
+  flex-direction: row;
+  align-items: center;
+  gap: var(--space-lg);
+}
+
+.brandTextContainer {
+  text-align: center;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.textBeside .brandTextContainer {
+  text-align: left;
+}
+
 /* SIZE VARIANTS */
-.small { 
-  --logo-scale: 0.7; 
+.small {
+  --logo-scale: 0.7;
   --orbit-scale: 0.8;
 }
 
-.medium { 
-  --logo-scale: 1; 
+.medium {
+  --logo-scale: 1;
   --orbit-scale: 1;
 }
 
-.large { 
-  --logo-scale: 1.3; 
+.large {
+  --logo-scale: 1.3;
   --orbit-scale: 1.2;
 }
 
-.hero { 
-  --logo-scale: 1.8; 
+.hero {
+  --logo-scale: 1.8;
   --orbit-scale: 1.5;
 }
 

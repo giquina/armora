@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { ServiceLevel, User, PersonalizationData } from '../../types';
+import { generateRecommendation } from '../../utils/recommendationEngine';
 import styles from './SmartRecommendation.module.css';
 
 interface UserBookingHistory {
@@ -88,14 +89,17 @@ export const SmartRecommendation: React.FC<SmartRecommendationProps> = ({
   const recommendedService = getRecommendedService();
   const displayType = getDisplayType();
 
-  // Minimal version for returning users
+  // Generate personalized recommendation
+  const recommendation = generateRecommendation(questionnaireData, user, services);
+
+  // Minimal version for returning users - optimized for desktop
   if (displayType === 'returning') {
     return (
       <div className={styles.returningUserRec}>
         <div className={styles.quickRec}>
           <span className={styles.checkmark}>✅</span>
-          <strong>Armora Secure</strong> - Your usual choice • £45/hour •
-          <span className={styles.availability}> 2 drivers nearby</span>
+          <strong>Armora Secure</strong> - Your trusted security transport
+          <span className={styles.availability}> • {recommendation.availabilityInfo.driversAvailable} certified drivers nearby • Available now</span>
           <button
             className={styles.quickBookBtn}
             onClick={() => onServiceSelect('standard')}
@@ -107,37 +111,74 @@ export const SmartRecommendation: React.FC<SmartRecommendationProps> = ({
     );
   }
 
-  // Full version for first-time users
+  // Enhanced version for first-time users with personalized content
   return (
     <div className={styles.recommendationCard}>
       <div className={styles.header}>
-        <span className={styles.icon}>⭐</span>
-        <h3>Recommended: {recommendedService?.name}</h3>
+        <div className={styles.matchBadge}>
+          <span className={styles.matchScore}>{recommendation.profile.matchScore}%</span>
+          <span className={styles.matchLabel}>match</span>
+        </div>
+        <div className={styles.headerContent}>
+          <span className={styles.badge}>Personalized for You</span>
+          <h3>Recommended: {recommendedService?.name}</h3>
+          <p className={styles.headerSubtitle}>Premium security transport with certified professionals</p>
+        </div>
       </div>
 
       <div className={styles.compactContent}>
-        <div className={styles.mainMessage}>
-          Professional security transport with SIA Level 2 certified drivers
-          and real-time tracking - accessible protection at {recommendedService?.price}.
+        <div className={styles.contentLeft}>
+          <div className={styles.personalizedMessage}>
+            <span className={styles.messageIcon}>💡</span>
+            <span className={styles.messageText}>{recommendation.profile.personalizedMessage}</span>
+          </div>
+
+          <div className={styles.mainMessage}>
+            Professional security transport designed for safety, reliability, and peace of mind.
+          </div>
+
+          <div className={styles.keyBenefits}>
+            <div className={styles.benefitItem}>
+              <span className={styles.benefitIcon}>🛡️</span>
+              <span className={styles.benefitText}>Advanced Security Trained</span>
+            </div>
+            <div className={styles.benefitItem}>
+              <span className={styles.benefitIcon}>📍</span>
+              <span className={styles.benefitText}>Real-time Tracking</span>
+            </div>
+            <div className={styles.benefitItem}>
+              <span className={styles.benefitIcon}>🚨</span>
+              <span className={styles.benefitText}>24/7 Support</span>
+            </div>
+          </div>
+
+          {recommendation.availabilityInfo.isHighDemand && (
+            <div className={styles.urgencyBanner}>
+              <span className={styles.urgencyIcon}>⚡</span>
+              High demand period - secure your professional driver now
+            </div>
+          )}
         </div>
 
-        <div className={styles.quickStats}>
-          <span className={styles.stat}>⭐ 4.8/5</span>
-          <span className={styles.stat}>🛡️ 15,847+ safe trips</span>
-          <span className={styles.stat}>⚡ 2 drivers nearby</span>
-        </div>
+        <div className={styles.contentRight}>
+          <div className={styles.quickStats}>
+            <span className={styles.stat}>⭐ 4.8 Rating</span>
+            <span className={styles.stat}>👥 1,000+ Clients</span>
+            <span className={styles.stat}>📍 {recommendation.availabilityInfo.driversAvailable} Nearby</span>
+            <span className={styles.stat}>⚡ Available Now</span>
+          </div>
 
-        <div className={styles.urgencyBanner}>
-          <span className={styles.urgencyIcon}>⏰</span>
-          High demand area - book within 15 minutes for guaranteed service
+          <div className={styles.ctaSection}>
+            <button
+              className={styles.selectServiceBtn}
+              onClick={() => onServiceSelect(recommendedService?.id || 'standard')}
+            >
+              <span className={styles.ctaIcon}>🛡️</span>
+              Select {recommendedService?.name}
+            </button>
+            <p className={styles.ctaSubtext}>Continue to customize your secure journey</p>
+          </div>
         </div>
-
-        <button
-          className={styles.selectServiceBtn}
-          onClick={() => onServiceSelect(recommendedService?.id || 'standard')}
-        >
-          Select {recommendedService?.name}
-        </button>
       </div>
     </div>
   );

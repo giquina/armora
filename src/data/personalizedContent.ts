@@ -938,7 +938,7 @@ export const personalizedContent: PersonalizedContentMap = {
     step3: {
       title: "Special Occasion Excellence",
       example: "Dedicated teams providing white-glove service for life's most important moments.",
-      withName: "[Name], your special day receives our finest officers providing impeccable service.",
+      withName: "[Name], your special day receives our best officers providing impeccable service.",
       benefits: ["White-glove service", "Special attention", "Memorable moments"]
     },
     step4: {

@@ -9,6 +9,27 @@
   overflow-x: visible; /* FIXED: Allow golden borders to show on left/right sides */
 }
 
+/* DESKTOP NO-SCROLL OPTIMIZATION */
+@media (min-width: 1024px) {
+  .dashboard {
+    min-height: 100vh;
+    max-height: 100vh;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Ensure sections use minimal space */
+  .dashboard > * {
+    flex-shrink: 0;
+  }
+
+  /* Compact spacing for desktop */
+  .dashboard > *:not(:last-child) {
+    margin-bottom: var(--space-sm);
+  }
+}
+
 /* ========================================
    REWARD BANNER STYLES
 ======================================== */
@@ -43,13 +64,11 @@
   font-weight: 900;
   line-height: 0.9;
   margin: 4px 0;
+  color: #1a1a2e;
   text-shadow:
-    2px 2px 4px rgba(0, 0, 0, 0.1),
-    0 0 20px rgba(255, 255, 255, 0.5);
-  background: linear-gradient(135deg, #1a1a2e 0%, #000 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+    2px 2px 4px rgba(0, 0, 0, 0.3),
+    0 0 10px rgba(255, 255, 255, 0.8);
+  /* Solid navy color instead of transparent gradient for visibility */
 }
 
 .rewardIcon {

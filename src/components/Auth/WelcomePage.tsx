@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useApp } from '../../contexts/AppContext';
 import { Button } from '../UI/Button';
-import { AnimatedTitle } from '../UI/AnimatedTitle';
+// Removed AnimatedTitle import as we now use BrandText component
 import SeasonalTheme from '../UI/SeasonalTheme';
 import GoogleIcon from '../UI/GoogleIcon';
 import { ArmoraLogo } from '../UI/ArmoraLogo';
+import { WelcomeTitle, ArmoraTagline } from '../UI/BrandText';
 import { CredentialsModal } from '../UI/CredentialsModal';
 import SafeRideFundCTA from '../SafeRideFund/SafeRideFundCTA';
 import SafeRideFundModal from '../SafeRideFund/SafeRideFundModal';
@@ -113,15 +114,10 @@ export function WelcomePage() {
             {/* Stacked Text Section */}
             <div className={styles.textSection}>
               <div className={styles.textContainer}>
-                <AnimatedTitle 
-                  text="Welcome to Armora" 
-                  highlightWord="Armora"
-                  className={styles.welcomeTitle}
-                  delay={400}
-                />
+                <WelcomeTitle className={styles.welcomeTitle} />
                 <div className={styles.taglineStack}>
                   <p className={styles.tagline}>
-                    Your Personal Security Driver Team
+                    <ArmoraTagline />
                   </p>
                   <p className={styles.taglineSubtext}>
                     Protection for You. Safety for All.

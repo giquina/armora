@@ -160,9 +160,9 @@ export function PaymentSuccess({
         </div>
       </div>
 
-      {/* Emergency Contact */}
+      {/* Support Contact */}
       <div className={styles.emergencyCard}>
-        <h3 className={styles.emergencyTitle}>Need immediate assistance?</h3>
+        <h3 className={styles.emergencyTitle}>Need assistance?</h3>
         <div className={styles.emergencyContact}>
           <div className={styles.contactMethod}>
             <span className={styles.contactIcon}>📞</span>

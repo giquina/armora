@@ -1,7 +1,9 @@
 import React, { ReactNode } from 'react';
 import { useApp } from '../../contexts/AppContext';
 import { ArmoraLogo } from '../UI/ArmoraLogo';
+import { BrandText } from '../UI/BrandText';
 import { getDisplayName } from '../../utils/nameUtils';
+import { getLogoProps } from '../../styles/brandConstants';
 import styles from './AppLayout.module.css';
 
 interface AppLayoutProps {
@@ -31,7 +33,7 @@ export function AppLayout({
     if (headerTitle) return { title: headerTitle, subtitle: '', showServices: false };
 
     switch (currentView) {
-      case 'welcome': return { title: 'Welcome to Armora', subtitle: '', showServices: false };
+      case 'welcome': return { title: 'Welcome to ARMORA', subtitle: '', showServices: false };
       case 'login': return { title: 'Sign In', subtitle: '', showServices: false };
       case 'signup': return { title: 'Create Account', subtitle: '', showServices: false };
       case 'guest-disclaimer': return { title: 'Guest Access', subtitle: '', showServices: false };
@@ -43,7 +45,7 @@ export function AppLayout({
       };
       case 'booking': return { title: 'Booking Details', subtitle: 'Secure Transport', showServices: false };
       case 'profile': return { title: 'Your Profile', subtitle: 'Account Settings', showServices: false };
-      default: return { title: 'Armora Security Transport', subtitle: '', showServices: false };
+      default: return { title: 'ARMORA Security Transport', subtitle: '', showServices: false };
     }
   };
 
@@ -102,15 +104,18 @@ export function AppLayout({
 
               <div className={styles.headerBrand}>
                 <ArmoraLogo
-                  size="small"
-                  variant="compact"
-                  showOrbits={false}
-                  interactive={true}
+                  {...getLogoProps('compact')}
                   className={styles.headerLogo}
                 />
                 <div className={styles.brandInfo}>
                   <h1 className={styles.headerTitle}>
-                    {headerInfo.title}
+                    {headerInfo.title.includes('ARMORA') ? (
+                      <BrandText size="small" className={styles.brandInTitle}>
+                        {headerInfo.title}
+                      </BrandText>
+                    ) : (
+                      headerInfo.title
+                    )}
                   </h1>
                   {headerInfo.subtitle && (
                     <p className={styles.headerSubtitle}>

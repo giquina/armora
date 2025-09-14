@@ -1,208 +1,535 @@
-/* First-time user recommendation (compact) */
+/* Enhanced personalized recommendation component */
 .recommendationCard {
-  max-height: 120px;
-  padding: 16px;
-  margin-bottom: 16px;
-  background: var(--bg-card);
-  border: 2px solid var(--armora-gold);
-  border-radius: 12px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background: linear-gradient(135deg, #1a1a2e 0%, #1e1e3a 100%);
+  border: 2px solid var(--gold);
+  border-radius: var(--border-radius-lg);
+  padding: var(--space-xl);
+  margin-bottom: var(--space-lg);
+  box-shadow: 0 6px 24px rgba(255, 215, 0, 0.1);
   position: relative;
-  overflow: hidden;
+  overflow: visible;
+  transition: all 0.3s ease;
+
+  /* Desktop optimization - ensure no excessive height */
+  max-height: 60vh;
+  min-height: auto;
+}
+
+.recommendationCard:hover {
+  box-shadow: 0 8px 32px rgba(255, 215, 0, 0.15);
+  transform: translateY(-2px);
 }
 
 .header {
   display: flex;
+  align-items: flex-start;
+  gap: var(--space-md);
+  margin-bottom: var(--space-md);
+}
+
+.matchBadge {
+  flex-shrink: 0;
+  width: 60px;
+  height: 60px;
+  border: 2px solid var(--gold);
+  border-radius: 50%;
+  display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: 8px;
-  margin-bottom: 8px;
+  justify-content: center;
+  background: rgba(255, 215, 0, 0.1);
+}
+
+.matchScore {
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: var(--gold);
+  line-height: 1;
+}
+
+.matchLabel {
+  font-size: 0.65rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.headerContent {
+  flex: 1;
+}
+
+.badge {
+  display: inline-block;
+  background: linear-gradient(45deg, var(--gold), #ffd700);
+  color: var(--navy);
+  font-size: 0.7rem;
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: 16px;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  margin-bottom: var(--space-xs);
 }
 
 .header h3 {
-  font-size: 1.1rem;
+  font-size: 1.3rem;
   font-weight: 700;
-  color: var(--armora-gold);
-  margin: 0;
+  color: var(--text-primary);
+  margin: 0 0 var(--space-xs) 0;
+  line-height: 1.2;
 }
 
-.icon {
-  font-size: 18px;
-  color: var(--armora-gold);
+.headerSubtitle {
+  font-size: 0.9rem;
+  color: var(--gold);
+  margin: 0;
+  font-weight: 500;
+  line-height: 1.3;
 }
 
 .compactContent {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: var(--space-sm);
+}
+
+/* Desktop grid children */
+.contentLeft {
+  /* Will be styled in desktop media query */
+}
+
+.contentRight {
+  /* Will be styled in desktop media query */
+}
+
+.personalizedMessage {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  background: rgba(255, 215, 0, 0.08);
+  padding: var(--space-xs) var(--space-sm);
+  border-radius: var(--border-radius);
+  border-left: 3px solid var(--gold);
+}
+
+.messageIcon {
+  font-size: 1.1rem;
+  flex-shrink: 0;
+}
+
+.messageText {
+  font-size: 0.9rem;
+  color: var(--text-primary);
+  font-weight: 500;
+  line-height: 1.4;
+  font-style: italic;
 }
 
 .mainMessage {
   font-size: 0.9rem;
-  color: var(--text-primary);
-  line-height: 1.3;
+  color: var(--text-muted);
+  line-height: 1.4;
   margin: 0;
+}
+
+.keyBenefits {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+  background: rgba(0, 0, 0, 0.2);
+  padding: var(--space-sm);
+  border-radius: var(--border-radius);
+  border: 1px solid rgba(255, 215, 0, 0.2);
+}
+
+.benefitItem {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-sm);
+}
+
+.benefitIcon {
+  color: var(--gold);
+  font-weight: bold;
+  font-size: 0.9rem;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.benefitText {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  line-height: 1.3;
 }
 
 .quickStats {
   display: flex;
-  gap: 12px;
+  gap: var(--space-md);
   flex-wrap: wrap;
+  align-items: center;
 }
 
 .stat {
   font-size: 0.8rem;
-  color: var(--text-secondary);
+  color: var(--text-muted);
   font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 4px;
 }
 
 .urgencyBanner {
   display: flex;
   align-items: center;
-  gap: 6px;
-  padding: 4px 8px;
-  background: rgba(255, 215, 0, 0.1);
-  border-radius: 6px;
-  font-size: 0.8rem;
-  color: var(--armora-gold);
+  gap: var(--space-sm);
+  padding: var(--space-sm) var(--space-md);
+  background: rgba(255, 165, 0, 0.1);
+  border: 1px solid rgba(255, 165, 0, 0.3);
+  border-radius: var(--border-radius);
+  font-size: 0.85rem;
+  color: #ffa500;
   font-weight: 600;
 }
 
 .urgencyIcon {
-  font-size: 14px;
+  font-size: 1rem;
+}
+
+.ctaSection {
+  text-align: center;
+  margin-top: var(--space-sm);
 }
 
 .selectServiceBtn {
-  position: absolute;
-  top: 16px;
-  right: 16px;
-  padding: 6px 12px;
-  background: var(--armora-gold);
-  color: var(--bg-primary);
+  background: linear-gradient(45deg, var(--gold), #ffd700);
+  color: var(--navy);
   border: none;
-  border-radius: 6px;
-  font-size: 0.8rem;
-  font-weight: 600;
+  padding: var(--space-md) var(--space-xl);
+  border-radius: var(--border-radius);
+  font-size: 1rem;
+  font-weight: bold;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-sm);
+  min-height: var(--touch-target);
+  position: relative; /* Remove absolute positioning */
+  margin: 0; /* Reset margins */
 }
 
 .selectServiceBtn:hover {
-  background: var(--armora-gold-hover);
-  transform: translateY(-1px);
+  background: linear-gradient(45deg, #ffd700, var(--gold));
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(255, 215, 0, 0.3);
+}
+
+.selectServiceBtn:active {
+  transform: translateY(0);
+}
+
+.ctaIcon {
+  font-size: 1.1rem;
+}
+
+.ctaSubtext {
+  display: none; /* Remove on desktop to save space */
 }
 
 /* Returning user recommendation (minimal) */
 .returningUserRec {
-  max-height: 40px;
-  padding: 12px 16px;
   background: var(--bg-card);
-  border: 1px solid var(--armora-gold);
-  border-radius: 8px;
-  margin-bottom: 12px;
+  border: 1px solid var(--gold);
+  border-radius: var(--border-radius);
+  padding: var(--space-md);
+  margin-bottom: var(--space-md);
   display: flex;
   align-items: center;
+  min-height: auto;
+}
+
+/* Desktop optimization for returning users */
+@media (min-width: 1024px) {
+  .returningUserRec {
+    padding: var(--space-sm) var(--space-md);
+    margin-bottom: var(--space-sm);
+  }
+
+  .quickRec {
+    font-size: 0.85rem;
+    gap: var(--space-xs);
+  }
+
+  .quickBookBtn {
+    padding: var(--space-xs) var(--space-sm);
+    font-size: 0.8rem;
+  }
 }
 
 .quickRec {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: var(--space-sm);
   font-size: 0.9rem;
   color: var(--text-primary);
   width: 100%;
+  flex-wrap: wrap;
 }
 
 .checkmark {
   font-size: 1rem;
+  flex-shrink: 0;
 }
 
 .availability {
-  color: var(--text-success);
+  color: var(--success);
   font-weight: 500;
 }
 
 .quickBookBtn {
   margin-left: auto;
-  padding: 4px 12px;
-  background: var(--armora-gold);
-  color: var(--bg-primary);
+  padding: var(--space-sm) var(--space-md);
+  background: var(--gold);
+  color: var(--navy);
   border: none;
-  border-radius: 4px;
-  font-size: 0.8rem;
+  border-radius: var(--border-radius);
+  font-size: 0.85rem;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.2s ease;
+  min-height: var(--touch-target-sm);
 }
 
 .quickBookBtn:hover {
-  background: var(--armora-gold-hover);
+  background: #ffd700;
   transform: scale(1.05);
 }
 
 /* Mobile optimization */
-@media (max-width: 640px) {
+@media (max-width: 768px) {
   .recommendationCard {
-    max-height: 140px; /* Slightly more space on mobile */
-    padding: 14px;
+    padding: var(--space-lg);
   }
 
-  .header h3 {
+  .header {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: var(--space-md);
+  }
+
+  .matchBadge {
+    width: 55px;
+    height: 55px;
+  }
+
+  .matchScore {
     font-size: 1rem;
   }
 
-  .mainMessage {
-    font-size: 0.85rem;
+  .header h3 {
+    font-size: 1.2rem;
   }
 
-  .quickStats {
-    gap: 8px;
+  .keyBenefits {
+    gap: var(--space-xs);
   }
 
-  .stat {
-    font-size: 0.75rem;
-  }
-
-  .selectServiceBtn {
-    position: static;
-    margin-top: 8px;
-    align-self: flex-start;
-    font-size: 0.75rem;
-    padding: 5px 10px;
-  }
-
-  .returningUserRec {
-    max-height: 50px; /* Slightly taller on mobile for touch */
-  }
-
-  .quickRec {
-    font-size: 0.85rem;
-    flex-wrap: wrap;
-    gap: 6px;
-  }
-
-  .quickBookBtn {
-    font-size: 0.75rem;
-    padding: 6px 10px;
-  }
-}
-
-/* Extra small screens */
-@media (max-width: 375px) {
-  .recommendationCard {
-    padding: 12px;
-  }
-
-  .compactContent {
-    gap: 4px;
+  .benefitText {
+    font-size: 0.8rem;
   }
 
   .quickStats {
     flex-direction: column;
-    gap: 4px;
+    align-items: flex-start;
+    gap: var(--space-xs);
+  }
+
+  .selectServiceBtn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .quickRec {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-xs);
+  }
+
+  .quickBookBtn {
+    margin-left: 0;
+    align-self: stretch;
+  }
+}
+
+@media (max-width: 480px) {
+  .recommendationCard {
+    padding: var(--space-md);
+  }
+
+  .matchBadge {
+    width: 50px;
+    height: 50px;
+  }
+
+  .matchScore {
+    font-size: 0.9rem;
+  }
+
+  .matchLabel {
+    font-size: 0.6rem;
+  }
+
+  .header h3 {
+    font-size: 1.1rem;
+  }
+
+  .personalizedMessage {
+    padding: var(--space-xs) var(--space-sm);
+  }
+
+  .messageText {
+    font-size: 0.85rem;
+  }
+
+  .mainMessage {
+    font-size: 0.9rem;
+  }
+
+  .keyBenefits {
+    padding: var(--space-sm);
+  }
+
+  .benefitText {
+    font-size: 0.75rem;
+  }
+}
+
+/* Ensure full visibility of all content */
+.recommendationCard::after {
+  content: '';
+  display: block;
+  height: 1px;
+  clear: both;
+}
+
+/* DESKTOP HORIZONTAL LAYOUT - NO SCROLL */
+@media (min-width: 1024px) {
+  .recommendationCard {
+    max-height: 50vh;
+    min-height: auto;
+    padding: var(--space-lg);
+  }
+
+  .compactContent {
+    display: grid;
+    grid-template-columns: 1fr 300px;
+    gap: var(--space-lg);
+    align-items: start;
+  }
+
+  .contentLeft {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+  }
+
+  .contentRight {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+    align-items: center;
+    text-align: center;
+  }
+
+  /* Header becomes single line */
+  .header {
+    align-items: center;
+    margin-bottom: var(--space-sm);
+  }
+
+  .badge {
+    margin-right: var(--space-sm);
+  }
+
+  .header h3 {
+    margin: 0;
+    font-size: 1.1rem;
+  }
+
+  .headerSubtitle {
+    font-size: 0.8rem;
+  }
+
+  /* Condense benefits to horizontal icons */
+  .keyBenefits {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-xs);
+    padding: var(--space-sm);
+  }
+
+  .benefitItem {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 2px;
+  }
+
+  .benefitText {
+    font-size: 0.7rem;
+    line-height: 1.2;
+  }
+
+  /* Horizontal stats */
+  .quickStats {
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: nowrap;
+    gap: var(--space-sm);
+  }
+
+  .stat {
+    font-size: 0.75rem;
+    text-align: center;
+  }
+
+  /* Compact CTA */
+  .selectServiceBtn {
+    padding: var(--space-sm) var(--space-lg);
+    font-size: 0.9rem;
+  }
+
+  /* Hide verbose elements */
+  .personalizedMessage {
+    display: none;
+  }
+
+  .mainMessage {
+    font-size: 0.85rem;
+    line-height: 1.3;
   }
 
   .urgencyBanner {
-    font-size: 0.75rem;
+    padding: var(--space-xs) var(--space-sm);
+    font-size: 0.8rem;
+  }
+}
+
+/* WIDE DESKTOP - EVEN MORE COMPACT */
+@media (min-width: 1440px) {
+  .recommendationCard {
+    max-height: 45vh;
+  }
+
+  .compactContent {
+    grid-template-columns: 1fr 350px;
+    gap: 2rem;
+  }
+
+  .keyBenefits {
+    grid-template-columns: repeat(4, 1fr);
   }
 }
 
@@ -213,7 +540,12 @@
   }
 
   .urgencyBanner {
-    background: var(--armora-gold);
-    color: var(--bg-primary);
+    background: var(--gold);
+    color: var(--navy);
+  }
+
+  .badge {
+    background: var(--gold);
+    color: var(--navy);
   }
 }

@@ -48,7 +48,7 @@ const ARMORA_SERVICES: ServiceLevel[] = [
       'SIA Level 3 certified security drivers',
       'Advanced threat assessment training',
       'Luxury vehicle with security modifications',
-      'Priority emergency response',
+      'Priority safety response',
       'Executive protection protocols',
       'Discrete security professionals'
     ]
@@ -381,10 +381,10 @@ export function Dashboard() {
       <div className={styles.header}>
         <div className={styles.headerContent}>
           <h1 className={styles.title}>
-            Welcome back{user ? `, ${getDisplayName(user)}` : ''}
+            Your Personal Security Detail{user ? `, ${getDisplayName(user)}` : ''}
           </h1>
           <p className={styles.subtitle}>
-            Book your security transport
+            Professional security drivers at your service
           </p>
         </div>
       </div>

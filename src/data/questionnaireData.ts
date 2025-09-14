@@ -272,7 +272,7 @@ export const questionnaireSteps: QuestionnaireStep[] = [
       },
       {
         id: "luxury_comfort",
-        label: "🚗 Do you expect the finest vehicles?",
+        label: "🚗 Do you expect the best vehicles?",
         value: "luxury_comfort",
         description: "Is the vehicle itself part of your image? Do you need premium cars that make the right statement?",
         examples: "*Select this if vehicle quality and presentation matter to you."
@@ -351,7 +351,7 @@ export const questionnaireSteps: QuestionnaireStep[] = [
         id: "prefer_not_to_say",
         label: "❓ Prefer not to say",
         value: "prefer_not_to_say",
-        description: "That's perfectly fine. We'll adapt to your needs as we learn what works best for you.",
+        description: "That's great. We'll adapt to your needs as we learn what works best for you.",
         examples: "*Our specialists will provide adaptable service recommendations based on your booking patterns while maintaining complete confidentiality about your specific requirements."
       }
     ],
@@ -536,7 +536,7 @@ export const questionnaireSteps: QuestionnaireStep[] = [
         id: "prefer_not_to_say",
         label: "❓ Prefer not to say",
         value: "prefer_not_to_say",
-        description: "That's perfectly fine. We'll adapt to your needs as we learn what works best for you.",
+        description: "That's great. We'll adapt to your needs as we learn what works best for you.",
         examples: "*Our specialists will provide flexible coverage recommendations while maintaining complete confidentiality about your additional location requirements."
       }
     ],
@@ -604,7 +604,7 @@ export const questionnaireSteps: QuestionnaireStep[] = [
         id: "prefer_not_to_say",
         label: "❓ Prefer not to say",
         value: "prefer_not_to_say",
-        description: "That's perfectly fine. We'll adapt to your needs as we learn what works best for you.",
+        description: "That's great. We'll adapt to your needs as we learn what works best for you.",
         examples: "*Our specialists will use standard safety protocols while maintaining complete confidentiality about your personal contacts and safety preferences."
       }
     ],
@@ -707,7 +707,7 @@ export const questionnaireSteps: QuestionnaireStep[] = [
         id: "prefer_not_to_say",
         label: "❓ Prefer not to say",
         value: "prefer_not_to_say",
-        description: "That's perfectly fine. We'll adapt to your needs as we learn what works best for you.",
+        description: "That's great. We'll adapt to your needs as we learn what works best for you.",
         examples: "*Our specialists will provide standard service arrangements while maintaining complete confidentiality about any specific requirements you may have."
       }
     ],
@@ -803,7 +803,7 @@ export const questionnaireSteps: QuestionnaireStep[] = [
         id: "prefer_not_to_say",
         label: "❓ Prefer not to say",
         value: "prefer_not_to_say",
-        description: "That's perfectly fine. We'll adapt to your needs as we learn what works best for you.",
+        description: "That's great. We'll adapt to your needs as we learn what works best for you.",
         examples: "*Our specialists will use standard professional communication methods while maintaining complete confidentiality about your preferred contact and communication preferences."
       }
     ],
