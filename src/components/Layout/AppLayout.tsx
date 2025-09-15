@@ -1,7 +1,6 @@
 import React, { ReactNode } from 'react';
 import { useApp } from '../../contexts/AppContext';
 import { ArmoraLogo } from '../UI/ArmoraLogo';
-import { BrandText } from '../UI/BrandText';
 import { getDisplayName } from '../../utils/nameUtils';
 import { getLogoProps } from '../../styles/brandConstants';
 import styles from './AppLayout.module.css';

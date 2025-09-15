@@ -186,9 +186,24 @@ export function Dashboard() {
     // Store for booking flow
     localStorage.setItem('armora_selected_service', serviceId);
 
-    // Auto-scroll to booking confirmation after service selection
+    // Auto-scroll to destination input section
     setTimeout(() => {
-      scrollToSection('booking-confirmation');
+      const destinationInput = document.getElementById('dropoff-location');
+      if (destinationInput) {
+        // Scroll to the destination input with smooth behavior and center it
+        destinationInput.scrollIntoView({
+          behavior: 'smooth',
+          block: 'center'
+        });
+
+        // Focus the input after scrolling completes
+        setTimeout(() => {
+          (destinationInput as HTMLInputElement).focus();
+        }, 600);
+      } else {
+        // Fallback to location section if input not found
+        scrollToSection('location-input');
+      }
     }, 300);
 
     // Analytics

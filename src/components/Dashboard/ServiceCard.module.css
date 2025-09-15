@@ -9,7 +9,7 @@
   transition: all var(--transition-base);
   position: relative;
   overflow: visible; /* Allow button borders and shadows to show fully */
-  min-height: 280px; /* Reduced from 300px */
+  min-height: auto; /* Allow card to grow with content */
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -446,6 +446,8 @@
 .cardFooter {
   margin-top: auto; /* Push to bottom */
   padding-top: var(--space-md);
+  position: relative;
+  z-index: 10; /* Ensure buttons are above other content */
 }
 
 /* ========================================
@@ -1025,7 +1027,8 @@
 @media (max-width: 479px) {
   .serviceCard {
     padding: var(--space-sm); /* Reduce padding to give buttons more room */
-    min-height: 240px; /* Further reduced from 280px */
+    min-height: auto; /* Allow card to expand to fit content */
+    padding-bottom: var(--space-lg); /* Ensure space for buttons */
   }
 
   /* Allow description on mobile with smaller font */

@@ -119,15 +119,12 @@ export const SmartRecommendation: React.FC<SmartRecommendationProps> = ({
   return (
     <div className={styles.recommendationCard}>
       <div className={styles.header}>
-        <div className={styles.matchBadge}>
-          <span className={styles.matchScore}>{recommendation.profile.matchScore}%</span>
-          <span className={styles.matchLabel}>match</span>
+        <div className={styles.compactBadge}>
+          <span className={styles.matchScore}>{recommendation.profile.matchScore}% MATCH</span>
+          <span className={styles.separator}>•</span>
+          <span className={styles.recommendedLabel}>RECOMMENDED</span>
         </div>
-        <div className={styles.headerContent}>
-          <span className={styles.badge}>Recommended</span>
-          <h3>{recommendedService?.name}</h3>
-          <p className={styles.headerSubtitle}>Based on your profile</p>
-        </div>
+        <h3 className={styles.serviceName}>{recommendedService?.name} suits your security profile</h3>
       </div>
 
       <div className={styles.compactContent}>
@@ -135,8 +132,8 @@ export const SmartRecommendation: React.FC<SmartRecommendationProps> = ({
           <div className={styles.recommendationExplanation}>
             <p className={styles.explanationText}>
               Based on your questionnaire responses, we recommend <strong>{recommendedService?.name}</strong> for your security needs.
-              Our <strong>SIA Level 2 certified drivers</strong> provide professional protection with <strong>live GPS tracking</strong> and <strong>24/7 emergency support</strong>,
-              ensuring your safety at an accessible <strong>{recommendedService?.price}</strong> rate.
+              Our <strong>SIA Level 2 certified drivers</strong> provide discreet, professional protection with <strong>vetted security professionals</strong> and <strong>flexible booking options</strong>,
+              ensuring peace of mind for your daily commutes and special occasions.
             </p>
           </div>
 

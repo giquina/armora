@@ -169,10 +169,25 @@ export function LocationPlanningSection({ onLocationSet, isDisabled = false, onC
     }
   };
 
-  // Handle destination input changes
+  // Handle destination input changes with auto-scroll
   const handleDropoffChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setDropoffAddress(e.target.value);
+    const value = e.target.value;
+    setDropoffAddress(value);
     setShowProceedButton(false);
+
+    // Auto-scroll to services when destination is entered and we have both locations
+    if (value.trim().length > 10 && pickupAddress.trim()) {
+      setTimeout(() => {
+        // Scroll to service selection section
+        const serviceSection = document.getElementById('service-selection');
+        if (serviceSection) {
+          serviceSection.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
+      }, 1500); // Wait a bit for journey calculation to start
+    }
   };
 
   // Handle Enter key navigation
