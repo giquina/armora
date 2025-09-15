@@ -1,6 +1,10 @@
 // Armora Security Transport - TypeScript Interfaces
 
-export type ViewState = 'splash' | 'welcome' | 'login' | 'signup' | 'guest-disclaimer' | 'questionnaire' | 'achievement' | 'dashboard' | 'subscription-offer' | 'trial-setup' | 'member-dashboard' | 'booking' | 'profile';
+// Navigation views aligned with UI terminology
+export type NavigationViews = 'home' | 'services' | 'bookings' | 'account';
+
+// Complete view state including navigation and flow states
+export type ViewState = 'splash' | 'welcome' | 'login' | 'signup' | 'guest-disclaimer' | 'questionnaire' | 'achievement' | 'home' | 'subscription-offer' | 'trial-setup' | 'member-dashboard' | 'services' | 'booking' | 'bookings' | 'rides' | 'account' | 'venue-protection-welcome' | 'venue-security-questionnaire' | 'venue-protection-success' | 'about';
 
 export type UserType = 'registered' | 'google' | 'guest' | null;
 
@@ -23,12 +27,13 @@ export interface User {
 }
 
 export interface ServiceLevel {
-  id: 'standard' | 'executive' | 'shadow' | 'client-vehicle';
+  id: 'standard' | 'executive' | 'shadow' | 'client-vehicle' | 'venue-door-supervision' | 'venue-close-protection' | 'venue-elite-protection';
   name: string;
   tagline: string;
   price: string;
   originalPrice?: string;
   hourlyRate: number;
+  dailyRate?: number; // For venue security services
   vehicle?: string;
   capacity?: string;
   driverQualification?: string;
@@ -39,6 +44,14 @@ export interface ServiceLevel {
     tripsCompleted: number;
     selectionRate?: number;
   };
+  // Venue security specific properties
+  venueSecurityType?: 'door_supervision' | 'close_protection' | 'elite_protection';
+  officerRequirements?: {
+    siaLevel: number;
+    specializations: string[];
+    minimumExperience: string;
+  };
+  suitableFor?: string[];
 }
 
 export interface QuestionnaireOption {
@@ -221,6 +234,7 @@ export interface AppState {
   userProfileSelection?: string; // Step 1 profile for FloatingCTA personalization
   safeRideFundMetrics: SafeRideFundMetrics | null;
   communityImpactData: CommunityImpactData | null;
+  venueProtectionData?: any; // Venue protection assessment data
   isLoading: boolean;
   error: string | null;
 }
@@ -468,4 +482,229 @@ export interface ImpactStory {
   impact?: string;
   timeframe: string;
   isAnonymous?: boolean;
+}
+
+// Venue Security Assessment Types
+export type VenueType = 'wedding' | 'corporate' | 'private_party' | 'celebrity_event' | 'diplomatic' | 'sporting_event' | 'cultural_event' | 'religious_gathering' | 'political_event' | 'charity_gala' | 'product_launch' | 'conference' | 'other';
+
+export type VenueCapacity = 'small' | 'medium' | 'large' | 'extra_large'; // <50, 50-200, 200-500, 500+
+
+export type ThreatLevel = 'low' | 'medium' | 'high' | 'critical';
+
+export interface VenueSecurityAssessment {
+  // Seven Ps Methodology
+  people: {
+    principalProfile: string; // High-profile individual, executive, celebrity, etc.
+    guestListScreened: boolean;
+    expectedAttendance: number;
+    vipAttendees: string[];
+    potentialThreats: string[];
+    familyDynamics?: string; // For weddings
+  };
+  places: {
+    venueType: VenueType;
+    venueCapacity: VenueCapacity;
+    indoorOutdoor: 'indoor' | 'outdoor' | 'mixed';
+    entryExitPoints: number;
+    emergencyExits: number;
+    previousIncidents: boolean;
+    securityFeatures: string[];
+    accessControl: 'open' | 'controlled' | 'restricted';
+  };
+  personality: {
+    principalCharacter: string;
+    publicProfile: 'low' | 'medium' | 'high';
+    mediaAttention: boolean;
+    communicationStyle: string;
+  };
+  prejudices: {
+    controversialAspects: boolean;
+    targetingRisks: string[];
+    discriminationThreats: boolean;
+    ethnicReligiousFactors: string[];
+  };
+  personalHistory: {
+    previousThreats: boolean;
+    stalking: boolean;
+    businessDisputes: boolean;
+    personalConflicts: boolean;
+    securityIncidents: string[];
+  };
+  politicalReligious: {
+    politicalAffiliations: boolean;
+    religiousConsiderations: boolean;
+    controversialBeliefs: boolean;
+    activistThreats: boolean;
+  };
+  privateLlifestyle: {
+    socialMediaPresence: 'low' | 'medium' | 'high';
+    personalRelationships: string;
+    lifestyleFactors: string[];
+    privacyNeeds: 'standard' | 'enhanced' | 'maximum';
+  };
+}
+
+export interface VenueSecurityRequirements {
+  assessmentId: string;
+  venueDetails: VenueDetails;
+  threatAssessment: VenueSecurityAssessment;
+  serviceLevel: 'door_supervision' | 'close_protection' | 'elite_protection';
+  officerCount: number;
+  specialRequirements: string[];
+  contractDuration: 'single_event' | 'short_term' | 'long_term';
+  budget: {
+    dailyRate: number;
+    totalCost: number;
+    currency: 'GBP';
+  };
+  complianceNeeds: {
+    martynsLaw: boolean;
+    bs8507: boolean;
+    gdprCompliant: boolean;
+    insuranceRequired: boolean;
+  };
+}
+
+export interface VenueDetails {
+  name: string;
+  address: Address;
+  capacity: number;
+  venueType: VenueType;
+  eventDate: Date;
+  eventDuration: number; // hours
+  setupTime: number; // hours before event
+  breakdownTime: number; // hours after event
+  contactPerson: {
+    name: string;
+    role: string;
+    phone: string;
+    email: string;
+  };
+  emergencyContacts: EmergencyContact[];
+}
+
+export interface EmergencyContact {
+  name: string;
+  relationship: string;
+  phone: string;
+  priority: 'primary' | 'secondary' | 'tertiary';
+}
+
+export interface OfficerRequirement {
+  siaLevel: 2 | 3; // Level 2 for door supervision, Level 3 for close protection
+  specializations: string[];
+  experience: string;
+  additionalQualifications: string[];
+  languageRequirements?: string[];
+}
+
+export interface VenueSecurityQuote {
+  id: string;
+  venueRequirements: VenueSecurityRequirements;
+  serviceRecommendation: ServiceLevel;
+  officerAllocation: {
+    count: number;
+    roles: string[];
+    qualifications: OfficerRequirement[];
+  };
+  pricing: VenueSecurityPricing;
+  complianceItems: ComplianceItem[];
+  timeline: SecurityTimeline;
+}
+
+export interface VenueSecurityPricing {
+  baseRate: number;
+  officerCount: number;
+  dailyRate: number;
+  additionalCharges: {
+    reconnaissance: number;
+    equipment: number;
+    travel: number;
+    accommodation?: number;
+    shortNotice?: number; // 20-30% premium
+  };
+  discounts: {
+    weeklyContract?: number; // 10-15%
+    monthlyContract?: number; // 15-20%
+  };
+  totalCost: number;
+  currency: 'GBP';
+}
+
+export interface ComplianceItem {
+  requirement: string;
+  status: 'met' | 'pending' | 'not_applicable';
+  documentation: string[];
+  cost?: number;
+}
+
+export interface SecurityTimeline {
+  reconnaissance: Date;
+  briefing: Date;
+  deployment: Date;
+  eventStart: Date;
+  eventEnd: Date;
+  debrief: Date;
+}
+
+// Booking History and Personalization Types
+export interface BookingHistoryItem {
+  id: string;
+  service: string;
+  serviceName: string;
+  from: string;
+  to: string;
+  price: string;
+  estimatedCost: number;
+  date: string;
+  time: string;
+  driver?: string;
+  driverRating?: number;
+  frequency: number;
+  status: 'completed' | 'cancelled' | 'in-progress';
+  additionalRequirements?: string;
+  estimatedDistance?: number;
+  estimatedDuration?: number;
+  userId?: string;
+}
+
+export interface FavoriteRoute {
+  id: string;
+  from: string;
+  to: string;
+  nickname?: string;
+  count: number;
+  lastUsed: string;
+  averagePrice: number;
+  preferredService: string;
+  estimatedDistance?: number;
+  estimatedDuration?: number;
+  isAutoFavorite: boolean;
+  createdAt: string;
+}
+
+export interface QuickActionItem {
+  id: string;
+  title: string;
+  subtitle: string;
+  icon: string;
+  type: 'recent' | 'frequent' | 'suggestion' | 'default';
+  data?: BookingHistoryItem | FavoriteRoute;
+  isPersonalized: boolean;
+  usageCount?: number;
+  lastUsed?: string;
+}
+
+export interface PersonalizationAnalytics {
+  totalBookings: number;
+  favoriteRoutes: FavoriteRoute[];
+  mostUsedService: string;
+  averageBookingValue: number;
+  peakUsageTime: string;
+  frequentDestinations: string[];
+  bookingPatterns: {
+    weekly: Record<string, number>;
+    monthly: Record<string, number>;
+    seasonal: Record<string, number>;
+  };
 }

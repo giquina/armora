@@ -1,0 +1,345 @@
+/* Personal Protection Officer Venue Booking Styles */
+
+.ppoSection {
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+  border: 2px solid #FFD700;
+  border-radius: 16px;
+  padding: var(--space-lg);
+  margin: var(--space-lg) 0;
+  box-shadow: 0 8px 32px rgba(255, 215, 0, 0.15);
+}
+
+.header {
+  text-align: center;
+  margin-bottom: var(--space-lg);
+}
+
+.title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #FFD700;
+  margin: 0 0 var(--space-xs) 0;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.subtitle {
+  font-size: 0.95rem;
+  color: #e0e0e0;
+  margin: 0;
+  opacity: 0.9;
+}
+
+.bookingForm {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.formRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-md);
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.label {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #FFD700;
+  margin: 0;
+}
+
+.select,
+.textarea {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 215, 0, 0.3);
+  border-radius: 8px;
+  padding: var(--space-sm);
+  font-size: 0.95rem;
+  color: #e0e0e0;
+  transition: all 0.2s ease;
+}
+
+.select:focus,
+.textarea:focus {
+  outline: none;
+  border-color: #FFD700;
+  box-shadow: 0 0 0 2px rgba(255, 215, 0, 0.2);
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.select {
+  height: 44px;
+  cursor: pointer;
+}
+
+.textarea {
+  resize: vertical;
+  font-family: inherit;
+}
+
+.textarea::placeholder {
+  color: rgba(224, 224, 224, 0.6);
+}
+
+.radioGroup {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.radioLabel {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-sm);
+  cursor: pointer;
+  padding: var(--space-sm);
+  border-radius: 8px;
+  transition: background-color 0.2s ease;
+}
+
+.radioLabel:hover {
+  background: rgba(255, 215, 0, 0.05);
+}
+
+.radio {
+  width: 18px;
+  height: 18px;
+  margin: 2px 0 0 0;
+  accent-color: #FFD700;
+  cursor: pointer;
+}
+
+.radioText {
+  font-weight: 600;
+  color: #e0e0e0;
+  flex: 1;
+}
+
+.radioDescription {
+  font-size: 0.85rem;
+  color: rgba(224, 224, 224, 0.7);
+  margin-top: 2px;
+}
+
+.quoteButton {
+  margin-top: var(--space-md);
+  background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+  color: #1a1a2e;
+  font-weight: 700;
+  border: none;
+  padding: var(--space-md) var(--space-lg);
+  border-radius: 12px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.quoteButton:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(255, 215, 0, 0.3);
+}
+
+/* Modal Styles */
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  backdrop-filter: blur(4px);
+}
+
+.modal {
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+  border: 2px solid #FFD700;
+  border-radius: 16px;
+  width: 90%;
+  max-width: 500px;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+}
+
+.modalHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--space-lg);
+  border-bottom: 1px solid rgba(255, 215, 0, 0.2);
+}
+
+.modalTitle {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #FFD700;
+  margin: 0;
+}
+
+.closeButton {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  color: #e0e0e0;
+  cursor: pointer;
+  padding: 0;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: all 0.2s ease;
+}
+
+.closeButton:hover {
+  background: rgba(255, 215, 0, 0.1);
+  color: #FFD700;
+}
+
+.modalContent {
+  padding: var(--space-lg);
+}
+
+.quoteDetails {
+  background: rgba(255, 215, 0, 0.05);
+  border-radius: 12px;
+  padding: var(--space-md);
+  margin-bottom: var(--space-lg);
+}
+
+.quoteRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--space-xs) 0;
+  border-bottom: 1px solid rgba(255, 215, 0, 0.1);
+  font-size: 0.95rem;
+  color: #e0e0e0;
+}
+
+.quoteRow:last-child {
+  border-bottom: none;
+}
+
+.quoteTotal {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--space-sm) 0;
+  margin-top: var(--space-sm);
+  border-top: 2px solid #FFD700;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #FFD700;
+}
+
+.quoteIncludes {
+  margin-bottom: var(--space-lg);
+}
+
+.quoteIncludes h4 {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #FFD700;
+  margin: 0 0 var(--space-sm) 0;
+}
+
+.quoteIncludes ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.quoteIncludes li {
+  font-size: 0.9rem;
+  color: #e0e0e0;
+  padding: var(--space-xs) 0;
+  padding-left: var(--space-md);
+  position: relative;
+}
+
+.quoteIncludes li::before {
+  content: '✓';
+  position: absolute;
+  left: 0;
+  color: #FFD700;
+  font-weight: bold;
+}
+
+.modalActions {
+  display: flex;
+  gap: var(--space-md);
+  justify-content: flex-end;
+}
+
+.cancelButton {
+  background: rgba(255, 255, 255, 0.1);
+  color: #e0e0e0;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: var(--space-sm) var(--space-md);
+  border-radius: 8px;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.cancelButton:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.bookButton {
+  background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+  color: #1a1a2e;
+  font-weight: 600;
+  border: none;
+  padding: var(--space-sm) var(--space-lg);
+  border-radius: 8px;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.bookButton:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
+}
+
+.bookButton:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  .formRow {
+    grid-template-columns: 1fr;
+    gap: var(--space-sm);
+  }
+
+  .modal {
+    width: 95%;
+    margin: var(--space-md);
+  }
+
+  .modalActions {
+    flex-direction: column;
+  }
+
+  .title {
+    font-size: 1.3rem;
+  }
+}

@@ -124,7 +124,7 @@ export function PersonalizedRecommendation({
           <div className={styles.availability}>
             <span className={styles.availIcon}>🚗</span>
             <span className={styles.availText}>
-              {availabilityInfo.driversAvailable} certified drivers available
+              {availabilityInfo.officersAvailable} certified officers available
             </span>
             <span className={styles.eta}>ETA: {availabilityInfo.estimatedArrival}</span>
           </div>

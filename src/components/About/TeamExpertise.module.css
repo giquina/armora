@@ -1,0 +1,239 @@
+/* TEAM EXPERTISE SECTION */
+.expertiseSection {
+  background: var(--bg-primary);
+  padding: var(--space-xxl) 0;
+}
+
+.sectionContent {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 var(--space-md);
+}
+
+.sectionTitle {
+  font-size: var(--font-xl);
+  font-weight: 700;
+  color: var(--armora-gold);
+  margin-bottom: var(--space-md);
+  text-align: center;
+}
+
+.sectionDescription {
+  font-size: var(--font-base);
+  color: var(--text-secondary);
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto var(--space-xxl);
+  line-height: 1.6;
+}
+
+/* Expertise Grid */
+.expertiseGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-lg);
+  margin-bottom: var(--space-xxl);
+}
+
+.expertiseItem {
+  background: var(--bg-secondary);
+  border: 1px solid rgba(255, 215, 0, 0.2);
+  border-radius: var(--radius-lg);
+  padding: var(--space-lg);
+  text-align: center;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.expertiseItem::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(255, 215, 0, 0.05), transparent);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.expertiseItem:hover {
+  border-color: var(--armora-gold);
+  transform: translateY(-4px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+}
+
+.expertiseItem:hover::before {
+  opacity: 1;
+}
+
+.expertiseIcon {
+  font-size: 2rem;
+  margin-bottom: var(--space-sm);
+  display: block;
+}
+
+.expertiseNumber {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: var(--armora-gold);
+  margin-bottom: var(--space-xs);
+  line-height: 1;
+}
+
+.expertiseLabel {
+  font-size: var(--font-base);
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: var(--space-xs);
+}
+
+.expertiseDescription {
+  font-size: var(--font-sm);
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+/* Certifications Section */
+.certificationsSection {
+  background: var(--bg-secondary);
+  border-radius: var(--radius-lg);
+  padding: var(--space-xl);
+  margin-bottom: var(--space-xxl);
+  border: 1px solid rgba(255, 215, 0, 0.2);
+}
+
+.certificationsTitle {
+  font-size: var(--font-lg);
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: var(--space-lg);
+  text-align: center;
+}
+
+.certificationsList {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-md);
+}
+
+.certificationItem {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 215, 0, 0.1);
+  border-radius: var(--radius-md);
+  padding: var(--space-md);
+  transition: all 0.2s ease;
+}
+
+.certificationItem:hover {
+  background: rgba(255, 215, 0, 0.05);
+  border-color: rgba(255, 215, 0, 0.3);
+}
+
+.certificationHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--space-xs);
+}
+
+.certificationName {
+  font-size: var(--font-base);
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.certificationBadge {
+  font-size: var(--font-sm);
+  color: var(--armora-gold);
+  font-weight: 600;
+  background: rgba(255, 215, 0, 0.1);
+  padding: 2px 8px;
+  border-radius: 12px;
+  white-space: nowrap;
+}
+
+.certificationDescription {
+  font-size: var(--font-sm);
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+/* Philosophy Section */
+.philosophySection {
+  background: linear-gradient(135deg, rgba(255, 215, 0, 0.05), transparent);
+  border-radius: var(--radius-lg);
+  padding: var(--space-xl);
+  border: 1px solid rgba(255, 215, 0, 0.2);
+}
+
+.philosophyContent {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.philosophyTitle {
+  font-size: var(--font-lg);
+  font-weight: 700;
+  color: var(--armora-gold);
+  margin-bottom: var(--space-lg);
+  text-align: center;
+}
+
+.philosophyGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-lg);
+}
+
+.philosophyItem {
+  text-align: center;
+  padding: var(--space-md);
+}
+
+.philosophyIcon {
+  font-size: 2rem;
+  display: block;
+  margin-bottom: var(--space-sm);
+}
+
+.philosophyItemTitle {
+  font-size: var(--font-base);
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: var(--space-sm);
+}
+
+.philosophyText {
+  font-size: var(--font-sm);
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* Tablet and Desktop */
+@media (min-width: 768px) {
+  .expertiseGrid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .certificationsList {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .philosophyGrid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .expertiseNumber {
+    font-size: 3rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .expertiseGrid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}

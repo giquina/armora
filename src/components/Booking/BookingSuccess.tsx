@@ -1,5 +1,7 @@
 import React, { useEffect } from 'react';
 import { useApp } from '../../contexts/AppContext';
+import { BookingHistoryManager } from '../../utils/bookingHistory';
+import { BookingData } from '../../types';
 import styles from './BookingSuccess.module.css';
 
 interface BookingSuccessProps {
@@ -10,22 +12,42 @@ export function BookingSuccess({ bookingId }: BookingSuccessProps) {
   const { navigateToView } = useApp();
 
   useEffect(() => {
+    // Save booking to history on mount
+    try {
+      const preserved = localStorage.getItem('armora_booking_state');
+      if (preserved) {
+        const state = JSON.parse(preserved);
+        const bookingData: BookingData = state.bookingData;
+
+        if (bookingData) {
+          // Generate a random driver name for the demo
+          const driverNames = ['John S.', 'Sarah M.', 'David L.', 'Emma R.', 'Michael T.', 'Lisa K.'];
+          const randomDriver = driverNames[Math.floor(Math.random() * driverNames.length)];
+
+          BookingHistoryManager.saveBookingToHistory(bookingData, bookingId, randomDriver);
+          console.log('✅ Booking saved to history:', bookingId);
+        }
+      }
+    } catch (error) {
+      console.error('❌ Failed to save booking to history:', error);
+    }
+
     // Auto-redirect to dashboard after 10 seconds
     const timer = setTimeout(() => {
-      navigateToView('dashboard');
+      navigateToView('home');
     }, 10000);
 
     return () => clearTimeout(timer);
-  }, [navigateToView]);
+  }, [navigateToView, bookingId]);
 
   const handleBackToDashboard = () => {
-    navigateToView('dashboard');
+    navigateToView('home');
   };
 
   const handleViewBookingDetails = () => {
     // In a real app, this would navigate to booking details page
     // For now, we'll just go to dashboard
-    navigateToView('dashboard');
+    navigateToView('home');
   };
 
   return (

@@ -10,11 +10,21 @@ import { QuestionnaireFlow } from './components/Questionnaire/QuestionnaireFlow'
 import AchievementUnlock from './components/Achievement/AchievementUnlock';
 import AchievementBanner from './components/Achievement/AchievementBanner';
 import { Dashboard } from './components/Dashboard';
+import { ServicesPage } from './components/Services/ServicesPage';
+import { Bookings } from './components/Rides/Rides';
 import { SubscriptionOffer } from './components/Subscription/SubscriptionOffer';
 import { VehicleSelection, LocationPicker, BookingSuccess } from './components/Booking';
 import { PaymentIntegration } from './components/Booking/PaymentIntegration';
 import { BookingErrorBoundary } from './components/Booking/BookingErrorBoundary';
+import { FloatingActionButton, RecruitmentModal } from './components/Recruitment';
+import { ReferralSection } from './components/Account/ReferralSection';
+import { PPOVenueBooking } from './components/Account/PPOVenueBooking';
+import { VenueProtectionWelcome } from './components/VenueProtection/VenueProtectionWelcome';
+import { VenueSecurityQuestionnaire } from './components/VenueProtection/VenueSecurityQuestionnaire';
+import { VenueProtectionSuccess } from './components/VenueProtection/VenueProtectionSuccess';
+import { About } from './components/About/About';
 import { ServiceLevel, BookingData, LocationData } from './types';
+import { getAllServices } from './data/standardizedServices';
 import './styles/globals.css';
 import './styles/disable-infinite-animations.css'; /* CRITICAL FIX: Stop infinite animations causing flashing */
 
@@ -23,12 +33,56 @@ if (process.env.NODE_ENV === 'development') {
   import('./utils/testUserScenarios');
 }
 
+// Convert standardized services to legacy ServiceLevel format for compatibility
+const convertToServiceLevel = (): ServiceLevel[] => {
+  return getAllServices().map(service => ({
+    id: service.id,
+    name: service.name,
+    tagline: service.tagline,
+    price: service.priceDisplay,
+    hourlyRate: service.hourlyRate,
+    // Vehicle and capacity data - standardized for all services
+    vehicle: service.id === 'standard' ? 'Nissan Leaf EV' :
+             service.id === 'executive' ? 'BMW 5 Series' :
+             service.id === 'client-vehicle' ? 'Your Personal Vehicle' : 'Armored BMW X5',
+    capacity: service.id === 'client-vehicle' ? 'Any vehicle size' : '4 passengers',
+    driverQualification: service.id === 'standard' || service.id === 'client-vehicle' ? 'SIA Level 2 Security Certified' :
+                        service.id === 'executive' ? 'SIA Level 3 Security Certified' : 'Special Forces Trained',
+    description: service.description,
+    features: service.features.map(f => f.text) // Convert from {icon, text} to string array
+  }));
+};
+
 function BookingFlow() {
-  const { state } = useApp();
-  const [currentStep, setCurrentStep] = useState<'vehicle-selection' | 'location-picker' | 'booking-confirmation' | 'booking-success'>('vehicle-selection');
+  const { state, navigateToView } = useApp();
+
+  // Check if we should start with location-first flow (from "Where to?" button)
+  const [bookingFlow] = useState(() => localStorage.getItem('armora_booking_flow'));
+  const initialStep = bookingFlow === 'location-first' ? 'location-picker' : 'vehicle-selection';
+
+  const [currentStep, setCurrentStep] = useState<'vehicle-selection' | 'location-picker' | 'booking-confirmation' | 'booking-success'>(initialStep);
   const [selectedService, setSelectedService] = useState<ServiceLevel | null>(null);
   const [bookingData, setBookingData] = useState<BookingData | null>(null);
   const [bookingId, setBookingId] = useState<string>('');
+
+  const handleGuestSignUp = () => {
+    navigateToView('signup');
+  };
+
+  // Check for pre-selected service from direct booking
+  useEffect(() => {
+    const preSelectedServiceId = localStorage.getItem('armora_selected_service');
+    if (preSelectedServiceId && !selectedService) {
+      // Get all services to find the selected one
+      const services = convertToServiceLevel();
+      const service = services.find(s => s.id === preSelectedServiceId);
+      if (service) {
+        setSelectedService(service);
+        setCurrentStep('location-picker');
+        console.log('[Booking] Pre-selected service found, skipping to location:', preSelectedServiceId);
+      }
+    }
+  }, [selectedService]);
 
   // Preserve booking state in localStorage for error recovery
   const preserveBookingState = () => {
@@ -64,7 +118,33 @@ function BookingFlow() {
 
   const handleServiceSelected = (service: ServiceLevel) => {
     setSelectedService(service);
-    setCurrentStep('location-picker');
+
+    // Check if we have pre-stored location data from location-first flow
+    const storedLocationData = localStorage.getItem('armora_location_data');
+    if (storedLocationData) {
+      try {
+        const locationData = JSON.parse(storedLocationData);
+        // Move directly to booking confirmation with the stored location data
+        const bookingInfo: BookingData = {
+          service: service,
+          pickup: locationData.pickup,
+          destination: locationData.destination,
+          estimatedDistance: locationData.estimatedDistance ?? 0,
+          estimatedDuration: locationData.estimatedDuration ?? 0,
+          estimatedCost: locationData.estimatedCost,
+          user: state.user,
+        };
+        setBookingData(bookingInfo);
+        setCurrentStep('booking-confirmation');
+        localStorage.removeItem('armora_location_data'); // Clean up
+      } catch (error) {
+        console.warn('Failed to parse stored location data:', error);
+        setCurrentStep('location-picker');
+      }
+    } else {
+      setCurrentStep('location-picker');
+    }
+
     preserveBookingState();
   };
 
@@ -139,10 +219,56 @@ function BookingFlow() {
           <VehicleSelection
             user={state.user}
             onServiceSelected={handleServiceSelected}
+            onSignUp={handleGuestSignUp}
           />
         </BookingErrorBoundary>
       );
     case 'location-picker':
+      // If no service selected and we're in location-first flow, handle it differently
+      if (!selectedService && bookingFlow === 'location-first') {
+        // Create a default service for location picker to work with
+        const defaultService: ServiceLevel = {
+          id: 'standard',
+          name: 'Standard Protection',
+          tagline: 'Professional security transport',
+          price: '£65/hour',
+          hourlyRate: 65,
+          vehicle: 'Secure Vehicle',
+          capacity: '4 passengers',
+          driverQualification: 'SIA Level 2 Security Certified',
+          description: 'Professional security transport service',
+          features: ['SIA certified driver', 'Secure vehicle', 'GPS tracking']
+        };
+
+        return (
+          <BookingErrorBoundary
+            fallbackComponent="location-picker"
+            onRetry={handleErrorRetry}
+            onNavigateBack={() => {
+              // Clear location-first flag and go back to dashboard
+              localStorage.removeItem('armora_booking_flow');
+              navigateToView('home');
+            }}
+            preservedState={getPreservedState()}
+          >
+            <LocationPicker
+              selectedService={defaultService}
+              onLocationConfirmed={(locationData) => {
+                // Store location data and move to service selection
+                localStorage.setItem('armora_location_data', JSON.stringify(locationData));
+                setCurrentStep('vehicle-selection');
+                localStorage.removeItem('armora_booking_flow'); // Clear the flag
+              }}
+              onBack={() => {
+                localStorage.removeItem('armora_booking_flow');
+                navigateToView('home');
+              }}
+              user={state.user}
+            />
+          </BookingErrorBoundary>
+        );
+      }
+
       return selectedService ? (
         <BookingErrorBoundary
           fallbackComponent="location-picker"
@@ -185,6 +311,7 @@ function BookingFlow() {
           <VehicleSelection
             user={state.user}
             onServiceSelected={handleServiceSelected}
+            onSignUp={handleGuestSignUp}
           />
         </BookingErrorBoundary>
       );
@@ -192,10 +319,235 @@ function BookingFlow() {
 }
 
 function Profile() {
+  const { state, navigateToView } = useApp();
+  const { user } = state;
+
   return (
-    <div style={{ padding: '2rem', textAlign: 'center' }}>
-      <h2>Profile</h2>
-      <p>User profile and settings coming soon...</p>
+    <div style={{
+      maxWidth: '800px',
+      margin: '0 auto',
+      padding: 'var(--space-md)',
+      paddingTop: 'var(--space-xl)', // Extra top padding since no header
+      paddingBottom: 'calc(80px + var(--space-xl))', // Bottom nav height + extra space
+      backgroundColor: 'var(--bg-primary)',
+      minHeight: '100vh'
+    }}>
+      {/* User Profile Header */}
+      <div style={{
+        background: 'var(--bg-secondary)',
+        borderRadius: 'var(--radius-lg)',
+        padding: 'var(--space-lg)',
+        marginBottom: 'var(--space-lg)',
+        border: '1px solid var(--border-subtle)',
+        textAlign: 'center'
+      }}>
+        <h1 style={{
+          fontSize: 'var(--font-xl)',
+          fontWeight: '600',
+          color: 'var(--text-primary)',
+          margin: '0 0 var(--space-sm) 0'
+        }}>
+          Account Settings
+        </h1>
+        {user && (
+          <p style={{
+            fontSize: 'var(--font-base)',
+            color: 'var(--text-secondary)',
+            margin: '0'
+          }}>
+            Welcome back, {user.name || 'Member'}
+          </p>
+        )}
+      </div>
+
+      {/* Services Menu */}
+      <div style={{
+        background: 'var(--bg-secondary)',
+        borderRadius: 'var(--radius-lg)',
+        padding: 'var(--space-lg)',
+        marginBottom: 'var(--space-lg)',
+        border: '1px solid var(--border-subtle)'
+      }}>
+        <h3 style={{
+          fontSize: 'var(--font-lg)',
+          fontWeight: '600',
+          color: 'var(--text-primary)',
+          margin: '0 0 var(--space-md) 0'
+        }}>
+          Services & Bookings
+        </h3>
+        <div style={{
+          display: 'flex',
+          flexDirection: 'column',
+          gap: 'var(--space-sm)'
+        }}>
+          <button
+            onClick={() => navigateToView('bookings')}
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: 'var(--space-sm)',
+              width: '100%',
+              padding: 'var(--space-md)',
+              background: 'var(--bg-tertiary)',
+              border: '1px solid var(--border-subtle)',
+              borderRadius: 'var(--radius-md)',
+              color: 'var(--text-primary)',
+              fontSize: 'var(--font-base)',
+              fontWeight: '500',
+              cursor: 'pointer',
+              transition: 'all 0.2s ease'
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.background = 'var(--bg-quaternary)';
+              e.currentTarget.style.borderColor = 'var(--accent-primary)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.background = 'var(--bg-tertiary)';
+              e.currentTarget.style.borderColor = 'var(--border-subtle)';
+            }}
+          >
+            🚗 Transport History
+          </button>
+          <button
+            onClick={() => navigateToView('venue-protection-welcome')}
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: 'var(--space-sm)',
+              width: '100%',
+              padding: 'var(--space-md)',
+              background: 'var(--bg-tertiary)',
+              border: '1px solid var(--border-subtle)',
+              borderRadius: 'var(--radius-md)',
+              color: 'var(--text-primary)',
+              fontSize: 'var(--font-base)',
+              fontWeight: '500',
+              cursor: 'pointer',
+              transition: 'all 0.2s ease'
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.background = 'var(--bg-quaternary)';
+              e.currentTarget.style.borderColor = 'var(--accent-primary)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.background = 'var(--bg-tertiary)';
+              e.currentTarget.style.borderColor = 'var(--border-subtle)';
+            }}
+          >
+            🛡️ Venue Security Services
+          </button>
+          <button
+            onClick={() => navigateToView('about')}
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: 'var(--space-sm)',
+              width: '100%',
+              padding: 'var(--space-md)',
+              background: 'var(--bg-tertiary)',
+              border: '1px solid var(--border-subtle)',
+              borderRadius: 'var(--radius-md)',
+              color: 'var(--text-primary)',
+              fontSize: 'var(--font-base)',
+              fontWeight: '500',
+              cursor: 'pointer',
+              transition: 'all 0.2s ease'
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.background = 'var(--bg-quaternary)';
+              e.currentTarget.style.borderColor = 'var(--accent-primary)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.background = 'var(--bg-tertiary)';
+              e.currentTarget.style.borderColor = 'var(--border-subtle)';
+            }}
+          >
+            ℹ️ About Armora Security
+          </button>
+        </div>
+      </div>
+
+      {/* Referral Section */}
+      <ReferralSection />
+
+      {/* Personal Protection Officer Venue Booking */}
+      <PPOVenueBooking isVisible={true} />
+
+      {/* Placeholder sections for future features */}
+      <div style={{
+        background: 'var(--bg-secondary)',
+        borderRadius: 'var(--radius-lg)',
+        padding: 'var(--space-lg)',
+        marginBottom: 'var(--space-lg)',
+        border: '1px solid var(--border-subtle)'
+      }}>
+        <h3 style={{
+          fontSize: 'var(--font-lg)',
+          fontWeight: '600',
+          color: 'var(--text-primary)',
+          margin: '0 0 var(--space-md) 0'
+        }}>
+          Payment Methods
+        </h3>
+        <p style={{
+          fontSize: 'var(--font-base)',
+          color: 'var(--text-secondary)',
+          margin: '0',
+          fontStyle: 'italic'
+        }}>
+          Payment methods management coming soon...
+        </p>
+      </div>
+
+      <div style={{
+        background: 'var(--bg-secondary)',
+        borderRadius: 'var(--radius-lg)',
+        padding: 'var(--space-lg)',
+        marginBottom: 'var(--space-lg)',
+        border: '1px solid var(--border-subtle)'
+      }}>
+        <h3 style={{
+          fontSize: 'var(--font-lg)',
+          fontWeight: '600',
+          color: 'var(--text-primary)',
+          margin: '0 0 var(--space-md) 0'
+        }}>
+          Settings & Preferences
+        </h3>
+        <p style={{
+          fontSize: 'var(--font-base)',
+          color: 'var(--text-secondary)',
+          margin: '0',
+          fontStyle: 'italic'
+        }}>
+          Account settings and preferences coming soon...
+        </p>
+      </div>
+
+      <div style={{
+        background: 'var(--bg-secondary)',
+        borderRadius: 'var(--radius-lg)',
+        padding: 'var(--space-lg)',
+        border: '1px solid var(--border-subtle)'
+      }}>
+        <h3 style={{
+          fontSize: 'var(--font-lg)',
+          fontWeight: '600',
+          color: 'var(--text-primary)',
+          margin: '0 0 var(--space-md) 0'
+        }}>
+          Help & Support
+        </h3>
+        <p style={{
+          fontSize: 'var(--font-base)',
+          color: 'var(--text-secondary)',
+          margin: '0',
+          fontStyle: 'italic'
+        }}>
+          Help center and support options coming soon...
+        </p>
+      </div>
     </div>
   );
 }
@@ -203,9 +555,12 @@ function Profile() {
 function AppRouter() {
   const { state, navigateToView } = useApp();
   const { currentView, user, questionnaireData } = state;
-  
+
   // Achievement banner state
   const [showAchievementBanner, setShowAchievementBanner] = useState(false);
+
+  // Recruitment modal state
+  const [isRecruitmentModalOpen, setIsRecruitmentModalOpen] = useState(false);
   
   // Show achievement banner after questionnaire completion for eligible users
   useEffect(() => {
@@ -275,6 +630,19 @@ function AppRouter() {
     localStorage.setItem('armora_achievement_banner_dismissed', new Date().toISOString());
   };
 
+  // Determine FAB visibility - only show on Home (dashboard) and Account (profile) tabs
+  const shouldShowFab = (): boolean => {
+    return !!(user && (currentView === 'home' || currentView === 'account'));
+  };
+
+  const handleOpenRecruitmentModal = () => {
+    setIsRecruitmentModalOpen(true);
+  };
+
+  const handleCloseRecruitmentModal = () => {
+    setIsRecruitmentModalOpen(false);
+  };
+
   const renderCurrentView = () => {
     switch (currentView) {
       case 'splash':
@@ -294,12 +662,14 @@ function AppRouter() {
           <AchievementUnlock
             userType={user?.userType || 'guest'}
             completedQuestionnaire={questionnaireData || undefined}
-            onContinueToDashboard={() => navigateToView('dashboard')}
+            onContinueToDashboard={() => navigateToView('home')}
             onCreateAccountUpgrade={() => navigateToView('signup')}
           />
         );
-      case 'dashboard':
+      case 'home':
         return <Dashboard />;
+      case 'services':
+        return <ServicesPage />;
       case 'subscription-offer':
         // Get selected service data from localStorage for pricing
         const selectedServiceId = localStorage.getItem('armora_selected_service');
@@ -307,8 +677,19 @@ function AppRouter() {
         return <SubscriptionOffer selectedService={selectedServiceId || undefined} servicePrice={servicePrice} />;
       case 'booking':
         return <BookingFlow />;
-      case 'profile':
+      case 'bookings':
+      case 'rides':
+        return <Bookings />;
+      case 'account':
         return <Profile />;
+      case 'about':
+        return <About onBack={() => navigateToView('home')} />;
+      case 'venue-protection-welcome':
+        return <VenueProtectionWelcome />;
+      case 'venue-security-questionnaire':
+        return <VenueSecurityQuestionnaire />;
+      case 'venue-protection-success':
+        return <VenueProtectionSuccess />;
       default:
         return <SplashScreen />;
     }
@@ -327,6 +708,14 @@ function AppRouter() {
             userName={user?.name || 'Member'}
           />
         )}
+        <FloatingActionButton
+          isVisible={Boolean(shouldShowFab())}
+          onClick={handleOpenRecruitmentModal}
+        />
+        <RecruitmentModal
+          isOpen={isRecruitmentModalOpen}
+          onClose={handleCloseRecruitmentModal}
+        />
       </>
     );
   }
@@ -344,6 +733,14 @@ function AppRouter() {
           userName={user?.name || 'Member'}
         />
       )}
+      <FloatingActionButton
+        isVisible={Boolean(shouldShowFab())}
+        onClick={handleOpenRecruitmentModal}
+      />
+      <RecruitmentModal
+        isOpen={isRecruitmentModalOpen}
+        onClose={handleCloseRecruitmentModal}
+      />
     </>
   );
 }

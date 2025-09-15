@@ -1,0 +1,194 @@
+/* Referral Section - Mobile-First Design */
+
+.referralSection {
+  background: var(--bg-secondary);
+  border-radius: var(--radius-lg);
+  padding: var(--space-lg);
+  margin: var(--space-lg) 0;
+  border: 1px solid var(--border-subtle);
+}
+
+.header {
+  text-align: center;
+  margin-bottom: var(--space-lg);
+}
+
+.title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-xs);
+  font-size: var(--font-lg);
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0 0 var(--space-xs) 0;
+}
+
+.titleIcon {
+  font-size: 1.2em;
+}
+
+.subtitle {
+  font-size: var(--font-sm);
+  color: var(--text-secondary);
+  margin: 0;
+  line-height: var(--line-relaxed);
+}
+
+/* Referral Code Section */
+.codeSection {
+  margin: var(--space-lg) 0;
+  padding: var(--space-md);
+  background: var(--bg-primary);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-subtle);
+}
+
+.codeHeader {
+  margin-bottom: var(--space-md);
+}
+
+.codeTitle {
+  font-size: var(--font-base);
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0;
+  text-align: center;
+}
+
+.codeDisplay {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-md);
+  padding: var(--space-md);
+  background: var(--bg-secondary);
+  border-radius: var(--radius-sm);
+  border: 2px dashed var(--border-primary);
+}
+
+.code {
+  font-family: 'Courier New', monospace;
+  font-size: var(--font-lg);
+  font-weight: 700;
+  color: var(--accent);
+  letter-spacing: 0.1em;
+  flex: 1;
+  text-align: center;
+}
+
+.copyCodeButton {
+  background: var(--accent);
+  color: var(--bg-primary);
+  border: none;
+  padding: var(--space-xs) var(--space-sm);
+  border-radius: var(--radius-sm);
+  font-size: var(--font-sm);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.copyCodeButton:hover {
+  background: var(--hover-gold);
+  transform: translateY(-1px);
+}
+
+.copyCodeButton:active {
+  transform: translateY(0);
+}
+
+/* How It Works Section */
+.howItWorksSection {
+  margin-top: var(--space-lg);
+  border-top: 1px solid var(--border-subtle);
+  padding-top: var(--space-lg);
+}
+
+.howItWorksToggle {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: transparent;
+  border: none;
+  font-size: var(--font-base);
+  font-weight: 600;
+  color: var(--text-primary);
+  cursor: pointer;
+  padding: var(--space-xs) 0;
+  transition: color 0.2s ease;
+}
+
+.howItWorksToggle:hover {
+  color: var(--accent);
+}
+
+.toggleIcon {
+  color: var(--text-secondary);
+  font-size: var(--font-sm);
+  transition: transform 0.2s ease;
+}
+
+.howItWorksContent {
+  margin-top: var(--space-md);
+  padding: var(--space-md);
+  background: var(--bg-primary);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-subtle);
+}
+
+.howItWorksTitle {
+  font-size: var(--font-base);
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0 0 var(--space-sm) 0;
+}
+
+.howItWorksList,
+.creditValuesList {
+  margin: 0 0 var(--space-md) 0;
+  padding-left: var(--space-lg);
+  color: var(--text-secondary);
+  line-height: var(--line-relaxed);
+}
+
+.howItWorksList li,
+.creditValuesList li {
+  margin-bottom: var(--space-xs);
+  font-size: var(--font-sm);
+}
+
+.creditValuesList li:first-child,
+.creditValuesList li:nth-child(2) {
+  color: var(--accent);
+  font-weight: 500;
+}
+
+/* Responsive Design */
+@media (min-width: 768px) {
+  .referralSection {
+    padding: var(--space-xl);
+  }
+
+  .codeDisplay {
+    padding: var(--space-lg);
+  }
+
+  .code {
+    font-size: var(--font-xl);
+  }
+
+  .copyCodeButton {
+    padding: var(--space-sm) var(--space-md);
+    font-size: var(--font-base);
+  }
+}
+
+@media (min-width: 1024px) {
+  .referralSection {
+    max-width: 800px;
+    margin: var(--space-lg) auto;
+  }
+}

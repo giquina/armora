@@ -79,7 +79,7 @@ export function QuestionnaireFlow({ onComplete }: QuestionnaireFlowProps) {
 
   const handleConversionPromptClose = (shouldConvert: boolean) => {
     setShowConversionPrompt(false);
-    
+
     if (shouldConvert) {
       // Navigate to signup with return path
       navigateToView('signup');
@@ -93,6 +93,7 @@ export function QuestionnaireFlow({ onComplete }: QuestionnaireFlowProps) {
       completeQuestionnaire(responses);
     }
   };
+
 
   const completeQuestionnaire = async (finalResponses: QuestionnaireData) => {
     setIsSubmitting(true);
@@ -203,12 +204,12 @@ export function QuestionnaireFlow({ onComplete }: QuestionnaireFlowProps) {
 
   return (
     <div className={styles.container}>
-      <ProgressIndicator 
+      <ProgressIndicator
         currentStep={currentStep}
         totalSteps={totalSteps}
         onPrevious={currentStep > 1 ? handlePrevious : undefined}
       />
-      
+
       {currentStepData && (
         <QuestionnaireStepComponent
           step={currentStepData}

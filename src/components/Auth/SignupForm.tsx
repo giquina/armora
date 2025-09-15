@@ -296,7 +296,7 @@ export function SignupForm() {
 
     // Navigate directly to dashboard
     console.log('🚀 [DEV] Navigating directly to dashboard...');
-    navigateToView('dashboard');
+    navigateToView('home');
     console.log('🚀 [DEV] Full skip complete!');
   };
 

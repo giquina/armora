@@ -1,17 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { useApp } from '../../contexts/AppContext';
 import { Button } from '../UI/Button';
-import { LoadingSpinner } from '../UI/LoadingSpinner';
 import { ServiceCard } from './ServiceCard';
 import { ImpactDashboardWidget } from './ImpactDashboardWidget';
 import { MarketingBanner } from './MarketingBanner';
-import { LocationPlanningSection } from './LocationPlanningSection';
 import { SmartRecommendation } from './SmartRecommendation';
-// import { SchedulingPicker } from '../UI/SchedulingPicker'; // Replaced with new QuickScheduling system
-import { ResponsiveModal } from '../UI/ResponsiveModal';
-import { QuickScheduling } from '../UI/QuickScheduling';
-import { ServiceLevel, LocationSection } from '../../types';
-import { getDisplayName } from '../../utils/nameUtils';
+import { BookingSearchInterface } from './BookingSearchInterface';
+import SafeRideFundModal from '../SafeRideFund/SafeRideFundModal';
+import { ServiceLevel } from '../../types';
+// import { getDisplayName } from '../../utils/nameUtils'; // Removed since header is no longer displayed
 import { getAllServices } from '../../data/standardizedServices';
 import styles from './Dashboard.module.css';
 
@@ -40,44 +37,10 @@ const ARMORA_SERVICES: ServiceLevel[] = convertToServiceLevel();
 export function Dashboard() {
   const { state, navigateToView } = useApp();
   const { user, questionnaireData, deviceCapabilities } = state;
-  const [selectedService, setLocalSelectedService] = useState<'standard' | 'executive' | 'shadow' | 'client-vehicle' | null>(null);
   const [showRewardBanner, setShowRewardBanner] = useState(false);
-  const [isNavigating, setIsNavigating] = useState(false);
-  const [showScheduling, setShowScheduling] = useState(false);
-  const [focusedServiceId, setFocusedServiceId] = useState<string | null>(null);
-  // const [bookingMode, setBookingMode] = useState<'book-now' | 'schedule' | null>(null);
-  const [locationData, setLocationData] = useState<LocationSection | null>(null);
-  const [showLocationFirst, setShowLocationFirst] = useState(true);
+  const [showSafeRideModal, setShowSafeRideModal] = useState(false);
+  const [activeCarouselIndex, setActiveCarouselIndex] = useState(0);
 
-  // Handle ESC key to close modal - FIXED: Improved scroll management
-  useEffect(() => {
-    const handleEscKey = (event: KeyboardEvent) => {
-      if (event.key === 'Escape' && showScheduling) {
-        setShowScheduling(false);
-      }
-    };
-
-    if (showScheduling) {
-      document.addEventListener('keydown', handleEscKey);
-      // Store original overflow value before hiding
-      const originalOverflow = document.body.style.overflow;
-      document.body.style.overflow = 'hidden';
-
-      return () => {
-        document.removeEventListener('keydown', handleEscKey);
-        // Restore original overflow or default to visible
-        document.body.style.overflow = originalOverflow || 'visible';
-      };
-    } else {
-      // Ensure scroll is enabled when modal is not showing
-      document.body.style.overflow = 'visible';
-    }
-
-    return () => {
-      document.removeEventListener('keydown', handleEscKey);
-    };
-  }, [showScheduling]);
-  const [scheduledDateTime, setScheduledDateTime] = useState('');
 
   // Check if user has unlocked reward and hasn't dismissed banner
   useEffect(() => {
@@ -87,87 +50,6 @@ export function Dashboard() {
     setShowRewardBanner(Boolean(isEligible && !hasSeenBanner));
   }, [user]);
 
-  const handleServiceSelect = (serviceId: 'standard' | 'executive' | 'shadow' | 'client-vehicle') => {
-    setLocalSelectedService(serviceId);
-    // Store selected service for booking flow
-    localStorage.setItem('armora_selected_service', serviceId);
-    // Reset scheduling state when changing services
-    setShowScheduling(false);
-    setScheduledDateTime('');
-
-    // Auto-scroll to booking confirmation after service selection
-    setTimeout(() => {
-      scrollToSection('booking-confirmation');
-    }, 300);
-  };
-
-  const handleScheduleSelect = (serviceId: 'standard' | 'executive' | 'shadow' | 'client-vehicle') => {
-    // Set the selected service first
-    setLocalSelectedService(serviceId);
-    localStorage.setItem('armora_selected_service', serviceId);
-
-    // Enter focused mode
-    setFocusedServiceId(serviceId);
-    // setBookingMode('schedule');
-    setShowScheduling(true);
-
-    // Simple analytics placeholder
-    console.log('[Analytics] Scheduling modal opened', { serviceId, ts: Date.now() });
-  };
-
-  const handleDirectBooking = (serviceId: 'standard' | 'executive' | 'shadow' | 'client-vehicle') => {
-    // Set the selected service first
-    setLocalSelectedService(serviceId);
-    localStorage.setItem('armora_selected_service', serviceId);
-
-    // Enter focused mode
-    setFocusedServiceId(serviceId);
-    // setBookingMode('book-now');
-
-    // Store immediate booking preference and proceed
-    localStorage.setItem('armora_booking_immediate', 'true');
-    handleBookNow();
-  };
-
-  const handleCancelFocusedMode = () => {
-    setFocusedServiceId(null);
-    // setBookingMode(null);
-    setShowScheduling(false);
-    setScheduledDateTime('');
-    console.log('[Analytics] User cancelled focused mode, returning to service selection');
-  };
-
-  // Determine which services should be visible
-  const shouldShowService = (serviceId: string) => {
-    if (!focusedServiceId) return true; // Show all when no service is focused
-    return serviceId === focusedServiceId; // Only show focused service when in focused mode
-  };
-
-  const handleBookNow = async () => {
-    setIsNavigating(true);
-
-    // Store scheduling information for the booking flow
-    if (scheduledDateTime) {
-      localStorage.setItem('armora_scheduled_datetime', scheduledDateTime);
-      localStorage.setItem('armora_booking_immediate', 'false');
-    } else {
-      localStorage.setItem('armora_booking_immediate', 'true');
-      localStorage.removeItem('armora_scheduled_datetime');
-    }
-
-    // Brief loading for better UX
-    await new Promise(resolve => setTimeout(resolve, 500));
-
-    if (user?.userType === 'guest') {
-      // Guest users need to create account first
-      navigateToView('signup');
-    } else {
-      // Navigate to booking flow
-      navigateToView('booking');
-    }
-
-    setIsNavigating(false);
-  };
 
   const handleUpgradeAccount = () => {
     navigateToView('signup');
@@ -179,32 +61,11 @@ export function Dashboard() {
   };
 
   const handleServiceSelection = (serviceId: string) => {
-    // Set selected service and navigate directly to service focus
-    setLocalSelectedService(serviceId as 'standard' | 'executive' | 'shadow' | 'client-vehicle');
-    setFocusedServiceId(serviceId);
-
-    // Store for booking flow
+    // Store selected service for future booking
     localStorage.setItem('armora_selected_service', serviceId);
 
-    // Auto-scroll to destination input section
-    setTimeout(() => {
-      const destinationInput = document.getElementById('dropoff-location');
-      if (destinationInput) {
-        // Scroll to the destination input with smooth behavior and center it
-        destinationInput.scrollIntoView({
-          behavior: 'smooth',
-          block: 'center'
-        });
-
-        // Focus the input after scrolling completes
-        setTimeout(() => {
-          (destinationInput as HTMLInputElement).focus();
-        }, 600);
-      } else {
-        // Fallback to location section if input not found
-        scrollToSection('location-input');
-      }
-    }, 300);
+    // Navigate directly to booking page
+    navigateToView('booking');
 
     // Analytics
     console.log('[Analytics] Service selected from recommendation', {
@@ -214,63 +75,45 @@ export function Dashboard() {
     });
   };
 
-  // Smooth scroll to next section with header offset
-  const scrollToSection = (elementId: string) => {
-    const element = document.getElementById(elementId);
-    if (element) {
-      const headerOffset = 100; // Account for fixed header
-      const elementPosition = element.getBoundingClientRect().top;
-      const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+  const handleDirectBooking = (service: ServiceLevel) => {
+    // Store selected service and skip service selection step
+    localStorage.setItem('armora_selected_service', service.id);
 
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: "smooth"
-      });
-    }
-  };
+    // Navigate directly to booking page - this will skip the service selection step
+    navigateToView('booking');
 
-  // Handle location completion and auto-scroll to services
-  const handleLocationCompletion = () => {
-    setTimeout(() => {
-      scrollToSection('service-selection');
-    }, 500); // Small delay for better UX
-  };
-
-  const handleLocationSet = (location: LocationSection) => {
-    setLocationData(location);
-    setShowLocationFirst(false);
-
-    // Store location data for booking flow
-    localStorage.setItem('armora_location_data', JSON.stringify({
-      pickup: location.pickupLocation.address,
-      destination: location.dropoffLocation.address,
-      estimatedDistance: location.journeyEstimate ? parseFloat(location.journeyEstimate.distance) : 0,
-      estimatedDuration: location.journeyEstimate ? parseEstimatedMinutes(location.journeyEstimate.duration) : 0,
-      coordinates: {
-        pickup: location.pickupLocation.coordinates,
-        dropoff: location.dropoffLocation.coordinates
-      }
-    }));
-
-    // Analytics
-    console.log('[Analytics] Location set', {
-      hasPickup: Boolean(location.pickupLocation.address),
-      hasDropoff: Boolean(location.dropoffLocation.address),
-      usedCurrentLocation: location.pickupLocation.current,
-      hasEstimate: Boolean(location.journeyEstimate),
-      timestamp: Date.now()
+    // Analytics for direct booking from dashboard cards
+    console.log('[Analytics] Direct booking from dashboard card', {
+      serviceId: service.id,
+      timestamp: Date.now(),
+      userType: user?.userType,
+      source: 'dashboard_card'
     });
   };
 
-  const parseEstimatedMinutes = (duration: string): number => {
-    const hourMatch = duration.match(/(\d+)h/);
-    const minuteMatch = duration.match(/(\d+)m/);
 
-    let totalMinutes = 0;
-    if (hourMatch) totalMinutes += parseInt(hourMatch[1]) * 60;
-    if (minuteMatch) totalMinutes += parseInt(minuteMatch[1]);
+  const handleQuickBookPreset = (preset: 'airport' | 'commute') => {
+    // Set default service (Executive for airport, Standard for commute)
+    const serviceId = preset === 'airport' ? 'executive' : 'standard';
+    localStorage.setItem('armora_selected_service', serviceId);
 
-    return totalMinutes || 30; // Default to 30 minutes if parsing fails
+    // Set preset-specific data
+    if (preset === 'airport') {
+      localStorage.setItem('armora_quick_destination', 'London Heathrow Airport (LHR)');
+      localStorage.setItem('armora_booking_preset', 'airport');
+    } else if (preset === 'commute') {
+      localStorage.setItem('armora_booking_preset', 'commute');
+    }
+
+    navigateToView('booking');
+
+    console.log('[Analytics] Quick book preset used', {
+      preset,
+      serviceId,
+      timestamp: Date.now(),
+      userType: user?.userType,
+      source: 'quick_book_preset'
+    });
   };
 
   const getPersonalizedRecommendation = () => {
@@ -298,6 +141,9 @@ export function Dashboard() {
   if (user?.userType === 'guest') {
     return (
       <div className={styles.dashboard}>
+        {/* Booking Search Interface for Guests */}
+        <BookingSearchInterface />
+
         {/* Guest Header */}
         <div className={styles.guestHeader}>
           <div className={styles.headerContent}>
@@ -319,19 +165,14 @@ export function Dashboard() {
                 Register now to unlock direct booking, personalized recommendations, 
                 and exclusive rewards including 50% off your first ride.
               </p>
-              <Button 
-                variant="primary" 
-                size="lg" 
+              <Button
+                variant="primary"
+                size="lg"
                 isFullWidth={deviceCapabilities.isMobile}
                 onClick={handleUpgradeAccount}
-                disabled={isNavigating}
                 className={styles.upgradeButton}
               >
-                {isNavigating ? (
-                  <LoadingSpinner size="small" variant="light" text="Redirecting..." inline />
-                ) : (
-                  'Create Free Account'
-                )}
+                Create Free Account
               </Button>
             </div>
           </div>
@@ -349,6 +190,8 @@ export function Dashboard() {
                 onSelect={() => {}} // No selection for guests
                 mode="preview"
                 isRecommended={false}
+                userType={user?.userType}
+                onDirectBook={handleDirectBooking}
               />
             ))}
           </div>
@@ -384,21 +227,30 @@ export function Dashboard() {
   // For registered users - show full dashboard
   return (
     <div className={styles.dashboard}>
+      {/* Booking Search Interface - Uber-style "Where to?" */}
+      <BookingSearchInterface />
+
       {/* Reward Banner */}
       {showRewardBanner && (
-        <div className={styles.rewardBanner}>
+        <div className={styles.rewardBanner} onClick={() => navigateToView('booking')}>
           <div className={styles.rewardContent}>
             <div className={styles.rewardIcon}>🏆</div>
             <div className={styles.rewardText}>
               <h3 className={styles.rewardTitle}>🎉 ACHIEVEMENT UNLOCKED!</h3>
               <div className={styles.discountValue}>50% OFF</div>
-              <p className={styles.rewardDescription}>
-                Your first ride (up to £15) • Valid 30 days
-              </p>
+              <div className={styles.rewardDetails}>
+                <span className={styles.rewardDescription}>
+                  Your first ride (up to £15) • Valid 30 days
+                </span>
+                <span className={styles.rewardCTA}>Secure Your Journey →</span>
+              </div>
             </div>
-            <button 
+            <button
               className={styles.dismissButton}
-              onClick={handleDismissReward}
+              onClick={(e) => {
+                e.stopPropagation();
+                handleDismissReward();
+              }}
               aria-label="Dismiss reward banner"
             >
               ×
@@ -406,18 +258,6 @@ export function Dashboard() {
           </div>
         </div>
       )}
-
-      {/* Dashboard Header */}
-      <div className={styles.header}>
-        <div className={styles.headerContent}>
-          <h1 className={styles.title}>
-            Your Personal Security Detail{user ? `, ${getDisplayName(user)}` : ''}
-          </h1>
-          <p className={styles.subtitle}>
-            Professional security drivers at your service
-          </p>
-        </div>
-      </div>
 
 
       {/* Impact Widget for Essential Members */}
@@ -431,149 +271,195 @@ export function Dashboard() {
         onServiceSelect={handleServiceSelection}
       />
 
-      {/* Location Planning Section - NEW LOCATION-FIRST FLOW */}
-      {showLocationFirst && (
-        <div id="location-input">
-          <LocationPlanningSection
-            onLocationSet={handleLocationSet}
-            onCompletionScroll={handleLocationCompletion}
-            isDisabled={isNavigating}
-          />
+      {/* Quick Actions Carousel */}
+      <div className={styles.quickActionsSection}>
+        <div className={styles.quickActionsHeader}>
+          <h2 className={styles.quickActionsTitle}>Security Services</h2>
         </div>
-      )}
+        <div className={styles.quickActionsCarousel}>
+          <div className={styles.carouselContainer}>
+            <div
+              className={styles.carouselTrack}
+              onScroll={(e) => {
+                const scrollLeft = e.currentTarget.scrollLeft;
+                const cardWidth = 280 + 16; // Card width + gap
+                const index = Math.round(scrollLeft / cardWidth);
+                setActiveCarouselIndex(Math.min(index, 5)); // Max 6 cards (0-5)
+              }}
+            >
+              <button
+                className={styles.carouselCard}
+                onClick={() => handleQuickBookPreset('airport')}
+              >
+                <span className={styles.quickActionIcon}>✈️</span>
+                <span className={styles.quickActionText}>Airport Transfer</span>
+                <span className={styles.quickActionSubtext}>Fast setup</span>
+              </button>
 
-      {/* Service Selection */}
-      <div id="service-selection" className={styles.servicesSection}>
+              <button
+                className={styles.carouselCard}
+                onClick={() => handleQuickBookPreset('commute')}
+              >
+                <span className={styles.quickActionIcon}>🏢</span>
+                <span className={styles.quickActionText}>Daily Commute</span>
+                <span className={styles.quickActionSubtext}>Regular route</span>
+              </button>
+
+              <button
+                className={styles.carouselCard}
+                onClick={() => navigateToView('venue-protection-welcome')}
+              >
+                <span className={styles.quickActionIcon}>🏛️</span>
+                <span className={styles.quickActionText}>Venue Security</span>
+                <span className={styles.quickActionSubtext}>Book protection</span>
+              </button>
+
+              <button
+                className={styles.carouselCard}
+                onClick={() => navigateToView('booking')}
+              >
+                <span className={styles.quickActionIcon}>📅</span>
+                <span className={styles.quickActionText}>Schedule Ride</span>
+                <span className={styles.quickActionSubtext}>Plan ahead</span>
+              </button>
+
+              <button
+                className={styles.carouselCard}
+                onClick={() => {
+                  localStorage.setItem('armora_selected_service', 'executive');
+                  navigateToView('booking');
+                }}
+              >
+                <span className={styles.quickActionIcon}>👔</span>
+                <span className={styles.quickActionText}>Executive Service</span>
+                <span className={styles.quickActionSubtext}>VIP transport</span>
+              </button>
+
+              <button
+                className={styles.carouselCard}
+                onClick={() => setShowSafeRideModal(true)}
+              >
+                <span className={styles.quickActionIcon}>🛡️</span>
+                <span className={styles.quickActionText}>Safe Ride Fund</span>
+                <span className={styles.quickActionSubtext}>Donate</span>
+              </button>
+            </div>
+          </div>
+
+          {/* Scroll Indicators */}
+          <div className={styles.carouselIndicators}>
+            {[0, 1, 2, 3, 4, 5].map((index) => (
+              <button
+                key={index}
+                className={`${styles.carouselIndicator} ${
+                  activeCarouselIndex === index ? styles.active : ''
+                }`}
+                onClick={() => {
+                  const track = document.querySelector(`.${styles.carouselTrack}`) as HTMLElement;
+                  if (track) {
+                    const cardWidth = 280 + 16; // Card width + gap
+                    track.scrollTo({
+                      left: index * cardWidth,
+                      behavior: 'smooth'
+                    });
+                  }
+                }}
+                aria-label={`Go to security service section ${index + 1} of 6`}
+              />
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Service Overview Section */}
+      <div id="service-overview" className={styles.servicesSection}>
         <div className={styles.sectionHeader}>
           <h2 className={styles.sectionTitle}>
-            {focusedServiceId
-              ? `Booking ${ARMORA_SERVICES.find(s => s.id === focusedServiceId)?.name}`
-              : locationData
-                ? `Step 2 of 3: Choose Your Security Level`
-                : 'Select Your Security Level'}
+            Your Security Transport Options
           </h2>
-          {locationData && (
-            <div className={styles.journeyContext}>
-              <span className={styles.journeyRoute}>
-                📍 {locationData.pickupLocation.address} → 🏁 {locationData.dropoffLocation.address}
-              </span>
-              {locationData.journeyEstimate && (
-                <span className={styles.journeyDetails}>
-                  {locationData.journeyEstimate.distance} • {locationData.journeyEstimate.duration}
-                </span>
-              )}
-            </div>
-          )}
-          {focusedServiceId && (
-            <button
-              className={styles.backToServicesButton}
-              onClick={handleCancelFocusedMode}
-              aria-label="Back to service selection"
-            >
-              ← Back to Services
-            </button>
-          )}
+          <p className={styles.sectionDescription}>
+            Professional security drivers available 24/7 with premium fleet vehicles
+          </p>
         </div>
-        <div className={`${styles.servicesGrid} ${focusedServiceId ? styles.focusedMode : ''}`}>
-          {ARMORA_SERVICES.filter(service => shouldShowService(service.id)).map((service) => (
+        <div className={styles.servicesGrid}>
+          {ARMORA_SERVICES.map((service) => (
             <ServiceCard
               key={service.id}
               service={service}
               isSelected={false}
-              onSelect={handleServiceSelect}
-              mode="selection"
+              onSelect={() => {}} // No selection - just display
+              mode="preview" // Info display only
               isRecommended={recommendedService === service.id}
-              onBookNow={handleDirectBooking}
-              onScheduleSelect={handleScheduleSelect}
+              userType={user?.userType}
+              onDirectBook={handleDirectBooking}
             />
           ))}
         </div>
+
+        {/* Main Book Now CTA */}
+        <div className={styles.mainCTA}>
+          <button
+            className={styles.bookNowMainButton}
+            onClick={() => navigateToView('booking')}
+          >
+            🚀 Book Your Secure Transport
+          </button>
+          <p className={styles.ctaSubtext}>
+            Complete your booking in just 3 simple steps
+          </p>
+        </div>
       </div>
 
-      {/* New Responsive Scheduling Modal */}
-      <ResponsiveModal
-        isOpen={showScheduling}
-        onClose={() => setShowScheduling(false)}
-        position="bottom"
-        animationType="slide"
-      >
-        <QuickScheduling
-          onScheduleConfirmed={(dateTime: string, displayText: string) => {
-            setScheduledDateTime(dateTime);
-            console.log('[Analytics] Schedule confirmed', {
-              service: selectedService,
-              dateTime,
-              displayText,
-              timestamp: Date.now()
-            });
-            handleBookNow();
-          }}
-          onCancel={() => setShowScheduling(false)}
-          isLoading={isNavigating}
-          selectedService={selectedService ? ARMORA_SERVICES.find(s => s.id === selectedService)?.name.split(' ')[1] || 'Standard' : 'Standard'}
-          userProfile={{
-            isBusinessUser: user?.userType === 'registered' || user?.userType === 'google',
-            preferredTime: '9:00', // Would come from user preferences in real implementation
-            timeZone: 'Europe/London',
-            recentBookings: [
-              // This would come from user data in real implementation
-              { time: '9:00 AM', date: 'Last Tuesday' },
-              { time: '6:30 PM', date: 'Friday' }
-            ]
-          }}
-        />
-      </ResponsiveModal>
-
-      {/* Booking Confirmation Section - Shows when service is selected */}
-      {selectedService && locationData && (
-        <div id="booking-confirmation" className={styles.bookingConfirmation}>
-          <div className={styles.confirmationCard}>
-            <h3 className={styles.confirmationTitle}>🎯 Ready to Book</h3>
-            <div className={styles.confirmationDetails}>
-              <div className={styles.confirmationItem}>
-                <span className={styles.confirmationLabel}>Service:</span>
-                <span className={styles.confirmationValue}>
-                  {ARMORA_SERVICES.find(s => s.id === selectedService)?.name}
-                </span>
-              </div>
-              <div className={styles.confirmationItem}>
-                <span className={styles.confirmationLabel}>Route:</span>
-                <span className={styles.confirmationValue}>
-                  {locationData.pickupLocation.address} → {locationData.dropoffLocation.address}
-                </span>
-              </div>
-              {locationData.journeyEstimate && (
-                <div className={styles.confirmationItem}>
-                  <span className={styles.confirmationLabel}>Estimate:</span>
-                  <span className={styles.confirmationValue}>
-                    {locationData.journeyEstimate.distance} • {locationData.journeyEstimate.duration}
-                  </span>
-                </div>
-              )}
-            </div>
-            <div className={styles.confirmationActions}>
-              <button
-                className={styles.bookNowButton}
-                onClick={handleBookNow}
-                disabled={isNavigating}
-              >
-                {isNavigating ? (
-                  <LoadingSpinner size="small" variant="light" text="Processing..." inline />
-                ) : (
-                  <>🚀 Complete Booking</>
-                )}
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
 
       {/* Marketing Banner for Non-Members */}
-      <MarketingBanner 
-        onTrialStart={handleBookNow}
+      <MarketingBanner
+        onTrialStart={() => navigateToView('booking')}
         currentUser={user}
         variant="savings"
       />
+
+      {/* Wedding & Event Security - Relocated to Bottom */}
+      <div className={styles.venueProtectionSection}>
+        <div className={styles.venueCard}>
+          <div className={styles.venueCardHeader}>
+            <div className={styles.venueIcon}>💍🛡️</div>
+            <div className={styles.venueInfo}>
+              <h3 className={styles.venueTitle}>
+                Wedding & Event Security
+                <span className={styles.newBadge}>• NEW</span>
+              </h3>
+              <p className={styles.venueDescription}>SIA licensed Close Protection Officers</p>
+            </div>
+          </div>
+
+          <div className={styles.eventTypes}>
+            <div className={styles.eventTypesList}>
+              <div className={styles.eventTypeItem}>Weddings & receptions</div>
+              <div className={styles.eventTypeItem}>Corporate events</div>
+              <div className={styles.eventTypeItem}>Private celebrations</div>
+              <div className={styles.eventTypeItem}>VIP gatherings</div>
+            </div>
+          </div>
+
+          <div className={styles.venueFooter}>
+            <div className={styles.pricingInfo}>
+              <div className={styles.socialProof}>Trusted by 200+ couples</div>
+              <div className={styles.venuePrice}>From £500/day</div>
+            </div>
+            <button
+              className={styles.ctaButton}
+              onClick={() => navigateToView('venue-protection-welcome')}
+            >
+              Get Your Security Assessment
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {/* Safe Ride Fund Modal */}
+      {showSafeRideModal && (
+        <SafeRideFundModal onClose={() => setShowSafeRideModal(false)} />
+      )}
     </div>
   );
 }

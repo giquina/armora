@@ -1,0 +1,140 @@
+/* Credit Balance Component - Mobile-First Design */
+
+.creditBalance {
+  background: linear-gradient(135deg, var(--accent) 0%, #b8860b 100%);
+  border-radius: var(--radius-lg);
+  padding: var(--space-lg);
+  margin: var(--space-lg) 0;
+  color: var(--bg-primary);
+  position: relative;
+  overflow: hidden;
+}
+
+.creditBalance::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -50%;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.mainBalance {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  margin-bottom: var(--space-lg);
+  position: relative;
+  z-index: 1;
+}
+
+.balanceIcon {
+  font-size: 2.5rem;
+  line-height: 1;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+}
+
+.balanceContent {
+  flex: 1;
+}
+
+.balanceAmount {
+  font-size: 2rem;
+  font-weight: 700;
+  line-height: 1;
+  margin-bottom: var(--space-xs);
+  text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.balanceLabel {
+  font-size: var(--font-sm);
+  font-weight: 500;
+  opacity: 0.9;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.creditStats {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  margin-bottom: var(--space-md);
+  position: relative;
+  z-index: 1;
+}
+
+.statItem {
+  text-align: center;
+}
+
+.statValue {
+  font-size: var(--font-lg);
+  font-weight: 600;
+  line-height: 1;
+  margin-bottom: var(--space-xs);
+}
+
+.statLabel {
+  font-size: var(--font-xs);
+  font-weight: 500;
+  opacity: 0.8;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.statDivider {
+  width: 1px;
+  height: 2rem;
+  background: rgba(255,255,255,0.3);
+}
+
+.availableNotice {
+  background: rgba(255,255,255,0.15);
+  border-radius: var(--radius-md);
+  padding: var(--space-sm);
+  text-align: center;
+  font-size: var(--font-sm);
+  font-weight: 500;
+  position: relative;
+  z-index: 1;
+  border: 1px solid rgba(255,255,255,0.2);
+}
+
+/* Responsive Design */
+@media (min-width: 768px) {
+  .creditBalance {
+    padding: var(--space-xl);
+  }
+
+  .balanceAmount {
+    font-size: 2.5rem;
+  }
+
+  .balanceIcon {
+    font-size: 3rem;
+  }
+
+  .statValue {
+    font-size: var(--font-xl);
+  }
+}
+
+/* Animation for available credits */
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+.balanceAmount {
+  animation: pulse 2s ease-in-out infinite;
+}
+
+/* Dark mode adjustments */
+@media (prefers-color-scheme: dark) {
+  .creditBalance {
+    background: linear-gradient(135deg, #b8860b 0%, var(--accent) 100%);
+  }
+}

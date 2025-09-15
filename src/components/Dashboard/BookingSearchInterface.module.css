@@ -1,0 +1,230 @@
+/* Booking Search Interface Styles */
+.searchContainer {
+  width: 100%;
+  max-width: var(--content-max-width);
+  margin: 0 auto;
+  padding: var(--space-lg) var(--space-md) var(--space-xl) var(--space-md);
+  background: var(--bg-primary);
+}
+
+/* Main Search Bar - Armora Branding */
+.searchBar {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  padding: var(--space-lg);
+  background: var(--bg-secondary);
+  border: 2px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 4px 12px rgba(26, 26, 46, 0.2);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-bottom: var(--space-lg);
+  min-height: var(--touch-target);
+  position: relative;
+  overflow: hidden;
+}
+
+.searchBar::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--accent-primary), rgba(255, 215, 0, 0.6));
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.searchBar:hover {
+  box-shadow: 0 6px 20px rgba(26, 26, 46, 0.3);
+  transform: translateY(-1px);
+  border-color: var(--accent-primary);
+  background: var(--bg-tertiary);
+}
+
+.searchBar:hover::before {
+  opacity: 1;
+}
+
+.searchBar:active {
+  transform: translateY(0);
+}
+
+.searchIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--accent-primary);
+  flex-shrink: 0;
+}
+
+.searchText {
+  flex: 1;
+  min-width: 0;
+}
+
+.searchPlaceholder {
+  font-size: var(--font-lg);
+  color: var(--text-primary);
+  font-weight: 600;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.searchArrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-secondary);
+  flex-shrink: 0;
+  transition: color 0.3s ease;
+}
+
+.searchBar:hover .searchArrow {
+  color: var(--accent-primary);
+}
+
+/* Quick Destinations */
+.quickDestinations {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.quickDestinationItem {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  padding: var(--space-md);
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  width: 100%;
+  text-align: left;
+}
+
+.quickDestinationItem:hover {
+  background: var(--bg-tertiary);
+  border-color: var(--accent-primary);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.quickDestinationItem:active {
+  transform: translateY(0);
+}
+
+.destinationIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  background: var(--bg-tertiary);
+  border-radius: 50%;
+  color: var(--text-secondary);
+  flex-shrink: 0;
+  transition: all 0.3s ease;
+}
+
+.quickDestinationItem:hover .destinationIcon {
+  background: rgba(255, 215, 0, 0.2);
+  color: var(--accent-primary);
+  transform: scale(1.05);
+  box-shadow: 0 2px 8px rgba(255, 215, 0, 0.3);
+}
+
+.destinationInfo {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+  min-width: 0;
+  flex: 1;
+}
+
+.destinationLabel {
+  font-size: var(--font-base);
+  font-weight: 600;
+  color: var(--text-primary);
+  line-height: 1.2;
+}
+
+.destinationAddress {
+  font-size: var(--font-sm);
+  color: var(--text-secondary);
+  line-height: 1.3;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Mobile Optimizations */
+@media (max-width: 768px) {
+  .searchContainer {
+    padding: var(--space-md) var(--space-sm) var(--space-lg) var(--space-sm);
+  }
+
+  .searchBar {
+    padding: var(--space-md);
+  }
+
+  .searchPlaceholder {
+    font-size: var(--font-base);
+  }
+
+  .quickDestinationItem {
+    padding: var(--space-sm) var(--space-md);
+  }
+
+  .destinationIcon {
+    width: 32px;
+    height: 32px;
+  }
+}
+
+@media (max-width: 480px) {
+  .searchContainer {
+    padding: var(--space-sm);
+  }
+
+  .searchBar {
+    padding: var(--space-sm) var(--space-md);
+  }
+}
+
+/* Enhanced dark theme support - consistent with main theme */
+@media (prefers-color-scheme: dark) {
+  .searchBar {
+    background: var(--bg-secondary);
+    border-color: var(--border-subtle);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  }
+
+  .searchBar:hover {
+    background: var(--bg-tertiary);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5);
+  }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .searchBar,
+  .quickDestinationItem {
+    transition: none;
+  }
+
+  .searchBar:hover,
+  .quickDestinationItem:hover {
+    transform: none;
+  }
+}
+
+/* Focus states for accessibility */
+.searchBar:focus-visible,
+.quickDestinationItem:focus-visible {
+  outline: 2px solid var(--accent-primary);
+  outline-offset: 2px;
+}

@@ -1,0 +1,207 @@
+import React from 'react';
+import { BookingHistoryItem, FavoriteRoute } from '../../types';
+import { BookingHistoryManager } from '../../utils/bookingHistory';
+import { useApp } from '../../contexts/AppContext';
+import styles from './RecentTrips.module.css';
+
+interface RecentTripsProps {
+  onRebook?: (item: BookingHistoryItem) => void;
+  onAddToFavorites?: (item: BookingHistoryItem) => void;
+  maxItems?: number;
+}
+
+export function RecentTrips({ onRebook, onAddToFavorites, maxItems = 5 }: RecentTripsProps) {
+  const { navigateToView } = useApp();
+  const [history, setHistory] = React.useState<BookingHistoryItem[]>([]);
+  const [favorites, setFavorites] = React.useState<FavoriteRoute[]>([]);
+
+  React.useEffect(() => {
+    const bookingHistory = BookingHistoryManager.getBookingHistory();
+    const favoriteRoutes = BookingHistoryManager.getFavoriteRoutes();
+    setHistory(bookingHistory.slice(0, maxItems));
+    setFavorites(favoriteRoutes);
+  }, [maxItems]);
+
+  const handleRebook = (item: BookingHistoryItem) => {
+    if (onRebook) {
+      onRebook(item);
+    } else {
+      // Default behavior: store selection and navigate to booking
+      localStorage.setItem('armora_rebook_data', JSON.stringify({
+        from: item.from,
+        to: item.to,
+        service: item.service,
+        timestamp: new Date().toISOString()
+      }));
+      navigateToView('booking');
+    }
+  };
+
+  const handleAddToFavorites = (item: BookingHistoryItem) => {
+    BookingHistoryManager.addToFavorites(item, false);
+    const updatedFavorites = BookingHistoryManager.getFavoriteRoutes();
+    setFavorites(updatedFavorites);
+
+    if (onAddToFavorites) {
+      onAddToFavorites(item);
+    }
+  };
+
+  const isRouteInFavorites = (item: BookingHistoryItem): boolean => {
+    return favorites.some(fav => fav.from === item.from && fav.to === item.to);
+  };
+
+  const formatDate = (dateString: string): string => {
+    const date = new Date(dateString);
+    const today = new Date();
+    const yesterday = new Date(today);
+    yesterday.setDate(yesterday.getDate() - 1);
+
+    if (date.toDateString() === today.toDateString()) {
+      return 'Today';
+    } else if (date.toDateString() === yesterday.toDateString()) {
+      return 'Yesterday';
+    } else {
+      return date.toLocaleDateString('en-GB', {
+        weekday: 'short',
+        month: 'short',
+        day: 'numeric'
+      });
+    }
+  };
+
+  const formatTime = (timeString: string): string => {
+    return timeString;
+  };
+
+  const getServiceBadgeClass = (serviceId: string): string => {
+    switch (serviceId) {
+      case 'executive':
+        return styles.badgeExecutive;
+      case 'shadow':
+        return styles.badgeShadow;
+      case 'standard':
+        return styles.badgeStandard;
+      default:
+        return styles.badgeDefault;
+    }
+  };
+
+  const shortenAddress = (address: string): string => {
+    if (address.length <= 30) return address;
+
+    const parts = address.split(',');
+    if (parts.length > 1) {
+      return parts[0].trim();
+    }
+
+    return address.substring(0, 27) + '...';
+  };
+
+  if (history.length === 0) {
+    return (
+      <div className={styles.emptyState}>
+        <div className={styles.emptyIcon}>🎯</div>
+        <h3 className={styles.emptyTitle}>No Recent Trips</h3>
+        <p className={styles.emptyText}>
+          Your completed journeys will appear here after your first ride with Armora.
+        </p>
+        <button
+          className={styles.emptyAction}
+          onClick={() => navigateToView('booking')}
+        >
+          📅 Book Your First Ride
+        </button>
+      </div>
+    );
+  }
+
+  return (
+    <div className={styles.recentTrips}>
+      <h2 className={styles.sectionTitle}>🚗 Recent Journeys</h2>
+
+      <div className={styles.tripsList}>
+        {history.map((trip) => (
+          <div key={trip.id} className={styles.tripCard}>
+            <div className={styles.tripHeader}>
+              <div className={styles.dateTimeInfo}>
+                <span className={styles.date}>{formatDate(trip.date)}</span>
+                <span className={styles.time}>{formatTime(trip.time)}</span>
+              </div>
+              <div className={`${styles.serviceBadge} ${getServiceBadgeClass(trip.service)}`}>
+                {trip.serviceName}
+              </div>
+            </div>
+
+            <div className={styles.routeInfo}>
+              <div className={styles.route}>
+                <div className={styles.location}>
+                  <span className={styles.locationIcon}>📍</span>
+                  <span className={styles.locationText}>{shortenAddress(trip.from)}</span>
+                </div>
+                <div className={styles.routeArrow}>→</div>
+                <div className={styles.location}>
+                  <span className={styles.locationIcon}>🎯</span>
+                  <span className={styles.locationText}>{shortenAddress(trip.to)}</span>
+                </div>
+              </div>
+            </div>
+
+            <div className={styles.tripDetails}>
+              <div className={styles.detailItem}>
+                <span className={styles.detailIcon}>💰</span>
+                <span className={styles.detailText}>{trip.price}</span>
+              </div>
+              {trip.driver && (
+                <div className={styles.detailItem}>
+                  <span className={styles.detailIcon}>👨‍💼</span>
+                  <span className={styles.detailText}>{trip.driver}</span>
+                </div>
+              )}
+              {trip.frequency > 1 && (
+                <div className={styles.detailItem}>
+                  <span className={styles.detailIcon}>🔄</span>
+                  <span className={styles.detailText}>{trip.frequency}x booked</span>
+                </div>
+              )}
+            </div>
+
+            <div className={styles.tripActions}>
+              <button
+                className={styles.rebookButton}
+                onClick={() => handleRebook(trip)}
+              >
+                🔄 Book Again
+              </button>
+
+              {!isRouteInFavorites(trip) && (
+                <button
+                  className={styles.favoriteButton}
+                  onClick={() => handleAddToFavorites(trip)}
+                >
+                  ⭐ Add Favorite
+                </button>
+              )}
+
+              {isRouteInFavorites(trip) && (
+                <div className={styles.favoriteIndicator}>
+                  <span className={styles.favoriteIcon}>⭐</span>
+                  <span className={styles.favoriteText}>Favorite</span>
+                </div>
+              )}
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {history.length === maxItems && (
+        <button
+          className={styles.viewAllButton}
+          onClick={() => navigateToView('rides')}
+        >
+          View All Trips →
+        </button>
+      )}
+    </div>
+  );
+}

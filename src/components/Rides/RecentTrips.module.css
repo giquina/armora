@@ -1,0 +1,401 @@
+/* RECENT TRIPS COMPONENT STYLES */
+
+.recentTrips {
+  max-width: var(--content-max-width);
+  margin: 0 auto;
+  padding: 0 var(--content-padding-mobile);
+}
+
+.sectionTitle {
+  font-size: var(--font-lg);
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0 0 var(--space-lg) 0;
+  text-align: left;
+  line-height: var(--line-tight);
+}
+
+/* Trip Cards */
+.tripsList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.tripCard {
+  background: var(--bg-card);
+  border: 2px solid var(--bg-secondary);
+  border-radius: var(--radius-lg);
+  padding: var(--space-lg);
+  transition: all var(--transition-base);
+  position: relative;
+}
+
+.tripCard:hover {
+  border-color: rgba(255, 215, 0, 0.3);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+}
+
+/* Trip Header */
+.tripHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--space-md);
+}
+
+.dateTimeInfo {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.date {
+  font-size: var(--font-sm);
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.time {
+  font-size: var(--font-xs);
+  color: var(--text-secondary);
+}
+
+/* Service Badges */
+.serviceBadge {
+  padding: var(--space-xs) var(--space-sm);
+  border-radius: var(--radius-sm);
+  font-size: var(--font-xs);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.badgeExecutive {
+  background: linear-gradient(135deg, #ffd700, #ffed4e);
+  color: var(--text-dark);
+}
+
+.badgeShadow {
+  background: linear-gradient(135deg, #2d3748, #4a5568);
+  color: white;
+}
+
+.badgeStandard {
+  background: linear-gradient(135deg, #38a169, #48bb78);
+  color: white;
+}
+
+.badgeDefault {
+  background: var(--bg-secondary);
+  color: var(--text-secondary);
+}
+
+/* Route Information */
+.routeInfo {
+  margin-bottom: var(--space-md);
+}
+
+.route {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  flex-wrap: wrap;
+}
+
+.location {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  flex: 1;
+  min-width: 0; /* Allow text to wrap */
+}
+
+.locationIcon {
+  font-size: 1rem;
+  flex-shrink: 0;
+}
+
+.locationText {
+  font-size: var(--font-sm);
+  color: var(--text-primary);
+  font-weight: 500;
+  word-break: break-word;
+}
+
+.routeArrow {
+  font-size: var(--font-lg);
+  color: var(--accent);
+  font-weight: bold;
+  flex-shrink: 0;
+  margin: 0 var(--space-xs);
+}
+
+/* Trip Details */
+.tripDetails {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-md);
+  margin-bottom: var(--space-lg);
+  padding: var(--space-sm);
+  background: rgba(255, 215, 0, 0.05);
+  border-radius: var(--radius-md);
+  border: 1px solid rgba(255, 215, 0, 0.1);
+}
+
+.detailItem {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+}
+
+.detailIcon {
+  font-size: 0.9rem;
+}
+
+.detailText {
+  font-size: var(--font-sm);
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+/* Trip Actions */
+.tripActions {
+  display: flex;
+  gap: var(--space-sm);
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.rebookButton {
+  background: linear-gradient(135deg, var(--accent), #ffa500);
+  color: var(--text-dark);
+  border: none;
+  padding: var(--space-sm) var(--space-md);
+  border-radius: var(--radius-md);
+  font-size: var(--font-sm);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition-base);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-xs);
+  min-height: var(--touch-target);
+  flex: 1;
+  min-width: 120px;
+}
+
+.rebookButton:hover {
+  background: linear-gradient(135deg, #ffa500, var(--accent));
+  transform: translateY(-1px);
+  box-shadow: 0 4px 15px rgba(255, 215, 0, 0.25);
+}
+
+.favoriteButton {
+  background: transparent;
+  color: var(--text-secondary);
+  border: 2px solid var(--bg-secondary);
+  padding: var(--space-sm) var(--space-md);
+  border-radius: var(--radius-md);
+  font-size: var(--font-sm);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition-base);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-xs);
+  min-height: var(--touch-target);
+  min-width: 120px;
+}
+
+.favoriteButton:hover {
+  border-color: rgba(255, 215, 0, 0.5);
+  background: rgba(255, 215, 0, 0.1);
+  color: var(--text-primary);
+}
+
+.favoriteIndicator {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  padding: var(--space-sm) var(--space-md);
+  background: rgba(255, 215, 0, 0.1);
+  border: 2px solid rgba(255, 215, 0, 0.3);
+  border-radius: var(--radius-md);
+}
+
+.favoriteIcon {
+  color: var(--accent);
+}
+
+.favoriteText {
+  font-size: var(--font-sm);
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+/* Empty State */
+.emptyState {
+  text-align: center;
+  padding: var(--space-xxl);
+  background: var(--bg-card);
+  border: 2px solid var(--bg-secondary);
+  border-radius: var(--radius-lg);
+  margin: var(--space-lg) 0;
+}
+
+.emptyIcon {
+  font-size: 3rem;
+  margin-bottom: var(--space-lg);
+  opacity: 0.8;
+}
+
+.emptyTitle {
+  font-size: var(--font-lg);
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0 0 var(--space-sm) 0;
+}
+
+.emptyText {
+  font-size: var(--font-base);
+  color: var(--text-secondary);
+  margin: 0 0 var(--space-lg) 0;
+  line-height: var(--line-base);
+  max-width: 400px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.emptyAction {
+  background: linear-gradient(135deg, var(--accent), #ffa500);
+  color: var(--text-dark);
+  border: none;
+  padding: var(--space-md) var(--space-lg);
+  border-radius: var(--radius-md);
+  font-size: var(--font-base);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition-base);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-xs);
+  min-height: var(--touch-target);
+}
+
+.emptyAction:hover {
+  background: linear-gradient(135deg, #ffa500, var(--accent));
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(255, 215, 0, 0.3);
+}
+
+/* View All Button */
+.viewAllButton {
+  width: 100%;
+  background: transparent;
+  color: var(--text-secondary);
+  border: 2px solid var(--bg-secondary);
+  padding: var(--space-md);
+  border-radius: var(--radius-md);
+  font-size: var(--font-base);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition-base);
+  margin-top: var(--space-lg);
+  min-height: var(--touch-target);
+}
+
+.viewAllButton:hover {
+  border-color: rgba(255, 215, 0, 0.3);
+  background: rgba(255, 215, 0, 0.05);
+  color: var(--text-primary);
+}
+
+/* Mobile Optimizations */
+@media (max-width: 768px) {
+  .tripCard {
+    padding: var(--space-md);
+  }
+
+  .route {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-xs);
+  }
+
+  .routeArrow {
+    align-self: center;
+    margin: var(--space-xs) 0;
+  }
+
+  .tripActions {
+    flex-direction: column;
+    gap: var(--space-sm);
+  }
+
+  .rebookButton,
+  .favoriteButton {
+    width: 100%;
+    min-width: auto;
+  }
+
+  .tripDetails {
+    flex-direction: column;
+    gap: var(--space-sm);
+  }
+}
+
+/* Small Mobile */
+@media (max-width: 480px) {
+  .tripHeader {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-sm);
+  }
+
+  .serviceBadge {
+    align-self: flex-start;
+  }
+
+  .locationText {
+    font-size: var(--font-xs);
+  }
+
+  .emptyState {
+    padding: var(--space-lg);
+  }
+
+  .emptyIcon {
+    font-size: 2.5rem;
+  }
+}
+
+/* Accessibility */
+.rebookButton:focus-visible,
+.favoriteButton:focus-visible,
+.emptyAction:focus-visible,
+.viewAllButton:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .tripCard,
+  .rebookButton,
+  .favoriteButton,
+  .emptyAction,
+  .viewAllButton {
+    transition: none;
+  }
+
+  .tripCard:hover,
+  .rebookButton:hover,
+  .emptyAction:hover {
+    transform: none;
+  }
+}

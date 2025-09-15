@@ -14,7 +14,7 @@ interface LocationPickerProps {
 }
 
 export function LocationPicker({ selectedService, onLocationConfirmed, onBack, user }: LocationPickerProps) {
-  const [pickup, setPickup] = useState('');
+  const [pickup, setPickup] = useState('📍 Current Location');
   const [destination, setDestination] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [isCalculatingRoute, setIsCalculatingRoute] = useState(false);
@@ -23,6 +23,44 @@ export function LocationPicker({ selectedService, onLocationConfirmed, onBack, u
   const [errors, setErrors] = useState<{ pickup?: string; destination?: string }>({});
   const [scheduledDateTime, setScheduledDateTime] = useState<string>('');
   const [isScheduled, setIsScheduled] = useState(false);
+  const [activeField, setActiveField] = useState<'pickup' | 'destination' | null>(null);
+  const [savedLocations, setSavedLocations] = useState<{home?: string; work?: string; favorites?: string[]}>({});
+  const [recentLocations, setRecentLocations] = useState<string[]>([]);
+
+  // Load saved and recent locations on mount
+  useEffect(() => {
+    // Load saved locations from localStorage
+    const saved = localStorage.getItem('armora_saved_locations');
+    if (saved) {
+      setSavedLocations(JSON.parse(saved));
+    }
+
+    // Load recent locations from localStorage
+    const recent = localStorage.getItem('armora_recent_locations');
+    if (recent) {
+      setRecentLocations(JSON.parse(recent).slice(0, 5)); // Keep last 5
+    }
+  }, []);
+
+  // Save recent location when destination is set
+  const saveRecentLocation = (location: string) => {
+    if (!location || location === '📍 Current Location') return;
+
+    const updated = [location, ...recentLocations.filter(l => l !== location)].slice(0, 10);
+    setRecentLocations(updated);
+    localStorage.setItem('armora_recent_locations', JSON.stringify(updated));
+  };
+
+  // Handle quick location selection
+  const handleQuickLocationSelect = (location: string) => {
+    if (activeField === 'pickup') {
+      setPickup(location);
+    } else if (activeField === 'destination') {
+      setDestination(location);
+      saveRecentLocation(location);
+    }
+    setActiveField(null);
+  };
 
   // Mock distance/duration calculation with loading state
   const calculateEstimate = async (pickup: string, destination: string) => {
@@ -126,9 +164,9 @@ export function LocationPicker({ selectedService, onLocationConfirmed, onBack, u
         <button className={styles.backButton} onClick={onBack}>
           ← Back
         </button>
-        <h1 className={styles.title}>Where to?</h1>
+        <h1 className={styles.title}>Plan Your Secure Route</h1>
         <p className={styles.subtitle}>
-          Enter your pickup and destination for {selectedService.name}
+          Configure pickup and destination for your {selectedService.name} security driver
         </p>
       </div>
 
@@ -151,11 +189,57 @@ export function LocationPicker({ selectedService, onLocationConfirmed, onBack, u
       </div>
 
       <div className={styles.locationForm}>
+        {/* Quick Locations Section */}
+        {(savedLocations.home || savedLocations.work || recentLocations.length > 0) && (
+          <div className={styles.quickLocationsSection}>
+            <h3 className={styles.quickLocationsTitle}>Quick Locations</h3>
+            <div className={styles.quickLocationsList}>
+              {savedLocations.home && (
+                <button
+                  className={styles.quickLocationButton}
+                  onClick={() => handleQuickLocationSelect(savedLocations.home!)}
+                >
+                  <span className={styles.quickLocationIcon}>🏠</span>
+                  <div className={styles.quickLocationInfo}>
+                    <span className={styles.quickLocationName}>Home</span>
+                    <span className={styles.quickLocationAddress}>{savedLocations.home}</span>
+                  </div>
+                </button>
+              )}
+              {savedLocations.work && (
+                <button
+                  className={styles.quickLocationButton}
+                  onClick={() => handleQuickLocationSelect(savedLocations.work!)}
+                >
+                  <span className={styles.quickLocationIcon}>💼</span>
+                  <div className={styles.quickLocationInfo}>
+                    <span className={styles.quickLocationName}>Work</span>
+                    <span className={styles.quickLocationAddress}>{savedLocations.work}</span>
+                  </div>
+                </button>
+              )}
+              {recentLocations.slice(0, 3).map((location, index) => (
+                <button
+                  key={index}
+                  className={styles.quickLocationButton}
+                  onClick={() => handleQuickLocationSelect(location)}
+                >
+                  <span className={styles.quickLocationIcon}>⏱️</span>
+                  <div className={styles.quickLocationInfo}>
+                    <span className={styles.quickLocationName}>Recent</span>
+                    <span className={styles.quickLocationAddress}>{location}</span>
+                  </div>
+                </button>
+              ))}
+            </div>
+          </div>
+        )}
+
         {/* Premium Location Selection Container */}
         <div className={styles.locationSelectionContainer}>
           <div className={styles.sectionHeader}>
-            <h2 className={styles.mainTitle}>Where would you like to go?</h2>
-            <p className={styles.progressIndicator}>Step 2 of 3 • Route Planning</p>
+            <h2 className={styles.mainTitle}>Security Transport Route</h2>
+            <p className={styles.progressIndicator}>Step 2 of 3 • Professional Security Planning</p>
           </div>
 
           <div className={styles.locationInputGroup}>
@@ -169,20 +253,36 @@ export function LocationPicker({ selectedService, onLocationConfirmed, onBack, u
                 type="text"
                 value={pickup}
                 onChange={(e) => setPickup(e.target.value)}
-                placeholder="Enter pickup address or use current location"
+                onFocus={() => setActiveField('pickup')}
+                onBlur={() => setTimeout(() => setActiveField(null), 200)}
+                placeholder="Enter pickup address"
                 className={`${styles.locationInput} ${errors.pickup ? styles.inputError : ''}`}
               />
-              <button
-                type="button"
-                className={styles.currentLocationButton}
-                onClick={() => {
-                  // Add current location functionality
-                  setPickup("Current Location");
-                }}
-                aria-label="Use current location"
-              >
-                📍 Current
-              </button>
+              <div className={styles.inputButtons}>
+                <button
+                  type="button"
+                  className={styles.voiceButton}
+                  onClick={() => {
+                    // Placeholder for voice input
+                    alert('Voice input coming soon! 🎤');
+                  }}
+                  aria-label="Voice input"
+                  title="Voice input"
+                >
+                  🎤
+                </button>
+                <button
+                  type="button"
+                  className={styles.currentLocationButton}
+                  onClick={() => {
+                    setPickup("📍 Current Location");
+                  }}
+                  aria-label="Use current location"
+                  title="Use current location"
+                >
+                  📍
+                </button>
+              </div>
             </div>
             {errors.pickup && (
               <div className={styles.errorMessage}>
@@ -206,10 +306,41 @@ export function LocationPicker({ selectedService, onLocationConfirmed, onBack, u
                 id="destination"
                 type="text"
                 value={destination}
-                onChange={(e) => setDestination(e.target.value)}
-                placeholder="Enter destination address"
+                onChange={(e) => {
+                  setDestination(e.target.value);
+                  if (e.target.value) saveRecentLocation(e.target.value);
+                }}
+                onFocus={() => setActiveField('destination')}
+                onBlur={() => setTimeout(() => setActiveField(null), 200)}
+                placeholder="Where would you like to go?"
                 className={`${styles.locationInput} ${errors.destination ? styles.inputError : ''}`}
               />
+              <div className={styles.inputButtons}>
+                <button
+                  type="button"
+                  className={styles.voiceButton}
+                  onClick={() => {
+                    // Placeholder for voice input
+                    alert('Voice input coming soon! 🎤');
+                  }}
+                  aria-label="Voice input"
+                  title="Voice input"
+                >
+                  🎤
+                </button>
+                <button
+                  type="button"
+                  className={styles.mapButton}
+                  onClick={() => {
+                    // Placeholder for map selection
+                    alert('Map selection coming soon! 🗺️');
+                  }}
+                  aria-label="Choose on map"
+                  title="Choose on map"
+                >
+                  🗺️
+                </button>
+              </div>
             </div>
             {errors.destination && (
               <div className={styles.errorMessage}>
@@ -311,14 +442,14 @@ export function LocationPicker({ selectedService, onLocationConfirmed, onBack, u
           ) : isCalculatingRoute ? (
             <LoadingSpinner size="small" variant="light" text="Calculating..." inline />
           ) : (
-            'Continue to Booking'
+            'Confirm Security Transport'
           )}
         </button>
         
         <div className={styles.disclaimer}>
           <p>
-            Final pricing may vary based on actual travel time and additional services required.
-            Minimum charge: 1 hour.
+            Security transport pricing based on actual journey time and threat assessment requirements.
+            Minimum engagement: 1 hour with SIA certified security driver.
           </p>
         </div>
       </div>

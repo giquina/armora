@@ -86,7 +86,7 @@ export function WelcomePage() {
     updateQuestionnaireData(mockQuestionnaireData);
 
     // Navigate directly to dashboard
-    navigateToView('dashboard');
+    navigateToView('home');
   };
 
   return (

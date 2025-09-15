@@ -3,90 +3,80 @@ import { ServiceLevel, User } from '../../types';
 import { LoadingSpinner } from '../UI/LoadingSpinner';
 import { ServiceCardSkeletonLoader } from '../UI/SkeletonLoader';
 import { BookingProgressIndicator } from '../UI/ProgressIndicator';
+import { ServiceCard } from '../Dashboard/ServiceCard';
+import { SmartRecommendation } from '../Dashboard/SmartRecommendation';
+import { GuestQuoteModal } from './GuestQuoteModal';
+import { getAllServices } from '../../data/standardizedServices';
+import { getDisplayName } from '../../utils/nameUtils';
 import styles from './VehicleSelection.module.css';
 
 interface VehicleSelectionProps {
   user: User | null;
   onServiceSelected: (service: ServiceLevel) => void;
   onBack?: () => void;
+  onSignUp?: () => void;
 }
 
-const servicelevels: ServiceLevel[] = [
-  {
-    id: 'standard',
-    name: 'Armora Standard',
-    tagline: 'Professional Security Transport',
-    price: '£45',
-    hourlyRate: 45,
-    description: 'Professional security officers provide safe, reliable transport with comprehensive protection.',
-    features: [
-      'Certified security professional',
-      'Advanced vehicle protection',
-      'Real-time GPS tracking',
-      '24/7 monitoring support',
-      'Priority response protocol'
-    ],
+// Convert standardized services to legacy ServiceLevel format for compatibility
+const convertToServiceLevel = (): ServiceLevel[] => {
+  return getAllServices().map(service => ({
+    id: service.id,
+    name: service.name,
+    tagline: service.tagline,
+    price: service.priceDisplay,
+    hourlyRate: service.hourlyRate,
+    // Vehicle and capacity data - standardized for all services
+    vehicle: service.id === 'standard' ? 'Nissan Leaf EV' :
+             service.id === 'executive' ? 'BMW 5 Series' :
+             service.id === 'client-vehicle' ? 'Your Personal Vehicle' : 'Armored BMW X5',
+    capacity: service.id === 'client-vehicle' ? 'Any vehicle size' : '4 passengers',
+    driverQualification: service.id === 'standard' || service.id === 'client-vehicle' ? 'SIA Level 2 Security Certified' :
+                        service.id === 'executive' ? 'SIA Level 3 Security Certified' : 'Special Forces Trained',
+    description: service.description,
+    features: service.features.map(f => f.text), // Convert from {icon, text} to string array
+    isPopular: service.id === 'shadow', // Shadow is marked as most popular
     socialProof: {
-      tripsCompleted: 2847,
+      tripsCompleted: 3921, // Use static numbers since analytics not available
+      selectionRate: service.id === 'shadow' ? 67 : undefined
     }
-  },
-  {
-    id: 'executive',
-    name: 'Armora Executive', 
-    tagline: 'Luxury Security Transport',
-    price: '£75',
-    hourlyRate: 75,
-    description: 'Premium luxury vehicles with elite security professionals for VIP experiences.',
-    features: [
-      'Elite security specialist',
-      'Luxury reinforced vehicle',
-      'Discrete personal protection',
-      'Priority response team',
-      'Concierge service included',
-      'Privacy screening available'
-    ],
-    socialProof: {
-      tripsCompleted: 1203,
-    }
-  },
-  {
-    id: 'shadow',
-    name: 'Armora Shadow',
-    tagline: 'Independent Security Escort',
-    price: '£65',
-    hourlyRate: 65,
-    description: 'Personal security escort service for independent travel with professional oversight.',
-    features: [
-      'Personal security escort',
-      'Discrete protection service',
-      'Independent travel support',
-      'Priority backup available',
-      'Flexible scheduling'
-    ],
-    isPopular: true,
-    socialProof: {
-      tripsCompleted: 3921,
-      selectionRate: 67
-    }
-  }
-];
+  }));
+};
 
-export function VehicleSelection({ user, onServiceSelected, onBack }: VehicleSelectionProps) {
+const ARMORA_SERVICES: ServiceLevel[] = convertToServiceLevel();
+
+export function VehicleSelection({ user, onServiceSelected, onBack, onSignUp }: VehicleSelectionProps) {
   const [selectedService, setSelectedService] = useState<ServiceLevel | null>(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [showGuestQuote, setShowGuestQuote] = useState(false);
   const [servicesLoading] = useState(false);
+  const [rebookData] = useState(() => {
+    try {
+      const stored = localStorage.getItem('armora_rebook_data');
+      return stored ? JSON.parse(stored) : null;
+    } catch {
+      return null;
+    }
+  });
 
   const handleServiceSelect = (service: ServiceLevel) => {
     setSelectedService(service);
-    onServiceSelected(service);
-  };
 
-  const handleKeyDown = (event: React.KeyboardEvent, service: ServiceLevel) => {
-    if (event.key === 'Enter' || event.key === ' ') {
-      event.preventDefault();
-      handleServiceSelect(service);
+    // If user is a guest, show quote modal instead of proceeding to booking
+    if (user?.userType === 'guest') {
+      setShowGuestQuote(true);
+    } else {
+      // Registered users can proceed directly to booking
+      onServiceSelected(service);
     }
   };
+
+  const handleGuestSignUp = () => {
+    setShowGuestQuote(false);
+    if (onSignUp) {
+      onSignUp();
+    }
+  };
+
 
   const handleContinue = async () => {
     if (selectedService) {
@@ -102,13 +92,25 @@ export function VehicleSelection({ user, onServiceSelected, onBack }: VehicleSel
 
   const hasReward = user?.hasUnlockedReward && user?.userType !== 'guest';
 
-  const calculatePrice = (service: ServiceLevel) => {
-    if (hasReward) {
-      const discountedPrice = Math.max(0, service.hourlyRate * 0.5); // 50% off
-      return `£${discountedPrice}`;
-    }
-    return service.price;
+
+  // Get personalized recommendation based on questionnaire
+  const getPersonalizedRecommendation = () => {
+    // Get stored questionnaire data from localStorage
+    const questionnaireData = JSON.parse(localStorage.getItem('armora_questionnaire_responses') || '{}');
+
+    if (!questionnaireData?.recommendedService) return null;
+
+    // Map the questionnaire recommendations to service IDs
+    if (questionnaireData.recommendedService === 'armora-shadow') return 'shadow';
+    if (questionnaireData.recommendedService === 'armora-executive') return 'executive';
+    if (questionnaireData.recommendedService === 'armora-standard' || questionnaireData.recommendedService === 'armora-secure') return 'standard';
+    if (questionnaireData.recommendedService === 'armora-client-vehicle') return 'client-vehicle';
+
+    // Default fallback to standard if no clear recommendation
+    return 'standard';
   };
+
+  const recommendedService = getPersonalizedRecommendation();
 
   return (
     <div className={styles.container}>
@@ -121,17 +123,41 @@ export function VehicleSelection({ user, onServiceSelected, onBack }: VehicleSel
             ← Back
           </button>
         )}
-        <h1 className={styles.title}>Choose Your Protection</h1>
+        <h1 className={styles.title}>
+          Choose Your Protection{user ? `, ${getDisplayName(user)}` : ''}
+        </h1>
         <p className={styles.subtitle}>Step 1 of 3 • Security Level Selection</p>
         <p className={styles.description}>
-          Select the security service that best fits your needs
+          Professional security drivers available 24/7 with premium fleet vehicles
         </p>
         {hasReward && (
           <div className={styles.rewardBanner}>
             🎉 50% off your first ride - reward applied!
           </div>
         )}
+        {rebookData && (
+          <div className={styles.rebookBanner}>
+            🔄 Rebooking: {rebookData.from} → {rebookData.to}
+            <button
+              className={styles.clearRebookButton}
+              onClick={() => localStorage.removeItem('armora_rebook_data')}
+            >
+              ×
+            </button>
+          </div>
+        )}
       </div>
+
+      {/* Smart Recommendation - Same as Dashboard */}
+      <SmartRecommendation
+        services={ARMORA_SERVICES}
+        user={user}
+        questionnaireData={JSON.parse(localStorage.getItem('armora_questionnaire_responses') || '{}')}
+        onServiceSelect={(serviceId) => {
+          const service = ARMORA_SERVICES.find(s => s.id === serviceId);
+          if (service) handleServiceSelect(service);
+        }}
+      />
 
       <div className={styles.serviceGrid}>
         {servicesLoading ? (
@@ -142,83 +168,45 @@ export function VehicleSelection({ user, onServiceSelected, onBack }: VehicleSel
             <ServiceCardSkeletonLoader />
           </>
         ) : (
-          servicelevels.map((service) => (
-          <div
-            key={service.id}
-            data-testid={`service-${service.id}`}
-            className={`${styles.serviceCard} ${
-              selectedService?.id === service.id ? styles.selected : ''
-            } ${service.isPopular ? styles.popular : ''}`}
-            onClick={() => handleServiceSelect(service)}
-            onKeyDown={(e) => handleKeyDown(e, service)}
-            tabIndex={0}
-            role="button"
-            aria-label={`Select ${service.name} - ${service.tagline}`}
-          >
-            {service.isPopular && (
-              <div className={styles.popularBadge}>Most Popular</div>
-            )}
-            
-            <div className={styles.serviceHeader}>
-              <h3 className={styles.serviceName}>{service.name}</h3>
-              <p className={styles.serviceTagline}>{service.tagline}</p>
-            </div>
-
-            <div className={styles.pricing}>
-              <span className={styles.price}>
-                {calculatePrice(service)}
-                {hasReward && (
-                  <span className={styles.originalPrice}>{service.price}</span>
-                )}
-              </span>
-              <span className={styles.perHour}>per hour</span>
-            </div>
-
-            <p className={styles.description}>{service.description}</p>
-
-            <div className={styles.features}>
-              {service.features.map((feature, index) => (
-                <div key={index} className={styles.feature}>
-                  <span className={styles.checkmark}>✓</span>
-                  <span>{feature}</span>
-                </div>
-              ))}
-            </div>
-
-            {service.socialProof && (
-              <div className={styles.socialProof}>
-                {service.socialProof.tripsCompleted.toLocaleString()} trips completed
-                {service.socialProof.selectionRate && (
-                  <span className={styles.selectionRate}>
-                    • {service.socialProof.selectionRate}% choose this
-                  </span>
-                )}
-              </div>
-            )}
-
-            <div className={styles.selectIndicator}>
-              {selectedService?.id === service.id ? '● Selected' : 'Select Service'}
-            </div>
-          </div>
+          ARMORA_SERVICES.map((service) => (
+            <ServiceCard
+              key={service.id}
+              service={service}
+              isSelected={selectedService?.id === service.id}
+              onSelect={() => handleServiceSelect(service)}
+              mode="selection"
+              isRecommended={recommendedService === service.id}
+              onBookNow={() => handleServiceSelect(service)}
+              userType={user?.userType}
+            />
           ))
         )}
       </div>
 
-      {selectedService && (
-        <div className={styles.footer}>
-          <button 
-            className={styles.continueButton} 
+      {/* Continue Button - Only show if service is selected and user is not a guest */}
+      {selectedService && user?.userType !== 'guest' && (
+        <div className={styles.continueSection}>
+          <button
+            className={styles.continueButton}
             onClick={handleContinue}
             disabled={isLoading}
           >
             {isLoading ? (
-              <LoadingSpinner size="small" variant="light" text="Preparing Service..." inline />
+              <LoadingSpinner size="small" variant="light" text="Preparing..." inline />
             ) : (
-              user?.userType === 'guest' ? 'Get Quote' : 'Book Now'
+              <>Continue to Location Selection →</>
             )}
           </button>
         </div>
       )}
+
+      {/* Guest Quote Modal */}
+      <GuestQuoteModal
+        isOpen={showGuestQuote}
+        onClose={() => setShowGuestQuote(false)}
+        selectedService={selectedService}
+        onSignUp={handleGuestSignUp}
+      />
     </div>
   );
 }

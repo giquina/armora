@@ -13,6 +13,7 @@
   /* SEMANTIC COLORS */
   --primary: var(--armora-dark);
   --accent: var(--armora-gold);
+  --accent-primary: var(--armora-gold); /* Alias for accent-primary used throughout app */
   --text-primary: var(--armora-light);
   --text-secondary: #b0b0b0;
   --text-dark: var(--armora-dark);

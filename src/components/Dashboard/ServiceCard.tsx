@@ -30,8 +30,8 @@ const SERVICE_CONFIG = {
     eta: '3-6 min',
     rating: 4.7,
     reviewCount: 1892,
-    gradient: 'linear-gradient(135deg, #9B59B6 0%, #8E44AD 100%)',
-    accentColor: '#9B59B6'
+    gradient: 'linear-gradient(135deg, #1a1a2e 0%, #2d2d44 100%)',
+    accentColor: '#FFD700'
   },
   executive: {
     theme: 'luxury',
@@ -57,18 +57,20 @@ const SERVICE_CONFIG = {
     rating: 5.0,
     reviewCount: 892,
     gradient: 'linear-gradient(135deg, #0f0f1f 0%, #1a1a2e 100%)',
-    accentColor: '#ff4444'
+    accentColor: '#7B68EE'
   }
 };
 
 interface ServiceCardProps {
   service: ServiceLevel;
   isSelected: boolean;
-  onSelect: (serviceId: 'standard' | 'executive' | 'shadow' | 'client-vehicle') => void;
+  onSelect: (service: ServiceLevel) => void;
   mode: 'selection' | 'preview';
   isRecommended?: boolean;
-  onBookNow?: (serviceId: 'standard' | 'executive' | 'shadow' | 'client-vehicle') => void;
-  onScheduleSelect?: (serviceId: 'standard' | 'executive' | 'shadow' | 'client-vehicle') => void;
+  onBookNow?: (service: ServiceLevel) => void;
+  onScheduleSelect?: (service: ServiceLevel) => void;
+  onDirectBook?: (service: ServiceLevel) => void;
+  userType?: 'registered' | 'google' | 'guest' | null;
 }
 
 export function ServiceCard({
@@ -78,7 +80,9 @@ export function ServiceCard({
   mode,
   isRecommended = false,
   onBookNow,
-  onScheduleSelect
+  onScheduleSelect,
+  onDirectBook,
+  userType = null
 }: ServiceCardProps) {
   const [availabilityStatus, setAvailabilityStatus] = useState<'available' | 'busy' | 'surge'>('available');
   const [showQuickBooking, setShowQuickBooking] = useState(false);
@@ -106,8 +110,6 @@ export function ServiceCard({
     return null;
   };
 
-  const config = SERVICE_CONFIG[service.id];
-
   // Simulate dynamic availability (in real app, this would come from API) - FIXED: Add empty dependency array
   useEffect(() => {
     const statuses: Array<'available' | 'busy' | 'surge'> = ['available', 'available', 'available', 'busy', 'surge'];
@@ -115,16 +117,26 @@ export function ServiceCard({
     setAvailabilityStatus(randomStatus);
   }, []); // Run only once on mount
 
+  const config = SERVICE_CONFIG[service.id as keyof typeof SERVICE_CONFIG];
+
+  // If config doesn't exist (e.g., for venue protection services), skip rendering
+  if (!config) {
+    return null;
+  }
+
   const handleSelect = () => {
     if (mode === 'selection') {
-      onSelect(service.id);
+      onSelect(service);
+    } else if (mode === 'preview' && onDirectBook) {
+      // Direct booking from dashboard cards
+      onDirectBook(service);
     }
   };
 
   const handleScheduleForLater = () => {
     setShowQuickBooking(false); // Close quick booking if open
     setShowInlineScheduling(true);
-    onSelect(service.id); // Select this service
+    onSelect(service); // Select this service
   };
 
   const handleInlineTimeSelected = (dateTime: string, displayText: string) => {
@@ -148,7 +160,7 @@ export function ServiceCard({
 
     setIsBookingLoading(true);
     setTimeout(() => {
-      onBookNow?.(service.id);
+      onBookNow?.(service);
     }, 300);
   };
 
@@ -162,7 +174,7 @@ export function ServiceCard({
     setShowQuickBooking(false); // Close other booking interfaces
     setShowInlineScheduling(false);
     setShowStreamlinedBooking(true);
-    onSelect(service.id); // Select this service
+    onSelect(service); // Select this service
   };
 
   const handleStreamlinedBookingConfirm = (bookingData: any) => {
@@ -180,7 +192,7 @@ export function ServiceCard({
 
     // Brief delay for UX then proceed to booking flow
     setTimeout(() => {
-      onBookNow?.(service.id);
+      onBookNow?.(service);
     }, 500);
   };
 
@@ -478,8 +490,8 @@ export function ServiceCard({
                     localStorage.setItem('armora_booking_details', JSON.stringify(bookingData));
 
                     setTimeout(() => {
-                      onSelect(service.id);
-                      onBookNow?.(service.id);
+                      onSelect(service);
+                      onBookNow?.(service);
                     }, 500);
                   }
                 }}
@@ -534,7 +546,10 @@ export function ServiceCard({
         ) : (
           <div className={styles.previewFooter}>
             <p className={styles.previewText}>
-              Create account to book this service
+              {userType === 'guest' || userType === null
+                ? 'Create account to book this service'
+                : 'Select to book this service'
+              }
             </p>
           </div>
         )}

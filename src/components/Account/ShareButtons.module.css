@@ -1,0 +1,187 @@
+/* Share Buttons Component - Mobile-First Design */
+
+.shareSection {
+  margin: var(--space-lg) 0;
+  padding: var(--space-md);
+  background: var(--bg-primary);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-subtle);
+}
+
+.shareTitle {
+  font-size: var(--font-base);
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0 0 var(--space-xs) 0;
+  text-align: center;
+}
+
+.shareSubtitle {
+  font-size: var(--font-sm);
+  color: var(--text-secondary);
+  margin: 0 0 var(--space-lg) 0;
+  text-align: center;
+  line-height: var(--line-relaxed);
+}
+
+.shareButtons {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-lg);
+}
+
+.shareButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-sm);
+  padding: var(--space-md);
+  border: none;
+  border-radius: var(--radius-md);
+  font-size: var(--font-base);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: inherit;
+  min-height: 48px; /* Touch target */
+}
+
+.shareIcon {
+  font-size: 1.2em;
+  line-height: 1;
+}
+
+.shareText {
+  flex: 1;
+}
+
+/* WhatsApp Button */
+.whatsappButton {
+  background: #25D366;
+  color: white;
+  border: 2px solid #25D366;
+}
+
+.whatsappButton:hover {
+  background: #22c55e;
+  border-color: #22c55e;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(37, 211, 102, 0.3);
+}
+
+/* SMS Button */
+.smsButton {
+  background: #007AFF;
+  color: white;
+  border: 2px solid #007AFF;
+}
+
+.smsButton:hover {
+  background: #0056b3;
+  border-color: #0056b3;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 122, 255, 0.3);
+}
+
+/* Copy Button */
+.copyButton {
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+  border: 2px solid var(--border-primary);
+}
+
+.copyButton:hover {
+  background: var(--accent);
+  color: var(--bg-primary);
+  border-color: var(--accent);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(255, 215, 0, 0.3);
+}
+
+/* Active/Pressed states */
+.shareButton:active {
+  transform: translateY(0);
+}
+
+/* Share Preview */
+.sharePreview {
+  background: var(--bg-secondary);
+  border-radius: var(--radius-sm);
+  padding: var(--space-md);
+  border-left: 4px solid var(--accent);
+}
+
+.previewLabel {
+  font-size: var(--font-xs);
+  font-weight: 600;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: var(--space-xs);
+}
+
+.previewText {
+  font-size: var(--font-sm);
+  color: var(--text-primary);
+  line-height: var(--line-relaxed);
+  font-style: italic;
+}
+
+/* Responsive Design */
+@media (min-width: 480px) {
+  .shareButtons {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 768px) {
+  .shareButtons {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .shareSection {
+    padding: var(--space-lg);
+  }
+}
+
+/* Success state for copy button */
+.copyButton.success {
+  background: #4CAF50;
+  color: white;
+  border-color: #4CAF50;
+}
+
+.copyButton.success:hover {
+  background: #45a049;
+  border-color: #45a049;
+}
+
+/* Loading state */
+.shareButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.shareButton:disabled:hover {
+  transform: none;
+  box-shadow: none;
+}
+
+/* Focus states for accessibility */
+.shareButton:focus {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* Animation for copy success */
+@keyframes successPulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+.copyButton.success {
+  animation: successPulse 0.3s ease-in-out;
+}

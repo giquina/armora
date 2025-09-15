@@ -3,10 +3,10 @@
 
 :root {
   /* MASTER WIDTH CONTROL - BORDER-SAFE FULL-WIDTH EXPERIENCE */
-  --content-max-width: calc(100vw - 12px); /* Safe gutters for borders */
-  --content-max-width-tablet: calc(100vw - 16px);
-  --content-max-width-desktop: calc(100vw - 20px);
-  --content-max-width-large: min(calc(100vw - 32px), 1800px);
+  --content-max-width: 680px; /* Fixed width to prevent viewport overflow */
+  --content-max-width-tablet: 680px;
+  --content-max-width-desktop: 680px;
+  --content-max-width-large: min(680px, 1800px);
   --content-padding-mobile: 6px; /* Safe gutters for border visibility */
   --content-padding-tablet: 12px; /* Minimal safe padding */
   --content-padding-desktop: 20px; /* Minimal safe padding */

@@ -125,7 +125,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
     // Skip questionnaire for returning users who already completed it (but not in development)
     if (view === 'questionnaire' && state.user?.hasCompletedQuestionnaire && !isDevelopment) {
       console.log('⚠️  Redirecting to dashboard - user has completed questionnaire');
-      dispatch({ type: 'SET_VIEW', payload: 'dashboard' });
+      dispatch({ type: 'SET_VIEW', payload: 'home' });
       return;
     }
     

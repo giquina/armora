@@ -1,0 +1,388 @@
+/* Services Page Styles */
+.servicesContainer {
+  max-width: var(--content-max-width);
+  margin: 0 auto;
+  padding: var(--space-md);
+  padding-bottom: calc(80px + var(--space-xl)); /* Bottom nav height + extra space */
+  background: var(--bg-primary);
+  min-height: 100vh;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: var(--space-xl);
+  padding-top: var(--space-lg); /* Add top spacing since no header */
+}
+
+.title {
+  font-size: var(--font-xxl);
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0 0 var(--space-sm) 0;
+  line-height: 1.2;
+}
+
+.subtitle {
+  font-size: var(--font-lg);
+  color: var(--text-secondary);
+  margin: 0;
+  font-weight: 400;
+}
+
+.servicesGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-lg);
+  margin-bottom: var(--space-xl);
+}
+
+@media (min-width: 768px) {
+  .servicesGrid {
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  }
+}
+
+.serviceCard {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: var(--space-lg);
+  text-align: center;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.serviceCard::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.serviceCard:hover {
+  border-color: var(--accent-primary);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(255, 215, 0, 0.15);
+}
+
+.serviceCard:hover::before {
+  opacity: 1;
+}
+
+.comingSoon {
+  opacity: 0.7;
+  background: var(--bg-tertiary);
+}
+
+.comingSoon:hover {
+  transform: none;
+  box-shadow: none;
+  border-color: var(--border-subtle);
+}
+
+.serviceIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+  color: var(--bg-primary);
+  margin: 0 auto var(--space-md) auto;
+}
+
+.comingSoon .serviceIcon {
+  background: var(--bg-quaternary);
+  color: var(--text-secondary);
+}
+
+.serviceContent {
+  margin-bottom: var(--space-lg);
+}
+
+.serviceTitle {
+  font-size: var(--font-xl);
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0 0 var(--space-sm) 0;
+  line-height: 1.3;
+}
+
+.serviceDescription {
+  font-size: var(--font-base);
+  color: var(--text-secondary);
+  margin: 0 0 var(--space-md) 0;
+  line-height: 1.5;
+}
+
+.servicePricing {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-xs);
+  margin-bottom: var(--space-md);
+}
+
+.priceLabel {
+  font-size: var(--font-sm);
+  color: var(--text-tertiary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.price {
+  font-size: var(--font-lg);
+  font-weight: 700;
+  color: var(--accent-primary);
+}
+
+.serviceButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-xs);
+  width: 100%;
+  padding: var(--space-md) var(--space-lg);
+  background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+  color: var(--bg-primary);
+  border: none;
+  border-radius: var(--radius-md);
+  font-size: var(--font-base);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  min-height: var(--touch-target);
+}
+
+.serviceButton:hover {
+  background: linear-gradient(135deg, var(--accent-secondary), var(--accent-primary));
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(255, 215, 0, 0.3);
+}
+
+.serviceButton:active {
+  transform: translateY(0);
+}
+
+.disabledButton {
+  background: var(--bg-quaternary);
+  color: var(--text-tertiary);
+  cursor: not-allowed;
+}
+
+.disabledButton:hover {
+  background: var(--bg-quaternary);
+  transform: none;
+  box-shadow: none;
+}
+
+.infoSection {
+  margin-top: var(--space-xl);
+}
+
+.infoCard {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: var(--space-lg);
+  text-align: center;
+}
+
+.infoTitle {
+  font-size: var(--font-lg);
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0 0 var(--space-md) 0;
+}
+
+.infoList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-sm);
+}
+
+@media (min-width: 480px) {
+  .infoList {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 768px) {
+  .infoList {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.infoList li {
+  font-size: var(--font-base);
+  color: var(--text-secondary);
+  padding: var(--space-sm);
+  background: var(--bg-tertiary);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-subtle);
+  transition: all 0.2s ease;
+}
+
+.infoList li:hover {
+  background: var(--bg-quaternary);
+  border-color: var(--accent-primary);
+}
+
+/* Section Headers */
+.sectionHeader {
+  text-align: center;
+  margin: var(--space-xl) 0 var(--space-lg) 0;
+  padding: var(--space-lg) 0;
+}
+
+.sectionTitle {
+  font-size: var(--font-xl);
+  font-weight: 700;
+  color: var(--accent-primary); /* Fallback color for all browsers */
+  margin: 0 0 var(--space-sm) 0;
+  line-height: 1.2;
+  background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Fallback for browsers that don't support background-clip: text */
+@supports not (-webkit-background-clip: text) {
+  .sectionTitle {
+    background: none;
+    color: var(--accent-primary);
+  }
+}
+
+.sectionSubtitle {
+  font-size: var(--font-base);
+  color: var(--text-secondary);
+  margin: 0;
+  font-weight: 400;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* Service Header with Badge */
+.serviceHeader {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-md);
+  flex-wrap: wrap;
+}
+
+.serviceBadge {
+  display: inline-flex;
+  align-items: center;
+  padding: var(--space-xs) var(--space-sm);
+  background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+  color: var(--bg-primary);
+  font-size: var(--font-xs);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border-radius: var(--radius-sm);
+  box-shadow: 0 2px 8px rgba(255, 215, 0, 0.2);
+}
+
+/* Service Features List */
+.serviceFeatures {
+  text-align: left;
+  margin: var(--space-md) 0;
+}
+
+.feature {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  padding: var(--space-xs) 0;
+  font-size: var(--font-sm);
+  color: var(--text-secondary);
+  line-height: 1.4;
+}
+
+.feature::before {
+  content: '';
+  width: 4px;
+  height: 4px;
+  background: var(--accent-primary);
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+/* Premium Card Styling */
+.premiumCard {
+  position: relative;
+  background: linear-gradient(135deg, rgba(255, 215, 0, 0.05), rgba(255, 215, 0, 0.02));
+  border: 2px solid var(--accent-primary);
+}
+
+.premiumCard::before {
+  opacity: 1;
+  background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
+}
+
+.premiumCard .serviceBadge {
+  background: linear-gradient(135deg, #B8860B, var(--accent-primary));
+  animation: premiumPulse 2s ease-in-out infinite;
+}
+
+@keyframes premiumPulse {
+  0%, 100% {
+    box-shadow: 0 2px 8px rgba(255, 215, 0, 0.2);
+  }
+  50% {
+    box-shadow: 0 4px 16px rgba(255, 215, 0, 0.4);
+  }
+}
+
+/* Mobile optimizations */
+@media (max-width: 480px) {
+  .servicesContainer {
+    padding: var(--space-sm);
+  }
+
+  .serviceCard {
+    padding: var(--space-md);
+  }
+
+  .serviceIcon {
+    width: 56px;
+    height: 56px;
+  }
+
+  .title {
+    font-size: var(--font-xl);
+  }
+
+  .subtitle {
+    font-size: var(--font-base);
+  }
+
+  .sectionTitle {
+    font-size: var(--font-lg);
+  }
+
+  .serviceHeader {
+    flex-direction: column;
+    gap: var(--space-xs);
+  }
+
+  .serviceBadge {
+    font-size: var(--font-xxs);
+    padding: 2px var(--space-xs);
+  }
+}

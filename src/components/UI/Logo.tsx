@@ -52,11 +52,11 @@ export function Logo({
 
     // If guest user, go to dashboard with limited features
     if (user?.userType === 'guest') {
-      return 'dashboard';
+      return 'home';
     }
 
     // Registered user with complete profile, go to full dashboard
-    return 'dashboard';
+    return 'home';
   };
 
   const handleLogoClick = () => {

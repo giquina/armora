@@ -19,7 +19,7 @@ export interface RecommendationData {
   profile: UserProfile;
   timeBasedMessage: string;
   availabilityInfo: {
-    driversAvailable: number;
+    officersAvailable: number;
     estimatedArrival: string;
     isHighDemand: boolean;
   };
@@ -41,7 +41,7 @@ export function analyzeUserProfile(questionnaireData: PersonalizationData | null
       subtitle: 'Specialized for Medical Professionals',
       description: 'Designed for healthcare workers who understand the importance of reliability, discretion, and safety protocols.',
       benefits: [
-        'Hospital protocol expertise - our drivers understand medical facility access',
+        'Hospital protocol expertise - our CP Officers understand medical facility access',
         '24/7 availability for shift patterns and urgent medical calls',
         'Patient confidentiality compliance training',
         'Medical equipment transport capability',
@@ -273,8 +273,8 @@ export function generateAvailabilityInfo() {
 
   // Use deterministic values based on time instead of Math.random()
   const timeBasedVariation = hour % 3; // 0, 1, or 2 based on hour
-  const driversAvailable = 3 + timeBasedVariation;
-  const isHighDemand = isPeakHour || driversAvailable <= 3;
+  const officersAvailable = 3 + timeBasedVariation;
+  const isHighDemand = isPeakHour || officersAvailable <= 3;
 
   // Use deterministic arrival times based on hour and demand
   const baseArrival = isHighDemand ? 7 : 4; // Base minutes
@@ -282,7 +282,7 @@ export function generateAvailabilityInfo() {
   const estimatedArrival = `${baseArrival + timeVariation} minutes`;
 
   return {
-    driversAvailable,
+    officersAvailable,
     estimatedArrival,
     isHighDemand
   };

@@ -52,9 +52,40 @@ export function PaymentIntegration({
     }
   ]);
 
+  // Credit system state
+  const [userCredits, setUserCredits] = useState<number>(0);
+  const [creditsToApply, setCreditsToApply] = useState<number>(0);
+  const [applyCredits, setApplyCredits] = useState<boolean>(true);
+
   const { service, pickup, destination, estimatedDistance, estimatedDuration, estimatedCost, user } = bookingData;
   const hasReward = user?.hasUnlockedReward && user?.userType !== 'guest';
-  const finalCost = hasReward ? Math.round(estimatedCost * 0.5) : estimatedCost;
+
+  // Calculate cost with both rewards and credits
+  let baseCost = hasReward ? Math.round(estimatedCost * 0.5) : estimatedCost;
+  const maxCreditsAllowed = Math.floor(baseCost * 0.5); // Maximum 50% of ride can be paid with credits
+  const actualCreditsToApply = applyCredits ? Math.min(creditsToApply, maxCreditsAllowed, userCredits) : 0;
+  const finalCost = Math.max(baseCost - actualCreditsToApply, 0);
+
+  // Load user credits
+  useEffect(() => {
+    if (user) {
+      const storageKey = `armora_credits_${user.id}`;
+      const savedCredits = localStorage.getItem(storageKey);
+      if (savedCredits) {
+        try {
+          const creditsData = JSON.parse(savedCredits);
+          setUserCredits(creditsData.available || 0);
+
+          // Auto-set credits to apply to maximum allowed
+          const maxAllowed = Math.floor(baseCost * 0.5);
+          const suggestedCredits = Math.min(creditsData.available || 0, maxAllowed);
+          setCreditsToApply(suggestedCredits);
+        } catch (error) {
+          console.warn('Failed to load user credits:', error);
+        }
+      }
+    }
+  }, [user, baseCost]);
 
   // Initialize payment flow
   useEffect(() => {
@@ -209,16 +240,31 @@ export function PaymentIntegration({
         <div className={styles.summaryCard}>
           <div className={styles.serviceHeader}>
             <h2 className={styles.serviceName}>{service.name}</h2>
-            <div className={styles.servicePrice}>
-              {hasReward ? (
-                <>
-                  <span className={styles.discountedPrice}>£{finalCost}</span>
-                  <span className={styles.originalPrice}>£{estimatedCost}</span>
-                  <span className={styles.rewardBadge}>50% OFF</span>
-                </>
-              ) : (
-                <span className={styles.price}>£{estimatedCost}</span>
+            <div className={styles.priceBreakdown}>
+              <div className={styles.priceRow}>
+                <span className={styles.priceLabel}>Ride Total:</span>
+                <span className={styles.priceValue}>£{estimatedCost}</span>
+              </div>
+
+              {hasReward && (
+                <div className={styles.priceRow}>
+                  <span className={styles.priceLabel}>Reward Discount (50%):</span>
+                  <span className={styles.discountValue}>-£{estimatedCost - baseCost}</span>
+                </div>
               )}
+
+              {actualCreditsToApply > 0 && (
+                <div className={styles.priceRow}>
+                  <span className={styles.priceLabel}>Armora Credits:</span>
+                  <span className={styles.creditValue}>-£{actualCreditsToApply}</span>
+                </div>
+              )}
+
+              <div className={styles.priceDivider}></div>
+              <div className={styles.priceRow}>
+                <span className={styles.priceLabelFinal}>You Pay:</span>
+                <span className={styles.priceValueFinal}>£{finalCost}</span>
+              </div>
             </div>
           </div>
 
@@ -263,6 +309,59 @@ export function PaymentIntegration({
             </div>
           </div>
         </div>
+
+        {/* Credit Controls */}
+        {userCredits > 0 && (
+          <div className={styles.creditSection}>
+            <h3 className={styles.sectionTitle}>
+              🪙 Apply Armora Credits
+            </h3>
+            <div className={styles.creditSummary}>
+              <p className={styles.creditInfo}>
+                You have <strong>£{userCredits}</strong> in credits available.
+                Maximum £{maxCreditsAllowed} can be applied to this ride (50% limit).
+              </p>
+            </div>
+
+            <label className={styles.checkboxLabel}>
+              <input
+                type="checkbox"
+                checked={applyCredits}
+                onChange={(e) => setApplyCredits(e.target.checked)}
+                className={styles.checkbox}
+              />
+              <span className={styles.checkboxText}>
+                Apply £{actualCreditsToApply} credits to this booking
+              </span>
+            </label>
+
+            {applyCredits && userCredits > maxCreditsAllowed && (
+              <div className={styles.creditSliderContainer}>
+                <label className={styles.sliderLabel}>
+                  Credits to apply: £{creditsToApply}
+                </label>
+                <input
+                  type="range"
+                  min="0"
+                  max={Math.min(userCredits, maxCreditsAllowed)}
+                  value={creditsToApply}
+                  onChange={(e) => setCreditsToApply(Number(e.target.value))}
+                  className={styles.creditSlider}
+                />
+                <div className={styles.sliderMarks}>
+                  <span>£0</span>
+                  <span>£{Math.min(userCredits, maxCreditsAllowed)}</span>
+                </div>
+              </div>
+            )}
+
+            {userCredits > 0 && (
+              <div className={styles.creditNote}>
+                💡 Remaining credits after this booking: £{userCredits - actualCreditsToApply}
+              </div>
+            )}
+          </div>
+        )}
 
         {/* Additional Requirements */}
         <div className={styles.requirementsSection}>

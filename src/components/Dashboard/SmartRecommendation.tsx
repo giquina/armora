@@ -102,8 +102,8 @@ export const SmartRecommendation: React.FC<SmartRecommendationProps> = ({
       <div className={styles.returningUserRec}>
         <div className={styles.quickRec}>
           <span className={styles.checkmark}>✅</span>
-          <strong>Armora Secure</strong> - Your trusted security transport
-          <span className={styles.availability}> • {recommendation.availabilityInfo.driversAvailable} certified drivers nearby • Available now</span>
+          <strong>Standard Protection</strong> - Your trusted security transport
+          <span className={styles.availability}> • 2 min away • Available now</span>
           <button
             className={styles.quickBookBtn}
             onClick={() => onServiceSelect('standard')}
@@ -115,7 +115,7 @@ export const SmartRecommendation: React.FC<SmartRecommendationProps> = ({
     );
   }
 
-  // Enhanced version for first-time users with personalized content
+  // Enhanced version for first-time users with streamlined content
   return (
     <div className={styles.recommendationCard}>
       <div className={styles.header}>
@@ -124,33 +124,32 @@ export const SmartRecommendation: React.FC<SmartRecommendationProps> = ({
           <span className={styles.separator}>•</span>
           <span className={styles.recommendedLabel}>RECOMMENDED</span>
         </div>
-        <h3 className={styles.serviceName}>{recommendedService?.name} suits your security profile</h3>
+        <h3 className={styles.serviceName}>Standard Protection</h3>
       </div>
 
       <div className={styles.compactContent}>
         <div className={styles.contentLeft}>
           <div className={styles.recommendationExplanation}>
             <p className={styles.explanationText}>
-              Based on your questionnaire responses, we recommend <strong>{recommendedService?.name}</strong> for your security needs.
-              Our <strong>SIA Level 2 certified drivers</strong> provide discreet, professional protection with <strong>vetted security professionals</strong> and <strong>flexible booking options</strong>,
-              ensuring peace of mind for your daily commutes and special occasions.
+              Based on your security profile, we recommend Standard Protection with
+              SIA Level 2 certified officers for reliable, discreet transportation
+              and flexible booking options.
             </p>
           </div>
 
-          {recommendation.availabilityInfo.isHighDemand && (
-            <div className={styles.urgencyBanner}>
-              <span className={styles.urgencyIcon}>⚡</span>
-              High demand period - secure your professional driver now
-            </div>
-          )}
+          <div className={styles.benefitsList}>
+            <div className={styles.benefit}>• SIA Level 2 certified officers</div>
+            <div className={styles.benefit}>• Discreet professional transport</div>
+            <div className={styles.benefit}>• Flexible booking options</div>
+          </div>
         </div>
 
         <div className={styles.contentRight}>
           <div className={styles.quickStats}>
             <span className={styles.stat}>⭐ 4.8 Rating</span>
             <span className={styles.stat}>👥 1,000+ Clients</span>
-            <span className={styles.stat}>📍 {recommendation.availabilityInfo.driversAvailable} Nearby</span>
-            <span className={styles.stat}>⚡ Available Now</span>
+            <span className={styles.stat}>⚡ 2 min away</span>
+            <span className={styles.stat}>✅ Available Now</span>
           </div>
 
           <div className={styles.ctaSection}>
@@ -158,8 +157,7 @@ export const SmartRecommendation: React.FC<SmartRecommendationProps> = ({
               className={styles.selectServiceBtn}
               onClick={() => onServiceSelect(recommendedService?.id || 'standard')}
             >
-              <span className={styles.ctaIcon}>🛡️</span>
-              Select {recommendedService?.name}
+              REQUEST ESCORT
             </button>
           </div>
         </div>
@@ -167,3 +165,5 @@ export const SmartRecommendation: React.FC<SmartRecommendationProps> = ({
     </div>
   );
 };
+
+export default SmartRecommendation;
