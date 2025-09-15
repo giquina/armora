@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { ServiceLevel, User, PersonalizationData } from '../../types';
 import { generateRecommendation } from '../../utils/recommendationEngine';
 import styles from './SmartRecommendation.module.css';
@@ -17,6 +17,7 @@ interface SmartRecommendationProps {
   onServiceSelect: (serviceId: string) => void;
 }
 
+// Fixed CSS variables for border visibility + simplified content
 export const SmartRecommendation: React.FC<SmartRecommendationProps> = ({
   services,
   user,
@@ -89,8 +90,11 @@ export const SmartRecommendation: React.FC<SmartRecommendationProps> = ({
   const recommendedService = getRecommendedService();
   const displayType = getDisplayType();
 
-  // Generate personalized recommendation
-  const recommendation = generateRecommendation(questionnaireData, user, services);
+  // Generate personalized recommendation - MEMOIZED to prevent re-renders
+  const recommendation = useMemo(() =>
+    generateRecommendation(questionnaireData, user, services),
+    [questionnaireData, user, services]
+  );
 
   // Minimal version for returning users - optimized for desktop
   if (displayType === 'returning') {
@@ -120,36 +124,20 @@ export const SmartRecommendation: React.FC<SmartRecommendationProps> = ({
           <span className={styles.matchLabel}>match</span>
         </div>
         <div className={styles.headerContent}>
-          <span className={styles.badge}>Personalized for You</span>
-          <h3>Recommended: {recommendedService?.name}</h3>
-          <p className={styles.headerSubtitle}>Premium security transport with certified professionals</p>
+          <span className={styles.badge}>Recommended</span>
+          <h3>{recommendedService?.name}</h3>
+          <p className={styles.headerSubtitle}>Based on your profile</p>
         </div>
       </div>
 
       <div className={styles.compactContent}>
         <div className={styles.contentLeft}>
-          <div className={styles.personalizedMessage}>
-            <span className={styles.messageIcon}>💡</span>
-            <span className={styles.messageText}>{recommendation.profile.personalizedMessage}</span>
-          </div>
-
-          <div className={styles.mainMessage}>
-            Professional security transport designed for safety, reliability, and peace of mind.
-          </div>
-
-          <div className={styles.keyBenefits}>
-            <div className={styles.benefitItem}>
-              <span className={styles.benefitIcon}>🛡️</span>
-              <span className={styles.benefitText}>Advanced Security Trained</span>
-            </div>
-            <div className={styles.benefitItem}>
-              <span className={styles.benefitIcon}>📍</span>
-              <span className={styles.benefitText}>Real-time Tracking</span>
-            </div>
-            <div className={styles.benefitItem}>
-              <span className={styles.benefitIcon}>🚨</span>
-              <span className={styles.benefitText}>24/7 Support</span>
-            </div>
+          <div className={styles.recommendationExplanation}>
+            <p className={styles.explanationText}>
+              Based on your questionnaire responses, we recommend <strong>{recommendedService?.name}</strong> for your security needs.
+              Our <strong>SIA Level 2 certified drivers</strong> provide professional protection with <strong>live GPS tracking</strong> and <strong>24/7 emergency support</strong>,
+              ensuring your safety at an accessible <strong>{recommendedService?.price}</strong> rate.
+            </p>
           </div>
 
           {recommendation.availabilityInfo.isHighDemand && (
@@ -176,7 +164,6 @@ export const SmartRecommendation: React.FC<SmartRecommendationProps> = ({
               <span className={styles.ctaIcon}>🛡️</span>
               Select {recommendedService?.name}
             </button>
-            <p className={styles.ctaSubtext}>Continue to customize your secure journey</p>
           </div>
         </div>
       </div>

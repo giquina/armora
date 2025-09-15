@@ -1,6 +1,6 @@
 // Armora Security Transport - Marketing Banner Component
 
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { useApp } from '../../contexts/AppContext';
 import styles from './MarketingBanner.module.css';
 
@@ -58,6 +58,10 @@ export function MarketingBanner({
   const [showMoneyParticles, setShowMoneyParticles] = useState(false);
   const [particles, setParticles] = useState<Array<{id: number; left: string; delay: number}>>([]);
 
+  // Refs to prevent unnecessary re-renders from timers
+  const animationTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const particleTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+
   // Load banner state from localStorage
   useEffect(() => {
     const savedDismissCount = parseInt(localStorage.getItem('marketingBannerDismissCount') || '0');
@@ -73,21 +77,26 @@ export function MarketingBanner({
   }, []);
 
 
-  // Generate floating money particles
+  // Generate floating money particles - STABLE to prevent re-renders
   const createMoneyParticles = useCallback(() => {
-    const newParticles = [];
-    for (let i = 0; i < 5; i++) {
-      newParticles.push({
-        id: Date.now() + i,
-        left: Math.random() * 80 + 10 + '%', // Random position between 10-90%
-        delay: i * 200
-      });
-    }
+    // Use deterministic positions instead of Math.random()
+    const positions = ['15%', '30%', '45%', '60%', '75%'];
+    const newParticles = positions.map((pos, i) => ({
+      id: Date.now() + i,
+      left: pos,
+      delay: i * 200
+    }));
+
     setParticles(newParticles);
     setShowMoneyParticles(true);
 
+    // Clear existing timeout
+    if (particleTimeoutRef.current) {
+      clearTimeout(particleTimeoutRef.current);
+    }
+
     // Clear particles after animation
-    setTimeout(() => {
+    particleTimeoutRef.current = setTimeout(() => {
       setShowMoneyParticles(false);
       setParticles([]);
     }, 3000);
@@ -113,8 +122,13 @@ export function MarketingBanner({
       if (progress < 1) {
         requestAnimationFrame(update);
       } else {
+        // Clear existing timeout
+        if (animationTimeoutRef.current) {
+          clearTimeout(animationTimeoutRef.current);
+        }
+
         // Add golden glow pulse when complete
-        setTimeout(() => {
+        animationTimeoutRef.current = setTimeout(() => {
           setBannerState(prev => ({ ...prev, showAnimation: false }));
           // Generate money particles effect
           createMoneyParticles();
@@ -196,21 +210,26 @@ export function MarketingBanner({
     }
   }, [bannerState.isVisible, bannerState.dismissCount, bannerState.lastDismissed, bannerState.hasStartedTrial]);
 
-  // Slowly increment member count occasionally
+  // Cleanup timers on unmount
+  useEffect(() => {
+    return () => {
+      if (animationTimeoutRef.current) {
+        clearTimeout(animationTimeoutRef.current);
+      }
+      if (particleTimeoutRef.current) {
+        clearTimeout(particleTimeoutRef.current);
+      }
+    };
+  }, []);
+
+  // Member count increment - DISABLED to prevent constant re-renders
+  // Real-time member updates would come from server-sent events or WebSocket in production
   useEffect(() => {
     if (!bannerState.isVisible) return;
 
-    const memberIncrement = setInterval(() => {
-      const randomDelay = Math.random() * 45000 + 45000; // 45-90 seconds
-      setTimeout(() => {
-        setBannerState(prev => ({
-          ...prev,
-          currentMemberCount: prev.currentMemberCount + 1
-        }));
-      }, randomDelay);
-    }, 60000); // Check every minute
-
-    return () => clearInterval(memberIncrement);
+    // Static member count - no automatic increments to prevent flashing
+    // In production, this would update via real-time data connection
+    return () => {}; // No cleanup needed for disabled timer
   }, [bannerState.isVisible]);
 
   // Handle banner dismissal

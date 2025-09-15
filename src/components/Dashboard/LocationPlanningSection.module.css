@@ -333,3 +333,139 @@
     border-width: 2px;
   }
 }
+
+/* Completed input state with visual feedback */
+.inputCompleted {
+  border-color: #4CAF50 !important;
+  background: rgba(76, 175, 80, 0.05);
+  position: relative;
+}
+
+.inputCompleted::after {
+  content: '✓';
+  position: absolute;
+  right: 50px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #4CAF50;
+  font-weight: bold;
+  font-size: 1.2rem;
+  pointer-events: none;
+}
+
+/* Proceed to Services Section */
+.proceedSection {
+  margin-top: 1.5rem;
+  text-align: center;
+  padding: 1rem;
+  background: rgba(255, 215, 0, 0.08);
+  border: 1px solid rgba(255, 215, 0, 0.3);
+  border-radius: 12px;
+  animation: slideInUp 0.4s ease-out;
+}
+
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.proceedButton {
+  background: linear-gradient(90deg, var(--armora-gold), #FFA500);
+  color: var(--armora-dark);
+  border: none;
+  padding: 1rem 2rem;
+  border-radius: 12px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: var(--touch-target);
+  box-shadow: 0 4px 16px rgba(255, 215, 0, 0.3);
+  animation: pulse 2s infinite;
+  position: relative;
+  overflow: hidden;
+}
+
+.proceedButton:hover:not(:disabled) {
+  background: linear-gradient(90deg, #FFA500, var(--armora-gold));
+  transform: translateY(-2px);
+  box-shadow: 0 6px 24px rgba(255, 215, 0, 0.4);
+  animation: none;
+}
+
+.proceedButton:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.proceedButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  animation: none;
+}
+
+.proceedIcon {
+  font-size: 1.2rem;
+}
+
+.proceedArrow {
+  font-size: 1.2rem;
+  transition: transform 0.3s ease;
+}
+
+.proceedButton:hover .proceedArrow {
+  transform: translateX(4px);
+}
+
+.proceedHint {
+  margin: 0.75rem 0 0 0;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  font-style: italic;
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 4px 16px rgba(255, 215, 0, 0.3);
+  }
+  50% {
+    box-shadow: 0 4px 20px rgba(255, 215, 0, 0.5);
+  }
+  100% {
+    box-shadow: 0 4px 16px rgba(255, 215, 0, 0.3);
+  }
+}
+
+/* Mobile optimizations for proceed section */
+@media (max-width: 768px) {
+  .proceedButton {
+    width: 100%;
+    padding: 1.2rem 1.5rem;
+    font-size: 1rem;
+  }
+
+  .proceedSection {
+    margin-top: 1.25rem;
+    padding: 1.25rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .proceedButton {
+    padding: 1rem;
+    font-size: 0.95rem;
+  }
+
+  .proceedHint {
+    font-size: 0.8rem;
+  }
+}

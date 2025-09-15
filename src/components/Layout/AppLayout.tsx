@@ -108,14 +108,9 @@ export function AppLayout({
                   className={styles.headerLogo}
                 />
                 <div className={styles.brandInfo}>
+                  <div className={styles.brandName}>ARMORA</div>
                   <h1 className={styles.headerTitle}>
-                    {headerInfo.title.includes('ARMORA') ? (
-                      <BrandText size="small" className={styles.brandInTitle}>
-                        {headerInfo.title}
-                      </BrandText>
-                    ) : (
-                      headerInfo.title
-                    )}
+                    {headerInfo.title}
                   </h1>
                   {headerInfo.subtitle && (
                     <p className={styles.headerSubtitle}>
@@ -140,15 +135,46 @@ export function AppLayout({
             {/* Right Section - User Info and Actions */}
             <div className={styles.headerRight}>
               {user && (
-                <div className={styles.userInfo}>
-                  <span className={styles.welcomeText}>
-                    Welcome, {getDisplayName(user)}
-                  </span>
-                  <span className={styles.userType}>
-                    {user.userType === 'registered' ? 'Premium Member' :
-                     user.userType === 'google' ? 'Premium Member' : 'Guest'}
-                  </span>
-                </div>
+                <>
+                  <div className={styles.userInfo}>
+                    <span className={styles.welcomeText}>
+                      Welcome, {getDisplayName(user)}
+                    </span>
+                    <span className={styles.userType}>
+                      {user.userType === 'registered' ? 'Premium Member' :
+                       user.userType === 'google' ? 'Premium Member' : 'Guest'}
+                    </span>
+                  </div>
+
+                  {/* Mobile Quick Actions */}
+                  <div className={styles.mobileActions}>
+                    {currentView === 'dashboard' && (
+                      <button
+                        className={styles.quickActionButton}
+                        onClick={() => navigateToView('booking')}
+                        aria-label="Quick book"
+                        title="Quick book"
+                      >
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                          <path d="M12 5v14"/>
+                          <path d="M5 12h14"/>
+                        </svg>
+                      </button>
+                    )}
+
+                    <button
+                      className={styles.quickActionButton}
+                      onClick={() => navigateToView('profile')}
+                      aria-label="Profile menu"
+                      title="Profile menu"
+                    >
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                        <circle cx="12" cy="7" r="4"/>
+                      </svg>
+                    </button>
+                  </div>
+                </>
               )}
 
               {headerActions && (

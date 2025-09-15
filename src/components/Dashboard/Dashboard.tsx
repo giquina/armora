@@ -25,9 +25,10 @@ const convertToServiceLevel = (): ServiceLevel[] => {
     hourlyRate: service.hourlyRate,
     // Vehicle and capacity data - standardized for all services
     vehicle: service.id === 'standard' ? 'Nissan Leaf EV' :
-             service.id === 'executive' ? 'BMW 5 Series' : 'Armored BMW X5',
-    capacity: '4 passengers',
-    driverQualification: service.id === 'standard' ? 'SIA Level 2 Security Certified' :
+             service.id === 'executive' ? 'BMW 5 Series' :
+             service.id === 'client-vehicle' ? 'Your Personal Vehicle' : 'Armored BMW X5',
+    capacity: service.id === 'client-vehicle' ? 'Any vehicle size' : '4 passengers',
+    driverQualification: service.id === 'standard' || service.id === 'client-vehicle' ? 'SIA Level 2 Security Certified' :
                         service.id === 'executive' ? 'SIA Level 3 Security Certified' : 'Special Forces Trained',
     description: service.description,
     features: service.features.map(f => f.text) // Convert from {icon, text} to string array
@@ -39,7 +40,7 @@ const ARMORA_SERVICES: ServiceLevel[] = convertToServiceLevel();
 export function Dashboard() {
   const { state, navigateToView } = useApp();
   const { user, questionnaireData, deviceCapabilities } = state;
-  const [selectedService, setLocalSelectedService] = useState<'standard' | 'executive' | 'shadow' | null>(null);
+  const [selectedService, setLocalSelectedService] = useState<'standard' | 'executive' | 'shadow' | 'client-vehicle' | null>(null);
   const [showRewardBanner, setShowRewardBanner] = useState(false);
   const [isNavigating, setIsNavigating] = useState(false);
   const [showScheduling, setShowScheduling] = useState(false);
@@ -86,16 +87,21 @@ export function Dashboard() {
     setShowRewardBanner(Boolean(isEligible && !hasSeenBanner));
   }, [user]);
 
-  const handleServiceSelect = (serviceId: 'standard' | 'executive' | 'shadow') => {
+  const handleServiceSelect = (serviceId: 'standard' | 'executive' | 'shadow' | 'client-vehicle') => {
     setLocalSelectedService(serviceId);
     // Store selected service for booking flow
     localStorage.setItem('armora_selected_service', serviceId);
     // Reset scheduling state when changing services
     setShowScheduling(false);
     setScheduledDateTime('');
+
+    // Auto-scroll to booking confirmation after service selection
+    setTimeout(() => {
+      scrollToSection('booking-confirmation');
+    }, 300);
   };
 
-  const handleScheduleSelect = (serviceId: 'standard' | 'executive' | 'shadow') => {
+  const handleScheduleSelect = (serviceId: 'standard' | 'executive' | 'shadow' | 'client-vehicle') => {
     // Set the selected service first
     setLocalSelectedService(serviceId);
     localStorage.setItem('armora_selected_service', serviceId);
@@ -109,7 +115,7 @@ export function Dashboard() {
     console.log('[Analytics] Scheduling modal opened', { serviceId, ts: Date.now() });
   };
 
-  const handleDirectBooking = (serviceId: 'standard' | 'executive' | 'shadow') => {
+  const handleDirectBooking = (serviceId: 'standard' | 'executive' | 'shadow' | 'client-vehicle') => {
     // Set the selected service first
     setLocalSelectedService(serviceId);
     localStorage.setItem('armora_selected_service', serviceId);
@@ -174,11 +180,16 @@ export function Dashboard() {
 
   const handleServiceSelection = (serviceId: string) => {
     // Set selected service and navigate directly to service focus
-    setLocalSelectedService(serviceId as 'standard' | 'executive' | 'shadow');
+    setLocalSelectedService(serviceId as 'standard' | 'executive' | 'shadow' | 'client-vehicle');
     setFocusedServiceId(serviceId);
 
     // Store for booking flow
     localStorage.setItem('armora_selected_service', serviceId);
+
+    // Auto-scroll to booking confirmation after service selection
+    setTimeout(() => {
+      scrollToSection('booking-confirmation');
+    }, 300);
 
     // Analytics
     console.log('[Analytics] Service selected from recommendation', {
@@ -186,6 +197,28 @@ export function Dashboard() {
       timestamp: Date.now(),
       userType: user?.userType
     });
+  };
+
+  // Smooth scroll to next section with header offset
+  const scrollToSection = (elementId: string) => {
+    const element = document.getElementById(elementId);
+    if (element) {
+      const headerOffset = 100; // Account for fixed header
+      const elementPosition = element.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: "smooth"
+      });
+    }
+  };
+
+  // Handle location completion and auto-scroll to services
+  const handleLocationCompletion = () => {
+    setTimeout(() => {
+      scrollToSection('service-selection');
+    }, 500); // Small delay for better UX
   };
 
   const handleLocationSet = (location: LocationSection) => {
@@ -235,6 +268,10 @@ export function Dashboard() {
     if (questionnaireBased === 'armora-shadow') return 'shadow';
     if (questionnaireBased === 'armora-executive') return 'executive';
     if (questionnaireBased === 'armora-standard' || questionnaireBased === 'armora-secure') return 'standard';
+    if (questionnaireBased === 'armora-client-vehicle') return 'client-vehicle';
+
+    // For users who prefer cost savings, occasionally recommend client vehicle
+    // This would be based on budget preferences in real implementation
 
     // Default fallback to standard if no clear recommendation
     return 'standard';
@@ -381,14 +418,17 @@ export function Dashboard() {
 
       {/* Location Planning Section - NEW LOCATION-FIRST FLOW */}
       {showLocationFirst && (
-        <LocationPlanningSection
-          onLocationSet={handleLocationSet}
-          isDisabled={isNavigating}
-        />
+        <div id="location-input">
+          <LocationPlanningSection
+            onLocationSet={handleLocationSet}
+            onCompletionScroll={handleLocationCompletion}
+            isDisabled={isNavigating}
+          />
+        </div>
       )}
 
       {/* Service Selection */}
-      <div className={styles.servicesSection}>
+      <div id="service-selection" className={styles.servicesSection}>
         <div className={styles.sectionHeader}>
           <h2 className={styles.sectionTitle}>
             {focusedServiceId
@@ -469,8 +509,49 @@ export function Dashboard() {
         />
       </ResponsiveModal>
 
-      {/* Personalized Recommendation moved above - this section removed */}
-
+      {/* Booking Confirmation Section - Shows when service is selected */}
+      {selectedService && locationData && (
+        <div id="booking-confirmation" className={styles.bookingConfirmation}>
+          <div className={styles.confirmationCard}>
+            <h3 className={styles.confirmationTitle}>🎯 Ready to Book</h3>
+            <div className={styles.confirmationDetails}>
+              <div className={styles.confirmationItem}>
+                <span className={styles.confirmationLabel}>Service:</span>
+                <span className={styles.confirmationValue}>
+                  {ARMORA_SERVICES.find(s => s.id === selectedService)?.name}
+                </span>
+              </div>
+              <div className={styles.confirmationItem}>
+                <span className={styles.confirmationLabel}>Route:</span>
+                <span className={styles.confirmationValue}>
+                  {locationData.pickupLocation.address} → {locationData.dropoffLocation.address}
+                </span>
+              </div>
+              {locationData.journeyEstimate && (
+                <div className={styles.confirmationItem}>
+                  <span className={styles.confirmationLabel}>Estimate:</span>
+                  <span className={styles.confirmationValue}>
+                    {locationData.journeyEstimate.distance} • {locationData.journeyEstimate.duration}
+                  </span>
+                </div>
+              )}
+            </div>
+            <div className={styles.confirmationActions}>
+              <button
+                className={styles.bookNowButton}
+                onClick={handleBookNow}
+                disabled={isNavigating}
+              >
+                {isNavigating ? (
+                  <LoadingSpinner size="small" variant="light" text="Processing..." inline />
+                ) : (
+                  <>🚀 Complete Booking</>
+                )}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Marketing Banner for Non-Members */}
       <MarketingBanner 

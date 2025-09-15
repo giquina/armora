@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { LocationSection } from '../../types';
 import { LoadingSpinner } from '../UI/LoadingSpinner';
 import styles from './LocationPlanningSection.module.css';
@@ -6,9 +6,10 @@ import styles from './LocationPlanningSection.module.css';
 interface LocationPlanningSectionProps {
   onLocationSet: (locationData: LocationSection) => void;
   isDisabled?: boolean;
+  onCompletionScroll?: () => void; // Callback to scroll to next section
 }
 
-export function LocationPlanningSection({ onLocationSet, isDisabled = false }: LocationPlanningSectionProps) {
+export function LocationPlanningSection({ onLocationSet, isDisabled = false, onCompletionScroll }: LocationPlanningSectionProps) {
   const [pickupAddress, setPickupAddress] = useState('');
   const [dropoffAddress, setDropoffAddress] = useState('');
   const [useCurrentLocation, setUseCurrentLocation] = useState(false);
@@ -16,6 +17,11 @@ export function LocationPlanningSection({ onLocationSet, isDisabled = false }: L
   const [isCalculatingJourney, setIsCalculatingJourney] = useState(false);
   const [journeyEstimate, setJourneyEstimate] = useState<LocationSection['journeyEstimate'] | null>(null);
   const [errors, setErrors] = useState<{ pickup?: string; dropoff?: string; geolocation?: string }>({});
+  const [showProceedButton, setShowProceedButton] = useState(false);
+
+  // Refs for auto-focus and scroll functionality
+  const pickupInputRef = useRef<HTMLInputElement>(null);
+  const dropoffInputRef = useRef<HTMLInputElement>(null);
 
   // Handle current location request
   const handleUseCurrentLocation = async () => {
@@ -42,6 +48,11 @@ export function LocationPlanningSection({ onLocationSet, isDisabled = false }: L
       const mockAddress = await reverseGeocode(latitude, longitude);
       setPickupAddress(mockAddress);
       setUseCurrentLocation(true);
+
+      // Auto-focus to destination field after pickup is set
+      setTimeout(() => {
+        dropoffInputRef.current?.focus();
+      }, 500);
 
     } catch (error) {
       let errorMessage = 'Unable to get your location';
@@ -117,6 +128,9 @@ export function LocationPlanningSection({ onLocationSet, isDisabled = false }: L
 
       onLocationSet(locationData);
 
+      // Show proceed button after journey is calculated
+      setShowProceedButton(true);
+
     } catch (error) {
       console.error('Journey calculation failed:', error);
     } finally {
@@ -140,6 +154,46 @@ export function LocationPlanningSection({ onLocationSet, isDisabled = false }: L
     return remainingMinutes > 0 ? `${hours}h ${remainingMinutes}m` : `${hours}h`;
   };
 
+  // Handle pickup input changes with auto-focus
+  const handlePickupChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setPickupAddress(value);
+    setUseCurrentLocation(false);
+    setShowProceedButton(false);
+
+    // Auto-focus to destination when pickup is filled
+    if (value.trim().length > 10 && !dropoffAddress.trim()) {
+      setTimeout(() => {
+        dropoffInputRef.current?.focus();
+      }, 100);
+    }
+  };
+
+  // Handle destination input changes
+  const handleDropoffChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setDropoffAddress(e.target.value);
+    setShowProceedButton(false);
+  };
+
+  // Handle Enter key navigation
+  const handleKeyPress = (e: React.KeyboardEvent, field: 'pickup' | 'dropoff') => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      if (field === 'pickup' && pickupAddress.trim()) {
+        dropoffInputRef.current?.focus();
+      } else if (field === 'dropoff' && dropoffAddress.trim() && pickupAddress.trim()) {
+        handleProceedToServices();
+      }
+    }
+  };
+
+  // Handle proceed to services button click
+  const handleProceedToServices = () => {
+    if (onCompletionScroll) {
+      onCompletionScroll();
+    }
+  };
+
   // Validation is handled inline during journey calculation
 
   return (
@@ -158,15 +212,14 @@ export function LocationPlanningSection({ onLocationSet, isDisabled = false }: L
           </label>
           <div className={styles.inputContainer}>
             <input
+              ref={pickupInputRef}
               id="pickup-location"
               type="text"
               value={pickupAddress}
-              onChange={(e) => {
-                setPickupAddress(e.target.value);
-                setUseCurrentLocation(false);
-              }}
+              onChange={handlePickupChange}
+              onKeyPress={(e) => handleKeyPress(e, 'pickup')}
               placeholder="Enter pickup address or use current location"
-              className={`${styles.input} ${errors.pickup ? styles.inputError : ''}`}
+              className={`${styles.input} ${errors.pickup ? styles.inputError : ''} ${pickupAddress.trim() ? styles.inputCompleted : ''}`}
               disabled={isDisabled || isLoadingLocation}
             />
             <button
@@ -198,12 +251,14 @@ export function LocationPlanningSection({ onLocationSet, isDisabled = false }: L
             Destination
           </label>
           <input
+            ref={dropoffInputRef}
             id="dropoff-location"
             type="text"
             value={dropoffAddress}
-            onChange={(e) => setDropoffAddress(e.target.value)}
+            onChange={handleDropoffChange}
+            onKeyPress={(e) => handleKeyPress(e, 'dropoff')}
             placeholder="Enter destination address"
-            className={`${styles.input} ${errors.dropoff ? styles.inputError : ''}`}
+            className={`${styles.input} ${errors.dropoff ? styles.inputError : ''} ${dropoffAddress.trim() ? styles.inputCompleted : ''}`}
             disabled={isDisabled}
           />
           {errors.dropoff && (
@@ -238,6 +293,24 @@ export function LocationPlanningSection({ onLocationSet, isDisabled = false }: L
                 </div>
               </div>
             ) : null}
+          </div>
+        )}
+
+        {/* Proceed Button - Show when journey is calculated */}
+        {showProceedButton && journeyEstimate && !isCalculatingJourney && (
+          <div className={styles.proceedSection}>
+            <button
+              className={styles.proceedButton}
+              onClick={handleProceedToServices}
+              disabled={isDisabled}
+            >
+              <span className={styles.proceedIcon}>🎯</span>
+              Find Available Services
+              <span className={styles.proceedArrow}>→</span>
+            </button>
+            <p className={styles.proceedHint}>
+              Press Enter or click to continue to service selection
+            </p>
           </div>
         )}
       </div>

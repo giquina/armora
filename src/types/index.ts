@@ -23,7 +23,7 @@ export interface User {
 }
 
 export interface ServiceLevel {
-  id: 'standard' | 'executive' | 'shadow';
+  id: 'standard' | 'executive' | 'shadow' | 'client-vehicle';
   name: string;
   tagline: string;
   price: string;

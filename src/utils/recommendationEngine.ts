@@ -265,19 +265,21 @@ export function getTimeBasedMessage(): string {
   }
 }
 
-// Generate availability info
+// Generate availability info with stable values to prevent re-render flashing
+// Fixed: No more Math.random() calls that cause dashboard flashing
 export function generateAvailabilityInfo() {
-  const baseDrivers = 3;
-  const randomVariation = Math.floor(Math.random() * 3); // 0-2 additional
-  const driversAvailable = baseDrivers + randomVariation;
-
   const hour = new Date().getHours();
   const isPeakHour = (hour >= 7 && hour <= 9) || (hour >= 17 && hour <= 19);
+
+  // Use deterministic values based on time instead of Math.random()
+  const timeBasedVariation = hour % 3; // 0, 1, or 2 based on hour
+  const driversAvailable = 3 + timeBasedVariation;
   const isHighDemand = isPeakHour || driversAvailable <= 3;
 
-  const estimatedArrival = isHighDemand
-    ? `${Math.floor(Math.random() * 8) + 5} minutes`
-    : `${Math.floor(Math.random() * 5) + 2} minutes`;
+  // Use deterministic arrival times based on hour and demand
+  const baseArrival = isHighDemand ? 7 : 4; // Base minutes
+  const timeVariation = (hour % 4) + 1; // 1-4 minute variation
+  const estimatedArrival = `${baseArrival + timeVariation} minutes`;
 
   return {
     driversAvailable,

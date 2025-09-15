@@ -7,7 +7,7 @@ export interface ServiceFeature {
 }
 
 export interface StandardizedService {
-  id: 'standard' | 'executive' | 'shadow';
+  id: 'standard' | 'executive' | 'shadow' | 'client-vehicle';
   name: string;
   tagline: string;
   price: number;
@@ -19,6 +19,8 @@ export interface StandardizedService {
   popularityRank: number;
   targetUsers: string[];
   riskLevel: 'low' | 'medium' | 'high';
+  vehicleType?: 'company' | 'client';
+  badge?: string;
 }
 
 export const STANDARDIZED_SERVICES: Record<string, StandardizedService> = {
@@ -38,9 +40,34 @@ export const STANDARDIZED_SERVICES: Record<string, StandardizedService> = {
       { icon: '🔒', text: 'Background checked team' }
     ],
     socialProof: 'Chosen by 2,847 professionals monthly',
-    popularityRank: 2,
+    popularityRank: 3,
     targetUsers: ['general', 'student', 'academic', 'creative', 'family'],
-    riskLevel: 'low'
+    riskLevel: 'low',
+    vehicleType: 'company'
+  },
+
+  'client-vehicle': {
+    id: 'client-vehicle',
+    name: 'Armora Personal Vehicle',
+    tagline: 'Your car, our protection - professional security drivers for your vehicle',
+    price: 38,
+    priceDisplay: '£38/hour',
+    hourlyRate: 38,
+    description: 'Professional security drivers for your personal vehicle. Maintain your privacy and comfort while adding professional protection. Perfect for daily commutes or special occasions.',
+    features: [
+      { icon: '🔑', text: 'SIA Level 2 certified drivers' },
+      { icon: '🚙', text: 'Your personal vehicle' },
+      { icon: '💰', text: 'Save 15% vs fleet service' },
+      { icon: '🤐', text: 'Maximum discretion' },
+      { icon: '📱', text: 'Real-time tracking' },
+      { icon: '☎️', text: '24/7 support line' }
+    ],
+    socialProof: 'Preferred by 1,892 discerning clients',
+    popularityRank: 2, // Second most popular due to cost savings
+    targetUsers: ['general', 'executive', 'family', 'privacy_conscious'],
+    riskLevel: 'low',
+    vehicleType: 'client',
+    badge: 'Best Value'
   },
 
   executive: {
@@ -60,9 +87,10 @@ export const STANDARDIZED_SERVICES: Record<string, StandardizedService> = {
       { icon: '📊', text: 'Detailed security reports' }
     ],
     socialProof: 'Trusted by 156 C-suite executives',
-    popularityRank: 3,
+    popularityRank: 4,
     targetUsers: ['executive', 'entrepreneur', 'finance', 'legal', 'medical'],
-    riskLevel: 'medium'
+    riskLevel: 'medium',
+    vehicleType: 'company'
   },
 
   shadow: {
@@ -84,7 +112,9 @@ export const STANDARDIZED_SERVICES: Record<string, StandardizedService> = {
     socialProof: 'Most popular choice (67% of bookings)',
     popularityRank: 1, // Most popular
     targetUsers: ['celebrity', 'government', 'diplomat', 'security', 'high_profile'],
-    riskLevel: 'high'
+    riskLevel: 'high',
+    vehicleType: 'company',
+    badge: 'Most Popular'
   }
 };
 

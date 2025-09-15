@@ -20,6 +20,19 @@ const SERVICE_CONFIG = {
     gradient: 'linear-gradient(135deg, #1a1a2e 0%, #2d2d44 100%)',
     accentColor: '#c0c0c0'
   },
+  'client-vehicle': {
+    theme: 'client-preferred',
+    icon: '🔑',
+    vehicle: 'Your Personal Vehicle',
+    vehicleNote: '(Best Value)',
+    driverLevel: 'SIA Level 2 Security Certified',
+    capacity: 'Any vehicle size',
+    eta: '3-6 min',
+    rating: 4.7,
+    reviewCount: 1892,
+    gradient: 'linear-gradient(135deg, #9B59B6 0%, #8E44AD 100%)',
+    accentColor: '#9B59B6'
+  },
   executive: {
     theme: 'luxury',
     icon: '👑',
@@ -51,11 +64,11 @@ const SERVICE_CONFIG = {
 interface ServiceCardProps {
   service: ServiceLevel;
   isSelected: boolean;
-  onSelect: (serviceId: 'standard' | 'executive' | 'shadow') => void;
+  onSelect: (serviceId: 'standard' | 'executive' | 'shadow' | 'client-vehicle') => void;
   mode: 'selection' | 'preview';
   isRecommended?: boolean;
-  onBookNow?: (serviceId: 'standard' | 'executive' | 'shadow') => void;
-  onScheduleSelect?: (serviceId: 'standard' | 'executive' | 'shadow') => void;
+  onBookNow?: (serviceId: 'standard' | 'executive' | 'shadow' | 'client-vehicle') => void;
+  onScheduleSelect?: (serviceId: 'standard' | 'executive' | 'shadow' | 'client-vehicle') => void;
 }
 
 export function ServiceCard({
