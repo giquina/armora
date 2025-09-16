@@ -1,0 +1,565 @@
+/* Live Tracking Dashboard Styles */
+
+.trackingDashboard {
+  margin-bottom: 32px;
+}
+
+.dashboardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+  padding: 20px 24px;
+  background: linear-gradient(135deg, #0f1e0f 0%, #1a2e1a 100%);
+  border: 1px solid rgba(0, 255, 136, 0.3);
+  border-radius: 16px;
+  position: relative;
+  overflow: hidden;
+}
+
+.dashboardHeader::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #00ff88, #10B981, #00ff88);
+  animation: shimmer 3s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+  0%, 100% {
+    opacity: 0.8;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+.dashboardTitle {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 1.4rem;
+  font-weight: bold;
+  color: #00ff88;
+  margin: 0;
+}
+
+.liveIndicator {
+  width: 12px;
+  height: 12px;
+  background: #00ff88;
+  border-radius: 50%;
+  animation: pulse 1.5s ease-in-out infinite;
+  box-shadow: 0 0 10px rgba(0, 255, 136, 0.5);
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.6;
+    transform: scale(1.2);
+  }
+}
+
+.activeCount {
+  background: rgba(0, 255, 136, 0.2);
+  color: #00ff88;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  border: 1px solid rgba(0, 255, 136, 0.3);
+}
+
+/* Tracking Cards */
+.trackingCards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  gap: 20px;
+}
+
+.trackingCard {
+  background: linear-gradient(135deg, #0f1e0f 0%, #1a2e1a 100%);
+  border: 1px solid rgba(0, 255, 136, 0.2);
+  border-radius: 20px;
+  padding: 24px;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 4px 24px rgba(0, 255, 136, 0.1);
+}
+
+.trackingCard:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 32px rgba(0, 255, 136, 0.2);
+  border-color: rgba(0, 255, 136, 0.4);
+}
+
+.trackingCard.urgent {
+  border-color: #ff6b6b;
+  background: linear-gradient(135deg, #1e0f0f 0%, #2e1a1a 100%);
+  animation: urgentPulse 2s ease-in-out infinite;
+}
+
+@keyframes urgentPulse {
+  0%, 100% {
+    box-shadow: 0 4px 24px rgba(255, 107, 107, 0.2);
+  }
+  50% {
+    box-shadow: 0 4px 24px rgba(255, 107, 107, 0.4);
+  }
+}
+
+/* Card Header */
+.cardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 20px;
+}
+
+.bookingInfo {
+  display: flex;
+  flex-direction: column;
+}
+
+.bookingTitle {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #ffffff;
+  margin: 0 0 4px 0;
+}
+
+.bookingId {
+  font-size: 0.8rem;
+  color: #a0a0b8;
+  opacity: 0.8;
+}
+
+.eta {
+  text-align: right;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.etaLabel {
+  font-size: 0.7rem;
+  color: #00ff88;
+  font-weight: bold;
+  letter-spacing: 1px;
+  margin-bottom: 4px;
+}
+
+.etaTime {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #00ff88;
+}
+
+.etaUrgent .etaTime {
+  color: #ff6b6b;
+  animation: blink 1s ease-in-out infinite;
+}
+
+@keyframes blink {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.6;
+  }
+}
+
+/* Driver Section */
+.driverSection {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 24px;
+  padding: 16px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.driverAvatar {
+  position: relative;
+}
+
+.avatarPlaceholder {
+  width: 48px;
+  height: 48px;
+  background: linear-gradient(45deg, #00ff88, #10B981);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #1a1a2e;
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+.onlineIndicator {
+  position: absolute;
+  bottom: 2px;
+  right: 2px;
+  width: 12px;
+  height: 12px;
+  background: #00ff88;
+  border: 2px solid #1a2e1a;
+  border-radius: 50%;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+.driverInfo {
+  flex: 1;
+}
+
+.driverName {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #ffffff;
+  margin-bottom: 4px;
+}
+
+.vehicleInfo {
+  font-size: 0.85rem;
+  color: #a0a0b8;
+  margin-bottom: 6px;
+}
+
+.driverRating {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.stars {
+  font-size: 0.8rem;
+}
+
+.ratingNumber {
+  font-size: 0.85rem;
+  color: #FFD700;
+  font-weight: 600;
+}
+
+/* Route Progress */
+.routeProgress {
+  margin-bottom: 20px;
+}
+
+.routeInfo {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.routePoint {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+}
+
+.routeIcon {
+  font-size: 1rem;
+}
+
+.routeText {
+  font-size: 0.85rem;
+  color: #e0e0e0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.progressContainer {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.progressBar {
+  flex: 1;
+  height: 8px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.progressFill {
+  height: 100%;
+  background: linear-gradient(90deg, #00ff88, #10B981);
+  border-radius: 4px;
+  transition: width 0.3s ease;
+  position: relative;
+}
+
+.progressFill::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  animation: progressShimmer 2s ease-in-out infinite;
+}
+
+@keyframes progressShimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+.progressText {
+  font-size: 0.8rem;
+  color: #00ff88;
+  font-weight: 600;
+  min-width: 80px;
+  text-align: right;
+}
+
+/* Live Stats */
+.liveStats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.statItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 12px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.statLabel {
+  font-size: 0.7rem;
+  color: #a0a0b8;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 4px;
+}
+
+.statValue {
+  font-size: 0.9rem;
+  color: #00ff88;
+  font-weight: 600;
+}
+
+/* Tracking Actions */
+.trackingActions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.primaryAction {
+  background: linear-gradient(45deg, #00ff88, #10B981);
+  color: #1a1a2e;
+  border: none;
+  padding: 12px 16px;
+  border-radius: 10px;
+  font-size: 0.9rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.primaryAction:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 255, 136, 0.3);
+}
+
+.secondaryAction {
+  background: transparent;
+  color: #00ff88;
+  border: 1px solid #00ff88;
+  padding: 12px 16px;
+  border-radius: 10px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.secondaryAction:hover {
+  background: rgba(0, 255, 136, 0.1);
+}
+
+/* Empty State */
+.emptyTracker {
+  text-align: center;
+  padding: 60px 20px;
+  background: linear-gradient(135deg, #0f0f1e 0%, #1a1a2e 100%);
+  border: 2px dashed rgba(0, 255, 136, 0.3);
+  border-radius: 20px;
+  margin: 40px 0;
+}
+
+.emptyIcon {
+  font-size: 4rem;
+  margin-bottom: 20px;
+  opacity: 0.6;
+  animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.emptyTitle {
+  font-size: 1.5rem;
+  color: #00ff88;
+  margin: 0 0 12px 0;
+  font-weight: bold;
+}
+
+.emptyText {
+  font-size: 1rem;
+  color: #a0a0b8;
+  margin: 0;
+  line-height: 1.4;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  .trackingCards {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .trackingCard {
+    padding: 20px;
+  }
+
+  .dashboardHeader {
+    flex-direction: column;
+    gap: 16px;
+    text-align: center;
+    padding: 16px;
+  }
+
+  .dashboardTitle {
+    font-size: 1.2rem;
+  }
+
+  .cardHeader {
+    flex-direction: column;
+    gap: 12px;
+    text-align: center;
+  }
+
+  .eta {
+    align-items: center;
+  }
+
+  .driverSection {
+    padding: 12px;
+    gap: 12px;
+  }
+
+  .routeInfo {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .liveStats {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+
+  .trackingActions {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .trackingCard {
+    padding: 16px;
+  }
+
+  .dashboardHeader {
+    padding: 12px;
+  }
+
+  .dashboardTitle {
+    font-size: 1.1rem;
+  }
+
+  .bookingTitle {
+    font-size: 1rem;
+  }
+
+  .etaTime {
+    font-size: 1.2rem;
+  }
+
+  .avatarPlaceholder {
+    width: 40px;
+    height: 40px;
+    font-size: 1rem;
+  }
+
+  .emptyIcon {
+    font-size: 3rem;
+  }
+
+  .emptyTitle {
+    font-size: 1.2rem;
+  }
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .liveIndicator,
+  .urgentPulse,
+  .progressShimmer,
+  .emptyIcon {
+    animation: none;
+  }
+
+  .trackingCard:hover {
+    transform: none;
+  }
+}
+
+/* High contrast mode */
+@media (prefers-contrast: high) {
+  .trackingCard {
+    border-color: #00ff88;
+    background: #000000;
+  }
+
+  .bookingTitle,
+  .driverName {
+    color: #ffffff;
+  }
+
+  .routeText {
+    color: #ffffff;
+  }
+}

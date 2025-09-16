@@ -161,9 +161,9 @@ export function PaymentSuccess({
       </div>
 
       {/* Support Contact */}
-      <div className={styles.emergencyCard}>
-        <h3 className={styles.emergencyTitle}>Need assistance?</h3>
-        <div className={styles.emergencyContact}>
+      <div className={styles.supportCard}>
+        <h3 className={styles.supportTitle}>Need assistance?</h3>
+        <div className={styles.supportContact}>
           <div className={styles.contactMethod}>
             <span className={styles.contactIcon}>📞</span>
             <div className={styles.contactInfo}>

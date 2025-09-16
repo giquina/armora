@@ -19,7 +19,7 @@ const securityProtocols: Protocol[] = [
       'Primary and alternative routes mapped in advance',
       'Real-time traffic and road condition monitoring',
       'Security checkpoint locations identified',
-      'Emergency service proximity assessments',
+      'Local service proximity assessments',
       'Venue-specific approach strategies'
     ]
   },
@@ -57,20 +57,20 @@ const securityProtocols: Protocol[] = [
     details: [
       'End-to-end encrypted messaging',
       'Secure voice communication systems',
-      'Emergency alert protocols',
+      'Security alert protocols',
       'Client privacy protection',
       'Operation coordination channels'
     ]
   },
   {
-    id: 'emergency-response',
-    title: 'Emergency Response',
+    id: 'incident-response',
+    title: 'Incident Response',
     description: 'Medical training and crisis management protocols',
     icon: '🚨',
     details: [
-      'First aid and medical emergency response',
+      'First aid and medical incident response',
       'Evacuation procedures and safe havens',
-      'Emergency services coordination',
+      'Security services coordination',
       'Crisis communication protocols',
       'Incident documentation and reporting'
     ]

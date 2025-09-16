@@ -1,0 +1,725 @@
+/* Wedding Event Security Component Styles */
+
+.weddingSecurityContainer {
+  position: relative;
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+  border: 2px solid #FFD700;
+  border-radius: 16px;
+  padding: 24px;
+  margin: 16px 0;
+  overflow: hidden;
+  animation: shimmer 3s ease-in-out infinite;
+  box-shadow: 0 8px 32px rgba(255, 215, 0, 0.1);
+  min-width: 320px;
+  max-width: 100%;
+}
+
+@keyframes shimmer {
+  0%, 100% {
+    border-top-color: #FFD700;
+  }
+  50% {
+    border-top-color: #FFA500;
+  }
+}
+
+/* NEW Badge */
+.newBadge {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: linear-gradient(45deg, #FFD700, #FFA500);
+  color: #1a1a2e;
+  padding: 6px 12px;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: bold;
+  letter-spacing: 1px;
+  z-index: 10;
+  box-shadow: 0 2px 8px rgba(255, 215, 0, 0.3);
+}
+
+/* Hero Section */
+.heroSection {
+  margin-bottom: 24px;
+}
+
+.heroHeader {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.heroIcon {
+  font-size: 2.5rem;
+  line-height: 1;
+}
+
+.heroContent {
+  flex: 1;
+}
+
+.heroTitle {
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: #FFD700;
+  margin: 0 0 8px 0;
+  line-height: 1.2;
+}
+
+.heroSubtitle {
+  font-size: 1rem;
+  color: #e0e0e0;
+  margin: 0;
+  opacity: 0.9;
+}
+
+/* Trust Indicators Bar */
+.trustBar {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 12px;
+  margin-bottom: 24px;
+  padding: 16px;
+  background: rgba(255, 215, 0, 0.05);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 215, 0, 0.2);
+}
+
+.trustItem {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  text-align: center;
+  justify-content: center;
+}
+
+.trustIcon {
+  font-size: 1rem;
+}
+
+.trustText {
+  font-size: 0.8rem;
+  color: #e0e0e0;
+  font-weight: 500;
+}
+
+/* Section Titles */
+.sectionTitle {
+  font-size: 1.3rem;
+  color: #FFD700;
+  margin: 0 0 16px 0;
+  font-weight: bold;
+  text-align: center;
+}
+
+/* Features Section */
+.featuresSection {
+  margin-bottom: 32px;
+}
+
+.featuresGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 16px;
+  margin-top: 16px;
+}
+
+.featureCard {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 16px;
+  background: rgba(255, 215, 0, 0.05);
+  border: 1px solid rgba(255, 215, 0, 0.2);
+  border-radius: 12px;
+  transition: all 0.3s ease;
+}
+
+.featureCard:hover {
+  background: rgba(255, 215, 0, 0.1);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(255, 215, 0, 0.1);
+}
+
+.featureIcon {
+  font-size: 1.5rem;
+  line-height: 1;
+  min-width: 24px;
+}
+
+.featureContent {
+  flex: 1;
+}
+
+.featureTitle {
+  font-size: 1rem;
+  color: #FFD700;
+  margin: 0 0 6px 0;
+  font-weight: 600;
+}
+
+.featureDescription {
+  font-size: 0.85rem;
+  color: #e0e0e0;
+  margin: 0;
+  line-height: 1.4;
+  opacity: 0.9;
+}
+
+/* Pricing Section */
+.pricingSection {
+  margin-bottom: 32px;
+}
+
+.packagesGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 16px;
+  margin-top: 16px;
+}
+
+.packageCard {
+  position: relative;
+  padding: 20px;
+  background: rgba(255, 215, 0, 0.05);
+  border: 2px solid rgba(255, 215, 0, 0.2);
+  border-radius: 16px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.packageCard:hover {
+  border-color: rgba(255, 215, 0, 0.4);
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(255, 215, 0, 0.15);
+}
+
+.popularPackage {
+  border-color: #FFD700;
+  background: rgba(255, 215, 0, 0.1);
+  transform: scale(1.05);
+}
+
+.selectedPackage {
+  border-color: #FFD700;
+  background: rgba(255, 215, 0, 0.15);
+}
+
+.popularBadge {
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: linear-gradient(45deg, #FFD700, #FFA500);
+  color: #1a1a2e;
+  padding: 6px 16px;
+  border-radius: 12px;
+  font-size: 0.7rem;
+  font-weight: bold;
+  letter-spacing: 0.5px;
+}
+
+.packageHeader {
+  text-align: center;
+  margin-bottom: 16px;
+}
+
+.packageName {
+  font-size: 1.2rem;
+  color: #FFD700;
+  margin: 0 0 8px 0;
+  font-weight: bold;
+}
+
+.packagePrice {
+  font-size: 1.8rem;
+  color: #ffffff;
+  font-weight: bold;
+  margin-bottom: 4px;
+}
+
+.packageDuration {
+  font-size: 0.85rem;
+  color: #e0e0e0;
+  opacity: 0.8;
+}
+
+.packageFeatures {
+  space-y: 8px;
+}
+
+.packageFeature {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.85rem;
+  color: #e0e0e0;
+  margin-bottom: 8px;
+}
+
+.checkIcon {
+  color: #4CAF50;
+  font-weight: bold;
+}
+
+/* Calculator Section */
+.calculatorSection {
+  margin-bottom: 32px;
+  background: rgba(255, 215, 0, 0.05);
+  border: 1px solid rgba(255, 215, 0, 0.2);
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.calculatorHeader {
+  padding: 20px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.calculatorHeader:hover {
+  background: rgba(255, 215, 0, 0.1);
+}
+
+.calculatorTitle {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 1.2rem;
+  color: #FFD700;
+  margin: 0 0 8px 0;
+  font-weight: bold;
+}
+
+.calculatorToggle {
+  font-size: 1.5rem;
+  color: #FFD700;
+  font-weight: bold;
+}
+
+.calculatorSubtitle {
+  font-size: 0.9rem;
+  color: #e0e0e0;
+  margin: 0;
+  opacity: 0.8;
+}
+
+.calculatorContent {
+  padding: 0 20px 20px 20px;
+  border-top: 1px solid rgba(255, 215, 0, 0.1);
+}
+
+.calculatorInputs {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+  margin-bottom: 24px;
+}
+
+.inputGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.inputLabel {
+  font-size: 0.9rem;
+  color: #FFD700;
+  font-weight: 500;
+}
+
+.slider {
+  width: 100%;
+  height: 6px;
+  border-radius: 3px;
+  background: rgba(255, 215, 0, 0.2);
+  outline: none;
+  -webkit-appearance: none;
+}
+
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #FFD700;
+  cursor: pointer;
+}
+
+.slider::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #FFD700;
+  cursor: pointer;
+  border: none;
+}
+
+.select {
+  padding: 10px 12px;
+  background: rgba(255, 215, 0, 0.1);
+  border: 1px solid rgba(255, 215, 0, 0.3);
+  border-radius: 8px;
+  color: #e0e0e0;
+  font-size: 0.9rem;
+}
+
+.checkboxLabel {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #e0e0e0;
+  cursor: pointer;
+}
+
+.checkbox {
+  width: 16px;
+  height: 16px;
+  accent-color: #FFD700;
+}
+
+.calculatorResults {
+  padding: 20px;
+  background: rgba(255, 215, 0, 0.1);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 215, 0, 0.3);
+}
+
+.resultsTitle {
+  font-size: 1rem;
+  color: #FFD700;
+  margin: 0 0 12px 0;
+  font-weight: bold;
+}
+
+.resultItem {
+  font-size: 0.9rem;
+  color: #e0e0e0;
+  margin-bottom: 8px;
+}
+
+/* Testimonial Section */
+.testimonialSection {
+  margin-bottom: 32px;
+}
+
+.testimonialCard {
+  padding: 24px;
+  background: rgba(255, 215, 0, 0.05);
+  border: 1px solid rgba(255, 215, 0, 0.2);
+  border-radius: 16px;
+  text-align: center;
+}
+
+.testimonialRating {
+  margin-bottom: 16px;
+}
+
+.star {
+  font-size: 1.2rem;
+  margin: 0 2px;
+}
+
+.testimonialQuote {
+  font-size: 1.1rem;
+  color: #e0e0e0;
+  font-style: italic;
+  margin: 0 0 16px 0;
+  line-height: 1.5;
+}
+
+.testimonialAuthor {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.testimonialAuthor strong {
+  color: #FFD700;
+  font-weight: 600;
+}
+
+.testimonialEvent {
+  font-size: 0.85rem;
+  color: #e0e0e0;
+  opacity: 0.8;
+}
+
+/* Timeline Section */
+.timelineSection {
+  margin-bottom: 32px;
+}
+
+.timeline {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+  margin-top: 16px;
+}
+
+.timelineEvent {
+  padding: 16px;
+  background: rgba(255, 215, 0, 0.05);
+  border: 1px solid rgba(255, 215, 0, 0.2);
+  border-radius: 12px;
+  text-align: center;
+}
+
+.timelineTime {
+  font-size: 0.8rem;
+  color: #FFD700;
+  font-weight: bold;
+  margin-bottom: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.timelineActivity {
+  font-size: 1rem;
+  color: #ffffff;
+  margin: 0 0 6px 0;
+  font-weight: 600;
+}
+
+.timelineDescription {
+  font-size: 0.8rem;
+  color: #e0e0e0;
+  margin: 0;
+  opacity: 0.9;
+  line-height: 1.4;
+}
+
+/* CTA Section */
+.ctaSection {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 24px;
+  align-items: center;
+}
+
+.primaryCta {
+  background: linear-gradient(45deg, #FFD700, #FFA500);
+  color: #1a1a2e;
+  border: none;
+  padding: 16px 32px;
+  border-radius: 12px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 16px rgba(255, 215, 0, 0.3);
+  min-width: 200px;
+}
+
+.primaryCta:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(255, 215, 0, 0.4);
+}
+
+.secondaryCta {
+  background: transparent;
+  color: #FFD700;
+  border: 2px solid #FFD700;
+  padding: 12px 24px;
+  border-radius: 12px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  min-width: 200px;
+}
+
+.secondaryCta:hover {
+  background: rgba(255, 215, 0, 0.1);
+}
+
+.tertiaryCta {
+  background: transparent;
+  color: #FFD700;
+  border: none;
+  padding: 8px 16px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  text-decoration: underline;
+  transition: opacity 0.3s ease;
+}
+
+.tertiaryCta:hover {
+  opacity: 0.8;
+}
+
+/* Certifications Section */
+.certificationsSection {
+  margin-top: 24px;
+  padding-top: 24px;
+  border-top: 1px solid rgba(255, 215, 0, 0.2);
+}
+
+.certificationsBadges {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.certificationBadge {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 12px;
+  background: rgba(255, 215, 0, 0.1);
+  border: 1px solid rgba(255, 215, 0, 0.3);
+  border-radius: 20px;
+  font-size: 0.8rem;
+  color: #e0e0e0;
+}
+
+.certIcon {
+  font-size: 0.9rem;
+}
+
+.certText {
+  font-weight: 500;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  .weddingSecurityContainer {
+    padding: 20px;
+    margin: 12px 0;
+  }
+
+  .heroTitle {
+    font-size: 1.5rem;
+  }
+
+  .heroSubtitle {
+    font-size: 0.9rem;
+  }
+
+  .trustBar {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+    padding: 12px;
+  }
+
+  .trustText {
+    font-size: 0.7rem;
+  }
+
+  .featuresGrid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .packagesGrid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .popularPackage {
+    transform: none;
+  }
+
+  .calculatorInputs {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .timeline {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .ctaSection {
+    gap: 10px;
+  }
+
+  .primaryCta,
+  .secondaryCta {
+    min-width: 100%;
+    padding: 14px 24px;
+  }
+
+  .certificationsBadges {
+    justify-content: center;
+    gap: 8px;
+  }
+
+  .certificationBadge {
+    padding: 6px 10px;
+    font-size: 0.7rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .weddingSecurityContainer {
+    padding: 16px;
+  }
+
+  .heroHeader {
+    flex-direction: column;
+    text-align: center;
+    gap: 12px;
+  }
+
+  .heroIcon {
+    font-size: 2rem;
+  }
+
+  .heroTitle {
+    font-size: 1.3rem;
+  }
+
+  .trustBar {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+
+  .sectionTitle {
+    font-size: 1.1rem;
+  }
+
+  .newBadge {
+    top: 8px;
+    right: 8px;
+    padding: 4px 8px;
+    font-size: 0.7rem;
+  }
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .weddingSecurityContainer,
+  .featureCard,
+  .packageCard,
+  .primaryCta {
+    animation: none;
+    transition: none;
+  }
+}
+
+/* High contrast mode */
+@media (prefers-contrast: high) {
+  .weddingSecurityContainer {
+    border-color: #FFD700;
+    background: #000000;
+  }
+
+  .heroTitle,
+  .sectionTitle,
+  .packageName,
+  .featureTitle {
+    color: #FFD700;
+  }
+
+  .heroSubtitle,
+  .featureDescription,
+  .trustText {
+    color: #ffffff;
+  }
+}

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useApp } from '../../contexts/AppContext';
+import { LocationPicker } from '../LocationPicker/LocationPicker';
 import styles from './BookingSearchInterface.module.css';
 
 interface BookingSearchInterfaceProps {
@@ -13,6 +14,7 @@ export function BookingSearchInterface({ onDestinationSelect }: BookingSearchInt
     work: ''
   });
   const [recentDestination, setRecentDestination] = useState('');
+  const [showLocationPicker, setShowLocationPicker] = useState(false);
 
   useEffect(() => {
     // Load saved addresses from localStorage
@@ -25,15 +27,8 @@ export function BookingSearchInterface({ onDestinationSelect }: BookingSearchInt
   }, []);
 
   const handleSearchClick = () => {
-    // Clear any pre-selected service to ensure we start with location picker
-    localStorage.removeItem('armora_selected_service');
-    localStorage.removeItem('armora_booking_preset');
-
-    // Set a flag to indicate we want location-first flow
-    localStorage.setItem('armora_booking_flow', 'location-first');
-
-    // Navigate to booking page which will show location picker first
-    navigateToView('booking');
+    // Show location picker overlay instead of navigating
+    setShowLocationPicker(true);
   };
 
   const handleQuickDestination = (type: 'home' | 'work' | 'recent', address?: string) => {
@@ -48,6 +43,19 @@ export function BookingSearchInterface({ onDestinationSelect }: BookingSearchInt
     } else {
       // Navigate to address setup or booking
       navigateToView('booking');
+    }
+  };
+
+  const handleLocationSelect = (location: { address: string; coordinates?: { lat: number; lng: number } }) => {
+    // Store the selected destination
+    localStorage.setItem('armora_destination', location.address);
+    if (location.coordinates) {
+      localStorage.setItem('armora_destination_coords', JSON.stringify(location.coordinates));
+    }
+
+    // Call the callback if provided
+    if (onDestinationSelect) {
+      onDestinationSelect(location.address);
     }
   };
 
@@ -136,6 +144,13 @@ export function BookingSearchInterface({ onDestinationSelect }: BookingSearchInt
           </button>
         )}
       </div>
+
+      {/* Location Picker Overlay */}
+      <LocationPicker
+        isOpen={showLocationPicker}
+        onClose={() => setShowLocationPicker(false)}
+        onLocationSelect={handleLocationSelect}
+      />
     </div>
   );
 }

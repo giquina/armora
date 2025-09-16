@@ -244,8 +244,8 @@
   line-height: 1.4;
 }
 
-/* Emergency Contact */
-.emergencyCard {
+/* Support Contact */
+.supportCard {
   background: rgba(255, 68, 68, 0.05);
   border: 1px solid rgba(255, 68, 68, 0.2);
   border-radius: 12px;
@@ -255,7 +255,7 @@
   max-width: 600px;
 }
 
-.emergencyTitle {
+.supportTitle {
   color: #ff6b6b;
   font-size: 1.1rem;
   font-weight: 600;
@@ -263,7 +263,7 @@
   text-align: center;
 }
 
-.emergencyContact {
+.supportContact {
   display: grid;
   gap: 1rem;
 }
@@ -396,11 +396,11 @@
   }
 
   .statusCard,
-  .emergencyCard {
+  .supportCard {
     padding: 1.25rem;
   }
 
-  .emergencyContact {
+  .supportContact {
     gap: 0.75rem;
   }
 }
@@ -491,7 +491,7 @@
 @media (prefers-contrast: high) {
   .bookingCard,
   .statusCard,
-  .emergencyCard {
+  .supportCard {
     border-width: 3px;
   }
 

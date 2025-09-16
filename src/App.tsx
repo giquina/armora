@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { AppProvider, useApp } from './contexts/AppContext';
+import { BookingProvider } from './contexts/BookingContext';
 import { AppLayout } from './components/Layout/AppLayout';
 import { SplashScreen } from './components/SplashScreen/SplashScreen';
 import { WelcomePage } from './components/Auth/WelcomePage';
@@ -11,14 +12,16 @@ import AchievementUnlock from './components/Achievement/AchievementUnlock';
 import AchievementBanner from './components/Achievement/AchievementBanner';
 import { Dashboard } from './components/Dashboard';
 import { ServicesPage } from './components/Services/ServicesPage';
-import { Bookings } from './components/Rides/Rides';
+import { BookingsView } from './components/BookingsView';
 import { SubscriptionOffer } from './components/Subscription/SubscriptionOffer';
 import { VehicleSelection, LocationPicker, BookingSuccess } from './components/Booking';
 import { PaymentIntegration } from './components/Booking/PaymentIntegration';
 import { BookingErrorBoundary } from './components/Booking/BookingErrorBoundary';
+import { ServiceSelection } from './components/ServiceSelection/ServiceSelection';
 import { FloatingActionButton, RecruitmentModal } from './components/Recruitment';
 import { ReferralSection } from './components/Account/ReferralSection';
 import { PPOVenueBooking } from './components/Account/PPOVenueBooking';
+import { AccountView } from './components/Account/AccountView';
 import { VenueProtectionWelcome } from './components/VenueProtection/VenueProtectionWelcome';
 import { VenueSecurityQuestionnaire } from './components/VenueProtection/VenueSecurityQuestionnaire';
 import { VenueProtectionSuccess } from './components/VenueProtection/VenueProtectionSuccess';
@@ -677,11 +680,13 @@ function AppRouter() {
         return <SubscriptionOffer selectedService={selectedServiceId || undefined} servicePrice={servicePrice} />;
       case 'booking':
         return <BookingFlow />;
+      case 'service-selection':
+        return <ServiceSelection />;
       case 'bookings':
       case 'rides':
-        return <Bookings />;
+        return <BookingsView />;
       case 'account':
-        return <Profile />;
+        return <AccountView />;
       case 'about':
         return <About onBack={() => navigateToView('home')} />;
       case 'venue-protection-welcome':
@@ -748,7 +753,9 @@ function AppRouter() {
 function App() {
   return (
     <AppProvider>
-      <AppRouter />
+      <BookingProvider>
+        <AppRouter />
+      </BookingProvider>
     </AppProvider>
   );
 }

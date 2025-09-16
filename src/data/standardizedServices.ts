@@ -49,7 +49,7 @@ export const STANDARDIZED_SERVICES: Record<string, StandardizedService> = {
       { icon: '👤', text: 'Personal protection trained' },
       { icon: '🚗', text: 'Secure vehicle fleet' },
       { icon: '📱', text: 'Real-time GPS tracking' },
-      { icon: '☎️', text: '24/7 emergency support' },
+      { icon: '☎️', text: '24/7 customer support' },
       { icon: '🔒', text: 'Background verified team' }
     ],
     socialProof: 'Trusted by 2,847 individuals monthly',
@@ -152,14 +152,14 @@ export const STANDARDIZED_SERVICES: Record<string, StandardizedService> = {
     price: 125,
     priceDisplay: '£125/hour',
     hourlyRate: 125,
-    description: 'Special Forces trained covert protection specialists providing maximum security for high-risk situations. Advanced threat management, counter-surveillance, and emergency response capabilities.',
+    description: 'Special Forces trained covert protection specialists providing maximum security for high-risk situations. Advanced threat management, counter-surveillance, and rapid response capabilities.',
     features: [
       { icon: '🥷', text: 'Special Forces trained bodyguards' },
       { icon: '🔍', text: 'Advanced threat detection systems' },
-      { icon: '🚨', text: 'Emergency response protocols' },
+      { icon: '🚨', text: 'Rapid response protocols' },
       { icon: '🤐', text: 'Covert protection operations' },
       { icon: '🌐', text: 'Counter-surveillance expertise' },
-      { icon: '⚡', text: 'Emergency extraction capabilities' }
+      { icon: '⚡', text: 'Secure extraction capabilities' }
     ],
     socialProof: 'Most popular choice (67% of high-risk clients)',
     popularityRank: 1,

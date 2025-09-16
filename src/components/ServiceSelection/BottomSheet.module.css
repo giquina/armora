@@ -1,0 +1,195 @@
+/* Bottom Sheet */
+.bottomSheet {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--bg-primary);
+  border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.1);
+  transform: translateY(0);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 100;
+  overflow: hidden;
+  backdrop-filter: blur(10px);
+  border-top: 1px solid var(--border-subtle);
+}
+
+/* Sheet States */
+.bottomSheet.collapsed {
+  height: 45vh;
+  max-height: 400px;
+}
+
+.bottomSheet.expanded {
+  height: 85vh;
+  max-height: calc(100vh - 80px);
+}
+
+.bottomSheet.dragging {
+  transition: none;
+  user-select: none;
+}
+
+/* Handle */
+.handle {
+  position: sticky;
+  top: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 24px;
+  padding: var(--space-sm) 0;
+  cursor: grab;
+  touch-action: none;
+  z-index: 10;
+  background: var(--bg-primary);
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.handle:active {
+  cursor: grabbing;
+}
+
+.handleBar {
+  width: 40px;
+  height: 4px;
+  background: var(--text-tertiary);
+  border-radius: 2px;
+  transition: all 0.2s ease;
+  opacity: 0.6;
+}
+
+.handle:hover .handleBar {
+  opacity: 1;
+  background: var(--text-secondary);
+}
+
+/* Content */
+.content {
+  height: calc(100% - 40px);
+  overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+  padding: 0;
+}
+
+/* Scroll Behavior */
+.content::-webkit-scrollbar {
+  width: 0;
+  display: none;
+}
+
+.content {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+/* Animation States */
+.bottomSheet {
+  animation: slideUp 0.3s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Mobile Optimizations */
+@media (max-width: 480px) {
+  .bottomSheet.collapsed {
+    height: 50vh;
+    max-height: none;
+  }
+
+  .bottomSheet.expanded {
+    height: 90vh;
+    max-height: calc(100vh - 60px);
+  }
+
+  .handle {
+    height: 20px;
+    padding: var(--space-xs) 0;
+  }
+
+  .handleBar {
+    width: 32px;
+    height: 3px;
+  }
+
+  .content {
+    height: calc(100% - 32px);
+  }
+}
+
+/* Tablet and Desktop */
+@media (min-width: 768px) {
+  .bottomSheet {
+    left: 50%;
+    right: auto;
+    transform: translateX(-50%);
+    width: 100%;
+    max-width: 500px;
+    border-radius: var(--radius-xl);
+    margin-bottom: var(--space-md);
+  }
+
+  .bottomSheet.collapsed {
+    height: 400px;
+  }
+
+  .bottomSheet.expanded {
+    height: 600px;
+    max-height: calc(100vh - 120px);
+  }
+}
+
+/* Touch Device Optimizations */
+@media (hover: none) and (pointer: coarse) {
+  .handle {
+    padding: var(--space-md) 0;
+    height: 32px;
+  }
+
+  .handleBar {
+    height: 5px;
+  }
+
+  .content {
+    height: calc(100% - 48px);
+  }
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .bottomSheet,
+  .handleBar {
+    transition: none;
+    animation: none;
+  }
+}
+
+/* Dark Mode Support */
+@media (prefers-color-scheme: dark) {
+  .bottomSheet {
+    box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.3);
+  }
+}
+
+/* High Contrast Mode */
+@media (prefers-contrast: high) {
+  .handleBar {
+    background: var(--text-primary);
+    opacity: 1;
+  }
+
+  .bottomSheet {
+    border-top: 2px solid var(--border-primary);
+  }
+}

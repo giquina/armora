@@ -65,7 +65,7 @@ const certifications = [
   },
   {
     title: 'First Aid Certified',
-    description: 'Emergency Medical Response',
+    description: 'Medical Response Training',
     all: true
   },
   {

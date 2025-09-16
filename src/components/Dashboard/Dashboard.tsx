@@ -418,41 +418,21 @@ export function Dashboard() {
         variant="savings"
       />
 
-      {/* Wedding & Event Security - Relocated to Bottom */}
-      <div className={styles.venueProtectionSection}>
-        <div className={styles.venueCard}>
-          <div className={styles.venueCardHeader}>
-            <div className={styles.venueIcon}>💍🛡️</div>
-            <div className={styles.venueInfo}>
-              <h3 className={styles.venueTitle}>
-                Wedding & Event Security
-                <span className={styles.newBadge}>• NEW</span>
-              </h3>
-              <p className={styles.venueDescription}>SIA licensed Close Protection Officers</p>
-            </div>
-          </div>
-
-          <div className={styles.eventTypes}>
-            <div className={styles.eventTypesList}>
-              <div className={styles.eventTypeItem}>Weddings & receptions</div>
-              <div className={styles.eventTypeItem}>Corporate events</div>
-              <div className={styles.eventTypeItem}>Private celebrations</div>
-              <div className={styles.eventTypeItem}>VIP gatherings</div>
-            </div>
-          </div>
-
-          <div className={styles.venueFooter}>
-            <div className={styles.pricingInfo}>
-              <div className={styles.socialProof}>Trusted by 200+ couples</div>
-              <div className={styles.venuePrice}>From £500/day</div>
-            </div>
-            <button
-              className={styles.ctaButton}
-              onClick={() => navigateToView('venue-protection-welcome')}
-            >
-              Get Your Security Assessment
-            </button>
-          </div>
+      {/* Event Security CTA */}
+      <div className={styles.eventCTA}>
+        <div className={styles.ctaContainer}>
+          <div className={styles.ctaIcon}>🛡️</div>
+          <h3 className={styles.ctaHeadline}>Also Need Event Security?</h3>
+          <p className={styles.ctaDescription}>
+            Professional protection for weddings, corporate events & special occasions
+          </p>
+          <div className={styles.ctaSocialProof}>200+ events protected</div>
+          <button
+            className={styles.ctaButton}
+            onClick={() => navigateToView('services')}
+          >
+            Explore Event Services →
+          </button>
         </div>
       </div>
 

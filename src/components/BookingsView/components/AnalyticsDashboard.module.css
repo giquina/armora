@@ -1,0 +1,614 @@
+/* Analytics Dashboard Styles */
+
+.analyticsContainer {
+  margin-bottom: 32px;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.6s ease;
+}
+
+.analyticsContainer.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.analyticsHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+  padding: 20px 24px;
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+  border: 1px solid rgba(255, 215, 0, 0.2);
+  border-radius: 16px;
+  position: relative;
+  overflow: hidden;
+}
+
+.analyticsHeader::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #FFD700, #FFA500, #FFD700);
+  animation: shimmer 3s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+  0%, 100% {
+    opacity: 0.8;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+.analyticsTitle {
+  font-size: 1.4rem;
+  font-weight: bold;
+  color: #FFD700;
+  margin: 0;
+}
+
+.timeframeSelector {
+  display: flex;
+  gap: 8px;
+  background: rgba(255, 215, 0, 0.1);
+  padding: 4px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 215, 0, 0.2);
+}
+
+.timeframeButton {
+  background: transparent;
+  color: #FFD700;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.timeframeButton:hover {
+  background: rgba(255, 215, 0, 0.1);
+}
+
+.timeframeButton.active {
+  background: #FFD700;
+  color: #1a1a2e;
+}
+
+/* Analytics Grid */
+.analyticsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 20px;
+}
+
+/* Card Base Styles */
+.metricsCard,
+.chartCard,
+.scoreCard,
+.impactCard {
+  background: linear-gradient(135deg, #0f0f1e 0%, #1a1a2e 100%);
+  border: 1px solid rgba(255, 215, 0, 0.2);
+  border-radius: 16px;
+  padding: 24px;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 4px 24px rgba(255, 215, 0, 0.1);
+}
+
+.metricsCard:hover,
+.chartCard:hover,
+.scoreCard:hover,
+.impactCard:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 32px rgba(255, 215, 0, 0.15);
+  border-color: rgba(255, 215, 0, 0.4);
+}
+
+.cardTitle {
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: #FFD700;
+  margin: 0 0 20px 0;
+}
+
+/* Metrics Card */
+.metricsList {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.metricItem {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  background: rgba(255, 215, 0, 0.05);
+  border-radius: 10px;
+  border: 1px solid rgba(255, 215, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.metricItem:hover {
+  background: rgba(255, 215, 0, 0.1);
+  border-color: rgba(255, 215, 0, 0.2);
+}
+
+.metricIcon {
+  font-size: 1.2rem;
+  min-width: 24px;
+}
+
+.metricContent {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.metricLabel {
+  font-size: 0.8rem;
+  color: #a0a0b8;
+  margin-bottom: 2px;
+}
+
+.metricValue {
+  font-size: 0.9rem;
+  color: #ffffff;
+  font-weight: 600;
+}
+
+/* Pie Chart */
+.pieChart {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.chartContainer {
+  position: relative;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background: conic-gradient(
+    #10B981 0deg,
+    #10B981 120deg,
+    #FFD700 120deg,
+    #FFD700 240deg,
+    #8B45DB 240deg,
+    #8B45DB 360deg
+  );
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: chartRotate 2s ease-in-out;
+}
+
+@keyframes chartRotate {
+  from {
+    transform: rotate(-90deg);
+  }
+  to {
+    transform: rotate(0deg);
+  }
+}
+
+.chartSegment {
+  position: absolute;
+  width: 80px;
+  height: 80px;
+  background: #1a1a2e;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.segmentValue {
+  font-size: 1rem;
+  font-weight: bold;
+  color: #FFD700;
+}
+
+.chartLegend {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+}
+
+.legendItem {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.legendColor {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+}
+
+.legendLabel {
+  font-size: 0.85rem;
+  color: #e0e0e0;
+  flex: 1;
+}
+
+.legendValue {
+  font-size: 0.85rem;
+  color: #FFD700;
+  font-weight: 600;
+}
+
+/* Bar Chart */
+.barChart {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.chartBars {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  height: 150px;
+  padding: 0 10px;
+  border-bottom: 1px solid rgba(255, 215, 0, 0.2);
+}
+
+.barGroup {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+}
+
+.barContainer {
+  display: flex;
+  gap: 4px;
+  align-items: flex-end;
+  height: 130px;
+}
+
+.tripsBar,
+.spendingBar {
+  width: 16px;
+  border-radius: 4px 4px 0 0;
+  opacity: 0;
+  animation: barGrow 0.8s ease-out forwards;
+}
+
+.tripsBar {
+  background: linear-gradient(to top, #10B981, #34D399);
+}
+
+.spendingBar {
+  background: linear-gradient(to top, #FFD700, #FDE047);
+}
+
+@keyframes barGrow {
+  from {
+    height: 0;
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.barLabel {
+  font-size: 0.8rem;
+  color: #a0a0b8;
+}
+
+.chartAxes {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.yAxisLabel {
+  font-size: 0.8rem;
+  color: #a0a0b8;
+  transform: rotate(-90deg);
+  transform-origin: center;
+}
+
+/* Time Chart */
+.timeChart {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.timeSlot {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.timeSlotHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.timeLabel {
+  font-size: 0.85rem;
+  color: #e0e0e0;
+}
+
+.timePercentage {
+  font-size: 0.85rem;
+  color: #FFD700;
+  font-weight: 600;
+}
+
+.timeBar {
+  height: 8px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.timeBarFill {
+  height: 100%;
+  border-radius: 4px;
+  opacity: 0;
+  animation: barFill 1s ease-out forwards;
+}
+
+@keyframes barFill {
+  from {
+    width: 0 !important;
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Score Card */
+.scoreDisplay {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.scoreCircle {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background: conic-gradient(#10B981 0deg, #10B981 352deg, #333 352deg, #333 360deg);
+  position: relative;
+}
+
+.scoreCircle::before {
+  content: '';
+  position: absolute;
+  width: 70px;
+  height: 70px;
+  background: #1a1a2e;
+  border-radius: 50%;
+}
+
+.scoreValue {
+  font-size: 1.4rem;
+  font-weight: bold;
+  color: #10B981;
+  z-index: 1;
+}
+
+.scoreLabel {
+  font-size: 0.7rem;
+  color: #10B981;
+  z-index: 1;
+}
+
+.scoreDetails {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex: 1;
+}
+
+.scoreItem {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.scoreIcon {
+  font-size: 1rem;
+}
+
+.scoreText {
+  font-size: 0.85rem;
+  color: #e0e0e0;
+}
+
+/* Impact Card */
+.impactStats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.impactItem {
+  text-align: center;
+  padding: 16px;
+  background: rgba(16, 185, 129, 0.1);
+  border-radius: 12px;
+  border: 1px solid rgba(16, 185, 129, 0.2);
+}
+
+.impactValue {
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: #10B981;
+  margin-bottom: 4px;
+}
+
+.impactLabel {
+  font-size: 0.9rem;
+  color: #10B981;
+  font-weight: 600;
+  margin-bottom: 2px;
+}
+
+.impactDescription {
+  font-size: 0.7rem;
+  color: #a0a0b8;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  .analyticsGrid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .analyticsHeader {
+    flex-direction: column;
+    gap: 16px;
+    text-align: center;
+    padding: 16px;
+  }
+
+  .analyticsTitle {
+    font-size: 1.2rem;
+  }
+
+  .metricsCard,
+  .chartCard,
+  .scoreCard,
+  .impactCard {
+    padding: 20px;
+  }
+
+  .scoreDisplay {
+    flex-direction: column;
+    gap: 16px;
+    text-align: center;
+  }
+
+  .impactStats {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .chartBars {
+    height: 120px;
+  }
+
+  .barContainer {
+    height: 100px;
+  }
+
+  .chartContainer {
+    width: 100px;
+    height: 100px;
+  }
+}
+
+@media (max-width: 480px) {
+  .metricsCard,
+  .chartCard,
+  .scoreCard,
+  .impactCard {
+    padding: 16px;
+  }
+
+  .analyticsHeader {
+    padding: 12px;
+  }
+
+  .analyticsTitle {
+    font-size: 1.1rem;
+  }
+
+  .timeframeSelector {
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .timeframeButton {
+    padding: 6px 12px;
+    font-size: 0.8rem;
+  }
+
+  .cardTitle {
+    font-size: 1rem;
+  }
+
+  .scoreCircle {
+    width: 80px;
+    height: 80px;
+  }
+
+  .scoreCircle::before {
+    width: 56px;
+    height: 56px;
+  }
+
+  .scoreValue {
+    font-size: 1.2rem;
+  }
+
+  .impactValue {
+    font-size: 1.5rem;
+  }
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .analyticsContainer,
+  .chartContainer,
+  .tripsBar,
+  .spendingBar,
+  .timeBarFill {
+    animation: none;
+    transition: none;
+  }
+
+  .metricsCard:hover,
+  .chartCard:hover,
+  .scoreCard:hover,
+  .impactCard:hover {
+    transform: none;
+  }
+}
+
+/* High contrast mode */
+@media (prefers-contrast: high) {
+  .metricsCard,
+  .chartCard,
+  .scoreCard,
+  .impactCard {
+    border-color: #FFD700;
+    background: #000000;
+  }
+
+  .cardTitle {
+    color: #FFD700;
+  }
+
+  .metricValue,
+  .scoreText {
+    color: #ffffff;
+  }
+}

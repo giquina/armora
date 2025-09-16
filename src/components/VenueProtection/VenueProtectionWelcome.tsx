@@ -103,8 +103,8 @@ export function VenueProtectionWelcome() {
           <div className={styles.serviceItem}>
             <span className={styles.serviceIcon}>⚡</span>
             <div className={styles.serviceContent}>
-              <h4 className={styles.serviceItemTitle}>Emergency Response</h4>
-              <p className={styles.serviceItemText}>Coordinated response protocols and emergency evacuation planning</p>
+              <h4 className={styles.serviceItemTitle}>Incident Response</h4>
+              <p className={styles.serviceItemText}>Coordinated response protocols and venue evacuation planning</p>
             </div>
           </div>
         </div>

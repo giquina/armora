@@ -131,23 +131,21 @@ export const SmartRecommendation: React.FC<SmartRecommendationProps> = ({
         <div className={styles.contentLeft}>
           <div className={styles.recommendationExplanation}>
             <p className={styles.explanationText}>
-              Based on your security profile, we recommend Standard Protection with
-              SIA Level 2 certified officers for reliable, discreet transportation
-              and flexible booking options.
+              Based on your security assessment, we've found your perfect match! Professional security drivers who make every journey feel safe and comfortable. Trusted by thousands of passengers just like you.
             </p>
           </div>
 
           <div className={styles.benefitsList}>
-            <div className={styles.benefit}>• SIA Level 2 certified officers</div>
-            <div className={styles.benefit}>• Discreet professional transport</div>
-            <div className={styles.benefit}>• Flexible booking options</div>
+            <div className={styles.benefit}>• Friendly, vetted security drivers</div>
+            <div className={styles.benefit}>• Discrete & professional service</div>
+            <div className={styles.benefit}>• Book instantly, 24/7</div>
           </div>
         </div>
 
         <div className={styles.contentRight}>
           <div className={styles.quickStats}>
             <span className={styles.stat}>⭐ 4.8 Rating</span>
-            <span className={styles.stat}>👥 1,000+ Clients</span>
+            <span className={styles.stat}>👥 2,847+ Happy Riders</span>
             <span className={styles.stat}>⚡ 2 min away</span>
             <span className={styles.stat}>✅ Available Now</span>
           </div>

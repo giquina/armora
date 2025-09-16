@@ -209,7 +209,7 @@ export function PPOVenueBooking({ isVisible }: PPOVenueBookingProps) {
                   <li>SIA Level 3 certified Personal Protection Officers</li>
                   <li>Venue security assessment and planning</li>
                   <li>Threat risk analysis</li>
-                  <li>Emergency response protocols</li>
+                  <li>Incident response protocols</li>
                   <li>24/7 command center support</li>
                   <li>Detailed security reports</li>
                 </ul>

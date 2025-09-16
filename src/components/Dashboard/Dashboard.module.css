@@ -2118,3 +2118,97 @@
     margin-bottom: var(--space-xl); /* Extra bottom spacing for mobile nav */
   }
 }
+
+/* ========================================
+   EVENT SECURITY CTA STYLES
+======================================== */
+.eventCTA {
+  margin: 48px var(--space-md) 32px;
+  background: #1a1a2e;
+  border-radius: 16px;
+  border-top: 2px solid #FFD700;
+  padding: 32px;
+  width: calc(100% - 32px);
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.ctaContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.ctaIcon {
+  font-size: 48px;
+  color: #FFD700;
+  margin-bottom: 16px;
+  line-height: 1;
+}
+
+.ctaHeadline {
+  color: #FFD700;
+  font-size: 24px;
+  font-weight: 600;
+  margin: 0 0 12px;
+  text-align: center;
+}
+
+.ctaDescription {
+  color: #FFFFFF;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.5;
+  margin: 0 0 16px;
+  text-align: center;
+}
+
+.ctaSocialProof {
+  color: #FFD700;
+  font-size: 14px;
+  font-weight: 500;
+  margin: 0 0 24px;
+  text-align: center;
+}
+
+.ctaButton {
+  background: #FFD700;
+  color: #1a1a2e;
+  padding: 14px 32px;
+  border-radius: 8px;
+  border: none;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  text-align: center;
+  display: inline-block;
+}
+
+.ctaButton:hover {
+  background: #FFDF00;
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+  .eventCTA {
+    margin: 32px var(--space-sm) 24px;
+    padding: 24px;
+    width: calc(100% - 24px);
+  }
+
+  .ctaHeadline {
+    font-size: 22px;
+  }
+
+  .ctaDescription {
+    font-size: 15px;
+  }
+
+  .ctaButton {
+    width: 100%;
+    padding: 16px 24px;
+  }
+}
