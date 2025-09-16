@@ -185,7 +185,7 @@ export function QuickBooking({ onBookNow, selectedService, isLoading = false, us
 
   const isReadyToBook = pickupLocation?.address && selectedService && (!isScheduled || scheduledTime);
 
-  // Check if Shadow service should be available (luxury vehicle owners only)
+  // Check if Shadow service should be available (premium vehicle owners only)
   const shouldShowShadow = userType === 'registered' || userType === 'google';
 
   return (
@@ -483,7 +483,7 @@ export function QuickBooking({ onBookNow, selectedService, isLoading = false, us
           <div className={styles.warningContent}>
             <h4 className={styles.warningTitle}>Shadow Service</h4>
             <p className={styles.warningText}>
-              Available exclusively for verified luxury vehicle owners.
+              Available exclusively for verified premium vehicle owners.
               <strong>Register your vehicle</strong> to access this premium service.
             </p>
           </div>

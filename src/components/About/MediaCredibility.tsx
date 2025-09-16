@@ -29,7 +29,7 @@ const mediaFeatures: MediaMention[] = [
 
 const clientTestimonials = [
   {
-    text: "The level of professionalism and discretion shown by Armora's close protection officers is exceptional. They seamlessly blend security expertise with luxury service.",
+    text: "The level of professionalism and discretion shown by Armora's close protection officers is exceptional. They seamlessly blend security expertise with premium service.",
     client: "Private Members' Club Executive",
     location: "Mayfair, London"
   },

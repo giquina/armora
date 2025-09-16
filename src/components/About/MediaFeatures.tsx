@@ -49,7 +49,7 @@ export function MediaFeatures() {
 
               <div className={styles.storyQuote}>
                 <blockquote className={styles.quote}>
-                  "The seamless integration of security expertise with luxury service delivery
+                  "The seamless integration of security expertise with premium service delivery
                   sets new standards in executive protection."
                 </blockquote>
                 <cite className={styles.quoteAttribution}>— Security Industry Professional</cite>

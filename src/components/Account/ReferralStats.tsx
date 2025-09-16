@@ -29,7 +29,7 @@ export function ReferralStats({ referrals }: ReferralStatsProps) {
       case 'joined':
         return { text: 'Joined', color: '#ffd700' };
       case 'subscribed':
-        return { text: 'Subscribed', color: '#4CAF50' };
+        return { text: 'Subscribed', color: '#FFD700' };
       default:
         return { text: status, color: '#666' };
     }

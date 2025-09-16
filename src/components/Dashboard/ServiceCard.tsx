@@ -34,7 +34,7 @@ const SERVICE_CONFIG = {
     accentColor: '#FFD700'
   },
   executive: {
-    theme: 'luxury',
+    theme: 'premium',
     icon: '👑',
     vehicle: 'BMW 5 Series',
     vehicleNote: '(Security Modified)',
@@ -49,7 +49,7 @@ const SERVICE_CONFIG = {
   shadow: {
     theme: 'tactical',
     icon: '🕴️',
-    vehicle: 'Armored BMW X5',
+    vehicle: 'Protected BMW X5',
     vehicleNote: '(Tactical Spec)',
     driverLevel: 'Special Forces Trained',
     capacity: '4 passengers',

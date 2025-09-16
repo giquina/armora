@@ -271,9 +271,9 @@ export const questionnaireSteps: QuestionnaireStep[] = [
         examples: "*Select this if you want protection without the obvious security presence."
       },
       {
-        id: "luxury_comfort",
+        id: "premium_comfort",
         label: "🚗 Do you expect the best vehicles?",
-        value: "luxury_comfort",
+        value: "premium_comfort",
         description: "Is the vehicle itself part of your image? Do you need premium cars that make the right statement?",
         examples: "*Select this if vehicle quality and presentation matter to you."
       },
@@ -417,15 +417,15 @@ export const questionnaireSteps: QuestionnaireStep[] = [
       },
       {
         id: "entertainment_events",
-        label: "🏨 Do you stay at luxury hotels?",
+        label: "🏨 Do you stay at premium hotels?",
         value: "entertainment_events",
-        description: "Are five-star hotels your second home? Do you need drivers who understand luxury hospitality standards?",
+        description: "Are five-star hotels your second home? Do you need drivers who understand premium hospitality standards?",
         examples: "*Select this if you regularly use high-end hotels."
       },
       {
-        id: "luxury_shopping",
+        id: "premium_shopping",
         label: "⚖️ Do you visit government buildings or courts?",
-        value: "luxury_shopping",
+        value: "premium_shopping",
         description: "Do you have business in Westminster, attend court hearings, or visit government offices? We understand the security protocols.",
         examples: "*Select this if you regularly visit official buildings."
       },
@@ -499,9 +499,9 @@ export const questionnaireSteps: QuestionnaireStep[] = [
       },
       {
         id: "private_aviation",
-        label: "🏨 Do you stay at luxury hotels?",
+        label: "🏨 Do you stay at premium hotels?",
         value: "private_aviation",
-        description: "Are five-star hotels your second home? Do you need drivers who understand luxury hospitality standards?",
+        description: "Are five-star hotels your second home? Do you need drivers who understand premium hospitality standards?",
         examples: "*Select this if you regularly use high-end hotels."
       },
       {
@@ -955,8 +955,8 @@ export const getServiceRecommendation = (responses: Record<string, any>): string
     return "armora-shadow";
   }
   
-  // Check for luxury preferences
-  if (serviceRequirements.includes('luxury_comfort') || frequency === 'daily') {
+  // Check for premium preferences
+  if (serviceRequirements.includes('premium_comfort') || frequency === 'daily') {
     return "armora-executive";
   }
   
@@ -985,10 +985,10 @@ export const serviceData = {
   "armora-executive": {
     id: "armora-executive", 
     name: "Armora Executive",
-    description: "Luxury security transport with enhanced amenities",
+    description: "Premium security transport with enhanced amenities",
     features: [
       "Executive chauffeur service",
-      "Luxury vehicles (S-Class, 7-Series, A8)",
+      "Premium vehicles (S-Class, 7-Series, A8)",
       "Enhanced security protocols",
       "Business facilities (WiFi, charging, privacy glass)",
       "Preferred driver assignment",

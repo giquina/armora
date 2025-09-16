@@ -97,7 +97,7 @@ describe('VehicleSelection Component', () => {
 
       // Executive service features
       expect(screen.getByText('Elite security specialist')).toBeInTheDocument();
-      expect(screen.getByText('Luxury reinforced vehicle')).toBeInTheDocument();
+      expect(screen.getByText('Premium reinforced vehicle')).toBeInTheDocument();
 
       // Shadow service features
       expect(screen.getByText('Discrete protection service')).toBeInTheDocument();

@@ -49,13 +49,13 @@ export function About({ onBack }: AboutProps) {
             <p className={styles.storyText}>
               Founded by a close protection specialist with over three decades in private security,
               Armora was born from recognizing a critical gap in the market - the need for genuine
-              security expertise in luxury transport.
+              security expertise in premium transport.
             </p>
             <p className={styles.storyText}>
               After years protecting high-net-worth individuals at exclusive venues like
               <span className={styles.highlight}> Soho House Private Members' Club</span>, and being
               featured in national media for professional security services, our founder understood
-              that VIP transport requires more than luxury vehicles - it demands the seamless fusion
+              that VIP transport requires more than premium vehicles - it demands the seamless fusion
               of close protection and secure transportation.
             </p>
           </div>

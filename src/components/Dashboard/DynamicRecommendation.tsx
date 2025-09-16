@@ -111,7 +111,7 @@ export function DynamicRecommendation({
     if (service.id === 'shadow') {
       return [
         'Special Forces trained protection officers',
-        'Armored BMW X5 tactical specifications',
+        'Protected BMW X5 tactical specifications',
         'Counter-surveillance expertise',
         'Tactical route planning & assessment',
         'Government-level security protocols'
@@ -230,7 +230,7 @@ export function DynamicRecommendation({
         {/* Accessibility Message */}
         <div className={styles.accessibilityMessage}>
           <p className={styles.accessibilityText}>
-            <strong>Security shouldn't be a luxury - it's a right.</strong> {service.name} makes
+            <strong>Security shouldn't be a premium - it's a right.</strong> {service.name} makes
             professional security transport accessible to everyone, whether you're a business executive,
             student, or anyone who values their safety and environmental responsibility.
           </p>

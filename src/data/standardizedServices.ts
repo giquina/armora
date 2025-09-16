@@ -41,7 +41,7 @@ export const STANDARDIZED_SERVICES: Record<string, StandardizedService> = {
     name: 'Standard Protection',
     tagline: 'Professional security transport with certified bodyguard drivers',
     price: 65,
-    priceDisplay: '£65/hour',
+    priceDisplay: '£65.00/hour',
     hourlyRate: 65,
     description: 'SIA Level 2 certified security drivers providing personal protection during transport. Ideal for women, students, and individuals wanting enhanced safety.',
     features: [
@@ -77,7 +77,7 @@ export const STANDARDIZED_SERVICES: Record<string, StandardizedService> = {
     name: 'Client Vehicle',
     tagline: 'Your car, our security-trained driver - maximum privacy and discretion',
     price: 55,
-    priceDisplay: '£55/hour',
+    priceDisplay: '£55.00/hour',
     hourlyRate: 55,
     description: 'SIA certified security drivers operate your personal vehicle, providing protection while maintaining complete privacy and discretion. Perfect for executives and privacy-conscious clients.',
     features: [
@@ -114,7 +114,7 @@ export const STANDARDIZED_SERVICES: Record<string, StandardizedService> = {
     name: 'Executive Shield',
     tagline: 'Enhanced bodyguard protection for corporate executives and business leaders',
     price: 95,
-    priceDisplay: '£95/hour',
+    priceDisplay: '£95.00/hour',
     hourlyRate: 95,
     description: 'SIA Level 3 certified executive protection specialists with advanced threat assessment, corporate venue security, and discrete bodyguard services for high-profile business leaders.',
     features: [
@@ -122,7 +122,7 @@ export const STANDARDIZED_SERVICES: Record<string, StandardizedService> = {
       { icon: '🏢', text: 'Corporate venue security expertise' },
       { icon: '🎯', text: 'Advanced threat assessment' },
       { icon: '🤐', text: 'Discrete bodyguard services' },
-      { icon: '🚗', text: 'Armored vehicle options' },
+      { icon: '🚗', text: 'Protected vehicle options' },
       { icon: '📊', text: 'Detailed security reports' }
     ],
     socialProof: 'Protecting 156 C-suite executives',
@@ -150,7 +150,7 @@ export const STANDARDIZED_SERVICES: Record<string, StandardizedService> = {
     name: 'Shadow Protocol',
     tagline: 'Elite covert bodyguard protection for high-risk individuals and VIPs',
     price: 125,
-    priceDisplay: '£125/hour',
+    priceDisplay: '£125.00/hour',
     hourlyRate: 125,
     description: 'Special Forces trained covert protection specialists providing maximum security for high-risk situations. Advanced threat management, counter-surveillance, and rapid response capabilities.',
     features: [

@@ -9,6 +9,7 @@
   display: flex;
   flex-direction: column;
   overflow: hidden;
+  animation: fadeIn 0.4s ease-out;
 }
 
 .loading {
@@ -35,11 +36,13 @@
   flex: 1;
   position: relative;
   min-height: 40vh;
+  animation: slideInFromTop 0.6s cubic-bezier(0.4, 0, 0.2, 1) 0.1s both;
 }
 
 /* Service Options */
 .serviceOptions {
   padding: var(--space-lg) var(--space-md) 0 var(--space-md);
+  animation: slideInFromBottom 0.6s cubic-bezier(0.4, 0, 0.2, 1) 0.3s both;
 }
 
 .sectionTitle {
@@ -48,6 +51,7 @@
   color: var(--text-primary);
   margin: 0 0 var(--space-lg) 0;
   text-align: center;
+  animation: fadeInUp 0.5s ease-out 0.4s both;
 }
 
 /* Action Bar */
@@ -57,6 +61,7 @@
   background: var(--bg-primary);
   position: sticky;
   bottom: 0;
+  animation: slideInFromBottom 0.5s cubic-bezier(0.4, 0, 0.2, 1) 0.6s both;
 }
 
 .paymentSection {
@@ -150,10 +155,205 @@
   box-shadow: none;
 }
 
+.confirmButton.loading {
+  background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+  cursor: wait;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-sm);
+}
+
+.confirmButton .loadingSpinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-top: 2px solid white;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+/* Service Cards */
+.serviceCardsContainer {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.serviceCard {
+  padding: var(--space-lg);
+  background: var(--bg-secondary);
+  border: 2px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  animation: serviceCardEnter 0.5s ease-out both;
+  transform-origin: center;
+}
+
+.serviceCard:hover {
+  transform: translateY(-4px) scale(1.02);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+  border-color: var(--border-primary);
+}
+
+.serviceCard:active {
+  transform: translateY(-2px) scale(1.01);
+  transition-duration: 0.1s;
+}
+
+.serviceCard.selected {
+  background: linear-gradient(135deg, rgba(255, 215, 0, 0.08), rgba(255, 215, 0, 0.04));
+  border-color: var(--accent-primary);
+  box-shadow: 0 8px 32px rgba(255, 215, 0, 0.2);
+}
+
+.serviceCard.selected:hover {
+  box-shadow: 0 12px 40px rgba(255, 215, 0, 0.3);
+}
+
+.serviceContent {
+  flex: 1;
+}
+
+.serviceName {
+  font-size: var(--font-base);
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0 0 var(--space-xs) 0;
+  transition: color 0.2s ease;
+}
+
+.serviceDescription {
+  font-size: var(--font-sm);
+  color: var(--text-secondary);
+  margin: 0 0 var(--space-sm) 0;
+  line-height: 1.4;
+  transition: color 0.2s ease;
+}
+
+.serviceFeatures {
+  font-size: var(--font-xs);
+  color: var(--text-tertiary);
+}
+
+.feature {
+  margin-bottom: 2px;
+  transition: color 0.2s ease;
+}
+
+.vehicleSection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 80px;
+  gap: var(--space-xs);
+}
+
+.vehicleIcon {
+  font-size: 32px;
+  transition: transform 0.3s ease;
+}
+
+.serviceCard:hover .vehicleIcon {
+  transform: scale(1.1) rotate(5deg);
+}
+
+.vehicleType {
+  font-size: var(--font-xs);
+  color: var(--text-primary);
+  text-align: center;
+  transition: color 0.2s ease;
+}
+
+.priceSection {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  min-width: 80px;
+  gap: var(--space-xs);
+}
+
+.price {
+  font-size: var(--font-lg);
+  font-weight: 700;
+  color: var(--text-primary);
+  transition: all 0.2s ease;
+}
+
+.serviceCard.selected .price {
+  color: var(--accent-primary);
+}
+
+.eta {
+  font-size: var(--font-xs);
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  transition: color 0.2s ease;
+}
+
 /* Animations */
 @keyframes spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideInFromTop {
+  from {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInFromBottom {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes serviceCardEnter {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
 }
 
 /* Mobile Optimizations */

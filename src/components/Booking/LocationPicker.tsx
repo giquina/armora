@@ -157,16 +157,16 @@ export function LocationPicker({ selectedService, onLocationConfirmed, onBack, u
 
   return (
     <div className={styles.container}>
-      {/* Progress Indicator */}
+      {/* Progress Indicator - Clean design without redundant header */}
       <BookingProgressIndicator currentStep="location-picker" />
-      
+
       <div className={styles.header}>
         <button className={styles.backButton} onClick={onBack}>
           ← Back
         </button>
-        <h1 className={styles.title}>Plan Your Secure Route</h1>
+        <h1 className={styles.title}>Route Planning</h1>
         <p className={styles.subtitle}>
-          Configure pickup and destination for your {selectedService.name} security driver
+          Configure pickup and destination for your {selectedService.name}
         </p>
       </div>
 
@@ -178,11 +178,11 @@ export function LocationPicker({ selectedService, onLocationConfirmed, onBack, u
         <div className={styles.servicePrice}>
           {user?.hasUnlockedReward && user?.userType !== 'guest' ? (
             <>
-              <span className={styles.discountedPrice}>£{selectedService.hourlyRate * 0.5}</span>
-              <span className={styles.originalPrice}>£{selectedService.hourlyRate}</span>
+              <span className={styles.discountedPrice}>£{(selectedService.hourlyRate * 0.5).toFixed(2)}</span>
+              <span className={styles.originalPrice}>£{selectedService.hourlyRate.toFixed(2)}</span>
             </>
           ) : (
-            <span className={styles.price}>£{selectedService.hourlyRate}</span>
+            <span className={styles.price}>£{selectedService.hourlyRate.toFixed(2)}</span>
           )}
           <span className={styles.perHour}>/hr</span>
         </div>
@@ -237,10 +237,6 @@ export function LocationPicker({ selectedService, onLocationConfirmed, onBack, u
 
         {/* Premium Location Selection Container */}
         <div className={styles.locationSelectionContainer}>
-          <div className={styles.sectionHeader}>
-            <h2 className={styles.mainTitle}>Security Transport Route</h2>
-            <p className={styles.progressIndicator}>Step 2 of 3 • Professional Security Planning</p>
-          </div>
 
           <div className={styles.locationInputGroup}>
             <label htmlFor="pickup" className={styles.locationLabel}>
@@ -364,7 +360,7 @@ export function LocationPicker({ selectedService, onLocationConfirmed, onBack, u
                   <span className={styles.detailLabel}>DURATION</span>
                 </div>
                 <div className={styles.detailItem}>
-                  <span className={styles.detailValue}>£{calculateCost()}</span>
+                  <span className={styles.detailValue}>£{calculateCost().toFixed(2)}</span>
                   <span className={styles.detailLabel}>ESTIMATE</span>
                 </div>
               </div>
@@ -397,7 +393,7 @@ export function LocationPicker({ selectedService, onLocationConfirmed, onBack, u
                 </div>
                 <div className={styles.estimateItem}>
                   <span className={styles.estimateLabel}>Estimated Cost:</span>
-                  <span className={styles.estimateCost}>£{calculateCost()}</span>
+                  <span className={styles.estimateCost}>£{calculateCost().toFixed(2)}</span>
                 </div>
                 {user?.hasUnlockedReward && user?.userType !== 'guest' && (
                   <div className={styles.rewardApplied}>

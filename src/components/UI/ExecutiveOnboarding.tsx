@@ -80,7 +80,7 @@ const ExecutiveOnboarding: React.FC<ExecutiveOnboardingProps> = ({
             'Discreet professional service',
             'Real-time threat assessment',
             'Executive protection protocols',
-            'Luxury vehicle fleet'
+            'Premium vehicle fleet'
           ]
         };
       case 'high-risk':

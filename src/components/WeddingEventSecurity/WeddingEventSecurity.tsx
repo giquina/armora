@@ -99,7 +99,7 @@ const weddingPackages: WeddingPackage[] = [
     ]
   },
   {
-    name: 'Luxury',
+    name: 'Premium',
     price: '£1,500',
     duration: 'Full day',
     officers: 5,
@@ -192,7 +192,7 @@ export function WeddingEventSecurity() {
     cost = officers * (duration * 25) + 200;
 
     if (officers >= 5 || cost >= 1200) {
-      recommendedPackage = 'Luxury';
+      recommendedPackage = 'Premium';
     } else if (officers >= 3 || cost >= 700) {
       recommendedPackage = 'Premium';
     }

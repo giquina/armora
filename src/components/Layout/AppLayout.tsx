@@ -44,7 +44,7 @@ export function AppLayout({
         showServices: true
       };
       case 'services': return { title: 'Services', subtitle: 'Choose your protection', showServices: false };
-      case 'booking': return { title: 'Book a Ride', subtitle: 'Secure Transport', showServices: false };
+      case 'booking': return { title: '', subtitle: 'Secure Transport', showServices: false };
       case 'bookings':
       case 'rides': return { title: 'Your Bookings', subtitle: 'Transport & Security', showServices: false };
       case 'account': return { title: 'Your Account', subtitle: 'Settings & Preferences', showServices: false };

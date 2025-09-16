@@ -16,7 +16,7 @@ export function AboutHero() {
 
         <div className={styles.heroText}>
           <h1 className={styles.heroTitle}>
-            Elite Security Meets Luxury Transport
+            Elite Security Meets Premium Transport
           </h1>
           <p className={styles.heroSubtitle}>
             Over 30 Years of Private Security Excellence
@@ -47,7 +47,7 @@ export function AboutHero() {
           </div>
           <div className={styles.featureItem}>
             <div className={styles.featureIcon}>🚗</div>
-            <span>Luxury Fleet</span>
+            <span>Premium Fleet</span>
           </div>
           <div className={styles.featureItem}>
             <div className={styles.featureIcon}>🤫</div>

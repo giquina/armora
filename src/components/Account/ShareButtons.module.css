@@ -147,14 +147,14 @@
 
 /* Success state for copy button */
 .copyButton.success {
-  background: #4CAF50;
+  background: #FFD700;
   color: white;
-  border-color: #4CAF50;
+  border-color: #FFD700;
 }
 
 .copyButton.success:hover {
-  background: #45a049;
-  border-color: #45a049;
+  background: #e6c200;
+  border-color: #e6c200;
 }
 
 /* Loading state */

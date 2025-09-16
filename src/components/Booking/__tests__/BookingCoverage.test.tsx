@@ -26,8 +26,8 @@ const mockServices: ServiceLevel[] = [
     tagline: 'Premium VIP Protection',
     price: '£75',
     hourlyRate: 75,
-    description: 'Executive-level security with luxury transport.',
-    features: ['Elite security detail', 'Luxury reinforced vehicle'],
+    description: 'Executive-level security with premium transport.',
+    features: ['Elite security detail', 'Premium reinforced vehicle'],
     isPopular: true,
     socialProof: { tripsCompleted: 1847, selectionRate: 67 }
   },

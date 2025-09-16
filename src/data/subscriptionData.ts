@@ -38,7 +38,7 @@ export const subscriptionPlans: SubscriptionPlan[] = [
       '20% discount on all bookings',
       'Dedicated Security Manager',
       'Priority 45-minute response time',
-      'Luxury vehicle fleet access',
+      'Premium vehicle fleet access',
       'Advanced route planning',
       'Real-time tracking & updates',
       '24/7 client support line',
@@ -72,7 +72,7 @@ export const subscriptionPlans: SubscriptionPlan[] = [
       'First aid trained drivers',
       'SIA Close Protection Officers'
     ],
-    description: 'Ultimate VIP experience with maximum security and luxury benefits.',
+    description: 'Ultimate VIP experience with maximum security and premium benefits.',
     isAvailable: false,
     responseTime: '30 minutes',
     bookingFee: 0,

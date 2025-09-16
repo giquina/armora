@@ -26,17 +26,19 @@
 /* NEW Badge */
 .newBadge {
   position: absolute;
-  top: 12px;
-  right: 12px;
+  top: 8px;
+  right: 8px;
   background: linear-gradient(45deg, #FFD700, #FFA500);
   color: #1a1a2e;
-  padding: 6px 12px;
-  border-radius: 12px;
-  font-size: 0.75rem;
+  padding: 4px 10px;
+  border-radius: 10px;
+  font-size: 0.7rem;
   font-weight: bold;
-  letter-spacing: 1px;
-  z-index: 10;
+  letter-spacing: 0.5px;
+  z-index: 20;
   box-shadow: 0 2px 8px rgba(255, 215, 0, 0.3);
+  /* Ensure no overlap with content */
+  transform: translateY(0);
 }
 
 /* Hero Section */
@@ -260,7 +262,7 @@
 }
 
 .checkIcon {
-  color: #4CAF50;
+  color: #FFD700;
   font-weight: bold;
 }
 

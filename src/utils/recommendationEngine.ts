@@ -168,7 +168,7 @@ export function analyzeUserProfile(questionnaireData: PersonalizationData | null
       description: 'Elite protection for high-profile individuals requiring the highest levels of security and privacy.',
       benefits: [
         'Counter-surveillance and threat assessment',
-        'Armored vehicle options and security modifications',
+        'Protected vehicle options and security modifications',
         'Close protection specialist coordination',
         'Route security analysis and alternative planning',
         'Emergency response and extraction protocols'

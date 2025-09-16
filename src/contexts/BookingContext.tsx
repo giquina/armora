@@ -219,10 +219,10 @@ export const SERVICE_OPTIONS: ServiceOption[] = [
   {
     id: 'executive',
     name: 'Executive Shield',
-    description: 'Luxury BMW, SIA Level 3',
+    description: 'Premium BMW, SIA Level 3',
     price: 49.40,
     eta: '3 min',
-    features: ['SIA Level 3 Certified', 'Luxury Vehicle', 'Enhanced Security'],
+    features: ['SIA Level 3 Certified', 'Premium Vehicle', 'Enhanced Security'],
     vehicleType: 'BMW X5',
     securityLevel: 'Level 3'
   },

@@ -69,7 +69,7 @@ export default function ProfileSummaryComponent({ userResponses, userName }: Pro
       },
       'special_events': { 
         package: 'VIP Events Package', 
-        description: 'special occasion transport with luxury vehicles and specialized event protocols'
+        description: 'special occasion transport with premium vehicles and specialized event protocols'
       },
       'seasonal': { 
         package: 'Seasonal Flexibility Package', 
@@ -90,7 +90,7 @@ export default function ProfileSummaryComponent({ userResponses, userName }: Pro
     const priorityMap: Record<string, string> = {
       'privacy_discretion': 'discrete protection and confidential transport',
       'security_awareness': 'enhanced security protocols and threat awareness',
-      'luxury_comfort': 'premium comfort and executive amenities',
+      'premium_comfort': 'premium comfort and executive amenities',
       'professional_service': 'professional etiquette and executive service standards',
       'reliability_tracking': 'punctual service and real-time coordination',
       'flexibility_coverage': 'flexible scheduling and comprehensive coverage',
@@ -127,7 +127,7 @@ export default function ProfileSummaryComponent({ userResponses, userName }: Pro
       'airport_transfers': 'Airport Transfers',
       'tourist_destinations': 'Tourist Destinations',
       'entertainment_events': 'Entertainment & Events',
-      'luxury_shopping': 'Luxury Shopping',
+      'premium_shopping': 'Premium Shopping',
       'healthcare_professional': 'Healthcare & Professional Services',
       'major_uk_cities': 'Major UK Cities',
       'university_business_towns': 'University & Business Towns',
@@ -161,7 +161,7 @@ export default function ProfileSummaryComponent({ userResponses, userName }: Pro
     
     const needsHighSecurity = securityRequirements.includes('privacy_discretion') || 
                               securityRequirements.includes('security_awareness');
-    const needsLuxury = securityRequirements.includes('luxury_comfort');
+    const needsPremium = securityRequirements.includes('premium_comfort');
     const isFrequent = frequency === 'daily' || frequency === 'weekly';
 
     if (executiveProfiles.includes(professionalProfile) && needsHighSecurity) {
@@ -174,11 +174,11 @@ export default function ProfileSummaryComponent({ userResponses, userName }: Pro
       };
     }
 
-    if (executiveProfiles.includes(professionalProfile) || needsLuxury || isFrequent) {
+    if (executiveProfiles.includes(professionalProfile) || needsPremium || isFrequent) {
       return {
         name: 'Armora Executive',
-        tier: 'Luxury Security Transport',
-        features: 'executive chauffeur service, luxury vehicles, and enhanced security protocols',
+        tier: 'Premium Security Transport',
+        features: 'executive chauffeur service, premium vehicles, and enhanced security protocols',
         price: '£75/hour',
         confidence: 'recommended'
       };

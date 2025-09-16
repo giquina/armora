@@ -47,7 +47,7 @@ const convertToServiceLevel = (): ServiceLevel[] => {
     // Vehicle and capacity data - standardized for all services
     vehicle: service.id === 'standard' ? 'Nissan Leaf EV' :
              service.id === 'executive' ? 'BMW 5 Series' :
-             service.id === 'client-vehicle' ? 'Your Personal Vehicle' : 'Armored BMW X5',
+             service.id === 'client-vehicle' ? 'Your Personal Vehicle' : 'Protected BMW X5',
     capacity: service.id === 'client-vehicle' ? 'Any vehicle size' : '4 passengers',
     driverQualification: service.id === 'standard' || service.id === 'client-vehicle' ? 'SIA Level 2 Security Certified' :
                         service.id === 'executive' ? 'SIA Level 3 Security Certified' : 'Special Forces Trained',

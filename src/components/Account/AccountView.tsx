@@ -325,7 +325,7 @@ export function AccountView() {
   const renderMainPage = () => (
     <div className={styles.mainContent}>
       {/* User Profile Section */}
-      <div className={styles.profileSection}>
+      <div className={`${styles.profileSection} ${styles.card}`}>
         <div className={styles.profileHeader}>
           <div className={styles.avatarContainer}>
             <img src={userData.profile.avatar} alt="Profile" className={styles.avatar} />
@@ -351,7 +351,7 @@ export function AccountView() {
       </div>
 
       {/* Protection Status Section */}
-      <div className={styles.protectionSection}>
+      <div className={`${styles.protectionSection} ${styles.card}`}>
         <h2 className={styles.sectionTitle}>YOUR PROTECTION LEVEL</h2>
         <div className={styles.sectionLine}></div>
 
@@ -399,24 +399,24 @@ export function AccountView() {
       </div>
 
       {/* Quick Stats Section */}
-      <div className={styles.statsSection}>
+      <div className={`${styles.statsSection} ${styles.card}`}>
         <h2 className={styles.sectionTitle}>YOUR STATISTICS</h2>
         <div className={styles.sectionLine}></div>
 
         <div className={styles.statsGrid}>
-          <div className={styles.statCard}>
+          <div className={`${styles.statCard} ${styles.miniCard}`}>
             <span className={styles.statValue}>{userData.stats.totalRides}</span>
             <span className={styles.statLabel}>Total Rides</span>
           </div>
-          <div className={styles.statCard}>
+          <div className={`${styles.statCard} ${styles.miniCard}`}>
             <span className={styles.statValue}>{userData.stats.totalHours} hrs</span>
             <span className={styles.statLabel}>Protected</span>
           </div>
-          <div className={styles.statCard}>
+          <div className={`${styles.statCard} ${styles.miniCard}`}>
             <span className={styles.statValue}>£{userData.stats.totalSpent.toFixed(0)}</span>
             <span className={styles.statLabel}>Total Spent</span>
           </div>
-          <div className={styles.statCard}>
+          <div className={`${styles.statCard} ${styles.miniCard}`}>
             <span className={styles.statValue}>⭐ {userData.stats.userRating}</span>
             <span className={styles.statLabel}>Your Rating</span>
           </div>
@@ -431,12 +431,12 @@ export function AccountView() {
       </div>
 
       {/* Account Settings Section */}
-      <div className={styles.settingsSection}>
+      <div className={`${styles.settingsSection} ${styles.card}`}>
         <h2 className={styles.sectionTitle}>MANAGE YOUR ACCOUNT</h2>
         <div className={styles.sectionLine}></div>
 
         <div className={styles.settingsList}>
-          <button className={styles.settingItem} onClick={() => setCurrentPage('settings')}>
+          <button className={`${styles.settingItem} ${styles.settingCard}`} onClick={() => setCurrentPage('settings')}>
             <span className={styles.settingIcon}>👤</span>
             <div className={styles.settingContent}>
               <span className={styles.settingTitle}>Personal Information</span>
@@ -445,7 +445,7 @@ export function AccountView() {
             <span className={styles.settingArrow}>→</span>
           </button>
 
-          <button className={styles.settingItem} onClick={() => setCurrentPage('settings')}>
+          <button className={`${styles.settingItem} ${styles.settingCard}`} onClick={() => setCurrentPage('settings')}>
             <span className={styles.settingIcon}>🔒</span>
             <div className={styles.settingContent}>
               <span className={styles.settingTitle}>Security & Privacy</span>
@@ -457,7 +457,7 @@ export function AccountView() {
             <span className={styles.settingArrow}>→</span>
           </button>
 
-          <button className={styles.settingItem} onClick={() => setCurrentPage('financial')}>
+          <button className={`${styles.settingItem} ${styles.settingCard}`} onClick={() => setCurrentPage('financial')}>
             <span className={styles.settingIcon}>💳</span>
             <div className={styles.settingContent}>
               <span className={styles.settingTitle}>Payment & Billing</span>
@@ -467,7 +467,7 @@ export function AccountView() {
             <span className={styles.settingArrow}>→</span>
           </button>
 
-          <button className={styles.settingItem} onClick={() => setCurrentPage('settings')}>
+          <button className={`${styles.settingItem} ${styles.settingCard}`} onClick={() => setCurrentPage('settings')}>
             <span className={styles.settingIcon}>🔔</span>
             <div className={styles.settingContent}>
               <span className={styles.settingTitle}>Notifications</span>
@@ -476,7 +476,7 @@ export function AccountView() {
             <span className={styles.settingArrow}>→</span>
           </button>
 
-          <button className={styles.settingItem} onClick={() => setCurrentPage('referral')}>
+          <button className={`${styles.settingItem} ${styles.settingCard}`} onClick={() => setCurrentPage('referral')}>
             <span className={styles.settingIcon}>🎁</span>
             <div className={styles.settingContent}>
               <span className={styles.settingTitle}>Referral Program</span>
@@ -486,7 +486,7 @@ export function AccountView() {
             <span className={styles.settingArrow}>→</span>
           </button>
 
-          <button className={styles.settingItem} onClick={() => setCurrentPage('settings')}>
+          <button className={`${styles.settingItem} ${styles.settingCard}`} onClick={() => setCurrentPage('settings')}>
             <span className={styles.settingIcon}>⚙️</span>
             <div className={styles.settingContent}>
               <span className={styles.settingTitle}>Preferences</span>
@@ -495,7 +495,7 @@ export function AccountView() {
             <span className={styles.settingArrow}>→</span>
           </button>
 
-          <button className={styles.settingItem} onClick={() => setCurrentPage('settings')}>
+          <button className={`${styles.settingItem} ${styles.settingCard}`} onClick={() => setCurrentPage('settings')}>
             <span className={styles.settingIcon}>📱</span>
             <div className={styles.settingContent}>
               <span className={styles.settingTitle}>Active Sessions</span>
@@ -508,7 +508,7 @@ export function AccountView() {
       </div>
 
       {/* Achievements Section */}
-      <div className={styles.achievementsSection}>
+      <div className={`${styles.achievementsSection} ${styles.card}`}>
         <h2 className={styles.sectionTitle}>YOUR ACHIEVEMENTS</h2>
         <div className={styles.sectionLine}></div>
 
@@ -525,7 +525,7 @@ export function AccountView() {
       </div>
 
       {/* Support Section */}
-      <div className={styles.supportSection}>
+      <div className={`${styles.supportSection} ${styles.card}`}>
         <h2 className={styles.sectionTitle}>NEED HELP?</h2>
         <div className={styles.sectionLine}></div>
 
