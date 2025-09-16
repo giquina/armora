@@ -23,7 +23,7 @@ const convertToServiceLevel = (): ServiceLevel[] => {
     // Vehicle and capacity data - standardized for all services
     vehicle: service.id === 'standard' ? 'Nissan Leaf EV' :
              service.id === 'executive' ? 'BMW 5 Series' :
-             service.id === 'client-vehicle' ? 'Your Personal Vehicle' : 'Armored BMW X5',
+             service.id === 'client-vehicle' ? 'Your Personal Vehicle' : 'Protected BMW X5',
     capacity: service.id === 'client-vehicle' ? 'Any vehicle size' : '4 passengers',
     driverQualification: service.id === 'standard' || service.id === 'client-vehicle' ? 'SIA Level 2 Security Certified' :
                         service.id === 'executive' ? 'SIA Level 3 Security Certified' : 'Special Forces Trained',
@@ -39,7 +39,7 @@ export function Dashboard() {
   const { user, questionnaireData, deviceCapabilities } = state;
   const [showRewardBanner, setShowRewardBanner] = useState(false);
   const [showSafeRideModal, setShowSafeRideModal] = useState(false);
-  const [activeCarouselIndex, setActiveCarouselIndex] = useState(0);
+  const [currentCarouselIndex, setCurrentCarouselIndex] = useState(0);
 
 
   // Check if user has unlocked reward and hasn't dismissed banner
@@ -92,29 +92,107 @@ export function Dashboard() {
   };
 
 
-  const handleQuickBookPreset = (preset: 'airport' | 'commute') => {
-    // Set default service (Executive for airport, Standard for commute)
-    const serviceId = preset === 'airport' ? 'executive' : 'standard';
-    localStorage.setItem('armora_selected_service', serviceId);
+  // Carousel navigation utilities
+  const carouselCards = 5; // Total number of cards
+  const getCarouselScrollPosition = (index: number) => {
+    // Responsive card width + gap calculation
+    const isMobile = window.innerWidth < 768;
+    const isTablet = window.innerWidth >= 768 && window.innerWidth < 1024;
 
-    // Set preset-specific data
-    if (preset === 'airport') {
-      localStorage.setItem('armora_quick_destination', 'London Heathrow Airport (LHR)');
-      localStorage.setItem('armora_booking_preset', 'airport');
-    } else if (preset === 'commute') {
-      localStorage.setItem('armora_booking_preset', 'commute');
+    if (isMobile) {
+      return index * (Math.min(window.innerWidth * 0.7, 320) + 12);
+    } else if (isTablet) {
+      return index * (320 + 16);
+    } else {
+      return index * (300 + 16);
     }
-
-    navigateToView('booking');
-
-    console.log('[Analytics] Quick book preset used', {
-      preset,
-      serviceId,
-      timestamp: Date.now(),
-      userType: user?.userType,
-      source: 'quick_book_preset'
-    });
   };
+
+  const scrollToCarouselIndex = (index: number) => {
+    const container = document.getElementById('getStartedCarousel');
+    if (container) {
+      container.scrollTo({ left: getCarouselScrollPosition(index), behavior: 'smooth' });
+      setCurrentCarouselIndex(index);
+    }
+  };
+
+  const navigateCarousel = (direction: 'left' | 'right') => {
+    const newIndex = direction === 'left'
+      ? Math.max(0, currentCarouselIndex - 1)
+      : Math.min(carouselCards - 1, currentCarouselIndex + 1);
+    scrollToCarouselIndex(newIndex);
+  };
+
+  // Keyboard navigation for carousel
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.target && (event.target as HTMLElement).closest('.carouselWrapper')) {
+        switch (event.key) {
+          case 'ArrowLeft':
+            event.preventDefault();
+            navigateCarousel('left');
+            break;
+          case 'ArrowRight':
+            event.preventDefault();
+            navigateCarousel('right');
+            break;
+          case 'Home':
+            event.preventDefault();
+            scrollToCarouselIndex(0);
+            break;
+          case 'End':
+            event.preventDefault();
+            scrollToCarouselIndex(carouselCards - 1);
+            break;
+        }
+      }
+    };
+
+    document.addEventListener('keydown', handleKeyDown);
+    return () => document.removeEventListener('keydown', handleKeyDown);
+  }, [currentCarouselIndex, navigateCarousel, scrollToCarouselIndex]);
+
+  // Update current index on scroll
+  useEffect(() => {
+    const container = document.getElementById('getStartedCarousel');
+    if (!container) return;
+
+    const handleScroll = () => {
+      const scrollLeft = container.scrollLeft;
+      // Calculate card width dynamically based on screen size
+      const isMobile = window.innerWidth < 768;
+      const isTablet = window.innerWidth >= 768 && window.innerWidth < 1024;
+
+      let cardSpacing;
+      if (isMobile) {
+        cardSpacing = Math.min(window.innerWidth * 0.7, 320) + 12;
+      } else if (isTablet) {
+        cardSpacing = 320 + 16;
+      } else {
+        cardSpacing = 300 + 16;
+      }
+
+      const newIndex = Math.round(scrollLeft / cardSpacing);
+      if (newIndex !== currentCarouselIndex && newIndex >= 0 && newIndex < carouselCards) {
+        setCurrentCarouselIndex(newIndex);
+      }
+    };
+
+    // Throttle scroll events
+    let ticking = false;
+    const throttledScroll = () => {
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          handleScroll();
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
+
+    container.addEventListener('scroll', throttledScroll, { passive: true });
+    return () => container.removeEventListener('scroll', throttledScroll);
+  }, [currentCarouselIndex]);
 
   const getPersonalizedRecommendation = () => {
     if (!questionnaireData) return null;
@@ -271,102 +349,168 @@ export function Dashboard() {
         onServiceSelect={handleServiceSelection}
       />
 
-      {/* Quick Actions Carousel */}
-      <div className={styles.quickActionsSection}>
-        <div className={styles.quickActionsHeader}>
-          <h2 className={styles.quickActionsTitle}>Security Services</h2>
+      {/* Get Started Section - 5 Card Carousel */}
+      <div className={styles.getStartedSection}>
+        <div className={styles.getStartedHeader}>
+          <h2 className={styles.getStartedTitle}>GET STARTED</h2>
+          <div className={styles.getStartedUnderline}></div>
         </div>
-        <div className={styles.quickActionsCarousel}>
-          <div className={styles.carouselContainer}>
-            <div
-              className={styles.carouselTrack}
-              onScroll={(e) => {
-                const scrollLeft = e.currentTarget.scrollLeft;
-                const cardWidth = 280 + 16; // Card width + gap
-                const index = Math.round(scrollLeft / cardWidth);
-                setActiveCarouselIndex(Math.min(index, 5)); // Max 6 cards (0-5)
-              }}
-            >
-              <button
-                className={styles.carouselCard}
-                onClick={() => handleQuickBookPreset('airport')}
-              >
-                <span className={styles.quickActionIcon}>✈️</span>
-                <span className={styles.quickActionText}>Airport Transfer</span>
-                <span className={styles.quickActionSubtext}>Fast setup</span>
-              </button>
 
+        <div
+          className={styles.carouselWrapper}
+          role="region"
+          aria-label="Service options carousel"
+          tabIndex={0}
+        >
+          {/* Carousel Container */}
+          <div
+            className={styles.carouselContainer}
+            id="getStartedCarousel"
+            role="tabpanel"
+            aria-live="polite"
+            aria-atomic="false"
+            aria-label={`Showing card ${currentCarouselIndex + 1} of ${carouselCards}`}
+          >
+            <div className={styles.carouselTrack}>
+              {/* Card 1: RIDE NOW */}
               <button
-                className={styles.carouselCard}
-                onClick={() => handleQuickBookPreset('commute')}
-              >
-                <span className={styles.quickActionIcon}>🏢</span>
-                <span className={styles.quickActionText}>Daily Commute</span>
-                <span className={styles.quickActionSubtext}>Regular route</span>
-              </button>
-
-              <button
-                className={styles.carouselCard}
-                onClick={() => navigateToView('venue-protection-welcome')}
-              >
-                <span className={styles.quickActionIcon}>🏛️</span>
-                <span className={styles.quickActionText}>Venue Security</span>
-                <span className={styles.quickActionSubtext}>Book protection</span>
-              </button>
-
-              <button
-                className={styles.carouselCard}
+                className={styles.getStartedCard}
                 onClick={() => navigateToView('booking')}
               >
-                <span className={styles.quickActionIcon}>📅</span>
-                <span className={styles.quickActionText}>Schedule Ride</span>
-                <span className={styles.quickActionSubtext}>Plan ahead</span>
+                <div className={styles.getStartedIcon}>⚡</div>
+                <div className={styles.getStartedContent}>
+                  <h3 className={styles.getStartedCardTitle}>Ride Now</h3>
+                  <p className={styles.getStartedCardDescription}>Immediate pickup</p>
+                  <p className={styles.getStartedCardDetails}>Available in 2 minutes</p>
+                </div>
+                <div className={styles.getStartedArrow}>→</div>
               </button>
 
+              {/* Card 2: AIRPORT */}
               <button
-                className={styles.carouselCard}
+                className={styles.getStartedCard}
                 onClick={() => {
-                  localStorage.setItem('armora_selected_service', 'executive');
+                  localStorage.setItem('armora_booking_preset', 'airport');
+                  localStorage.setItem('armora_quick_destination', 'London Heathrow Airport (LHR)');
                   navigateToView('booking');
                 }}
               >
-                <span className={styles.quickActionIcon}>👔</span>
-                <span className={styles.quickActionText}>Executive Service</span>
-                <span className={styles.quickActionSubtext}>VIP transport</span>
+                <div className={styles.getStartedIcon}>✈️</div>
+                <div className={styles.getStartedContent}>
+                  <h3 className={styles.getStartedCardTitle}>Airport Transfer</h3>
+                  <p className={styles.getStartedCardDescription}>Any terminal</p>
+                  <p className={styles.getStartedCardDetails}>Heathrow • Gatwick • City</p>
+                </div>
+                <div className={styles.getStartedArrow}>→</div>
               </button>
 
+              {/* Card 3: SCHEDULE */}
               <button
-                className={styles.carouselCard}
-                onClick={() => setShowSafeRideModal(true)}
+                className={styles.getStartedCard}
+                onClick={() => {
+                  localStorage.setItem('armora_booking_preset', 'schedule');
+                  navigateToView('booking');
+                }}
               >
-                <span className={styles.quickActionIcon}>🛡️</span>
-                <span className={styles.quickActionText}>Safe Ride Fund</span>
-                <span className={styles.quickActionSubtext}>Donate</span>
+                <div className={styles.getStartedIcon}>📅</div>
+                <div className={styles.getStartedContent}>
+                  <h3 className={styles.getStartedCardTitle}>Schedule Ride</h3>
+                  <p className={styles.getStartedCardDescription}>Plan ahead</p>
+                  <p className={styles.getStartedCardDetails}>Book for any time</p>
+                </div>
+                <div className={styles.getStartedArrow}>→</div>
+              </button>
+
+              {/* Card 4: EXECUTIVE */}
+              <button
+                className={styles.getStartedCard}
+                onClick={() => navigateToView('services')}
+              >
+                <div className={styles.getStartedIcon}>👔</div>
+                <div className={styles.getStartedContent}>
+                  <h3 className={styles.getStartedCardTitle}>Executive</h3>
+                  <p className={styles.getStartedCardDescription}>Premium service</p>
+                  <p className={styles.getStartedCardDetails}>BMW • Ex-military drivers</p>
+                </div>
+                <div className={styles.getStartedArrow}>→</div>
+              </button>
+
+              {/* Card 5: EVENTS */}
+              <button
+                className={styles.getStartedCard}
+                onClick={() => navigateToView('venue-protection-welcome')}
+              >
+                <div className={styles.getStartedIcon}>🎭</div>
+                <div className={styles.getStartedContent}>
+                  <h3 className={styles.getStartedCardTitle}>Special Events</h3>
+                  <p className={styles.getStartedCardDescription}>VIP occasions</p>
+                  <p className={styles.getStartedCardDetails}>Weddings • Galas • Corporate</p>
+                </div>
+                <div className={styles.getStartedArrow}>→</div>
               </button>
             </div>
           </div>
 
-          {/* Scroll Indicators */}
-          <div className={styles.carouselIndicators}>
-            {[0, 1, 2, 3, 4, 5].map((index) => (
+          {/* Carousel Navigation Arrows */}
+          <button
+            className={styles.carouselArrow + ' ' + styles.carouselArrowLeft}
+            onClick={() => navigateCarousel('left')}
+            disabled={currentCarouselIndex === 0}
+            aria-label={`Previous cards. Currently showing card ${currentCarouselIndex + 1} of ${carouselCards}`}
+          >
+            ←
+          </button>
+          <button
+            className={styles.carouselArrow + ' ' + styles.carouselArrowRight}
+            onClick={() => navigateCarousel('right')}
+            disabled={currentCarouselIndex === carouselCards - 1}
+            aria-label={`Next cards. Currently showing card ${currentCarouselIndex + 1} of ${carouselCards}`}
+          >
+            →
+          </button>
+
+          {/* Carousel Indicators */}
+          <div className={styles.carouselIndicators} role="tablist" aria-label="Carousel navigation">
+            {Array.from({ length: carouselCards }, (_, index) => (
               <button
                 key={index}
-                className={`${styles.carouselIndicator} ${
-                  activeCarouselIndex === index ? styles.active : ''
+                className={`${styles.carouselDot} ${currentCarouselIndex === index ? styles.active : ''}`}
+                onClick={() => scrollToCarouselIndex(index)}
+                role="tab"
+                aria-selected={currentCarouselIndex === index}
+                aria-label={`Go to card ${index + 1}: ${
+                  ['Ride Now', 'Airport Transfer', 'Schedule Ride', 'Executive', 'Special Events'][index]
                 }`}
-                onClick={() => {
-                  const track = document.querySelector(`.${styles.carouselTrack}`) as HTMLElement;
-                  if (track) {
-                    const cardWidth = 280 + 16; // Card width + gap
-                    track.scrollTo({
-                      left: index * cardWidth,
-                      behavior: 'smooth'
-                    });
-                  }
-                }}
-                aria-label={`Go to security service section ${index + 1} of 6`}
+                tabIndex={currentCarouselIndex === index ? 0 : -1}
               />
             ))}
+          </div>
+        </div>
+
+        {/* Need Help Section */}
+        <div className={styles.needHelpSection}>
+          <h3 className={styles.needHelpTitle}>NEED HELP?</h3>
+          <div className={styles.needHelpLinks}>
+            <button
+              className={styles.needHelpLink}
+              onClick={() => navigateToView('services')}
+            >
+              View All Services
+            </button>
+            <span className={styles.needHelpSeparator}>•</span>
+            <button
+              className={styles.needHelpLink}
+              onClick={() => window.open('tel:+442071234567')}
+            >
+              24/7 Support
+            </button>
+            <span className={styles.needHelpSeparator}>•</span>
+            <button
+              className={styles.needHelpLink}
+              onClick={() => navigateToView('about')}
+            >
+              How It Works
+            </button>
           </div>
         </div>
       </div>
@@ -382,17 +526,23 @@ export function Dashboard() {
           </p>
         </div>
         <div className={styles.servicesGrid}>
-          {ARMORA_SERVICES.map((service) => (
-            <ServiceCard
+          {ARMORA_SERVICES.map((service, index) => (
+            <div
               key={service.id}
-              service={service}
-              isSelected={false}
-              onSelect={() => {}} // No selection - just display
-              mode="preview" // Info display only
-              isRecommended={recommendedService === service.id}
-              userType={user?.userType}
-              onDirectBook={handleDirectBooking}
-            />
+              style={{
+                animationDelay: `${0.2 + index * 0.1}s`
+              }}
+            >
+              <ServiceCard
+                service={service}
+                isSelected={false}
+                onSelect={() => {}} // No selection - just display
+                mode="preview" // Info display only
+                isRecommended={recommendedService === service.id}
+                userType={user?.userType}
+                onDirectBook={handleDirectBooking}
+              />
+            </div>
           ))}
         </div>
 
@@ -418,20 +568,145 @@ export function Dashboard() {
         variant="savings"
       />
 
-      {/* Event Security CTA */}
-      <div className={styles.eventCTA}>
-        <div className={styles.ctaContainer}>
-          <div className={styles.ctaIcon}>🛡️</div>
-          <h3 className={styles.ctaHeadline}>Also Need Event Security?</h3>
-          <p className={styles.ctaDescription}>
-            Professional protection for weddings, corporate events & special occasions
-          </p>
-          <div className={styles.ctaSocialProof}>200+ events protected</div>
+      {/* Event Security Section - Enhanced */}
+      <div className={styles.eventSecuritySection}>
+        <div className={styles.eventBadge}>NEW SERVICE</div>
+
+        <h2 className={styles.eventMainHeadline}>COMPLETE EVENT PROTECTION</h2>
+        <h3 className={styles.eventSubHeadline}>Secure What Matters Most</h3>
+        <p className={styles.eventDescription}>
+          From intimate gatherings to grand celebrations, our Close Protection teams
+          ensure your special day remains perfect.
+        </p>
+
+        {/* Enhanced Service Cards Grid */}
+        <div className={styles.eventServicesGrid}>
+          <div className={styles.eventServiceCard}>
+            <div className={styles.eventCardHeader}>
+              <div className={styles.eventServiceIcon}>💍</div>
+              <h4 className={styles.eventServiceTitle}>WEDDINGS</h4>
+            </div>
+            <div className={styles.eventCardContent}>
+              <div className={styles.eventServiceStats}>
+                <div className={styles.eventStat}>💍 500+ Secured</div>
+                <div className={styles.eventStat}>⏰ 4-12 hour coverage</div>
+                <div className={styles.eventStat}>👥 2-6 officers available</div>
+                <div className={styles.eventPrice}>From £800/event</div>
+              </div>
+              <button className={styles.quickQuoteBtn}>Quick Quote →</button>
+            </div>
+          </div>
+
+          <div className={styles.eventServiceCard}>
+            <div className={styles.eventCardHeader}>
+              <div className={styles.eventServiceIcon}>🏢</div>
+              <h4 className={styles.eventServiceTitle}>CORPORATE</h4>
+            </div>
+            <div className={styles.eventCardContent}>
+              <div className={styles.eventServiceStats}>
+                <div className={styles.eventStat}>🏢 Fortune 500 trusted</div>
+                <div className={styles.eventStat}>⏰ 2-24 hour coverage</div>
+                <div className={styles.eventStat}>👥 4-12 officers available</div>
+                <div className={styles.eventPrice}>From £1,200/event</div>
+              </div>
+              <button className={styles.quickQuoteBtn}>Quick Quote →</button>
+            </div>
+          </div>
+
+          <div className={styles.eventServiceCard}>
+            <div className={styles.eventCardHeader}>
+              <div className={styles.eventServiceIcon}>🎭</div>
+              <h4 className={styles.eventServiceTitle}>VIP GALAS</h4>
+            </div>
+            <div className={styles.eventCardContent}>
+              <div className={styles.eventServiceStats}>
+                <div className={styles.eventStat}>🎭 Celebrity-grade</div>
+                <div className={styles.eventStat}>⏰ 6-18 hour coverage</div>
+                <div className={styles.eventStat}>👥 3-8 officers available</div>
+                <div className={styles.eventPrice}>From £1,500/event</div>
+              </div>
+              <button className={styles.quickQuoteBtn}>Quick Quote →</button>
+            </div>
+          </div>
+
+          <div className={styles.eventServiceCard}>
+            <div className={styles.eventCardHeader}>
+              <div className={styles.eventServiceIcon}>🎪</div>
+              <h4 className={styles.eventServiceTitle}>PUBLIC EVENTS</h4>
+            </div>
+            <div className={styles.eventCardContent}>
+              <div className={styles.eventServiceStats}>
+                <div className={styles.eventStat}>🎪 10,000+ capacity</div>
+                <div className={styles.eventStat}>⏰ 8-24 hour coverage</div>
+                <div className={styles.eventStat}>👥 6-20 officers available</div>
+                <div className={styles.eventPrice}>From £2,000/event</div>
+              </div>
+              <button className={styles.quickQuoteBtn}>Quick Quote →</button>
+            </div>
+          </div>
+        </div>
+
+        {/* What's Included Section */}
+        <div className={styles.whatsIncludedSection}>
+          <h4 className={styles.whatsIncludedTitle}>WHAT'S INCLUDED:</h4>
+          <div className={styles.includedList}>
+            <div className={styles.includedItem}>
+              <span className={styles.includedIcon}>✓</span>
+              <span>Venue security assessment</span>
+            </div>
+            <div className={styles.includedItem}>
+              <span className={styles.includedIcon}>✓</span>
+              <span>Guest list management</span>
+            </div>
+            <div className={styles.includedItem}>
+              <span className={styles.includedIcon}>✓</span>
+              <span>Discrete plainclothes officers</span>
+            </div>
+            <div className={styles.includedItem}>
+              <span className={styles.includedIcon}>✓</span>
+              <span>Gift & asset protection</span>
+            </div>
+            <div className={styles.includedItem}>
+              <span className={styles.includedIcon}>✓</span>
+              <span>VIP guest escort service</span>
+            </div>
+          </div>
+        </div>
+
+        {/* Integrated Trust Section */}
+        <div className={styles.trustedBySection}>
+          <h4 className={styles.trustedByTitle}>WHY CHOOSE ARMORA EVENTS?</h4>
+          <div className={styles.trustStats}>
+            <span className={styles.trustStat}>847 Events Protected</span>
+            <span className={styles.trustDivider}>|</span>
+            <span className={styles.trustStat}>100% Success Rate</span>
+            <span className={styles.trustDivider}>|</span>
+            <span className={styles.trustStat}>4.9★ Rating</span>
+            <span className={styles.trustDivider}>|</span>
+            <span className={styles.trustStat}>24/7 Emergency Support</span>
+          </div>
+
+          <div className={styles.testimonial}>
+            <p className={styles.testimonialText}>
+              "Protected our 500-guest wedding flawlessly"
+            </p>
+            <span className={styles.testimonialAuthor}>- Sarah & James, Dorchester Hotel</span>
+          </div>
+        </div>
+
+        {/* Enhanced CTAs */}
+        <div className={styles.eventCTAButtons}>
           <button
-            className={styles.ctaButton}
+            className={styles.eventPrimaryCTA}
+            onClick={() => navigateToView('venue-protection-welcome')}
+          >
+            GET CUSTOM QUOTE
+          </button>
+          <button
+            className={styles.eventSecondaryCTA}
             onClick={() => navigateToView('services')}
           >
-            Explore Event Services →
+            VIEW PACKAGES
           </button>
         </div>
       </div>
