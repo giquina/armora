@@ -2,11 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { useApp } from '../../contexts/AppContext';
 import { Button } from '../UI/Button';
 import { ServiceCard } from './ServiceCard';
-import { ImpactDashboardWidget } from './ImpactDashboardWidget';
+import { CreatorImpactWidget } from './CreatorImpactWidget';
 import { MarketingBanner } from './MarketingBanner';
 import { SmartRecommendation } from './SmartRecommendation';
 import { BookingSearchInterface } from './BookingSearchInterface';
-import SafeRideFundModal from '../SafeRideFund/SafeRideFundModal';
+import ArmoraFoundationModal from '../ArmoraFoundation/ArmoraFoundationModal';
 import { ServiceLevel } from '../../types';
 // import { getDisplayName } from '../../utils/nameUtils'; // Removed since header is no longer displayed
 import { getAllServices } from '../../data/standardizedServices';
@@ -339,7 +339,7 @@ export function Dashboard() {
 
 
       {/* Impact Widget for Essential Members */}
-      <ImpactDashboardWidget />
+      <CreatorImpactWidget />
 
       {/* Smart Recommendation - Condensed Version */}
       <SmartRecommendation
@@ -568,130 +568,159 @@ export function Dashboard() {
         variant="savings"
       />
 
-      {/* Event Security Section - Enhanced */}
+      {/* Complete Event Protection Section - Cleaned */}
       <div className={styles.eventSecuritySection}>
-        <div className={styles.eventBadge}>NEW SERVICE</div>
+        <div className={styles.eventBadge}>INTRODUCING VENUE PROTECTION SERVICES</div>
 
-        <h2 className={styles.eventMainHeadline}>COMPLETE EVENT PROTECTION</h2>
+        <h2 className={styles.eventMainHeadline}>SIA Level 3 Officers for Weddings, Corporate Events & Private Venues</h2>
         <h3 className={styles.eventSubHeadline}>Secure What Matters Most</h3>
-        <p className={styles.eventDescription}>
-          From intimate gatherings to grand celebrations, our Close Protection teams
-          ensure your special day remains perfect.
-        </p>
 
-        {/* Enhanced Service Cards Grid */}
+        {/* Clean Service Cards Grid - 2x2 layout */}
         <div className={styles.eventServicesGrid}>
           <div className={styles.eventServiceCard}>
-            <div className={styles.eventCardHeader}>
-              <div className={styles.eventServiceIcon}>💍</div>
-              <h4 className={styles.eventServiceTitle}>WEDDINGS</h4>
-            </div>
-            <div className={styles.eventCardContent}>
-              <div className={styles.eventServiceStats}>
-                <div className={styles.eventStat}>💍 500+ Secured</div>
-                <div className={styles.eventStat}>⏰ 4-12 hour coverage</div>
-                <div className={styles.eventStat}>👥 2-6 officers available</div>
-                <div className={styles.eventPrice}>From £800/event</div>
-              </div>
-              <button className={styles.quickQuoteBtn}>Quick Quote →</button>
-            </div>
+            <div className={styles.eventServiceIcon}>💍</div>
+            <h4 className={styles.eventServiceTitle}>WEDDINGS</h4>
+            <div className={styles.eventKeyStat}>500+ Events</div>
+            <div className={styles.eventPrice}>From £800</div>
+            <button className={styles.eventQuoteBtn}>Get Quote</button>
           </div>
 
           <div className={styles.eventServiceCard}>
-            <div className={styles.eventCardHeader}>
-              <div className={styles.eventServiceIcon}>🏢</div>
-              <h4 className={styles.eventServiceTitle}>CORPORATE</h4>
-            </div>
-            <div className={styles.eventCardContent}>
-              <div className={styles.eventServiceStats}>
-                <div className={styles.eventStat}>🏢 Fortune 500 trusted</div>
-                <div className={styles.eventStat}>⏰ 2-24 hour coverage</div>
-                <div className={styles.eventStat}>👥 4-12 officers available</div>
-                <div className={styles.eventPrice}>From £1,200/event</div>
-              </div>
-              <button className={styles.quickQuoteBtn}>Quick Quote →</button>
-            </div>
+            <div className={styles.eventServiceIcon}>🏢</div>
+            <h4 className={styles.eventServiceTitle}>CORPORATE</h4>
+            <div className={styles.eventKeyStat}>Fortune 500</div>
+            <div className={styles.eventPrice}>From £1,200</div>
+            <button className={styles.eventQuoteBtn}>Get Quote</button>
           </div>
 
           <div className={styles.eventServiceCard}>
-            <div className={styles.eventCardHeader}>
-              <div className={styles.eventServiceIcon}>🎭</div>
-              <h4 className={styles.eventServiceTitle}>VIP GALAS</h4>
-            </div>
-            <div className={styles.eventCardContent}>
-              <div className={styles.eventServiceStats}>
-                <div className={styles.eventStat}>🎭 Celebrity-grade</div>
-                <div className={styles.eventStat}>⏰ 6-18 hour coverage</div>
-                <div className={styles.eventStat}>👥 3-8 officers available</div>
-                <div className={styles.eventPrice}>From £1,500/event</div>
-              </div>
-              <button className={styles.quickQuoteBtn}>Quick Quote →</button>
-            </div>
+            <div className={styles.eventServiceIcon}>🎭</div>
+            <h4 className={styles.eventServiceTitle}>VIP GALAS</h4>
+            <div className={styles.eventKeyStat}>Celebrity Grade</div>
+            <div className={styles.eventPrice}>From £1,500</div>
+            <button className={styles.eventQuoteBtn}>Get Quote</button>
           </div>
 
           <div className={styles.eventServiceCard}>
-            <div className={styles.eventCardHeader}>
-              <div className={styles.eventServiceIcon}>🎪</div>
-              <h4 className={styles.eventServiceTitle}>PUBLIC EVENTS</h4>
-            </div>
-            <div className={styles.eventCardContent}>
-              <div className={styles.eventServiceStats}>
-                <div className={styles.eventStat}>🎪 10,000+ capacity</div>
-                <div className={styles.eventStat}>⏰ 8-24 hour coverage</div>
-                <div className={styles.eventStat}>👥 6-20 officers available</div>
-                <div className={styles.eventPrice}>From £2,000/event</div>
-              </div>
-              <button className={styles.quickQuoteBtn}>Quick Quote →</button>
-            </div>
+            <div className={styles.eventServiceIcon}>🎪</div>
+            <h4 className={styles.eventServiceTitle}>PUBLIC EVENTS</h4>
+            <div className={styles.eventKeyStat}>10,000+ Cap</div>
+            <div className={styles.eventPrice}>From £2,000</div>
+            <button className={styles.eventQuoteBtn}>Get Quote</button>
           </div>
         </div>
 
-        {/* What's Included Section */}
+        {/* What's Included Section - Simplified */}
         <div className={styles.whatsIncludedSection}>
-          <h4 className={styles.whatsIncludedTitle}>WHAT'S INCLUDED:</h4>
           <div className={styles.includedList}>
             <div className={styles.includedItem}>
               <span className={styles.includedIcon}>✓</span>
-              <span>Venue security assessment</span>
+              <span>Venue Security Assessment</span>
             </div>
             <div className={styles.includedItem}>
               <span className={styles.includedIcon}>✓</span>
-              <span>Guest list management</span>
+              <span>Guest List Management</span>
             </div>
             <div className={styles.includedItem}>
               <span className={styles.includedIcon}>✓</span>
-              <span>Discrete plainclothes officers</span>
+              <span>Discrete Plainclothes Officers</span>
             </div>
             <div className={styles.includedItem}>
               <span className={styles.includedIcon}>✓</span>
-              <span>Gift & asset protection</span>
+              <span>VIP Guest Driver Service</span>
             </div>
             <div className={styles.includedItem}>
               <span className={styles.includedIcon}>✓</span>
-              <span>VIP guest escort service</span>
+              <span><strong>Close Protection Officers (CPO)</strong></span>
             </div>
           </div>
         </div>
 
-        {/* Integrated Trust Section */}
-        <div className={styles.trustedBySection}>
-          <h4 className={styles.trustedByTitle}>WHY CHOOSE ARMORA EVENTS?</h4>
-          <div className={styles.trustStats}>
-            <span className={styles.trustStat}>847 Events Protected</span>
-            <span className={styles.trustDivider}>|</span>
-            <span className={styles.trustStat}>100% Success Rate</span>
-            <span className={styles.trustDivider}>|</span>
-            <span className={styles.trustStat}>4.9★ Rating</span>
-            <span className={styles.trustDivider}>|</span>
-            <span className={styles.trustStat}>24/7 Emergency Support</span>
+        {/* CPO Educational Content Section */}
+        <div className={styles.cpoEducationSection}>
+          <h3 className={styles.cpoEducationTitle}>What Are Close Protection Officers?</h3>
+
+          <p className={styles.cpoEducationIntro}>
+            Close Protection Officers (CPOs) represent the highest tier of personal security professionals. Unlike standard security supervisors, CPOs undergo extensive specialized training in:
+          </p>
+
+          <div className={styles.cpoTrainingList}>
+            <div className={styles.cpoTrainingItem}>
+              <span className={styles.cpoTrainingIcon}>🎯</span>
+              <div className={styles.cpoTrainingContent}>
+                <strong>Advanced Threat Assessment</strong> - Identifying and neutralizing risks before they develop
+              </div>
+            </div>
+            <div className={styles.cpoTrainingItem}>
+              <span className={styles.cpoTrainingIcon}>🚗</span>
+              <div className={styles.cpoTrainingContent}>
+                <strong>Defensive Driving Techniques</strong> - Evasive maneuvers and secure transport protocols
+              </div>
+            </div>
+            <div className={styles.cpoTrainingItem}>
+              <span className={styles.cpoTrainingIcon}>🏥</span>
+              <div className={styles.cpoTrainingContent}>
+                <strong>Medical Emergency Response</strong> - First aid and crisis medical intervention
+              </div>
+            </div>
+            <div className={styles.cpoTrainingItem}>
+              <span className={styles.cpoTrainingIcon}>👁️</span>
+              <div className={styles.cpoTrainingContent}>
+                <strong>Surveillance Detection</strong> - Recognizing and countering hostile surveillance
+              </div>
+            </div>
+            <div className={styles.cpoTrainingItem}>
+              <span className={styles.cpoTrainingIcon}>🛡️</span>
+              <div className={styles.cpoTrainingContent}>
+                <strong>Executive Protection Protocols</strong> - Discreet, professional close-quarters security
+              </div>
+            </div>
           </div>
 
-          <div className={styles.testimonial}>
-            <p className={styles.testimonialText}>
-              "Protected our 500-guest wedding flawlessly"
-            </p>
-            <span className={styles.testimonialAuthor}>- Sarah & James, Dorchester Hotel</span>
+          <div className={styles.cpoDifferenceSection}>
+            <h4 className={styles.cpoDifferenceTitle}>The CPO Difference:</h4>
+            <div className={styles.cpoDifferenceGrid}>
+              <div className={styles.cpoDifferenceItem}>
+                <span className={styles.cpoDifferenceIcon}>🎖️</span>
+                <div className={styles.cpoDifferenceContent}>
+                  <strong>SIA Level 3+ Certification</strong><br />
+                  <span className={styles.cpoDifferenceSubtext}>(vs. Level 2 for supervisors)</span>
+                </div>
+              </div>
+              <div className={styles.cpoDifferenceItem}>
+                <span className={styles.cpoDifferenceIcon}>⚔️</span>
+                <div className={styles.cpoDifferenceContent}>
+                  <strong>Military/Police Background</strong><br />
+                  <span className={styles.cpoDifferenceSubtext}>Many are ex-military or specialist police</span>
+                </div>
+              </div>
+              <div className={styles.cpoDifferenceItem}>
+                <span className={styles.cpoDifferenceIcon}>🎯</span>
+                <div className={styles.cpoDifferenceContent}>
+                  <strong>Ongoing Tactical Training</strong><br />
+                  <span className={styles.cpoDifferenceSubtext}>Regular updates in security techniques</span>
+                </div>
+              </div>
+              <div className={styles.cpoDifferenceItem}>
+                <span className={styles.cpoDifferenceIcon}>🧠</span>
+                <div className={styles.cpoDifferenceContent}>
+                  <strong>Psychological Screening</strong><br />
+                  <span className={styles.cpoDifferenceSubtext}>Enhanced vetting for high-pressure situations</span>
+                </div>
+              </div>
+              <div className={styles.cpoDifferenceItem}>
+                <span className={styles.cpoDifferenceIcon}>🤐</span>
+                <div className={styles.cpoDifferenceContent}>
+                  <strong>Confidentiality Protocols</strong><br />
+                  <span className={styles.cpoDifferenceSubtext}>Trained in executive discretion and privacy</span>
+                </div>
+              </div>
+            </div>
           </div>
+
+          <p className={styles.cpoClosingStatement}>
+            CPOs provide invisible, professional protection that allows you to conduct business naturally while maintaining complete security awareness of your environment.
+          </p>
         </div>
 
         {/* Enhanced CTAs */}
@@ -713,7 +742,7 @@ export function Dashboard() {
 
       {/* Safe Ride Fund Modal */}
       {showSafeRideModal && (
-        <SafeRideFundModal onClose={() => setShowSafeRideModal(false)} />
+        <ArmoraFoundationModal onClose={() => setShowSafeRideModal(false)} />
       )}
     </div>
   );
