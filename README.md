@@ -132,6 +132,21 @@ The app is configured for deployment as a Progressive Web App, ready for:
 - Apple App Store (via WebView wrapper)
 - Direct web access
 
+## 🌐 Related Repositories
+
+- **[Driver App](https://github.com/giquina/armora-driver)** - Professional driver application
+- **[Backend API](https://github.com/giquina/armora-backend)** - Node.js backend with Supabase
+
+## 🏃‍♂️ Local Development Setup
+
+**Multi-App Development**:
+- **Passenger App**: http://localhost:3000
+- **Driver App**: http://localhost:3001
+- **Backend API**: http://localhost:3002
+
+**Environment Configuration**:
+Each app runs on a different port to allow simultaneous development and testing of the complete platform.
+
 ## 🤝 Contributing
 
 1. Run `npm run suggest` for AI task suggestions
@@ -146,4 +161,7 @@ Proprietary - Armora Security Transport Ltd.
 
 ---
 
-Last updated: 2025-09-16T21:49:25.666Z
+**Last Updated**: September 2025
+**Version**: 1.0.0
+**React**: 19.1.1
+**TypeScript**: 4.9.5
