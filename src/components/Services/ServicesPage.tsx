@@ -8,7 +8,7 @@ import styles from './ServicesPage.module.css';
 
 export function ServicesPage() {
   const { state, navigateToView, handleBack } = useApp();
-  const { questionnaireData, deviceCapabilities } = state;
+  const { questionnaireData } = state;
   const [expandedService, setExpandedService] = useState<string | null>(null);
 
   const handleBooking = (serviceId: string) => {

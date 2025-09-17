@@ -73,9 +73,9 @@ export function CreatorImpactWidget({ className = '' }: CreatorImpactWidgetProps
     return null;
   }
 
-  // Generate user impact data based on subscription start date
+  // Generate user impact data based on subscription start date (future implementation)
   const userStartDate = state.subscription.startDate || new Date();
-  const userImpact = generateUserImpactData(userStartDate);
+  const _userImpact = generateUserImpactData(userStartDate);
 
   const nextStory = () => {
     setCurrentStoryIndex((prev) => (prev + 1) % impactStories.length);

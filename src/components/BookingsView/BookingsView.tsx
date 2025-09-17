@@ -11,7 +11,7 @@ export function BookingsView() {
 
   const [bookings] = useState<Booking[]>(mockBookings);
   const [activeView, setActiveView] = useState<ViewType | null>(null);
-  const [liveUpdateTime, setLiveUpdateTime] = useState(new Date());
+  const [, setLiveUpdateTime] = useState(new Date());
 
   // Live update for active rides
   useEffect(() => {
@@ -98,8 +98,8 @@ export function BookingsView() {
     // TODO: Implement booking cancellation
   };
 
-  const handleManageBooking = (bookingId: string) => {
-    console.log('Manage booking:', bookingId);
+  const handleManageBooking = (_bookingId: string) => {
+    // console.log('Manage booking:', _bookingId);
     // TODO: Implement booking management
   };
 
@@ -120,11 +120,13 @@ export function BookingsView() {
     // TODO: Implement receipt viewing
   };
 
-  const formatETA = (minutes: number) => {
-    if (minutes < 60) return `${minutes} minutes`;
-    const hours = Math.floor(minutes / 60);
-    const mins = minutes % 60;
-    return mins > 0 ? `${hours}h ${mins}m` : `${hours}h`;
+  const formatETA = (_minutes: number) => {
+    // Future implementation for ETA formatting
+    // if (minutes < 60) return `${minutes} minutes`;
+    // const hours = Math.floor(minutes / 60);
+    // const mins = minutes % 60;
+    // return mins > 0 ? `${hours}h ${mins}m` : `${hours}h`;
+    return 'TBD';
   };
 
   // STATE 1: NEW USER (No bookings ever)

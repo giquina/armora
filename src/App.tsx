@@ -321,6 +321,7 @@ function BookingFlow() {
   }
 }
 
+// Profile component moved to separate file - this is legacy code that will be removed
 function Profile() {
   const { state, navigateToView } = useApp();
   const { user } = state;

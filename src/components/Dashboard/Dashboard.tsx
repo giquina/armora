@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useApp } from '../../contexts/AppContext';
 import { Button } from '../UI/Button';
 import { ServiceCard } from './ServiceCard';
@@ -108,20 +108,20 @@ export function Dashboard() {
     }
   };
 
-  const scrollToCarouselIndex = (index: number) => {
+  const scrollToCarouselIndex = useCallback((index: number) => {
     const container = document.getElementById('getStartedCarousel');
     if (container) {
       container.scrollTo({ left: getCarouselScrollPosition(index), behavior: 'smooth' });
       setCurrentCarouselIndex(index);
     }
-  };
+  }, [getCarouselScrollPosition]);
 
-  const navigateCarousel = (direction: 'left' | 'right') => {
+  const navigateCarousel = useCallback((direction: 'left' | 'right') => {
     const newIndex = direction === 'left'
       ? Math.max(0, currentCarouselIndex - 1)
       : Math.min(carouselCards - 1, currentCarouselIndex + 1);
     scrollToCarouselIndex(newIndex);
-  };
+  }, [currentCarouselIndex, carouselCards, scrollToCarouselIndex]);
 
   // Keyboard navigation for carousel
   useEffect(() => {
