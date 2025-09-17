@@ -17,7 +17,7 @@
     inset 0 -1px 0 rgba(0, 0, 0, 0.1);
   backdrop-filter: blur(10px);
   animation: slideInBounce 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-  padding: 24px;
+  padding: 24px; /* Good padding for achievement banner */
   color: #ffffff;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
   user-select: none;
@@ -67,7 +67,7 @@
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  margin-bottom: 16px;
+  margin-bottom: 20px; /* Better spacing after banner header */
   position: relative;
   z-index: 1;
 }
@@ -75,7 +75,7 @@
 .achievementTitle {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 16px; /* Better spacing between trophy and title */
   font-size: 1.1rem;
   font-weight: 700;
   letter-spacing: 0.5px;
@@ -128,7 +128,7 @@
 
 .mainContent {
   text-align: center;
-  margin-bottom: 20px;
+  margin-bottom: 24px; /* Better spacing before progress section */
   position: relative;
   z-index: 1;
 }
@@ -137,8 +137,8 @@
   font-size: 3.5rem;
   font-weight: 900;
   line-height: 0.9;
-  margin: 8px 0;
-  text-shadow: 
+  margin: 12px 0; /* Better spacing around discount value */
+  text-shadow:
     2px 2px 4px rgba(0, 0, 0, 0.1),
     0 0 20px rgba(255, 255, 255, 0.5);
   background: linear-gradient(135deg, #1a1a2e 0%, #000 100%);
@@ -152,11 +152,11 @@
   font-weight: 500;
   color: #1a1a2e;
   opacity: 0.9;
-  margin-bottom: 8px;
+  margin-bottom: 12px; /* Better spacing after description */
 }
 
 .progressSection {
-  margin: 20px 0;
+  margin: 24px 0; /* Better spacing around progress section */
   position: relative;
   z-index: 1;
 }
@@ -165,7 +165,7 @@
   background: rgba(26, 26, 46, 0.2);
   border-radius: 12px;
   height: 8px;
-  margin: 12px 0;
+  margin: 16px 0; /* Better spacing around progress bar */
   overflow: hidden;
   position: relative;
 }
@@ -202,7 +202,7 @@
   font-size: 0.95rem;
   color: #ffffff;
   opacity: 0.8;
-  margin: 12px 0;
+  margin: 16px 0; /* Better spacing around social proof */
   font-weight: 500;
 }
 
@@ -211,14 +211,14 @@
   color: #FFD700;
   border: none;
   border-radius: 12px;
-  padding: 14px 32px;
+  padding: 16px 32px; /* Better padding for touch targets */
   font-size: 1.1rem;
   font-weight: 700;
   cursor: pointer;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   text-transform: uppercase;
   letter-spacing: 0.5px;
-  margin: 8px 0;
+  margin: 12px 0; /* Better spacing around claim button */
   position: relative;
   overflow: hidden;
   animation: buttonPulse 2s ease-in-out infinite;
@@ -252,18 +252,32 @@
   transform: translateY(0);
 }
 
+.appliedText {
+  background: rgba(26, 26, 46, 0.1); /* Changed from green to brand dark navy */
+  color: var(--armora-dark); /* Changed from green to brand dark navy */
+  border: 1px solid rgba(26, 26, 46, 0.3); /* Updated border to match dark navy */
+  border-radius: 12px;
+  padding: 16px 32px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  text-align: center;
+  margin: 12px 0;
+  position: relative;
+  z-index: 1;
+}
+
 .validityText {
   font-size: 0.85rem;
   color: #ffffff;
   opacity: 0.7;
-  margin-top: 8px;
+  margin-top: 12px; /* Better spacing above validity text */
   font-weight: 500;
 }
 
 .miniContent {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 12px; /* Better spacing in minimized content */
   font-size: 0.9rem;
   font-weight: 700;
   text-transform: uppercase;
@@ -345,32 +359,55 @@
 @media (max-width: 480px) {
   .achievementBanner {
     width: calc(100vw - 24px);
-    padding: 20px;
+    padding: 20px; /* Good mobile padding */
     top: 16px;
   }
-  
+
   .discountValue {
     font-size: 2.8rem;
+    margin: 8px 0; /* Adjusted mobile spacing */
   }
-  
+
   .achievementTitle {
     font-size: 1rem;
+    gap: 12px; /* Better mobile spacing between elements */
   }
-  
+
   .trophy {
     font-size: 1.5rem;
   }
-  
+
   .claimButton {
-    padding: 16px 24px;
+    padding: 16px 24px; /* Better mobile touch target */
     width: 100%;
     min-height: 48px; /* Touch target */
+    margin: 16px 0; /* Better mobile button spacing */
   }
-  
+
+  .appliedText {
+    padding: 16px 24px;
+    width: 100%;
+    margin: 16px 0;
+    font-size: 1rem;
+  }
+
   .minimized {
     right: 16px;
     top: 16px;
     min-height: 44px; /* Touch target */
+    gap: 10px; /* Better mobile minimized spacing */
+  }
+
+  .header {
+    margin-bottom: 16px; /* Adjusted mobile header spacing */
+  }
+
+  .mainContent {
+    margin-bottom: 20px; /* Adjusted mobile content spacing */
+  }
+
+  .progressSection {
+    margin: 20px 0; /* Adjusted mobile progress spacing */
   }
 }
 

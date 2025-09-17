@@ -103,45 +103,21 @@ const AchievementBanner: React.FC<AchievementBannerProps> = ({
     setShowProgressBar(true);
   };
 
-  const handleClaim = () => {
-    // Add haptic feedback for mobile
-    if ('vibrate' in navigator) {
-      navigator.vibrate(50);
-    }
-    onClaim();
-  };
-
-  const handleSwipeUp = (e: React.TouchEvent) => {
-    const touch = e.touches[0];
-    const startY = touch.clientY;
-    
-    const handleTouchMove = (moveEvent: TouchEvent) => {
-      const currentTouch = moveEvent.touches[0];
-      const deltaY = startY - currentTouch.clientY;
-      
-      if (deltaY > 50) { // Swipe up threshold
-        handleClaim();
-        document.removeEventListener('touchmove', handleTouchMove);
-      }
-    };
-    
-    document.addEventListener('touchmove', handleTouchMove, { once: true });
-  };
 
   const handleSwipeDown = (e: React.TouchEvent) => {
     const touch = e.touches[0];
     const startY = touch.clientY;
-    
+
     const handleTouchMove = (moveEvent: TouchEvent) => {
       const currentTouch = moveEvent.touches[0];
       const deltaY = currentTouch.clientY - startY;
-      
+
       if (deltaY > 50) { // Swipe down threshold
         setCurrentState('minimized');
         document.removeEventListener('touchmove', handleTouchMove);
       }
     };
-    
+
     document.addEventListener('touchmove', handleTouchMove, { once: true });
   };
 
@@ -164,10 +140,9 @@ const AchievementBanner: React.FC<AchievementBannerProps> = ({
 
   return (
     <>
-      <div 
+      <div
         ref={bannerRef}
         className={styles.achievementBanner}
-        onTouchStart={currentState === 'showing' ? handleSwipeUp : undefined}
         onTouchEnd={currentState === 'showing' ? handleSwipeDown : undefined}
       >
         <div className={styles.header}>
@@ -218,12 +193,9 @@ const AchievementBanner: React.FC<AchievementBannerProps> = ({
         </div>
 
         {showButton && (
-          <button
-            className={styles.claimButton}
-            onClick={handleClaim}
-          >
-            CLAIM DISCOUNT →
-          </button>
+          <div className={styles.appliedText}>
+            ✅ Applied automatically
+          </div>
         )}
 
         <div className={styles.validityText}>

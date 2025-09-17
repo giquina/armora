@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { useApp } from '../../contexts/AppContext';
 import { subscriptionPlans, calculateSavings, formatSavings } from '../../data/subscriptionData';
 import { PremiumInterest } from '../../types';
-import { SafeRideFundExplainer } from '../Common/SafeRideFundExplainer';
+import { ArmoraFoundationExplainer } from '../ArmoraFoundation/ArmoraFoundationExplainer';
 import styles from './SubscriptionOffer.module.css';
 
 interface SubscriptionOfferProps {
@@ -18,7 +18,7 @@ export function SubscriptionOffer({ selectedService, servicePrice = 45 }: Subscr
   const [emailForInterest, setEmailForInterest] = useState('');
   const [expectedUsage, setExpectedUsage] = useState('');
   const [showInterestForm, setShowInterestForm] = useState<string | null>(null);
-  const [showSafeRideFund, setShowSafeRideFund] = useState(false);
+  const [showArmoraFoundation, setShowArmoraFoundation] = useState(false);
   const [isPanelOpen, setIsPanelOpen] = useState(true);
   const [isClosing, setIsClosing] = useState(false);
 
@@ -165,19 +165,19 @@ export function SubscriptionOffer({ selectedService, servicePrice = 45 }: Subscr
               </div>
             </div>
 
-            <SafeRideFundExplainer variant="compact" showAnimation={false} />
+            <ArmoraFoundationExplainer variant="compact" showAnimation={false} />
             
             <div className={styles.safeRideFundSection}>
               <button 
                 className={styles.learnMoreButton}
-                onClick={() => setShowSafeRideFund(!showSafeRideFund)}
+                onClick={() => setShowArmoraFoundation(!showArmoraFoundation)}
               >
-                {showSafeRideFund ? 'Hide Impact Details' : 'Why this matters'} 
-                <span className={styles.toggleIcon}>{showSafeRideFund ? '▲' : '▼'}</span>
+                {showArmoraFoundation ? 'Hide Impact Details' : 'Why this matters'} 
+                <span className={styles.toggleIcon}>{showArmoraFoundation ? '▲' : '▼'}</span>
               </button>
               
-              {showSafeRideFund && (
-                <SafeRideFundExplainer variant="breakdown" showAnimation={false} />
+              {showArmoraFoundation && (
+                <ArmoraFoundationExplainer variant="breakdown" showAnimation={false} />
               )}
             </div>
 

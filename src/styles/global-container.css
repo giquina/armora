@@ -183,10 +183,10 @@
 /* CRITICAL: 320px minimum width support - BORDER SAFE */
 @media (max-width: 320px) {
   :root {
-    --content-padding-mobile: 6px; /* Keep safe gutters even on tiny screens */
+    --content-padding-mobile: 4px; /* Reduced from 6px for better screen usage */
   }
 
-  .global-container { padding: 0 6px; }
+  .global-container { padding: 0 4px; }
 
   .armora-content-container,
   .armora-page-content,
@@ -194,8 +194,27 @@
   .armora-card-container,
   .armora-header-content,
   .armora-footer-content {
-  padding-left: 6px;
-  padding-right: 6px;
+  padding-left: 4px;
+  padding-right: 4px;
+  }
+}
+
+/* MOBILE OPTIMIZATION: 321px to 480px screens */
+@media (min-width: 321px) and (max-width: 480px) {
+  :root {
+    --content-padding-mobile: 4px; /* Reduced from 6px for better screen usage */
+  }
+
+  .global-container { padding: 0 4px; }
+
+  .armora-content-container,
+  .armora-page-content,
+  .armora-section-wrapper .armora-section-content,
+  .armora-card-container,
+  .armora-header-content,
+  .armora-footer-content {
+  padding-left: 4px;
+  padding-right: 4px;
   }
 }
 

@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 import { useApp } from '../../contexts/AppContext';
+import { BackButton } from '../UI/BackButton';
 import { WeddingEventSecurity } from '../WeddingEventSecurity';
 import { ServiceCard } from './ServiceCard';
 import { SERVICES_DATA, getRecommendedService } from '../../data/servicesData';
 import styles from './ServicesPage.module.css';
 
 export function ServicesPage() {
-  const { state, navigateToView } = useApp();
-  const { questionnaireData, deviceCapabilities } = state;
+  const { state, navigateToView, handleBack } = useApp();
+  const { questionnaireData } = state;
   const [expandedService, setExpandedService] = useState<string | null>(null);
 
   const handleBooking = (serviceId: string) => {
@@ -24,11 +25,12 @@ export function ServicesPage() {
 
   return (
     <div className={styles.servicesContainer}>
+      <BackButton onClick={handleBack} />
       {/* Hero Section */}
       <div className={styles.heroSection}>
         <div className={styles.heroContent}>
-          <h1 className={styles.heroTitle}>Our Security Services</h1>
-          <p className={styles.heroSubtitle}>Professional protection tailored to your needs - from everyday safety to VIP luxury</p>
+          <h1 className={styles.heroTitle}>Choose Your SafeRide Service</h1>
+          <p className={styles.heroSubtitle}>Security-trained drivers for every journey - from daily commutes to executive transport</p>
 
           <div className={styles.trustIndicators}>
             <div className={styles.trustItem}>
@@ -37,17 +39,17 @@ export function ServicesPage() {
             </div>
             <div className={styles.trustItem}>
               <span className={styles.trustNumber}>3,741+</span>
-              <span className={styles.trustLabel}>Safe Rides</span>
+              <span className={styles.trustLabel}>Secure Journeys</span>
             </div>
             <div className={styles.trustItem}>
               <span className={styles.trustNumber}>&lt;10min</span>
-              <span className={styles.trustLabel}>Response</span>
+              <span className={styles.trustLabel}>Pickup Time</span>
             </div>
           </div>
 
           {recommendedService && (
             <div className={styles.personalizedBadge}>
-              🎯 {SERVICES_DATA.find(s => s.id === recommendedService)?.name} recommended for you
+              🚗 {SERVICES_DATA.find(s => s.id === recommendedService)?.name} - Your recommended driver service
             </div>
           )}
         </div>

@@ -61,11 +61,6 @@ const weddingSecurityFeatures: SecurityFeature[] = [
     icon: '👥',
     title: 'Crowd Management',
     description: 'Flow control for ceremonies, photos, and reception activities'
-  },
-  {
-    icon: '🚨',
-    title: 'Medical Support',
-    description: '24/7 medical and security support protocols'
   }
 ];
 
@@ -95,7 +90,7 @@ const weddingPackages: WeddingPackage[] = [
       'Parking area security',
       'Photo session coordination',
       'Reception flow management',
-      'VIP guest escort services'
+      'VIP guest driver services'
     ]
   },
   {
@@ -109,7 +104,7 @@ const weddingPackages: WeddingPackage[] = [
       'Asset protection specialists',
       'Guest arrival coordination',
       'Multi-location coverage',
-      'Premium vehicle escort',
+      'Premium vehicle transport',
       '24/7 security coordination'
     ]
   }

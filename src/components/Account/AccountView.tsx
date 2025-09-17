@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useApp } from '../../contexts/AppContext';
+import { BackButton } from '../UI/BackButton';
 import styles from './AccountView.module.css';
 
 interface UserAccountData {
@@ -145,7 +146,7 @@ const generateMockUserData = (user: any): UserAccountData => {
 type SubPage = 'main' | 'security-score' | 'financial' | 'referral' | 'settings' | 'support';
 
 export function AccountView() {
-  const { state, navigateToView } = useApp();
+  const { state, navigateToView, handleBack } = useApp();
   const { user } = state;
   const [userData, setUserData] = useState<UserAccountData | null>(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -586,6 +587,7 @@ export function AccountView() {
   return (
     <div className={styles.accountContainer}>
       <div className={styles.backgroundPattern}></div>
+      {currentPage === 'main' && <BackButton onClick={handleBack} />}
       <div className={styles.contentArea}>
         {renderCurrentPage()}
       </div>

@@ -9,7 +9,7 @@
 
 .header {
   text-align: center;
-  margin-bottom: 2rem;
+  margin-bottom: 48px; /* INCREASED: More breathing space after header (was 2rem) */
   position: relative;
   max-width: var(--content-max-width);
   margin-left: auto;
@@ -112,7 +112,7 @@
 .serviceGrid {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 32px; /* INCREASED: More breathing space between service cards (was 1rem) */
   margin-bottom: 2rem;
   max-width: var(--content-max-width);
   margin-left: auto;
@@ -320,7 +320,7 @@
   .serviceGrid {
     display: grid;
     grid-template-columns: 1fr;
-    gap: 1.5rem;
+    gap: 40px; /* INCREASED: More breathing space on tablet (was 1.5rem) */
     max-width: 600px;
     margin: 0 auto 2rem auto;
   }
@@ -335,7 +335,7 @@
   .serviceGrid {
     grid-template-columns: repeat(3, 1fr);
     max-width: 1200px;
-    gap: 2rem;
+    gap: 48px; /* INCREASED: More breathing space on desktop (was 2rem) */
   }
   
   .serviceCard {

@@ -9,12 +9,12 @@ import styles from './ServiceCard.module.css';
 const SERVICE_CONFIG = {
   standard: {
     theme: 'professional',
-    icon: '🛡️',
+    icon: '🚗',
     vehicle: 'Nissan Leaf EV',
-    vehicleNote: '(Discreet)',
-    driverLevel: 'SIA Level 2 Security Certified',
+    vehicleNote: '',
+    driverLevel: 'SIA Level 2 Licensed',
     capacity: '4 passengers',
-    eta: '5-8 min',
+    eta: '5-8 min away',
     rating: 4.8,
     reviewCount: 2847,
     gradient: 'linear-gradient(135deg, #1a1a2e 0%, #2d2d44 100%)',
@@ -35,12 +35,12 @@ const SERVICE_CONFIG = {
   },
   executive: {
     theme: 'premium',
-    icon: '👑',
+    icon: '🚗',
     vehicle: 'BMW 5 Series',
-    vehicleNote: '(Security Modified)',
-    driverLevel: 'SIA Level 3 Security Certified',
+    vehicleNote: '',
+    driverLevel: 'SIA Level 3 Licensed',
     capacity: '4 passengers',
-    eta: '3-5 min',
+    eta: 'Pre-arranged pickup',
     rating: 4.9,
     reviewCount: 1653,
     gradient: 'linear-gradient(135deg, #2a2a3e 0%, #1a1a2e 100%)',
@@ -48,12 +48,12 @@ const SERVICE_CONFIG = {
   },
   shadow: {
     theme: 'tactical',
-    icon: '🕴️',
-    vehicle: 'Protected BMW X5',
-    vehicleNote: '(Tactical Spec)',
-    driverLevel: 'Special Forces Trained',
+    icon: '🚗',
+    vehicle: 'Range Rover/Mercedes S-Class',
+    vehicleNote: '',
+    driverLevel: 'SIA Level 4 + Military',
     capacity: '4 passengers',
-    eta: 'On-demand',
+    eta: 'On standby 24/7',
     rating: 5.0,
     reviewCount: 892,
     gradient: 'linear-gradient(135deg, #0f0f1f 0%, #1a1a2e 100%)',
@@ -282,17 +282,26 @@ export function ServiceCard({
         </div>
       </div>
 
-      {/* Vehicle and Driver Info - Compact Horizontal Layout */}
-      <div className={styles.vehicleSection}>
-        <div className={styles.vehicleInfo}>
-          <div className={styles.vehicleDetail}>
-            <span className={styles.vehicleLabel}>Vehicle:</span>
-            <span className={styles.vehicleValue}>{config.vehicle} | {config.capacity}</span>
-          </div>
+      {/* Vehicle and Driver Info Box - New Format */}
+      <div className={styles.vehicleInfoBox}>
+        <div className={styles.vehicleInfoItem}>
+          <span className={styles.vehicleInfoIcon}>🚗</span>
+          <span className={styles.vehicleInfoLabel}>Vehicle:</span>
+          <span className={styles.vehicleInfoValue}>{config.vehicle}</span>
         </div>
-        <div className={styles.driverInfo}>
-          <span className={styles.driverLabel}>Driver:</span>
-          <span className={styles.driverLevel}>{config.driverLevel}</span>
+        <div className={styles.vehicleInfoItem}>
+          <span className={styles.vehicleInfoIcon}>👤</span>
+          <span className={styles.vehicleInfoLabel}>Driver:</span>
+          <span className={styles.vehicleInfoValue}>{config.driverLevel}</span>
+        </div>
+        <div className={styles.vehicleInfoItem}>
+          <span className={styles.vehicleInfoIcon}>💰</span>
+          <span className={styles.vehicleInfoLabel}>From {service.price}</span>
+          <span className={styles.vehicleInfoMinimum}>(min 1 hour)</span>
+        </div>
+        <div className={styles.vehicleInfoItem}>
+          <span className={styles.vehicleInfoIcon}>📍</span>
+          <span className={styles.vehicleInfoValue}>{config.eta}</span>
         </div>
       </div>
 
@@ -306,7 +315,7 @@ export function ServiceCard({
           ))}
           <span className={styles.ratingNumber}>{config.rating}</span>
         </div>
-        <span className={styles.reviewCount}>({config.reviewCount.toLocaleString()} rides)</span>
+        <span className={styles.reviewCount}>({config.reviewCount.toLocaleString()} secure rides)</span>
       </div>
 
       {/* Service Description */}
@@ -529,7 +538,7 @@ export function ServiceCard({
               className={styles.bookNowButton}
               disabled={isBookingLoading}
             >
-              {isBookingLoading ? 'Processing...' : 'Book Now'}
+              {isBookingLoading ? 'Processing...' : 'BOOK SECURE RIDE →'}
             </Button>
             <Button
               variant="outline"
@@ -540,7 +549,7 @@ export function ServiceCard({
               }}
               className={styles.scheduleButton}
             >
-              Schedule for Later
+              Schedule Later
             </Button>
           </div>
         ) : (

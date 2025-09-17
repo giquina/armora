@@ -64,7 +64,7 @@
   flex: 1;
   display: flex;
   flex-direction: column;
-  gap: var(--space-md);
+  gap: 32px; /* INCREASED: More breathing space between booking sections (was var(--space-md)) */
   margin-bottom: var(--space-lg);
   padding: 0 var(--content-padding-mobile);
 }
@@ -86,7 +86,7 @@
   border-radius: var(--radius-lg);
   padding: var(--space-lg);
   max-width: var(--content-max-width);
-  margin: 0 auto var(--space-md) auto;
+  margin: 0 auto 32px auto; /* INCREASED: More breathing space between sections (was var(--space-md)) */
   width: calc(100vw - 36px);
 }
 
@@ -387,7 +387,7 @@
   }
   
   .bookingSummary {
-    gap: 2rem;
+    gap: 48px; /* INCREASED: More breathing space on tablet (was 2rem) */
   }
   
   .serviceCard {
@@ -404,7 +404,7 @@
   .bookingSummary {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 2rem;
+    gap: 48px; /* INCREASED: More breathing space on desktop (was 2rem) */
   }
   
   .serviceSection,

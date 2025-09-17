@@ -613,11 +613,11 @@ export const venueSecuritySteps: QuestionnaireStep[] = [
         examples: "*Radio systems, command structure, and coordinated response protocols."
       },
       {
-        id: "vip_escort",
-        label: "🚗 VIP Transport and Escort Services",
-        value: "vip_escort",
+        id: "vip_driver",
+        label: "🚗 VIP Transport and Driver Services",
+        value: "vip_driver",
         description: "Secure transport coordination and arrival/departure protection.",
-        examples: "*Airport pickups, secure vehicle escorts, and safe transport coordination."
+        examples: "*Airport pickups, secure vehicle transport, and safe transport coordination."
       },
       {
         id: "perimeter_security",

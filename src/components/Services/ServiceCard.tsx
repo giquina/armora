@@ -246,7 +246,7 @@ export function ServiceCard({
         className={styles.expandToggle}
         onClick={handleExpandToggle}
       >
-        {shouldBeExpanded ? 'SHOW LESS ↑' : 'LEARN MORE ↓'}
+        {shouldBeExpanded ? 'SHOW LESS ↑' : 'LEARN MORE →'}
       </button>
     </div>
   );

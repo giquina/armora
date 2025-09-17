@@ -10,7 +10,7 @@ export function ServiceSelection() {
   const { navigateToView } = useApp();
   const { bookingData, setSelectedService } = useBooking();
   const [selectedServiceId, setSelectedServiceId] = useState<string | null>(null);
-  const [showPaymentMethod, setShowPaymentMethod] = useState(false);
+  const [, setShowPaymentMethod] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
   const [isConfirming, setIsConfirming] = useState(false);
 
@@ -32,7 +32,8 @@ export function ServiceSelection() {
   };
 
   const handleBackPress = () => {
-    navigateToView('home');
+    // Future implementation for back navigation
+    // navigateToView('home');
   };
 
   if (!bookingData.pickup || !bookingData.destination) {

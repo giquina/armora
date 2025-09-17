@@ -4,16 +4,16 @@ export const SERVICES_DATA: ServiceData[] = [
   {
     id: 'standard',
     icon: '🛡️',
-    name: 'Standard Protection',
-    tagline: 'Close Protection Officers for everyday safety',
+    name: 'SafeRide Standard',
+    tagline: 'Professional security-trained drivers for everyday journeys',
     vehicle: 'Nissan Leaf EV (Eco-friendly, discrete)',
-    price: 'From £45.00/hour',
+    price: 'From £45/hour',
     rating: '⭐⭐⭐⭐⭐ 4.8',
     totalRides: '(2,847 rides)',
     collapsedFeatures: [
-      'Certified Close Protection Officers',
+      'SIA-licensed security drivers',
       'Background verified & insured',
-      'Personal Security Drivers'
+      'Professional door-to-door transport'
     ],
     collapsedReview: {
       snippet: 'Been using for 6 months now and honestly can\'t fault it',
@@ -21,14 +21,14 @@ export const SERVICES_DATA: ServiceData[] = [
     },
     personalizedMessage: 'Based on your profile as a [USER_PROFESSION], this service offers reliable protection without being flashy, available 24/7 for your schedule',
     whatYouGet: [
-      'Door-to-door Close Protection service',
+      'Door-to-door security driver service',
       '24/7 availability across London',
       'Government licensed security professionals',
       'Eco-friendly discrete vehicles',
       'Real-time journey monitoring'
     ],
     officerDescription: {
-      general: 'All our Close Protection Officers hold both security and private hire licenses, ensuring legal compliance and professional standards. Each officer undergoes enhanced DBS checks, defensive driving training, and conflict resolution certification. They\'re not just drivers - they\'re your personal security team.',
+      general: 'All our security drivers hold both SIA security and private hire licenses, ensuring legal compliance and professional standards. Each driver undergoes enhanced DBS checks, defensive driving training, and conflict resolution certification. They\'re professional security-trained drivers providing safe transport.',
       qualifications: [
         'SIA Close Protection License',
         'Enhanced DBS checked',
@@ -68,7 +68,7 @@ export const SERVICES_DATA: ServiceData[] = [
       {
         title: 'Young Professional',
         situation: 'Marketing executive wanting to feel special',
-        solution: 'Regular morning Close Protection Officer',
+        solution: 'Regular morning security driver service',
         result: 'I arrive at work feeling like a VIP every day',
         userType: 'business'
       },
@@ -94,10 +94,10 @@ export const SERVICES_DATA: ServiceData[] = [
   {
     id: 'executive',
     icon: '👔',
-    name: 'Executive Shield',
-    tagline: 'Executive Protection Specialists for business leaders',
+    name: 'SafeRide Executive',
+    tagline: 'Premium security drivers for business professionals',
     vehicle: 'BMW 5 Series',
-    price: 'From £95.00/hour',
+    price: 'From £95/hour',
     rating: '⭐⭐⭐⭐⭐ 4.9',
     totalRides: '(1,653 rides)',
     collapsedFeatures: [
@@ -136,7 +136,7 @@ export const SERVICES_DATA: ServiceData[] = [
       },
       {
         rating: 5,
-        text: 'Switched from standard to executive 3 months ago - game changer. The drivers just \'get it\' if that makes sense? Conference calls in the car, sensitive documents, weird hours... never an issue. Also the BMW is SO much better for client impressions ngl',
+        text: 'Switched from standard to executive 3 months ago - game changer. When handling sensitive documents and confidential cases, you need drivers who understand discretion and security protocols. They\'re trained to handle weird hours and protect confidential communications.',
         author: 'Amanda',
         role: 'Law Firm Partner'
       },
@@ -187,7 +187,7 @@ export const SERVICES_DATA: ServiceData[] = [
     name: 'Shadow Protocol',
     tagline: 'Elite Close Protection with complete discretion',
     vehicle: 'Unmarked vehicles (changes regularly)',
-    price: 'From £125.00/hour',
+    price: 'From £125/hour',
     rating: '⭐⭐⭐⭐⭐ 5.0',
     totalRides: '(892 rides)',
     collapsedFeatures: [
@@ -277,7 +277,7 @@ export const SERVICES_DATA: ServiceData[] = [
     name: 'Luxury Elite',
     tagline: 'VIP Protection Specialists with luxury vehicles',
     vehicle: 'Bentley/Rolls Royce/S-Class Mercedes',
-    price: 'From £200.00/hour',
+    price: 'From £200/hour',
     rating: '⭐⭐⭐⭐⭐ 5.0',
     totalRides: '(456 rides)',
     collapsedFeatures: [
@@ -286,23 +286,23 @@ export const SERVICES_DATA: ServiceData[] = [
       'VIP security specialists'
     ],
     collapsedReview: {
-      snippet: 'When you need to make an impression AND stay safe',
-      author: 'International Investor'
+      snippet: 'After receiving threats, I needed transport I could trust with my family\'s safety',
+      author: 'Corporate Executive'
     },
-    personalizedMessage: 'As a VIP client, enjoy red carpet specialist service with diplomatic-level protocols and absolute luxury',
+    personalizedMessage: 'As a VIP client, receive enhanced security protection with diplomatic-level protocols and threat-aware professionals',
     whatYouGet: [
-      'Top-tier luxury vehicles only',
-      'White glove service standard',
+      'Top-tier security vehicles with advanced protection',
+      'Trained security professionals',
       'Close protection team available',
-      'Global service network access',
-      'Red carpet and special event specialists'
+      'Global security network access',
+      'High-profile event security specialists'
     ],
     officerDescription: {
-      general: 'Our VIP Protection Specialists are trained to diplomatic protection standards. They combine the highest levels of security with impeccable luxury service. When you need to arrive like royalty while maintaining absolute security, this is your service.',
+      general: 'Our VIP Protection Specialists are trained to diplomatic protection standards. They combine the highest levels of security with professional threat assessment capabilities. When you need enhanced security for high-risk situations while maintaining absolute protection, this is your service.',
       qualifications: [
         'Diplomatic protection trained',
         'VIP service certified',
-        'Luxury vehicle specialist',
+        'Security vehicle specialist',
         'Protocol expert',
         'Global network access'
       ]
@@ -310,21 +310,21 @@ export const SERVICES_DATA: ServiceData[] = [
     reviews: [
       {
         rating: 5,
-        text: 'When you need to make an impression AND stay safe, nothing touches this. Pulled up to the Savoy in the Bentley, driver in full uniform, handled everything flawlessly. It\'s not just transport, it\'s an experience. My clients are always impressed',
-        author: 'International Investor',
+        text: 'After receiving threats, I needed transport I could trust with my family\'s safety. These drivers are trained in threat assessment and evasive driving - not just chauffeurs. When you\'re dealing with serious security concerns, you need professionals who understand the risks.',
+        author: 'Corporate Executive',
         role: 'Private Equity'
       },
       {
         rating: 5,
-        text: 'Used for my wedding and wow... just wow. 3 cars, perfectly coordinated, drivers who knew exactly how to handle guests, media, everything. They even had champagne and tissues ready for the emotional moments 🥺 Made the day even more special',
-        author: 'Celebrity',
-        role: 'Entertainment'
+        text: 'My high-profile case attracted unwanted attention - I needed drivers trained in threat assessment and evasive driving techniques. When you\'re dealing with serious security concerns, you need professionals who understand the risks, not just luxury service.',
+        author: 'Legal Counsel',
+        role: 'Legal Services'
       },
       {
         rating: 5,
-        text: 'The only service I trust for palace events. Drivers understand protocol, cars are beyond pristine, and the security is subtle but absolute. Simply the best',
-        author: 'Royal Family Friend',
-        role: 'Aristocracy'
+        text: 'Confidential client meetings require discretion and security protocols regular drivers don\'t have. When transporting sensitive documents and dealing with corporate acquisitions, you need professionals trained in confidentiality and threat awareness.',
+        author: 'Investment Advisor',
+        role: 'Financial Services'
       }
     ],
     caseStudies: [
@@ -367,7 +367,7 @@ export const SERVICES_DATA: ServiceData[] = [
     name: 'Personal Vehicle Service',
     tagline: 'Personal Security Drivers for your vehicle',
     vehicle: 'Your own vehicle (any make/model)',
-    price: 'From £55.00/hour',
+    price: 'From £55/hour',
     rating: '⭐⭐⭐⭐⭐ 4.7',
     totalRides: '(1,234 rides)',
     collapsedFeatures: [

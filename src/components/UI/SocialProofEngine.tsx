@@ -21,21 +21,21 @@ const SocialProofEngine: React.FC<SocialProofEngineProps> = ({ className }) => {
   // Executive testimonials
   const testimonials = [
     {
-      quote: "Armora's discrete security transport has been essential for our board meetings.",
-      name: "Corporate Executive",
-      company: "FTSE 100 Company",
+      quote: "Regular taxis aren't trained for hostile situations - these drivers kept us secure during civil unrest in the city.",
+      name: "Government Contractor",
+      company: "Security Consulting",
       initials: "M.J."
     },
     {
-      quote: "The professional standards and reliability exceed expectations every time.",
-      name: "Investment Director", 
-      company: "Private Equity Firm",
+      quote: "When you're transporting sensitive legal documents, you need more than standard rideshare. Their discretion and security protocols are essential.",
+      name: "Law Firm Partner",
+      company: "Corporate Law",
       initials: "S.R."
     },
     {
-      quote: "Their attention to confidentiality and security protocols is unmatched.",
-      name: "Government Advisor",
-      company: "UK Government",
+      quote: "Three carjacking attempts in our area - only trained security drivers give me confidence to travel safely with my family.",
+      name: "Tech CEO",
+      company: "Private Tech Firm",
       initials: "D.K."
     }
   ];

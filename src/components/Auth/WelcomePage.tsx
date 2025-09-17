@@ -7,9 +7,9 @@ import GoogleIcon from '../UI/GoogleIcon';
 import { ArmoraLogo } from '../UI/ArmoraLogo';
 import { WelcomeTitle, ArmoraTagline } from '../UI/BrandText';
 import { CredentialsModal } from '../UI/CredentialsModal';
-import SafeRideFundCTA from '../SafeRideFund/SafeRideFundCTA';
-import SafeRideFundModal from '../SafeRideFund/SafeRideFundModal';
-// import SafeRideFundBanner from '../SafeRideFund/SafeRideFundBanner';
+import ArmoraFoundationCTA from '../ArmoraFoundation/ArmoraFoundationCTA';
+import ArmoraFoundationModal from '../ArmoraFoundation/ArmoraFoundationModal';
+// import ArmoraFoundationBanner from '../ArmoraFoundation/ArmoraFoundationBanner';
 import styles from './WelcomePage.module.css';
 
 export function WelcomePage() {
@@ -17,12 +17,12 @@ export function WelcomePage() {
   const [showFeatures, setShowFeatures] = useState(false);
   const [showContent, setShowContent] = useState(false);
   const [showCredentialsModal, setShowCredentialsModal] = useState(false);
-  const [showSafeRideModal, setShowSafeRideModal] = useState(false);
+  const [showArmoraModal, setShowArmoraModal] = useState(false);
 
   // Debug modal state changes
   useEffect(() => {
-    console.log('🛡️ WelcomePage: showSafeRideModal state changed to:', showSafeRideModal);
-  }, [showSafeRideModal]);
+    console.log('🎬 WelcomePage: showArmoraModal state changed to:', showArmoraModal);
+  }, [showArmoraModal]);
   // Removed impact counter + rotating message specific states
 
   // Development environment detection - ALWAYS SHOW IN DEV
@@ -120,7 +120,7 @@ export function WelcomePage() {
                     <ArmoraTagline />
                   </p>
                   <p className={styles.taglineSubtext}>
-                    Protection for You. Safety for All.
+                    Secure Journeys. Creative Futures.
                   </p>
                 </div>
               </div>
@@ -173,8 +173,8 @@ export function WelcomePage() {
                   </svg>
                 </div>
                 <div className={styles.featureText}>
-                  <h3 className={styles.featureTitleOnly}>Safe Ride Fund Initiative</h3>
-                  <p className={styles.featureSubtitle}>Your membership helps vulnerable communities access safe transport</p>
+                  <h3 className={styles.featureTitleOnly}>Armora Foundation</h3>
+                  <p className={styles.featureSubtitle}>Your membership helps fund the Armora Foundation, providing creative education & career opportunities for young talent</p>
                 </div>
               </div>
             </div>
@@ -340,9 +340,9 @@ export function WelcomePage() {
       </div>
 
       {/* Safe Ride Fund CTA */}
-      <SafeRideFundCTA onClick={() => {
-        console.log('🛡️ WelcomePage: SafeRideFundCTA onClick handler called!');
-        setShowSafeRideModal(true);
+      <ArmoraFoundationCTA onClick={() => {
+        console.log('🎬 WelcomePage: ArmoraFoundationCTA onClick handler called!');
+        setShowArmoraModal(true);
       }} />
 
       {/* Credentials Modal */}
@@ -351,9 +351,9 @@ export function WelcomePage() {
         onClose={() => setShowCredentialsModal(false)}
       />
 
-      {/* Safe Ride Fund Modal */}
-      {showSafeRideModal && (
-        <SafeRideFundModal onClose={() => setShowSafeRideModal(false)} />
+      {/* Amora Foundation Modal */}
+      {showArmoraModal && (
+        <ArmoraFoundationModal onClose={() => setShowArmoraModal(false)} />
       )}
 
       {/* SUPER VISIBLE RED DEVELOPMENT BUTTON */}

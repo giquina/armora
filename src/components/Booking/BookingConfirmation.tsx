@@ -84,13 +84,12 @@ export function BookingConfirmation({ bookingData, onConfirmBooking, onBack }: B
             <div className={styles.servicePrice}>
               {hasReward ? (
                 <>
-                  <span className={styles.discountedPrice}>£{service.hourlyRate * 0.5}</span>
-                  <span className={styles.originalPrice}>£{service.hourlyRate}</span>
+                  <span className={styles.discountedPrice}>£{Math.round(service.hourlyRate * 0.5)}/hour</span>
+                  <span className={styles.originalPrice}>£{service.hourlyRate}/hour</span>
                 </>
               ) : (
-                <span className={styles.price}>£{service.hourlyRate}</span>
+                <span className={styles.price}>£{service.hourlyRate}/hour</span>
               )}
-              <span className={styles.perHour}>/hr</span>
             </div>
           </div>
         </div>

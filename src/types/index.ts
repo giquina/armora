@@ -232,7 +232,7 @@ export interface AppState {
   subscription: UserSubscription | null;
   selectedServiceForBooking?: string;
   userProfileSelection?: string; // Step 1 profile for FloatingCTA personalization
-  safeRideFundMetrics: SafeRideFundMetrics | null;
+  armoraFoundationMetrics: ArmoraFoundationMetrics | null;
   communityImpactData: CommunityImpactData | null;
   venueProtectionData?: any; // Venue protection assessment data
   isLoading: boolean;
@@ -450,9 +450,9 @@ export interface NotificationData {
   totalInterestCount?: number;
 }
 
-// Safe Ride Fund Types
-export interface SafeRideFundMetrics {
-  personalRidesFunded: number;
+// Armora Foundation Types
+export interface ArmoraFoundationMetrics {
+  personalScholarshipsFunded: number;
   totalContributed: number;
   currentStreak: number; // months active
   monthlyContribution: number; // £4 for Essential

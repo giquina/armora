@@ -403,7 +403,7 @@ export function NameCollection({ userName, onNameChange, className = '' }: NameC
           {userStatus === 'NEW_USER' ? 'Welcome to Armora!' : 'Welcome back!'}
         </h2>
         <p className={styles.welcomeSubtitle}>
-          Let's get started with your personalized security assessment
+          Let's start your security assessment
         </p>
       </div>
       

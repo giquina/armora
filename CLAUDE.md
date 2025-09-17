@@ -17,7 +17,8 @@ Armora is a React 19.1.1 TypeScript application for premium VIP security transpo
 ### Additional Key Dependencies
 - **Stripe**: Payment processing (@stripe/react-stripe-js, @stripe/stripe-js)
 - **Leaflet**: Maps and location services (react-leaflet)
-- **QR Code**: QR code generation for bookings
+- **QR Code**: QR code generation for bookings (qrcode)
+- **Canvas Confetti**: Achievement celebrations animations
 - **Playwright**: End-to-end testing framework
 
 ## Core Development Commands
@@ -83,7 +84,9 @@ Includes automated hooks system and AI task management:
 ```
 src/
 ├── App.tsx                     - Main router with view switching
-├── contexts/AppContext.tsx     - Global state management
+├── contexts/
+│   ├── AppContext.tsx          - Global state management
+│   └── BookingContext.tsx      - Booking-specific state
 ├── types/index.ts              - TypeScript interfaces
 ├── components/
 │   ├── Auth/                   - Authentication flow
@@ -91,8 +94,16 @@ src/
 │   ├── Dashboard/              - Service selection
 │   ├── Booking/                - Complete booking flow
 │   ├── UI/ArmoraLogo.tsx       - Premium 4D logo system
-│   └── Layout/AppLayout.tsx    - Header with navigation
-└── data/questionnaireData.ts   - Dynamic questionnaire logic
+│   ├── Layout/AppLayout.tsx    - Header with navigation
+│   └── ArmoraFoundation/       - Foundation initiative components
+├── data/
+│   ├── questionnaireData.ts    - Dynamic questionnaire logic
+│   ├── servicesData.ts         - Service definitions
+│   └── standardizedServices.ts - Standardized service data
+└── utils/
+    ├── timeEstimate.ts         - Time formatting utilities
+    ├── seasonalThemes.ts       - Dynamic theming
+    └── dynamicPersonalization.ts - User-specific content
 ```
 
 ## Business Context
@@ -100,10 +111,12 @@ src/
 **User Journey**: splash → welcome → auth → questionnaire → achievement → dashboard → booking
 **User Capabilities**: Registered/Google users get direct booking + 50% reward; guests get quotes only
 
-### Safe Ride Fund Initiative
+### Armora Foundation Initiative
 - **Impact Counter**: Live counter showing 3,741+ safe rides delivered (animated on WelcomePage)
-- **Components**: `SafeRideFundCTA`, `SafeRideFundModal` with interactive contribution system
+- **Foundation Components**: `ArmoraFoundationCTA`, `ArmoraFoundationModal`, `ArmoraFoundationBanner`, `ArmoraFoundationExplainer` with interactive contribution system
+- **Creator Impact Widget**: `CreatorImpactWidget` showing personal contributions and impact metrics
 - **Development Mode**: Credentials modal always visible in dev mode (`showDevButton` in WelcomePage)
+- **Terminology**: Rebranded from "Safe Ride Fund" to "Armora Foundation" across the application
 
 ## CSS Architecture & Design System
 
@@ -151,12 +164,15 @@ src/
 - `npm test` - Interactive watch mode
 - `npm test -- --coverage` - Generate coverage report
 - `npm test -- --watchAll=false` - Single run for CI
+- `npm test -- src/components/Booking/__tests__/BookingConfirmation.test.tsx` - Run specific test file
+- `npm run test:e2e` - Run Playwright end-to-end tests
 - **Test files location**: `src/components/[Component]/__tests__/[Component].test.tsx`
+- **Jest configuration**: Custom transformIgnorePatterns for react-leaflet, CSS/asset mocking
 - **Current coverage**: Limited - focus on critical booking flow components first
 
 ## Current Status
-✅ **Complete**: Auth, Questionnaire (9-step + privacy), Dashboard, Booking flow, Achievement, 4D logo system, Safe Ride Fund integration
-⚠️ **Critical Needs**: Test coverage (only App.test.tsx exists), PWA service worker, payment integration
+✅ **Complete**: Auth, Questionnaire (9-step + privacy), Dashboard, Booking flow, Achievement, 4D logo system, Armora Foundation integration, Account page redesign, BookingsView redesign, Wedding & Event Security enhancements
+⚠️ **Critical Needs**: Test coverage (limited beyond App.test.tsx), PWA service worker, payment integration
 🔜 **Planned**: Real-time tracking, push notifications, offline mode
 
 ## Key Utility Functions
@@ -179,7 +195,7 @@ Complete flow: VehicleSelection → LocationPicker → BookingConfirmation → B
 - **Animated impact counter**: Shows 3,741+ safe rides with random increments
 - **Seasonal themes**: Dynamic theming based on date
 - **Credentials modal**: Development mode toggle for testing
-- **Safe Ride Fund integration**: Prominent CTAs and donation modal
+- **Armora Foundation integration**: Prominent CTAs and donation modal
 
 ### Authentication & User Types
 Three distinct user types with different capabilities:
@@ -216,6 +232,9 @@ Verify view state in `AppContext` and check if component is included in App.tsx 
 ### Styling Not Applied
 Ensure CSS Module imports use correct syntax: `import styles from './Component.module.css'`
 
+### Port Already in Use
+If port 3000 is already in use, the `server-keeper` agent will automatically handle it. You can also manually kill the process using port 3000.
+
 ## Development Workflow Best Practices
 
 ### Before Making Changes
@@ -236,4 +255,35 @@ Ensure CSS Module imports use correct syntax: `import styles from './Component.m
 - Types: Centralized in `/src/types/index.ts`
 - Data: Static data in `/src/data/`
 
-Last updated: 2025-09-16T21:49:25.669Z
+## Project Rules & Standards (from PROJECT_RULES.md)
+
+### Never Rebuild These Completed Systems
+Core React TypeScript infrastructure, Premium branding with 4D ArmoraLogo, Complete user journey flow, 34 React component library, Mobile-first design system, Advanced TypeScript architecture, Questionnaire data structure, Authentication system, Dashboard service selection, Booking flow components
+
+### Enhancement-Only Approach
+- Always ADD features, never rebuild existing functionality
+- Preserve all existing styling and branding
+- Maintain mobile-first responsive design (320px+)
+- Extend existing components rather than replacing them
+
+### Design Standards
+- **Colors**: #1a1a2e (Dark Navy) + #FFD700 (Gold)
+- **Touch Targets**: 44px+ minimum for mobile
+- **Spacing**: 8px grid system (16px, 24px, 32px standard margins)
+- **Border Radius**: 8px-12px for premium appearance
+- **Shadows**: Subtle depth with rgba(0, 0, 0, 0.3-0.4)
+
+### Privacy & Compliance
+- All data collection must be GDPR compliant
+- Frame privacy as "professional service standards"
+- Always provide "Prefer not to say" options
+- Emphasize voluntary nature and professional service benefits
+
+### Security Transport Messaging Guidelines
+- Emphasize "professional security transport" not "cab service"
+- Reference "security specialists" and "protection protocols"
+- Use "VIP transport" and "executive protection" terminology
+- Focus on "safety," "security," and "professional standards"
+
+Last updated: 2025-09-17
+- update-docs

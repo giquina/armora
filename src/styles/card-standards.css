@@ -7,7 +7,7 @@
   --card-padding-tablet: 20px;
   --card-padding-desktop: 24px;
   
-  --card-margin-mobile: 6px; /* Safe margins for border visibility */
+  --card-margin-mobile: 4px; /* Reduced margins for better mobile screen usage */
   --card-margin-tablet: 12px; /* Minimal safe margins */
   --card-margin-desktop: 20px; /* Minimal safe margins */
   
@@ -18,7 +18,7 @@
   
   --card-backdrop-blur: 10px;
   /* MOBILE BORDER-SAFE full-width utilization - accounting for 2px borders */
-  --card-max-width-mobile: calc(100vw - 12px); /* 6px gutter each side for borders + safety */
+  --card-max-width-mobile: calc(100vw - 8px); /* 4px gutter each side for borders + safety */
   --card-max-width-tablet: calc(100vw - 16px);
   --card-max-width-desktop: calc(100vw - 20px);
   --card-max-width-large: min(calc(100vw - 32px), 1800px);

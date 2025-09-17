@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useApp } from '../../contexts/AppContext';
 import { LocationPicker } from '../LocationPicker/LocationPicker';
+import { AddressManager } from '../Address/AddressManager';
 import styles from './BookingSearchInterface.module.css';
 
 interface BookingSearchInterfaceProps {
@@ -15,15 +16,29 @@ export function BookingSearchInterface({ onDestinationSelect }: BookingSearchInt
   });
   const [recentDestination, setRecentDestination] = useState('');
   const [showLocationPicker, setShowLocationPicker] = useState(false);
+  const [showAddressManager, setShowAddressManager] = useState(false);
+  const [addressManagerType, setAddressManagerType] = useState<'home' | 'work'>('home');
 
   useEffect(() => {
     // Load saved addresses from localStorage
-    const homeAddress = localStorage.getItem('armora_home_address') || '';
-    const workAddress = localStorage.getItem('armora_work_address') || '';
-    const recent = localStorage.getItem('armora_recent_destination') || '';
+    const loadAddresses = () => {
+      const homeAddress = localStorage.getItem('armora_home_address') || '';
+      const workAddress = localStorage.getItem('armora_work_address') || '';
+      const recent = localStorage.getItem('armora_recent_destination') || '';
 
-    setSavedAddresses({ home: homeAddress, work: workAddress });
-    setRecentDestination(recent);
+      setSavedAddresses({ home: homeAddress, work: workAddress });
+      setRecentDestination(recent);
+    };
+
+    loadAddresses();
+
+    // Listen for address updates
+    const handleAddressUpdate = () => {
+      loadAddresses();
+    };
+
+    window.addEventListener('addressUpdated', handleAddressUpdate);
+    return () => window.removeEventListener('addressUpdated', handleAddressUpdate);
   }, []);
 
   const handleSearchClick = () => {
@@ -41,8 +56,13 @@ export function BookingSearchInterface({ onDestinationSelect }: BookingSearchInt
       }
       navigateToView('booking');
     } else {
-      // Navigate to address setup or booking
-      navigateToView('booking');
+      // Open address manager for home/work, or navigate to booking for other types
+      if (type === 'home' || type === 'work') {
+        setAddressManagerType(type);
+        setShowAddressManager(true);
+      } else {
+        navigateToView('booking');
+      }
     }
   };
 
@@ -150,6 +170,13 @@ export function BookingSearchInterface({ onDestinationSelect }: BookingSearchInt
         isOpen={showLocationPicker}
         onClose={() => setShowLocationPicker(false)}
         onLocationSelect={handleLocationSelect}
+      />
+
+      {/* Address Manager Modal */}
+      <AddressManager
+        isOpen={showAddressManager}
+        onClose={() => setShowAddressManager(false)}
+        addressType={addressManagerType}
       />
     </div>
   );

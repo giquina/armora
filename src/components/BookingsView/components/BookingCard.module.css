@@ -21,17 +21,17 @@
 
 /* Active Booking Styles */
 .activeCard {
-  border-color: #00ff88;
-  background: linear-gradient(135deg, #0f1e0f 0%, #1a2e1a 100%);
+  border-color: #FFD700;
+  background: linear-gradient(135deg, #1e1a0f 0%, #2e2a1a 100%);
   animation: activePulse 2s ease-in-out infinite;
 }
 
 @keyframes activePulse {
   0%, 100% {
-    box-shadow: 0 4px 24px rgba(0, 255, 136, 0.2);
+    box-shadow: 0 4px 24px rgba(255, 215, 0, 0.2);
   }
   50% {
-    box-shadow: 0 4px 24px rgba(0, 255, 136, 0.4);
+    box-shadow: 0 4px 24px rgba(255, 215, 0, 0.4);
   }
 }
 
@@ -42,16 +42,16 @@
   display: flex;
   align-items: center;
   gap: 6px;
-  background: rgba(0, 255, 136, 0.2);
+  background: rgba(255, 215, 0, 0.2);
   padding: 4px 10px;
   border-radius: 12px;
-  border: 1px solid #00ff88;
+  border: 1px solid #FFD700;
 }
 
 .pulseIcon {
   width: 8px;
   height: 8px;
-  background: #00ff88;
+  background: #FFD700;
   border-radius: 50%;
   animation: pulse 1.5s ease-in-out infinite;
 }
@@ -68,7 +68,7 @@
 }
 
 .liveText {
-  color: #00ff88;
+  color: #FFD700;
   font-size: 0.7rem;
   font-weight: bold;
   letter-spacing: 1px;
@@ -161,7 +161,7 @@
 .etaLabel {
   display: block;
   font-size: 0.7rem;
-  color: #00ff88;
+  color: #FFD700;
   font-weight: bold;
   letter-spacing: 1px;
   margin-bottom: 4px;
@@ -170,7 +170,7 @@
 .etaTime {
   font-size: 1.2rem;
   font-weight: bold;
-  color: #00ff88;
+  color: #FFD700;
 }
 
 .scheduleTime,
@@ -386,58 +386,63 @@
 /* Card Actions */
 .cardActions {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  gap: 8px;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-top: 20px;
 }
 
-.primaryAction {
-  background: linear-gradient(45deg, #FFD700, #FFA500);
-  color: #1a1a2e;
-  border: none;
-  padding: 10px 12px;
-  border-radius: 8px;
-  font-size: 0.8rem;
-  font-weight: bold;
+/* Icon Action Buttons */
+.iconAction {
+  width: 44px;
+  height: 44px;
+  background: rgba(255, 215, 0, 0.1);
+  color: #FFD700;
+  border: 1px solid rgba(255, 215, 0, 0.3);
+  border-radius: 12px;
+  font-size: 1.2rem;
   cursor: pointer;
   transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
 }
 
-.primaryAction:hover {
-  transform: translateY(-1px);
+.iconAction:hover {
+  background: rgba(255, 215, 0, 0.2);
+  border-color: #FFD700;
+  transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(255, 215, 0, 0.3);
 }
 
-.secondaryAction {
-  background: transparent;
-  color: #FFD700;
-  border: 1px solid #FFD700;
-  padding: 10px 12px;
-  border-radius: 8px;
-  font-size: 0.8rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
+.iconAction:active {
+  transform: translateY(0);
 }
 
-.secondaryAction:hover {
-  background: rgba(255, 215, 0, 0.1);
-}
-
-.dangerAction {
-  background: transparent;
-  color: #EF4444;
-  border: 1px solid rgba(239, 68, 68, 0.5);
-  padding: 10px 12px;
-  border-radius: 8px;
-  font-size: 0.8rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.dangerAction:hover {
+.iconActionDanger {
+  width: 44px;
+  height: 44px;
   background: rgba(239, 68, 68, 0.1);
+  color: #EF4444;
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  border-radius: 12px;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.iconActionDanger:hover {
+  background: rgba(239, 68, 68, 0.2);
   border-color: #EF4444;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
+}
+
+.iconActionDanger:active {
+  transform: translateY(0);
 }
 
 /* Mobile Responsive */
@@ -468,8 +473,15 @@
   }
 
   .cardActions {
-    grid-template-columns: 1fr;
-    gap: 10px;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+  }
+
+  .iconAction,
+  .iconActionDanger {
+    width: 40px;
+    height: 40px;
+    font-size: 1.1rem;
   }
 
   .bookingMeta,
@@ -516,15 +528,44 @@
   .bookingId {
     font-size: 0.75rem;
   }
+
+  .cardActions {
+    gap: 6px;
+  }
+
+  .iconAction,
+  .iconActionDanger {
+    width: 36px;
+    height: 36px;
+    font-size: 1rem;
+  }
+}
+
+/* Focus styles for keyboard navigation */
+.iconAction:focus,
+.iconActionDanger:focus {
+  outline: 2px solid #FFD700;
+  outline-offset: 2px;
+}
+
+.iconAction:focus:not(:focus-visible),
+.iconActionDanger:focus:not(:focus-visible) {
+  outline: none;
 }
 
 /* Accessibility */
 @media (prefers-reduced-motion: reduce) {
   .bookingCard,
   .pulseIcon,
-  .primaryAction {
+  .iconAction,
+  .iconActionDanger {
     animation: none;
     transition: none;
+  }
+
+  .iconAction:hover,
+  .iconActionDanger:hover {
+    transform: none;
   }
 }
 
@@ -542,5 +583,17 @@
   .locationAddress,
   .driverName {
     color: #ffffff;
+  }
+
+  .iconAction {
+    border-color: #FFD700;
+    background: rgba(255, 215, 0, 0.2);
+    color: #FFD700;
+  }
+
+  .iconActionDanger {
+    border-color: #EF4444;
+    background: rgba(239, 68, 68, 0.2);
+    color: #EF4444;
   }
 }

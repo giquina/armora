@@ -1,27 +1,27 @@
-// SafeRideFund Banner with CSS Marquee Animation
-// File: src/components/SafeRideFund/SafeRideFundBanner.tsx
+// Armora Foundation Banner with CSS Marquee Animation
+// File: src/components/ArmoraFoundation/ArmoraFoundationBanner.tsx
 
 import React, { useState, useEffect, useRef } from 'react';
-import styles from './SafeRideFundBanner.module.css';
+import styles from './ArmoraFoundationBanner.module.css';
 
-interface SafeRideFundBannerProps {
+interface ArmoraFoundationBannerProps {
   variant?: 'full' | 'compact';
   className?: string;
   onBannerClick?: () => void;
 }
 
-const SafeRideFundBanner: React.FC<SafeRideFundBannerProps> = ({ 
+const ArmoraFoundationBanner: React.FC<ArmoraFoundationBannerProps> = ({ 
   variant = 'full',
   className = '',
   onBannerClick 
 }) => {
   // Rotating announcement messages for dynamic content
   const announcementMessages = [
-    "🛡️ Every membership supports safe transport for vulnerable communities",
-    "📊 3,741+ safe rides funded • 834 people reached safety this month",
-    "🤝 Partnering with Crisis UK, Women's Aid, Mind Mental Health & more",
-    "🚗 £4 from each membership directly funds priority transport assistance",
-    "⚡ 24/7 availability • Average 12min response time • 98% success rate"
+    "🎵 New Achievement: Spotify Music Lab opening in Birmingham this month!",
+    "💻 Success Story: 12 coding bootcamp graduates just landed tech jobs!",
+    "🎬 Watch Now: Student films from our program featured on Netflix Local",
+    "🚀 This Month: 84 young creators learning new skills thanks to you",
+    "🎯 Vote Now: Help choose next month's workshop focus - Music or Coding?"
   ];
 
   const [currentMessageIndex, setCurrentMessageIndex] = useState(0);
@@ -110,7 +110,7 @@ const SafeRideFundBanner: React.FC<SafeRideFundBannerProps> = ({
       onKeyDown={handleKeyDown}
       role="button"
       tabIndex={onBannerClick ? 0 : -1}
-      aria-label="Safe Ride Fund information - click to learn more"
+      aria-label="Armora Foundation information - click to learn more"
       aria-live="polite"
     >
       <div className={styles.content}>
@@ -216,4 +216,4 @@ const SafeRideFundBanner: React.FC<SafeRideFundBannerProps> = ({
   );
 };
 
-export default SafeRideFundBanner;
+export default ArmoraFoundationBanner;

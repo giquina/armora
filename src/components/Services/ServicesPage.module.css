@@ -82,12 +82,12 @@
   margin-top: var(--space-md);
 }
 
-/* Services Grid - Mobile-First for All 5 Services */
+/* Services Grid - INCREASED BREATHING SPACE */
 .servicesGrid {
   display: grid;
   grid-template-columns: 1fr;
-  gap: var(--space-lg);
-  padding: var(--space-md);
+  gap: 32px; /* INCREASED: More breathing space between service cards */
+  padding: var(--space-lg); /* INCREASED: More padding around the grid */
   max-width: var(--content-max-width);
   margin: 0 auto;
 }
@@ -95,7 +95,8 @@
 @media (min-width: 768px) {
   .servicesGrid {
     grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-    gap: var(--space-xl);
+    gap: 40px; /* INCREASED: Even more space on larger screens */
+    padding: var(--space-xl); /* INCREASED: More padding on larger screens */
   }
 }
 

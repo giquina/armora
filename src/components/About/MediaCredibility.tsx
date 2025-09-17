@@ -29,18 +29,18 @@ const mediaFeatures: MediaMention[] = [
 
 const clientTestimonials = [
   {
-    text: "The level of professionalism and discretion shown by Armora's close protection officers is exceptional. They seamlessly blend security expertise with premium service.",
-    client: "Private Members' Club Executive",
-    location: "Mayfair, London"
+    text: "My high-profile case attracted unwanted attention - I needed drivers trained in threat assessment. Their evasive driving techniques and security protocols gave me confidence during a difficult period.",
+    client: "Legal Counsel",
+    location: "Central London"
   },
   {
-    text: "Having worked with various security providers, Armora stands out for their genuine close protection background. You can tell the difference immediately.",
-    client: "Corporate Executive",
+    text: "Confidential client meetings require discretion and security protocols regular drivers don't have. When dealing with sensitive corporate acquisitions, you need professionals who understand the risks.",
+    client: "Investment Advisor",
     location: "Canary Wharf"
   },
   {
-    text: "The peace of mind knowing your driver is a trained CP officer, not just a driver, is invaluable. Professional, discrete, and highly skilled.",
-    client: "VIP Client",
+    text: "After stalking incidents, I needed transport I could trust. These aren't just drivers - they're trained security professionals who know how to handle threatening situations.",
+    client: "Corporate Executive",
     location: "Confidential"
   }
 ];

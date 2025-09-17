@@ -1,68 +1,68 @@
 // Armora Security Transport - Safe Ride Fund Explainer Component
 
 import React, { useState, useEffect } from 'react';
-import styles from './SafeRideFundExplainer.module.css';
+import styles from './ArmoraFoundationExplainer.module.css';
 
-interface SafeRideFundExplainerProps {
+interface ArmoraFoundationExplainerProps {
   variant?: 'compact' | 'full' | 'breakdown';
   showAnimation?: boolean;
   className?: string;
 }
 
-// Mock data for Safe Ride Fund
-const safeRideFundData = {
+// Mock data for Armora Foundation
+const amoraFoundationData = {
   charityPartners: [
     {
-      name: "Refuge UK",
-      description: "Supporting victims of domestic abuse",
-      monthlyAmount: 2340,
-      logo: "🏠"
+      name: "Code Academy Partnership",
+      description: "Coding bootcamp scholarships",
+      monthlyAmount: 1800,
+      logo: "💻"
     },
     {
-      name: "Suzy Lamplugh Trust", 
-      description: "Personal safety charity",
-      monthlyAmount: 1560,
-      logo: "🛡️"
+      name: "Music Futures Studio",
+      description: "Music production & equipment",
+      monthlyAmount: 1200,
+      logo: "🎵"
     }
   ],
   
   impactStories: [
     {
       id: 1,
-      title: "Safe Late Night Transport",
-      story: "Thanks to the Safe Ride Fund, Sarah was able to reach a women's refuge at 2 AM when she had no money for transport.",
+      title: "First Developer Job",
+      story: "Thanks to the Armora Foundation coding bootcamp, Sarah landed her first developer role at a fintech startup with a £45K salary.",
       date: "3 days ago",
-      isAnonymous: true
+      isAnonymous: false
     },
     {
       id: 2,
-      title: "Essential Healthcare Access", 
-      story: "The fund helped Mark visit his daughter in hospital when unexpected medical costs left him unable to afford transport.",
+      title: "Music Producer Success",
+      story: "The studio time helped Mark produce his first EP, which got picked up by an independent label for distribution.",
       date: "1 week ago",
       isAnonymous: false
     }
   ],
   
   monthlyStats: {
-    ridesProvided: 278,
-    peopleHelped: 834,
-    averageDistance: "7.2 miles",
-    peakHour: "11 PM - 2 AM"
+    programmesCompleted: 84,
+    creativesHelped: 183,
+    averageDuration: "8 weeks",
+    peakProgram: "Coding Bootcamp"
   }
 };
 
-export function SafeRideFundExplainer({ 
+export function ArmoraFoundationExplainer({ 
   variant = 'full', 
   showAnimation = true,
   className = ''
-}: SafeRideFundExplainerProps) {
+}: ArmoraFoundationExplainerProps) {
   const [animatedCount, setAnimatedCount] = useState(0);
   const [showDetails, setShowDetails] = useState(false);
 
   useEffect(() => {
     if (showAnimation && variant !== 'compact') {
       let start = 0;
-      const target = safeRideFundData.monthlyStats.ridesProvided;
+      const target = amoraFoundationData.monthlyStats.programmesCompleted;
       const duration = 2000; // 2 seconds
       const increment = target / (duration / 16); // 60fps
 
@@ -78,7 +78,7 @@ export function SafeRideFundExplainer({
 
       return () => clearInterval(timer);
     } else {
-      setAnimatedCount(safeRideFundData.monthlyStats.ridesProvided);
+      setAnimatedCount(amoraFoundationData.monthlyStats.programmesCompleted);
     }
   }, [showAnimation, variant]);
 
@@ -88,7 +88,7 @@ export function SafeRideFundExplainer({
         <div className={styles.compactContent}>
           <div className={styles.impactIcon}>🛡️</div>
           <div className={styles.compactText}>
-            <span className={styles.impactAmount}>£4</span> of your £14.99 funds safe rides & charities
+            <span className={styles.impactAmount}>£4</span> of your £14.99 funds creative education & skills
           </div>
         </div>
       </div>
@@ -110,14 +110,14 @@ export function SafeRideFundExplainer({
             <div className={styles.breakdownDesc}>Your Benefits & Service</div>
           </div>
           <div className={`${styles.breakdownRow} ${styles.impactRow}`}>
-            <div className={styles.breakdownLabel}>£3.00</div>
+            <div className={styles.breakdownLabel}>£3</div>
             <div className={styles.breakdownBar}>
               <div className={`${styles.breakdownFill} ${styles.impactFill}`} style={{ width: '20%' }}></div>
             </div>
             <div className={styles.breakdownDesc}>Safety Charities</div>
           </div>
           <div className={`${styles.breakdownRow} ${styles.impactRow}`}>
-            <div className={styles.breakdownLabel}>£1.00</div>
+            <div className={styles.breakdownLabel}>£1</div>
             <div className={styles.breakdownBar}>
               <div className={`${styles.breakdownFill} ${styles.impactFill}`} style={{ width: '7%' }}></div>
             </div>
@@ -134,9 +134,9 @@ export function SafeRideFundExplainer({
       <div className={styles.header}>
         <div className={styles.icon}>🛡️</div>
         <div className={styles.headerText}>
-          <h3 className={styles.title}>Safe Ride Fund</h3>
+          <h3 className={styles.title}>Armora Foundation</h3>
           <p className={styles.subtitle}>
-            Part of your Essential membership helps keep others safe
+            Part of your Essential membership launches creative careers
           </p>
         </div>
       </div>
@@ -147,20 +147,20 @@ export function SafeRideFundExplainer({
             {showAnimation ? (
               <span className={styles.animatedNumber}>{animatedCount}</span>
             ) : (
-              <span>{safeRideFundData.monthlyStats.ridesProvided}</span>
+              <span>{amoraFoundationData.monthlyStats.programmesCompleted}</span>
             )}
           </div>
-          <div className={styles.statLabel}>safe rides funded this month</div>
+          <div className={styles.statLabel}>creative programmes completed this month</div>
         </div>
 
         <div className={styles.subStats}>
           <div className={styles.subStat}>
-            <span className={styles.subStatNumber}>{safeRideFundData.monthlyStats.peopleHelped}</span>
-            <span className={styles.subStatLabel}>people helped</span>
+            <span className={styles.subStatNumber}>{amoraFoundationData.monthlyStats.creativesHelped}</span>
+            <span className={styles.subStatLabel}>creatives helped</span>
           </div>
           <div className={styles.subStat}>
-            <span className={styles.subStatNumber}>{safeRideFundData.monthlyStats.averageDistance}</span>
-            <span className={styles.subStatLabel}>avg distance</span>
+            <span className={styles.subStatNumber}>{amoraFoundationData.monthlyStats.averageDuration}</span>
+            <span className={styles.subStatLabel}>programme length</span>
           </div>
         </div>
       </div>
@@ -179,12 +179,16 @@ export function SafeRideFundExplainer({
             <h4 className={styles.allocationTitle}>£4 from your £14.99 subscription goes to:</h4>
             <div className={styles.allocationList}>
               <div className={styles.allocationItem}>
-                <div className={styles.allocationAmount}>£3.00</div>
-                <div className={styles.allocationDesc}>Partner safety charities</div>
+                <div className={styles.allocationAmount}>£1.50</div>
+                <div className={styles.allocationDesc}>Coding bootcamp scholarships</div>
               </div>
               <div className={styles.allocationItem}>
-                <div className={styles.allocationAmount}>£1.00</div>
-                <div className={styles.allocationDesc}>Safe transport assistance for vulnerable communities</div>
+                <div className={styles.allocationAmount}>£1.50</div>
+                <div className={styles.allocationDesc}>Music studio equipment & time</div>
+              </div>
+              <div className={styles.allocationItem}>
+                <div className={styles.allocationAmount}>£1</div>
+                <div className={styles.allocationDesc}>Film equipment & mentorship</div>
               </div>
             </div>
           </div>
@@ -192,7 +196,7 @@ export function SafeRideFundExplainer({
           <div className={styles.partners}>
             <h4 className={styles.partnersTitle}>Our Partner Charities:</h4>
             <div className={styles.partnersList}>
-              {safeRideFundData.charityPartners.map((partner, index) => (
+              {amoraFoundationData.charityPartners.map((partner, index) => (
                 <div key={index} className={styles.partner}>
                   <div className={styles.partnerLogo}>{partner.logo}</div>
                   <div className={styles.partnerInfo}>
@@ -208,7 +212,7 @@ export function SafeRideFundExplainer({
           <div className={styles.stories}>
             <h4 className={styles.storiesTitle}>Recent Impact:</h4>
             <div className={styles.storiesList}>
-              {safeRideFundData.impactStories.slice(0, 2).map((story) => (
+              {amoraFoundationData.impactStories.slice(0, 2).map((story) => (
                 <div key={story.id} className={styles.story}>
                   <div className={styles.storyHeader}>
                     <div className={styles.storyTitle}>{story.title}</div>

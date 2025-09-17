@@ -102,7 +102,7 @@ export const SmartRecommendation: React.FC<SmartRecommendationProps> = ({
       <div className={styles.returningUserRec}>
         <div className={styles.quickRec}>
           <span className={styles.checkmark}>✅</span>
-          <strong>Standard Protection</strong> - Your trusted security transport
+          <strong>SafeRide Standard</strong> - Your trusted security driver service
           <span className={styles.availability}> • 2 min away • Available now</span>
           <button
             className={styles.quickBookBtn}
@@ -124,14 +124,14 @@ export const SmartRecommendation: React.FC<SmartRecommendationProps> = ({
           <span className={styles.separator}>•</span>
           <span className={styles.recommendedLabel}>RECOMMENDED</span>
         </div>
-        <h3 className={styles.serviceName}>Standard Protection</h3>
+        <h3 className={styles.serviceName}>SafeRide Standard</h3>
       </div>
 
       <div className={styles.compactContent}>
         <div className={styles.contentLeft}>
           <div className={styles.recommendationExplanation}>
             <p className={styles.explanationText}>
-              Based on your security assessment, we've found your perfect match! Professional security drivers who make every journey feel safe and comfortable. Trusted by thousands of passengers just like you.
+              Your matched security drivers. Safe journeys, trusted by thousands.
             </p>
           </div>
 
@@ -155,7 +155,7 @@ export const SmartRecommendation: React.FC<SmartRecommendationProps> = ({
               className={styles.selectServiceBtn}
               onClick={() => onServiceSelect(recommendedService?.id || 'standard')}
             >
-              REQUEST ESCORT
+              BOOK SECURE RIDE
             </button>
           </div>
         </div>

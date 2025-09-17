@@ -150,7 +150,7 @@ export function PPOVenueBooking({ isVisible }: PPOVenueBookingProps) {
             className={styles.textarea}
             value={specialRequirements}
             onChange={(e) => setSpecialRequirements(e.target.value)}
-            placeholder="Armed protection, counter-surveillance, VIP escort, etc..."
+            placeholder="Armed protection, counter-surveillance, VIP chauffeur, etc..."
             rows={2}
           />
         </div>
