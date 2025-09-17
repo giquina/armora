@@ -31,6 +31,12 @@
   --error: #ff4444;
   --success: #00ff88;
   --warning: #ffaa00;
+
+  /* CREATIVE THEME COLORS - Armora Foundation */
+  --color-creative-purple: #7B68EE;  /* Music program */
+  --color-creative-teal: #20B2AA;    /* Coding program */
+  --color-creative-orange: #FF6B35;  /* Media program */
+  --color-creative-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   
   /* SPACING SYSTEM - 8px Grid */
   --space-xs: 4px;
@@ -72,9 +78,9 @@
   --tablet-max: 1023px;
   --desktop-min: 1024px;
   
-  /* TOUCH TARGETS - 44px minimum for accessibility */
-  --touch-target: 44px;
-  --touch-target-lg: 56px;
+  /* TOUCH TARGETS - 48px minimum for better mobile accessibility */
+  --touch-target: 48px;
+  --touch-target-lg: 60px;
   
   /* TRANSITIONS */
   --transition-fast: 0.15s ease-out;
@@ -90,6 +96,24 @@
   --z-popover: 1060;
   --z-tooltip: 1070;
   --z-toast: 1080;
+}
+
+/* MOBILE-SPECIFIC SPACING OVERRIDES */
+/* Reduce spacing on mobile to maximize screen usage */
+@media (max-width: 480px) {
+  :root {
+    /* Reduced spacing for mobile screens */
+    --space-xs: 2px;    /* Was 4px */
+    --space-sm: 4px;    /* Was 8px */
+    --space-md: 8px;    /* Was 16px - CRITICAL for mobile usage */
+    --space-lg: 12px;   /* Was 24px */
+    --space-xl: 16px;   /* Was 32px */
+    --space-xxl: 24px;  /* Was 48px */
+
+    /* Ensure touch targets are generous on mobile */
+    --touch-target: 48px;     /* Maintain good touch target size */
+    --touch-target-lg: 56px;  /* Slightly reduced from 60px to save space */
+  }
 }
 
 /* DARK THEME OVERRIDES (Default) */

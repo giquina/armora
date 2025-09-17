@@ -123,14 +123,17 @@ export function BookingCard({
       </div>
 
       <div className={styles.cardActions}>
-        <button className={styles.primaryAction} onClick={onTrackDriver}>
-          📍 Track Driver
+        <button className={styles.iconAction} onClick={onTrackDriver} title="Track Driver">
+          🎯
         </button>
-        <button className={styles.secondaryAction} onClick={onContactDriver}>
-          📞 Contact
+        <button className={styles.iconAction} onClick={onContactDriver} title="Call Driver">
+          📞
         </button>
-        <button className={styles.dangerAction} onClick={onCancel}>
-          ❌ Cancel
+        <button className={styles.iconAction} title="Share Booking">
+          📤
+        </button>
+        <button className={styles.iconActionDanger} onClick={onCancel} title="Cancel">
+          ❌
         </button>
       </div>
     </div>
@@ -182,14 +185,17 @@ export function BookingCard({
       </div>
 
       <div className={styles.cardActions}>
-        <button className={styles.primaryAction}>
-          ✏️ Edit Booking
+        <button className={styles.iconAction} title="Edit Booking">
+          ✏️
         </button>
-        <button className={styles.secondaryAction}>
-          🔔 Set Reminder
+        <button className={styles.iconAction} title="Set Reminder">
+          🔔
         </button>
-        <button className={styles.dangerAction} onClick={onCancel}>
-          ❌ Cancel
+        <button className={styles.iconAction} title="Share Booking">
+          📤
+        </button>
+        <button className={styles.iconActionDanger} onClick={onCancel} title="Cancel">
+          ❌
         </button>
       </div>
     </div>
@@ -249,11 +255,17 @@ export function BookingCard({
       </div>
 
       <div className={styles.cardActions}>
-        <button className={styles.primaryAction} onClick={onRebook}>
-          🔄 Book Again
+        <button className={styles.iconAction} onClick={onRebook} title="Book Again">
+          🔄
         </button>
-        <button className={styles.secondaryAction}>
-          📄 Download Receipt
+        <button className={styles.iconAction} title="Download Receipt">
+          📄
+        </button>
+        <button className={styles.iconAction} title="Share Trip">
+          📤
+        </button>
+        <button className={styles.iconAction} title="Support">
+          💬
         </button>
       </div>
     </div>

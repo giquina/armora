@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import styles from './SafeRideFundModal.module.css';
+import styles from './ArmoraFoundationModal.module.css';
 import { 
   useCounterAnimation, 
   useIntersectionObserver, 
@@ -7,51 +7,55 @@ import {
   formatCounterValue
 } from '../../utils/animationUtils';
 
-interface SafeRideFundModalProps {
+interface ArmoraFoundationModalProps {
   onClose: () => void;
 }
 
 const organizationTestimonials = [
   {
     id: 1,
-    organization: "Women's Aid Federation",
-    testimonial: "The Safe Ride Fund has become an essential lifeline, providing immediate transport solutions when traditional funding isn't available. Their 24/7 availability has directly supported over 200 individuals this year.",
-    impact: "Domestic Violence Support",
+    organization: "Spotify Music Lab",
+    testimonial: "Armora Foundation graduates are creating chart-worthy music. Three of our recent participants now have tracks on official playlists and one hit 50K streams in their first month.",
+    impact: "Music Career Development",
     verified: true,
-    stats: "200+ individuals supported",
-    story: "The Safe Ride Fund has become an essential lifeline, providing immediate transport solutions when traditional funding isn't available. Their 24/7 availability has directly supported over 200 individuals this year."
+    stats: "3 tracks on official playlists",
+    story: "Armora Foundation graduates are creating chart-worthy music. Three of our recent participants now have tracks on official playlists and one hit 50K streams in their first month."
   },
   {
     id: 2,
-    organization: "Crisis UK",
-    testimonial: "Armora's Safe Ride Fund eliminates transport barriers that often prevent our service users from accessing vital support. Their rapid response has been instrumental in crisis intervention.",
-    impact: "Homelessness Prevention", 
+    organization: "Google for Startups",
+    testimonial: "The coding bootcamp produces job-ready developers. We've hired 12 graduates directly into our partner companies, with starting salaries 40% above industry average.",
+    impact: "Tech Career Placement",
     verified: true,
-    stats: "Average 12min response time",
-    story: "Armora's Safe Ride Fund eliminates transport barriers that often prevent our service users from accessing vital support. Their rapid response has been instrumental in crisis intervention."
+    stats: "12 graduates hired directly",
+    story: "The coding bootcamp produces job-ready developers. We've hired 12 graduates directly into our partner companies, with starting salaries 40% above industry average."
   },
   {
     id: 3,
-    organization: "Mind Mental Health",
-    testimonial: "Transport accessibility is crucial for mental health support. The Safe Ride Fund has enabled 150+ individuals to attend critical appointments and reach support services.",
-    impact: "Mental Health Access",
+    organization: "Netflix Local Studios",
+    testimonial: "These young filmmakers bring fresh perspectives. Two short films from the program are now in our showcase collection, and one director just signed their first commercial deal.",
+    impact: "Film & Media Opportunities",
     verified: true,
-    stats: "98% appointment attendance rate",
-    story: "Transport accessibility is crucial for mental health support. The Safe Ride Fund has enabled 150+ individuals to attend critical appointments and reach support services."
+    stats: "2 films in showcase collection",
+    story: "These young filmmakers bring fresh perspectives. Two short films from the program are now in our showcase collection, and one director just signed their first commercial deal."
   }
 ];
 
 
-const SafeRideFundModal: React.FC<SafeRideFundModalProps> = ({ onClose }) => {
+const ArmoraFoundationModal: React.FC<ArmoraFoundationModalProps> = ({ onClose }) => {
   const [currentStoryIndex, setCurrentStoryIndex] = useState(0);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [hasAnimationStarted, setHasAnimationStarted] = useState(false);
+
+  // Rotating creative icons
+  const creativeIcons = ['🎬', '🎵', '💻', '🎨', '🚀'];
+  const [currentIcon, setCurrentIcon] = useState(0);
   
   // Animation-powered counter hooks
-  const ridesAnimation = useCounterAnimation(3741, 2000, 300, 'easeOut');
-  const peopleAnimation = useCounterAnimation(834, 2000, 500, 'easeOut');
-  const timeAnimation = useCounterAnimation(12, 1500, 800, 'easeOut');
-  const successAnimation = useCounterAnimation(98, 1800, 1000, 'easeOut');
+  const careersAnimation = useCounterAnimation(427, 2000, 300, 'easeOut');
+  const projectsAnimation = useCounterAnimation(183, 2000, 500, 'easeOut');
+  const weeksAnimation = useCounterAnimation(8, 1500, 800, 'easeOut');
+  const employmentAnimation = useCounterAnimation(92, 1800, 1000, 'easeOut');
 
   // Intersection observers for scroll-triggered animations
   const { targetRef: impactRef, hasIntersected: impactIntersected } = useIntersectionObserver();
@@ -59,8 +63,8 @@ const SafeRideFundModal: React.FC<SafeRideFundModalProps> = ({ onClose }) => {
   const { targetRef: processRef, hasIntersected: processIntersected } = useIntersectionObserver();
 
   const handleClose = useCallback(() => {
-    localStorage.setItem('safeRideFundModalViewed', 'true');
-    localStorage.setItem('safeRideFundModalViewedDate', new Date().toISOString());
+    localStorage.setItem('armoraFoundationModalViewed', 'true');
+    localStorage.setItem('armoraFoundationModalViewedDate', new Date().toISOString());
     onClose();
   }, [onClose]);
 
@@ -96,12 +100,12 @@ const SafeRideFundModal: React.FC<SafeRideFundModalProps> = ({ onClose }) => {
   useEffect(() => {
     if (isModalVisible && !hasAnimationStarted) {
       setHasAnimationStarted(true);
-      ridesAnimation.startAnimation();
-      peopleAnimation.startAnimation();
-      timeAnimation.startAnimation();
-      successAnimation.startAnimation();
+      careersAnimation.startAnimation();
+      projectsAnimation.startAnimation();
+      weeksAnimation.startAnimation();
+      employmentAnimation.startAnimation();
     }
-  }, [isModalVisible, hasAnimationStarted, ridesAnimation, peopleAnimation, timeAnimation, successAnimation]);
+  }, [isModalVisible, hasAnimationStarted, careersAnimation, projectsAnimation, weeksAnimation, employmentAnimation]);
 
   // Story carousel rotation
   useEffect(() => {
@@ -112,18 +116,26 @@ const SafeRideFundModal: React.FC<SafeRideFundModalProps> = ({ onClose }) => {
     return () => clearInterval(storyInterval);
   }, []);
 
+  // Icon rotation effect
+  useEffect(() => {
+    const iconInterval = setInterval(() => {
+      setCurrentIcon(prev => (prev + 1) % creativeIcons.length);
+    }, 2000);
+    return () => clearInterval(iconInterval);
+  }, [creativeIcons.length]);
+
   // Restart animations when scrolled back into view
   useEffect(() => {
     if (impactIntersected && hasAnimationStarted) {
       // Re-trigger animations if they're not currently running
-      if (!ridesAnimation.isAnimating) {
-        ridesAnimation.startAnimation();
-        peopleAnimation.startAnimation();
-        timeAnimation.startAnimation();
-        successAnimation.startAnimation();
+      if (!careersAnimation.isAnimating) {
+        careersAnimation.startAnimation();
+        projectsAnimation.startAnimation();
+        weeksAnimation.startAnimation();
+        employmentAnimation.startAnimation();
       }
     }
-  }, [impactIntersected, hasAnimationStarted, ridesAnimation, peopleAnimation, timeAnimation, successAnimation]);
+  }, [impactIntersected, hasAnimationStarted, careersAnimation, projectsAnimation, weeksAnimation, employmentAnimation]);
 
   return (
     <div 
@@ -144,13 +156,15 @@ const SafeRideFundModal: React.FC<SafeRideFundModalProps> = ({ onClose }) => {
 
         <div className={styles.content}>
           <header className={`${styles.header} ${isModalVisible ? styles.headerAnimate : ''}`}>
-            <div className={`${styles.icon} ${isModalVisible ? styles.iconBounce : ''}`}>🛡️</div>
+            <div className={`${styles.icon} ${isModalVisible ? styles.iconBounce : ''}`}>
+              <span className={styles.rotatingIcon}>{creativeIcons[currentIcon]}</span>
+            </div>
             <div className={styles.headerText}>
               <h2 className={`${styles.title} ${isModalVisible ? styles.titleSlideIn : ''}`}>
-                Safe Ride Fund
+                Armora Foundation
               </h2>
               <p className={`${styles.tagline} ${isModalVisible ? styles.taglineSlideIn : ''}`}>
-                Transport for those who need it most
+                Future Creators Hub
               </p>
             </div>
           </header>
@@ -165,41 +179,41 @@ const SafeRideFundModal: React.FC<SafeRideFundModalProps> = ({ onClose }) => {
                 style={{ animationDelay: `${getStaggeredDelay(0, 0.15)}s` }}
               >
                 <span className={`${styles.statNumber} ${styles.primaryNumber}`}>
-                  {formatCounterValue(ridesAnimation.currentValue, 'default')}
+                  {formatCounterValue(careersAnimation.currentValue, 'default')}
                 </span>
-                <span className={styles.statLabel}>Safe Rides Delivered</span>
+                <span className={styles.statLabel}>Creative Careers Launched</span>
               </div>
               <div 
                 className={`${styles.statCard} ${styles.statCard2} ${hasAnimationStarted ? styles.cardAnimateIn : ''}`}
                 style={{ animationDelay: `${getStaggeredDelay(1, 0.15)}s` }}
               >
                 <span className={`${styles.statNumber} ${styles.secondaryNumber}`}>
-                  {formatCounterValue(peopleAnimation.currentValue, 'default')}
+                  {formatCounterValue(projectsAnimation.currentValue, 'default')}
                 </span>
-                <span className={styles.statLabel}>People Reached This Month</span>
+                <span className={styles.statLabel}>Active Projects Created</span>
               </div>
               <div 
                 className={`${styles.statCard} ${styles.statCard3} ${hasAnimationStarted ? styles.cardAnimateIn : ''}`}
                 style={{ animationDelay: `${getStaggeredDelay(2, 0.15)}s` }}
               >
                 <span className={`${styles.statNumber} ${styles.timeNumber}`}>
-                  {formatCounterValue(timeAnimation.currentValue, 'time')}
+                  {formatCounterValue(weeksAnimation.currentValue, 'default')} weeks
                 </span>
-                <span className={styles.statLabel}>Average Response</span>
+                <span className={styles.statLabel}>Program Length</span>
               </div>
               <div 
                 className={`${styles.statCard} ${styles.statCard4} ${styles.successCard} ${hasAnimationStarted ? styles.cardAnimateIn : ''}`}
                 style={{ animationDelay: `${getStaggeredDelay(3, 0.15)}s` }}
               >
                 <span className={`${styles.statNumber} ${styles.successNumber}`}>
-                  {formatCounterValue(successAnimation.currentValue, 'percentage')}
+                  {formatCounterValue(employmentAnimation.currentValue, 'percentage')}
                 </span>
-                <span className={styles.statLabel}>Success Rate</span>
+                <span className={styles.statLabel}>Employment Rate</span>
                 <div className={styles.progressBar}>
                   <div 
                     className={styles.progressFill} 
                     style={{ 
-                      width: `${successAnimation.currentValue}%`,
+                      width: `${employmentAnimation.currentValue}%`,
                       transitionDelay: '1.2s'
                     }}
                   ></div>
@@ -210,7 +224,7 @@ const SafeRideFundModal: React.FC<SafeRideFundModalProps> = ({ onClose }) => {
 
           <section className={styles.mission}>
             <h3>Our Mission</h3>
-            <p>Every Armora membership contributes £4 to our Safe Ride Fund, providing priority transport for vulnerable individuals when they need it most. Working with Crisis UK, Women's Aid, Mind Mental Health, and other vital organizations, we ensure transport is never a barrier to safety and support.</p>
+            <p>Every Armora membership includes a £4 contribution to fund creative education for underserved youth. We provide FREE coding bootcamps, music production studio time, and media creation workshops. Our 8-week programs transform beginners into portfolio-ready creators, with 92% finding employment or launching their own projects within 6 months.</p>
           </section>
 
           <section 
@@ -269,10 +283,10 @@ const SafeRideFundModal: React.FC<SafeRideFundModalProps> = ({ onClose }) => {
             </h3>
             <div className={`${styles.processSteps} ${processIntersected ? styles.stepsAnimate : ''}`}>
               {[
-                "Partner organizations identify urgent transport needs",
-                "Safe Ride Fund coordinates immediate response", 
-                "Security-trained drivers provide safe transport",
-                "Individual reaches safety and support"
+                "Young people apply for free 8-week programs in coding, music, or media",
+                "Create real projects with industry mentors and pro equipment",
+                "Present work at Amora Festival and connect with employers",
+                "Successful graduates return to mentor the next generation"
               ].map((stepText, index) => (
                 <div 
                   key={index}
@@ -288,15 +302,15 @@ const SafeRideFundModal: React.FC<SafeRideFundModalProps> = ({ onClose }) => {
 
           <section className={styles.contribution}>
             <div className={styles.contributionCard}>
-              <h3>Your Membership Impact</h3>
+              <h3>Your Creative Impact</h3>
               <div className={styles.contributionDetails}>
                 <div className={styles.contributionAmount}>
                   <span className={styles.amount}>£4</span>
                   <span className={styles.amountDesc}>from every membership</span>
                 </div>
                 <div className={styles.contributionResult}>
-                  <span className={styles.result}>= 1 Priority Journey</span>
-                  <span className={styles.resultDesc}>Funded for someone in crisis</span>
+                  <span className={styles.result}>= Creative Futures</span>
+                  <span className={styles.resultDesc}>Coding scholarships, studio time & equipment</span>
                 </div>
               </div>
             </div>
@@ -307,14 +321,14 @@ const SafeRideFundModal: React.FC<SafeRideFundModalProps> = ({ onClose }) => {
               className={`${styles.primaryButton} ${styles.buttonPulse} ${styles.gradientShift}`} 
               onClick={handleClose}
             >
-              <span className={styles.buttonText}>Support This Initiative</span>
+              <span className={styles.buttonText}>Join the Movement</span>
               <div className={styles.buttonRipple}></div>
             </button>
             <button 
               className={`${styles.secondaryButton} ${styles.buttonHover} ${styles.buttonGlow}`} 
               onClick={handleClose}
             >
-              <span className={styles.buttonText}>Learn More</span>
+              <span className={styles.buttonText}>See Our Graduates</span>
               <div className={styles.buttonShimmer}></div>
             </button>
           </div>
@@ -324,4 +338,4 @@ const SafeRideFundModal: React.FC<SafeRideFundModalProps> = ({ onClose }) => {
   );
 };
 
-export default SafeRideFundModal;
+export default ArmoraFoundationModal;

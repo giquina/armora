@@ -493,6 +493,18 @@
   transform: scale(1.05);
 }
 
+.rewardApplied {
+  font-size: 13px;
+  color: var(--armora-dark); /* Changed from green to brand dark navy */
+  font-weight: 600;
+  white-space: nowrap;
+  animation: ctaFadeIn 0.5s ease-in 3.5s both;
+  padding: 2px 4px;
+  border-radius: 4px;
+  background: rgba(26, 26, 46, 0.1); /* Updated background to match dark navy */
+  border: 1px solid rgba(26, 26, 46, 0.3); /* Updated border to match dark navy */
+}
+
 .dismissButton {
   background: rgba(26, 26, 46, 0.1);
   border: none;
@@ -562,7 +574,7 @@
 }
 
 /* ========================================
-   SECTION STYLES
+   SECTION STYLES - INCREASED BREATHING SPACE
 ======================================== */
 .quickBookingSection,
 .servicesSection,
@@ -571,39 +583,40 @@
 .upgradeSection,
 .contactSection {
   max-width: var(--content-max-width);
-  margin: 0 auto 24px auto; /* Better spacing between major sections */
+  margin: 0 auto 48px auto; /* INCREASED: Double the spacing between major sections */
   padding: 0 var(--content-padding-mobile);
 }
 
 /* CRITICAL SPACING FIX: Add space after recommendation to location section */
 .recommendationSection {
-  margin-bottom: var(--space-xxl); /* 48px spacing for breathing room */
+  margin-bottom: 64px; /* INCREASED: 64px spacing for extra breathing room */
 }
 
 .sectionTitle {
-  font-size: var(--font-lg);
-  font-weight: 600;
+  font-size: var(--font-xxl);
+  font-weight: 700;
   color: var(--text-primary);
-  margin: 0 0 20px 0; /* Better spacing after section titles */
+  margin: 0 0 var(--space-md) 0;
+  line-height: 1.2;
   text-align: center;
-  line-height: var(--line-tight);
 }
 
 .sectionDescription {
-  font-size: var(--font-base);
+  font-size: 1.17em; /* Browser default h3 size (approximately 18.72px) */
+  font-weight: 700; /* Bold, same as h3 default */
   color: var(--text-secondary);
   margin: 0 auto 32px auto; /* Better spacing after descriptions */
   text-align: center;
-  line-height: var(--line-base);
+  line-height: 1.2; /* Same as h3 default line height */
   max-width: 500px;
 }
 
 /* ========================================
-   SERVICES GRID
+   SERVICES GRID - INCREASED CARD SPACING
 ======================================== */
 .servicesGrid {
   display: grid;
-  gap: 24px; /* Better spacing between service cards */
+  gap: 32px; /* INCREASED: More breathing space between service cards */
   width: 100%;
   /* Default: Single column on mobile to prevent button clipping */
   grid-template-columns: 1fr;
@@ -611,10 +624,10 @@
   margin: 0 auto;
 }
 
-/* Small screens: Single column with tighter spacing */
+/* Small screens: Increased spacing even on mobile */
 @media (max-width: 600px) {
   .servicesGrid {
-    gap: var(--space-sm);
+    gap: 24px; /* INCREASED: More space between cards on mobile */
   }
 }
 
@@ -622,7 +635,7 @@
 @media (min-width: 700px) {
   .servicesGrid {
     grid-template-columns: 1fr 1fr;
-    gap: var(--space-lg);
+    gap: 32px; /* INCREASED: Consistent larger spacing on tablets */
   }
 }
 
@@ -630,7 +643,7 @@
 @media (min-width: 1024px) {
   .servicesGrid {
     grid-template-columns: repeat(3, 1fr);
-    gap: var(--space-xl);
+    gap: 40px; /* INCREASED: Even more space on desktop */
   }
 
   .servicesSection {
@@ -1804,7 +1817,7 @@
   }
   
   .sectionTitle {
-    font-size: var(--font-base);
+    font-size: var(--font-xl);
   }
 }
 
@@ -1818,18 +1831,18 @@
     padding: var(--space-lg);
     margin-bottom: var(--space-lg);
   }
-  
+
   .header,
   .guestHeader {
     padding: var(--space-xl) var(--space-lg);
   }
-  
+
   .title {
     font-size: var(--font-xxl);
   }
-  
+
   .sectionTitle {
-    font-size: var(--font-xl);
+    font-size: var(--font-xxl);
   }
 }
 
@@ -2613,36 +2626,48 @@
 .cpoDifferenceItem {
   display: flex;
   align-items: flex-start;
-  gap: var(--space-sm);
+  gap: 12px; /* Fixed spacing for consistent alignment */
   padding: var(--space-md);
   background: rgba(26, 26, 46, 0.6);
   border-radius: 12px;
   border: 1px solid rgba(255, 215, 0, 0.1);
+  margin-bottom: 16px; /* Consistent spacing between items */
 }
 
 .cpoDifferenceIcon {
-  font-size: 1.25rem;
+  font-size: 20px; /* Fixed icon size for consistency */
   flex-shrink: 0;
-  margin-top: 2px;
+  width: 24px; /* Fixed width for vertical alignment */
+  text-align: center; /* Center icons in their column */
+  margin-top: 0; /* Remove top margin for better alignment */
 }
 
 .cpoDifferenceContent {
+  flex: 1; /* Take remaining space */
   color: var(--text-primary);
-  font-size: var(--font-sm);
+  font-size: 16px; /* Increased font size for better readability */
   line-height: 1.4;
+  text-align: left; /* Ensure left alignment */
 }
 
 .cpoDifferenceContent strong {
-  color: var(--accent-primary);
+  color: #FFD700; /* Golden yellow for headings */
   font-weight: 600;
+  font-size: 16px; /* Consistent heading size */
   display: block;
   margin-bottom: 4px;
+  text-align: left; /* Ensure left alignment */
+  line-height: 1.2; /* Tighter line height for headings */
 }
 
 .cpoDifferenceSubtext {
-  color: var(--text-secondary);
-  font-size: var(--font-xs);
+  color: rgba(255, 255, 255, 0.6); /* Softer gray for descriptions */
+  font-size: 14px; /* Slightly larger for readability */
   font-style: italic;
+  line-height: 1.4;
+  text-align: left; /* Ensure left alignment */
+  margin-top: 4px; /* Space from main heading */
+  display: block; /* Ensure proper block behavior */
 }
 
 .cpoClosingStatement {
@@ -2677,10 +2702,25 @@
   .cpoTrainingItem,
   .cpoDifferenceItem {
     padding: var(--space-sm);
+    margin-bottom: 12px; /* Consistent mobile spacing */
+    gap: 10px; /* Tighter gap on mobile */
   }
 
   .cpoTrainingIcon,
   .cpoDifferenceIcon {
-    font-size: 1.25rem;
+    font-size: 18px; /* Slightly smaller on mobile but still readable */
+    width: 20px; /* Maintain icon alignment on mobile */
+  }
+
+  .cpoDifferenceContent {
+    font-size: 15px; /* Slightly smaller on mobile */
+  }
+
+  .cpoDifferenceContent strong {
+    font-size: 15px; /* Match content font size on mobile */
+  }
+
+  .cpoDifferenceSubtext {
+    font-size: 13px; /* Smaller but still readable on mobile */
   }
 }

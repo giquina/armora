@@ -38,21 +38,21 @@ export interface StandardizedService {
 export const STANDARDIZED_SERVICES: Record<string, StandardizedService> = {
   standard: {
     id: 'standard',
-    name: 'Standard Protection',
-    tagline: 'Professional security transport with certified bodyguard drivers',
-    price: 65,
-    priceDisplay: '£65.00/hour',
-    hourlyRate: 65,
-    description: 'SIA Level 2 certified security drivers providing personal protection during transport. Ideal for women, students, and individuals wanting enhanced safety.',
+    name: 'SafeRide Standard',
+    tagline: 'Security-trained drivers for everyday journeys',
+    price: 45,
+    priceDisplay: '£45/hour',
+    hourlyRate: 45,
+    description: 'Professional ride service with SIA-licensed security drivers. Safe, discrete transport for everyday journeys with enhanced protection protocols.',
     features: [
-      { icon: '🛡️', text: 'SIA Level 2 certified security drivers' },
-      { icon: '👤', text: 'Personal protection trained' },
-      { icon: '🚗', text: 'Secure vehicle fleet' },
-      { icon: '📱', text: 'Real-time GPS tracking' },
+      { icon: '🛡️', text: 'SIA-licensed security driver' },
+      { icon: '📍', text: 'GPS-tracked secure journey' },
+      { icon: '🚗', text: 'Professional discrete vehicles' },
+      { icon: '🚪', text: 'Door-to-door safe transport' },
       { icon: '☎️', text: '24/7 customer support' },
-      { icon: '🔒', text: 'Background verified team' }
+      { icon: '🔒', text: 'Background verified drivers' }
     ],
-    socialProof: 'Trusted by 2,847 individuals monthly',
+    socialProof: '2,847 secure rides completed',
     popularityRank: 3,
     targetUsers: ['general', 'student', 'women', 'vulnerable_groups'],
     riskLevel: 'low',
@@ -74,10 +74,10 @@ export const STANDARDIZED_SERVICES: Record<string, StandardizedService> = {
 
   'client-vehicle': {
     id: 'client-vehicle',
-    name: 'Client Vehicle',
-    tagline: 'Your car, our security-trained driver - maximum privacy and discretion',
+    name: 'SafeRide Personal',
+    tagline: 'Your own car with our professional security driver',
     price: 55,
-    priceDisplay: '£55.00/hour',
+    priceDisplay: '£55/hour',
     hourlyRate: 55,
     description: 'SIA certified security drivers operate your personal vehicle, providing protection while maintaining complete privacy and discretion. Perfect for executives and privacy-conscious clients.',
     features: [
@@ -111,17 +111,17 @@ export const STANDARDIZED_SERVICES: Record<string, StandardizedService> = {
 
   executive: {
     id: 'executive',
-    name: 'Executive Shield',
-    tagline: 'Enhanced bodyguard protection for corporate executives and business leaders',
+    name: 'SafeRide Executive',
+    tagline: 'Premium security drivers for business professionals',
     price: 95,
-    priceDisplay: '£95.00/hour',
+    priceDisplay: '£95/hour',
     hourlyRate: 95,
-    description: 'SIA Level 3 certified executive protection specialists with advanced threat assessment, corporate venue security, and discrete bodyguard services for high-profile business leaders.',
+    description: 'Premium ride service with elite SIA Level 3 security drivers. Professional transport for executives with advanced defensive driving and corporate account support.',
     features: [
-      { icon: '👔', text: 'SIA Level 3 executive protection specialists' },
-      { icon: '🏢', text: 'Corporate venue security expertise' },
-      { icon: '🎯', text: 'Advanced threat assessment' },
-      { icon: '🤐', text: 'Discrete bodyguard services' },
+      { icon: '🛡️', text: 'Elite SIA-licensed driver' },
+      { icon: '🚗', text: 'Advanced defensive driving' },
+      { icon: '🏢', text: 'Corporate account available' },
+      { icon: '🤝', text: 'Meet & greet service included' },
       { icon: '🚗', text: 'Protected vehicle options' },
       { icon: '📊', text: 'Detailed security reports' }
     ],
@@ -147,21 +147,21 @@ export const STANDARDIZED_SERVICES: Record<string, StandardizedService> = {
 
   shadow: {
     id: 'shadow',
-    name: 'Shadow Protocol',
-    tagline: 'Elite covert bodyguard protection for high-risk individuals and VIPs',
-    price: 125,
-    priceDisplay: '£125.00/hour',
-    hourlyRate: 125,
-    description: 'Special Forces trained covert protection specialists providing maximum security for high-risk situations. Advanced threat management, counter-surveillance, and rapid response capabilities.',
+    name: 'SafeRide Shadow',
+    tagline: 'Ultra-discrete security transport for VIPs',
+    price: 150,
+    priceDisplay: '£150/hour',
+    hourlyRate: 150,
+    description: 'Premium VIP transport with Special Forces trained security drivers. Counter-surveillance protocols, armored vehicle options, and ultra-discrete service for high-profile individuals.',
     features: [
-      { icon: '🥷', text: 'Special Forces trained bodyguards' },
-      { icon: '🔍', text: 'Advanced threat detection systems' },
-      { icon: '🚨', text: 'Rapid response protocols' },
-      { icon: '🤐', text: 'Covert protection operations' },
-      { icon: '🌐', text: 'Counter-surveillance expertise' },
-      { icon: '⚡', text: 'Secure extraction capabilities' }
+      { icon: '🛡️', text: 'Counter-surveillance trained driver' },
+      { icon: '🚗', text: 'Armored vehicle available' },
+      { icon: '🗺️', text: 'Route planning & risk assessment' },
+      { icon: '🚗', text: 'Multiple vehicle convoy option' },
+      { icon: '📱', text: '24/7 on standby availability' },
+      { icon: '🤐', text: 'Ultra-discrete service protocols' }
     ],
-    socialProof: 'Most popular choice (67% of high-risk clients)',
+    socialProof: 'Preferred by VIPs and high-profile clients',
     popularityRank: 1,
     targetUsers: ['celebrity', 'government', 'diplomat', 'high_profile', 'international'],
     riskLevel: 'high',

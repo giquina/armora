@@ -1003,7 +1003,7 @@ export const serviceData = {
   "armora-shadow": {
     id: "armora-shadow",
     name: "Armora Shadow", 
-    description: "Discrete security escort with trained protection officers",
+    description: "Discrete security driver with trained protection officers",
     features: [
       "SIA Close Protection (CP) officers",
       "Unmarked discrete vehicles",

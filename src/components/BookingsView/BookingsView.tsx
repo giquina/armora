@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { useApp } from '../../contexts/AppContext';
+import { BackButton } from '../UI/BackButton';
 import { mockBookings, Booking } from './utils/mockData';
 import styles from './BookingsView.module.css';
 
 type ViewType = 'active' | 'upcoming' | 'history';
 
 export function BookingsView() {
-  const { state, navigateToView } = useApp();
-  const { user } = state;
+  const { navigateToView, handleBack } = useApp();
 
   const [bookings] = useState<Booking[]>(mockBookings);
   const [activeView, setActiveView] = useState<ViewType | null>(null);
@@ -87,10 +87,10 @@ export function BookingsView() {
     // TODO: Implement trip sharing
   };
 
-  const handleEmergencySOS = () => {
-    console.log('Emergency SOS activated');
-    // TODO: Implement emergency contact
-    alert('Emergency services would be contacted. This is a demo.');
+  const handleContactSupport = () => {
+    console.log('Contact support activated');
+    // TODO: Implement support contact
+    window.location.href = 'tel:+442071234567';
   };
 
   const handleCancelBooking = (bookingId: string) => {
@@ -154,7 +154,7 @@ export function BookingsView() {
               <span className={styles.suggestionIcon}>👔</span>
               <div className={styles.suggestionContent}>
                 <span className={styles.suggestionTitle}>Try Executive</span>
-                <span className={styles.suggestionDesc}>Experience luxury service</span>
+                <span className={styles.suggestionDesc}>Experience professional security</span>
               </div>
             </div>
           </div>
@@ -174,7 +174,7 @@ export function BookingsView() {
           <div className={styles.trustItems}>
             <div className={styles.trustItem}>
               <span className={styles.trustIcon}>✓</span>
-              <span>Professional Close Protection Officers</span>
+              <span>Professional Security Drivers</span>
             </div>
             <div className={styles.trustItem}>
               <span className={styles.trustIcon}>✓</span>
@@ -214,12 +214,18 @@ export function BookingsView() {
           </div>
 
           <div className={styles.rideInfo}>
+            <div className={styles.etaInfo}>
+              <span className={styles.etaLabel}>⏱️ ARRIVING IN</span>
+              <span className={styles.etaTime}>5 minutes</span>
+            </div>
+
             <div className={styles.serviceDetails}>
-              <h3 className={styles.serviceName}>{activeRide.serviceName}</h3>
-              <div className={styles.etaInfo}>
-                <span className={styles.etaLabel}>⏱️ Arriving in:</span>
-                <span className={styles.etaTime}>5 minutes</span>
-              </div>
+              <h3 className={styles.serviceName}>
+                {activeRide.serviceName}
+                {activeRide.serviceName.includes('Executive') && (
+                  <span className={styles.premiumBadge}>EXECUTIVE SECURITY</span>
+                )}
+              </h3>
             </div>
 
             <div className={styles.driverInfo}>
@@ -240,15 +246,20 @@ export function BookingsView() {
               <div className={styles.journeyDetails}>
                 <div className={styles.locationItem}>
                   <span className={styles.locationIcon}>📍</span>
-                  <span className={styles.locationText}>
-                    <strong>Pickup:</strong> {activeRide.pickupLocation.address.split(',')[0]}
-                  </span>
+                  <div className={styles.locationContent}>
+                    <span className={styles.locationLabel}>PICKUP</span>
+                    <span className={styles.locationAddress}>{activeRide.pickupLocation.address.split(',')[0]}</span>
+                  </div>
+                </div>
+                <div className={styles.journeyArrow}>
+                  <span className={styles.arrowIcon}>→</span>
                 </div>
                 <div className={styles.locationItem}>
-                  <span className={styles.locationIcon}>🏁</span>
-                  <span className={styles.locationText}>
-                    <strong>Destination:</strong> {activeRide.destination.address.split(',')[0]}
-                  </span>
+                  <span className={styles.locationIcon}>🎯</span>
+                  <div className={styles.locationContent}>
+                    <span className={styles.locationLabel}>DESTINATION</span>
+                    <span className={styles.locationAddress}>{activeRide.destination.address.split(',')[0]}</span>
+                  </div>
                 </div>
               </div>
             </div>
@@ -256,28 +267,32 @@ export function BookingsView() {
 
           <div className={styles.liveActions}>
             <button
-              className={styles.trackMapButton}
+              className={styles.actionButton}
               onClick={() => handleTrackDriver(activeRide.id)}
+              title="Track on Map"
             >
-              TRACK ON MAP
+              <span className={styles.actionIcon}>🧭</span>
             </button>
             <button
-              className={styles.callDriverButton}
+              className={styles.actionButton}
               onClick={() => handleContactDriver(activeRide.id)}
+              title="Call Driver"
             >
-              CALL DRIVER
+              <span className={styles.actionIcon}>📞</span>
             </button>
             <button
-              className={styles.shareTripButton}
+              className={styles.actionButton}
               onClick={() => handleShareTrip(activeRide.id)}
+              title="Share Trip"
             >
-              SHARE TRIP
+              <span className={styles.actionIcon}>↗️</span>
             </button>
             <button
-              className={styles.emergencyButton}
-              onClick={handleEmergencySOS}
+              className={styles.actionButton}
+              onClick={handleContactSupport}
+              title="Contact Support"
             >
-              Emergency SOS
+              <span className={styles.actionIcon}>💬</span>
             </button>
           </div>
         </div>
@@ -323,7 +338,7 @@ export function BookingsView() {
                   Driver: Assigned 30 min before
                 </div>
                 <div className={styles.upcomingPrice}>
-                  £{booking.pricing.total}.00 estimated
+                  £{booking.pricing.total} estimated
                 </div>
               </div>
 
@@ -359,7 +374,7 @@ export function BookingsView() {
       rides: completedBookings.length,
       total: completedBookings.reduce((sum, b) => sum + b.pricing.total, 0),
       saved: 127.50, // Mock savings
-      mostUsed: 'Standard Protection'
+      mostUsed: 'SafeRide Standard'
     };
 
     return (
@@ -426,7 +441,7 @@ export function BookingsView() {
                     Driver: {booking.driver.name} ⭐⭐⭐⭐⭐
                   </div>
                   <div className={styles.historyPrice}>
-                    £{booking.pricing.total}.00 • {booking.route.duration} minutes • {booking.route.distance} miles
+                    £{booking.pricing.total} • {booking.route.duration} minutes • {booking.route.distance} miles
                   </div>
                 </div>
 
@@ -526,15 +541,46 @@ export function BookingsView() {
 
   const renderUpcomingPreview = () => (
     <div className={styles.upcomingPreview}>
-      <h3 className={styles.previewTitle}>UPCOMING RIDES</h3>
+      <h3 className={styles.previewTitle}>
+        <span className={styles.previewIcon}>📅</span>
+        UPCOMING RIDES
+      </h3>
       {scheduledBookings.slice(0, 2).map(booking => (
         <div key={booking.id} className={styles.previewCard}>
-          <span className={styles.previewTime}>Tomorrow: </span>
-          <span className={styles.previewRoute}>
-            {booking.pickupLocation.address.split(',')[0]} → {booking.destination.address.split(',')[0]}
-          </span>
+          <div className={styles.previewDateTime}>
+            <span className={styles.previewDate}>Tomorrow, Oct 15</span>
+            <span className={styles.previewTime}>9:00 AM</span>
+          </div>
+          <div className={styles.previewRoute}>
+            <div className={styles.previewFrom}>
+              <span className={styles.routeIcon}>📍</span>
+              <span>{booking.pickupLocation.address.split(',')[0]}</span>
+            </div>
+            <span className={styles.routeArrow}>→</span>
+            <div className={styles.previewTo}>
+              <span className={styles.routeIcon}>🎯</span>
+              <span>{booking.destination.address.split(',')[0]}</span>
+            </div>
+          </div>
+          <div className={styles.previewTripInfo}>
+            <span className={styles.previewDriver}>
+              <span className={styles.driverIcon}>👤</span>
+              Marcus T.
+            </span>
+            <span className={styles.previewVehicle}>BMW 5 Series</span>
+            <span className={styles.previewDuration}>~25 mins</span>
+            <span className={styles.previewPrice}>£{booking.pricing.total}</span>
+          </div>
+          <button className={styles.previewManageBtn}>Manage Booking</button>
         </div>
       ))}
+      {scheduledBookings.length === 0 && (
+        <div className={styles.noUpcomingRides}>
+          <span className={styles.noRidesIcon}>📭</span>
+          <p>No upcoming rides</p>
+          <button className={styles.bookNowBtn}>Book a Secure Ride</button>
+        </div>
+      )}
     </div>
   );
 
@@ -603,6 +649,7 @@ export function BookingsView() {
 
   return (
     <div className={styles.bookingsView}>
+      <BackButton onClick={handleBack} />
       <div className={styles.header}>
         <h1 className={styles.pageTitle}>YOUR BOOKINGS</h1>
         <div className={styles.titleUnderline}></div>

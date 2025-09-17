@@ -178,13 +178,12 @@ export function LocationPicker({ selectedService, onLocationConfirmed, onBack, u
         <div className={styles.servicePrice}>
           {user?.hasUnlockedReward && user?.userType !== 'guest' ? (
             <>
-              <span className={styles.discountedPrice}>£{(selectedService.hourlyRate * 0.5).toFixed(2)}</span>
-              <span className={styles.originalPrice}>£{selectedService.hourlyRate.toFixed(2)}</span>
+              <span className={styles.discountedPrice}>£{Math.round(selectedService.hourlyRate * 0.5)}/hour</span>
+              <span className={styles.originalPrice}>£{selectedService.hourlyRate}/hour</span>
             </>
           ) : (
-            <span className={styles.price}>£{selectedService.hourlyRate.toFixed(2)}</span>
+            <span className={styles.price}>£{selectedService.hourlyRate}/hour</span>
           )}
-          <span className={styles.perHour}>/hr</span>
         </div>
       </div>
 

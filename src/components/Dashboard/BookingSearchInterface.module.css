@@ -25,27 +25,11 @@
   overflow: hidden;
 }
 
-.searchBar::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 2px;
-  background: linear-gradient(90deg, var(--accent-primary), rgba(255, 215, 0, 0.6));
-  opacity: 0;
-  transition: opacity 0.3s ease;
-}
-
 .searchBar:hover {
   box-shadow: 0 6px 20px rgba(26, 26, 46, 0.3);
   transform: translateY(-1px);
   border-color: var(--accent-primary);
   background: var(--bg-tertiary);
-}
-
-.searchBar:hover::before {
-  opacity: 1;
 }
 
 .searchBar:active {

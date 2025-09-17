@@ -232,8 +232,8 @@ function BookingFlow() {
         // Create a default service for location picker to work with
         const defaultService: ServiceLevel = {
           id: 'standard',
-          name: 'Standard Protection',
-          tagline: 'Professional security transport',
+          name: 'SafeRide Standard',
+          tagline: 'Professional security-trained drivers',
           price: '£65/hour',
           hourlyRate: 65,
           vehicle: 'Secure Vehicle',
@@ -700,8 +700,8 @@ function AppRouter() {
     }
   };
 
-  // Don't wrap authentication screens, questionnaire, and achievement in AppLayout (they're full-screen)
-  if (['splash', 'welcome', 'login', 'signup', 'guest-disclaimer', 'questionnaire', 'achievement'].includes(currentView)) {
+  // Don't wrap authentication screens, questionnaire, achievement, and booking in AppLayout (they're full-screen)
+  if (['splash', 'welcome', 'login', 'signup', 'guest-disclaimer', 'questionnaire', 'achievement', 'booking'].includes(currentView)) {
     return (
       <>
         {renderCurrentView()}

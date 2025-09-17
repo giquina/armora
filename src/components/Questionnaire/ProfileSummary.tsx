@@ -167,7 +167,7 @@ export default function ProfileSummaryComponent({ userResponses, userName }: Pro
     if (executiveProfiles.includes(professionalProfile) && needsHighSecurity) {
       return {
         name: 'Armora Shadow',
-        tier: 'Discrete Security Escort',
+        tier: 'Discrete Security Driver',
         features: 'unmarked vehicles, SIA Close Protection officers, and counter-surveillance awareness',
         price: '£65/hour',
         confidence: 'highly recommended'

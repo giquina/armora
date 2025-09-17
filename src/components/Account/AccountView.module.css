@@ -73,19 +73,135 @@
   padding: var(--space-md);
   display: flex;
   flex-direction: column;
-  gap: var(--space-xl);
+  gap: 48px; /* INCREASED: More breathing space between major sections (was 32px) */
 }
 
-/* User Profile Section */
-.profileSection {
+/* Enhanced Card Styling */
+.card {
   background: linear-gradient(135deg,
     rgba(26, 26, 46, 0.9),
     rgba(15, 15, 30, 0.95)
   );
-  border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-lg);
+  border: 1px solid rgba(255, 215, 0, 0.1);
+  border-radius: var(--radius-xl);
   padding: var(--space-lg);
   backdrop-filter: blur(20px);
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.3),
+    0 2px 8px rgba(255, 215, 0, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg,
+    transparent,
+    rgba(255, 215, 0, 0.3),
+    transparent
+  );
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    0 12px 40px rgba(0, 0, 0, 0.4),
+    0 4px 12px rgba(255, 215, 0, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 215, 0, 0.2);
+}
+
+/* Mini Card for Stats */
+.miniCard {
+  background: linear-gradient(135deg,
+    rgba(255, 215, 0, 0.1),
+    rgba(255, 215, 0, 0.05)
+  );
+  border: 1px solid rgba(255, 215, 0, 0.2);
+  border-radius: var(--radius-lg);
+  padding: var(--space-lg);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+  backdrop-filter: blur(10px);
+  box-shadow:
+    0 4px 16px rgba(0, 0, 0, 0.2),
+    0 1px 4px rgba(255, 215, 0, 0.1);
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.miniCard:hover {
+  transform: translateY(-3px) scale(1.02);
+  box-shadow:
+    0 8px 24px rgba(0, 0, 0, 0.3),
+    0 2px 8px rgba(255, 215, 0, 0.2);
+  border-color: rgba(255, 215, 0, 0.4);
+}
+
+/* Setting Card for Management Options */
+.settingCard {
+  background: linear-gradient(135deg,
+    rgba(26, 26, 46, 0.5),
+    rgba(15, 15, 30, 0.6)
+  );
+  border: 1px solid rgba(255, 215, 0, 0.1);
+  border-radius: var(--radius-lg);
+  margin-bottom: 16px; /* Increased spacing between menu items */
+  backdrop-filter: blur(8px);
+  box-shadow:
+    0 2px 8px rgba(0, 0, 0, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  transition: all 0.3s ease;
+}
+
+.settingCard:hover {
+  background: linear-gradient(135deg,
+    rgba(255, 215, 0, 0.08),
+    rgba(255, 215, 0, 0.04)
+  );
+  border-color: rgba(255, 215, 0, 0.3);
+  transform: translateX(6px) translateY(-1px);
+  box-shadow:
+    0 4px 16px rgba(0, 0, 0, 0.3),
+    0 1px 4px rgba(255, 215, 0, 0.2);
+}
+
+/* User Profile Section - Enhanced */
+.profileSection {
+  background: linear-gradient(135deg,
+    rgba(26, 26, 46, 0.95),
+    rgba(15, 15, 30, 0.98),
+    rgba(26, 26, 46, 0.9)
+  );
+  border: 1px solid rgba(255, 215, 0, 0.15);
+  border-radius: var(--radius-xl);
+  padding: var(--space-xl);
+  backdrop-filter: blur(24px);
+  position: relative;
+}
+
+.profileSection::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg,
+    transparent,
+    var(--accent-primary),
+    transparent
+  );
+  border-radius: var(--radius-xl) var(--radius-xl) 0 0;
 }
 
 .profileHeader {
@@ -191,20 +307,13 @@
   color: var(--bg-primary);
 }
 
-/* Section Styling */
+/* Section Styling - Enhanced Cards */
 .protectionSection,
 .statsSection,
 .settingsSection,
 .achievementsSection,
 .supportSection {
-  background: linear-gradient(135deg,
-    rgba(26, 26, 46, 0.7),
-    rgba(15, 15, 30, 0.8)
-  );
-  border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-lg);
-  padding: var(--space-lg);
-  backdrop-filter: blur(20px);
+  /* Styles handled by .card class */
 }
 
 .sectionTitle {
@@ -227,7 +336,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: var(--space-md);
+  gap: 20px; /* Better spacing around protection level score */
   margin-bottom: var(--space-lg);
 }
 
@@ -314,7 +423,7 @@
 .factorsList {
   display: flex;
   flex-direction: column;
-  gap: var(--space-xs);
+  gap: 12px; /* Better spacing between checklist items */
 }
 
 .factorItem {
@@ -342,22 +451,12 @@
 .statsGrid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: var(--space-md);
-  margin-bottom: var(--space-lg);
+  gap: 24px; /* Increased gap between statistics cards */
+  margin-bottom: var(--space-xl);
 }
 
 .statCard {
-  background: linear-gradient(135deg,
-    rgba(255, 215, 0, 0.1),
-    rgba(255, 215, 0, 0.05)
-  );
-  border: 1px solid rgba(255, 215, 0, 0.2);
-  border-radius: var(--radius-md);
-  padding: var(--space-md);
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-xs);
+  /* Styles handled by .miniCard class */
 }
 
 .statValue {
@@ -393,19 +492,18 @@
 .settingsList {
   display: flex;
   flex-direction: column;
-  gap: 2px;
+  gap: var(--space-md);
 }
 
 .settingItem {
-  background: transparent;
   border: none;
-  padding: var(--space-md);
-  border-radius: var(--radius-md);
+  padding: 16px; /* Consistent padding inside cards */
+  border-radius: var(--radius-lg);
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all 0.3s ease;
   display: flex;
   align-items: center;
-  gap: var(--space-md);
+  gap: var(--space-lg);
   text-align: left;
   width: 100%;
   position: relative;
@@ -413,16 +511,33 @@
 }
 
 .settingItem:hover {
-  background: rgba(255, 215, 0, 0.05);
-  transform: translateX(4px);
+  /* Hover styles handled by .settingCard class */
 }
 
 .settingIcon {
   font-size: var(--font-xl);
   flex-shrink: 0;
-  width: 32px;
+  width: 44px;
+  height: 44px;
   display: flex;
+  align-items: center;
   justify-content: center;
+  background: linear-gradient(135deg,
+    rgba(255, 215, 0, 0.1),
+    rgba(255, 215, 0, 0.05)
+  );
+  border-radius: var(--radius-md);
+  border: 1px solid rgba(255, 215, 0, 0.2);
+  transition: all 0.3s ease;
+}
+
+.settingCard:hover .settingIcon {
+  background: linear-gradient(135deg,
+    rgba(255, 215, 0, 0.2),
+    rgba(255, 215, 0, 0.1)
+  );
+  transform: scale(1.1);
+  border-color: rgba(255, 215, 0, 0.4);
 }
 
 .settingContent {
@@ -430,7 +545,7 @@
   min-width: 0;
   display: flex;
   flex-direction: column;
-  gap: 2px;
+  gap: 8px; /* Better spacing between title and description */
 }
 
 .settingTitle {
@@ -469,8 +584,8 @@
 /* Achievements Section */
 .badgesList {
   display: flex;
-  gap: var(--space-md);
-  margin-bottom: var(--space-lg);
+  gap: 16px; /* Better spacing between achievement badges */
+  margin-bottom: 24px; /* Spacing before next section */
   flex-wrap: wrap;
 }
 
@@ -479,21 +594,39 @@
   flex-direction: column;
   align-items: center;
   gap: var(--space-xs);
-  padding: var(--space-md);
-  border-radius: var(--radius-md);
+  padding: var(--space-lg);
+  border-radius: var(--radius-lg);
   border: 2px solid var(--border-subtle);
   opacity: 0.5;
   transition: all 0.3s ease;
-  min-width: 80px;
+  min-width: 90px;
+  background: linear-gradient(135deg,
+    rgba(26, 26, 46, 0.3),
+    rgba(15, 15, 30, 0.4)
+  );
+  backdrop-filter: blur(8px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 }
 
 .badgeEarned {
   opacity: 1;
   border-color: var(--accent-primary);
   background: linear-gradient(135deg,
-    rgba(255, 215, 0, 0.1),
-    rgba(255, 215, 0, 0.05)
+    rgba(255, 215, 0, 0.15),
+    rgba(255, 215, 0, 0.08)
   );
+  box-shadow:
+    0 4px 16px rgba(0, 0, 0, 0.3),
+    0 1px 4px rgba(255, 215, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  transform: scale(1.05);
+}
+
+.badgeEarned:hover {
+  transform: scale(1.1) translateY(-2px);
+  box-shadow:
+    0 8px 24px rgba(0, 0, 0, 0.4),
+    0 2px 8px rgba(255, 215, 0, 0.4);
 }
 
 .badgeIcon {
@@ -532,35 +665,69 @@
 .supportOptions {
   display: flex;
   flex-direction: column;
-  gap: var(--space-sm);
-  margin-bottom: var(--space-lg);
+  gap: 12px; /* Better spacing between support options */
+  margin-bottom: 32px; /* More space before help section */
 }
 
 .supportOption {
   display: flex;
   align-items: center;
-  gap: var(--space-md);
-  padding: var(--space-md);
-  background: transparent;
-  border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-md);
+  gap: var(--space-lg);
+  padding: 16px; /* Consistent padding inside support options */
+  background: linear-gradient(135deg,
+    rgba(26, 26, 46, 0.5),
+    rgba(15, 15, 30, 0.6)
+  );
+  border: 1px solid rgba(255, 215, 0, 0.1);
+  border-radius: var(--radius-lg);
   color: var(--text-primary);
   text-decoration: none;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all 0.3s ease;
   width: 100%;
   text-align: left;
+  backdrop-filter: blur(8px);
+  box-shadow:
+    0 2px 8px rgba(0, 0, 0, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
 }
 
 .supportOption:hover {
-  background: rgba(255, 215, 0, 0.05);
-  border-color: var(--accent-primary);
-  transform: translateY(-2px);
+  background: linear-gradient(135deg,
+    rgba(255, 215, 0, 0.08),
+    rgba(255, 215, 0, 0.04)
+  );
+  border-color: rgba(255, 215, 0, 0.3);
+  transform: translateY(-3px) translateX(2px);
+  box-shadow:
+    0 6px 20px rgba(0, 0, 0, 0.3),
+    0 2px 8px rgba(255, 215, 0, 0.2);
 }
 
 .supportIcon {
-  font-size: var(--font-lg);
+  font-size: var(--font-xl);
   flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg,
+    rgba(255, 215, 0, 0.1),
+    rgba(255, 215, 0, 0.05)
+  );
+  border-radius: var(--radius-md);
+  border: 1px solid rgba(255, 215, 0, 0.2);
+  transition: all 0.3s ease;
+}
+
+.supportOption:hover .supportIcon {
+  background: linear-gradient(135deg,
+    rgba(255, 215, 0, 0.2),
+    rgba(255, 215, 0, 0.1)
+  );
+  transform: scale(1.1);
+  border-color: rgba(255, 215, 0, 0.4);
 }
 
 .supportText {
@@ -945,16 +1112,34 @@
 
   .mainContent {
     padding: var(--space-sm);
-    gap: var(--space-lg);
+    gap: 32px; /* INCREASED: Better mobile breathing space (was var(--space-md)) */
+}
+
+  .card {
+    padding: var(--space-md);
+    border-radius: var(--radius-lg);
   }
 
-  .profileSection,
-  .protectionSection,
-  .statsSection,
-  .settingsSection,
-  .achievementsSection,
-  .supportSection {
+  .profileSection {
+    padding: var(--space-lg);
+  }
+
+  .miniCard {
     padding: var(--space-md);
+  }
+
+  .settingCard {
+    margin-bottom: 12px; /* Better mobile spacing between menu items */
+  }
+
+  .settingItem {
+    padding: 12px; /* Mobile-optimized padding inside cards */
+    gap: var(--space-md);
+  }
+
+  .settingIcon {
+    width: 36px;
+    height: 36px;
   }
 
   .profileHeader {
@@ -971,7 +1156,22 @@
 
   .statsGrid {
     grid-template-columns: 1fr;
-    gap: var(--space-sm);
+    gap: 16px; /* Better mobile spacing between statistics */
+  }
+
+  .badge {
+    min-width: 75px;
+    padding: 12px; /* Better mobile badge padding */
+  }
+
+  .supportOption {
+    padding: 12px; /* Mobile-optimized support option padding */
+    gap: var(--space-md);
+  }
+
+  .supportIcon {
+    width: 32px;
+    height: 32px;
   }
 
   .financialGrid,

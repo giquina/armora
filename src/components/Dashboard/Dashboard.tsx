@@ -320,7 +320,7 @@ export function Dashboard() {
                 <span className={styles.rewardDescription}>
                   Your first ride (up to £15) • Valid 30 days
                 </span>
-                <span className={styles.rewardCTA}>Secure Your Journey →</span>
+                <span className={styles.rewardApplied}>✅ Applied automatically</span>
               </div>
             </div>
             <button

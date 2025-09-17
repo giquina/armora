@@ -386,130 +386,189 @@
   box-shadow: 0 2px 8px rgba(255, 215, 0, 0.3);
 }
 
-/* Mobile optimization */
+/* MOBILE COMPACT DESIGN - HALF HEIGHT VERSION */
 @media (max-width: 768px) {
   .recommendationCard {
-    padding: var(--space-lg);
+    padding: var(--space-md);
+    max-height: 200px; /* ENFORCE COMPACT HEIGHT */
+    min-height: auto;
   }
 
   .header {
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
-    text-align: center;
-    gap: var(--space-md);
+    text-align: left;
+    gap: var(--space-sm);
+    margin-bottom: var(--space-sm);
   }
 
-  .matchBadge {
-    width: 55px;
-    height: 55px;
+  .compactBadge {
+    flex-direction: row;
+    gap: var(--space-xs);
+    margin-bottom: 0;
   }
 
   .matchScore {
+    font-size: 0.9rem;
+  }
+
+  .serviceName {
     font-size: 1rem;
+    margin: 0;
   }
 
-  .header h3 {
-    font-size: 1.2rem;
+  /* HIDE VERBOSE CONTENT ON MOBILE */
+  .recommendationExplanation {
+    display: none;
   }
 
-  .keyBenefits {
-    gap: var(--space-xs);
+  .benefitsList {
+    display: none;
   }
 
-  .benefitText {
-    font-size: 0.8rem;
-  }
-
-  .quickStats {
+  .compactContent {
+    display: flex;
     flex-direction: row;
     align-items: center;
-    gap: var(--space-xs);
-    justify-content: space-around;
-    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: var(--space-sm);
   }
 
-  .keyBenefits {
-    flex-direction: column;
+  .contentLeft {
+    flex: 1;
     gap: var(--space-xs);
   }
 
-  .benefitItem {
+  .contentRight {
+    flex-shrink: 0;
+    gap: var(--space-xs);
+  }
+
+  /* COMPACT STATS - HORIZONTAL LINE */
+  .quickStats {
+    display: flex;
     flex-direction: row;
-    text-align: left;
-    justify-content: flex-start;
+    gap: var(--space-sm);
+    font-size: 0.75rem;
+    margin-bottom: var(--space-xs);
   }
 
+  .stat {
+    font-size: 0.75rem;
+    white-space: nowrap;
+  }
+
+  /* COMPACT BUTTON */
   .selectServiceBtn {
-    width: 100%;
-    justify-content: center;
-    font-size: 0.875rem; /* Maintain 14px on mobile */
+    padding: 8px 16px;
+    font-size: 0.8rem;
+    min-height: 36px;
+    width: auto;
+  }
+
+  .ctaSection {
+    margin-top: 0;
+  }
+
+  /* HIDE ALL VERBOSE SECTIONS */
+  .keyBenefits,
+  .personalizedMessage,
+  .urgencyBanner,
+  .testimonialSection,
+  .matchVisualization,
+  .expandedBenefits {
+    display: none;
   }
 
   .quickRec {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: var(--space-xs);
+    flex-direction: row;
+    align-items: center;
+    gap: var(--space-sm);
+    font-size: 0.85rem;
   }
 
   .quickBookBtn {
-    margin-left: 0;
-    align-self: stretch;
+    margin-left: auto;
+    padding: 8px 12px;
+    font-size: 0.8rem;
+    min-height: 36px;
   }
 }
 
 @media (max-width: 480px) {
   .recommendationCard {
-    padding: var(--space-md);
+    padding: var(--space-sm);
+    max-height: 180px; /* EVEN MORE COMPACT */
   }
 
-  /* Compact badge mobile styles */
+  .header {
+    margin-bottom: var(--space-xs);
+  }
+
+  /* Ultra-compact badge mobile styles */
   .compactBadge {
-    font-size: 0.9rem;
-    gap: var(--space-xs);
+    font-size: 0.8rem;
+    gap: 4px;
   }
 
   .matchScore {
-    font-size: 1rem;
-  }
-
-  .separator {
-    font-size: 0.8rem;
-  }
-
-  .recommendedLabel {
-    font-size: 0.65rem;
-    padding: 2px 6px;
-  }
-
-  .serviceName {
-    font-size: 0.95rem;
-  }
-
-  .selectServiceBtn {
-    width: 100%;
-    max-width: none;
-    padding: 12px 20px;
-    font-size: 0.875rem; /* Maintain 14px on smallest screens */
-  }
-
-  .personalizedMessage {
-    padding: var(--space-xs) var(--space-sm);
-  }
-
-  .messageText {
     font-size: 0.85rem;
   }
 
-  .mainMessage {
+  .separator {
+    font-size: 0.7rem;
+  }
+
+  .recommendedLabel {
+    font-size: 0.6rem;
+    padding: 1px 4px;
+  }
+
+  .serviceName {
     font-size: 0.9rem;
   }
 
-  .keyBenefits {
-    padding: var(--space-sm);
+  .compactContent {
+    gap: var(--space-xs);
   }
 
-  .benefitText {
+  /* ULTRA-COMPACT STATS */
+  .quickStats {
+    gap: var(--space-xs);
+    font-size: 0.7rem;
+  }
+
+  .stat {
+    font-size: 0.7rem;
+  }
+
+  /* ULTRA-COMPACT BUTTON */
+  .selectServiceBtn {
+    padding: 6px 12px;
     font-size: 0.75rem;
+    min-height: 32px;
+    width: auto;
+  }
+
+  .quickBookBtn {
+    padding: 6px 10px;
+    font-size: 0.75rem;
+    min-height: 32px;
+  }
+
+  /* ENSURE NOTHING VERBOSE SHOWS */
+  .personalizedMessage,
+  .messageText,
+  .mainMessage,
+  .keyBenefits,
+    .benefitText,
+  .recommendationExplanation,
+  .benefitsList,
+  .urgencyBanner,
+  .testimonialSection,
+  .matchVisualization,
+  .expandedBenefits {
+    display: none !important;
   }
 }
 

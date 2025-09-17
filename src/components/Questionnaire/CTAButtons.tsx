@@ -40,7 +40,7 @@ export function CTAButtons({
 }: CTAButtonsProps) {
   
   const primaryCTA: CTAButton = {
-    text: isLastStep ? 'Complete Security Assessment' : dynamicContinueText,
+    text: isLastStep ? 'Complete Assessment' : dynamicContinueText,
     action: onNext,
     disabled: !hasSelection,
     style: 'primary'

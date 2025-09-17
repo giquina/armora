@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useApp } from '../../contexts/AppContext';
+import { AddressManager } from '../Address/AddressManager';
 import styles from './LocationPicker.module.css';
 
 interface LocationPickerProps {
@@ -35,6 +36,8 @@ export function LocationPicker({ isOpen, onClose, onLocationSelect }: LocationPi
   const [savedPlaces, setSavedPlaces] = useState<SavedPlace[]>([]);
   const [recentPlaces, setRecentPlaces] = useState<RecentPlace[]>([]);
   const [currentLocation, setCurrentLocation] = useState<string>('Detecting location...');
+  const [showAddressManager, setShowAddressManager] = useState(false);
+  const [addressManagerType, setAddressManagerType] = useState<'home' | 'work'>('home');
   const searchInputRef = useRef<HTMLInputElement>(null);
   const overlayRef = useRef<HTMLDivElement>(null);
 
@@ -73,6 +76,27 @@ export function LocationPicker({ isOpen, onClose, onLocationSelect }: LocationPi
       detectCurrentLocation();
     }
   }, [isOpen]);
+
+  // Listen for address updates from AddressManager
+  useEffect(() => {
+    const handleAddressUpdate = () => {
+      // Reload saved places when addresses are updated
+      const homeAddress = localStorage.getItem('armora_home_address');
+      const workAddress = localStorage.getItem('armora_work_address');
+      const places: SavedPlace[] = [];
+
+      if (homeAddress) {
+        places.push({ type: 'home', address: homeAddress });
+      }
+      if (workAddress) {
+        places.push({ type: 'work', address: workAddress });
+      }
+      setSavedPlaces(places);
+    };
+
+    window.addEventListener('addressUpdated', handleAddressUpdate);
+    return () => window.removeEventListener('addressUpdated', handleAddressUpdate);
+  }, []);
 
   const detectCurrentLocation = () => {
     if (navigator.geolocation) {
@@ -114,9 +138,9 @@ export function LocationPicker({ isOpen, onClose, onLocationSelect }: LocationPi
   };
 
   const handleAddSavedPlace = (type: 'home' | 'work') => {
-    // For now, just close and let user set it up later
-    // In a real app, we'd show a form to add the address
-    onClose();
+    // Open address manager for the specific type
+    setAddressManagerType(type);
+    setShowAddressManager(true);
   };
 
   const handleBackdropClick = (e: React.MouseEvent) => {
@@ -332,6 +356,13 @@ export function LocationPicker({ isOpen, onClose, onLocationSelect }: LocationPi
           </div>
         </div>
       </div>
+
+      {/* Address Manager Modal */}
+      <AddressManager
+        isOpen={showAddressManager}
+        onClose={() => setShowAddressManager(false)}
+        addressType={addressManagerType}
+      />
     </div>
   );
 }

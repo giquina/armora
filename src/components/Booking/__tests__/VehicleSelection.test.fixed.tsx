@@ -101,7 +101,7 @@ describe('VehicleSelection Component', () => {
 
       // Shadow service features
       expect(screen.getByText('Discrete protection service')).toBeInTheDocument();
-      expect(screen.getByText('Personal security escort')).toBeInTheDocument();
+      expect(screen.getByText('Personal security driver')).toBeInTheDocument();
     });
   });
 

@@ -83,7 +83,7 @@ export function GuestDisclaimer() {
                 <svg className={styles.featureIcon} viewBox="0 0 24 24" width="16" height="16">
                   <path d="M5 13l4 4L19 7" fill="none" stroke="currentColor" strokeWidth="2"/>
                 </svg>
-                <span>Complete our 9-step professional service assessment</span>
+                <span>Complete our 9-step service assessment</span>
               </li>
               <li className={styles.featureItem}>
                 <svg className={styles.featureIcon} viewBox="0 0 24 24" width="16" height="16">

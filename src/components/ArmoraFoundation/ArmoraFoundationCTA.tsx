@@ -1,23 +1,23 @@
 import React, { useState, useEffect } from 'react';
-import styles from './SafeRideFundCTA.module.css';
+import styles from './ArmoraFoundationCTA.module.css';
 
-interface SafeRideFundCTAProps {
+interface ArmoraFoundationCTAProps {
   onClick: () => void;
 }
 
-const SafeRideFundCTA: React.FC<SafeRideFundCTAProps> = ({ onClick }) => {
+const ArmoraFoundationCTA: React.FC<ArmoraFoundationCTAProps> = ({ onClick }) => {
   const [hasViewedModal, setHasViewedModal] = useState(false);
 
   useEffect(() => {
-    const viewed = localStorage.getItem('safeRideFundModalViewed');
+    const viewed = localStorage.getItem('armoraFoundationModalViewed');
     if (viewed) {
       setHasViewedModal(true);
     }
-    console.log('🛡️ SafeRideFundCTA mounted, hasViewedModal:', !!viewed);
+    console.log('🎬 ArmoraFoundationCTA mounted, hasViewedModal:', !!viewed);
   }, []);
 
   const handleClick = () => {
-    console.log('🛡️ SafeRideFundCTA clicked! Opening modal...');
+    console.log('🎬 ArmoraFoundationCTA clicked! Opening modal...');
     onClick();
   };
 
@@ -26,14 +26,14 @@ const SafeRideFundCTA: React.FC<SafeRideFundCTAProps> = ({ onClick }) => {
       <button
         className={styles.ctaButton}
         onClick={handleClick}
-        aria-label="Learn about Safe Ride Fund impact"
+        aria-label="See what we're creating with Armora Foundation"
       >
         <span className={styles.ctaText}>
-          🛡️ Learn About Our Impact
+          🎬 See What We're Creating
         </span>
       </button>
     </div>
   );
 };
 
-export default SafeRideFundCTA;
+export default ArmoraFoundationCTA;

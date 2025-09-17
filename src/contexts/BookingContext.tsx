@@ -204,8 +204,8 @@ export function useBooking() {
 export const SERVICE_OPTIONS: ServiceOption[] = [
   {
     id: 'standard',
-    name: 'Standard Protection',
-    description: 'SIA Level 2, Professional drivers',
+    name: 'SafeRide Standard',
+    description: 'SIA Level 2, Professional security drivers',
     price: 32.50,
     originalPrice: 65.00,
     discount: '50% off first ride',

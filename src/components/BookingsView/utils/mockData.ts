@@ -103,7 +103,7 @@ export const mockBookings: Booking[] = [
     id: 'AR-2024-002',
     status: 'scheduled',
     serviceType: 'standard',
-    serviceName: 'Standard Protection',
+    serviceName: 'SafeRide Standard',
     pickupLocation: {
       address: 'The Shard, 32 London Bridge St',
       coordinates: [-0.0865, 51.5045]

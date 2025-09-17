@@ -105,8 +105,8 @@ export function FloatingCTA({
         5: "Additional coverage areas help us provide comprehensive protection services. Airport transfers, government buildings, and entertainment venues each require specialized SIA security officers and trained personal bodyguards with our professional security cab services.",
         6: "Priority contacts and communication preferences ensure rapid response coordination with our SIA licensed close protection officers. This follows security industry best practices for duty of care and incident management with professional security cab services.",
         7: "Special requirements ensure our qualified security officers and security cab drivers are prepared to provide appropriate professional services. Accessibility, medical, and private security accommodations are configured in advance with our SIA licensed personnel.",
-        8: "Communication preferences ensure seamless coordination between you, your team, and our close protection officers. Clear communication is essential for effective security transport operations with our professional security cab services.",
-        9: "Final review ensures your security profile is complete and accurate. This comprehensive assessment enables us to deliver the most appropriate protection service with qualified SIA security officers and professional security cab transport for your specific requirements.",
+        8: "Communication preferences for seamless coordination with our security officers and transport team.",
+        9: "Final review ensures your security profile is complete for appropriate protection service delivery.",
       };
 
       const baseDescription = baseDescriptions[step];

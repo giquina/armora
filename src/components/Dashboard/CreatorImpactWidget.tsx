@@ -2,10 +2,10 @@
 
 import React, { useState } from 'react';
 import { useApp } from '../../contexts/AppContext';
-import { SafeRideFundExplainer } from '../Common/SafeRideFundExplainer';
-import styles from './ImpactDashboardWidget.module.css';
+import { ArmoraFoundationExplainer } from '../ArmoraFoundation/ArmoraFoundationExplainer';
+import styles from './CreatorImpactWidget.module.css';
 
-interface ImpactDashboardWidgetProps {
+interface CreatorImpactWidgetProps {
   className?: string;
 }
 
@@ -26,37 +26,44 @@ const generateUserImpactData = (userStartDate: Date) => {
 };
 
 const communityImpactData = {
-  totalMembers: 1247,
-  monthlyRidesFunded: 278,
-  totalRidesFunded: 3741,
+  totalMembers: 312,
+  monthlyLearners: 84,
+  totalCareersLaunched: 427,
   lastUpdated: new Date().toISOString()
 };
 
 const impactStories = [
   {
     id: 1,
-    title: "Late Night Assistance",
-    story: "Sarah was able to leave a dangerous situation at 2 AM thanks to the Safe Ride Fund.",
-    impact: "Urgent transport when she had no money",
+    title: "First App Launch",
+    story: "Tom launched his first mobile app after completing our coding bootcamp - it hit 5K downloads in week one.",
+    impact: "Career launched in tech",
     timeframe: "3 days ago"
   },
   {
     id: 2,
-    title: "Hospital Visit",
-    story: "The fund helped Mark visit his daughter in hospital during a medical crisis.",
-    impact: "Critical family support transport",
+    title: "Spotify Success",
+    story: "Maya's track from our music program just hit 10K streams and caught attention from a major label.",
+    impact: "Music career breakthrough",
     timeframe: "1 week ago"
   },
   {
     id: 3,
-    title: "Safe Return",
-    story: "Emma got home safely after her phone died and she couldn't access her banking app.",
-    impact: "Priority safe passage home",
+    title: "Film Festival Win",
+    story: "Alex's short film from our media workshop was selected for the London Youth Film Festival.",
+    impact: "Recognition in film industry",
     timeframe: "2 weeks ago"
+  },
+  {
+    id: 4,
+    title: "Cohort Graduation",
+    story: "Coding cohort #12 just graduated with 100% pass rate - all 15 students found placement within a month.",
+    impact: "Perfect success rate",
+    timeframe: "1 month ago"
   }
 ];
 
-export function ImpactDashboardWidget({ className = '' }: ImpactDashboardWidgetProps) {
+export function CreatorImpactWidget({ className = '' }: CreatorImpactWidgetProps) {
   const { state } = useApp();
   const [currentStoryIndex, setCurrentStoryIndex] = useState(0);
   const [showFullExplainer, setShowFullExplainer] = useState(false);
@@ -88,8 +95,8 @@ export function ImpactDashboardWidget({ className = '' }: ImpactDashboardWidgetP
           <div className={styles.pulseRing}></div>
         </div>
         <div className={styles.headerText}>
-          <h3 className={styles.title}>Your Impact</h3>
-          <p className={styles.subtitle}>Making every ride count</p>
+          <h3 className={styles.title}>Your Creative Impact</h3>
+          <p className={styles.subtitle}>Launching the next generation</p>
         </div>
         <button 
           className={styles.expandButton}
@@ -100,46 +107,46 @@ export function ImpactDashboardWidget({ className = '' }: ImpactDashboardWidgetP
       </div>
 
       {showFullExplainer ? (
-        <SafeRideFundExplainer variant="full" showAnimation={true} />
+        <ArmoraFoundationExplainer variant="full" showAnimation={true} />
       ) : (
         <>
           <div className={styles.statsGrid}>
             <div className={styles.primaryStat}>
-              <div className={styles.statNumber}>{userImpact.personalRidesFunded}</div>
-              <div className={styles.statLabel}>safe rides funded</div>
-              <div className={styles.statSubtext}>by you</div>
+              <div className={styles.statNumber}>3</div>
+              <div className={styles.statLabel}>coding scholarships</div>
+              <div className={styles.statSubtext}>funded by you</div>
             </div>
             
             <div className={styles.secondaryStat}>
-              <div className={styles.statNumber}>£{userImpact.totalContributed}</div>
-              <div className={styles.statLabel}>total contributed</div>
+              <div className={styles.statNumber}>2</div>
+              <div className={styles.statLabel}>studio sessions enabled</div>
             </div>
           </div>
 
           <div className={styles.progressSection}>
             <div className={styles.progressHeader}>
               <span className={styles.progressLabel}>
-                Progress to next milestone: {userImpact.nextMilestone} rides
+                Progress to next milestone: 5 scholarships
               </span>
               <span className={styles.progressPercentage}>
-                {Math.round(userImpact.progressToNextMilestone)}%
+                60%
               </span>
             </div>
             <div className={styles.progressBar}>
               <div 
                 className={styles.progressFill}
-                style={{ width: `${userImpact.progressToNextMilestone}%` }}
+                style={{ width: '60%' }}
               ></div>
             </div>
           </div>
 
           <div className={styles.communitySection}>
-            <h4 className={styles.communityTitle}>Community Impact</h4>
+            <h4 className={styles.communityTitle}>Creative Community Impact</h4>
             <div className={styles.communityStats}>
               <div className={styles.communityStatsGrid}>
                 <div className={styles.communityStat}>
-                  <span className={styles.communityNumber}>{communityImpactData.monthlyRidesFunded}</span>
-                  <span className={styles.communityLabel}>rides this month</span>
+                  <span className={styles.communityNumber}>{communityImpactData.monthlyLearners}</span>
+                  <span className={styles.communityLabel}>learners this month</span>
                 </div>
                 <div className={styles.communityStat}>
                   <span className={styles.communityNumber}>{communityImpactData.totalMembers.toLocaleString()}</span>
@@ -147,7 +154,7 @@ export function ImpactDashboardWidget({ className = '' }: ImpactDashboardWidgetP
                 </div>
               </div>
               <div className={styles.totalImpact}>
-                Together we've funded <strong>{communityImpactData.totalRidesFunded.toLocaleString()}</strong> safe journeys
+                Together we've launched <strong>{communityImpactData.totalCareersLaunched.toLocaleString()}</strong> creative careers
               </div>
             </div>
           </div>
@@ -194,7 +201,7 @@ export function ImpactDashboardWidget({ className = '' }: ImpactDashboardWidgetP
               className={styles.viewReportButton}
               onClick={() => setShowFullExplainer(true)}
             >
-              View Full Impact Report
+              View Full Creative Report
             </button>
           </div>
         </>

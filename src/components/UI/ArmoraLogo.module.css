@@ -345,8 +345,8 @@
 }
 
 .medium {
-  --logo-scale: 1;
-  --orbit-scale: 1;
+  --logo-scale: 0.5;
+  --orbit-scale: 0.5;
 }
 
 .large {

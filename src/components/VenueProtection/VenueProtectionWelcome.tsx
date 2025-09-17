@@ -39,9 +39,9 @@ export function VenueProtectionWelcome() {
       {/* Hero Section */}
       <div className={styles.heroSection}>
         <div className={styles.heroIcon}>🏛️</div>
-        <h2 className={styles.heroTitle}>SIA Level 3 Close Protection Officers for Your Event</h2>
+        <h2 className={styles.heroTitle}>SIA Level 3 Officers for Your Event</h2>
         <p className={styles.heroSubtitle}>
-          Complete this security assessment to receive a customized protection plan and quote
+          Quick assessment for custom protection plan
         </p>
 
         {/* Service Badges */}

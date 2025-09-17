@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useReducer, useEffect, useCallback, ReactNode } from 'react';
-import { AppState, ViewState, User, PersonalizationData, DeviceCapabilities, UserSubscription, SubscriptionTier, PremiumInterest, NotificationData, SafeRideFundMetrics, CommunityImpactData } from '../types';
+import { AppState, ViewState, User, PersonalizationData, DeviceCapabilities, UserSubscription, SubscriptionTier, PremiumInterest, NotificationData, ArmoraFoundationMetrics, CommunityImpactData } from '../types';
 
 // Initial state
 const initialState: AppState = {
@@ -18,7 +18,7 @@ const initialState: AppState = {
   subscription: null,
   selectedServiceForBooking: undefined,
   userProfileSelection: undefined,
-  safeRideFundMetrics: null,
+  armoraFoundationMetrics: null,
   communityImpactData: null,
   isLoading: false,
   error: null,
@@ -33,7 +33,7 @@ type AppAction =
   | { type: 'UPDATE_DEVICE_CAPABILITIES'; payload: Partial<DeviceCapabilities> }
   | { type: 'SET_SUBSCRIPTION'; payload: UserSubscription | null }
   | { type: 'SET_SELECTED_SERVICE'; payload: string }
-  | { type: 'SET_SAFE_RIDE_FUND_METRICS'; payload: SafeRideFundMetrics | null }
+  | { type: 'SET_ARMORA_FOUNDATION_METRICS'; payload: ArmoraFoundationMetrics | null }
   | { type: 'SET_COMMUNITY_IMPACT_DATA'; payload: CommunityImpactData | null }
   | { type: 'SET_LOADING'; payload: boolean }
   | { type: 'SET_ERROR'; payload: string | null }
@@ -64,8 +64,8 @@ function appReducer(state: AppState, action: AppAction): AppState {
       return { ...state, subscription: action.payload };
     case 'SET_SELECTED_SERVICE':
       return { ...state, selectedServiceForBooking: action.payload };
-    case 'SET_SAFE_RIDE_FUND_METRICS':
-      return { ...state, safeRideFundMetrics: action.payload };
+    case 'SET_ARMORA_FOUNDATION_METRICS':
+      return { ...state, armoraFoundationMetrics: action.payload };
     case 'SET_COMMUNITY_IMPACT_DATA':
       return { ...state, communityImpactData: action.payload };
     case 'CLEAR_ERROR':
@@ -83,6 +83,7 @@ interface AppContextType {
   dispatch: React.Dispatch<AppAction>;
   // Convenience actions
   navigateToView: (view: ViewState) => void;
+  handleBack: () => void;
   setUser: (user: User | null) => void;
   updateQuestionnaireData: (data: PersonalizationData) => void;
   setUserProfileSelection: (profileSelection: string | undefined) => void;
@@ -97,9 +98,9 @@ interface AppContextType {
   recordPremiumInterest: (data: PremiumInterest) => Promise<void>;
   sendOwnerNotification: (data: NotificationData) => Promise<boolean>;
   // Safe Ride Fund actions
-  updateSafeRideFundMetrics: (metrics: SafeRideFundMetrics | null) => void;
+  updateArmoraFoundationMetrics: (metrics: ArmoraFoundationMetrics | null) => void;
   updateCommunityImpactData: (data: CommunityImpactData | null) => void;
-  initializeSafeRideFundData: () => void;
+  initializeAmoraFoundationData: (subscription: any) => void;
 }
 
 // Create context
@@ -113,7 +114,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
   const navigateToView = (view: ViewState) => {
     // Development mode: always allow questionnaire navigation for testing
     const isDevelopment = process.env.NODE_ENV === 'development';
-    
+
     console.log('🔍 Navigation Debug:', {
       targetView: view,
       currentUser: state.user,
@@ -121,16 +122,53 @@ export function AppProvider({ children }: { children: ReactNode }) {
       isDevelopment,
       willBypassSkip: isDevelopment && view === 'questionnaire'
     });
-    
+
     // Skip questionnaire for returning users who already completed it (but not in development)
     if (view === 'questionnaire' && state.user?.hasCompletedQuestionnaire && !isDevelopment) {
       console.log('⚠️  Redirecting to dashboard - user has completed questionnaire');
       dispatch({ type: 'SET_VIEW', payload: 'home' });
       return;
     }
-    
+
     console.log('✅ Navigating to:', view);
     dispatch({ type: 'SET_VIEW', payload: view });
+  };
+
+  const handleBack = () => {
+    const currentView = state.currentView;
+
+    // Define navigation hierarchy
+    switch (currentView) {
+      // Main sections -> HOME
+      case 'services':
+      case 'bookings':
+      case 'rides':
+      case 'account':
+        navigateToView('home');
+        break;
+
+      // Service flow
+      case 'service-selection':
+      case 'subscription-offer':
+        navigateToView('services');
+        break;
+
+      // Account sub-pages -> Account
+      case 'venue-protection-welcome':
+      case 'venue-security-questionnaire':
+      case 'venue-protection-success':
+        navigateToView('account');
+        break;
+
+      // About page -> Home
+      case 'about':
+        navigateToView('home');
+        break;
+
+      // Default fallback to home
+      default:
+        navigateToView('home');
+    }
   };
 
   const setUser = (user: User | null) => {
@@ -290,22 +328,22 @@ export function AppProvider({ children }: { children: ReactNode }) {
   };
 
   // Safe Ride Fund actions
-  const updateSafeRideFundMetrics = (metrics: SafeRideFundMetrics | null) => {
-    dispatch({ type: 'SET_SAFE_RIDE_FUND_METRICS', payload: metrics });
+  const updateArmoraFoundationMetrics = (metrics: ArmoraFoundationMetrics | null) => {
+    dispatch({ type: 'SET_ARMORA_FOUNDATION_METRICS', payload: metrics });
   };
 
   const updateCommunityImpactData = (data: CommunityImpactData | null) => {
     dispatch({ type: 'SET_COMMUNITY_IMPACT_DATA', payload: data });
   };
 
-  const initializeSafeRideFundData = useCallback(() => {
+  const initializeAmoraFoundationData = useCallback((subscription: any) => {
     // Only initialize for Essential subscribers
-    if (state.subscription?.tier === 'essential') {
-      const joinDate = state.subscription.startDate || new Date();
+    if (subscription?.tier === 'essential') {
+      const joinDate = subscription.startDate || new Date();
       const monthsSinceJoined = Math.max(1, Math.floor((new Date().getTime() - joinDate.getTime()) / (1000 * 60 * 60 * 24 * 30)));
-      
-      const metrics: SafeRideFundMetrics = {
-        personalRidesFunded: monthsSinceJoined,
+
+      const metrics: ArmoraFoundationMetrics = {
+        personalScholarshipsFunded: monthsSinceJoined,
         totalContributed: monthsSinceJoined * 4, // £4 per month
         currentStreak: monthsSinceJoined,
         monthlyContribution: 4,
@@ -314,7 +352,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
         progressToNextMilestone: ((monthsSinceJoined % 5) || 5) / 5 * 100
       };
 
-      updateSafeRideFundMetrics(metrics);
+      updateArmoraFoundationMetrics(metrics);
     }
 
     // Community impact data (mock data)
@@ -326,16 +364,16 @@ export function AppProvider({ children }: { children: ReactNode }) {
     };
 
     updateCommunityImpactData(communityData);
-  }, [state.subscription]);
+  }, []);
 
   // Initialize Safe Ride Fund data when subscription changes
   useEffect(() => {
     if (state.subscription?.tier === 'essential') {
-      initializeSafeRideFundData();
+      initializeAmoraFoundationData(state.subscription);
     } else {
-      updateSafeRideFundMetrics(null);
+      updateArmoraFoundationMetrics(null);
     }
-  }, [state.subscription, initializeSafeRideFundData]);
+  }, [state.subscription, initializeAmoraFoundationData]);
 
   // Monitor device capabilities
   useEffect(() => {
@@ -413,6 +451,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
     state,
     dispatch,
     navigateToView,
+    handleBack,
     setUser,
     updateQuestionnaireData,
     setUserProfileSelection,
@@ -425,9 +464,9 @@ export function AppProvider({ children }: { children: ReactNode }) {
     startFreeTrial,
     recordPremiumInterest,
     sendOwnerNotification,
-    updateSafeRideFundMetrics,
+    updateArmoraFoundationMetrics,
     updateCommunityImpactData,
-    initializeSafeRideFundData,
+    initializeAmoraFoundationData,
   };
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;

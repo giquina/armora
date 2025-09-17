@@ -134,7 +134,7 @@
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  margin-bottom: var(--space-md);
+  margin-bottom: 24px; /* Better spacing after service header */
   min-height: 48px; /* Ensure consistent height */
 }
 
@@ -267,7 +267,7 @@
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  margin-bottom: var(--space-md);
+  margin-bottom: 16px; /* Better spacing between title and description */
   gap: var(--space-md);
 }
 
@@ -280,7 +280,7 @@
   font-size: var(--font-lg);
   font-weight: 700;
   color: var(--text-primary);
-  margin: 0 0 var(--space-xs) 0;
+  margin: 0 0 8px 0; /* Better spacing between title and tagline */
   line-height: var(--line-tight);
 }
 
@@ -317,20 +317,20 @@
 .vehicleSection {
   background: rgba(0, 0, 0, 0.2);
   border-radius: var(--radius-md);
-  padding: 8px 12px; /* Even more compact */
-  margin-bottom: var(--space-xs); /* Reduced spacing */
+  padding: 12px 16px; /* Better padding inside vehicle section */
+  margin-bottom: 16px; /* Better spacing after vehicle section */
   backdrop-filter: blur(5px);
 }
 
 .vehicleInfo {
-  margin-bottom: var(--space-xs); /* Reduced from var(--space-sm) */
+  margin-bottom: 12px; /* Better spacing between vehicle details */
 }
 
 .vehicleDetail {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin: 0; /* Remove margin for horizontal layout */
+  margin: 0 0 8px 0; /* Better spacing between vehicle detail lines */
 }
 
 .vehicleDetail:last-child {
@@ -353,7 +353,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding-top: var(--space-xs); /* Reduced from var(--space-sm) */
+  padding-top: 12px; /* Better spacing above driver info */
   border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 
@@ -376,8 +376,8 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: var(--space-xs); /* Further reduced */
-  padding: 4px 0; /* Minimal padding */
+  margin-bottom: 12px; /* Better spacing after rating */
+  padding: 8px 0; /* Better padding around rating */
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
@@ -414,7 +414,7 @@
    DESCRIPTION SECTION - CONDENSED
 ======================================== */
 .descriptionSection {
-  margin-bottom: var(--space-sm); /* Reduced from var(--space-md) */
+  margin-bottom: 16px; /* Better spacing after description */
 }
 
 .description {
@@ -437,10 +437,10 @@
   display: flex;
   justify-content: space-around;
   align-items: center;
-  padding: var(--space-sm); /* Reduced from var(--space-md) */
+  padding: 16px; /* Better padding inside social proof section */
   background: rgba(255, 255, 255, 0.05);
   border-radius: var(--radius-md);
-  margin-bottom: var(--space-sm); /* Reduced from var(--space-md) */
+  margin-bottom: 20px; /* Better spacing after social proof */
   backdrop-filter: blur(5px);
 }
 
@@ -470,7 +470,7 @@
 ======================================== */
 .cardFooter {
   margin-top: auto; /* Push to bottom */
-  padding-top: var(--space-md);
+  padding-top: 20px; /* Better spacing before buttons */
   position: relative;
   z-index: 10; /* Ensure buttons are above other content */
 }
@@ -950,7 +950,7 @@
 .bookingActions {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: var(--space-xs);
+  gap: 12px; /* Better spacing between action buttons */
   width: 100%;
   overflow: visible; /* Ensure button borders show */
   padding-bottom: 4px; /* Add breathing room for button shadows */
@@ -1036,13 +1036,13 @@
 @media (max-width: 480px) {
   .bookingActions {
     grid-template-columns: 1fr; /* Single column to prevent border clipping */
-    gap: var(--space-sm);
+    gap: 12px; /* Better mobile spacing between buttons */
   }
 
   .bookNowButton,
   .scheduleButton {
     font-size: var(--font-sm);
-    padding: var(--space-sm) var(--space-md); /* Reduce vertical padding */
+    padding: 12px 16px; /* Better mobile button padding */
     width: 100%; /* Ensure full width usage */
   }
 }
@@ -1088,9 +1088,9 @@
 /* Small Mobile (320px - 479px) */
 @media (max-width: 479px) {
   .serviceCard {
-    padding: var(--space-sm); /* Reduce padding to give buttons more room */
+    padding: 12px; /* Mobile-optimized card padding */
     min-height: auto; /* Allow card to expand to fit content */
-    padding-bottom: var(--space-lg); /* Ensure space for buttons */
+    padding-bottom: 20px; /* Better space for buttons on mobile */
   }
 
   /* Allow description on mobile with smaller font */
@@ -1112,7 +1112,7 @@
   }
 
   .vehicleSection {
-    padding: var(--space-sm);
+    padding: 10px 12px; /* Mobile-optimized vehicle section padding */
   }
 
 
@@ -1250,5 +1250,63 @@
 
   .selectButton {
     min-height: calc(var(--touch-target-lg) + var(--space-sm));
+  }
+}
+
+/* ========================================
+   NEW VEHICLE INFO BOX - SAFERIDE FORMAT
+======================================== */
+.vehicleInfoBox {
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: var(--radius-md);
+  padding: var(--space-md);
+  margin-bottom: var(--space-md);
+  backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.vehicleInfoItem {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  margin-bottom: var(--space-xs);
+  font-size: var(--font-sm);
+}
+
+.vehicleInfoItem:last-child {
+  margin-bottom: 0;
+}
+
+.vehicleInfoIcon {
+  font-size: 16px;
+  width: 20px;
+  text-align: center;
+}
+
+.vehicleInfoLabel {
+  color: var(--text-secondary);
+  font-weight: 500;
+  flex-shrink: 0;
+}
+
+.vehicleInfoValue {
+  color: var(--text-primary);
+  font-weight: 600;
+  margin-left: auto;
+}
+
+.vehicleInfoMinimum {
+  color: var(--text-secondary);
+  font-size: var(--font-xs);
+  font-weight: 400;
+}
+
+@media (max-width: 768px) {
+  .vehicleInfoBox {
+    padding: var(--space-sm);
+  }
+
+  .vehicleInfoItem {
+    flex-wrap: wrap;
   }
 }
