@@ -302,6 +302,8 @@
   overflow-y: auto; /* CRITICAL: Allow scrolling when content is too tall */
   overflow-x: hidden;
   overscroll-behavior: none;
+  -webkit-overflow-scrolling: touch; /* Enable smooth touch scrolling on iOS */
+  scroll-behavior: smooth; /* Smooth scrolling behavior */
   background: linear-gradient(
     135deg,
     var(--armora-dark) 0%,
@@ -350,7 +352,8 @@
 .welcomeHeader {
   flex: 0 0 auto;
   animation: headerSlideIn 0.5s ease-out 0.1s both;
-  margin-top: clamp(0.5rem, 2vh, 1rem);
+  margin-top: clamp(1rem, 3vh, 1.5rem);
+  margin-bottom: clamp(1.5rem, 4vh, 2.5rem);
 }
 
 /* Desktop Layout: Logo left, Text right */
@@ -380,9 +383,10 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: clamp(70px, 10vw, 90px);
-  height: clamp(70px, 10vw, 90px);
+  width: auto;
+  height: auto;
   margin: 0;
+  padding: var(--space-sm);
 }
 
 /* Text Section - Stacked Layout */
@@ -486,7 +490,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: clamp(0.25rem, 1vh, 0.5rem) 0; /* Ultra-compressed margin for mobile fit */
+  margin: clamp(1rem, 3vh, 2rem) 0; /* Increased spacing between sections */
   padding: 0 3px; /* EXTREME mobile width optimization */
 }
 
@@ -494,7 +498,7 @@
   display: grid;
   grid-template-columns: 1fr 1fr; /* FORCE 2 columns */
   grid-template-rows: auto auto;   /* 2 rows */
-  gap: clamp(8px, 1.5vh, 16px); /* Increased gap for better readability */
+  gap: clamp(12px, 2.5vh, 20px); /* Further increased gap for better section separation */
   opacity: 0;
   transform: translateY(20px);
   max-width: var(--content-max-width); /* Match content width */
@@ -508,12 +512,13 @@
 @media (max-width: 767px) {
   .welcomeContent {
     padding: 0 3px; /* EXTREME mobile width optimization */
+    margin: clamp(0.75rem, 2vh, 1.25rem) 0; /* Adjusted mobile spacing */
   }
-  
+
   .features {
     grid-template-columns: 1fr; /* Single column on mobile */
     grid-template-rows: repeat(4, auto);
-    gap: clamp(2px, 0.5vh, 4px); /* Ultra-compressed gap for mobile fit */
+    gap: clamp(8px, 1.5vh, 12px); /* Increased mobile gap for better readability */
     max-width: 100%;
   }
   
@@ -783,8 +788,8 @@
   flex: 0 0 auto;
   opacity: 0;
   transform: translateY(30px);
-  margin-bottom: clamp(0.125rem, 0.5vh, 0.25rem);
-  margin-top: clamp(0.125rem, 0.5vh, 0.25rem);
+  margin-bottom: clamp(0.5rem, 1.5vh, 1rem);
+  margin-top: clamp(1.5rem, 4vh, 2.5rem);
   max-width: var(--content-max-width);
   margin-left: auto;
   margin-right: auto;
@@ -801,8 +806,8 @@
 .authButtons {
   display: flex;
   flex-direction: column;
-  gap: clamp(0.25rem, 1vh, 0.5rem); /* REDUCED GAP */
-  margin-bottom: clamp(0.125rem, 0.5vh, 0.25rem); /* EVEN MORE COMPRESSED */
+  gap: clamp(0.75rem, 2vh, 1rem); /* Increased gap between auth buttons */
+  margin-bottom: clamp(0.75rem, 2vh, 1rem); /* Increased bottom margin */
   width: 100%;
 }
 
@@ -980,7 +985,7 @@
 
 .divider {
   position: relative;
-  margin: clamp(0.25rem, 1vh, 0.5rem) 0; /* Ultra-compressed divider margins */
+  margin: clamp(1rem, 2.5vh, 1.5rem) 0; /* Increased divider margins for better section separation */
   text-align: center;
 }
 
@@ -1174,7 +1179,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: clamp(0.25rem, 1vh, 0.5rem) 0; /* COMPRESSED padding */
+  padding: clamp(1rem, 3vh, 1.5rem) 0; /* Increased padding for better section separation */
   opacity: 0;
   transform: translateY(20px);
   margin-top: auto;
@@ -1859,9 +1864,9 @@
     justify-content: center;
     align-items: center;
     text-align: center;
-    gap: clamp(1rem, 3vw, 1.5rem);
-    min-height: clamp(120px, 18vh, 160px);
-    padding: clamp(1rem, 3vh, 1.5rem) clamp(16px, 4vw, 24px);
+    gap: clamp(1.75rem, 5vw, 2.5rem); /* Further increased gap for better spacing */
+    min-height: clamp(160px, 22vh, 200px); /* Increased min-height for better section separation */
+    padding: clamp(2rem, 5vh, 2.5rem) clamp(16px, 4vw, 24px); /* Increased padding for mobile */
     max-width: calc(100vw - 32px);
   }
   
@@ -1928,8 +1933,8 @@
 /* VERY SMALL MOBILE - KEEP VERTICAL LAYOUT */
 @media (max-width: 360px) {
   .headerSection {
-    gap: clamp(0.25rem, 1vw, 0.5rem);
-    padding: clamp(0.25rem, 1vh, 0.5rem) 16px;
+    gap: clamp(1rem, 3vw, 1.5rem); /* Sufficient gap to prevent overlap */
+    padding: clamp(1rem, 3vh, 1.5rem) 16px; /* Increased padding */
     max-width: calc(100vw - 32px);
   }
   
@@ -2060,9 +2065,9 @@
 /* ULTRA-SMALL SCREENS */
 @media (max-width: 320px) {
   .headerSection {
-    padding: clamp(0.25rem, 1vh, 0.5rem) 12px;
+    padding: clamp(1rem, 3vh, 1.5rem) 12px; /* Increased padding for better spacing */
     max-width: calc(100vw - 24px);
-    gap: 0.5rem;
+    gap: clamp(0.75rem, 2vw, 1rem); /* Increased gap to prevent overlap */
   }
 
   .logoContainer {
