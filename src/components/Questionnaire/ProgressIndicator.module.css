@@ -9,22 +9,32 @@
 }
 
 .container {
-  background: var(--progress-bg);
+  background: #1a1a2e !important; /* Solid dark background, no transparency */
+  background-color: #1a1a2e !important; /* Ensure solid background */
+  background-image: none !important; /* Remove any background images */
   padding: 1rem;
   border: 1px solid var(--progress-accent) !important;
   position: sticky;
   top: 0;
-  z-index: 10;
+  z-index: 9999 !important; /* Force it to stay on top of all content */
   width: 100%;
   overflow-x: hidden;
   box-sizing: border-box;
-  /* Apply progress indicator entrance animation */
+  backdrop-filter: none !important; /* Remove any transparency effects */
+  -webkit-backdrop-filter: none !important; /* Remove any transparency effects for Safari */
+  opacity: 1 !important; /* Ensure full opacity */
+  /* FORCE COMPLETE OPACITY - NUCLEAR OPTION */
+  background-blend-mode: normal !important;
+  filter: none !important;
+  mix-blend-mode: normal !important;
+  /* Re-enabled animation - transparency issue fixed in keyframes */
   animation: slideDownFromTop 0.8s 0.1s cubic-bezier(0.215, 0.61, 0.355, 1);
   animation-fill-mode: both;
-  /* Enhanced 3D glow to match impact button */
-  box-shadow: 
+  /* Enhanced shadow for better separation from content below */
+  box-shadow:
     0 4px 12px rgba(0, 0, 0, 0.3),
     0 2px 20px var(--progress-glow),
+    0 8px 32px rgba(0, 0, 0, 0.4), /* Stronger shadow to separate from content */
     inset 0 1px 2px rgba(255, 255, 255, 0.1);
 }
 
@@ -230,10 +240,14 @@
 /* Extra Small Screens - 320px to 375px (iPhone SE, older Android) */
 @media (min-width: 320px) and (max-width: 375px) {
   .container {
-  padding: 0.4rem 0.5rem;
+    padding: 0.4rem 0.5rem;
     border-top: none !important;
     border-bottom: 1px solid var(--progress-accent) !important;
-    box-shadow: 
+    background: #1a1a2e !important; /* Force solid background on small screens */
+    background-color: #1a1a2e !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    box-shadow:
       0 2px 6px rgba(0, 0, 0, 0.15),
       0 1px 3px var(--progress-glow);
   }
@@ -291,10 +305,14 @@
 /* Small Mobile Screens - 376px to 430px (iPhone 12/13/14, Pixel) */
 @media (min-width: 376px) and (max-width: 430px) {
   .container {
-  padding: 0.5rem 0.65rem;
+    padding: 0.5rem 0.65rem;
     border-top: none !important;
     border-bottom: 1px solid var(--progress-accent) !important;
-    box-shadow: 
+    background: #1a1a2e !important; /* Force solid background */
+    background-color: #1a1a2e !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    box-shadow:
       0 3px 8px rgba(0, 0, 0, 0.18),
       0 1px 4px var(--progress-glow);
   }
@@ -532,6 +550,10 @@
     padding: 0.45rem 0.6rem !important;
     border-top: none !important;
     border-bottom: 1px solid var(--progress-accent) !important;
+    background: #1a1a2e !important; /* Force solid background on mobile */
+    background-color: #1a1a2e !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
   }
 
   .stepCounter {
@@ -629,7 +651,7 @@
   .container {
     /* Account for floating CTA positioning */
     margin-bottom: env(safe-area-inset-bottom, 0px);
-    z-index: 10; /* Ensure it stays below floating CTA */
+    z-index: 10000 !important; /* Force highest z-index to stay above all content */
   }
 }
 

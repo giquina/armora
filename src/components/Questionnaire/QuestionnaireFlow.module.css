@@ -6,7 +6,8 @@
 /* FORCE PROPER CONTAINER SIZING */
 .container {
   min-height: 100vh;
-  background: var(--bg-primary);
+  background: #1a1a2e !important; /* Force solid background */
+  background-color: #1a1a2e !important;
   color: var(--text-primary);
   display: flex;
   flex-direction: column;

@@ -17,10 +17,10 @@ const SafeRideFundBanner: React.FC<SafeRideFundBannerProps> = ({
 }) => {
   // Rotating announcement messages for dynamic content
   const announcementMessages = [
-    "🛡️ Every membership supports safe transport for vulnerable communities",
-    "📊 3,741+ safe rides funded • 834 people reached safety this month",
+    "🛡️ Every membership supports professional protection for vulnerable communities",
+    "📊 3,741+ Protected Principals • 834 security operations completed this month",
     "🤝 Partnering with Crisis UK, Women's Aid, Mind Mental Health & more",
-    "🚗 £4 from each membership directly funds priority transport assistance",
+    "🚗 £4 from each membership directly funds priority protection assistance",
     "⚡ 24/7 availability • Average 12min response time • 98% success rate"
   ];
 

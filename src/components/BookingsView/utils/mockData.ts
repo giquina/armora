@@ -61,7 +61,7 @@ export interface UserStats {
 // Mock data
 export const mockBookings: Booking[] = [
   {
-    id: 'AR-2024-001',
+    id: 'OP-2024-001',
     status: 'active',
     serviceType: 'executive',
     serviceName: 'Executive Security',
@@ -241,7 +241,7 @@ export const getTimeBasedSuggestion = (): { icon: string; title: string; subtitl
   } else if (hour >= 17 && hour < 21) {
     return {
       icon: '🌆',
-      title: 'Book your safe ride home',
+      title: 'Request secure protection home',
       subtitle: 'Secure evening transport'
     };
   } else if (day === 0 || day === 6) {

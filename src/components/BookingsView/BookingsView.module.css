@@ -477,12 +477,12 @@
   gap: var(--space-sm);
 }
 
-.trackMapButton,
-.callDriverButton,
-.shareTripButton,
-.emergencyButton {
+.operationsCenterButton,
+.secureCommsButton,
+.routeDetailsButton,
+.emergencyProtocolButton {
   padding: var(--space-sm) var(--space-md);
-  border-radius: var(--radius-md);
+  border-radius: 0;
   font-size: var(--font-sm);
   font-weight: 600;
   text-transform: uppercase;
@@ -491,37 +491,36 @@
   transition: all 0.3s ease;
   min-height: var(--touch-target);
   font-family: inherit;
-  border: none;
 }
 
-.trackMapButton {
-  background: linear-gradient(45deg, var(--accent-primary), #FFA500);
-  color: var(--armora-dark);
-  grid-column: 1 / -1;
+.operationsCenterButton {
+  background: #0F1419;
+  color: #E1E8ED;
+  border: 1px solid #B8860B;
 }
 
-.callDriverButton {
-  background: #10B981;
-  color: white;
+.secureCommsButton {
+  background: #0F1419;
+  color: #E1E8ED;
+  border: 1px solid #B8860B;
 }
 
-.shareTripButton {
+.routeDetailsButton {
   background: transparent;
-  color: var(--accent-primary);
-  border: 1px solid var(--accent-primary);
+  color: #E1E8ED;
+  border: 1px solid #B8860B;
 }
 
-.emergencyButton {
-  background: #EF4444;
-  color: white;
-  grid-column: 1 / -1;
-  margin-top: var(--space-sm);
+.emergencyProtocolButton {
+  background: #0F1419;
+  color: #E1E8ED;
+  border: 1px solid #B8860B;
 }
 
-.trackMapButton:hover,
-.callDriverButton:hover,
-.shareTripButton:hover,
-.emergencyButton:hover {
+.operationsCenterButton:hover,
+.secureCommsButton:hover,
+.routeDetailsButton:hover,
+.emergencyProtocolButton:hover {
   transform: translateY(-1px);
 }
 
@@ -627,7 +626,7 @@
 }
 
 .upcomingRoute,
-.upcomingDriver,
+.upcomingCPO,
 .upcomingPrice {
   font-size: var(--font-sm);
   color: var(--text-secondary);
@@ -846,7 +845,7 @@
 }
 
 .historyRoute,
-.historyDriver,
+.historyCPO,
 .historyPrice {
   font-size: var(--font-sm);
   color: var(--text-secondary);
@@ -1043,7 +1042,7 @@
     gap: var(--space-xs);
   }
 
-  .emergencyButton {
+  .emergencyProtocolButton {
     grid-column: 1;
     margin-top: var(--space-xs);
   }

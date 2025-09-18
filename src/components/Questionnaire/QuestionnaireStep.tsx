@@ -783,12 +783,12 @@ Your privacy is important to us. All questions are optional and you can use "Pre
                 {/* Primary Headline */}
                 <div className={styles.primaryHeadline}>
                   <span className={styles.headlineIcon}>🛡️</span>
-                  <h3>Professional Security Assessment</h3>
+                  <h3>🛡️ Security Assessment</h3>
                 </div>
                 
                 {/* Value Proposition */}
                 <p className={styles.valueProposition}>
-                  Unlock personalized VIP transport with security-trained drivers tailored to your professional requirements. Our comprehensive assessment ensures the right protection level and service features for your specific needs.
+                  Complete your confidential security assessment to receive personalized protection recommendations. Our SIA-licensed officers provide discrete, professional security transport services tailored to your specific requirements.
                 </p>
                 
                 {/* Benefits List */}
@@ -800,19 +800,19 @@ Your privacy is important to us. All questions are optional and you can use "Pre
                   <ul className={spacingStyles.tightBenefitsList}>
                     <li className={spacingStyles.tightBenefitItem}>
                       <span className={styles.checkmark}>✓</span>
-                      <span>Personalized security recommendations matched to your profile</span>
+                      <span>Personalized security profile and threat assessment</span>
                     </li>
                     <li className={spacingStyles.tightBenefitItem}>
                       <span className={styles.checkmark}>✓</span>
-                      <span>Protection level assessment with appropriate driver assignment</span>
+                      <span>Recommended protection levels for your situation</span>
                     </li>
                     <li className={spacingStyles.tightBenefitItem}>
                       <span className={styles.checkmark}>✓</span>
-                      <span>Security-conscious route planning and venue coordination</span>
+                      <span>Discrete transport solutions with trained CPOs</span>
                     </li>
                     <li className={spacingStyles.tightBenefitItem}>
                       <span className={styles.checkmark}>✓</span>
-                      <span>Exclusive 50% discount on your first professional booking</span>
+                      <span>Secure profile for expedited future bookings</span>
                     </li>
                   </ul>
                 </div>
@@ -824,11 +824,10 @@ Your privacy is important to us. All questions are optional and you can use "Pre
                     <span>Our Credentials</span>
                   </h4>
                   <div className={styles.inlineCredentials}>
-                    <div className={styles.credentialBadge}>🛡️ SIA Licensed</div>
-                    <div className={styles.credentialBadge}>🔒 256-bit Encryption</div>
-                    <div className={styles.credentialBadge}>✅ Government Approved</div>
-                    <div className={styles.credentialBadge}>🚗 TfL Private Hire</div>
-                    <div className={styles.credentialBadge}>👮 Close Protection</div>
+                    <div className={styles.credentialBadge}>🛡️ SIA-Licensed Security Officers</div>
+                    <div className={styles.credentialBadge}>🔒 24/7 Executive Protection</div>
+                    <div className={styles.credentialBadge}>🚗 Armored & Executive Vehicles</div>
+                    <div className={styles.credentialBadge}>👮 Government-Standard Vetting</div>
                   </div>
                 </div>
                 
@@ -843,7 +842,7 @@ Your privacy is important to us. All questions are optional and you can use "Pre
                     </div>
                     <div className={styles.spacer}></div>
                     <p className={styles.instructionText}>
-                      Select the option that best matches your professional role below. This helps us understand the discretion and security protocols required for your transport.
+                      Your security requirements remain strictly confidential. This assessment helps match you with appropriate protection officers and vehicles.
                     </p>
                   </div>
                 </div>

@@ -67,9 +67,9 @@ export function BookingConfirmation({ bookingData, onConfirmBooking, onBack }: B
         <button className={styles.backButton} onClick={onBack}>
           ← Back
         </button>
-        <h1 className={styles.title}>Confirm Your Booking</h1>
+        <h1 className={styles.title}>Confirm Your Security Service</h1>
         <p className={styles.subtitle}>
-          Review your security transport details before confirming
+          Review your security service details before confirming
         </p>
       </div>
 
@@ -101,7 +101,7 @@ export function BookingConfirmation({ bookingData, onConfirmBooking, onBack }: B
             <div className={styles.routeItem}>
               <span className={styles.routeIcon}>📍</span>
               <div>
-                <div className={styles.routeLabel}>Pickup</div>
+                <div className={styles.routeLabel}>Service Start</div>
                 <div className={styles.routeLocation}>{pickup}</div>
               </div>
             </div>
@@ -111,7 +111,7 @@ export function BookingConfirmation({ bookingData, onConfirmBooking, onBack }: B
             <div className={styles.routeItem}>
               <span className={styles.routeIcon}>🏁</span>
               <div>
-                <div className={styles.routeLabel}>Destination</div>
+                <div className={styles.routeLabel}>Service End</div>
                 <div className={styles.routeLocation}>{destination}</div>
               </div>
             </div>
@@ -119,7 +119,7 @@ export function BookingConfirmation({ bookingData, onConfirmBooking, onBack }: B
         </div>
 
         <div className={styles.estimateSection}>
-          <h3 className={styles.sectionTitle}>Trip Estimate</h3>
+          <h3 className={styles.sectionTitle}>Service Details</h3>
           <div className={styles.estimateCard}>
             <div className={styles.estimateRow}>
               <span>Distance:</span>
@@ -135,7 +135,7 @@ export function BookingConfirmation({ bookingData, onConfirmBooking, onBack }: B
             </div>
             {hasReward && (
               <div className={styles.rewardBanner}>
-                🎉 50% First Ride Discount Applied!
+                🎉 50% First Service Discount Applied!
               </div>
             )}
           </div>
@@ -187,12 +187,12 @@ export function BookingConfirmation({ bookingData, onConfirmBooking, onBack }: B
           {isBooking ? (
             <div className={styles.bookingLoader}>
               <LoadingSpinner size="small" variant="light" inline />
-              <span>Confirming Your Booking...</span>
+              <span>Confirming Your Security Service...</span>
             </div>
           ) : (
             <>
               <span className={styles.lockIcon}>🔒</span>
-              <span>Confirm Secure Booking - £{estimatedCost}</span>
+              <span>Confirm Security Service - £{estimatedCost}</span>
             </>
           )}
         </button>

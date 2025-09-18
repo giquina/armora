@@ -2,11 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { useApp } from '../../contexts/AppContext';
 import { Button } from '../UI/Button';
 import { ServiceCard } from './ServiceCard';
-import { CreatorImpactWidget } from './CreatorImpactWidget';
+// import { CreatorImpactWidget } from './CreatorImpactWidget';
 import { MarketingBanner } from './MarketingBanner';
 import { SmartRecommendation } from './SmartRecommendation';
 import { BookingSearchInterface } from './BookingSearchInterface';
-import ArmoraFoundationModal from '../ArmoraFoundation/ArmoraFoundationModal';
+// import ArmoraFoundationModal from '../ArmoraFoundation/ArmoraFoundationModal';
 import { ServiceLevel } from '../../types';
 // import { getDisplayName } from '../../utils/nameUtils'; // Removed since header is no longer displayed
 import { getAllServices } from '../../data/standardizedServices';
@@ -20,13 +20,13 @@ const convertToServiceLevel = (): ServiceLevel[] => {
     tagline: service.tagline,
     price: service.priceDisplay,
     hourlyRate: service.hourlyRate,
-    // Vehicle and capacity data - standardized for all services
-    vehicle: service.id === 'standard' ? 'Nissan Leaf EV' :
-             service.id === 'executive' ? 'BMW 5 Series' :
-             service.id === 'client-vehicle' ? 'Your Personal Vehicle' : 'Protected BMW X5',
-    capacity: service.id === 'client-vehicle' ? 'Any vehicle size' : '4 passengers',
-    driverQualification: service.id === 'standard' || service.id === 'client-vehicle' ? 'SIA Level 2 Security Certified' :
-                        service.id === 'executive' ? 'SIA Level 3 Security Certified' : 'Special Forces Trained',
+    // Security assets and capacity data - standardized for all services
+    vehicle: service.id === 'standard' ? 'Unmarked Secure Vehicle' :
+             service.id === 'executive' ? 'Executive Security Vehicle (S-Class)' :
+             service.id === 'client-vehicle' ? 'Your Personal Vehicle' : 'Armoured Protection Vehicle',
+    capacity: service.id === 'client-vehicle' ? 'Any vehicle configuration' : 'Principal + 3 associates',
+    driverQualification: service.id === 'standard' || service.id === 'client-vehicle' ? 'SIA Level 2 Close Protection' :
+                        service.id === 'executive' ? 'SIA Level 3 Close Protection' : 'Ex-Military Close Protection',
     description: service.description,
     features: service.features.map(f => f.text) // Convert from {icon, text} to string array
   }));
@@ -226,10 +226,10 @@ export function Dashboard() {
         <div className={styles.guestHeader}>
           <div className={styles.headerContent}>
             <h1 className={styles.title}>
-              Armora Security Transport
+              Armora Security Services
             </h1>
             <p className={styles.subtitle}>
-              View our premium security services
+              Licensed Security Officers Ensuring Your Safety
             </p>
           </div>
         </div>
@@ -238,10 +238,10 @@ export function Dashboard() {
         <div className={styles.upgradeSection}>
           <div className={styles.upgradeCard}>
             <div className={styles.upgradeContent}>
-              <h2 className={styles.upgradeTitle}>Create Account to Book</h2>
+              <h2 className={styles.upgradeTitle}>Create Account for Security Services</h2>
               <p className={styles.upgradeDescription}>
-                Register now to unlock direct booking, personalized recommendations, 
-                and exclusive rewards including 50% off your first ride.
+                Register now to unlock direct security service booking, personalized recommendations,
+                and exclusive rewards including 50% off your first security service.
               </p>
               <Button
                 variant="primary"
@@ -258,7 +258,7 @@ export function Dashboard() {
 
         {/* Service Overview Cards */}
         <div className={styles.servicesSection}>
-          <h2 className={styles.sectionTitle}>Our Security Transport Services</h2>
+          <h2 className={styles.sectionTitle}>Our Security Services</h2>
           <div className={styles.servicesGrid}>
             {ARMORA_SERVICES.map((service) => (
               <ServiceCard
@@ -280,7 +280,7 @@ export function Dashboard() {
           <div className={styles.contactCard}>
             <h3 className={styles.contactTitle}>Need Immediate Assistance?</h3>
             <p className={styles.contactDescription}>
-              Call our 24/7 security operations center for immediate booking assistance
+              Call our 24/7 support for immediate security officer deployment and coordination
             </p>
             <div className={styles.contactDetails}>
               <div className={styles.contactItem}>
@@ -291,8 +291,8 @@ export function Dashboard() {
               </div>
               <div className={styles.contactItem}>
                 <span className={styles.contactLabel}>Email:</span>
-                <a href="mailto:operations@armora.security" className={styles.contactLink}>
-                  operations@armora.security
+                <a href="mailto:services@armora.security" className={styles.contactLink}>
+                  services@armora.security
                 </a>
               </div>
             </div>
@@ -318,9 +318,9 @@ export function Dashboard() {
               <div className={styles.discountValue}>50% OFF</div>
               <div className={styles.rewardDetails}>
                 <span className={styles.rewardDescription}>
-                  Your first ride (up to £15) • Valid 30 days
+                  Your first security service (up to £75) • Valid 30 days
                 </span>
-                <span className={styles.rewardCTA}>Secure Your Journey →</span>
+                <span className={styles.rewardCTA}>Request Security →</span>
               </div>
             </div>
             <button
@@ -339,7 +339,7 @@ export function Dashboard() {
 
 
       {/* Impact Widget for Essential Members */}
-      <CreatorImpactWidget />
+      {/* <CreatorImpactWidget /> */}
 
       {/* Smart Recommendation - Condensed Version */}
       <SmartRecommendation
@@ -379,9 +379,9 @@ export function Dashboard() {
               >
                 <div className={styles.getStartedIcon}>⚡</div>
                 <div className={styles.getStartedContent}>
-                  <h3 className={styles.getStartedCardTitle}>Ride Now</h3>
-                  <p className={styles.getStartedCardDescription}>Immediate pickup</p>
-                  <p className={styles.getStartedCardDetails}>Available in 2 minutes</p>
+                  <h3 className={styles.getStartedCardTitle}>Request Protection</h3>
+                  <p className={styles.getStartedCardDescription}>Immediate deployment</p>
+                  <p className={styles.getStartedCardDetails}>CPO available in 15 minutes</p>
                 </div>
                 <div className={styles.getStartedArrow}>→</div>
               </button>
@@ -397,9 +397,9 @@ export function Dashboard() {
               >
                 <div className={styles.getStartedIcon}>✈️</div>
                 <div className={styles.getStartedContent}>
-                  <h3 className={styles.getStartedCardTitle}>Airport Transfer</h3>
-                  <p className={styles.getStartedCardDescription}>Any terminal</p>
-                  <p className={styles.getStartedCardDetails}>Heathrow • Gatwick • City</p>
+                  <h3 className={styles.getStartedCardTitle}>Airport Security</h3>
+                  <p className={styles.getStartedCardDescription}>Secure transit</p>
+                  <p className={styles.getStartedCardDetails}>Aviation security protocols</p>
                 </div>
                 <div className={styles.getStartedArrow}>→</div>
               </button>
@@ -414,9 +414,9 @@ export function Dashboard() {
               >
                 <div className={styles.getStartedIcon}>📅</div>
                 <div className={styles.getStartedContent}>
-                  <h3 className={styles.getStartedCardTitle}>Schedule Ride</h3>
-                  <p className={styles.getStartedCardDescription}>Plan ahead</p>
-                  <p className={styles.getStartedCardDetails}>Book for any time</p>
+                  <h3 className={styles.getStartedCardTitle}>Schedule Protection</h3>
+                  <p className={styles.getStartedCardDescription}>Plan security coverage</p>
+                  <p className={styles.getStartedCardDetails}>Advance threat assessment</p>
                 </div>
                 <div className={styles.getStartedArrow}>→</div>
               </button>
@@ -428,9 +428,9 @@ export function Dashboard() {
               >
                 <div className={styles.getStartedIcon}>👔</div>
                 <div className={styles.getStartedContent}>
-                  <h3 className={styles.getStartedCardTitle}>Executive</h3>
-                  <p className={styles.getStartedCardDescription}>Premium service</p>
-                  <p className={styles.getStartedCardDetails}>BMW • Ex-military drivers</p>
+                  <h3 className={styles.getStartedCardTitle}>Executive Protection</h3>
+                  <p className={styles.getStartedCardDescription}>Corporate security</p>
+                  <p className={styles.getStartedCardDetails}>Ex-military CPOs • Armoured vehicles</p>
                 </div>
                 <div className={styles.getStartedArrow}>→</div>
               </button>
@@ -519,10 +519,10 @@ export function Dashboard() {
       <div id="service-overview" className={styles.servicesSection}>
         <div className={styles.sectionHeader}>
           <h2 className={styles.sectionTitle}>
-            Your Security Transport Options
+            Your Close Protection Options
           </h2>
           <p className={styles.sectionDescription}>
-            Professional security drivers available 24/7 with premium fleet vehicles
+            SIA-licensed Close Protection Officers available 24/7 with secure vehicle assets
           </p>
         </div>
         <div className={styles.servicesGrid}>
@@ -552,10 +552,10 @@ export function Dashboard() {
             className={styles.bookNowMainButton}
             onClick={() => navigateToView('booking')}
           >
-            🚀 Book Your Secure Transport
+            🛡️ Request Protection Services
           </button>
           <p className={styles.ctaSubtext}>
-            Complete your booking in just 3 simple steps
+            Complete your security engagement in just 3 simple steps
           </p>
         </div>
       </div>
@@ -741,9 +741,9 @@ export function Dashboard() {
       </div>
 
       {/* Safe Ride Fund Modal */}
-      {showSafeRideModal && (
+      {/* {showSafeRideModal && (
         <ArmoraFoundationModal onClose={() => setShowSafeRideModal(false)} />
-      )}
+      )} */}
     </div>
   );
 }

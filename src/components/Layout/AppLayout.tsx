@@ -26,8 +26,9 @@ export function AppLayout({
   const { currentView, user } = state;
 
   const shouldShowHeader = showHeader && currentView !== 'splash' &&
-                        !['home', 'services', 'bookings', 'account'].includes(currentView);
-  const shouldShowNav = showNavigation && user && currentView !== 'splash';
+                        !['home', 'services', 'bookings', 'account', 'welcome', 'login', 'signup', 'guest-disclaimer', 'questionnaire', 'achievement'].includes(currentView);
+  const shouldShowNav = showNavigation && user && currentView !== 'splash' &&
+                      !['welcome', 'login', 'signup', 'guest-disclaimer', 'questionnaire', 'achievement'].includes(currentView);
 
   const getHeaderInfo = () => {
     if (headerTitle) return { title: headerTitle, subtitle: '', showServices: false };
@@ -232,7 +233,7 @@ export function AppLayout({
             <button
               className={`${styles.navButton} ${currentView === 'services' || currentView.startsWith('venue-protection') || currentView === 'booking' ? styles.navButtonActive : ''}`}
               onClick={() => navigateToView('services')}
-              aria-label="Services"
+              aria-label="Protection"
             >
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                 <rect x="3" y="3" width="7" height="7" rx="1"/>
@@ -240,13 +241,13 @@ export function AppLayout({
                 <rect x="3" y="14" width="7" height="7" rx="1"/>
                 <rect x="14" y="14" width="7" height="7" rx="1"/>
               </svg>
-              <span className={styles.navLabel}>Services</span>
+              <span className={styles.navLabel}>Protection</span>
             </button>
 
             <button
               className={`${styles.navButton} ${currentView === 'bookings' || currentView === 'rides' ? styles.navButtonActive : ''}`}
               onClick={() => navigateToView('bookings')}
-              aria-label="Bookings"
+              aria-label="Operations"
             >
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                 <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
@@ -254,7 +255,7 @@ export function AppLayout({
                 <line x1="8" y1="2" x2="8" y2="6"/>
                 <line x1="3" y1="10" x2="21" y2="10"/>
               </svg>
-              <span className={styles.navLabel}>Bookings</span>
+              <span className={styles.navLabel}>Operations</span>
             </button>
 
             <button

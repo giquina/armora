@@ -13,10 +13,10 @@ export function BookingsView() {
   const [activeView, setActiveView] = useState<ViewType | null>(null);
   const [liveUpdateTime, setLiveUpdateTime] = useState(new Date());
 
-  // Live update for active rides
+  // Live update for active operations
   useEffect(() => {
-    const hasActiveRide = bookings.some(b => b.status === 'active');
-    if (hasActiveRide) {
+    const hasActiveOperation = bookings.some(b => b.status === 'active');
+    if (hasActiveOperation) {
       const interval = setInterval(() => {
         setLiveUpdateTime(new Date());
       }, 30000); // Update every 30 seconds
@@ -29,11 +29,11 @@ export function BookingsView() {
   const completedBookings = bookings.filter(b => b.status === 'completed');
 
   // Determine user state for smart content display
-  const hasActiveRide = activeBookings.length > 0;
+  const hasActiveOperation = activeBookings.length > 0;
   const hasUpcomingBookings = scheduledBookings.length > 0;
   const hasHistory = completedBookings.length > 0;
-  const isNewUser = !hasActiveRide && !hasUpcomingBookings && !hasHistory;
-  const hasMultipleSections = [hasActiveRide, hasUpcomingBookings, hasHistory].filter(Boolean).length > 1;
+  const isNewUser = !hasActiveOperation && !hasUpcomingBookings && !hasHistory;
+  const hasMultipleSections = [hasActiveOperation, hasUpcomingBookings, hasHistory].filter(Boolean).length > 1;
 
   // Mock favorite routes based on booking history
   const getFavoriteRoutes = () => {
@@ -72,14 +72,14 @@ export function BookingsView() {
     }
   };
 
-  const handleTrackDriver = (bookingId: string) => {
-    console.log('Track driver for booking:', bookingId);
-    // TODO: Implement driver tracking with map
+  const handleTrackCPO = (bookingId: string) => {
+    console.log('Track CPO for booking:', bookingId);
+    // TODO: Implement CPO tracking with map
   };
 
-  const handleContactDriver = (bookingId: string) => {
-    console.log('Contact driver for booking:', bookingId);
-    // TODO: Implement driver contact
+  const handleContactCPO = (bookingId: string) => {
+    console.log('Contact CPO for booking:', bookingId);
+    // TODO: Implement CPO contact
   };
 
   const handleShareTrip = (bookingId: string) => {
@@ -131,30 +131,30 @@ export function BookingsView() {
   const renderNewUserState = () => (
     <div className={styles.contentSection}>
       <div className={styles.emptyState}>
-        <h2 className={styles.emptyStateTitle}>No rides yet - let's change that!</h2>
+        <h2 className={styles.emptyStateTitle}>No protection assignments yet - let's change that!</h2>
 
         <div className={styles.popularRides}>
-          <h3 className={styles.sectionSubtitle}>🎯 Popular first rides with Armora:</h3>
+          <h3 className={styles.sectionSubtitle}>🎯 Popular first assignments with Armora CPO Services:</h3>
           <div className={styles.suggestionsList}>
             <div className={styles.suggestionItem}>
               <span className={styles.suggestionIcon}>✈️</span>
               <div className={styles.suggestionContent}>
-                <span className={styles.suggestionTitle}>Airport Transfer</span>
-                <span className={styles.suggestionDesc}>Professional & reliable</span>
+                <span className={styles.suggestionTitle}>Executive Transport</span>
+                <span className={styles.suggestionDesc}>Secure airport escort</span>
               </div>
             </div>
             <div className={styles.suggestionItem}>
               <span className={styles.suggestionIcon}>🌙</span>
               <div className={styles.suggestionContent}>
-                <span className={styles.suggestionTitle}>Evening Commute</span>
-                <span className={styles.suggestionDesc}>Feel safer at night</span>
+                <span className={styles.suggestionTitle}>High-Risk Movement</span>
+                <span className={styles.suggestionDesc}>Enhanced threat protection</span>
               </div>
             </div>
             <div className={styles.suggestionItem}>
               <span className={styles.suggestionIcon}>👔</span>
               <div className={styles.suggestionContent}>
-                <span className={styles.suggestionTitle}>Try Executive</span>
-                <span className={styles.suggestionDesc}>Experience luxury service</span>
+                <span className={styles.suggestionTitle}>VIP Escort Service</span>
+                <span className={styles.suggestionDesc}>Discrete protection detail</span>
               </div>
             </div>
           </div>
@@ -162,15 +162,15 @@ export function BookingsView() {
 
         <div className={styles.actionButtons}>
           <button className={styles.primaryCTA} onClick={handleBookFirstRide}>
-            BOOK YOUR FIRST RIDE →
+            REQUEST PROTECTION →
           </button>
           <button className={styles.secondaryCTA} onClick={handleExploreServices}>
-            EXPLORE SERVICES
+            VIEW SECURITY SERVICES
           </button>
         </div>
 
         <div className={styles.trustSignals}>
-          <h4 className={styles.trustTitle}>Why 2,847 clients trust us:</h4>
+          <h4 className={styles.trustTitle}>Why 2,847 principals choose our protection:</h4>
           <div className={styles.trustItems}>
             <div className={styles.trustItem}>
               <span className={styles.trustIcon}>✓</span>
@@ -201,9 +201,9 @@ export function BookingsView() {
           <div className={styles.liveHeader}>
             <div className={styles.liveIndicator}>
               <span className={styles.liveDot}></span>
-              <span className={styles.liveText}>LIVE RIDE</span>
+              <span className={styles.liveText}>OPERATION ACTIVE</span>
             </div>
-            <div className={styles.bookingId}>{activeRide.id}</div>
+            <div className={styles.bookingId}>[LEVEL 2] {activeRide.id.replace('AR-', 'DELTA-')}</div>
           </div>
 
           <div className={styles.miniMap}>
@@ -217,37 +217,76 @@ export function BookingsView() {
             <div className={styles.serviceDetails}>
               <h3 className={styles.serviceName}>{activeRide.serviceName}</h3>
               <div className={styles.etaInfo}>
-                <span className={styles.etaLabel}>⏱️ Arriving in:</span>
-                <span className={styles.etaTime}>5 minutes</span>
+                <span className={styles.etaLabel}>⏱️ ETA: 5 minutes | Status: In Transit</span>
               </div>
             </div>
 
             <div className={styles.driverInfo}>
-              <h4 className={styles.driverTitle}>DRIVER:</h4>
+              <h4 className={styles.driverTitle}>PROTECTION OFFICER:</h4>
               <div className={styles.driverDetails}>
                 <span className={styles.driverName}>{activeRide.driver.name}</span>
                 <span className={styles.vehicleInfo}>
-                  {activeRide.driver.vehicle} • {activeRide.driver.plate}
+                  SIA License: 1234-5678-9012
+                </span>
+                <span className={styles.vehicleInfo}>
+                  Security Level: Executive Protection
+                </span>
+                <span className={styles.vehicleInfo}>
+                  Comms Status: Encrypted Channel Active
+                </span>
+                <span className={styles.vehicleInfo}>
+                  {activeRide.driver.vehicle} • Armored Level B6
+                </span>
+                <span className={styles.vehicleInfo}>
+                  Registration: {activeRide.driver.plate}
                 </span>
                 <span className={styles.driverRating}>
-                  ⭐⭐⭐⭐⭐ {activeRide.driver.rating} rating
+                  Rating: {activeRide.driver.rating}/5 (247 operations)
                 </span>
               </div>
             </div>
 
+            <div className={styles.securityProtocols}>
+              <h4 className={styles.protocolsTitle}>SECURITY PROTOCOLS:</h4>
+              <div className={styles.protocolsList}>
+                <div className={styles.protocolItem}>✓ Identity Verified</div>
+                <div className={styles.protocolItem}>✓ Route Pre-Cleared</div>
+                <div className={styles.protocolItem}>✓ Panic Button Active</div>
+                <div className={styles.protocolItem}>✓ Command Center Monitoring</div>
+              </div>
+            </div>
+
             <div className={styles.journeyInfo}>
-              <h4 className={styles.journeyTitle}>JOURNEY:</h4>
+              <h4 className={styles.journeyTitle}>ASSIGNMENT:</h4>
               <div className={styles.journeyDetails}>
                 <div className={styles.locationItem}>
                   <span className={styles.locationIcon}>📍</span>
                   <span className={styles.locationText}>
-                    <strong>Pickup:</strong> {activeRide.pickupLocation.address.split(',')[0]}
+                    <strong>Secure Point A:</strong> {activeRide.pickupLocation.address.split(',')[0]}
                   </span>
                 </div>
                 <div className={styles.locationItem}>
-                  <span className={styles.locationIcon}>🏁</span>
+                  <span className={styles.locationIcon}>📍</span>
                   <span className={styles.locationText}>
-                    <strong>Destination:</strong> {activeRide.destination.address.split(',')[0]}
+                    <strong>Target Location:</strong> {activeRide.destination.address.split(',')[0]}
+                  </span>
+                </div>
+                <div className={styles.locationItem}>
+                  <span className={styles.locationIcon}>⏱️</span>
+                  <span className={styles.locationText}>
+                    <strong>Estimated Duration:</strong> 45 minutes
+                  </span>
+                </div>
+                <div className={styles.locationItem}>
+                  <span className={styles.locationIcon}>🛡️</span>
+                  <span className={styles.locationText}>
+                    <strong>Threat Level:</strong> Standard
+                  </span>
+                </div>
+                <div className={styles.locationItem}>
+                  <span className={styles.locationIcon}>📡</span>
+                  <span className={styles.locationText}>
+                    <strong>Tracking:</strong> Live GPS + Panic Button Active
                   </span>
                 </div>
               </div>
@@ -256,28 +295,28 @@ export function BookingsView() {
 
           <div className={styles.liveActions}>
             <button
-              className={styles.trackMapButton}
-              onClick={() => handleTrackDriver(activeRide.id)}
+              className={styles.operationsCenterButton}
+              onClick={() => handleTrackCPO(activeRide.id)}
             >
-              TRACK ON MAP
+              OPERATIONS CENTER
             </button>
             <button
-              className={styles.callDriverButton}
-              onClick={() => handleContactDriver(activeRide.id)}
+              className={styles.secureCommsButton}
+              onClick={() => handleContactCPO(activeRide.id)}
             >
-              CALL DRIVER
+              SECURE COMMS
             </button>
             <button
-              className={styles.shareTripButton}
+              className={styles.routeDetailsButton}
               onClick={() => handleShareTrip(activeRide.id)}
             >
-              SHARE TRIP
+              ROUTE DETAILS
             </button>
             <button
-              className={styles.emergencyButton}
+              className={styles.emergencyProtocolButton}
               onClick={handleEmergencySOS}
             >
-              Emergency SOS
+              EMERGENCY PROTOCOL
             </button>
           </div>
         </div>
@@ -296,7 +335,7 @@ export function BookingsView() {
         {renderQuickActions()}
 
         <div className={styles.sectionHeader}>
-          <h2 className={styles.sectionTitle}>UPCOMING RIDES</h2>
+          <h2 className={styles.sectionTitle}>NEXT OPERATIONS</h2>
           <div className={styles.sectionUnderline}></div>
         </div>
 
@@ -319,8 +358,8 @@ export function BookingsView() {
                 <div className={styles.upcomingRoute}>
                   {booking.pickupLocation.address.split(',')[0]} → {booking.destination.address.split(',')[0]}
                 </div>
-                <div className={styles.upcomingDriver}>
-                  Driver: Assigned 30 min before
+                <div className={styles.upcomingCPO}>
+                  CPO: Assigned 30 min before
                 </div>
                 <div className={styles.upcomingPrice}>
                   £{booking.pricing.total}.00 estimated
@@ -344,7 +383,7 @@ export function BookingsView() {
 
         <div className={styles.sectionFooter}>
           <button className={styles.scheduleAnotherButton} onClick={() => navigateToView('home')}>
-            + SCHEDULE ANOTHER RIDE
+            + SCHEDULE ANOTHER OPERATION
           </button>
         </div>
       </div>
@@ -399,7 +438,7 @@ export function BookingsView() {
         )}
 
         <div className={styles.historySection}>
-          <h2 className={styles.sectionTitle}>RECENT RIDES</h2>
+          <h2 className={styles.sectionTitle}>RECENT OPERATIONS</h2>
           <div className={styles.sectionUnderline}></div>
 
           <div className={styles.historyList}>
@@ -422,8 +461,8 @@ export function BookingsView() {
                   <div className={styles.historyRoute}>
                     {booking.pickupLocation.address.split(',')[0]} → {booking.destination.address.split(',')[0]}
                   </div>
-                  <div className={styles.historyDriver}>
-                    Driver: {booking.driver.name} ⭐⭐⭐⭐⭐
+                  <div className={styles.historyCPO}>
+                    CPO: {booking.driver.name} ⭐⭐⭐⭐⭐
                   </div>
                   <div className={styles.historyPrice}>
                     £{booking.pricing.total}.00 • {booking.route.duration} minutes • {booking.route.distance} miles
@@ -466,7 +505,7 @@ export function BookingsView() {
           <div className={styles.statsGrid}>
             <div className={styles.statItem}>
               <span className={styles.statValue}>{monthlyStats.rides}</span>
-              <span className={styles.statLabel}>Rides</span>
+              <span className={styles.statLabel}>Operations</span>
             </div>
             <div className={styles.statItem}>
               <span className={styles.statValue}>£{monthlyStats.total.toFixed(2)}</span>
@@ -499,7 +538,7 @@ export function BookingsView() {
       <div className={styles.quickActionsList}>
         {completedBookings.length > 0 && (
           <button className={styles.quickActionButton} onClick={handleRebookLast}>
-            Rebook Last Ride
+            Rebook Last Operation
           </button>
         )}
         {favoriteRoutes.length > 0 && (
@@ -526,10 +565,10 @@ export function BookingsView() {
 
   const renderUpcomingPreview = () => (
     <div className={styles.upcomingPreview}>
-      <h3 className={styles.previewTitle}>UPCOMING RIDES</h3>
+      <h3 className={styles.previewTitle}>NEXT OPERATIONS</h3>
       {scheduledBookings.slice(0, 2).map(booking => (
         <div key={booking.id} className={styles.previewCard}>
-          <span className={styles.previewTime}>Tomorrow: </span>
+          <span className={styles.previewTime}>Tomorrow 09:00: Operation Delta - </span>
           <span className={styles.previewRoute}>
             {booking.pickupLocation.address.split(',')[0]} → {booking.destination.address.split(',')[0]}
           </span>
@@ -542,11 +581,11 @@ export function BookingsView() {
     if (!hasMultipleSections) return null;
 
     const tabs = [];
-    if (hasActiveRide) tabs.push({ key: 'active', label: 'ACTIVE', count: activeBookings.length, icon: '🟢' });
-    if (hasUpcomingBookings) tabs.push({ key: 'upcoming', label: 'UPCOMING', count: scheduledBookings.length, icon: '⏰' });
-    if (hasHistory) tabs.push({ key: 'history', label: 'HISTORY', count: completedBookings.length, icon: '✅' });
+    if (hasActiveOperation) tabs.push({ key: 'active', label: 'ACTIVE DETAIL', count: activeBookings.length, icon: '🟢' });
+    if (hasUpcomingBookings) tabs.push({ key: 'upcoming', label: 'SCHEDULED', count: scheduledBookings.length, icon: '⏰' });
+    if (hasHistory) tabs.push({ key: 'history', label: 'COMPLETED', count: completedBookings.length, icon: '✅' });
 
-    const currentView = activeView || (hasActiveRide ? 'active' : hasUpcomingBookings ? 'upcoming' : 'history');
+    const currentView = activeView || (hasActiveOperation ? 'active' : hasUpcomingBookings ? 'upcoming' : 'history');
 
     return (
       <div className={styles.tabNavigation}>
@@ -571,7 +610,7 @@ export function BookingsView() {
     }
 
     if (hasMultipleSections) {
-      const currentView = activeView || (hasActiveRide ? 'active' : hasUpcomingBookings ? 'upcoming' : 'history');
+      const currentView = activeView || (hasActiveOperation ? 'active' : hasUpcomingBookings ? 'upcoming' : 'history');
 
       switch (currentView) {
         case 'active':
@@ -586,15 +625,15 @@ export function BookingsView() {
     }
 
     // Single section states
-    if (hasActiveRide && !hasUpcomingBookings && !hasHistory) {
+    if (hasActiveOperation && !hasUpcomingBookings && !hasHistory) {
       return renderActiveRideState();
     }
 
-    if (hasUpcomingBookings && !hasActiveRide && !hasHistory) {
+    if (hasUpcomingBookings && !hasActiveOperation && !hasHistory) {
       return renderUpcomingBookingsState();
     }
 
-    if (hasHistory && !hasActiveRide && !hasUpcomingBookings) {
+    if (hasHistory && !hasActiveOperation && !hasUpcomingBookings) {
       return renderHistoryState();
     }
 
@@ -604,7 +643,8 @@ export function BookingsView() {
   return (
     <div className={styles.bookingsView}>
       <div className={styles.header}>
-        <h1 className={styles.pageTitle}>YOUR BOOKINGS</h1>
+        <h1 className={styles.pageTitle}>PROTECTION OPERATIONS</h1>
+        <p className={styles.pageSubtitle}>Real-time Security Coordination</p>
         <div className={styles.titleUnderline}></div>
       </div>
 

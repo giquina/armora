@@ -77,15 +77,15 @@ export function FloatingCTA({
     };
     
     const baseStepNames: Record<number, string> = {
-      1: 'Security Assessment',
-      2: 'Frequency Planning', 
-      3: 'Service Matching',
-      4: 'Coverage Planning',
-      5: 'Special Locations',
-      6: 'Priority Protocols',
-      7: 'Custom Requirements',
-      8: 'Communication Setup',
-      9: 'Profile Completion',
+      1: 'Protection Assessment',
+      2: 'Service Frequency',
+      3: 'Protection Matching',
+      4: 'Coverage Areas',
+      5: 'Key Locations',
+      6: 'Priority Setup',
+      7: 'Special Requirements',
+      8: 'Contact Preferences',
+      9: 'Final Review',
     };
     
     const stepNames: Record<number, string> = Object.fromEntries(
@@ -98,15 +98,15 @@ export function FloatingCTA({
     // Smart personalization in descriptions with greetings
     const getPersonalizedDescription = (step: number): string => {
       const baseDescriptions: Record<number, string> = {
-        1: "We assess your security requirements to match you with qualified SIA licensed close protection officers and appropriate security cab services. This helps us understand your protection needs and recommend suitable security officers for your transport requirements.",
-        2: "Understanding your travel patterns helps us optimize our security cab service delivery. Regular users benefit from consistent SIA security officers and route planning, while occasional users receive flexible on-demand close protection services.",
-        3: "These preferences help us match you with the appropriate service level and qualified security officers. We analyze your selections to recommend whether our Standard, Executive, or Shadow protection with personal bodyguards best meets your specific transport security needs.",
-        4: "Knowing your primary locations helps us ensure appropriate SIA licensed security officers and security cab coverage. We pre-position qualified close protection officers and establish secure cab routes in your key areas.",
-        5: "Additional coverage areas help us provide comprehensive protection services. Airport transfers, government buildings, and entertainment venues each require specialized SIA security officers and trained personal bodyguards with our professional security cab services.",
-        6: "Priority contacts and communication preferences ensure rapid response coordination with our SIA licensed close protection officers. This follows security industry best practices for duty of care and incident management with professional security cab services.",
-        7: "Special requirements ensure our qualified security officers and security cab drivers are prepared to provide appropriate professional services. Accessibility, medical, and private security accommodations are configured in advance with our SIA licensed personnel.",
-        8: "Communication preferences ensure seamless coordination between you, your team, and our close protection officers. Clear communication is essential for effective security transport operations with our professional security cab services.",
-        9: "Final review ensures your security profile is complete and accurate. This comprehensive assessment enables us to deliver the most appropriate protection service with qualified SIA security officers and professional security cab transport for your specific requirements.",
+        1: "We assess your protection requirements to match you with qualified protection officers and secure transport solutions. This helps us understand your security needs and assign appropriate officers for your protection engagement.",
+        2: "Understanding your engagement patterns helps us optimize our protection service delivery. Regular clients benefit from consistent officer assignments and route planning, while occasional users receive flexible on-demand protection services.",
+        3: "Your service priorities help us match you with the right protection officers and security personnel. We analyze your selections to recommend whether our Standard, Executive, or Shadow protection best meets your specific security requirements.",
+        4: "Knowing your primary locations helps us ensure appropriate protection officer coverage. We pre-position qualified officers and establish secure routes in your key operational areas.",
+        5: "Additional coverage areas help us provide comprehensive protection services. Airports, corporate venues, and entertainment districts each require specialized officers with venue-specific security protocols.",
+        6: "Priority contacts and communication preferences ensure rapid response coordination with our protection officers, following security industry best practices for duty of care and incident management.",
+        7: "Special requirements ensure our protection officers are prepared to provide appropriate professional services. Accessibility, medical, and personal security accommodations are configured in advance with our qualified personnel.",
+        8: "Communication preferences ensure seamless coordination between you, your team, and our protection officers. Clear communication is essential for effective security operations.",
+        9: "Final review ensures your protection profile is complete and accurate. This comprehensive assessment enables us to deliver the most appropriate protection service for your specific requirements."
       };
 
       const baseDescription = baseDescriptions[step];
@@ -114,13 +114,13 @@ export function FloatingCTA({
       // Add personalized greetings at strategic steps
       if (firstName) {
         if (step === 2) {
-          return `Hi ${firstName}, understanding your travel patterns helps us optimize our security cab service delivery. Regular users benefit from consistent SIA security officers and route planning, while occasional users receive flexible on-demand close protection services.`;
+          return `Hi ${firstName}, understanding your engagement patterns helps us optimize our protection service delivery. Regular clients benefit from consistent officer assignments and route planning, while occasional users receive flexible on-demand protection services.`;
         }
         if (step === 3) {
-          return `Hi ${firstName}, your service priorities help us match you with the right security officers and qualified personnel. We analyze your selections to recommend whether our Standard, Executive, or Shadow protection with personal bodyguards best meets your specific transport security needs.`;
+          return `Hi ${firstName}, your service priorities help us match you with the right protection officers and security personnel. We analyze your selections to recommend whether our Standard, Executive, or Shadow protection best meets your specific security requirements.`;
         }
         if (step === 6) {
-          return `Hi ${firstName}, priority response is crucial for your safety. Priority contacts and communication preferences ensure rapid response coordination with our SIA licensed close protection officers. This follows security industry best practices for duty of care and incident management.`;
+          return `Hi ${firstName}, priority response is crucial for your safety. Priority contacts and communication preferences ensure rapid response coordination with our protection officers, following security industry best practices for duty of care and incident management.`;
         }
         if (step === 9) {
           return `${firstName}, you're almost done! ${baseDescription}`;
@@ -144,7 +144,7 @@ export function FloatingCTA({
         `step${step}`,
         firstName
       );
-      
+
       return {
         title: personalizedContent.title,
         example: firstName ? personalizedContent.withName : personalizedContent.example,
@@ -153,7 +153,7 @@ export function FloatingCTA({
     };
 
     const name = stepNames[currentStep] || 'Assessment';
-    const description = descriptions[currentStep] || 'Completing your security profile for professional transport services with qualified SIA licensed officers...';
+    const description = descriptions[currentStep] || 'Completing your protection profile for professional security services with qualified officers...';
     const stepExample = getStepExample(currentStep);
     return { name, timeLeft: minutesLeft, description, stepExample };
   };
@@ -172,15 +172,15 @@ export function FloatingCTA({
   // Get brief step description for desktop bar
   const getStepBrief = () => {
     const stepBriefs: Record<number, string> = {
-      1: 'Select your professional profile',
-      2: 'Define travel frequency',
-      3: 'Choose service requirements',
-      4: 'Select primary coverage areas',
-      5: 'Add special locations',
+      1: 'Select your protection profile',
+      2: 'Define engagement frequency',
+      3: 'Choose protection requirements',
+      4: 'Select coverage areas',
+      5: 'Add key locations',
       6: 'Set priority contacts',
-      7: 'Specify custom requirements',
-      8: 'Configure communication',
-      9: 'Review complete profile',
+      7: 'Specify special requirements',
+      8: 'Configure communications',
+      9: 'Review protection profile',
     };
     return stepBriefs[currentStep] || 'Complete your assessment';
   };
@@ -317,12 +317,12 @@ export function FloatingCTA({
 
                     <div className={styles.desktopFeatures}>
                       <div className={styles.featureRow}>
-                        <div className={styles.feature}>✅ Personalized Security Profile</div>
-                        <div className={styles.feature}>🎯 Matched Officer Expertise</div>
+                        <div className={styles.feature}>✅ Personal Protection Profile</div>
+                        <div className={styles.feature}>🎯 Specialized Officer Matching</div>
                       </div>
                       <div className={styles.featureRow}>
-                        <div className={styles.feature}>🛡️ SIA Licensed Professionals</div>
-                        <div className={styles.feature}>📋 Tailored Protocols</div>
+                        <div className={styles.feature}>🛡️ Verified Protection Officers</div>
+                        <div className={styles.feature}>📋 Custom Security Protocols</div>
                       </div>
                     </div>
                   </div>
@@ -376,10 +376,10 @@ export function FloatingCTA({
                   </div>
 
                   <div className={styles.stepFeatures}>
-                    <div className={styles.feature}>✅ Personalized Security Profile</div>
-                    <div className={styles.feature}>🎯 Matched Officer Expertise</div>
-                    <div className={styles.feature}>🛡️ SIA Licensed Professionals</div>
-                    <div className={styles.feature}>📋 Tailored Protocols</div>
+                    <div className={styles.feature}>✅ Personal Protection Profile</div>
+                    <div className={styles.feature}>🎯 Specialized Officer Matching</div>
+                    <div className={styles.feature}>🛡️ Verified Protection Officers</div>
+                    <div className={styles.feature}>📋 Custom Security Protocols</div>
                   </div>
                 </div>
               </>
