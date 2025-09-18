@@ -346,7 +346,7 @@ export const SERVICES_DATA: ServiceData[] = [
         title: 'State Dinner',
         situation: 'Embassy event requiring appropriate transport',
         solution: 'S-Class with diplomatic trained team',
-        result: 'Arrived with complete confidence and style',
+        result: 'At Location with complete confidence and style',
         userType: 'diplomatic'
       }
     ],

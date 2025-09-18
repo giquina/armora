@@ -124,15 +124,15 @@ export function VehicleSelection({ user, onServiceSelected, onBack, onSignUp }: 
           </button>
         )}
         <h1 className={styles.title}>
-          Choose Your Protection{user ? `, ${getDisplayName(user)}` : ''}
+          Select Your Security Service{user ? `, ${getDisplayName(user)}` : ''}
         </h1>
-        <p className={styles.subtitle}>Step 1 of 3 • Security Level Selection</p>
+        <p className={styles.subtitle}>Step 1 of 3 • Security Service Selection</p>
         <p className={styles.description}>
-          Professional security drivers available 24/7 with premium fleet vehicles
+          Licensed security officers providing protection and safe travel
         </p>
         {hasReward && (
           <div className={styles.rewardBanner}>
-            🎉 50% off your first ride - reward applied!
+            🎉 50% off your first security service - reward applied!
           </div>
         )}
         {rebookData && (
@@ -194,7 +194,7 @@ export function VehicleSelection({ user, onServiceSelected, onBack, onSignUp }: 
             {isLoading ? (
               <LoadingSpinner size="small" variant="light" text="Preparing..." inline />
             ) : (
-              <>Continue to Location Selection →</>
+              <>Continue to Service Details →</>
             )}
           </button>
         </div>

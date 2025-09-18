@@ -164,9 +164,9 @@ export function LocationPicker({ selectedService, onLocationConfirmed, onBack, u
         <button className={styles.backButton} onClick={onBack}>
           ← Back
         </button>
-        <h1 className={styles.title}>Route Planning</h1>
+        <h1 className={styles.title}>Where do you need security coverage?</h1>
         <p className={styles.subtitle}>
-          Configure pickup and destination for your {selectedService.name}
+          Your security officer provides protection throughout
         </p>
       </div>
 
@@ -241,7 +241,7 @@ export function LocationPicker({ selectedService, onLocationConfirmed, onBack, u
           <div className={styles.locationInputGroup}>
             <label htmlFor="pickup" className={styles.locationLabel}>
               <span className={styles.locationIcon}>📍</span>
-              Pickup Location
+              Service Start
             </label>
             <div className={styles.locationInputWrapper}>
               <input
@@ -295,7 +295,7 @@ export function LocationPicker({ selectedService, onLocationConfirmed, onBack, u
           <div className={styles.locationInputGroup}>
             <label htmlFor="destination" className={styles.locationLabel}>
               <span className={styles.locationIcon}>🏁</span>
-              Destination
+              Service End
             </label>
             <div className={styles.locationInputWrapper}>
               <input
@@ -378,7 +378,7 @@ export function LocationPicker({ selectedService, onLocationConfirmed, onBack, u
         {/* Route Calculation and Estimate */}
         {(isCalculatingRoute || estimatedDistance > 0 || estimatedDuration > 0) && (
           <div className={styles.estimate}>
-            <h3 className={styles.estimateTitle}>Trip Estimate</h3>
+            <h3 className={styles.estimateTitle}>Service Estimate</h3>
             {isCalculatingRoute ? (
               <LocationSkeletonLoader />
             ) : (
@@ -438,14 +438,14 @@ export function LocationPicker({ selectedService, onLocationConfirmed, onBack, u
           ) : isCalculatingRoute ? (
             <LoadingSpinner size="small" variant="light" text="Calculating..." inline />
           ) : (
-            'Confirm Security Transport'
+            'Confirm Security Service'
           )}
         </button>
         
         <div className={styles.disclaimer}>
           <p>
-            Security transport pricing based on actual journey time and threat assessment requirements.
-            Minimum engagement: 1 hour with SIA certified security driver.
+            Security service includes protection throughout your journey.
+            Minimum engagement: 1 hour with licensed security officer.
           </p>
         </div>
       </div>

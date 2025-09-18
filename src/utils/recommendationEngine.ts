@@ -3,6 +3,7 @@ import { PersonalizationData, ServiceLevel, User } from '../types';
 export interface UserProfile {
   type: string;
   matchScore: number;
+  matchReasons: string[];
   title: string;
   subtitle: string;
   description: string;
@@ -37,6 +38,7 @@ export function analyzeUserProfile(questionnaireData: PersonalizationData | null
     medical: {
       type: 'healthcare',
       matchScore: 96,
+      matchReasons: ['Medical professional', 'Shift work schedule', 'Patient confidentiality'],
       title: 'Healthcare Professional Match',
       subtitle: 'Specialized for Medical Professionals',
       description: 'Designed for healthcare workers who understand the importance of reliability, discretion, and safety protocols.',
@@ -55,6 +57,7 @@ export function analyzeUserProfile(questionnaireData: PersonalizationData | null
     executive: {
       type: 'corporate',
       matchScore: 94,
+      matchReasons: ['Corporate executive', 'Business meetings', 'Professional image'],
       title: 'Executive Professional Match',
       subtitle: 'Business Leadership Transport',
       description: 'Executive-level transport that understands the demands of business leadership and corporate responsibility.',
@@ -73,6 +76,7 @@ export function analyzeUserProfile(questionnaireData: PersonalizationData | null
     entrepreneur: {
       type: 'business',
       matchScore: 92,
+      matchReasons: ['Business owner', 'Flexible schedule', 'Investor meetings'],
       title: 'Entrepreneur & Business Owner Match',
       subtitle: 'Dynamic Business Transport',
       description: 'Flexible, reliable transport for the demands of building and running your business.',
@@ -91,6 +95,7 @@ export function analyzeUserProfile(questionnaireData: PersonalizationData | null
     government: {
       type: 'public_sector',
       matchScore: 98,
+      matchReasons: ['Government official', 'Security clearance', 'Protocol requirements'],
       title: 'Government & Public Sector Match',
       subtitle: 'Protocol-Aware Official Transport',
       description: 'Government and public sector transport with full understanding of official protocols and security requirements.',
@@ -109,6 +114,7 @@ export function analyzeUserProfile(questionnaireData: PersonalizationData | null
     legal: {
       type: 'legal',
       matchScore: 95,
+      matchReasons: ['Legal professional', 'Court attendance', 'Client confidentiality'],
       title: 'Legal Professional Match',
       subtitle: 'Court and Chambers Transport',
       description: 'Legal profession transport with understanding of court schedules, client confidentiality, and professional requirements.',
@@ -127,6 +133,7 @@ export function analyzeUserProfile(questionnaireData: PersonalizationData | null
     finance: {
       type: 'financial',
       matchScore: 93,
+      matchReasons: ['Financial professional', 'Market hours', 'Client confidentiality'],
       title: 'Financial Services Match',
       subtitle: 'Market-Ready Professional Transport',
       description: 'Financial sector transport understanding market hours, client requirements, and professional standards.',
@@ -145,6 +152,7 @@ export function analyzeUserProfile(questionnaireData: PersonalizationData | null
     celebrity: {
       type: 'entertainment',
       matchScore: 99,
+      matchReasons: ['Public figure', 'Privacy protection', 'Media avoidance'],
       title: 'Entertainment & Media Match',
       subtitle: 'Privacy-First Celebrity Transport',
       description: 'Entertainment industry transport with maximum discretion, privacy protection, and media awareness.',
@@ -163,6 +171,7 @@ export function analyzeUserProfile(questionnaireData: PersonalizationData | null
     high_profile: {
       type: 'vip',
       matchScore: 99,
+      matchReasons: ['High-profile status', 'Security threats', 'Maximum protection'],
       title: 'High-Profile Individual Match',
       subtitle: 'Maximum Security & Discretion',
       description: 'Elite protection for high-profile individuals requiring the highest levels of security and privacy.',
@@ -181,6 +190,7 @@ export function analyzeUserProfile(questionnaireData: PersonalizationData | null
     family: {
       type: 'family',
       matchScore: 88,
+      matchReasons: ['Family transport', 'Child safety', 'Flexible scheduling'],
       title: 'Family Security Match',
       subtitle: 'Safe Family Transport Solutions',
       description: 'Family-focused security transport with child safety expertise and family scheduling flexibility.',
@@ -199,6 +209,7 @@ export function analyzeUserProfile(questionnaireData: PersonalizationData | null
     student: {
       type: 'student',
       matchScore: 85,
+      matchReasons: ['Student transport', 'Late-night safety', 'Campus access'],
       title: 'Student Safety Match',
       subtitle: 'Safe Student Transport',
       description: 'Student-focused transport providing safe, reliable travel for education and social activities.',
@@ -223,6 +234,7 @@ function getDefaultProfile(): UserProfile {
   return {
     type: 'general',
     matchScore: 85,
+    matchReasons: ['Executive profile', 'High privacy needs', 'Daily usage'],
     title: 'Professional Transport Match',
     subtitle: 'Quality Security Transport',
     description: 'Professional security transport designed for discerning clients who value safety, reliability, and peace of mind.',

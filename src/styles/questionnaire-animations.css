@@ -34,7 +34,7 @@
 
 @keyframes pageSlideIn {
   from {
-    opacity: 0;
+    opacity: 1;
     transform: translateY(30px);
   }
   to {
@@ -51,7 +51,7 @@
 
 @keyframes slideDownFromTop {
   from {
-    opacity: 0;
+    opacity: 1;
     transform: translateY(-50px);
   }
   to {
@@ -78,7 +78,7 @@
 
 @keyframes slideInFromLeft {
   from {
-    opacity: 0;
+    opacity: 1;
     transform: translateX(-30px);
   }
   to {

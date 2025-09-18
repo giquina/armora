@@ -1,924 +1,1121 @@
-// Minimal questionnaire data for basic app functionality
+// Close Protection Officer questionnaire data for SIA-licensed security services
 import { QuestionnaireStep } from '../types';
 
-
-// Complete 9-step questionnaire for Armora Security Transport
+// Complete 9-step Close Protection Officer questionnaire for Armora Security Services
 export const questionnaireSteps: QuestionnaireStep[] = [
   {
     id: 1,
-    title: "Professional Profile",
-    subtitle: "Help us understand your security requirements",
-    question: "Which of these best describes you and your transport needs?",
+    title: "🛡️ Tell us about yourself",
+    subtitle: "Understanding your security needs",
+    question: "Which best describes your security requirements?",
     type: "radio",
     options: [
       {
-        id: "executive",
-        label: "🏢 Are you an executive or business professional?",
-        value: "executive",
-        description: "Do you need reliable transport for high-stakes meetings, corporate events, or daily commutes? We understand that in your world, time is money and first impressions matter.",
-        examples: "*Choose this if you hold a senior position and need transport that reflects your professional status."
+        id: "corporate_executive",
+        label: "🏢 Corporate Executive",
+        value: "corporate_executive",
+        description: "Board-level executives requiring protection during sensitive negotiations, hostile takeovers, shareholder meetings, and corporate espionage situations. CPOs trained in corporate protocols and boardroom security.",
+        examples: "\"Security needed for hostile takeover meetings?\" • \"Protection required during shareholder presentations?\" • \"Are corporate espionage threats a concern?\""
       },
       {
-        id: "entrepreneur", 
-        label: "💼 Are you a business owner or entrepreneur?",
-        value: "entrepreneur",
-        description: "Are you building your empire, meeting investors, or managing multiple ventures? Your transport needs are as dynamic as your business decisions.",
-        examples: "*Choose this if you own a business or are self-employed with professional transport needs."
+        id: "business_owner",
+        label: "💼 Business Owner",
+        value: "business_owner",
+        description: "Entrepreneurs and SME owners facing competitor surveillance, acquisition threats, and targeted business crime. Flexible protection adapting to unpredictable schedules and varied threat profiles.",
+        examples: "\"Back-to-back investor pitch meetings planned?\" • \"Are competitors conducting surveillance?\" • \"Major acquisition deals being negotiated?\""
       },
       {
-        id: "celebrity",
-        label: "🎭 Are you in entertainment or media?",
-        value: "celebrity",
-        description: "Do you need discrete transport to studios, premieres, or appearances? Whether you're in front of the camera or behind the scenes, privacy and timing are everything.",
-        examples: "*Choose this if you're an actor, musician, TV personality, producer, or media professional."
+        id: "entertainment_public_figure",
+        label: "🎭 Entertainment/Public Figure",
+        value: "entertainment_public_figure",
+        description: "Celebrities, performers, and media personalities requiring protection from stalkers, paparazzi, and fan interactions. CPOs trained in crowd control and privacy management.",
+        examples: "\"Do paparazzi follow you everywhere?\" • \"Red carpet premieres to attend?\" • \"Do fans wait outside your home daily?\""
       },
       {
-        id: "athlete",
-        label: "⚽ Are you a sports professional or athlete?", 
-        value: "athlete",
-        description: "Do you need transport to training, competitions, or sports events? We understand the importance of arriving relaxed and focused on your performance.",
-        examples: "*Choose this if you're an athlete, coach, or sports professional."
+        id: "sports_professional",
+        label: "⚽ Sports Professional/Athlete",
+        value: "sports_professional",
+        description: "Athletes needing protection at training facilities, competitions, and public appearances. CPOs understand performance schedules and coordinate with team security.",
+        examples: "\"Safe transport needed to training facilities?\" • \"Do fans crowd you after matches?\" • \"International competition travel required?\""
       },
       {
-        id: "government",
-        label: "🏛️ Are you a government or public sector official?",
-        value: "government", 
-        description: "Do your responsibilities require secure, punctual transport to sensitive locations? Whether it's council meetings, government buildings, or public events, we understand protocol matters.",
-        examples: "*Choose this if you work in any level of government, civil service, or public administration."
+        id: "government_public_sector",
+        label: "🏛️ Government/Public Sector",
+        value: "government_public_sector",
+        description: "Officials requiring CPOs with security clearance, understanding of government protocols, and coordination with police protection units.",
+        examples: "\"Classified documents carried daily?\" • \"State ceremonies attended regularly?\" • \"Clearance-aware protection officers required?\""
       },
       {
-        id: "diplomat",
-        label: "🌍 Are you part of an international delegation?",
-        value: "diplomat",
-        description: "Are you coordinating transport for diplomatic visits, international business groups, or foreign delegations? Protocol and cultural sensitivity are paramount.",
-        examples: "*Choose this if you're organizing or part of international group travel."
+        id: "international_delegation",
+        label: "🌍 International Delegation",
+        value: "international_delegation",
+        description: "Foreign visitors and diplomatic missions requiring UK threat assessment, cultural security adaptation, and international protection coordination.",
+        examples: "\"Part of an international delegation?\" • \"Serving in a diplomatic mission?\" • \"Visiting UK for foreign business?\""
       },
       {
-        id: "medical",
-        label: "🏥 Are you a senior healthcare professional?",
-        value: "medical",
-        description: "Do you move between hospitals, clinics, or urgent calls? Perhaps you need reliable transport after exhausting shifts or for important medical conferences?",
-        examples: "*Choose this if you're a doctor, surgeon, senior nurse, or healthcare administrator."
+        id: "healthcare_professional",
+        label: "🏥 Healthcare Professional",
+        value: "healthcare_professional",
+        description: "Medical professionals requiring protection at hospitals, clinics, and conferences. CPOs trained in medical facility protocols and patient confidentiality.",
+        examples: "\"Are you a doctor or surgeon?\" • \"Do you work on-call schedules?\" • \"Medical conferences to attend?\""
       },
       {
-        id: "legal",
-        label: "⚖️ Are you a legal professional?",
-        value: "legal",
-        description: "Do you need dependable transport between courts, chambers, and client meetings? We know your reputation depends on punctuality and maintaining client confidentiality.",
-        examples: "*Choose this if you're a barrister, solicitor, judge, or other legal professional requiring discrete transport."
+        id: "legal_professional",
+        label: "⚖️ Legal Professional",
+        value: "legal_professional",
+        description: "Lawyers, barristers, and legal staff requiring court security, witness protection protocols, and secure document handling during sensitive cases.",
+        examples: "\"Are you a lawyer or barrister?\" • \"Court appearances required?\" • \"Sensitive legal cases handled?\""
       },
       {
-        id: "creative",
-        label: "🎨 Are you a creative professional?",
-        value: "creative",
-        description: "Are you an artist, designer, or creative consultant moving between studios, galleries, or client presentations? Your creative energy shouldn't be wasted on travel stress.",
-        examples: "*Choose this if you work in creative industries."
+        id: "creative_professional",
+        label: "🎨 Creative Professional",
+        value: "creative_professional",
+        description: "Artists, designers, and creators requiring studio security, intellectual property protection, and secure transport of valuable works.",
+        examples: "\"Are you an artist or designer?\" • \"Do you create valuable works?\" • \"Gallery openings to attend?\""
       },
       {
-        id: "academic",
-        label: "🎓 Are you an academic or educational professional?",
-        value: "academic",
-        description: "Do you travel between universities, conferences, or research facilities? Perhaps you're a visiting professor or education administrator who values intellectual conversation during commutes?",
-        examples: "*Choose this if you work in education, research, or academic administration."
+        id: "academic_educational",
+        label: "🎓 Academic/Educational",
+        value: "academic_educational",
+        description: "Professors and researchers requiring campus security, conference protection, and intellectual property safeguarding.",
+        examples: "\"Are you a professor or researcher?\" • \"Do you work on campus?\" • \"Sensitive research conducted?\""
       },
       {
         id: "student",
-        label: "📚 Are you a student?",
+        label: "👨‍🎓 Student",
         value: "student",
-        description: "Are you studying at university or college? Need safe transport for late library sessions, social events, or trips home? We understand student life has unique transport needs.",
-        examples: "*Choose this if you're currently in full-time education."
+        description: "Students requiring late study session protection, exam period security, campus escort services, and library safety protocols.",
+        examples: "\"Are you a university student?\" • \"Safe late-night library access needed?\" • \"Campus escort services required?\""
       },
       {
         id: "international_visitor",
-        label: "✈️ Are you visiting the UK?",
+        label: "🌐 International Visitor",
         value: "international_visitor",
-        description: "Are you here for tourism, temporary work, or visiting family? Do you need reliable transport to explore safely without worrying about navigation or parking?",
-        examples: "*Choose this if you're a tourist or temporary visitor to the UK."
+        description: "Overseas clients requiring UK security orientation, threat landscape briefing, and protection while navigating unfamiliar environments.",
+        examples: "\"Visiting UK as a tourist?\" • \"Here for business visits?\" • \"Unfamiliar with UK security?\""
       },
       {
-        id: "finance",
-        label: "📊 Are you a financial services professional?",
-        value: "finance",
-        description: "Do you work in banking, investment, or insurance? Are early morning market hours and late client dinners part of your routine? Your transport should match your professional standards.",
-        examples: "*Choose this if you work in finance, banking, trading, or insurance at any level."
+        id: "financial_services",
+        label: "💰 Financial Services",
+        value: "financial_services",
+        description: "Banking and finance professionals requiring protection from insider threats, secure data transport, and trading floor security protocols.",
+        examples: "\"Do you work in banking or finance?\" • \"Do you work on trading floors?\" • \"Financial data security handled?\""
       },
       {
-        id: "security",
-        label: "🛡️ Are you in security or law enforcement?",
-        value: "security",
-        description: "Do you work in private security, police services, or military? You understand protocols and appreciate professional standards in transport services.",
-        examples: "*Choose this if you're in any security, police, or military role requiring civilian transport."
+        id: "security_law_enforcement",
+        label: "🛡️ Security/Law Enforcement",
+        value: "security_law_enforcement",
+        description: "Current or former security professionals requiring peer protection with tactical coordination and enhanced operational security.",
+        examples: "\"Are you current or former police?\" • \"Military or security professional?\" • \"Off-duty protection needed?\""
       },
       {
-        id: "family",
-        label: "👨‍👩‍👧‍👦 Are you looking for secure family transport?",
-        value: "family",
-        description: "Do you need safe, reliable transport for your loved ones? Whether it's school runs, family outings, or airport transfers, your family's safety and comfort come first.",
-        examples: "*Choose this if you're primarily booking for family activities and personal use."
+        id: "family_protection",
+        label: "👨‍👩‍👧‍👦 Family Protection",
+        value: "family_protection",
+        description: "Families requiring comprehensive protection including school run security, residential safety, and age-appropriate interaction with children.",
+        examples: "\"Family protection needed?\" • \"School run security required?\" • \"Residential security for household needed?\""
       },
       {
-        id: "general",
-        label: "🚗 Are you looking for general premium transport?",
-        value: "general",
-        description: "Do you simply want reliable, comfortable transport without specific professional requirements? Sometimes you just need a dependable ride.",
-        examples: "*Choose this if you need quality transport but don't fit other specific categories."
+        id: "general_premium_protection",
+        label: "🔒 General Premium Protection",
+        value: "general_premium_protection",
+        description: "Clients requiring standard close protection without sector-specific protocols but with full SIA-licensed professional security.",
+        examples: "\"General protection services needed?\" • \"No specific industry requirements?\" • \"None of the above categories apply?\""
       },
       {
-        id: "high_profile",
-        label: "🔒 Are you a high-profile individual requiring maximum discretion?",
-        value: "high_profile",
-        description: "Is your privacy paramount? Do you need the highest level of discretion and security for your movements? We understand some clients need invisible excellence.",
-        examples: "*Choose this if you require enhanced security measures and complete confidentiality."
+        id: "high_profile_individual",
+        label: "🔐 High-Profile Individual",
+        value: "high_profile_individual",
+        description: "Individuals facing specific, credible threats requiring maximum security including counter-surveillance and threat assessment.",
+        examples: "\"Specific credible threats faced?\" • \"Maximum security required?\" • \"Counter-surveillance and advanced threat assessment needed?\""
       },
       {
         id: "prefer_not_to_say",
-        label: "❓ Prefer not to say",
+        label: "❓ Prefer Not to Say",
         value: "prefer_not_to_say",
-        description: "No problem at all. We can work with you to understand your needs as we go.",
-        examples: "*Choose this if you prefer to keep your professional background private."
+        description: "Confidential threat assessment with security requirements discussed privately with senior protection coordinators.",
+        examples: "\"Prefer to discuss requirements confidentially?\" • \"Cannot disclose role publicly?\" • \"Discretion about identity required?\""
       }
     ],
-    validation: { required: true, errorMessage: "Please select your professional profile" },
-    helpText: "Tell us about yourself so we can match you with the perfect transport experience. There are no wrong answers - just honest ones.",
+    validation: { required: true, errorMessage: "Please select your protection requirements" },
+    helpText: "Our Close Protection Officers specialise in different threat environments and security protocols. Each sector has unique risks - corporate espionage, public exposure, targeted crime, or personal threats. We assign CPOs with specific experience in your sector's security challenges.",
     isFirstStep: true,
     processOverview: {
       timeRequired: "8-9 minutes",
       benefits: [
-        "Personalized security recommendations",
-        "Matched with appropriate protection level",
-        "Optimized routing and driver selection",
-        "Exclusive 50% discount on first booking"
+        "Personalized protection recommendations",
+        "Matched with appropriate security level",
+        "Optimized threat assessment and CPO selection",
+        "Exclusive 50% discount on first security engagement"
       ],
-      securityAssurance: "All responses are encrypted and used exclusively for service matching. Your privacy is our priority."
+      securityAssurance: "All responses are encrypted and used exclusively for security matching. Your safety is our priority."
     },
-    stepDescription: "Tell us what you do so we can match you with the right drivers. A CEO might need someone who understands business confidentiality, while a student might prefer a friendly driver who knows the best late-night food spots. It's all about finding your perfect match."
+    stepDescription: "Tell us your sector so we can match you with the right CPOs. A CEO might need officers who understand corporate espionage, while a celebrity might prefer specialists in crowd control and paparazzi management. It's all about finding your perfect protection match."
   },
   {
     id: 2,
-    title: "Travel Frequency",
-    subtitle: "Understanding your transport patterns",
-    question: "How often will you need our services?",
+    title: "⏰ How often do you need security services?",
+    subtitle: "Understanding your security patterns",
+    question: "How often do you need security coverage?",
     type: "radio",
     options: [
       {
-        id: "daily",
-        label: "📅 Do you need daily transport?",
-        value: "daily",
-        description: "Is secure transport part of your everyday routine? Whether it's your commute to work or multiple daily appointments, we'll become part of your daily life.",
-        examples: "*Choose this if you need transport 5 or more times per week."
+        id: "daily_protection_detail",
+        label: "📅 Daily Protection Detail",
+        value: "daily_protection_detail",
+        description: "Full-time CPO coverage 5-7 days per week. Dedicated team familiar with your routines, contacts, and evolving threat landscape.",
+        examples: "\"Protection needed 5+ times per week?\" • \"Daily high-risk schedules involved?\" • \"Continuous protection coverage required?\""
       },
       {
-        id: "weekly",
-        label: "🗓️ Do you need regular business transport?",
-        value: "weekly",
-        description: "Are you traveling for business several times a week? Client meetings, office visits, or regular business entertainment?",
-        examples: "*Choose this if you need transport 2-4 times per week."
+        id: "regular_business_protection",
+        label: "🗓️ Regular Business Protection",
+        value: "regular_business_protection",
+        description: "CPO coverage 2-4 times weekly for predictable business activities, meetings, and regular threat exposure periods.",
+        examples: "\"Protection needed 2-4 times per week?\" • \"Regular high-risk meetings scheduled?\" • \"Consistent threat exposure maintained?\""
       },
       {
-        id: "monthly",
-        label: "📆 Do you need monthly transport?",
-        value: "monthly",
-        description: "Are your transport needs periodic? Monthly board meetings, regular check-ups, or social events?",
-        examples: "*Choose this if you need transport 1-3 times per month."
+        id: "weekly_security_schedule",
+        label: "📆 Weekly Security Schedule",
+        value: "weekly_security_schedule",
+        description: "Protection services 1-2 times per week for standing appointments, regular events, or specific weekly exposures.",
+        examples: "\"Protection needed 1-2 times per week?\" • \"Weekly high-profile events scheduled?\" • \"Moderate threat exposure maintained?\""
       },
       {
-        id: "project_based",
-        label: "🎯 Do you have project-based transport needs?",
-        value: "project_based",
-        description: "Is your need temporary but intensive? Perhaps a film shoot, business project, or temporary assignment?",
-        examples: "*Choose this if you need intensive transport for specific time periods."
+        id: "biweekly_protection",
+        label: "🗓️ Biweekly Protection",
+        value: "biweekly_protection",
+        description: "Alternating week schedule for periodic security requirements aligned with business or personal cycles.",
+        examples: "\"Protection needed every other week?\" • \"Bi-weekly risk periods experienced?\" • \"Cyclical threat patterns present?\""
       },
       {
-        id: "unpredictable",
-        label: "❓ Are your transport needs unpredictable?",
-        value: "unpredictable",
-        description: "Is your schedule too variable to predict? Last-minute meetings or spontaneous travel requirements?",
-        examples: "*Choose this if you can't predict your transport frequency."
+        id: "monthly_security_coverage",
+        label: "📅 Monthly Security Coverage",
+        value: "monthly_security_coverage",
+        description: "Protection for 1-3 specific occasions monthly such as board meetings, public appearances, or high-risk events.",
+        examples: "\"Protection needed 1-3 times per month?\" • \"Monthly board meetings scheduled?\" • \"Regular but infrequent risk exposure?\""
       },
       {
-        id: "special_events",
-        label: "🎪 Do you only need transport for special events?",
-        value: "special_events",
-        description: "Are you looking for transport just for important occasions? Galas, premieres, or special celebrations?",
-        examples: "*Choose this if you only need occasional event transport."
+        id: "quarterly_protection",
+        label: "📊 Quarterly Protection",
+        value: "quarterly_protection",
+        description: "Seasonal security requirements every few months aligned with business quarters or periodic events.",
+        examples: "\"Protection needed every few months?\" • \"Quarterly risk periods experienced?\" • \"Seasonal threat exposure present?\""
       },
       {
-        id: "seasonal",
-        label: "🏦 Are you here for holiday or tourist purposes?",
-        value: "seasonal",
-        description: "Are you visiting the UK for leisure? Need reliable transport to explore without the stress of driving?",
-        examples: "*Choose this if you're a tourist or holiday visitor."
+        id: "project_based_security",
+        label: "🎯 Project-Based Security",
+        value: "project_based_security",
+        description: "Intensive CPO coverage during specific projects, deals, or time-limited operations requiring enhanced protection.",
+        examples: "\"Intensive protection needed for specific periods?\" • \"Campaign or project-based threats faced?\" • \"Surge protection capability required?\""
       },
       {
-        id: "weekly_appointments",
-        label: "📅 Do you have weekly appointments?",
-        value: "weekly_appointments",
-        description: "Do you have regular weekly commitments? Perhaps standing meetings, medical appointments, or social engagements?",
-        examples: "*Choose this if you need transport 1-2 times per week."
+        id: "event_security_only",
+        label: "🎪 Event Security Only",
+        value: "event_security_only",
+        description: "Protection exclusively for galas, premieres, conferences, and public appearances with venue-specific security.",
+        examples: "\"Only occasional event protection needed?\" • \"High-profile events attended irregularly?\" • \"Unpredictable security needs present?\""
       },
       {
-        id: "biweekly",
-        label: "🗓️ Do you travel every other week?",
-        value: "biweekly",
-        description: "Is your schedule more spread out? Perhaps alternating between offices or bi-weekly business trips?",
-        examples: "*Choose this if you need transport every other week."
+        id: "unpredictable_variable",
+        label: "❓ Unpredictable/Variable",
+        value: "unpredictable_variable",
+        description: "Irregular schedule requiring flexible CPO deployment based on emerging threats or last-minute requirements.",
+        examples: "\"Cannot predict protection frequency?\" • \"Threat level fluctuates unpredictably?\" • \"Flexible on-demand security needed?\""
       },
       {
-        id: "quarterly",
-        label: "📆 Do you travel quarterly?",
-        value: "quarterly",
-        description: "Are your transport needs tied to quarterly business cycles? Perhaps investor meetings or seasonal events?",
-        examples: "*Choose this if you need transport every few months."
+        id: "24_7_on_call_retainer",
+        label: "🚨 24/7 On-Call Retainer",
+        value: "24_7_on_call_retainer",
+        description: "Guaranteed CPO availability within 1 hour notice, with monthly retainer for immediate deployment capability.",
+        examples: "\"Guaranteed rapid response capability needed?\" • \"Immediate threat escalation risk present?\" • \"Emergency activation protocols required?\""
       },
       {
-        id: "term_time",
-        label: "🎓 Do you need term-time transport only?",
-        value: "term_time",
-        description: "Are your transport needs tied to the academic calendar? University terms or school schedules?",
-        examples: "*Choose this if you're a student needing term-time transport."
+        id: "threat_activated_response",
+        label: "⚠️ Threat-Activated Response",
+        value: "threat_activated_response",
+        description: "Protection services triggered by threat level escalation, with monitoring and rapid deployment when needed.",
+        examples: "\"Protection activates based on threat levels?\" • \"Intelligence-driven security needed?\" • \"Threat-responsive protection required?\""
+      },
+      {
+        id: "international_travel_only",
+        label: "✈️ International Travel Only",
+        value: "international_travel_only",
+        description: "CPO protection specifically for overseas trips, airport transits, and foreign security coordination.",
+        examples: "\"Protection only needed for international travel?\" • \"Heightened risk faced abroad?\" • \"Cross-border security coordination required?\""
+      },
+      {
+        id: "seasonal_holiday_periods",
+        label: "🏖️ Seasonal/Holiday Periods",
+        value: "seasonal_holiday_periods",
+        description: "Protection during specific seasons, holidays, or vacation periods with enhanced family security.",
+        examples: "\"Seasonal protection only needed?\" • \"Holiday or seasonal threats faced?\" • \"Periodic security coverage required?\""
+      },
+      {
+        id: "academic_term_time",
+        label: "🎓 Academic Term-Time",
+        value: "academic_term_time",
+        description: "University calendar-based protection aligned with semester schedules and exam periods.",
+        examples: "\"Are you a student needing term-time protection?\" • \"Academic year threats faced?\" • \"Campus-based protection cycles needed?\""
       },
       {
         id: "prefer_not_to_say",
-        label: "❓ I'd rather not specify right now",
+        label: "❓ Prefer Not to Say",
         value: "prefer_not_to_say",
-        description: "No problem at all. We can work with you to understand your needs as we go.",
-        examples: "*Choose this if you prefer to keep your travel patterns private."
+        description: "Frequency requirements discussed privately with security coordinators.",
+        examples: "\"Prefer to keep protection patterns private?\" • \"Confidential scheduling required?\" • \"Discretionary activation protocols needed?\""
       }
     ],
-    validation: { required: true, errorMessage: "Please select your travel frequency requirements" },
-    helpText: "Knowing your rhythm helps us be ready when you need us. Whether daily or occasionally, we adapt to your life.",
-    stepDescription: "How often you travel helps us serve you better. Daily commuters get familiar drivers who learn your favorite routes and coffee order. Occasional riders get our most flexible drivers who are great with new destinations. It's like having a regular barista versus a helpful concierge."
+    validation: { required: true, errorMessage: "Please select your protection frequency requirements" },
+    helpText: "Protection frequency determines how we structure your security team. Regular clients receive dedicated CPOs who learn your patterns and identify anomalies. Occasional clients get event specialists. This is about maintaining consistent security coverage appropriate to your threat exposure.",
+    stepDescription: "How often you need protection helps us serve you better. Daily clients get familiar CPOs who learn your routines and potential vulnerabilities. Occasional clients get our most flexible officers who excel with new environments. It's like having a regular bodyguard versus a specialist consultant."
   },
   {
     id: 3,
-    title: "Service Requirements",
-    subtitle: "What matters most to you",
-    question: "What would make your journey perfect? Tell us everything that matters to you.",
+    title: "🔒 What's important for your security?",
+    subtitle: "What matters most for your security",
+    question: "What are your essential security priorities?",
     type: "checkbox",
     options: [
       {
-        id: "privacy_discretion",
-        label: "🔒 Is absolute privacy and confidentiality essential?",
-        value: "privacy_discretion",
-        description: "Do your conversations and destinations need to remain completely confidential? No questions asked?",
-        examples: "*Select this if discretion is paramount to your needs."
+        id: "maximum_confidentiality",
+        label: "🔐 Maximum Confidentiality",
+        value: "maximum_confidentiality",
+        description: "Enhanced NDAs, zero information leakage, anonymous operations, and complete operational security including untraceable vehicles.",
+        examples: "\"Is discretion paramount to your security needs?\" • \"Invisible protection required?\" • \"Undetectable security presence needed?\""
       },
       {
-        id: "security_awareness",
-        label: "🛡️ Do you need security that blends in seamlessly?",
-        value: "security_awareness",
-        description: "Would you feel safer knowing trained professionals are watching over you without drawing unwanted attention to your movements?",
-        examples: "*Select this if you want protection without the obvious security presence."
+        id: "covert_protection",
+        label: "🕴️ Covert Protection",
+        value: "covert_protection",
+        description: "CPOs blend as colleagues, assistants, or companions. No visible security presence while maintaining full protective capability.",
+        examples: "\"Protection wanted without obvious security presence?\" • \"Covert security operations needed?\" • \"Undercover protection required?\""
       },
       {
-        id: "premium_comfort",
-        label: "🚗 Do you expect the best vehicles?",
-        value: "premium_comfort",
-        description: "Is the vehicle itself part of your image? Do you need premium cars that make the right statement?",
-        examples: "*Select this if vehicle quality and presentation matter to you."
+        id: "ex_military_police_officers",
+        label: "🪖 Ex-Military/Police Officers",
+        value: "ex_military_police_officers",
+        description: "CPOs with government service backgrounds including special forces, close protection units, or intelligence services.",
+        examples: "\"Officers with military/police backgrounds required?\" • \"Tactical expertise needed?\" • \"Combat-experienced protection required?\""
       },
       {
-        id: "professional_service",
-        label: "👤 Is your driver's presentation crucial for your image?",
-        value: "professional_service",
-        description: "Do your drivers need to match your professional standards when meeting clients or arriving at important events?",
-        examples: "*Select this if your driver's appearance reflects on your reputation."
+        id: "visible_security_deterrent",
+        label: "👮 Visible Security Deterrent",
+        value: "visible_security_deterrent",
+        description: "Obvious security presence designed to deter threats, establish perimeter control, and project protective capability.",
+        examples: "\"Clearly visible security presence wanted?\" • \"Deterrent security display needed?\" • \"Obvious protection visibility required?\""
       },
       {
-        id: "reliability_tracking",
-        label: "⏰ Is punctuality absolutely critical?",
-        value: "reliability_tracking",
-        description: "Can't afford to be late? Is your schedule so precise that every minute counts?",
-        examples: "*Select this if being on time is non-negotiable for you."
+        id: "armoured_vehicle_capability",
+        label: "🚗 Armoured Vehicle Capability",
+        value: "armoured_vehicle_capability",
+        description: "Access to B6/B7 ballistic-protected vehicles with bullet-resistant glass, reinforced panels, and emergency systems.",
+        examples: "\"Armoured vehicle protection required?\" • \"Ballistic threats faced?\" • \"B6/B7 protection levels needed?\""
       },
       {
-        id: "flexibility_coverage",
-        label: "📁 Do you need 24/7 availability?",
-        value: "flexibility_coverage",
-        description: "Are your hours unpredictable? Early flights, late meetings, or middle-of-the-night emergencies?",
-        examples: "*Select this if you need round-the-clock service availability."
+        id: "24_7_control_room",
+        label: "📱 24/7 Control Room",
+        value: "24_7_control_room",
+        description: "Round-the-clock monitoring, threat intelligence updates, and immediate backup deployment from central command.",
+        examples: "\"Continuous monitoring support needed?\" • \"24/7 surveillance required?\" • \"Constant threat awareness needed?\""
       },
       {
-        id: "specialized_needs",
-        label: "👥 Do you need group or family transport?",
-        value: "specialized_needs",
-        description: "Are you booking for multiple people? Need vehicles that accommodate your entire family or team?",
-        examples: "*Select this if you regularly need multi-passenger transport."
+        id: "quick_response_times",
+        label: "⚡ Quick response times",
+        value: "quick_response_times",
+        description: "Fast deployment and rapid response for immediate security needs.",
+        examples: "\"Quick response capability needed?\" • \"Rapid deployment required?\" • \"Immediate threat response needed?\""
       },
       {
-        id: "communication_skills",
-        label: "💬 Do you value excellent communication?",
-        value: "communication_skills",
-        description: "Do you need drivers who can engage professionally when needed but also respect when you need quiet time?",
-        examples: "*Select this if driver communication skills matter to you."
+        id: "encrypted_communications",
+        label: "📡 Encrypted Communications",
+        value: "encrypted_communications",
+        description: "Military-grade encrypted phones, secure messaging, and protected communication channels for all operations.",
+        examples: "\"Secure communications required?\" • \"Encrypted coordination needed?\" • \"Protected communication channels required?\""
       },
       {
-        id: "route_knowledge",
-        label: "🗺️ Do you need expert route planning?",
-        value: "route_knowledge",
-        description: "Want to avoid traffic, know shortcuts, or need someone who truly knows the city inside out?",
-        examples: "*Select this if journey efficiency and route knowledge are important."
+        id: "privacy_and_discretion",
+        label: "👁️ Privacy and discretion",
+        value: "privacy_and_discretion",
+        description: "Officers trained in maintaining privacy and operating with complete discretion.",
+        examples: "\"Are privacy and discretion important to you?\" • \"Confidentiality protection needed?\" • \"Information security required?\""
       },
       {
-        id: "real_time_tracking",
-        label: "📱 Do you want real-time tracking and updates?",
-        value: "real_time_tracking",
-        description: "Do you or your team need to track journeys, receive updates, or coordinate schedules digitally?",
-        examples: "*Select this if you want full digital visibility of your transport."
+        id: "medical_response_capability",
+        label: "🏥 Medical Response Capability",
+        value: "medical_response_capability",
+        description: "Trauma-trained CPOs with advanced first aid, emergency medical equipment, and hospital coordination.",
+        examples: "\"Medical response training required?\" • \"First aid capability needed?\" • \"Emergency medical support required?\""
       },
       {
-        id: "trained_professionals",
-        label: "🛡️ Do you prefer highly trained professional drivers?",
-        value: "trained_professionals",
-        description: "Would you feel more confident with drivers who have advanced professional training and situational awareness?",
-        examples: "*Select this if you want drivers with enhanced professional qualifications."
+        id: "professional_appearance",
+        label: "👔 Professional appearance",
+        value: "professional_appearance",
+        description: "Officers maintain professional, business-appropriate appearance.",
+        examples: "\"Is professional appearance important to you?\" • \"Business-formal security needed?\" • \"Corporate-appropriate protection required?\""
       },
       {
-        id: "payment_flexibility",
-        label: "💳 Do you need flexible payment options?",
-        value: "payment_flexibility",
-        description: "Do you need corporate billing, multiple payment methods, or special invoicing arrangements?",
-        examples: "*Select this if standard payment doesn't suit your needs."
+        id: "family_friendly_officers",
+        label: "👨‍👩‍👧‍👦 Family-friendly officers",
+        value: "family_friendly_officers",
+        description: "Officers experienced in working with families and children.",
+        examples: "\"Family-friendly security officers needed?\" • \"Child-safe protection required?\" • \"Household-appropriate security needed?\""
       },
       {
-        id: "multi_city_coverage",
-        label: "🌍 Do you travel across multiple cities?",
-        value: "multi_city_coverage",
-        description: "Do you need consistent service whether you're in London, Manchester, or Edinburgh?",
-        examples: "*Select this if you need nationwide coverage."
+        id: "female_security_officers",
+        label: "👩 Female security officers available",
+        value: "female_security_officers",
+        description: "Female protection officers available when needed.",
+        examples: "\"Do you prefer female security officers?\" • \"Female protection staff required?\" • \"Gender-specific security needed?\""
+      },
+      {
+        id: "residential_security_integration",
+        label: "🏠 Residential Security Integration",
+        value: "residential_security_integration",
+        description: "Home security assessments, residential sweeps, and integration with home security systems.",
+        examples: "\"Home security coordination needed?\" • \"Residential protection integration required?\" • \"Household security management needed?\""
+      },
+      {
+        id: "international_capability",
+        label: "🌍 International Capability",
+        value: "international_capability",
+        description: "Cross-border protection coordination, international CPO networks, and global threat intelligence.",
+        examples: "\"International protection coordination needed?\" • \"Cross-border security required?\" • \"Global protection management needed?\""
+      },
+      {
+        id: "female_cpos_available",
+        label: "👩 Female CPOs Available",
+        value: "female_cpos_available",
+        description: "Female protection officers for appropriate situations, cultural requirements, or client preference.",
+        examples: "\"Female protection officers required?\" • \"Women-only security teams needed?\" • \"Cultural requirements for female staff?\""
+      },
+      {
+        id: "multiple_officer_teams",
+        label: "👥 Multiple Officer Teams",
+        value: "multiple_officer_teams",
+        description: "Team-based protection with multiple CPOs for high-threat situations or family coverage.",
+        examples: "\"Multi-officer protection teams needed?\" • \"Team-based security required?\" • \"Coordinated protection details needed?\""
+      },
+      {
+        id: "legal_liaison_services",
+        label: "⚖️ Legal Liaison Services",
+        value: "legal_liaison_services",
+        description: "Direct coordination with police, legal compliance, and evidence gathering for prosecutions.",
+        examples: "\"Do you testify in criminal cases?\" • \"Police coordination needed during court appearances?\" • \"Facing legal threats from opposing counsel?\""
+      },
+      {
+        id: "secure_document_handling",
+        label: "📄 Secure Document Handling",
+        value: "secure_document_handling",
+        description: "Protected transport of sensitive documents, secure briefcases, and confidential material management.",
+        examples: "\"Do you carry merger documents to signings?\" • \"Secure transport of classified contracts needed?\" • \"Sensitive client files handled regularly?\""
+      },
+      {
+        id: "corporate_billing_systems",
+        label: "💳 Corporate Billing Systems",
+        value: "corporate_billing_systems",
+        description: "Integration with corporate accounts, purchase orders, and enterprise invoicing requirements.",
+        examples: "\"Does your company handle all security expenses?\" • \"Itemized invoices needed for board reporting?\" • \"Do multiple departments share protection costs?\""
+      },
+      {
+        id: "punctuality_critical",
+        label: "⏰ Punctuality Critical",
+        value: "punctuality_critical",
+        description: "Time-sensitive operations with zero tolerance for delays and precision scheduling.",
+        examples: "\"Cannot be late for board meetings?\" • \"Do court appearances require exact timing?\" • \"Would missing flights cost millions in deals?\""
       },
       {
         id: "prefer_not_to_say",
-        label: "❓ Prefer not to say",
+        label: "❓ Prefer Not to Say",
         value: "prefer_not_to_say",
-        description: "That's great. We'll adapt to your needs as we learn what works best for you.",
-        examples: "*Our specialists will provide adaptable service recommendations based on your booking patterns while maintaining complete confidentiality about your specific requirements."
+        description: "Security requirements discussed privately with senior coordinators.",
+        examples: "\"Prefer to keep specific requirements private?\" • \"Need flexible recommendations based on your patterns?\" • \"Require complete confidentiality throughout?\""
       }
     ],
-    validation: { required: true, minSelections: 1, maxSelections: 5, errorMessage: "Please select 1-5 requirements" },
-    helpText: "Pick what matters most to you (select 1-5 options). Every detail helps us create your perfect transport experience.",
-    stepDescription: "What matters most to you? Some prefer chatty drivers, others want quiet rides. Some need help with luggage, others value privacy. Your preferences help us pick drivers who naturally match your style - no awkward rides."
+    validation: { required: true, minSelections: 1, maxSelections: 5, errorMessage: "Please select 1-5 protection priorities" },
+    helpText: "Every security detail requires different capabilities. Some clients need invisible protection with CPOs posing as assistants. Others need visible deterrent with tactical presence. Our SIA-licensed officers provide threat assessment, surveillance detection, and emergency response - they are security professionals, not drivers.",
+    stepDescription: "What protection capabilities matter most to you? Some prefer discrete officers who blend in, others want visible deterrent presence. Some need medical training, others value counter-surveillance skills. Your priorities help us assign CPOs who naturally match your security style."
   },
   {
     id: 4,
-    title: "Primary Coverage Areas",
-    subtitle: "Where do you need service most",
-    question: "Where do you need us most? Tell us your regular locations.",
+    title: "🗺️ Primary Protection Zones",
+    subtitle: "Where do you need security most",
+    question: "Where do you require primary protection coverage?",
     type: "checkbox",
     options: [
       {
-        id: "central_london",
-        label: "📍 Do you primarily travel within Greater London?",
-        value: "central_london",
-        description: "Is London your main base? From the City to Canary Wharf, Mayfair to Shoreditch, we know every street and shortcut.",
-        examples: "*Select this if London is your primary location."
+        id: "greater_london_zone_1_central",
+        label: "🏛️ Greater London - Zone 1 Central",
+        value: "greater_london_zone_1_central",
+        description: "Westminster, City, Mayfair, Knightsbridge high-threat urban zones requiring Metropolitan Police coordination.",
+        examples: "\"Is your office in Canary Wharf?\" • \"Do you frequently visit Parliament?\" • \"Are Mayfair meetings your main risk?\""
       },
       {
-        id: "financial_district",
-        label: "🏭 Do you regularly need transport in Manchester?",
-        value: "financial_district",
-        description: "Are you part of the Northern Powerhouse? From MediaCity to the business district, we cover all of Greater Manchester.",
-        examples: "*Select this if Manchester is a regular destination."
+        id: "manchester_business_districts",
+        label: "🏭 Manchester Business Districts",
+        value: "manchester_business_districts",
+        description: "Commercial centres, MediaCity, industrial sites requiring Greater Manchester Police liaison.",
+        examples: "\"Does your company have Manchester offices?\" • \"Do you attend MediaCity meetings monthly?\" • \"Is Manchester Airport your northern hub?\""
       },
       {
-        id: "government_quarter",
-        label: "🏙️ Do you frequently travel to Birmingham?",
-        value: "government_quarter",
-        description: "Is the Midlands your territory? From the Jewellery Quarter to the NEC, we know Birmingham inside out.",
-        examples: "*Select this if Birmingham features in your travel plans."
+        id: "birmingham_commercial_zones",
+        label: "🏙️ Birmingham Commercial Zones",
+        value: "birmingham_commercial_zones",
+        description: "Business quarters, conference centres, Birmingham Airport requiring West Midlands coordination.",
+        examples: "\"Do you have quarterly Birmingham site visits?\" • \"Does Birmingham Airport connect your travels?\" • \"Are Midlands conferences regular events for you?\""
       },
       {
-        id: "west_end",
-        label: "🏴󠁧󠁢󠁳󠁣󠁴󠁿 Do you need coverage in Edinburgh?",
-        value: "west_end",
-        description: "Do you work in Scotland's capital? From the financial district to the airport, we navigate Edinburgh expertly.",
-        examples: "*Select this if Edinburgh is part of your regular travel."
+        id: "edinburgh_financial_district",
+        label: "🏴󠁧󠁢󠁳󠁣󠁴󠁿 Edinburgh Financial District",
+        value: "edinburgh_financial_district",
+        description: "Scottish capital, financial institutions, government buildings requiring Police Scotland protocols.",
+        examples: "\"Do you handle Scottish legal matters regularly?\" • \"Are Edinburgh financial meetings monthly for you?\" • \"Do government consultations require you to travel north?\""
       },
       {
-        id: "greater_london",
-        label: "🏴󠁧󠁢󠁳󠁣󠁴󠁿 Do you require transport in Glasgow?",
-        value: "greater_london",
-        description: "Is Glasgow your Scottish base? We know the city from the merchant quarter to the West End.",
-        examples: "*Select this if Glasgow is in your travel rotation."
+        id: "glasgow_commercial_quarter",
+        label: "🏴󠁧󠁢󠁳󠁣󠁴󠁿 Glasgow Commercial Quarter",
+        value: "glasgow_commercial_quarter",
+        description: "Scottish business hub, merchant districts, industrial zones with specific Scottish threat landscape.",
+        examples: "\"Are Glasgow shipyard visits routine for you?\" • \"Do Scottish business partnerships need your attention?\" • \"Do industrial site inspections require your protection?\""
       },
       {
-        id: "airport_transfers",
-        label: "✈️ Do you frequently fly from UK airports?",
-        value: "airport_transfers",
-        description: "Are you constantly catching flights? Whether it's Heathrow at 5am or a late arrival at Gatwick, we'll get you there stress-free.",
-        examples: "*Select this if you regularly need airport transfers."
+        id: "uk_airports_all",
+        label: "✈️ UK Airports - All",
+        value: "uk_airports_all",
+        description: "Heathrow, Gatwick, Manchester, Birmingham requiring aviation security clearance and airside access.",
+        examples: "\"Do you fly internationally 3 times monthly?\" • \"Do paparazzi target you at Heathrow?\" • \"Do your private jet transfers need secure handoffs?\""
       },
       {
-        id: "tourist_destinations",
-        label: "🎭 Do you need transport for entertainment venues and events?",
-        value: "tourist_destinations",
-        description: "From West End shows to arena concerts, do you need transport to entertainment venues where timing and discretion matter?",
-        examples: "*Select this if you frequent entertainment venues."
+        id: "entertainment_venues",
+        label: "🎭 Entertainment Venues",
+        value: "entertainment_venues",
+        description: "West End theatres, O2 Arena, premier venues requiring crowd control and venue security coordination.",
+        examples: "\"Do you attend West End premieres regularly?\" • \"Do O2 Arena events draw unwanted attention to you?\" • \"Does your private box access need discrete escort?\""
       },
       {
-        id: "entertainment_events",
-        label: "🏨 Do you stay at premium hotels?",
-        value: "entertainment_events",
-        description: "Are five-star hotels your second home? Do you need drivers who understand premium hospitality standards?",
-        examples: "*Select this if you regularly use high-end hotels."
+        id: "premium_hotels_5_star",
+        label: "🏨 Premium Hotels - 5 Star",
+        value: "premium_hotels_5_star",
+        description: "Luxury hotel security protocols, VIP entrance procedures, and coordination with hotel security teams.",
+        examples: "\"Is Claridge's your London base?\" • \"Are five-star hotels your client meeting venues?\" • \"Do your presidential suites need security sweeps?\""
       },
       {
-        id: "premium_shopping",
-        label: "⚖️ Do you visit government buildings or courts?",
-        value: "premium_shopping",
-        description: "Do you have business in Westminster, attend court hearings, or visit government offices? We understand the security protocols.",
-        examples: "*Select this if you regularly visit official buildings."
+        id: "government_buildings",
+        label: "🏛️ Government Buildings",
+        value: "government_buildings",
+        description: "Parliament, ministries, courts requiring security clearance and coordination with police protection.",
+        examples: "\"Are Parliament consultations routine for you?\" • \"Do your ministry meetings require clearance?\" • \"Do your court appearances need tactical escort?\""
       },
       {
-        id: "healthcare_professional",
-        label: "🚌 Do you need transport across multiple UK cities?",
-        value: "healthcare_professional",
-        description: "Do you travel between London, Manchester, Birmingham, or other major cities? We provide consistent service nationwide.",
-        examples: "*Select this if you regularly travel between major UK cities."
+        id: "multi_city_operations",
+        label: "🚌 Multi-City Operations",
+        value: "multi_city_operations",
+        description: "Protection across multiple UK cities requiring coordinated teams and consistent protocols.",
+        examples: "\"Do you have London-Edinburgh weekly business runs?\" • \"Do you attend multi-city board meeting circuits?\" • \"Does your national speaking tour require coordination?\""
       },
       {
-        id: "university_business_towns",
-        label: "🎓 Do you travel to university towns or tech centers?",
-        value: "university_business_towns",
-        description: "Do you visit Oxford, Cambridge, Reading, or Brighton? Academic and tech hubs where intellectual conversations matter?",
-        examples: "*Select this if you regularly travel to academic or technology centers."
+        id: "university_cities",
+        label: "🎓 University Cities",
+        value: "university_cities",
+        description: "Oxford, Cambridge, major campus locations requiring academic security protocols.",
+        examples: "\"Do your Oxford lectures draw protesters?\" • \"Are your Cambridge research partnerships sensitive?\" • \"Do your university speaking engagements need crowd control?\""
       },
       {
-        id: "scotland_wales",
-        label: "🌐 Do you need international coordination?",
-        value: "scotland_wales",
-        description: "Does your travel extend beyond the UK? Do you need transport that coordinates with international security teams?",
-        examples: "*Select this if you have international transport needs."
+        id: "international_zones",
+        label: "🌐 International Zones",
+        value: "international_zones",
+        description: "Cross-border operations requiring international protection coordination and travel security.",
+        examples: "\"Do you have cross-border meetings in EU capitals?\" • \"Do you attend international arbitration hearings?\" • \"Does your global summit attendance require advance teams?\""
       },
       {
-        id: "international_specialized",
-        label: "🚨 Are you sometimes in high-security situations?",
-        value: "international_specialized",
-        description: "Do you ever need transport in sensitive areas, during protests, or in situations requiring enhanced security awareness?",
-        examples: "*Select this if you face elevated security situations."
+        id: "high_security_facilities",
+        label: "🔒 High-Security Facilities",
+        value: "high_security_facilities",
+        description: "Sensitive locations, data centres, research facilities requiring enhanced clearance.",
+        examples: "\"Do your data centre inspections need clearance?\" • \"Do you visit defense contractor facilities?\" • \"Does your research lab access require vetting?\""
       },
       {
-        id: "prefer_not_to_say",
-        label: "❓ Prefer not to say",
-        value: "prefer_not_to_say",
-        description: "We completely understand. Your privacy and security come first.",
-        examples: "*Choose this if you prefer to keep your location preferences confidential."
+        id: "confidential_locations",
+        label: "❓ Confidential Locations",
+        value: "confidential_locations",
+        description: "Undisclosed locations discussed privately with security coordinators.",
+        examples: "\"Are your location details discussed privately?\" • \"Do your undisclosed venues require advance coordination?\" • \"Do your sensitive locations need compartmentalized planning?\""
       }
     ],
     validation: { required: true, minSelections: 1, maxSelections: 8, errorMessage: "Please select 1-8 coverage areas" },
-    helpText: "Choose your regular haunts. We'll make sure we're always ready where you need us most.",
-    stepDescription: "Where you travel helps us assign drivers who really know those areas. They'll know the quickest routes, best pickup spots, and even which areas to avoid during rush hour. Local knowledge makes every journey smoother."
+    helpText: "Different locations require different security protocols. City centres need urban tactics, airports require aviation security clearance, government buildings need vetted officers. This determines which regional CPO teams we deploy and their specific area expertise.",
+    stepDescription: "Where you need protection helps us assign CPOs who really know those areas. They'll know the security risks, best secure routes, and which areas to avoid during high-threat periods. Local knowledge makes every protection detail more effective."
   },
   {
     id: 5,
-    title: "Secondary Coverage",
-    subtitle: "Additional service areas",
-    question: "Do any of these special locations or situations apply to you?",
+    title: "📍 Additional coverage areas",
+    subtitle: "Additional security considerations",
+    question: "Are there any additional areas or situations we should know about?",
     type: "checkbox",
     options: [
       {
-        id: "london_suburbs",
-        label: "✈️ Do you frequently fly from UK airports?",
-        value: "london_suburbs",
-        description: "Are you constantly catching flights? Whether it's Heathrow at 5am or a late arrival at Gatwick, we'll get you there stress-free.",
-        examples: "*Select this if you regularly need airport transfers."
+        id: "public_recognition",
+        label: "📸 Public recognition situations",
+        value: "public_recognition",
+        description: "Help with privacy protection in public spaces.",
+        examples: "\"Do paparazzi follow you to restaurants?\" • \"Do fans approach you at airports?\" • \"Do public events draw unwanted attention to you?\""
       },
       {
-        id: "business_parks",
-        label: "⚖️ Do you visit government buildings or courts?",
-        value: "business_parks",
-        description: "Do you have business in Westminster, attend court hearings, or visit government offices? We understand the security protocols.",
-        examples: "*Select this if you regularly visit official buildings."
+        id: "business_confidentiality",
+        label: "🏢 Business confidentiality needs",
+        value: "business_confidentiality",
+        description: "Extra security for sensitive business activities.",
+        examples: "\"Do your M&A negotiations need absolute secrecy?\" • \"Do your board meetings discuss sensitive strategy?\" • \"Is competitor intelligence a real threat to you?\""
       },
       {
-        id: "event_venues",
-        label: "🎭 Do you attend entertainment venues and events?",
-        value: "event_venues",
-        description: "From West End shows to arena concerts, do you need transport to entertainment venues where timing and discretion matter?",
-        examples: "*Select this if you frequent entertainment venues."
+        id: "legal_proceedings_security",
+        label: "⚖️ Legal Proceedings Security",
+        value: "legal_proceedings_security",
+        description: "Court appearances, witness protection, or legal threats requiring judicial security coordination.",
+        examples: "\"Are you involved in high-profile divorce proceedings?\" • \"Are you testifying against organized crime?\" • \"Do you face corporate litigation with threats?\""
       },
       {
-        id: "private_aviation",
-        label: "🏨 Do you stay at premium hotels?",
-        value: "private_aviation",
-        description: "Are five-star hotels your second home? Do you need drivers who understand premium hospitality standards?",
-        examples: "*Select this if you regularly use high-end hotels."
+        id: "medical_privacy_requirements",
+        label: "🏥 Medical Privacy Requirements",
+        value: "medical_privacy_requirements",
+        description: "Hospital visits, medical conditions, or treatment requiring HIPAA-compliant security protocols.",
+        examples: "\"Does your cancer treatment draw media attention?\" • \"Do your mental health clinic visits need discretion?\" • \"Do your specialist consultations require privacy?\""
       },
       {
-        id: "healthcare_medical",
-        label: "🌐 Do you need international coordination?",
-        value: "healthcare_medical",
-        description: "Does your travel extend beyond the UK? Do you need transport that coordinates with international security teams?",
-        examples: "*Select this if you have international transport needs."
+        id: "international_threat_exposure",
+        label: "🌍 International Threat Exposure",
+        value: "international_threat_exposure",
+        description: "Threats originating overseas, international travel risks, or cross-border security concerns.",
+        examples: "\"Do you have business dealings with sanctioned countries?\" • \"Do you have foreign government surveillance concerns?\" • \"Do you fear international cartel retaliation?\""
       },
       {
-        id: "educational_training",
-        label: "🚨 Are you sometimes in high-security situations?",
-        value: "educational_training",
-        description: "Do you ever need transport in sensitive areas, during protests, or in situations requiring enhanced security awareness?",
-        examples: "*Select this if you face elevated security situations."
+        id: "witness_protection_protocols",
+        label: "🛡️ Witness Protection Protocols",
+        value: "witness_protection_protocols",
+        description: "Official or unofficial witness security requiring anonymity and protection from retaliation.",
+        examples: "\"Are you testifying in a major fraud case?\" • \"Are you a whistleblower facing corporate retaliation?\" • \"Are you an organized crime witness requiring anonymity?\""
       },
       {
-        id: "leisure_recreation",
-        label: "✅ No additional coverage needed",
-        value: "leisure_recreation",
-        description: "My requirements are fully covered by my primary areas",
-        examples: "*Select this if you only need coverage in your primary locations."
+        id: "domestic_situation_concerns",
+        label: "🏠 Domestic Situation Concerns",
+        value: "domestic_situation_concerns",
+        description: "Family law issues, custody disputes, or domestic threats requiring sensitive handling.",
+        examples: "\"Does your custody battle require child protection?\" • \"Is your ex-spouse making threats?\" • \"Do you need domestic restraining order enforcement?\""
       },
       {
-        id: "none_required",
-        label: "❌ None of the above apply to me",
-        value: "none_required",
-        description: "My requirements are fully covered by my primary locations",
-        examples: "*Select this if you only need coverage in your primary areas."
+        id: "financial_threat_exposure",
+        label: "💰 Financial Threat Exposure",
+        value: "financial_threat_exposure",
+        description: "Kidnap/ransom risks, extortion attempts, or financial targeting requiring specialist protocols.",
+        examples: "\"Do you face kidnap for ransom threat intelligence?\" • \"Are you experiencing extortion attempts from criminals?\" • \"Are you being targeted by organized groups due to high net worth?\""
       },
       {
-        id: "prefer_not_to_say",
-        label: "❓ Prefer not to say",
-        value: "prefer_not_to_say",
-        description: "That's great. We'll adapt to your needs as we learn what works best for you.",
-        examples: "*Our specialists will provide flexible coverage recommendations while maintaining complete confidentiality about your additional location requirements."
+        id: "activist_protest_targeting",
+        label: "📢 Activist/Protest Targeting",
+        value: "activist_protest_targeting",
+        description: "Environmental, political, or social activism targeting requiring crowd control expertise.",
+        examples: "\"Do environmental activists target your energy company?\" • \"Are there animal rights protests at your research facility?\" • \"Do political protesters disrupt your public events?\""
+      },
+      {
+        id: "no_specific_threats",
+        label: "✅ No Specific Threats",
+        value: "no_specific_threats",
+        description: "General protection without identified specific threats but maintaining security awareness.",
+        examples: "\"Do you need general executive protection for peace of mind?\" • \"Do you have no specific threats but a high-profile lifestyle?\" • \"Do you want preventive security for family safety?\""
+      },
+      {
+        id: "prefer_not_to_disclose",
+        label: "❓ Prefer Not to Disclose",
+        value: "prefer_not_to_disclose",
+        description: "Threat information provided only to assigned CPO team under strict confidentiality.",
+        examples: "\"Prefer confidential threat assessment?\" • \"Need flexible coverage recommendations?\" • \"Require discrete threat evaluation?\""
       }
     ],
     validation: { required: false },
-    helpText: "These are optional extras. Pick any that matter to your travel needs.",
-    stepDescription: "Airports, hotels, event venues - these places have their own rules and tricks. Drivers familiar with these spots know exactly where to pick you up, which entrances to use, and how to skip the chaos. No more confusion at Terminal 3."
+    helpText: "Specific threats require specialized protection strategies. Media threats need privacy protocols, stalking requires counter-surveillance, corporate espionage needs information security. Additional zones may require specific clearances or protocols.",
+    stepDescription: "Threat assessment helps us prepare appropriate countermeasures. Media attention requires different tactics than corporate espionage. Stalking needs different skills than witness protection. Understanding your specific security challenges helps us deploy the right specialist capabilities."
   },
   {
     id: 6,
-    title: "Safety Contact",
-    subtitle: "For your safety and peace of mind",
-    question: "Who should we contact if needed? (This is optional but helps us serve you better)",
+    title: "🚨 Emergency & Safety Protocols",
+    subtitle: "For your safety and protection coordination",
+    question: "Who should we contact during security incidents or emergencies?",
     type: "checkbox",
     options: [
       {
-        id: "primary_safety_contact",
-        label: "👪 Do you have someone who worries about your safety?",
-        value: "primary_safety_contact",
-        description: "Is there someone special who likes to know you've arrived safely? A partner, family member, or assistant who coordinates your life?",
-        examples: "*Provide their details if you'd like us to keep them informed for safety coordination."
+        id: "primary_emergency_contact",
+        label: "👪 Primary Emergency Contact",
+        value: "primary_emergency_contact",
+        description: "Immediate family member or trusted individual for urgent security decisions and emergency notifications.",
+        examples: "\"Does your spouse need immediate notification?\" • \"Do your adult children coordinate family security?\" • \"Is your mother the emergency decision-maker?\""
       },
       {
-        id: "business_safety_contact",
-        label: "🏢 Does your company have security protocols?",
-        value: "business_safety_contact",
-        description: "Does your organization have specific procedures we should follow? A security office or HR department we should coordinate with?",
-        examples: "*Provide company contacts if corporate protocols apply to you."
+        id: "corporate_security_team",
+        label: "🏢 Corporate Security Team",
+        value: "corporate_security_team",
+        description: "Company security department for coordination with corporate protocols and internal threat management.",
+        examples: "\"Does your Head of Security manage board protection?\" • \"Does your corporate security team handle executive threats?\" • \"Does your company protocol require security coordination?\""
       },
       {
-        id: "medical_alert_information",
-        label: "🏥 Medical Alert Information",
-        value: "medical_alert_information",
-        description: "Important medical information for safety coordination",
-        examples: "*Critical medical alerts (allergies, medical devices, mobility assistance needs), preferred hospital, or medical insurance information for safety coordination."
+        id: "family_security_coordinator",
+        label: "👨‍👩‍👧‍👦 Family Security Coordinator",
+        value: "family_security_coordinator",
+        description: "Designated family member managing household security and coordinating family protection.",
+        examples: "\"Does your eldest son manage family security decisions?\" • \"Does your family office coordinator handle protection?\" • \"Does your household manager oversee all security?\""
       },
       {
-        id: "security_coordination",
-        label: "🛡️ Security Team Coordination",
-        value: "security_coordination",
-        description: "Corporate security or protection team contacts",
-        examples: "*Company security office, personal protection team, or designated security coordinator who manages your security protocols and safety procedures."
+        id: "medical_emergency_contact",
+        label: "🏥 Medical Emergency Contact",
+        value: "medical_emergency_contact",
+        description: "Preferred hospital, personal physician, or medical power of attorney for health emergencies.",
+        examples: "\"Does your Harley Street cardiologist know your condition?\" • \"Does your private hospital have your medical records?\" • \"Does your medical insurance cover emergency transport?\""
       },
       {
-        id: "communication_preferences",
-        label: "📞 Priority Communication Preferences",
-        value: "communication_preferences",
-        description: "How you prefer to be contacted for urgent matters",
-        examples: "*Preferred contact methods (phone, text, email), priority communication protocols, safe words for verification, or specific instructions for urgent situations."
+        id: "legal_representative",
+        label: "⚖️ Legal Representative",
+        value: "legal_representative",
+        description: "Solicitor or barrister for immediate legal consultation during security incidents or arrests.",
+        examples: "\"Does your solicitor handle all legal emergencies?\" • \"Do you have a QC barrister for serious incidents?\" • \"Do you have a criminal defense lawyer on retainer?\""
       },
       {
-        id: "family_notification",
-        label: "👨‍👩‍👧‍👦 Family Notification Protocol",
-        value: "family_notification",
-        description: "Family members who should be informed of incidents",
-        examples: "*Immediate family members, their contact details, notification preferences, and any specific family communication protocols for safety coordination."
+        id: "executive_personal_assistant",
+        label: "👤 Executive/Personal Assistant",
+        value: "executive_personal_assistant",
+        description: "PA or EA who manages schedule and can make security decisions on your behalf.",
+        examples: "\"Does your PA manage your entire security schedule?\" • \"Does your executive assistant have security authority?\" • \"Does your personal manager coordinate all protection?\""
       },
       {
-        id: "no_safety_contact",
-        label: "❌ No Safety Contact Required",
-        value: "no_safety_contact",
-        description: "I prefer not to provide safety contact information",
-        examples: "*Skip safety contact setup. Note: This may limit our ability to provide immediate assistance or coordination during urgent situations."
+        id: "insurance_risk_management",
+        label: "💼 Insurance/Risk Management",
+        value: "insurance_risk_management",
+        description: "Insurance company or risk manager for incident reporting and claim coordination.",
+        examples: "\"Does Lloyd's of London cover your kidnap/ransom insurance?\" • \"Does your risk manager handle threat assessments?\" • \"Does your insurance broker specialize in executive protection?\""
+      },
+      {
+        id: "diplomatic_consular_contact",
+        label: "🏛️ Diplomatic/Consular Contact",
+        value: "diplomatic_consular_contact",
+        description: "Embassy or consulate for international incidents requiring diplomatic intervention.",
+        examples: "\"Does the British Embassy handle your overseas incidents?\" • \"Do you have diplomatic protection liaison in Foreign Office?\" • \"Do you use consular services for international emergencies?\""
+      },
+      {
+        id: "no_emergency_contact",
+        label: "❌ No Emergency Contact",
+        value: "no_emergency_contact",
+        description: "Self-managed emergencies with no third-party notification required.",
+        examples: "\"Prefer no emergency contact setup?\" • \"Self-manage all emergency decisions?\" • \"Accept limited emergency assistance capability?\""
       },
       {
         id: "prefer_not_to_say",
-        label: "❓ Prefer not to say",
+        label: "❓ Prefer Not to Say",
         value: "prefer_not_to_say",
-        description: "That's great. We'll adapt to your needs as we learn what works best for you.",
-        examples: "*Our specialists will use standard safety protocols while maintaining complete confidentiality about your personal contacts and safety preferences."
+        description: "Emergency protocols discussed privately with assigned CPO team.",
+        examples: "\"Prefer standard emergency protocols?\" • \"Keep personal contacts confidential?\" • \"Require discrete emergency management?\""
       }
     ],
-    validation: { required: false, minSelections: 0, maxSelections: 6, errorMessage: "Please select your safety contact preferences" },
-    helpText: "These details help us take better care of you. All information stays completely private.",
-    stepDescription: "Having someone we can contact in emergencies gives everyone peace of mind. Like having ICE contacts in your phone, but for your journeys. It's optional but recommended - just in case you ever need help."
+    validation: { required: false, minSelections: 0, maxSelections: 6, errorMessage: "Please select your emergency contact preferences" },
+    helpText: "Professional protection requires clear emergency protocols. When threats materialize, we need authorized contacts who understand your security situation and can make rapid decisions. This includes medical emergencies, security breaches, and threat escalations.",
+    stepDescription: "Having someone we can contact in security emergencies gives everyone better protection outcomes. Like having ICE contacts in your phone, but for your protection details. It's optional but recommended - emergency coordination can be critical during incidents."
   },
   {
     id: 7,
-    title: "Special Requirements",
-    subtitle: "Any additional needs",
-    question: "Is there anything special we should know to serve you perfectly?",
+    title: "⚙️ Operational & Special Requirements",
+    subtitle: "Any additional security needs",
+    question: "Select any specific operational or special security requirements",
     type: "checkbox",
     options: [
       {
-        id: "accessibility_needs",
-        label: "♿ Accessibility Needs",
-        value: "accessibility_needs",
-        description: "Mobility, visual, hearing, and cognitive assistance",
-        examples: "*Wheelchair Accessible Vehicle Required, Walking Aid Accommodation (canes, walkers, mobility scooters), Transfer Assistance Needed, Extended Time for Boarding/Alighting, Ground Floor Pickup Preferred, Accessible Pickup/Dropoff Points Only"
+        id: "officers_in_business_attire",
+        label: "👔 Officers in Business Attire",
+        value: "officers_in_business_attire",
+        description: "CPOs in formal business suits for boardrooms, corporate events, and professional environments.",
+        examples: "\"Do your board meetings require suited CPOs?\" • \"Do your corporate events need formal appearance?\" • \"Do your banking environments demand business attire?\""
       },
       {
-        id: "visual_hearing_support",
-        label: "👁️ Visual & Hearing Support",
-        value: "visual_hearing_support",
-        description: "Communication and sensory assistance",
-        examples: "*Guide Dog Accommodation, Large Print Materials Needed, Audio Communication Preferred, Sign Language Interpretation, Written Communication Preferred, Hearing Loop Compatibility Required"
+        id: "tactical_uniform_appearance",
+        label: "🚔 Tactical/Uniform Appearance",
+        value: "tactical_uniform_appearance",
+        description: "Visible security uniform for maximum deterrent effect and clear security presence.",
+        examples: "\"Does high-visibility security deter threats to you?\" • \"Does uniform presence reassure your staff?\" • \"Do you need tactical appearance for maximum deterrent?\""
       },
       {
-        id: "medical_considerations",
-        label: "🏥 Medical Considerations",
-        value: "medical_considerations",
-        description: "Special medical requirements",
-        examples: "*Oxygen Equipment Transport, Medical Device Power Requirements, Temperature-Controlled Environment Needed, Medication Storage Requirements, Infection Control Protocols, Medical Equipment Transport"
+        id: "plain_clothes_operations",
+        label: "👤 Plain Clothes Operations",
+        value: "plain_clothes_operations",
+        description: "Casual dress allowing CPOs to blend with environment while maintaining concealed equipment.",
+        examples: "\"Do you need invisible protection at social events?\" • \"Should protection blend in during your family outings?\" • \"Do you need undercover protection for shopping trips?\""
       },
       {
-        id: "language_preferences",
-        label: "🗣️ Language Preferences",
-        value: "language_preferences",
-        description: "Communication in preferred language",
-        examples: "*English (Primary), Welsh (Cymraeg), French (Français), German (Deutsch), Spanish (Español), Mandarin (中文), Arabic (العربية), Other Language Required"
+        id: "standard_executive_vehicles",
+        label: "🚗 Standard Executive Vehicles",
+        value: "standard_executive_vehicles",
+        description: "Mercedes S-Class, BMW 7 Series, Audi A8 - premium vehicles without armor.",
+        examples: "\"Do you use Mercedes S-Class for client meetings?\" • \"Do you need BMW 7 Series for corporate travel?\" • \"Do you prefer Audi A8 for discrete executive transport?\""
       },
       {
-        id: "group_family_transport",
-        label: "👥 Group & Family Transport",
-        value: "group_family_transport",
-        description: "Multiple passengers and family needs",
-        examples: "*Child Safety Seats Required (specify ages/weights), Family Group Transport (specify ages), Business Team Coordination, Multiple Vehicle Coordination, Security Detail Coordination, Group Communication Requirements"
+        id: "luxury_suvs_required",
+        label: "🚙 Luxury SUVs Required",
+        value: "luxury_suvs_required",
+        description: "Range Rover, Mercedes GLS, BMW X7 for enhanced visibility and team deployment.",
+        examples: "\"Do you need Range Rover for family protection details?\" • \"Do you require Mercedes GLS for team deployment?\" • \"Do you need BMW X7 for enhanced security presence?\""
       },
       {
-        id: "luggage_equipment",
-        label: "🧳 Luggage & Equipment",
-        value: "luggage_equipment",
-        description: "Special cargo and equipment handling",
-        examples: "*Oversized Items Regular Transport, Sports Equipment Transport, Musical Instruments, Art/Antique Transport, Technical Equipment, Secure Document Transport, Diplomatic Pouch Handling"
+        id: "armoured_vehicles_essential",
+        label: "🛡️ Armoured Vehicles Essential",
+        value: "armoured_vehicles_essential",
+        description: "B6/B7 ballistic protection mandatory for all movements due to threat level.",
+        examples: "\"Does your high threat level require armored transport?\" • \"Do you need B6 protection against small arms?\" • \"Do you need B7 defense against assault rifles?\""
       },
       {
-        id: "pet_transport",
-        label: "🐕 Pet Transport",
-        value: "pet_transport",
-        description: "Traveling with animals",
-        examples: "*Small Pet Carrier (cats, small dogs), Large Dog Transport, Multiple Pet Transport, Pet Safety Equipment Required, Veterinary Documentation Assistance, Pet Comfort Amenities"
+        id: "electric_hybrid_vehicles",
+        label: "🔋 Electric/Hybrid Vehicles",
+        value: "electric_hybrid_vehicles",
+        description: "Tesla, BMW iX, Mercedes EQS for environmental requirements or silent operations.",
+        examples: "\"Do you need Tesla Model S for silent operations?\" • \"Do you need BMW iX for environmental commitment?\" • \"Do you have Mercedes EQS for zero emission requirements?\""
       },
       {
-        id: "security_preferences",
-        label: "🔒 Security Preferences",
-        value: "security_preferences",
-        description: "Privacy and security accommodations",
-        examples: "*Discrete/Unmarked Vehicles Only, Female Driver/Security Preferred, Male Driver/Security Preferred, Same Driver Assignment Preferred, Route Confidentiality Required, Counter-Surveillance Awareness"
+        id: "wheelchair_accessibility",
+        label: "♿ Wheelchair Accessibility",
+        value: "wheelchair_accessibility",
+        description: "Modified vehicles and CPOs trained in mobility assistance and disability protocols.",
+        examples: "\"Do you need modified vehicle for wheelchair transport?\" • \"Do you need CPOs trained in mobility assistance?\" • \"Do you require accessible entry/exit procedures?\""
       },
       {
-        id: "business_facilities",
-        label: "💼 Business Facilities",
-        value: "business_facilities",
-        description: "Work and communication needs",
-        examples: "*Mobile Office Setup, WiFi and Charging Required, Conference Call Capability, Privacy Glass/Partition, Quiet Environment Essential, Business Refreshments"
+        id: "medical_equipment_space",
+        label: "🏥 Medical Equipment Space",
+        value: "medical_equipment_space",
+        description: "Oxygen, medication storage, medical devices requiring temperature control and power.",
+        examples: "\"Does your oxygen concentrator require power?\" • \"Does your insulin storage need refrigeration?\" • \"Do you need life support equipment transport?\""
       },
       {
-        id: "environment_comfort",
-        label: "🌡️ Environment & Comfort",
-        value: "environment_comfort",
-        description: "Climate and comfort preferences",
-        examples: "*Climate-Controlled Environment, Allergy Management Protocols, Scent-Free Environment, Quiet/Low-Stimulation Environment, Dietary Restrictions (refreshments), Specific Vehicle Type Preference"
+        id: "concealed_equipment_authority",
+        label: "🔒 Concealed Equipment Authority",
+        value: "concealed_equipment_authority",
+        description: "CPOs carry concealed defensive equipment within legal parameters.",
+        examples: "\"Do you authorize concealed protective equipment?\" • \"Do you permit defensive tools within legal limits?\" • \"Do you need enhanced protection capability?\""
       },
       {
-        id: "technology_requirements",
-        label: "📱 Technology Requirements",
-        value: "technology_requirements",
-        description: "Communication and device needs",
-        examples: "*Mobile Signal Boosters, Multiple Device Charging, Satellite Communication, Priority Communication Backup, Real-Time Tracking Privacy, Communication Blackout Periods"
+        id: "body_armor_required",
+        label: "🦺 Body Armor Required",
+        value: "body_armor_required",
+        description: "Stab vests or ballistic protection worn by CPOs based on threat assessment.",
+        examples: "\"Does your high threat level require body armor?\" • \"Do you need stab vests for knife crime areas?\" • \"Do you need ballistic protection for firearms threats?\""
+      },
+      {
+        id: "tactical_medical_kits",
+        label: "🚑 Tactical Medical Kits",
+        value: "tactical_medical_kits",
+        description: "Trauma equipment, tourniquets, hemostatic agents for emergency medical response.",
+        examples: "\"Do you need tourniquets for hemorrhage control?\" • \"Do you need trauma kits for gunshot wounds?\" • \"Do you need medical response for cardiac events?\""
+      },
+      {
+        id: "rf_detection_equipment",
+        label: "📡 RF Detection Equipment",
+        value: "rf_detection_equipment",
+        description: "Bug sweeping devices, signal detectors for counter-surveillance operations.",
+        examples: "\"Do you need bug sweeping for corporate espionage?\" • \"Do you need signal detection for surveillance devices?\" • \"Do you need counter-surveillance equipment deployment?\""
+      },
+      {
+        id: "night_vision_capability",
+        label: "🌙 Night Vision Capability",
+        value: "night_vision_capability",
+        description: "Low-light equipment for evening operations and threat detection.",
+        examples: "\"Does your evening event security require night vision?\" • \"Do you need low-light threat detection capability?\" • \"Do you need nighttime route reconnaissance?\""
+      },
+      {
+        id: "language_requirements",
+        label: "🗣️ Language Requirements",
+        value: "language_requirements",
+        description: "CPOs speaking specific languages for international operations or cultural needs.",
+        examples: "\"Do you need Mandarin-speaking CPOs for Chinese clients?\" • \"Do you need Arabic language for Middle Eastern meetings?\" • \"Do you need French for diplomatic functions?\""
+      },
+      {
+        id: "pet_accommodation",
+        label: "🐕 Pet Accommodation",
+        value: "pet_accommodation",
+        description: "Security protocols for transporting animals with appropriate safety equipment.",
+        examples: "\"Do you need guard dog transport with security detail?\" • \"Do you require service animal accommodation?\" • \"Do you need pet safety during protection operations?\""
+      },
+      {
+        id: "child_safety_equipment",
+        label: "👶 Child Safety Equipment",
+        value: "child_safety_equipment",
+        description: "Age-appropriate car seats, booster seats, and CPOs trained in child protection.",
+        examples: "\"Do you need infant car seats for newborn protection?\" • \"Do you need booster seats for school-age children?\" • \"Do you need child protection specialist CPOs?\""
+      },
+      {
+        id: "secure_cargo_capability",
+        label: "📦 Secure Cargo Capability",
+        value: "secure_cargo_capability",
+        description: "Protected transport for valuable items, documents, or sensitive materials.",
+        examples: "\"Do you need art collection transport security?\" • \"Do you need diamond courier protection service?\" • \"Do you need classified document secure transport?\""
+      },
+      {
+        id: "mobile_office_requirements",
+        label: "💼 Mobile Office Requirements",
+        value: "mobile_office_requirements",
+        description: "WiFi, privacy screens, secure communications for working during protection.",
+        examples: "\"Do you need WiFi for working during transport?\" • \"Do you need privacy screens for confidential calls?\" • \"Do you need secure communications while traveling?\""
+      },
+      {
+        id: "k9_unit_coordination",
+        label: "🐕‍🦺 K9 Unit Coordination",
+        value: "k9_unit_coordination",
+        description: "Integration with dog units for explosive detection or enhanced security.",
+        examples: "\"Do you need bomb detection dogs for venue sweeps?\" • \"Do you need explosive detection at events?\" • \"Do you need K9 units for enhanced security?\""
       },
       {
         id: "no_special_requirements",
         label: "❌ No Special Requirements",
         value: "no_special_requirements",
-        description: "Armora Secure service is sufficient",
-        examples: "*I have no special requirements, Armora Secure meets all my needs"
+        description: "Standard operational protocols sufficient without special equipment.",
+        examples: "\"Do you need no special equipment?\" • \"Are standard operational protocols sufficient for you?\" • \"Do you have basic protection requirements only?\""
       },
       {
         id: "prefer_not_to_say",
-        label: "❓ Prefer not to say",
+        label: "❓ Prefer Not to Say",
         value: "prefer_not_to_say",
-        description: "That's great. We'll adapt to your needs as we learn what works best for you.",
-        examples: "*Our specialists will provide standard service arrangements while maintaining complete confidentiality about any specific requirements you may have."
+        description: "Operational requirements discussed privately with CPO team.",
+        examples: "\"Discuss requirements privately with CPO team?\" • \"Keep operational needs confidential?\" • \"Prefer discrete capability assessment?\""
       }
     ],
-    validation: { required: false, minSelections: 0, maxSelections: 12, errorMessage: "Please select your special requirements" },
-    helpText: "Tell us about anything that would make your journey more comfortable. We're here to help.",
-    stepDescription: "Everyone's different. Maybe you travel with a wheelchair, maybe you have a service dog, or maybe you just need extra time getting in and out. Whatever you need, we'll make sure your driver is prepared and comfortable helping."
+    validation: { required: false, minSelections: 0, maxSelections: 12, errorMessage: "Please select your operational requirements" },
+    helpText: "Operational requirements affect how protection is delivered. Officer appearance determines infiltration capability, equipment affects response options, vehicle selection impacts evacuation possibilities. These are tactical decisions that shape your security posture.",
+    stepDescription: "Operational setup affects your protection effectiveness. Officer appearance determines how well they blend or deter. Equipment choices affect response capabilities. Vehicle selection impacts evacuation options and threat resistance. These tactical choices shape your overall security profile."
   },
   {
     id: 8,
-    title: "Contact Preferences",
-    subtitle: "How you'd like to hear from us",
-    question: "How should we stay in touch with you?",
+    title: "📡 Security Communications & Updates",
+    subtitle: "How you'd like security coordination",
+    question: "How should our 24/7 control room maintain security communications?",
     type: "checkbox",
     options: [
       {
-        id: "sms_updates",
-        label: "📱 SMS Updates",
-        value: "sms_updates",
-        description: "Text messages for booking confirmations and driver updates",
-        examples: "*Real-time booking confirmations, driver arrival notifications, journey progress updates, and immediate security alerts delivered via SMS. Best for busy professionals who check messages frequently."
+        id: "encrypted_sms_updates",
+        label: "📱 Encrypted SMS Updates",
+        value: "encrypted_sms_updates",
+        description: "End-to-end encrypted text messages for operational updates and position reports.",
+        examples: "\"Do you need encrypted position updates every hour?\" • \"Do you need secure SMS for threat alerts?\" • \"Do you need military-grade messaging for operations?\""
       },
       {
-        id: "email_communication",
-        label: "📧 Email Communications",
-        value: "email_communication",
-        description: "Detailed email confirmations and documentation",
-        examples: "*Professional email communications with booking confirmations, detailed journey information, receipts, and comprehensive documentation. Best for formal business environments and record keeping."
+        id: "secure_email_briefings",
+        label: "📧 Secure Email Briefings",
+        value: "secure_email_briefings",
+        description: "PGP encrypted email for detailed briefings, threat assessments, and reports.",
+        examples: "\"Do you need daily threat intelligence via secure email?\" • \"Do you need detailed operational reports?\" • \"Do you need PGP encrypted security documentation?\""
       },
       {
-        id: "app_notifications",
-        label: "🔔 App Notifications",
-        value: "app_notifications",
-        description: "Push notifications through Armora Transport app",
-        examples: "*Modern push notifications through our secure mobile app, including real-time tracking, driver updates, and booking management. Best for tech-savvy users seeking streamlined experience."
+        id: "app_push_notifications",
+        label: "🔔 App Push Notifications",
+        value: "app_push_notifications",
+        description: "Real-time alerts through encrypted Armora security app with biometric protection.",
+        examples: "\"Do you need push alerts for immediate threats?\" • \"Do you need biometric app protection?\" • \"Do you need real-time position tracking updates?\""
       },
       {
-        id: "phone_calls",
-        label: "📞 Phone Calls",
-        value: "phone_calls",
-        description: "Voice communication for important updates",
-        examples: "*Direct phone calls from our operations team for important updates, booking confirmations, and security coordination. Best for senior executives preferring traditional business communication."
+        id: "direct_voice_emergency_only",
+        label: "📞 Direct Voice - Emergency Only",
+        value: "direct_voice_emergency_only",
+        description: "Voice calls reserved for immediate threats requiring instant communication.",
+        examples: "\"Do you need emergency voice line for active threats?\" • \"Do you need direct calls during security incidents?\" • \"Do you need immediate response hotline access?\""
       },
       {
-        id: "through_assistant",
-        label: "👤 Through Personal Assistant",
-        value: "through_assistant",
-        description: "All communications via personal assistant or PA",
-        examples: "*All transport communications directed through your personal assistant or PA, including booking coordination, updates, and scheduling. Best for C-level executives and high-profile individuals."
+        id: "signal_whatsapp_encrypted",
+        label: "💬 Signal/WhatsApp Encrypted",
+        value: "signal_whatsapp_encrypted",
+        description: "Secure messaging platforms with disappearing messages and encryption.",
+        examples: "\"Do you need Signal messages for routine updates?\" • \"Do you need WhatsApp coordination with disappearing messages?\" • \"Do you need secure messaging for operational chat?\""
       },
       {
-        id: "business_contact",
-        label: "🏢 Business/Corporate Contact",
-        value: "business_contact",
-        description: "Communications through company contact",
-        examples: "*All communications routed through designated business contact, travel coordinator, or corporate security office. Ideal for company-managed transport arrangements and corporate protocols."
+        id: "through_executive_assistant",
+        label: "👤 Through Executive Assistant",
+        value: "through_executive_assistant",
+        description: "All communications routed through PA/EA for filtering and management.",
+        examples: "\"Does your PA filter all security communications?\" • \"Does your executive assistant manage updates?\" • \"Does your personal manager coordinate contact?\""
       },
       {
-        id: "secure_messaging",
-        label: "🔒 Secure Messaging Platform",
-        value: "secure_messaging",
-        description: "Encrypted messaging for sensitive communications",
-        examples: "*End-to-end encrypted messaging platform for security-sensitive communications, route information, and confidential transport coordination. Best for high-security requirements."
+        id: "corporate_security_desk",
+        label: "🏢 Corporate Security Desk",
+        value: "corporate_security_desk",
+        description: "Communications through company security department using corporate protocols.",
+        examples: "\"Does corporate security desk handle coordination?\" • \"Do company protocols require security routing?\" • \"Does enterprise security team manage communication?\""
       },
       {
-        id: "communication_timing",
-        label: "⏰ Communication Timing Preferences",
-        value: "communication_timing",
-        description: "Specific timing and frequency preferences",
-        examples: "*Business hours only (9:00-17:00 GMT), extended hours (8:00-20:00), custom hours, or 24/7 availability for emergencies. Includes time zone considerations for international clients."
+        id: "24_7_control_room_direct",
+        label: "🎮 24/7 Control Room Direct",
+        value: "24_7_control_room_direct",
+        description: "Direct hotline to control room for immediate threat response and coordination.",
+        examples: "\"Do you need emergency hotline for immediate threats?\" • \"Do you need 24/7 control room direct access?\" • \"Do you need instant coordination for incidents?\""
       },
       {
-        id: "priority_alerts",
-        label: "⚡ Priority Alert Communications",
-        value: "priority_alerts",
-        description: "How to handle urgent transport coordination",
-        examples: "*Important transport situations may override preferences for immediate contact via available methods. Driver safety updates, schedule changes, and urgent coordination delivered immediately for service continuity."
+        id: "daily_security_briefings",
+        label: "📊 Daily Security Briefings",
+        value: "daily_security_briefings",
+        description: "Scheduled daily reports on threat landscape, operations, and intelligence.",
+        examples: "\"Do you need morning security briefing at 8am?\" • \"Do you need daily threat assessment reports?\" • \"Do you need intelligence updates every 24 hours?\""
       },
       {
-        id: "privacy_minimal",
-        label: "🔕 Privacy & Minimal Contact",
-        value: "privacy_minimal",
-        description: "Essential communications only with maximum privacy",
-        examples: "*Driver arrival notifications and priority communications only. Discrete, minimal interruption approach with strong privacy protection. Best for privacy-focused users and confidential transport needs."
+        id: "weekly_threat_reports",
+        label: "📈 Weekly Threat Reports",
+        value: "weekly_threat_reports",
+        description: "Comprehensive weekly analysis of security situation and risk assessment.",
+        examples: "\"Do you need Monday morning threat analysis?\" • \"Do you need weekly risk assessment reports?\" • \"Do you need comprehensive security situation updates?\""
       },
       {
-        id: "no_communications",
-        label: "❌ No Non-Essential Communications",
-        value: "no_communications",
-        description: "Driver coordination only, no booking communications",
-        examples: "*Direct driver coordination only. No booking confirmations, updates, or administrative communications. Priority alerts still delivered for safety and security purposes."
+        id: "incident_alerts_only",
+        label: "⚠️ Incident Alerts Only",
+        value: "incident_alerts_only",
+        description: "Communication only when security incidents occur, no routine updates.",
+        examples: "\"Contact only during actual incidents?\" • \"Alert notifications for threats only?\" • \"No routine updates unless emergency?\""
+      },
+      {
+        id: "silent_operations",
+        label: "🔕 Silent Operations",
+        value: "silent_operations",
+        description: "Minimal communication except for critical security situations.",
+        examples: "\"Silent operations with minimal contact needed?\" • \"Critical situations only communications?\" • \"Stealth approach with emergency alerts?\""
+      },
+      {
+        id: "family_coordinator_updates",
+        label: "👨‍👩‍👧‍👦 Family Coordinator Updates",
+        value: "family_coordinator_updates",
+        description: "Updates to designated family member managing household security.",
+        examples: "\"Does your spouse coordinate family security?\" • \"Does family office manage household protection?\" • \"Does designated family member receive updates?\""
+      },
+      {
+        id: "multiple_authorized_contacts",
+        label: "👥 Multiple Authorized Contacts",
+        value: "multiple_authorized_contacts",
+        description: "Different contacts for different threat levels and situations.",
+        examples: "\"Different contacts for different threat levels?\" • \"Multiple authorized decision makers?\" • \"Varied contacts for different situations?\""
       },
       {
         id: "prefer_not_to_say",
-        label: "❓ Prefer not to say",
+        label: "❓ Prefer Not to Say",
         value: "prefer_not_to_say",
-        description: "That's great. We'll adapt to your needs as we learn what works best for you.",
-        examples: "*Our specialists will use standard professional communication methods while maintaining complete confidentiality about your preferred contact and communication preferences."
+        description: "Communication protocols established privately with CPO team.",
+        examples: "\"Communication protocols established privately?\" • \"Prefer confidential communication setup?\" • \"Discrete coordination required?\""
       }
     ],
     validation: { required: true, minSelections: 1, maxSelections: 8, errorMessage: "Please select 1-8 communication preferences" },
-    helpText: "How would you like us to stay in touch? We'll only contact you when we need to.",
-    stepDescription: "How should we keep in touch? Some people love texts, others prefer calls, and some want everything through their assistant. Tell us what works for you so we're not texting when you're in meetings or calling when you're asleep."
+    helpText: "Protection operations require secure, reliable communications. Our control room monitors all active protection details, tracks threat intelligence, and coordinates emergency responses. Select your preferred channels for operational updates, threat alerts, and routine communications.",
+    stepDescription: "How should we communicate during protection operations? Some prefer encrypted texts for updates, others want voice calls for emergencies only. Some need briefings through assistants, others want direct control room contact. Tell us what works for your security communications."
   },
   {
     id: 9,
-    title: "Profile Review",
-    subtitle: "Complete your security assessment",
-    question: "Does everything look correct? You're almost ready for premium transport.",
+    title: "📋 Security Service Agreement & Confirmation",
+    subtitle: "Complete your close protection assessment",
+    question: "Review and confirm your Close Protection Service Agreement",
     type: "radio",
     options: [
       {
-        id: "confirm_profile",
-        label: "✅ Confirm Profile",
-        value: "confirm_profile",
-        description: "Profile is complete and accurate",
-        examples: "*I confirm all information is correct and complete. Ready to proceed with personalized service recommendations. Authorize Armora to use this profile for service delivery."
+        id: "confirm_security_agreement",
+        label: "✅ Confirm Security Agreement",
+        value: "confirm_security_agreement",
+        description: "Security profile is complete and accurate",
+        examples: "\"Does your protection profile accurately reflect security needs?\" • \"Ready for CPO team assignment and briefing?\" • \"Authorize immediate security service activation?\""
       },
       {
         id: "need_modifications",
         label: "📝 Need Modifications",
         value: "need_modifications",
-        description: "I'd like to review some answers",
-        examples: "*I want to review and modify some of my responses. Take me back to edit specific sections. Save current progress and allow selective editing."
+        description: "I'd like to review some responses",
+        examples: "\"Need to correct threat assessment details?\" • \"Want to modify communication preferences?\" • \"Need to update emergency contact information?\""
       },
       {
         id: "privacy_completion",
         label: "🔒 Complete with Maximum Privacy",
         value: "privacy_completion",
-        description: "Complete setup with maximum privacy protection",
-        examples: "*Proceed with service setup while maintaining the highest level of confidentiality. Our specialists will provide personalized consultation to understand your requirements. Complete discretion guaranteed throughout the process."
+        description: "Complete setup with maximum confidentiality protection",
+        examples: "\"Proceed with maximum confidentiality?\" • \"Require personalized private consultation?\" • \"Complete discretion guaranteed throughout?\""
       }
     ],
-    validation: { required: true, errorMessage: "Please confirm your profile to complete assessment" },
-    helpText: "Almost there! Take a quick look to make sure everything's right before we get started.",
-    stepDescription: "Take a quick look to make sure we've got everything right. This helps your drivers prepare properly and ensures you get exactly the service you're expecting. Think of it as your personal travel preferences saved for every ride.",
+    validation: { required: true, errorMessage: "Please confirm your security profile to complete assessment" },
+    helpText: "You are engaging SIA-licensed Close Protection Officers for professional security services under UK private security regulations. This is NOT a private hire vehicle service. CPOs provide threat assessment, personal protection, and secure movement as part of integrated security operations.",
+    stepDescription: "Take a quick look to make sure we've got everything right. This helps your CPOs prepare properly and ensures you get exactly the protection you're expecting. Think of it as your personal security preferences saved for every protection detail.",
     isLastStep: true,
     profileSummary: {
       showSummary: true,
       summaryCards: [
         {
-          title: "📋 TRANSPORT PROFILE SUMMARY",
-          fields: ["professionalProfile", "travelFrequency", "topPriorities"]
+          title: "🛡️ PROTECTION PROFILE SUMMARY",
+          fields: ["professionalProfile", "protectionFrequency", "topPriorities"]
         },
         {
-          title: "📍 COVERAGE SUMMARY", 
-          fields: ["primaryAreas", "secondaryAreas"]
+          title: "📍 COVERAGE SUMMARY",
+          fields: ["primaryZones", "threatAssessment"]
         },
         {
           title: "🔒 SECURITY & REQUIREMENTS",
-          fields: ["safetyContact", "specialRequirements", "communicationPreferences"]
+          fields: ["emergencyProtocols", "operationalRequirements", "communicationPreferences"]
         }
       ]
     },
     legalConfirmations: {
       required: [
         {
-          id: "accuracy_confirmation",
-          text: "I confirm the information provided is accurate to the best of my knowledge",
+          id: "security_service_understanding",
+          text: "I understand this is a SECURITY SERVICE under SIA regulations",
           required: true
         },
         {
-          id: "risk_assessment_understanding",
-          text: "I understand this professional risk assessment helps provide enhanced security transport services",
+          id: "not_private_hire_acknowledgment",
+          text: "I acknowledge this is NOT a private hire vehicle service",
           required: true
         },
         {
-          id: "gdpr_consent",
-          text: "I consent to data processing under GDPR Article 6(1)(f) - Legitimate Interests for service provision",
+          id: "cpo_professionals_confirmation",
+          text: "I confirm CPOs are SECURITY PROFESSIONALS, not drivers",
           required: true
         },
         {
-          id: "data_rights_understanding",
-          text: "I understand I can request data deletion or modification at any time",
+          id: "secure_movement_incidental",
+          text: "I accept secure movement is INCIDENTAL to protection duties",
           required: true
         },
         {
-          id: "terms_agreement",
-          text: "I have read and agree to the Terms of Service",
-          required: true,
-          link: "/terms-of-service"
+          id: "vehicles_security_assets",
+          text: "I understand vehicles are SECURITY ASSETS, not taxis",
+          required: true
         },
         {
-          id: "privacy_policy_agreement", 
-          text: "I have read and understand the Privacy Policy",
-          required: true,
-          link: "/privacy-policy"
+          id: "pricing_security_expertise",
+          text: "I acknowledge pricing reflects SECURITY EXPERTISE",
+          required: true
+        },
+        {
+          id: "cpo_refusal_authority",
+          text: "I accept CPOs may refuse movement if security is compromised",
+          required: true
+        },
+        {
+          id: "threat_assessment_consent",
+          text: "I consent to threat assessment and security data processing",
+          required: true
+        },
+        {
+          id: "operational_confidentiality",
+          text: "I agree to maintain confidentiality of security operations",
+          required: true
+        },
+        {
+          id: "terms_conditions_acceptance",
+          text: "I accept the Close Protection Service Terms & Conditions",
+          required: true
+        },
+        {
+          id: "false_booking_understanding",
+          text: "I understand false booking attempts may be reported to police",
+          required: true
+        },
+        {
+          id: "legitimate_security_requirements",
+          text: "I confirm I have legitimate security requirements",
+          required: true
         }
       ],
-      optional: [
-        {
-          id: "research_participation",
-          text: "I consent to service improvement research participation (Optional)",
-          required: false,
-          defaultChecked: false
-        },
-        {
-          id: "industry_updates",
-          text: "I consent to receiving security industry updates and insights (Optional)",
-          required: false,
-          defaultChecked: false
-        },
-        {
-          id: "anonymized_research",
-          text: "I consent to sharing anonymized data for industry safety research (Optional)",
-          required: false,
-          defaultChecked: false
-        }
-      ]
+      optional: []
     },
-    securityStatement: "This professional risk assessment is conducted as best practice within the security transport industry. Completion enables us to provide enhanced duty of care and operational efficiency. All information is stored securely and processed in accordance with UK GDPR requirements.",
-    legalStatement: "By submitting this assessment, you acknowledge that: This is a voluntary professional service enhancement • No legal obligation exists to complete this assessment • Services remain available regardless of assessment completion • All data processing complies with UK Data Protection Act 2018 • You retain full rights over your personal data",
+    securityStatement: "⚠️ IMPORTANT: Armora provides SIA-licensed Close Protection Officers for security services. Any movement is incidental to protection duties. This is NOT a private hire vehicle service and is NOT regulated as transportation. False bookings or misuse may be reported to authorities.",
+    legalStatement: "By submitting this assessment, you acknowledge that: This is a professional security service under SIA regulations • CPOs are security professionals providing threat assessment and protection • Secure movement is incidental to protection duties • This is not a private hire vehicle service • All data processing complies with UK Data Protection Act 2018 • You retain full rights over your personal data",
     serviceRecommendation: {
       enabled: true,
       confidenceThreshold: 85,
@@ -927,97 +1124,131 @@ export const questionnaireSteps: QuestionnaireStep[] = [
   }
 ];
 
-// Note: Dynamic personalization functions have been moved to utils/dynamicPersonalization.ts
+// Service tier calculation logic
+export const getServiceRecommendation = (responses: Record<string, any>): string => {
+  const professionalProfile = responses.step1 || responses.professionalProfile;
+  const protectionRequirements: string[] = responses.step3 || responses.protectionRequirements || [];
+  const frequency = responses.step2 || responses.protectionFrequency;
+  const threatAssessment: string[] = responses.step5 || responses.threatAssessment || [];
 
+  // Armora Platinum - £150/hour + £3/mile
+  const platinumProfiles = ['high_profile_individual'];
+  const platinumRequirements = ['armoured_vehicle_capability', 'ex_military_police_officers', 'multiple_officer_teams'];
+  const platinumThreats = ['financial_threat_exposure', 'international_threat_exposure', 'witness_protection_protocols'];
+
+  if (platinumProfiles.includes(professionalProfile) ||
+      protectionRequirements.some(req => platinumRequirements.includes(req)) ||
+      (frequency === 'daily_protection_detail' && protectionRequirements.includes('ex_military_police_officers')) ||
+      threatAssessment.some(threat => platinumThreats.includes(threat))) {
+    return "armora-platinum";
+  }
+
+  // Armora Shadow - £95/hour + £2.50/mile
+  const shadowProfiles = ['entertainment_public_figure'];
+  const shadowRequirements = ['covert_protection', 'counter_surveillance_training'];
+  const shadowThreats = ['media_paparazzi_exposure', 'stalking_harassment_situations'];
+
+  if (shadowProfiles.includes(professionalProfile) ||
+      protectionRequirements.some(req => shadowRequirements.includes(req)) ||
+      threatAssessment.some(threat => shadowThreats.includes(threat))) {
+    return "armora-shadow";
+  }
+
+  // Armora Executive - £75/hour + £2/mile
+  const executiveProfiles = ['corporate_executive', 'business_owner'];
+  const executiveRequirements = ['corporate_billing_systems', 'standard_executive_vehicles'];
+  const executiveFrequency = ['regular_business_protection', 'daily_protection_detail'];
+
+  if (executiveProfiles.includes(professionalProfile) ||
+      protectionRequirements.some(req => executiveRequirements.includes(req)) ||
+      executiveFrequency.includes(frequency)) {
+    return "armora-executive";
+  }
+
+  // Default to Armora Protection - £45/hour + £1.50/mile
+  return "armora-protection";
+};
+
+export const serviceData = {
+  "armora-protection": {
+    id: "armora-protection",
+    name: "Armora Protection",
+    description: "Professional close protection services",
+    features: [
+      "SIA-licensed Close Protection Officers",
+      "Standard secure vehicles (unmarked)",
+      "Professional security protocols",
+      "24/7 protection availability",
+      "Real-time threat monitoring",
+      "Background-checked professionals",
+      "Emergency response protocols"
+    ],
+    price: "£45/hour + £1.50/mile",
+    confidence: 85,
+    estimatedMonthly: "£360-720"
+  },
+  "armora-executive": {
+    id: "armora-executive",
+    name: "Armora Executive",
+    description: "Premium close protection with enhanced capabilities",
+    features: [
+      "Senior SIA Close Protection Officers",
+      "Executive vehicles (S-Class, 7-Series, A8)",
+      "Enhanced security protocols",
+      "Business facilities (WiFi, charging, privacy glass)",
+      "Preferred CPO assignment",
+      "Airport security coordination",
+      "Medical response trained CPOs",
+      "Corporate billing integration"
+    ],
+    price: "£75/hour + £2/mile",
+    confidence: 92,
+    estimatedMonthly: "£600-1200"
+  },
+  "armora-shadow": {
+    id: "armora-shadow",
+    name: "Armora Shadow",
+    description: "Discrete close protection with specialized officers",
+    features: [
+      "Covert SIA Close Protection Officers",
+      "Unmarked discrete vehicles",
+      "Advanced counter-surveillance protocols",
+      "Route security planning",
+      "Media/paparazzi protection",
+      "Stalking protection protocols",
+      "Privacy protection specialists"
+    ],
+    price: "£95/hour + £2.50/mile",
+    confidence: 89,
+    estimatedMonthly: "£760-1520",
+    popular: true
+  },
+  "armora-platinum": {
+    id: "armora-platinum",
+    name: "Armora Platinum",
+    description: "Maximum security close protection",
+    features: [
+      "Ex-Military/Police Close Protection Officers",
+      "Armoured vehicles (B6/B7 rated)",
+      "Multi-officer protection teams",
+      "24/7 control room monitoring",
+      "Emergency extraction protocols",
+      "Encrypted communications",
+      "International coordination",
+      "Threat intelligence briefings"
+    ],
+    price: "£150/hour + £3/mile",
+    confidence: 95,
+    estimatedMonthly: "£1200-2400"
+  }
+};
+
+// Note: Dynamic personalization functions have been moved to utils/dynamicPersonalization.ts
 export const getQuestionsForUserType = (userType: string) => questionnaireSteps;
 export const getTotalStepsForUserType = (userType: string) => 9;
 export const shouldShowConversionPrompt = (step: number) => false;
 export const getConversionPromptForStep = (step: number) => null;
 export const calculateProgress = (currentStep: number, totalSteps: number) => (currentStep / totalSteps) * 100;
 export const validateStepData = (stepId: number, value: any) => ({ isValid: true });
-export const getServiceRecommendation = (responses: Record<string, any>): string => {
-  // Analyze responses to recommend appropriate service level
-  const professionalProfile = responses.step1 || responses.professionalProfile;
-  const serviceRequirements: string[] = responses.step3 || responses.serviceRequirements || [];
-  const frequency = responses.step2 || responses.travelFrequency;
-  
-  // High-level professional profiles that typically need Executive or Shadow
-  const executiveProfiles = ['executive', 'celebrity', 'diplomat', 'government'];
-  const shadowProfiles = ['security_awareness', 'privacy_discretion'];
-  
-  // Check for executive indicators
-  if (executiveProfiles.includes(professionalProfile)) {
-    return serviceRequirements.includes('security_awareness') ? "armora-shadow" : "armora-executive";
-  }
-  
-  // Check for security-focused requirements
-  if (serviceRequirements.some((req: string) => shadowProfiles.includes(req))) {
-    return "armora-shadow";
-  }
-  
-  // Check for premium preferences
-  if (serviceRequirements.includes('premium_comfort') || frequency === 'daily') {
-    return "armora-executive";
-  }
-  
-  // Default to standard
-  return "armora-standard";
-};
-
-export const serviceData = {
-  "armora-standard": {
-    id: "armora-standard",
-    name: "Armora Secure",
-    description: "Professional security transport service",
-    features: [
-      "SIA Level 2 security-certified drivers",
-      "Eco-friendly Nissan Leaf EV fleet (discreet)",
-      "Professional security protocols",
-      "24/7 booking availability",
-      "Real-time safety monitoring",
-      "Background-checked professionals",
-      "Emergency response protocols"
-    ],
-    price: "£45/hour",
-    confidence: 85,
-    estimatedMonthly: "£360-720"
-  },
-  "armora-executive": {
-    id: "armora-executive", 
-    name: "Armora Executive",
-    description: "Premium security transport with enhanced amenities",
-    features: [
-      "Executive chauffeur service",
-      "Premium vehicles (S-Class, 7-Series, A8)",
-      "Enhanced security protocols",
-      "Business facilities (WiFi, charging, privacy glass)",
-      "Preferred driver assignment",
-      "Airport meet & greet",
-      "First aid trained drivers",
-      "SIA Close Protection Officers"
-    ],
-    price: "£75/hour",
-    confidence: 92,
-    estimatedMonthly: "£600-1200"
-  },
-  "armora-shadow": {
-    id: "armora-shadow",
-    name: "Armora Shadow", 
-    description: "Discrete security escort with trained protection officers",
-    features: [
-      "SIA Close Protection (CP) officers",
-      "Unmarked discrete vehicles",
-      "Advanced security protocols", 
-      "Route security planning",
-      "Counter-surveillance awareness",
-      "Safety coordination protocols",
-      "First aid trained drivers"
-    ],
-    price: "£65/hour",
-    confidence: 89,
-    estimatedMonthly: "£520-1040",
-    popular: true
-  }
-};
 
 export default questionnaireSteps;

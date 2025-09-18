@@ -805,12 +805,14 @@
   box-sizing: border-box;
 }
 
-/* Simplified examples section */
+/* Simplified examples section - styled with Armora gold */
 .optionExamples {
   font-size: 14px !important; /* Standardized examples font size */
-  color: rgba(224, 224, 224, 0.7) !important; /* Consistent grey with descriptions */
+  color: #FFD700 !important; /* Armora branded gold */
   line-height: 1.5 !important;
-  font-style: italic !important;
+  font-style: italic !important; /* Keep italic style */
+  font-weight: 500; /* Slightly bolder to make it stand out */
+  text-shadow: 0 0 4px rgba(255, 215, 0, 0.3); /* Subtle golden glow */
   transition: color 0.3s ease; /* Smooth color transition on hover */
   margin-bottom: 20px; /* Space before toggle */
 }

@@ -9,9 +9,9 @@ const SecurityStatus = () => {
   const [isTyping, setIsTyping] = useState(true);
 
   const securityMessages = useMemo(() => [
-    "Initializing quantum encryption...",
-    "Scanning driver authentication matrix...",
-    "Verifying biometric security protocols...",
+    "Establishing secure connection...",
+    "Verifying protection officer credentials...",
+    "Connecting to SIA security network...",
     "Establishing secure communication channels...",
     "Loading executive protection network...",
     "Securing your journey..."
@@ -120,7 +120,7 @@ export function SplashScreen() {
 
         {/* Enhanced Tagline */}
         <p className={styles.taglineEnhanced}>
-          Your Personal Security Driver Team
+          SIA-Licensed Protection Officers
         </p>
 
         {/* Advanced Security Loading System */}

@@ -90,6 +90,12 @@ export const SmartRecommendation: React.FC<SmartRecommendationProps> = ({
   const recommendedService = getRecommendedService();
   const displayType = getDisplayType();
 
+  // Handle adjust preferences click
+  const handleAdjustPreferences = () => {
+    // TODO: Navigate to questionnaire or open preferences modal
+    console.log('Adjust preferences clicked');
+  };
+
   // Generate personalized recommendation - MEMOIZED to prevent re-renders
   const recommendation = useMemo(() =>
     generateRecommendation(questionnaireData, user, services),
@@ -120,9 +126,9 @@ export const SmartRecommendation: React.FC<SmartRecommendationProps> = ({
     <div className={styles.recommendationCard}>
       <div className={styles.header}>
         <div className={styles.compactBadge}>
-          <span className={styles.matchScore}>{recommendation.profile.matchScore}% MATCH</span>
-          <span className={styles.separator}>•</span>
           <span className={styles.recommendedLabel}>RECOMMENDED</span>
+          <span className={styles.separator}>-</span>
+          <span className={styles.matchReason}>TAILORED TO YOU</span>
         </div>
         <h3 className={styles.serviceName}>Standard Protection</h3>
       </div>
@@ -131,23 +137,22 @@ export const SmartRecommendation: React.FC<SmartRecommendationProps> = ({
         <div className={styles.contentLeft}>
           <div className={styles.recommendationExplanation}>
             <p className={styles.explanationText}>
-              Based on your security assessment, we've found your perfect match! Professional security drivers who make every journey feel safe and comfortable. Trusted by thousands of passengers just like you.
+              Based on: Executive profile • High privacy needs • Daily usage<br/>
+              SIA Executive Protection with immediate deployment.
             </p>
+            <button className={styles.adjustPreferences} onClick={handleAdjustPreferences}>
+              Adjust preferences
+            </button>
           </div>
 
-          <div className={styles.benefitsList}>
-            <div className={styles.benefit}>• Friendly, vetted security drivers</div>
-            <div className={styles.benefit}>• Discrete & professional service</div>
-            <div className={styles.benefit}>• Book instantly, 24/7</div>
-          </div>
         </div>
 
         <div className={styles.contentRight}>
           <div className={styles.quickStats}>
             <span className={styles.stat}>⭐ 4.8 Rating</span>
-            <span className={styles.stat}>👥 2,847+ Happy Riders</span>
-            <span className={styles.stat}>⚡ 2 min away</span>
-            <span className={styles.stat}>✅ Available Now</span>
+            <span className={styles.stat}>👥 2,847+ Clients</span>
+            <span className={styles.stat}>⚡ 2 min</span>
+            <span className={styles.stat}>✅ Ready</span>
           </div>
 
           <div className={styles.ctaSection}>
@@ -155,7 +160,7 @@ export const SmartRecommendation: React.FC<SmartRecommendationProps> = ({
               className={styles.selectServiceBtn}
               onClick={() => onServiceSelect(recommendedService?.id || 'standard')}
             >
-              REQUEST ESCORT
+              REQUEST PROTECTION
             </button>
           </div>
         </div>

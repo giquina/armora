@@ -28,10 +28,10 @@ interface UserAccountData {
     privacySettings: any;
   };
   stats: {
-    totalRides: number;
+    operationsCompleted: number;
     totalHours: number;
     totalSpent: number;
-    userRating: number;
+    trustScore: number;
     averagePerRide: number;
     thisMonth: {
       amount: number;
@@ -98,10 +98,10 @@ const generateMockUserData = (user: any): UserAccountData => {
       privacySettings: {}
     },
     stats: {
-      totalRides: 47,
+      operationsCompleted: 47,
       totalHours: 156,
       totalSpent: 2847.50,
-      userRating: 4.9,
+      trustScore: 4.9,
       averagePerRide: 60.58,
       thisMonth: {
         amount: 487.00,
@@ -133,9 +133,9 @@ const generateMockUserData = (user: any): UserAccountData => {
     },
     achievements: {
       badges: [
-        { id: '1', name: '4p Drive Club', icon: '🚗', earned: true },
+        { id: '1', name: 'Trusted Client', icon: '🚗', earned: true },
         { id: '2', name: 'Verified', icon: '✓', earned: true },
-        { id: '3', name: 'Safe Rider', icon: '🛡️', earned: true },
+        { id: '3', name: 'Security Cleared', icon: '🛡️', earned: true },
         { id: '4', name: 'Elite', icon: '⭐', earned: true }
       ]
     }
@@ -219,7 +219,7 @@ export function AccountView() {
           <span className={styles.scoreValue}>0/20 ✗</span>
         </div>
         <div className={styles.scoreItem}>
-          <span className={styles.scoreLabel}>Ride History</span>
+          <span className={styles.scoreLabel}>Operation History</span>
           <span className={styles.scoreValue}>19/20 ✓</span>
         </div>
         <div className={styles.scoreItem}>
@@ -253,7 +253,7 @@ export function AccountView() {
           <span className={styles.financialValue}>£{userData.stats.totalSpent.toFixed(2)}</span>
         </div>
         <div className={styles.financialCard}>
-          <span className={styles.financialLabel}>Average per ride:</span>
+          <span className={styles.financialLabel}>Average per operation:</span>
           <span className={styles.financialValue}>£{userData.stats.averagePerRide.toFixed(2)}</span>
         </div>
       </div>
@@ -263,7 +263,7 @@ export function AccountView() {
         <div className={styles.monthlyGrid}>
           <div className={styles.monthlyCard}>
             <span className={styles.monthlyLabel}>This Month:</span>
-            <span className={styles.monthlyValue}>£{userData.stats.thisMonth.amount.toFixed(2)} ({userData.stats.thisMonth.rides} rides)</span>
+            <span className={styles.monthlyValue}>£{userData.stats.thisMonth.amount.toFixed(2)} ({userData.stats.thisMonth.rides} operations)</span>
           </div>
           <div className={styles.monthlyCard}>
             <span className={styles.monthlyLabel}>Last Month:</span>
@@ -314,7 +314,7 @@ export function AccountView() {
           <h4 className={styles.howItWorksTitle}>How it works:</h4>
           <ol className={styles.stepsList}>
             <li>Friend signs up with your code</li>
-            <li>They complete first ride</li>
+            <li>They complete first operation</li>
             <li>You both get £50 credits</li>
           </ol>
         </div>
@@ -405,19 +405,19 @@ export function AccountView() {
 
         <div className={styles.statsGrid}>
           <div className={`${styles.statCard} ${styles.miniCard}`}>
-            <span className={styles.statValue}>{userData.stats.totalRides}</span>
-            <span className={styles.statLabel}>Total Rides</span>
+            <span className={styles.statValue}>{userData.stats.operationsCompleted}</span>
+            <span className={styles.statLabel}>Total Operations</span>
           </div>
           <div className={`${styles.statCard} ${styles.miniCard}`}>
             <span className={styles.statValue}>{userData.stats.totalHours} hrs</span>
-            <span className={styles.statLabel}>Protected</span>
+            <span className={styles.statLabel}>On Detail</span>
           </div>
           <div className={`${styles.statCard} ${styles.miniCard}`}>
             <span className={styles.statValue}>£{userData.stats.totalSpent.toFixed(0)}</span>
             <span className={styles.statLabel}>Total Spent</span>
           </div>
           <div className={`${styles.statCard} ${styles.miniCard}`}>
-            <span className={styles.statValue}>⭐ {userData.stats.userRating}</span>
+            <span className={styles.statValue}>⭐ {userData.stats.trustScore}</span>
             <span className={styles.statLabel}>Your Rating</span>
           </div>
         </div>
@@ -471,7 +471,7 @@ export function AccountView() {
             <span className={styles.settingIcon}>🔔</span>
             <div className={styles.settingContent}>
               <span className={styles.settingTitle}>Notifications</span>
-              <span className={styles.settingDesc}>Ride updates, offers, news</span>
+              <span className={styles.settingDesc}>Operation updates, offers, news</span>
             </div>
             <span className={styles.settingArrow}>→</span>
           </button>

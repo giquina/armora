@@ -120,7 +120,7 @@ export function WelcomePage() {
                     <ArmoraTagline />
                   </p>
                   <p className={styles.taglineSubtext}>
-                    Protection for You. Safety for All.
+                    SIA-licensed security professionals providing comprehensive protection services that include secure travel throughout your journey.
                   </p>
                 </div>
               </div>
@@ -141,8 +141,8 @@ export function WelcomePage() {
                   </svg>
                 </div>
                 <div className={styles.featureText}>
-                  <h3 className={styles.featureTitleOnly}>Government-Licensed Security Cab Drivers</h3>
-                  <p className={styles.featureSubtitle}>SIA-certified drivers with enhanced background screening</p>
+                  <h3 className={styles.featureTitleOnly}>Licensed Security Professionals</h3>
+                  <p className={styles.featureSubtitle}>Government-vetted protection officers</p>
                 </div>
               </div>
             </div>
@@ -158,8 +158,8 @@ export function WelcomePage() {
                   </svg>
                 </div>
                 <div className={styles.featureText}>
-                  <h3 className={styles.featureTitleOnly}>Secure Private Hire Transport</h3>
-                  <p className={styles.featureSubtitle}>Licensed transport with enhanced safety protocols</p>
+                  <h3 className={styles.featureTitleOnly}>24/7 Safety Coverage</h3>
+                  <p className={styles.featureSubtitle}>Round-the-clock security support</p>
                 </div>
               </div>
             </div>
@@ -173,8 +173,8 @@ export function WelcomePage() {
                   </svg>
                 </div>
                 <div className={styles.featureText}>
-                  <h3 className={styles.featureTitleOnly}>Safe Ride Fund Initiative</h3>
-                  <p className={styles.featureSubtitle}>Your membership helps vulnerable communities access safe transport</p>
+                  <h3 className={styles.featureTitleOnly}>Secure Travel Included</h3>
+                  <p className={styles.featureSubtitle}>Protection that gets you there safely</p>
                 </div>
               </div>
             </div>
@@ -189,8 +189,8 @@ export function WelcomePage() {
                   </svg>
                 </div>
                 <div className={styles.featureText}>
-                  <h3 className={styles.featureTitleOnly}>24/7 Protection Booking</h3>
-                  <p className={styles.featureSubtitle}>Instant booking with security-conscious drivers available anytime</p>
+                  <h3 className={styles.featureTitleOnly}>Premium Service Standards</h3>
+                  <p className={styles.featureSubtitle}>VIP-level care and discretion</p>
                 </div>
               </div>
             </div>
@@ -204,8 +204,8 @@ export function WelcomePage() {
                   </svg>
                 </div>
                 <div className={styles.featureText}>
-                  <h3 className={styles.featureTitleOnly}>Discrete Professional Service</h3>
-                  <p className={styles.featureSubtitle}>VIP-level confidential transport standards</p>
+                  <h3 className={styles.featureTitleOnly}>Government-Standard Vetting</h3>
+                  <p className={styles.featureSubtitle}>All officers undergo enhanced DBS checks and security clearance procedures</p>
                 </div>
               </div>
             </div>
@@ -248,8 +248,8 @@ export function WelcomePage() {
                     <polyline points="22,6 12,13 2,6"/>
                   </svg>
                   <span className={styles.buttonText}>
-                    <span className={styles.desktopText}>Continue with Email</span>
-                    <span className={styles.mobileText}>Email</span>
+                    <span className={styles.desktopText}>Access Protection Portal</span>
+                    <span className={styles.mobileText}>Protection Portal</span>
                   </span>
                 </span>
               </Button>
@@ -265,8 +265,8 @@ export function WelcomePage() {
                     <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
                   </svg>
                   <span className={styles.buttonText}>
-                    <span className={styles.desktopText}>Continue with Phone</span>
-                    <span className={styles.mobileText}>Phone</span>
+                    <span className={styles.desktopText}>Request Protection Services</span>
+                    <span className={styles.mobileText}>Request Protection</span>
                   </span>
                 </span>
               </Button>
@@ -287,10 +287,10 @@ export function WelcomePage() {
             >
               <span className={styles.guestButtonContent}>
                 <span className={styles.buttonText}>
-                  <span className={styles.desktopText}>Continue as Guest</span>
-                  <span className={styles.mobileText}>Guest</span>
+                  <span className={styles.desktopText}>Security Assessment Only</span>
+                  <span className={styles.mobileText}>Assessment Only</span>
                 </span>
-                <span className={styles.guestNote}>(Limited features)</span>
+                <span className={styles.guestNote}>(Quote-only mode)</span>
               </span>
             </Button>
 
@@ -329,13 +329,20 @@ export function WelcomePage() {
 
         {/* Footer - Single Government Licensed Text */}
         <footer className={`${styles.welcomeFooter} ${showContent ? styles.footerVisible : ''}`}>
-          <button 
+          <button
             className={styles.governmentLicensedButton}
             onClick={() => setShowCredentialsModal(true)}
             aria-label="View all Government Licensed & Certified Operations credentials"
           >
-            Government-Licensed & Certified Operations
+SIA Approved Contractor - Licensed Security Services
           </button>
+
+          {/* Legal Disclaimer */}
+          <div className={styles.legalDisclaimer}>
+            <p className={styles.disclaimerText}>
+              Armora provides licensed security services under SIA regulations. Our protection officers ensure your safety throughout your journey.
+            </p>
+          </div>
         </footer>
       </div>
 

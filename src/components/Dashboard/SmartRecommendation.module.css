@@ -64,6 +64,30 @@
   border-radius: var(--radius-sm);
 }
 
+.matchReason {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: var(--armora-gold);
+  letter-spacing: 0.5px;
+}
+
+.adjustPreferences {
+  background: transparent;
+  border: none;
+  color: var(--armora-gold);
+  font-size: 0.85rem;
+  text-decoration: underline;
+  cursor: pointer;
+  padding: 0;
+  margin-top: 8px;
+  font-family: inherit;
+}
+
+.adjustPreferences:hover {
+  opacity: 0.8;
+}
+
 .serviceName {
   font-size: 1.1rem;
   font-weight: 600;

@@ -5,15 +5,15 @@
   box-sizing: border-box;
 }
 
-/* Critical: Remove overflow hidden from document level elements */
+/* Critical: Ensure borders can show while preventing unwanted horizontal scroll */
 html {
-  overflow-x: visible !important;
-  max-width: none !important;
+  overflow-x: auto !important;
+  max-width: 100vw !important;
 }
 
 body {
-  overflow-x: visible !important;
-  max-width: none !important;
+  overflow-x: auto !important;
+  max-width: 100vw !important;
   padding: 0 2px; /* Small padding to give borders breathing room on mobile */
 }
 
