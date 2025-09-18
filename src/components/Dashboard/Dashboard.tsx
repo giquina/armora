@@ -742,7 +742,10 @@ export function Dashboard() {
 
       {/* Safe Ride Fund Modal */}
       {showSafeRideModal && (
-        <ArmoraFoundationModal onClose={() => setShowSafeRideModal(false)} />
+        <ArmoraFoundationModal 
+          isOpen={showSafeRideModal} 
+          onClose={() => setShowSafeRideModal(false)} 
+        />
       )}
     </div>
   );

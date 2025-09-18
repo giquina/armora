@@ -1,0 +1,63 @@
+/* Creator Impact Widget Styles */
+
+.creatorWidget {
+  background: linear-gradient(135deg, rgba(255, 215, 0, 0.1) 0%, rgba(255, 165, 0, 0.05) 100%);
+  border: 1px solid rgba(255, 215, 0, 0.3);
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 16px;
+  box-sizing: border-box;
+}
+
+.content {
+  text-align: center;
+}
+
+.title {
+  color: #FFD700;
+  font-size: 18px;
+  font-weight: 600;
+  margin: 0 0 8px 0;
+}
+
+.description {
+  color: #e0e0e0;
+  font-size: 14px;
+  margin: 0 0 16px 0;
+  line-height: 1.4;
+}
+
+.stats {
+  display: flex;
+  justify-content: space-around;
+  gap: 16px;
+}
+
+.stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.number {
+  color: #FFD700;
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.label {
+  color: #e0e0e0;
+  font-size: 12px;
+  text-align: center;
+}
+
+@media (max-width: 480px) {
+  .stats {
+    gap: 12px;
+  }
+  
+  .number {
+    font-size: 18px;
+  }
+}

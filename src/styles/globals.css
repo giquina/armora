@@ -31,9 +31,12 @@ body {
   color: var(--text-primary);
   font-size: var(--font-base);
   line-height: var(--line-base);
-  overflow-x: hidden; /* CRITICAL: Prevent horizontal scroll */
+  /* FIXED: Use auto instead of hidden to allow borders to show while preventing unwanted scroll */
+  overflow-x: auto;
   max-width: 100vw;
   box-sizing: border-box;
+  /* CRITICAL: Add padding to give borders breathing room on small screens */
+  padding: 0 1px;
 }
 
 /* PREMIUM SCROLLBARS */
@@ -249,16 +252,19 @@ button:disabled {
 }
 
 /* CRITICAL: PREVENT HORIZONTAL SCROLLING ON ALL BREAKPOINTS */
-body,
+/* Removed duplicate body rules - consolidated above with border fix */
 html {
-  overflow-x: visible;
+  overflow-x: auto; /* Allow content to breathe, prevent unwanted scroll */
   max-width: none;
 }
 
 /* Allow #root to show card borders properly */
 #root {
   max-width: 100vw;
-  overflow-x: visible; /* Allow borders to show */
+  overflow-x: auto; /* Allow borders to show while preventing unwanted scroll */
+  /* CRITICAL: Add minimum padding to ensure borders have space */
+  padding: 0 1px;
+  box-sizing: border-box;
 }
 
 /* CRITICAL: Ensure all potentially bordered elements use border-box */
