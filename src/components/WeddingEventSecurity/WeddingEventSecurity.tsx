@@ -6,15 +6,22 @@ interface SecurityFeature {
   icon: string;
   title: string;
   description: string;
+  storytelling?: string;
 }
 
 interface WeddingPackage {
   name: string;
+  brandName: string;
+  icon: string;
   price: string;
+  pricePerGuest?: string;
   duration: string;
   officers: number;
   popular?: boolean;
-  features: string[];
+  features: SecurityFeature[];
+  coverageLevel: number; // 1-5 scale
+  guestRatio: string;
+  confidenceStats: string[];
 }
 
 interface Testimonial {
@@ -72,45 +79,153 @@ const weddingSecurityFeatures: SecurityFeature[] = [
 const weddingPackages: WeddingPackage[] = [
   {
     name: 'Essential',
+    brandName: 'Guardian Shield',
+    icon: '🛡️',
     price: '£500',
+    pricePerGuest: '£2.08 per guest',
     duration: '8 hours',
     officers: 2,
+    coverageLevel: 2,
+    guestRatio: '1:120',
+    confidenceStats: ['Zero incidents in 50+ events', 'Average response: 15 seconds'],
     features: [
-      'Venue security assessment',
-      'Gift table monitoring',
-      'Medical response protocols',
-      'Guest list verification',
-      'Basic crowd management'
+      {
+        icon: '🔍',
+        title: 'Venue security assessment',
+        description: 'Complete security evaluation',
+        storytelling: 'Your venue, expertly evaluated'
+      },
+      {
+        icon: '💝',
+        title: 'Gift table monitoring',
+        description: 'Continuous gift protection',
+        storytelling: 'Your treasures stay treasured'
+      },
+      {
+        icon: '🚨',
+        title: 'Medical response protocols',
+        description: 'Emergency medical support',
+        storytelling: 'Help arrives in seconds'
+      },
+      {
+        icon: '✋',
+        title: 'Guest list verification',
+        description: 'Access control management',
+        storytelling: 'Only invited guests enter'
+      },
+      {
+        icon: '👥',
+        title: 'Basic crowd management',
+        description: 'Flow control for ceremonies',
+        storytelling: 'Smooth sailing ceremonies'
+      }
     ]
   },
   {
     name: 'Premium',
+    brandName: 'Royal Guard',
+    icon: '👑',
     price: '£850',
+    pricePerGuest: '£3.54 per guest',
     duration: '12 hours',
     officers: 3,
     popular: true,
+    coverageLevel: 4,
+    guestRatio: '1:80',
+    confidenceStats: ['Zero incidents in 150+ events', 'Average response: 10 seconds', 'Chosen by 67% of couples'],
     features: [
-      'Bridal party protection',
-      'Advanced crowd management',
-      'Parking area security',
-      'Photo session coordination',
-      'Reception flow management',
-      'VIP guest escort services'
+      {
+        icon: '👰',
+        title: 'Bridal party protection',
+        description: 'Dedicated VIP security',
+        storytelling: 'Your special people, specially protected'
+      },
+      {
+        icon: '🎯',
+        title: 'Advanced crowd management',
+        description: 'Expert flow coordination',
+        storytelling: 'Every moment flows perfectly'
+      },
+      {
+        icon: '🚗',
+        title: 'Parking area security',
+        description: 'Vehicle protection services',
+        storytelling: 'Your guests arrive and leave safely'
+      },
+      {
+        icon: '📸',
+        title: 'Photo session coordination',
+        description: 'Photography security support',
+        storytelling: 'Picture-perfect moments, protected'
+      },
+      {
+        icon: '🥂',
+        title: 'Reception flow management',
+        description: 'Event coordination support',
+        storytelling: 'Celebration flows like clockwork'
+      },
+      {
+        icon: '⭐',
+        title: 'VIP guest escort services',
+        description: 'Personal protection for VIPs',
+        storytelling: 'Your VIPs receive VIP treatment'
+      }
     ]
   },
   {
-    name: 'Premium',
+    name: 'Fortress',
+    brandName: 'Fortress Protocol',
+    icon: '🏰',
     price: '£1,500',
+    pricePerGuest: '£5.00 per guest',
     duration: 'Full day',
     officers: 5,
+    coverageLevel: 5,
+    guestRatio: '1:60',
+    confidenceStats: ['Zero incidents in 25+ luxury events', 'Average response: 8 seconds', 'Celebrity-grade protection'],
     features: [
-      'Full venue security sweep',
-      'Dedicated bridal security',
-      'Asset protection specialists',
-      'Guest arrival coordination',
-      'Multi-location coverage',
-      'Premium vehicle escort',
-      '24/7 security coordination'
+      {
+        icon: '🔒',
+        title: 'Full venue security sweep',
+        description: 'Complete perimeter security',
+        storytelling: 'Fortress-level protection established'
+      },
+      {
+        icon: '💎',
+        title: 'Dedicated bridal security',
+        description: 'Personal Close Protection Officer',
+        storytelling: 'Your own personal guardian angel'
+      },
+      {
+        icon: '🛡️',
+        title: 'Asset protection specialists',
+        description: 'Valuables security experts',
+        storytelling: 'Every precious item safeguarded'
+      },
+      {
+        icon: '🚪',
+        title: 'Guest arrival coordination',
+        description: 'VIP arrival management',
+        storytelling: 'Red carpet treatment for everyone'
+      },
+      {
+        icon: '🗺️',
+        title: 'Multi-location coverage',
+        description: 'Multiple venue protection',
+        storytelling: 'Every location under our watch'
+      },
+      {
+        icon: '🚙',
+        title: 'Premium vehicle escort',
+        description: 'Secure transportation',
+        storytelling: 'Presidential-style convoy protection'
+      },
+      {
+        icon: '⏰',
+        title: '24/7 security coordination',
+        description: 'Round-the-clock command center',
+        storytelling: 'Never alone, always protected'
+      }
     ]
   }
 ];
@@ -266,15 +381,42 @@ export function WeddingEventSecurity() {
             >
               {pkg.popular && <div className={styles.popularBadge}>Most Popular</div>}
               <div className={styles.packageHeader}>
-                <h5 className={styles.packageName}>{pkg.name}</h5>
+                <div className={styles.packageBrand}>
+                  <span className={styles.packageIcon}>{pkg.icon}</span>
+                  <h5 className={styles.packageName}>{pkg.brandName}</h5>
+                </div>
                 <div className={styles.packagePrice}>{pkg.price}</div>
+                <div className={styles.packagePricing}>{pkg.pricePerGuest} (240 guests)</div>
                 <div className={styles.packageDuration}>{pkg.duration} • {pkg.officers} officers</div>
+                <div className={styles.protectionMeter}>
+                  <div className={styles.meterLabel}>Protection Intensity</div>
+                  <div className={styles.meterBar}>
+                    <div
+                      className={styles.meterFill}
+                      style={{ width: `${(pkg.coverageLevel / 5) * 100}%` }}
+                    ></div>
+                  </div>
+                  <div className={styles.meterRatio}>Officer ratio: {pkg.guestRatio}</div>
+                </div>
               </div>
               <div className={styles.packageFeatures}>
                 {pkg.features.map((feature, i) => (
                   <div key={i} className={styles.packageFeature}>
-                    <span className={styles.checkIcon}>✓</span>
-                    <span>{feature}</span>
+                    <span className={styles.featureEmoji}>{feature.icon}</span>
+                    <div className={styles.featureText}>
+                      <div className={styles.featureTitle}>{feature.title}</div>
+                      <div className={styles.featureStory}>{feature.storytelling}</div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              {/* Confidence Stats */}
+              <div className={styles.confidenceStats}>
+                {pkg.confidenceStats.map((stat, i) => (
+                  <div key={i} className={styles.confidenceStat}>
+                    <span className={styles.statIcon}>✅</span>
+                    <span className={styles.statText}>{stat}</span>
                   </div>
                 ))}
               </div>
