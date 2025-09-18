@@ -24,8 +24,8 @@
 }
 
 .ctaButton {
-  /* Thin default border matching content boxes */
-  border: 1px solid rgba(255, 215, 0, 0.3);
+  /* ENHANCED: Stronger border for better visibility across all screens */
+  border: 1px solid rgba(255, 215, 0, 0.5);
   border-radius: 12px;
   font-weight: 600;
   cursor: pointer;
@@ -43,6 +43,8 @@
   line-height: 1.2 !important;
   /* overflow: hidden !important; */ /* Removed - was clipping button borders */
   text-overflow: ellipsis !important;
+  /* CRITICAL: Ensure button doesn't touch viewport edges on small screens */
+  margin: 1px;
 }
 
 /* Primary CTA */
@@ -131,10 +133,12 @@
   flex: 1; /* Equal width with primary */
   height: 64px; /* Same height as primary for perfect alignment */
   background: transparent;
-  border: 1px solid rgba(255, 215, 0, 0.3); /* Thin default border */
+  border: 1px solid rgba(255, 215, 0, 0.5); /* ENHANCED: Stronger border visibility */
   color: #FFD700;
   font-size: 1rem; /* Balanced size matching primary button */
   font-weight: 600;
+  /* CRITICAL: Ensure margins for border visibility */
+  margin: 1px;
 }
 
 .secondaryCTA:hover {
