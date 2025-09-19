@@ -119,7 +119,7 @@ export function BookingConfirmation({ bookingData, onConfirmBooking, onBack }: B
         </div>
 
         <div className={styles.estimateSection}>
-          <h3 className={styles.sectionTitle}>Trip Estimate</h3>
+          <h3 className={styles.sectionTitle}>Service Estimate</h3>
           <div className={styles.estimateCard}>
             <div className={styles.estimateRow}>
               <span>Distance:</span>

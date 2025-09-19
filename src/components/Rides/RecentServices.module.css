@@ -1,6 +1,6 @@
-/* RECENT TRIPS COMPONENT STYLES */
+/* RECENT SERVICES COMPONENT STYLES */
 
-.recentTrips {
+.recentServices {
   max-width: var(--content-max-width);
   margin: 0 auto;
   padding: 0 var(--content-padding-mobile);
@@ -15,7 +15,7 @@
   line-height: var(--line-tight);
 }
 
-/* Trip Cards */
+/* Service Cards */
 .tripsList {
   display: flex;
   flex-direction: column;
@@ -37,7 +37,7 @@
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
 }
 
-/* Trip Header */
+/* Service Header */
 .tripHeader {
   display: flex;
   justify-content: space-between;
@@ -132,7 +132,7 @@
   margin: 0 var(--space-xs);
 }
 
-/* Trip Details */
+/* Service Details */
 .tripDetails {
   display: flex;
   flex-wrap: wrap;
@@ -160,7 +160,7 @@
   font-weight: 500;
 }
 
-/* Trip Actions */
+/* Service Actions */
 .tripActions {
   display: flex;
   gap: var(--space-sm);

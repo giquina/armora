@@ -97,7 +97,7 @@ export function ReferralSection() {
           Invite & Earn
         </h2>
         <p className={styles.subtitle}>
-          Earn ride credits when friends join Armora
+          Earn service credits when friends join Armora
         </p>
       </div>
 
@@ -155,7 +155,7 @@ export function ReferralSection() {
               <li>Share your unique code with friends</li>
               <li>They sign up using your code</li>
               <li>When they pay subscription, you earn credits</li>
-              <li>Use credits on any Armora ride</li>
+              <li>Use credits on any Armora service</li>
             </ol>
 
             <h4 className={styles.howItWorksTitle}>Credit Values:</h4>
@@ -163,7 +163,7 @@ export function ReferralSection() {
               <li>Monthly subscription (£14) = £1 credit</li>
               <li>Annual subscription (£140) = £12 credit</li>
               <li>Credits never expire</li>
-              <li>Maximum 50% of ride can be paid with credits</li>
+              <li>Maximum 50% of service can be paid with credits</li>
             </ul>
           </div>
         )}

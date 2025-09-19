@@ -64,14 +64,14 @@ export function AnalyticsDashboard({ bookings, userStats }: AnalyticsDashboardPr
   const trendData = getMonthlyTrends();
   const timeData = getTimeDistribution();
 
-  const totalTrips = serviceData.reduce((sum, item) => sum + item.value, 0);
-  const averageTripsPerMonth = Math.floor(totalTrips / 6);
+  const totalServices = serviceData.reduce((sum, item) => sum + item.value, 0);
+  const averageServicesPerMonth = Math.floor(totalServices / 6);
   const topService = serviceData.reduce((max, item) => item.value > max.value ? item : max);
 
   return (
     <div className={`${styles.analyticsContainer} ${isVisible ? styles.visible : ''}`}>
       <div className={styles.analyticsHeader}>
-        <h2 className={styles.analyticsTitle}>📊 Your Trip Analytics</h2>
+        <h2 className={styles.analyticsTitle}>📊 Your Service Analytics</h2>
         <div className={styles.timeframeSelector}>
           {(['week', 'month', 'year'] as const).map((timeframe) => (
             <button
@@ -101,7 +101,7 @@ export function AnalyticsDashboard({ bookings, userStats }: AnalyticsDashboardPr
               <span className={styles.metricIcon}>📈</span>
               <div className={styles.metricContent}>
                 <span className={styles.metricLabel}>Monthly Average</span>
-                <span className={styles.metricValue}>{averageTripsPerMonth} trips</span>
+                <span className={styles.metricValue}>{averageServicesPerMonth} services</span>
               </div>
             </div>
             <div className={styles.metricItem}>
@@ -131,7 +131,7 @@ export function AnalyticsDashboard({ bookings, userStats }: AnalyticsDashboardPr
                   key={item.label}
                   className={styles.chartSegment}
                   style={{
-                    '--percentage': `${totalTrips > 0 ? (item.value / totalTrips) * 100 : 0}%`,
+                    '--percentage': `${totalServices > 0 ? (item.value / totalServices) * 100 : 0}%`,
                     '--color': item.color,
                     '--rotation': `${index * 120}deg`
                   } as React.CSSProperties}
@@ -183,11 +183,11 @@ export function AnalyticsDashboard({ bookings, userStats }: AnalyticsDashboardPr
               ))}
             </div>
             <div className={styles.chartAxes}>
-              <div className={styles.yAxisLabel}>Trips / Spending (£100s)</div>
+              <div className={styles.yAxisLabel}>Services / Spending (£100s)</div>
               <div className={styles.chartLegend}>
                 <div className={styles.legendItem}>
                   <div className={styles.legendColor} style={{ backgroundColor: '#10B981' }}></div>
-                  <span className={styles.legendLabel}>Trips</span>
+                  <span className={styles.legendLabel}>Services</span>
                 </div>
                 <div className={styles.legendItem}>
                   <div className={styles.legendColor} style={{ backgroundColor: '#FFD700' }}></div>

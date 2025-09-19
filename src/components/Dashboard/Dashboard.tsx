@@ -2,11 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { useApp } from '../../contexts/AppContext';
 import { Button } from '../UI/Button';
 import { ServiceCard } from './ServiceCard';
-import { CreatorImpactWidget } from './CreatorImpactWidget';
+// import { CreatorImpactWidget } from './CreatorImpactWidget';
 import { MarketingBanner } from './MarketingBanner';
 import { SmartRecommendation } from './SmartRecommendation';
 import { BookingSearchInterface } from './BookingSearchInterface';
-import ArmoraFoundationModal from '../ArmoraFoundation/ArmoraFoundationModal';
+import { ProtectionStatus } from '../UI/ProtectionStatus';
+// import ArmoraFoundationModal from '../ArmoraFoundation/ArmoraFoundationModal';
 import { ServiceLevel } from '../../types';
 // import { getDisplayName } from '../../utils/nameUtils'; // Removed since header is no longer displayed
 import { getAllServices } from '../../data/standardizedServices';
@@ -318,9 +319,9 @@ export function Dashboard() {
               <div className={styles.discountValue}>50% OFF</div>
               <div className={styles.rewardDetails}>
                 <span className={styles.rewardDescription}>
-                  Your first ride (up to £15) • Valid 30 days
+                  Your first protection assignment (up to £15) • Valid 30 days
                 </span>
-                <span className={styles.rewardCTA}>Secure Your Journey →</span>
+                <span className={styles.rewardCTA}>Begin Protection →</span>
               </div>
             </div>
             <button
@@ -339,7 +340,7 @@ export function Dashboard() {
 
 
       {/* Impact Widget for Essential Members */}
-      <CreatorImpactWidget />
+      {/* <CreatorImpactWidget /> */}
 
       {/* Smart Recommendation - Condensed Version */}
       <SmartRecommendation
@@ -348,6 +349,19 @@ export function Dashboard() {
         questionnaireData={questionnaireData}
         onServiceSelect={handleServiceSelection}
       />
+
+      {/* Quick Booking Prompt for Users Without Active Protection */}
+      {(user?.userType === 'registered' || user?.userType === 'google') && (
+        <div className={styles.quickBookingPrompt}>
+          <span className={styles.promptText}>Need protection?</span>
+          <button
+            className={styles.promptButton}
+            onClick={() => navigateToView('booking')}
+          >
+            Request Now →
+          </button>
+        </div>
+      )}
 
       {/* Get Started Section - 5 Card Carousel */}
       <div className={styles.getStartedSection}>
@@ -379,7 +393,7 @@ export function Dashboard() {
               >
                 <div className={styles.getStartedIcon}>⚡</div>
                 <div className={styles.getStartedContent}>
-                  <h3 className={styles.getStartedCardTitle}>Ride Now</h3>
+                  <h3 className={styles.getStartedCardTitle}>Book Now</h3>
                   <p className={styles.getStartedCardDescription}>Immediate pickup</p>
                   <p className={styles.getStartedCardDetails}>Available in 2 minutes</p>
                 </div>
@@ -414,7 +428,7 @@ export function Dashboard() {
               >
                 <div className={styles.getStartedIcon}>📅</div>
                 <div className={styles.getStartedContent}>
-                  <h3 className={styles.getStartedCardTitle}>Schedule Ride</h3>
+                  <h3 className={styles.getStartedCardTitle}>Schedule Service</h3>
                   <p className={styles.getStartedCardDescription}>Plan ahead</p>
                   <p className={styles.getStartedCardDetails}>Book for any time</p>
                 </div>
@@ -479,7 +493,7 @@ export function Dashboard() {
                 role="tab"
                 aria-selected={currentCarouselIndex === index}
                 aria-label={`Go to card ${index + 1}: ${
-                  ['Ride Now', 'Airport Transfer', 'Schedule Ride', 'Executive', 'Special Events'][index]
+                  ['Book Now', 'Airport Transfer', 'Schedule Service', 'Executive', 'Special Events'][index]
                 }`}
                 tabIndex={currentCarouselIndex === index ? 0 : -1}
               />
@@ -519,10 +533,10 @@ export function Dashboard() {
       <div id="service-overview" className={styles.servicesSection}>
         <div className={styles.sectionHeader}>
           <h2 className={styles.sectionTitle}>
-            Your Security Transport Options
+            Your Protection Service Options
           </h2>
           <p className={styles.sectionDescription}>
-            Professional security drivers available 24/7 with premium fleet vehicles
+            Professional protection officers available 24/7 with comprehensive security coverage
           </p>
         </div>
         <div className={styles.servicesGrid}>
@@ -552,7 +566,7 @@ export function Dashboard() {
             className={styles.bookNowMainButton}
             onClick={() => navigateToView('booking')}
           >
-            🚀 Book Your Secure Transport
+            🚀 Book Protection Services
           </button>
           <p className={styles.ctaSubtext}>
             Complete your booking in just 3 simple steps
@@ -572,178 +586,64 @@ export function Dashboard() {
       <div className={styles.eventSecuritySection}>
         <div className={styles.eventBadge}>INTRODUCING VENUE PROTECTION SERVICES</div>
 
-        <h2 className={styles.eventMainHeadline}>SIA Level 3 Officers for Weddings, Corporate Events & Private Venues</h2>
-        <h3 className={styles.eventSubHeadline}>Secure What Matters Most</h3>
+        <h2 className={styles.eventMainHeadline}>Licensed Security Officers</h2>
+        <h3 className={styles.eventSubHeadline}>24/7 Personal Protection • Secure Travel</h3>
 
         {/* Clean Service Cards Grid - 2x2 layout */}
         <div className={styles.eventServicesGrid}>
           <div className={styles.eventServiceCard}>
-            <div className={styles.eventServiceIcon}>💍</div>
-            <h4 className={styles.eventServiceTitle}>WEDDINGS</h4>
-            <div className={styles.eventKeyStat}>500+ Events</div>
-            <div className={styles.eventPrice}>From £800</div>
-            <button className={styles.eventQuoteBtn}>Get Quote</button>
+            <div className={styles.eventServiceIcon}>🛡️</div>
+            <h4 className={styles.eventServiceTitle}>Personal Protection</h4>
+            <button className={styles.eventQuoteBtn}>Learn More</button>
           </div>
 
           <div className={styles.eventServiceCard}>
-            <div className={styles.eventServiceIcon}>🏢</div>
-            <h4 className={styles.eventServiceTitle}>CORPORATE</h4>
-            <div className={styles.eventKeyStat}>Fortune 500</div>
-            <div className={styles.eventPrice}>From £1,200</div>
-            <button className={styles.eventQuoteBtn}>Get Quote</button>
+            <div className={styles.eventServiceIcon}>✈️</div>
+            <h4 className={styles.eventServiceTitle}>Secure Travel</h4>
+            <button className={styles.eventQuoteBtn}>Learn More</button>
           </div>
 
           <div className={styles.eventServiceCard}>
-            <div className={styles.eventServiceIcon}>🎭</div>
-            <h4 className={styles.eventServiceTitle}>VIP GALAS</h4>
-            <div className={styles.eventKeyStat}>Celebrity Grade</div>
-            <div className={styles.eventPrice}>From £1,500</div>
-            <button className={styles.eventQuoteBtn}>Get Quote</button>
+            <div className={styles.eventServiceIcon}>🕐</div>
+            <h4 className={styles.eventServiceTitle}>24/7 Service</h4>
+            <button className={styles.eventQuoteBtn}>Learn More</button>
           </div>
 
           <div className={styles.eventServiceCard}>
-            <div className={styles.eventServiceIcon}>🎪</div>
-            <h4 className={styles.eventServiceTitle}>PUBLIC EVENTS</h4>
-            <div className={styles.eventKeyStat}>10,000+ Cap</div>
-            <div className={styles.eventPrice}>From £2,000</div>
-            <button className={styles.eventQuoteBtn}>Get Quote</button>
+            <div className={styles.eventServiceIcon}>⭐</div>
+            <h4 className={styles.eventServiceTitle}>SIA-Licensed</h4>
+            <button className={styles.eventQuoteBtn}>Learn More</button>
           </div>
         </div>
 
-        {/* What's Included Section - Simplified */}
+        {/* SIA-Licensed Badge */}
         <div className={styles.whatsIncludedSection}>
-          <div className={styles.includedList}>
-            <div className={styles.includedItem}>
-              <span className={styles.includedIcon}>✓</span>
-              <span>Venue Security Assessment</span>
-            </div>
-            <div className={styles.includedItem}>
-              <span className={styles.includedIcon}>✓</span>
-              <span>Guest List Management</span>
-            </div>
-            <div className={styles.includedItem}>
-              <span className={styles.includedIcon}>✓</span>
-              <span>Discrete Plainclothes Officers</span>
-            </div>
-            <div className={styles.includedItem}>
-              <span className={styles.includedIcon}>✓</span>
-              <span>VIP Guest Driver Service</span>
-            </div>
-            <div className={styles.includedItem}>
-              <span className={styles.includedIcon}>✓</span>
-              <span><strong>Close Protection Officers (CPO)</strong></span>
-            </div>
+          <div className={styles.siaLicensedBadge}>
+            <span className={styles.badgeIcon}>⭐</span>
+            <span className={styles.badgeText}>SIA-Licensed Professionals</span>
           </div>
         </div>
 
-        {/* CPO Educational Content Section */}
-        <div className={styles.cpoEducationSection}>
-          <h3 className={styles.cpoEducationTitle}>What Are Close Protection Officers?</h3>
 
-          <p className={styles.cpoEducationIntro}>
-            Close Protection Officers (CPOs) represent the highest tier of personal security professionals. Unlike standard security supervisors, CPOs undergo extensive specialized training in:
-          </p>
-
-          <div className={styles.cpoTrainingList}>
-            <div className={styles.cpoTrainingItem}>
-              <span className={styles.cpoTrainingIcon}>🎯</span>
-              <div className={styles.cpoTrainingContent}>
-                <strong>Advanced Threat Assessment</strong> - Identifying and neutralizing risks before they develop
-              </div>
-            </div>
-            <div className={styles.cpoTrainingItem}>
-              <span className={styles.cpoTrainingIcon}>🚗</span>
-              <div className={styles.cpoTrainingContent}>
-                <strong>Defensive Driving Techniques</strong> - Evasive maneuvers and secure transport protocols
-              </div>
-            </div>
-            <div className={styles.cpoTrainingItem}>
-              <span className={styles.cpoTrainingIcon}>🏥</span>
-              <div className={styles.cpoTrainingContent}>
-                <strong>Medical Emergency Response</strong> - First aid and crisis medical intervention
-              </div>
-            </div>
-            <div className={styles.cpoTrainingItem}>
-              <span className={styles.cpoTrainingIcon}>👁️</span>
-              <div className={styles.cpoTrainingContent}>
-                <strong>Surveillance Detection</strong> - Recognizing and countering hostile surveillance
-              </div>
-            </div>
-            <div className={styles.cpoTrainingItem}>
-              <span className={styles.cpoTrainingIcon}>🛡️</span>
-              <div className={styles.cpoTrainingContent}>
-                <strong>Executive Protection Protocols</strong> - Discreet, professional close-quarters security
-              </div>
-            </div>
-          </div>
-
-          <div className={styles.cpoDifferenceSection}>
-            <h4 className={styles.cpoDifferenceTitle}>The CPO Difference:</h4>
-            <div className={styles.cpoDifferenceGrid}>
-              <div className={styles.cpoDifferenceItem}>
-                <span className={styles.cpoDifferenceIcon}>🎖️</span>
-                <div className={styles.cpoDifferenceContent}>
-                  <strong>SIA Level 3+ Certification</strong><br />
-                  <span className={styles.cpoDifferenceSubtext}>(vs. Level 2 for supervisors)</span>
-                </div>
-              </div>
-              <div className={styles.cpoDifferenceItem}>
-                <span className={styles.cpoDifferenceIcon}>⚔️</span>
-                <div className={styles.cpoDifferenceContent}>
-                  <strong>Military/Police Background</strong><br />
-                  <span className={styles.cpoDifferenceSubtext}>Many are ex-military or specialist police</span>
-                </div>
-              </div>
-              <div className={styles.cpoDifferenceItem}>
-                <span className={styles.cpoDifferenceIcon}>🎯</span>
-                <div className={styles.cpoDifferenceContent}>
-                  <strong>Ongoing Tactical Training</strong><br />
-                  <span className={styles.cpoDifferenceSubtext}>Regular updates in security techniques</span>
-                </div>
-              </div>
-              <div className={styles.cpoDifferenceItem}>
-                <span className={styles.cpoDifferenceIcon}>🧠</span>
-                <div className={styles.cpoDifferenceContent}>
-                  <strong>Psychological Screening</strong><br />
-                  <span className={styles.cpoDifferenceSubtext}>Enhanced vetting for high-pressure situations</span>
-                </div>
-              </div>
-              <div className={styles.cpoDifferenceItem}>
-                <span className={styles.cpoDifferenceIcon}>🤐</span>
-                <div className={styles.cpoDifferenceContent}>
-                  <strong>Confidentiality Protocols</strong><br />
-                  <span className={styles.cpoDifferenceSubtext}>Trained in executive discretion and privacy</span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <p className={styles.cpoClosingStatement}>
-            CPOs provide invisible, professional protection that allows you to conduct business naturally while maintaining complete security awareness of your environment.
-          </p>
-        </div>
-
-        {/* Enhanced CTAs */}
+        {/* Simple CTA */}
         <div className={styles.eventCTAButtons}>
           <button
             className={styles.eventPrimaryCTA}
-            onClick={() => navigateToView('venue-protection-welcome')}
+            onClick={() => navigateToView('booking')}
           >
-            GET CUSTOM QUOTE
-          </button>
-          <button
-            className={styles.eventSecondaryCTA}
-            onClick={() => navigateToView('services')}
-          >
-            VIEW PACKAGES
+            Book Security Service
           </button>
         </div>
       </div>
 
       {/* Safe Ride Fund Modal */}
-      {showSafeRideModal && (
+      {/* {showSafeRideModal && (
         <ArmoraFoundationModal onClose={() => setShowSafeRideModal(false)} />
-      )}
+      )} */}
+
+      {/* Protection Status - Only shows when active/scheduled */}
+      <ProtectionStatus />
+
     </div>
   );
 }

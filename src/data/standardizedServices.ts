@@ -21,6 +21,7 @@ export interface StandardizedService {
   price: number;
   priceDisplay: string;
   hourlyRate: number;
+  mileageRate: number;
   description: string;
   features: ServiceFeature[];
   socialProof: string;
@@ -39,13 +40,14 @@ export const STANDARDIZED_SERVICES: Record<string, StandardizedService> = {
   standard: {
     id: 'standard',
     name: 'Standard Protection',
-    tagline: 'Professional security transport with certified bodyguard drivers',
-    price: 65,
-    priceDisplay: '£65.00/hour',
-    hourlyRate: 65,
-    description: 'SIA Level 2 certified security drivers providing personal protection during transport. Ideal for women, students, and individuals wanting enhanced safety.',
+    tagline: 'Professional close protection with certified security officers',
+    price: 50,
+    priceDisplay: '£50.00/hour + £2.50/mile',
+    hourlyRate: 50,
+    mileageRate: 2.50,
+    description: 'SIA Level 2 certified protection officers ensuring your complete security. Comprehensive protection services including secure movement for enhanced personal safety.',
     features: [
-      { icon: '🛡️', text: 'SIA Level 2 certified security drivers' },
+      { icon: '🛡️', text: 'SIA Level 2 certified protection officers' },
       { icon: '👤', text: 'Personal protection trained' },
       { icon: '🚗', text: 'Secure vehicle fleet' },
       { icon: '📱', text: 'Real-time GPS tracking' },
@@ -75,13 +77,14 @@ export const STANDARDIZED_SERVICES: Record<string, StandardizedService> = {
   'client-vehicle': {
     id: 'client-vehicle',
     name: 'Client Vehicle',
-    tagline: 'Your car, our security-trained driver - maximum privacy and discretion',
-    price: 55,
-    priceDisplay: '£55.00/hour',
-    hourlyRate: 55,
-    description: 'SIA certified security drivers operate your personal vehicle, providing protection while maintaining complete privacy and discretion. Perfect for executives and privacy-conscious clients.',
+    tagline: 'Your vehicle, our protection officer - maximum privacy and discretion',
+    price: 65,
+    priceDisplay: '£65.00/hour + £2.50/mile',
+    hourlyRate: 65,
+    mileageRate: 2.50,
+    description: 'SIA certified protection officers provide security using your personal vehicle, ensuring complete privacy and discretion while maintaining comprehensive protection coverage.',
     features: [
-      { icon: '🔑', text: 'SIA Level 2 certified security drivers' },
+      { icon: '🔑', text: 'SIA Level 2 certified protection officers' },
       { icon: '🚙', text: 'Your personal vehicle used' },
       { icon: '💰', text: 'Cost-effective protection' },
       { icon: '🤐', text: 'Maximum discretion guaranteed' },
@@ -112,16 +115,17 @@ export const STANDARDIZED_SERVICES: Record<string, StandardizedService> = {
   executive: {
     id: 'executive',
     name: 'Executive Shield',
-    tagline: 'Enhanced bodyguard protection for corporate executives and business leaders',
-    price: 95,
-    priceDisplay: '£95.00/hour',
-    hourlyRate: 95,
-    description: 'SIA Level 3 certified executive protection specialists with advanced threat assessment, corporate venue security, and discrete bodyguard services for high-profile business leaders.',
+    tagline: 'Enhanced close protection for corporate executives and business leaders',
+    price: 75,
+    priceDisplay: '£75.00/hour + £2.50/mile',
+    hourlyRate: 75,
+    mileageRate: 2.50,
+    description: 'SIA Level 3 certified executive protection specialists providing comprehensive security coverage including threat assessment, venue security, and discrete protection services for high-profile business leaders.',
     features: [
       { icon: '👔', text: 'SIA Level 3 executive protection specialists' },
       { icon: '🏢', text: 'Corporate venue security expertise' },
       { icon: '🎯', text: 'Advanced threat assessment' },
-      { icon: '🤐', text: 'Discrete bodyguard services' },
+      { icon: '🤐', text: 'Discrete protection services' },
       { icon: '🚗', text: 'Protected vehicle options' },
       { icon: '📊', text: 'Detailed security reports' }
     ],
@@ -148,13 +152,14 @@ export const STANDARDIZED_SERVICES: Record<string, StandardizedService> = {
   shadow: {
     id: 'shadow',
     name: 'Shadow Protocol',
-    tagline: 'Elite covert bodyguard protection for high-risk individuals and VIPs',
-    price: 125,
-    priceDisplay: '£125.00/hour',
-    hourlyRate: 125,
-    description: 'Special Forces trained covert protection specialists providing maximum security for high-risk situations. Advanced threat management, counter-surveillance, and rapid response capabilities.',
+    tagline: 'Elite covert protection for high-risk individuals and VIPs',
+    price: 65,
+    priceDisplay: '£65.00/hour + £2.50/mile',
+    hourlyRate: 65,
+    mileageRate: 2.50,
+    description: 'Special Forces trained covert protection specialists providing maximum security for high-risk situations. Advanced threat management, counter-surveillance, and secure movement capabilities.',
     features: [
-      { icon: '🥷', text: 'Special Forces trained bodyguards' },
+      { icon: '🥷', text: 'Special Forces trained protection specialists' },
       { icon: '🔍', text: 'Advanced threat detection systems' },
       { icon: '🚨', text: 'Rapid response protocols' },
       { icon: '🤐', text: 'Covert protection operations' },
@@ -212,6 +217,9 @@ export const getMostPopularService = (): StandardizedService => {
 
 // Dual pricing system calculations
 export interface PriceCalculation {
+  protectionFee: number;
+  vehicleFee: number;
+  bookingFee: number;
   basePrice: number;
   discountAmount: number;
   finalPrice: number;
@@ -219,8 +227,62 @@ export interface PriceCalculation {
   discountPercentage: number;
   pricingType: 'hourly' | 'journey';
   duration?: number;
+  distance?: number;
   minimumCharge?: number;
 }
+
+// New dual pricing calculator (SIA compliant)
+export const calculateDualPrice = (
+  serviceId: string,
+  hours: number,
+  miles: number,
+  isMember: boolean = false,
+  memberDiscountPercentage: number = 20
+): PriceCalculation => {
+  const service = getServiceById(serviceId);
+  if (!service) {
+    return {
+      protectionFee: 0,
+      vehicleFee: 0,
+      bookingFee: 0,
+      basePrice: 0,
+      discountAmount: 0,
+      finalPrice: 0,
+      hasDiscount: false,
+      discountPercentage: 0,
+      pricingType: 'hourly',
+      duration: hours,
+      distance: miles
+    };
+  }
+
+  // Ensure minimum 2 hours
+  const effectiveHours = Math.max(hours, 2);
+
+  // Calculate components
+  const protectionFee = service.hourlyRate * effectiveHours;
+  const vehicleFee = service.mileageRate * miles;
+  const bookingFee = isMember ? 0 : 10;
+
+  const subtotal = protectionFee + vehicleFee + bookingFee;
+  const discountAmount = isMember ? (protectionFee + vehicleFee) * (memberDiscountPercentage / 100) : 0;
+  const finalPrice = subtotal - discountAmount;
+
+  return {
+    protectionFee,
+    vehicleFee,
+    bookingFee,
+    basePrice: subtotal,
+    discountAmount,
+    finalPrice,
+    hasDiscount: isMember,
+    discountPercentage: memberDiscountPercentage,
+    pricingType: 'hourly',
+    duration: effectiveHours,
+    distance: miles,
+    minimumCharge: service.hourlyRate * 2 + service.mileageRate * miles
+  };
+};
 
 export const calculateHourlyPrice = (
   serviceId: string,
@@ -231,6 +293,9 @@ export const calculateHourlyPrice = (
   const service = getServiceById(serviceId);
   if (!service) {
     return {
+      protectionFee: 0,
+      vehicleFee: 0,
+      bookingFee: 0,
       basePrice: 0,
       discountAmount: 0,
       finalPrice: 0,
@@ -247,6 +312,9 @@ export const calculateHourlyPrice = (
   const finalPrice = basePrice - discountAmount;
 
   return {
+    protectionFee: basePrice,
+    vehicleFee: 0,
+    bookingFee: 0,
     basePrice,
     discountAmount,
     finalPrice,
@@ -268,6 +336,9 @@ export const calculateJourneyPrice = (
   const service = getServiceById(serviceId);
   if (!service) {
     return {
+      protectionFee: 0,
+      vehicleFee: 0,
+      bookingFee: 0,
       basePrice: 0,
       discountAmount: 0,
       finalPrice: 0,
@@ -285,6 +356,9 @@ export const calculateJourneyPrice = (
   const finalPrice = basePrice - discountAmount;
 
   return {
+    protectionFee: baseRate * durationHours * journeyMultiplier,
+    vehicleFee: distance * 0.5,
+    bookingFee: 0,
     basePrice,
     discountAmount,
     finalPrice,

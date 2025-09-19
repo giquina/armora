@@ -141,7 +141,7 @@ export function MediaCredibility() {
               <span className={styles.trustIcon}>✅</span>
               <h4 className={styles.trustItemTitle}>3,741+ Safe Journeys</h4>
               <p className={styles.trustItemText}>
-                Proven track record of secure transport operations completed successfully
+                Proven track record of protection assignments completed successfully
               </p>
             </div>
           </div>

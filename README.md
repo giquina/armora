@@ -2,6 +2,10 @@
 
 Premium VIP security transport mobile app built with React TypeScript + PWA for app store distribution.
 
+## ⚠️ CRITICAL COMPLIANCE REQUIREMENT
+**All developers MUST read `/docs/SIA_COMPLIANCE_GUIDE.md` before making ANY text changes to the app.**
+This ensures we maintain SIA Close Protection compliance and avoid PHV/taxi regulatory issues.
+
 ## 🚀 Quick Start
 
 ```bash

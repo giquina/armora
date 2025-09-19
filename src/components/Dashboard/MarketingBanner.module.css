@@ -588,83 +588,7 @@
   }
 }
 
-/* Enhanced Reopen button styles */
-.reopenContainer {
-  position: fixed;
-  bottom: 90px; /* Above bottom navigation */
-  right: 20px;
-  z-index: 100;
-  animation: slideInFromRight 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
-}
-
-.reopenButton {
-  background:
-    linear-gradient(135deg, #FFD700 0%, #FFA500 50%, #FFD700 100%),
-    radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
-  border: 2px solid rgba(255, 215, 0, 0.8);
-  border-radius: 30px;
-  color: #1a1a2e;
-  font-size: 15px;
-  font-weight: 700;
-  padding: 14px 20px;
-  cursor: pointer;
-  box-shadow:
-    0 6px 25px rgba(255, 215, 0, 0.5),
-    0 2px 10px rgba(0, 0, 0, 0.2),
-    inset 0 2px 0 rgba(255, 255, 255, 0.4),
-    inset 0 -1px 0 rgba(0, 0, 0, 0.1);
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  white-space: nowrap;
-  backdrop-filter: blur(15px);
-  letter-spacing: 0.5px;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
-  animation: reopenPulse 3s ease-in-out infinite;
-}
-
-@keyframes reopenPulse {
-  0%, 100% {
-    box-shadow:
-      0 6px 25px rgba(255, 215, 0, 0.5),
-      0 2px 10px rgba(0, 0, 0, 0.2),
-      inset 0 2px 0 rgba(255, 255, 255, 0.4),
-      inset 0 -1px 0 rgba(0, 0, 0, 0.1);
-    transform: scale(1);
-  }
-  50% {
-    box-shadow:
-      0 8px 35px rgba(255, 215, 0, 0.7),
-      0 4px 15px rgba(0, 0, 0, 0.3),
-      inset 0 2px 0 rgba(255, 255, 255, 0.5),
-      inset 0 -1px 0 rgba(0, 0, 0, 0.1);
-    transform: scale(1.05);
-  }
-}
-
-.reopenButton:hover {
-  transform: translateY(-4px) scale(1.1);
-  box-shadow:
-    0 12px 40px rgba(255, 215, 0, 0.8),
-    0 6px 20px rgba(0, 0, 0, 0.3),
-    inset 0 2px 0 rgba(255, 255, 255, 0.5),
-    inset 0 -1px 0 rgba(0, 0, 0, 0.1);
-  border-color: rgba(255, 215, 0, 1);
-  animation: none; /* Stop pulse on hover */
-}
-
-.reopenButton:active {
-  transform: translateY(0) scale(0.98);
-}
-
-@keyframes slideInFromRight {
-  0% {
-    opacity: 0;
-    transform: translateX(100px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
+/* Reopen button styles removed - functionality moved to ProtectionStatusFAB */
 
 /* Enhanced counter with better glow */
 .counterNumber {
@@ -718,16 +642,7 @@
 
 /* Mobile enhancements for reopen button */
 @media (max-width: 480px) {
-  .reopenContainer {
-    bottom: 85px; /* Above mobile bottom navigation */
-    right: 16px;
-  }
-
-  .reopenButton {
-    font-size: 13px;
-    padding: 10px 14px;
-    border-radius: 25px;
-  }
+  /* Mobile reopen styles removed */
 
   .moneyParticle {
     font-size: 16px;
@@ -735,13 +650,5 @@
 }
 
 @media (max-width: 320px) {
-  .reopenContainer {
-    bottom: 80px;
-    right: 12px;
-  }
-
-  .reopenButton {
-    font-size: 12px;
-    padding: 8px 12px;
-  }
+  /* Ultra-small screen reopen styles removed */
 }

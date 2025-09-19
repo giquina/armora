@@ -58,7 +58,7 @@ export const ArmoraBrandTitle: React.FC<{ size?: 'hero' | 'large' | 'medium' | '
 );
 
 export const ArmoraTagline: React.FC<{ size?: 'primary' | 'secondary', className?: string }> = (props) => (
-  <BrandTagline {...props}>Your Personal Security Driver Team</BrandTagline>
+  <BrandTagline {...props}>Professional Close Protection Services</BrandTagline>
 );
 
 // Welcome page specific component

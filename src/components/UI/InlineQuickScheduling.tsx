@@ -189,7 +189,7 @@ export function InlineQuickScheduling({
           ) : (
             <>
               <span className={styles.buttonIcon}>🚗</span>
-              {selectedTime === 'immediate' ? 'Book Now' : 'Schedule Ride'}
+              {selectedTime === 'immediate' ? 'Book Now' : 'Schedule Service'}
             </>
           )}
         </Button>

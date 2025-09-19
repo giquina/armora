@@ -1,0 +1,248 @@
+/* Armora Protection Status FAB - Premium Security Brand Styling */
+
+.fabContainer {
+  position: fixed;
+  bottom: max(80px, calc(80px + env(safe-area-inset-bottom)));
+  right: 20px;
+  z-index: 1040;
+  pointer-events: none;
+}
+
+.protectionFAB {
+  position: relative;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  pointer-events: auto;
+
+  /* Premium gold gradient background */
+  background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+
+  /* 3D depth shadows */
+  box-shadow:
+    0 20px 40px -12px rgba(0, 0, 0, 0.35),
+    0 10px 20px -8px rgba(255, 215, 0, 0.25),
+    0 4px 6px -2px rgba(0, 0, 0, 0.15),
+    inset 0 2px 4px rgba(255, 255, 255, 0.3);
+
+  /* Display & alignment */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  /* Smooth transitions */
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* 3D floating animation */
+  animation: float3D 4s ease-in-out infinite;
+
+  /* Remove default button styles */
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+
+/* 3D floating animation */
+@keyframes float3D {
+  0%, 100% {
+    transform: translateY(0px) perspective(1000px) rotateX(-2deg);
+  }
+  50% {
+    transform: translateY(-6px) perspective(1000px) rotateX(-2deg);
+  }
+}
+
+/* Hover effects */
+.protectionFAB:hover {
+  transform: scale(1.1) perspective(1000px) rotateX(-2deg);
+  box-shadow:
+    0 25px 50px -12px rgba(0, 0, 0, 0.4),
+    0 15px 30px -8px rgba(255, 215, 0, 0.35),
+    0 6px 12px -2px rgba(0, 0, 0, 0.2),
+    inset 0 2px 4px rgba(255, 255, 255, 0.4);
+  animation: none; /* Stop floating on hover */
+}
+
+/* Active press state */
+.protectionFAB:active {
+  transform: scale(0.95) perspective(1000px) rotateX(-2deg);
+  transition: transform 0.1s;
+}
+
+/* Shield icon styling */
+.shieldIcon {
+  font-size: 24px;
+  color: #1a1a2e;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+  position: relative;
+}
+
+/* Status indicator dot */
+.statusIndicator {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 2px solid #1a1a2e;
+  z-index: 2;
+}
+
+.statusActive {
+  background: #10B981; /* Green for active protection */
+  animation: statusPulse 2s infinite;
+}
+
+.statusScheduled {
+  background: #F59E0B; /* Amber for scheduled protection */
+}
+
+.statusNone {
+  display: none; /* Hide when no protection */
+}
+
+/* Status pulse animation for active protection */
+@keyframes statusPulse {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 0 6px rgba(16, 185, 129, 0);
+  }
+}
+
+/* Pulse ring for active protection */
+.pulseRing {
+  position: absolute;
+  top: -8px;
+  left: -8px;
+  right: -8px;
+  bottom: -8px;
+  border-radius: 50%;
+  background: rgba(255, 215, 0, 0.2);
+  animation: pulse 2s infinite;
+  z-index: 0;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.2);
+    opacity: 0.3;
+  }
+  100% {
+    transform: scale(1.3);
+    opacity: 0;
+  }
+}
+
+/* Enhanced active state when protection is active */
+.protectionFAB.active {
+  background: linear-gradient(135deg, #10B981 0%, #059669 100%);
+  box-shadow:
+    0 20px 40px -12px rgba(16, 185, 129, 0.4),
+    0 10px 20px -8px rgba(16, 185, 129, 0.3),
+    0 4px 6px -2px rgba(0, 0, 0, 0.15),
+    inset 0 2px 4px rgba(255, 255, 255, 0.3);
+}
+
+.protectionFAB.active:hover {
+  box-shadow:
+    0 25px 50px -12px rgba(16, 185, 129, 0.5),
+    0 15px 30px -8px rgba(16, 185, 129, 0.4),
+    0 6px 12px -2px rgba(0, 0, 0, 0.2),
+    inset 0 2px 4px rgba(255, 255, 255, 0.4);
+}
+
+/* Tooltip styling */
+.tooltip {
+  position: absolute;
+  bottom: 70px;
+  right: 0;
+  background: rgba(26, 26, 46, 0.95);
+  color: #ffffff;
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 215, 0, 0.3);
+  animation: tooltipFadeIn 0.3s ease-out;
+  z-index: 1041;
+}
+
+.tooltip::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  right: 20px;
+  border: 5px solid transparent;
+  border-top-color: rgba(26, 26, 46, 0.95);
+}
+
+@keyframes tooltipFadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Mobile responsiveness */
+@media (max-width: 480px) {
+  .fabContainer {
+    bottom: max(75px, calc(75px + env(safe-area-inset-bottom)));
+    right: 16px;
+  }
+
+  .protectionFAB {
+    width: 52px;
+    height: 52px;
+  }
+
+  .shieldIcon {
+    font-size: 22px;
+  }
+
+  .statusIndicator {
+    width: 10px;
+    height: 10px;
+    top: 3px;
+    right: 3px;
+  }
+}
+
+/* Ultra-small screens */
+@media (max-width: 320px) {
+  .fabContainer {
+    bottom: max(70px, calc(70px + env(safe-area-inset-bottom)));
+    right: 12px;
+  }
+
+  .protectionFAB {
+    width: 48px;
+    height: 48px;
+  }
+
+  .shieldIcon {
+    font-size: 20px;
+  }
+}
+
+/* Ensure no overlap with other UI elements */
+@media (max-height: 600px) {
+  .fabContainer {
+    bottom: max(70px, calc(70px + env(safe-area-inset-bottom)));
+  }
+}

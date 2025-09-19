@@ -149,7 +149,7 @@ export function LocationPicker({ isOpen, onClose, onLocationSelect }: LocationPi
               <path d="m15 18-6-6 6-6"/>
             </svg>
           </button>
-          <h2 className={styles.title}>Plan your trip</h2>
+          <h2 className={styles.title}>Arrange Protection Service</h2>
         </div>
 
         {/* Current Location */}
@@ -159,7 +159,7 @@ export function LocationPicker({ isOpen, onClose, onLocationSelect }: LocationPi
               <div className={styles.currentLocationDot}></div>
             </div>
             <div className={styles.locationText}>
-              <span className={styles.locationLabel}>Current location</span>
+              <span className={styles.locationLabel}>Protection starts from</span>
               <span className={styles.locationAddress}>{currentLocation}</span>
             </div>
           </div>
@@ -176,7 +176,7 @@ export function LocationPicker({ isOpen, onClose, onLocationSelect }: LocationPi
               ref={searchInputRef}
               className={styles.searchInput}
               type="text"
-              placeholder="Where to?"
+              placeholder="Secure destination"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
             />
@@ -211,7 +211,7 @@ export function LocationPicker({ isOpen, onClose, onLocationSelect }: LocationPi
                   </div>
                   <div className={styles.placeContent}>
                     <span className={styles.placeName}>
-                      {place.type === 'home' ? 'Home' : 'Work'}
+                      {place.type === 'home' ? 'Secure Residence' : 'Executive Office'}
                     </span>
                     <span className={styles.placeAddress}>{place.address}</span>
                   </div>
@@ -235,7 +235,7 @@ export function LocationPicker({ isOpen, onClose, onLocationSelect }: LocationPi
                   </svg>
                 </div>
                 <div className={styles.placeContent}>
-                  <span className={styles.placeName}>Add home</span>
+                  <span className={styles.placeName}>Add secure residence</span>
                 </div>
                 <div className={styles.addIcon}>+</div>
               </button>
@@ -253,7 +253,7 @@ export function LocationPicker({ isOpen, onClose, onLocationSelect }: LocationPi
                   </svg>
                 </div>
                 <div className={styles.placeContent}>
-                  <span className={styles.placeName}>Add work</span>
+                  <span className={styles.placeName}>Add primary office</span>
                 </div>
                 <div className={styles.addIcon}>+</div>
               </button>
@@ -290,6 +290,7 @@ export function LocationPicker({ isOpen, onClose, onLocationSelect }: LocationPi
           {/* Suggested Destinations */}
           <div className={styles.section}>
             <h3 className={styles.sectionTitle}>Suggested</h3>
+            <p className={styles.sectionSubtext}>Frequently protected routes</p>
             {SUGGESTED_DESTINATIONS.map((place) => (
               <button
                 key={place.address}

@@ -378,7 +378,7 @@ export function LocationPicker({ selectedService, onLocationConfirmed, onBack, u
         {/* Route Calculation and Estimate */}
         {(isCalculatingRoute || estimatedDistance > 0 || estimatedDuration > 0) && (
           <div className={styles.estimate}>
-            <h3 className={styles.estimateTitle}>Trip Estimate</h3>
+            <h3 className={styles.estimateTitle}>Service Estimate</h3>
             {isCalculatingRoute ? (
               <LocationSkeletonLoader />
             ) : (

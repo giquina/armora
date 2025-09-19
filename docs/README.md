@@ -1,40 +1,72 @@
-# Armora Transport
-**Premium VIP Security Transport Mobile App**
+# Armora Professional Protection Services
+**Premium Close Protection Services with Secure Vehicle Operation**
 
-> Your Personal Security Driver Team
+> Accessible Professional Protection for the Modern Professional
 
-A mobile-first security cab booking application for VIP and security transport services, built with React TypeScript and designed for app store distribution.
+A mobile-first professional protection application offering SIA-licensed close protection services, built with React TypeScript and designed for app store distribution.
 
-## 🎯 Project Overview
-Armora Transport is a premium security transport service - think "Uber meets professional bodyguards." Every ride includes a licensed close protection officer as the minimum standard, serving discerning clients who value privacy, safety, and professionalism.
+## 🎯 Service Overview
+Armora provides professional close protection services with secure vehicle operation. Unlike traditional transport or conventional close protection contracts, we offer flexible, time-based protection assignments with transparent dual pricing - perfect for the underserved mid-market professional segment.
 
-## 📊 Business Metrics
-- **6,000+ successful trips completed**
+## 📊 Service Metrics
+- **1,200+ protection assignments completed**
 - **99.8% client satisfaction rate**
-- **Three service tiers** with professional security officers
-- **UK-wide coverage** (London, Manchester, Birmingham, Scotland)
-- **SIA compliant** security transport services
+- **Three service tiers** with SIA-licensed protection officers
+- **Greater London coverage** (expanding to major UK cities)
+- **Full SIA compliance** - close protection services
 
-## 🚗 Service Categories
+## 🛡️ Protection Service Tiers
 
-### 1. Armora Standard
+### 1. Standard Protection - £50/hour
 - **Tagline:** "Professional Protection, Every Day"
-- **Includes:** Professional vehicle + SIA licensed officer + basic tracking
-- **Best For:** Daily commuting, routine appointments
-- **Social Proof:** 2,100+ trips completed
+- **Includes:** SIA Level 2 certified protection officer + secure vehicle operation + real-time tracking
+- **Best For:** Daily security needs, routine professional appointments
+- **Minimum:** 2-hour assignments + £2.50/mile
 
-### 2. Armora Executive  
-- **Tagline:** "Luxury Meets Security"
-- **Includes:** Luxury vehicle + senior protection officer + priority booking + business amenities
-- **Best For:** Important meetings, corporate events, client entertainment
-- **Social Proof:** 2,400+ trips completed
+### 2. Executive Protection - £75/hour
+- **Tagline:** "Enhanced Security for Business Leaders"
+- **Includes:** SIA Level 3 protection officer + luxury vehicle + priority response + business amenities
+- **Best For:** Important meetings, corporate events, high-profile assignments
+- **Minimum:** 2-hour assignments + £2.50/mile
 
-### 3. Armora Shadow ⭐ **MOST POPULAR**
-- **Tagline:** "Your Freedom, Our Protection"
-- **Includes:** Your vehicle + discrete escort team + GPS coordination + silent panic button
-- **Best For:** Shopping, social events, family outings with security peace of mind
-- **Special Features:** Real-time GPS coordination, invisible protection, dual-vehicle tracking
-- **Social Proof:** 1,500+ trips completed - 67% of clients choose this option
+### 3. Shadow Protection - £65/hour ⭐ **MOST POPULAR**
+- **Tagline:** "Discrete Professional Protection"
+- **Includes:** Special Forces trained protection officer + client vehicle option + covert protection + advanced threat detection
+- **Best For:** High-profile individuals, celebrities, sensitive business operations
+- **Minimum:** 2-hour assignments + £2.50/mile
+
+## 💰 Dual Pricing Model (SIA Compliant)
+
+### **Service Fee Structure**
+```
+Total = (Protection Hours × Hourly Rate) + (Distance × £2.50/mile) + Booking Fee
+```
+
+### **Example: London Bridge to Heathrow**
+```
+Distance: 22 miles
+Time: 55 minutes
+Service: Standard Protection
+
+Protection Officer (2 hrs): £100.00
+Secure Vehicle Operation (22 mi): £55.00
+Booking Fee (non-member): £10.00
+────────────────────────────────────
+Total Service Fee: £165.00
+Member Price (20% discount): £124.00
+```
+
+## ⭐ Essential Membership - £14.99/month
+
+### **Member Benefits**
+- **20% discount** on all protection services
+- **£0 booking fees** (save £10 per assignment)
+- **Priority response** and scheduling
+- **30-day free trial** for new members
+- **Member-only features**: Vehicle preferences, SMS confirmations
+
+### **Value Example**
+Regular user (2 assignments/month) saves £41+ per assignment = £82+ monthly savings vs £14.99 membership cost.
 
 ## 🛠️ Technical Stack
 

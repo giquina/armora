@@ -1,17 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { useApp } from '../../contexts/AppContext';
 import { mockBookings, Booking } from './utils/mockData';
-import styles from './BookingsView.module.css';
+import styles from './AssignmentsView.module.css';
 
 type ViewType = 'active' | 'upcoming' | 'history';
 
-export function BookingsView() {
-  const { state, navigateToView } = useApp();
-  const { user } = state;
+export function AssignmentsView() {
+  const { navigateToView } = useApp();
 
   const [bookings] = useState<Booking[]>(mockBookings);
   const [activeView, setActiveView] = useState<ViewType | null>(null);
   const [liveUpdateTime, setLiveUpdateTime] = useState(new Date());
+  const [timeRemaining, setTimeRemaining] = useState(300); // 5 minutes in seconds
 
   // Live update for active rides
   useEffect(() => {
@@ -23,6 +23,20 @@ export function BookingsView() {
       return () => clearInterval(interval);
     }
   }, [bookings]);
+
+  // Countdown timer for ETA
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setTimeRemaining(prev => prev > 0 ? prev - 1 : 0);
+    }, 1000);
+    return () => clearInterval(timer);
+  }, []);
+
+  const formatTime = (seconds: number) => {
+    const mins = Math.floor(seconds / 60);
+    const secs = seconds % 60;
+    return `${mins}:${secs.toString().padStart(2, '0')}`;
+  };
 
   const activeBookings = bookings.filter(b => b.status === 'active');
   const scheduledBookings = bookings.filter(b => b.status === 'scheduled');
@@ -58,7 +72,7 @@ export function BookingsView() {
   const favoriteRoutes = getFavoriteRoutes();
 
   // Quick Actions
-  const handleBookFirstRide = () => navigateToView('home');
+  const handleBookFirstService = () => navigateToView('home');
   const handleExploreServices = () => navigateToView('services');
   const handleRebookLast = () => {
     const lastBooking = completedBookings[0];
@@ -72,19 +86,19 @@ export function BookingsView() {
     }
   };
 
-  const handleTrackDriver = (bookingId: string) => {
-    console.log('Track driver for booking:', bookingId);
-    // TODO: Implement driver tracking with map
+  const handleTrackOfficer = (bookingId: string) => {
+    console.log('Track protection officer for booking:', bookingId);
+    // TODO: Implement protection officer tracking with map
   };
 
-  const handleContactDriver = (bookingId: string) => {
-    console.log('Contact driver for booking:', bookingId);
-    // TODO: Implement driver contact
+  const handleContactOfficer = (bookingId: string) => {
+    console.log('Contact protection officer for booking:', bookingId);
+    // TODO: Implement protection officer contact
   };
 
-  const handleShareTrip = (bookingId: string) => {
-    console.log('Share trip for booking:', bookingId);
-    // TODO: Implement trip sharing
+  const handleShareService = (bookingId: string) => {
+    console.log('Share assignment for booking:', bookingId);
+    // TODO: Implement assignment sharing
   };
 
   const handleEmergencySOS = () => {
@@ -103,7 +117,7 @@ export function BookingsView() {
     // TODO: Implement booking management
   };
 
-  const handleRebookTrip = (bookingId: string) => {
+  const handleRebookService = (bookingId: string) => {
     const booking = bookings.find(b => b.id === bookingId);
     if (booking) {
       localStorage.setItem('armora_rebook_data', JSON.stringify({
@@ -120,21 +134,15 @@ export function BookingsView() {
     // TODO: Implement receipt viewing
   };
 
-  const formatETA = (minutes: number) => {
-    if (minutes < 60) return `${minutes} minutes`;
-    const hours = Math.floor(minutes / 60);
-    const mins = minutes % 60;
-    return mins > 0 ? `${hours}h ${mins}m` : `${hours}h`;
-  };
 
   // STATE 1: NEW USER (No bookings ever)
   const renderNewUserState = () => (
     <div className={styles.contentSection}>
       <div className={styles.emptyState}>
-        <h2 className={styles.emptyStateTitle}>No rides yet - let's change that!</h2>
+        <h2 className={styles.emptyStateTitle}>No assignments yet - let's change that!</h2>
 
-        <div className={styles.popularRides}>
-          <h3 className={styles.sectionSubtitle}>🎯 Popular first rides with Armora:</h3>
+        <div className={styles.popularAssignments}>
+          <h3 className={styles.sectionSubtitle}>🎯 Popular first assignments with Armora:</h3>
           <div className={styles.suggestionsList}>
             <div className={styles.suggestionItem}>
               <span className={styles.suggestionIcon}>✈️</span>
@@ -161,8 +169,8 @@ export function BookingsView() {
         </div>
 
         <div className={styles.actionButtons}>
-          <button className={styles.primaryCTA} onClick={handleBookFirstRide}>
-            BOOK YOUR FIRST RIDE →
+          <button className={styles.primaryCTA} onClick={handleBookFirstService}>
+            REQUEST YOUR FIRST PROTECTION →
           </button>
           <button className={styles.secondaryCTA} onClick={handleExploreServices}>
             EXPLORE SERVICES
@@ -198,86 +206,82 @@ export function BookingsView() {
     return (
       <div className={styles.contentSection}>
         <div className={styles.liveRideCard}>
-          <div className={styles.liveHeader}>
-            <div className={styles.liveIndicator}>
-              <span className={styles.liveDot}></span>
-              <span className={styles.liveText}>LIVE RIDE</span>
+          <div className={styles.statusHeader}>
+            <div className={styles.statusProgress}>
+              <span className={styles.statusDot}></span>
+              <span>ACTIVE PROTECTION</span>
+              <span className={styles.assignmentId}>{activeRide.id}</span>
             </div>
-            <div className={styles.bookingId}>{activeRide.id}</div>
+            <div className={styles.progressSteps}>
+              <span className={styles.completed}>Dispatched</span>
+              <span className={styles.completed}>En Route</span>
+              <span className={styles.active}>Arriving</span>
+              <span className={styles.pending}>Active</span>
+            </div>
           </div>
 
-          <div className={styles.miniMap}>
+          <div className={styles.mapContainer}>
             <div className={styles.mapPlaceholder}>
               <span className={styles.mapIcon}>🗺️</span>
               <span className={styles.mapText}>Live tracking map would appear here</span>
             </div>
-          </div>
-
-          <div className={styles.rideInfo}>
-            <div className={styles.serviceDetails}>
-              <h3 className={styles.serviceName}>{activeRide.serviceName}</h3>
-              <div className={styles.etaInfo}>
-                <span className={styles.etaLabel}>⏱️ Arriving in:</span>
-                <span className={styles.etaTime}>5 minutes</span>
-              </div>
-            </div>
-
-            <div className={styles.driverInfo}>
-              <h4 className={styles.driverTitle}>DRIVER:</h4>
-              <div className={styles.driverDetails}>
-                <span className={styles.driverName}>{activeRide.driver.name}</span>
-                <span className={styles.vehicleInfo}>
-                  {activeRide.driver.vehicle} • {activeRide.driver.plate}
-                </span>
-                <span className={styles.driverRating}>
-                  ⭐⭐⭐⭐⭐ {activeRide.driver.rating} rating
-                </span>
-              </div>
-            </div>
-
-            <div className={styles.journeyInfo}>
-              <h4 className={styles.journeyTitle}>JOURNEY:</h4>
-              <div className={styles.journeyDetails}>
-                <div className={styles.locationItem}>
-                  <span className={styles.locationIcon}>📍</span>
-                  <span className={styles.locationText}>
-                    <strong>Pickup:</strong> {activeRide.pickupLocation.address.split(',')[0]}
-                  </span>
-                </div>
-                <div className={styles.locationItem}>
-                  <span className={styles.locationIcon}>🏁</span>
-                  <span className={styles.locationText}>
-                    <strong>Destination:</strong> {activeRide.destination.address.split(',')[0]}
-                  </span>
-                </div>
+            <div className={styles.mapOverlay}>
+              <div className={styles.etaCard}>
+                <h3>{formatTime(timeRemaining)}</h3>
+                <p>2.3 miles away</p>
               </div>
             </div>
           </div>
 
-          <div className={styles.liveActions}>
-            <button
-              className={styles.trackMapButton}
-              onClick={() => handleTrackDriver(activeRide.id)}
-            >
-              TRACK ON MAP
+          <div className={styles.officerCard}>
+            <div className={styles.officerName}>
+              {activeRide.driver.name} • SIA #UK-12345
+            </div>
+            <div className={styles.vehicleInfo}>
+              {activeRide.driver.vehicle} • {activeRide.driver.plate} • ⭐ {activeRide.driver.rating}
+            </div>
+            <div className={styles.arrivalTime}>
+              ⏱️ Arriving in {formatTime(timeRemaining)}
+            </div>
+          </div>
+
+          <div className={styles.operationTimeline}>
+            <div className={styles.timelineBar}>
+              <div className={styles.timelineProgress} style={{width: '35%'}} />
+            </div>
+            <div className={styles.timelinePoints}>
+              <div className={styles.startPoint}>
+                <span className={styles.dot}>●</span>
+                <span className={styles.location}>{activeRide.pickupLocation.address.split(',')[0]}</span>
+                <span className={styles.time}>1:45 PM</span>
+              </div>
+              <div className={styles.endPoint}>
+                <span className={styles.dot}>●</span>
+                <span className={styles.location}>{activeRide.destination.address.split(',')[0]}</span>
+                <span className={styles.time}>2:30 PM</span>
+              </div>
+            </div>
+          </div>
+
+          <div className={styles.actionButtons}>
+            <button className={styles.primaryAction} onClick={() => handleContactOfficer(activeRide.id)}>
+              <span className={styles.icon}>📞</span>
+              CONTACT OFFICER
             </button>
-            <button
-              className={styles.callDriverButton}
-              onClick={() => handleContactDriver(activeRide.id)}
-            >
-              CALL DRIVER
-            </button>
-            <button
-              className={styles.shareTripButton}
-              onClick={() => handleShareTrip(activeRide.id)}
-            >
-              SHARE TRIP
-            </button>
-            <button
-              className={styles.emergencyButton}
-              onClick={handleEmergencySOS}
-            >
-              Emergency SOS
+
+            <div className={styles.secondaryActions}>
+              <button className={styles.secondaryButton} onClick={() => handleTrackOfficer(activeRide.id)}>
+                <span className={styles.icon}>🗺️</span>
+                Route
+              </button>
+              <button className={styles.emergencyButton} onClick={handleEmergencySOS}>
+                <span className={styles.icon}>🚨</span>
+                Emergency
+              </button>
+            </div>
+
+            <button className={styles.shareLink} onClick={() => handleShareService(activeRide.id)}>
+              Share tracking →
             </button>
           </div>
         </div>
@@ -296,7 +300,7 @@ export function BookingsView() {
         {renderQuickActions()}
 
         <div className={styles.sectionHeader}>
-          <h2 className={styles.sectionTitle}>UPCOMING RIDES</h2>
+          <h2 className={styles.sectionTitle}>SCHEDULED ASSIGNMENTS</h2>
           <div className={styles.sectionUnderline}></div>
         </div>
 
@@ -320,7 +324,7 @@ export function BookingsView() {
                   {booking.pickupLocation.address.split(',')[0]} → {booking.destination.address.split(',')[0]}
                 </div>
                 <div className={styles.upcomingDriver}>
-                  Driver: Assigned 30 min before
+                  Protection Officer: Assigned 30 min before
                 </div>
                 <div className={styles.upcomingPrice}>
                   £{booking.pricing.total}.00 estimated
@@ -335,7 +339,7 @@ export function BookingsView() {
                   className={styles.cancelButton}
                   onClick={() => handleCancelBooking(booking.id)}
                 >
-                  CANCEL BOOKING
+                  CANCEL ASSIGNMENT
                 </button>
               </div>
             </div>
@@ -344,19 +348,19 @@ export function BookingsView() {
 
         <div className={styles.sectionFooter}>
           <button className={styles.scheduleAnotherButton} onClick={() => navigateToView('home')}>
-            + SCHEDULE ANOTHER RIDE
+            + SCHEDULE ANOTHER ASSIGNMENT
           </button>
         </div>
       </div>
     );
   };
 
-  // STATE 4: RIDE HISTORY
+  // STATE 4: ASSIGNMENT HISTORY
   const renderHistoryState = () => {
     if (completedBookings.length === 0) return null;
 
     const monthlyStats = {
-      rides: completedBookings.length,
+      assignments: completedBookings.length,
       total: completedBookings.reduce((sum, b) => sum + b.pricing.total, 0),
       saved: 127.50, // Mock savings
       mostUsed: 'Standard Protection'
@@ -383,7 +387,7 @@ export function BookingsView() {
                 <div className={styles.routeActions}>
                   <button
                     className={styles.bookAgainButton}
-                    onClick={() => handleRebookTrip(route.booking.id)}
+                    onClick={() => handleRebookService(route.booking.id)}
                   >
                     BOOK AGAIN
                   </button>
@@ -399,7 +403,7 @@ export function BookingsView() {
         )}
 
         <div className={styles.historySection}>
-          <h2 className={styles.sectionTitle}>RECENT RIDES</h2>
+          <h2 className={styles.sectionTitle}>RECENT ASSIGNMENTS</h2>
           <div className={styles.sectionUnderline}></div>
 
           <div className={styles.historyList}>
@@ -423,7 +427,7 @@ export function BookingsView() {
                     {booking.pickupLocation.address.split(',')[0]} → {booking.destination.address.split(',')[0]}
                   </div>
                   <div className={styles.historyDriver}>
-                    Driver: {booking.driver.name} ⭐⭐⭐⭐⭐
+                    Protection Officer: {booking.driver.name} ⭐⭐⭐⭐⭐
                   </div>
                   <div className={styles.historyPrice}>
                     £{booking.pricing.total}.00 • {booking.route.duration} minutes • {booking.route.distance} miles
@@ -433,7 +437,7 @@ export function BookingsView() {
                 <div className={styles.historyActions}>
                   <button
                     className={styles.bookReturnButton}
-                    onClick={() => handleRebookTrip(booking.id)}
+                    onClick={() => handleRebookService(booking.id)}
                   >
                     BOOK RETURN
                   </button>
@@ -445,7 +449,7 @@ export function BookingsView() {
                   </button>
                   <button
                     className={styles.bookAgainButton}
-                    onClick={() => handleRebookTrip(booking.id)}
+                    onClick={() => handleRebookService(booking.id)}
                   >
                     BOOK AGAIN
                   </button>
@@ -465,8 +469,8 @@ export function BookingsView() {
 
           <div className={styles.statsGrid}>
             <div className={styles.statItem}>
-              <span className={styles.statValue}>{monthlyStats.rides}</span>
-              <span className={styles.statLabel}>Rides</span>
+              <span className={styles.statValue}>{monthlyStats.assignments}</span>
+              <span className={styles.statLabel}>Assignments</span>
             </div>
             <div className={styles.statItem}>
               <span className={styles.statValue}>£{monthlyStats.total.toFixed(2)}</span>
@@ -499,7 +503,7 @@ export function BookingsView() {
       <div className={styles.quickActionsList}>
         {completedBookings.length > 0 && (
           <button className={styles.quickActionButton} onClick={handleRebookLast}>
-            Rebook Last Ride
+            Rebook Last Assignment
           </button>
         )}
         {favoriteRoutes.length > 0 && (
@@ -526,13 +530,23 @@ export function BookingsView() {
 
   const renderUpcomingPreview = () => (
     <div className={styles.upcomingPreview}>
-      <h3 className={styles.previewTitle}>UPCOMING RIDES</h3>
+      <h3 className={styles.previewTitle}>SCHEDULED ASSIGNMENTS</h3>
       {scheduledBookings.slice(0, 2).map(booking => (
-        <div key={booking.id} className={styles.previewCard}>
-          <span className={styles.previewTime}>Tomorrow: </span>
-          <span className={styles.previewRoute}>
+        <div key={booking.id} className={styles.scheduledCard}>
+          <div className={styles.scheduleHeader}>
+            <span className={styles.scheduleLabel}>NEXT:</span>
+            <span className={styles.scheduleTime}>Tomorrow 9:00 AM</span>
+          </div>
+          <div className={styles.scheduleRoute}>
             {booking.pickupLocation.address.split(',')[0]} → {booking.destination.address.split(',')[0]}
-          </span>
+          </div>
+          <div className={styles.scheduleDetails}>
+            {booking.serviceName} • 45 min
+          </div>
+          <div className={styles.scheduleActions}>
+            <button onClick={() => handleManageBooking(booking.id)}>Modify</button>
+            <button onClick={() => handleCancelBooking(booking.id)}>Cancel</button>
+          </div>
         </div>
       ))}
     </div>
@@ -602,9 +616,9 @@ export function BookingsView() {
   };
 
   return (
-    <div className={styles.bookingsView}>
+    <div className={styles.assignmentsView}>
       <div className={styles.header}>
-        <h1 className={styles.pageTitle}>YOUR BOOKINGS</h1>
+        <h1 className={styles.pageTitle}>YOUR ASSIGNMENTS</h1>
         <div className={styles.titleUnderline}></div>
       </div>
 

@@ -26,7 +26,7 @@ export function AppLayout({
   const { currentView, user } = state;
 
   const shouldShowHeader = showHeader && currentView !== 'splash' &&
-                        !['home', 'services', 'bookings', 'account'].includes(currentView);
+                        !['home', 'services', 'assignments', 'account'].includes(currentView);
   const shouldShowNav = showNavigation && user && currentView !== 'splash';
 
   const getHeaderInfo = () => {
@@ -45,8 +45,8 @@ export function AppLayout({
       };
       case 'services': return { title: 'Services', subtitle: 'Choose your protection', showServices: false };
       case 'booking': return { title: '', subtitle: 'Secure Transport', showServices: false };
-      case 'bookings':
-      case 'rides': return { title: 'Your Bookings', subtitle: 'Transport & Security', showServices: false };
+      case 'assignments':
+      case 'rides': return { title: 'Your Assignments', subtitle: 'Transport & Security', showServices: false };
       case 'account': return { title: 'Your Account', subtitle: 'Settings & Preferences', showServices: false };
       case 'venue-protection-welcome': return { title: 'Venue Protection', subtitle: 'Professional Security Services', showServices: false };
       case 'venue-security-questionnaire': return { title: 'Security Assessment', subtitle: 'Venue Protection Planning', showServices: false };
@@ -77,7 +77,7 @@ export function AppLayout({
       case 'booking':
         navigateToView('services');
         break;
-      case 'bookings':
+      case 'assignments':
         navigateToView('home');
         break;
       case 'account':
@@ -244,9 +244,9 @@ export function AppLayout({
             </button>
 
             <button
-              className={`${styles.navButton} ${currentView === 'bookings' || currentView === 'rides' ? styles.navButtonActive : ''}`}
-              onClick={() => navigateToView('bookings')}
-              aria-label="Bookings"
+              className={`${styles.navButton} ${currentView === 'assignments' || currentView === 'rides' ? styles.navButtonActive : ''}`}
+              onClick={() => navigateToView('assignments')}
+              aria-label="Assignments"
             >
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                 <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
@@ -254,7 +254,7 @@ export function AppLayout({
                 <line x1="8" y1="2" x2="8" y2="6"/>
                 <line x1="3" y1="10" x2="21" y2="10"/>
               </svg>
-              <span className={styles.navLabel}>Bookings</span>
+              <span className={styles.navLabel}>Assignments</span>
             </button>
 
             <button

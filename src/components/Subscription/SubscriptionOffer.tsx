@@ -130,7 +130,7 @@ export function SubscriptionOffer({ selectedService, servicePrice = 45 }: Subscr
             </div>
             <div className={styles.impactCounter}>
               <span className={styles.counterNumber}>278</span>
-              <span className={styles.counterText}>safe rides funded this month</span>
+              <span className={styles.counterText}>successful protection assignments this month</span>
             </div>
           </div>
         </header>

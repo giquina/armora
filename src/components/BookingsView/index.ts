@@ -1,1 +1,0 @@
-export { BookingsView } from './BookingsView';

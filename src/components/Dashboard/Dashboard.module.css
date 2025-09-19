@@ -2272,11 +2272,18 @@
 }
 
 .eventMainHeadline {
-  font-size: var(--font-xxl);
+  font-size: 1.8rem;
   font-weight: 700;
   color: var(--text-primary);
-  margin: 0 0 var(--space-md) 0;
+  margin: 0 0 var(--space-sm) 0;
   line-height: 1.2;
+}
+
+.eventSubHeadline {
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--accent);
+  margin: 0 0 var(--space-lg) 0;
 }
 
 .eventDescription {
@@ -2299,20 +2306,18 @@
 }
 
 .eventServiceCard {
-  background: linear-gradient(135deg,
-    rgba(255, 255, 255, 0.1) 0%,
-    rgba(255, 255, 255, 0.05) 100%);
-  backdrop-filter: blur(10px);
+  background: rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: var(--radius-md);
-  padding: 16px;
+  padding: var(--space-lg);
   text-align: center;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.3s ease;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-between;
-  min-height: 180px;
+  justify-content: center;
+  gap: var(--space-sm);
+  min-height: 120px;
 }
 
 .eventServiceCard:hover {
@@ -2332,10 +2337,10 @@
 }
 
 .eventServiceTitle {
-  font-size: var(--font-base);
-  font-weight: 600;
+  font-size: 1rem;
+  font-weight: 500;
   color: var(--text-primary);
-  margin: 0 0 var(--space-sm) 0;
+  margin: 0;
 }
 
 .eventKeyStat {
@@ -2476,6 +2481,28 @@
   border-color: #FFD700;
   color: #FFD700;
   transform: translateY(-2px);
+}
+
+/* SIA Licensed Badge */
+.siaLicensedBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: var(--space-md) var(--space-xl);
+  background: rgba(255, 215, 0, 0.1);
+  border: 1px solid rgba(255, 215, 0, 0.3);
+  border-radius: 100px;
+  margin: var(--space-xl) auto;
+}
+
+.badgeIcon {
+  font-size: 1.5rem;
+}
+
+.badgeText {
+  font-size: var(--font-base);
+  font-weight: 500;
+  color: var(--accent);
 }
 
 /* Mobile responsive */
@@ -2682,5 +2709,64 @@
   .cpoTrainingIcon,
   .cpoDifferenceIcon {
     font-size: 1.25rem;
+  }
+}
+
+/* Quick Booking Prompt - Subtle inline prompt */
+.quickBookingPrompt {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 215, 0, 0.2);
+  border-radius: 12px;
+  padding: 12px 16px;
+  margin: var(--space-md) var(--content-padding-mobile);
+  max-width: var(--content-max-width);
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.promptText {
+  color: var(--text-primary);
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.promptButton {
+  background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+  color: #1a1a2e;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 16px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.promptButton:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(255, 215, 0, 0.3);
+}
+
+.promptButton:active {
+  transform: translateY(0);
+}
+
+/* Mobile optimization */
+@media (max-width: 480px) {
+  .quickBookingPrompt {
+    margin: var(--space-sm) var(--content-padding-mobile);
+    padding: 10px 14px;
+  }
+
+  .promptText {
+    font-size: 13px;
+  }
+
+  .promptButton {
+    padding: 6px 12px;
+    font-size: 12px;
   }
 }

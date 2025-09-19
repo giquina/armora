@@ -8,24 +8,24 @@ export const subscriptionPlans: SubscriptionPlan[] = [
     name: 'Armora Prime Essential',
     price: 14.99,
     monthlyPrice: '£14.99',
-    discount: 10,
+    discount: 20,
     features: [
-      '10% discount on all bookings',
-      'Priority 2-hour response time',
-      '£0 booking fees (save £5 per trip)',
+      '20% discount on all protection services',
+      'Priority response and scheduling',
+      '£0 booking fees (save £10 per assignment)',
       'Flexible cancellation policy',
       'Member-only vehicle preferences',
-      'SMS booking confirmations',
-      'First aid trained drivers',
+      'SMS assignment confirmations',
+      'First aid trained protection officers',
       'SIA Close Protection Officers'
     ],
-    description: 'Perfect for regular travelers who want reliable savings and priority service.',
+    description: 'Perfect for professionals who want reliable savings and priority protection services.',
     isAvailable: true,
     isPopular: true,
     trialDays: 30,
     responseTime: '2 hours',
     bookingFee: 0,
-    originalBookingFee: 5
+    originalBookingFee: 10
   },
   {
     tier: 'executive',
@@ -43,14 +43,14 @@ export const subscriptionPlans: SubscriptionPlan[] = [
       'Real-time tracking & updates',
       '24/7 client support line',
       'Complimentary travel risk assessment',
-      'First aid trained drivers',
+      'First aid trained officers',
       'SIA Close Protection Officers'
     ],
     description: 'Comprehensive security transport for executives and high-profile clients.',
     isAvailable: false,
     responseTime: '45 minutes',
     bookingFee: 0,
-    originalBookingFee: 5
+    originalBookingFee: 10
   },
   {
     tier: 'elite',
@@ -69,14 +69,14 @@ export const subscriptionPlans: SubscriptionPlan[] = [
       'VIP lounge access at airports',
       'Concierge travel arrangements',
       'Personal protection consultation',
-      'First aid trained drivers',
+      'First aid trained officers',
       'SIA Close Protection Officers'
     ],
     description: 'Ultimate VIP experience with maximum security and premium benefits.',
     isAvailable: false,
     responseTime: '30 minutes',
     bookingFee: 0,
-    originalBookingFee: 5
+    originalBookingFee: 10
   }
 ];
 

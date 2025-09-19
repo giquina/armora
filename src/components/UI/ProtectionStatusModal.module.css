@@ -1,0 +1,393 @@
+/* Armora Protection Status Modal - Premium Security Brand Styling */
+
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(8px);
+  z-index: 1050;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  animation: overlayFadeIn 0.3s ease-out;
+}
+
+@keyframes overlayFadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.modalContainer {
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+  border-radius: 20px 20px 0 0;
+  border: 2px solid rgba(255, 215, 0, 0.3);
+  box-shadow:
+    0 -20px 40px rgba(0, 0, 0, 0.5),
+    0 -8px 16px rgba(255, 215, 0, 0.2),
+    inset 0 2px 0 rgba(255, 255, 255, 0.1);
+  width: calc(100% - 32px);
+  max-width: 500px;
+  max-height: 80vh;
+  overflow-y: auto;
+  color: #ffffff;
+  animation: slideUpFadeIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  margin: 16px;
+}
+
+@keyframes slideUpFadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(100px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.modalHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24px 24px 16px 24px;
+  border-bottom: 1px solid rgba(255, 215, 0, 0.2);
+}
+
+.modalTitle {
+  font-size: 18px;
+  font-weight: 700;
+  color: #FFD700;
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.closeButton {
+  background: none;
+  border: none;
+  color: #ffffff;
+  font-size: 24px;
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.closeButton:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #FFD700;
+}
+
+.modalContent {
+  padding: 0 24px 24px 24px;
+}
+
+/* Protection Status Sections */
+.activeProtectionSection,
+.scheduledProtectionSection,
+.noProtectionSection {
+  margin-bottom: 24px;
+}
+
+.statusHeader {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.statusIcon {
+  font-size: 20px;
+}
+
+.statusTitle {
+  font-size: 16px;
+  font-weight: 700;
+  color: #FFD700;
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Active Protection Details */
+.officerDetails {
+  background: rgba(255, 215, 0, 0.05);
+  border: 1px solid rgba(255, 215, 0, 0.2);
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 16px;
+}
+
+.officerInfo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.officerInfo:last-child {
+  margin-bottom: 0;
+}
+
+.officerLabel {
+  font-size: 14px;
+  color: #e0e0e0;
+  font-weight: 500;
+}
+
+.officerName,
+.siaNumber,
+.vehicleInfo,
+.etaInfo {
+  font-size: 14px;
+  color: #ffffff;
+  font-weight: 600;
+}
+
+.threatLevel {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(16, 185, 129, 0.1);
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  border-radius: 8px;
+  padding: 12px;
+}
+
+.threatLabel {
+  font-size: 14px;
+  color: #e0e0e0;
+  font-weight: 500;
+}
+
+.threatValue {
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.threatLow {
+  color: #10B981;
+}
+
+/* Scheduled Protection */
+.scheduledDetails {
+  color: #e0e0e0;
+  font-size: 14px;
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* No Protection */
+.noProtectionText {
+  color: #e0e0e0;
+  font-size: 14px;
+  margin: 0;
+}
+
+/* Section Dividers */
+.sectionDivider {
+  height: 1px;
+  background: linear-gradient(90deg,
+    transparent 0%,
+    rgba(255, 215, 0, 0.3) 50%,
+    transparent 100%
+  );
+  margin: 24px 0 16px 0;
+}
+
+.sectionTitle {
+  font-size: 14px;
+  font-weight: 700;
+  color: #FFD700;
+  margin: 0 0 16px 0;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Contact & Emergency Section */
+.contactSection {
+  margin-bottom: 24px;
+}
+
+.contactOptions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.contactButton {
+  background: rgba(59, 130, 246, 0.1);
+  color: #3B82F6;
+  border: 1px solid rgba(59, 130, 246, 0.3);
+  border-radius: 12px;
+  padding: 12px 16px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.contactButton:hover {
+  background: rgba(59, 130, 246, 0.2);
+  transform: translateY(-1px);
+}
+
+.emergencyButton {
+  background: rgba(239, 68, 68, 0.1);
+  color: #EF4444;
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  border-radius: 12px;
+  padding: 12px 16px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  grid-column: 1 / -1; /* Full width */
+}
+
+.emergencyButton:hover {
+  background: rgba(239, 68, 68, 0.2);
+  transform: translateY(-1px);
+}
+
+/* Quick Actions */
+.actionButtons {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.primaryActionButton {
+  background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+  color: #1a1a2e;
+  border: none;
+  border-radius: 12px;
+  padding: 16px;
+  font-size: 14px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow:
+    0 4px 12px rgba(255, 215, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+
+.primaryActionButton:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    0 6px 20px rgba(255, 215, 0, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.4);
+}
+
+.actionButton {
+  background: rgba(255, 255, 255, 0.05);
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 12px;
+  padding: 14px 16px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.actionButton:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 215, 0, 0.4);
+  color: #FFD700;
+  transform: translateY(-1px);
+}
+
+.actionButton:active {
+  transform: translateY(0);
+}
+
+/* Mobile responsiveness */
+@media (max-width: 480px) {
+  .modalContainer {
+    width: calc(100% - 16px);
+    margin: 8px;
+    border-radius: 16px 16px 0 0;
+  }
+
+  .modalHeader {
+    padding: 20px 20px 12px 20px;
+  }
+
+  .modalTitle {
+    font-size: 16px;
+  }
+
+  .modalContent {
+    padding: 0 20px 20px 20px;
+  }
+
+  .actionButtons {
+    gap: 10px;
+  }
+
+  .primaryActionButton {
+    padding: 14px;
+    font-size: 13px;
+  }
+
+  .actionButton {
+    padding: 12px 14px;
+    font-size: 13px;
+  }
+}
+
+/* Desktop responsiveness */
+@media (min-width: 768px) {
+  .modalOverlay {
+    align-items: center;
+  }
+
+  .modalContainer {
+    border-radius: 20px;
+    margin: 32px;
+    max-width: 600px;
+  }
+}
+
+/* Ensure proper scrolling on very small screens */
+@media (max-height: 600px) {
+  .modalContainer {
+    max-height: 90vh;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .modalContainer {
+    border: 3px solid #FFD700;
+  }
+
+  .sectionDivider {
+    background: #FFD700;
+    height: 2px;
+  }
+}

@@ -1,0 +1,103 @@
+/* Minimal Protection Status Widget - Uber-style Status Bar */
+
+.protectionStatus {
+  position: fixed;
+  top: max(60px, calc(60px + env(safe-area-inset-top))); /* Below header */
+  left: 50%;
+  transform: translateX(-50%);
+  height: 32px;
+  padding: 0 16px;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  z-index: 999;
+  animation: slideDown 0.3s ease-out;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  backdrop-filter: blur(8px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.protectionStatus:hover {
+  transform: translateX(-50%) translateY(-1px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+}
+
+/* Active Protection - Green */
+.protectionStatus.active {
+  background: rgba(16, 185, 129, 0.95);
+  border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+/* Scheduled Protection - Blue */
+.protectionStatus.scheduled {
+  background: rgba(59, 130, 246, 0.95);
+  border: 1px solid rgba(59, 130, 246, 0.3);
+}
+
+.statusDot {
+  width: 6px;
+  height: 6px;
+  background: white;
+  border-radius: 50%;
+  margin-right: 8px;
+  animation: pulse 2s infinite;
+}
+
+.statusText {
+  color: white;
+  font-size: 13px;
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 280px;
+}
+
+/* Animations */
+@keyframes slideDown {
+  0% {
+    opacity: 0;
+    transform: translateX(-50%) translateY(-20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+/* Mobile responsiveness */
+@media (max-width: 480px) {
+  .protectionStatus {
+    height: 28px;
+    padding: 0 12px;
+    max-width: calc(100vw - 32px);
+  }
+
+  .statusText {
+    font-size: 12px;
+    max-width: 200px;
+  }
+
+  .statusDot {
+    width: 5px;
+    height: 5px;
+    margin-right: 6px;
+  }
+}
+
+/* Ensure it doesn't interfere with other elements */
+@media (max-height: 600px) {
+  .protectionStatus {
+    top: max(50px, calc(50px + env(safe-area-inset-top)));
+  }
+}

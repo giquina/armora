@@ -32,7 +32,7 @@ export function CreditBalance({ available, earned, used }: CreditBalanceProps) {
 
       {available > 0 && (
         <div className={styles.availableNotice}>
-          💡 Use your credits on your next ride!
+          💡 Use your credits on your next service!
         </div>
       )}
     </div>

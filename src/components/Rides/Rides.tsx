@@ -2,7 +2,7 @@ import React from 'react';
 import { useApp } from '../../contexts/AppContext';
 import { getDisplayName } from '../../utils/nameUtils';
 import { BookingHistoryManager } from '../../utils/bookingHistory';
-import { RecentTrips } from './RecentTrips';
+import { RecentServices } from './RecentTrips';
 import { FavoriteRoutes } from './FavoriteRoutes';
 import { PersonalizedQuickActions } from './PersonalizedQuickActions';
 import styles from './Rides.module.css';
@@ -17,7 +17,7 @@ export function Bookings() {
   const [hasVenueBookings] = React.useState(false); // TODO: Replace with real venue bookings data
   const [activeTab, setActiveTab] = React.useState<'transport' | 'venues'>('transport');
 
-  const handleBookNewRide = () => {
+  const handleBookNewService = () => {
     navigateToView('services');
   };
 
@@ -100,7 +100,7 @@ export function Bookings() {
                 </p>
                 <button
                   className={styles.bookButton}
-                  onClick={handleBookNewRide}
+                  onClick={handleBookNewService}
                 >
                   🚗 Book Transport
                 </button>
@@ -108,9 +108,9 @@ export function Bookings() {
             </div>
           )}
 
-          {/* Recent Trips Section */}
+          {/* Recent Services Section */}
           <div className={styles.section}>
-            <RecentTrips maxItems={5} />
+            <RecentServices maxItems={5} />
           </div>
 
           {/* Favorite Routes Section */}
@@ -224,7 +224,7 @@ export function Bookings() {
       <div className={styles.additionalActions}>
         <button
           className={styles.actionButton}
-          onClick={handleBookNewRide}
+          onClick={handleBookNewService}
         >
           🚀 New Booking
         </button>

@@ -70,7 +70,7 @@ export function BookingSearchInterface({ onDestinationSelect }: BookingSearchInt
           </svg>
         </div>
         <div className={styles.searchText}>
-          <span className={styles.searchPlaceholder}>Where to?</span>
+          <span className={styles.searchPlaceholder}>Where do you require protection?</span>
         </div>
         <div className={styles.searchArrow}>
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
@@ -94,7 +94,7 @@ export function BookingSearchInterface({ onDestinationSelect }: BookingSearchInt
             </svg>
           </div>
           <div className={styles.destinationInfo}>
-            <span className={styles.destinationLabel}>Home</span>
+            <span className={styles.destinationLabel}>Secure Residence</span>
             <span className={styles.destinationAddress}>
               {savedAddresses.home || 'Add home address'}
             </span>
@@ -114,7 +114,7 @@ export function BookingSearchInterface({ onDestinationSelect }: BookingSearchInt
             </svg>
           </div>
           <div className={styles.destinationInfo}>
-            <span className={styles.destinationLabel}>Work</span>
+            <span className={styles.destinationLabel}>Executive Office</span>
             <span className={styles.destinationAddress}>
               {savedAddresses.work || 'Add work address'}
             </span>

@@ -1,0 +1,119 @@
+import React, { useState, useEffect } from 'react';
+import { useApp } from '../../contexts/AppContext';
+import { ProtectionStatusModal } from './ProtectionStatusModal';
+import styles from './ProtectionStatusFAB.module.css';
+
+export function ProtectionStatusFAB() {
+  const { state } = useApp();
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [showTooltip, setShowTooltip] = useState(false);
+  const [protectionStatus, setProtectionStatus] = useState<'active' | 'scheduled' | 'none'>('none');
+
+  // Determine protection status based on user state
+  useEffect(() => {
+    // Check for active bookings/assignments
+    const hasActiveBooking = false; // Would check actual booking state
+    const hasScheduledBooking = false; // Would check scheduled bookings
+
+    // Mock logic - in real app would check actual protection status
+    if (state.user?.userType === 'registered' || state.user?.userType === 'google') {
+      if (hasActiveBooking) {
+        setProtectionStatus('active');
+      } else if (hasScheduledBooking) {
+        setProtectionStatus('scheduled');
+      } else {
+        setProtectionStatus('none');
+      }
+    } else {
+      setProtectionStatus('none');
+    }
+  }, [state.user, state.subscription]);
+
+  // Auto-hide tooltip
+  useEffect(() => {
+    if (showTooltip) {
+      const timer = setTimeout(() => setShowTooltip(false), 2000);
+      return () => clearTimeout(timer);
+    }
+  }, [showTooltip]);
+
+  const handleClick = () => {
+    // Add haptic feedback on mobile
+    if ('vibrate' in navigator) {
+      navigator.vibrate(50);
+    }
+    setIsModalOpen(true);
+  };
+
+  const handleMouseEnter = () => {
+    setShowTooltip(true);
+  };
+
+  const handleMouseLeave = () => {
+    setShowTooltip(false);
+  };
+
+  const getStatusIndicatorClass = () => {
+    switch (protectionStatus) {
+      case 'active':
+        return styles.statusActive;
+      case 'scheduled':
+        return styles.statusScheduled;
+      default:
+        return styles.statusNone;
+    }
+  };
+
+  const getTooltipText = () => {
+    switch (protectionStatus) {
+      case 'active':
+        return 'Protection Active';
+      case 'scheduled':
+        return 'Protection Scheduled';
+      default:
+        return 'Protection Status';
+    }
+  };
+
+  return (
+    <>
+      <div className={styles.fabContainer}>
+        {/* Tooltip */}
+        {showTooltip && (
+          <div className={styles.tooltip}>
+            {getTooltipText()}
+          </div>
+        )}
+
+        {/* Main FAB Button */}
+        <button
+          className={`${styles.protectionFAB} ${protectionStatus === 'active' ? styles.active : ''}`}
+          onClick={handleClick}
+          onMouseEnter={handleMouseEnter}
+          onMouseLeave={handleMouseLeave}
+          aria-label={getTooltipText()}
+        >
+          {/* Pulse ring for active protection */}
+          {protectionStatus === 'active' && (
+            <div className={styles.pulseRing}></div>
+          )}
+
+          {/* Shield icon */}
+          <span className={styles.shieldIcon}>🛡️</span>
+
+          {/* Status indicator dot */}
+          {protectionStatus !== 'none' && (
+            <div className={`${styles.statusIndicator} ${getStatusIndicatorClass()}`}></div>
+          )}
+        </button>
+      </div>
+
+      {/* Protection Status Modal */}
+      <ProtectionStatusModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        protectionStatus={protectionStatus}
+      />
+    </>
+  );
+}

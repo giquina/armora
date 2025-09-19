@@ -12,7 +12,7 @@ import AchievementUnlock from './components/Achievement/AchievementUnlock';
 import AchievementBanner from './components/Achievement/AchievementBanner';
 import { Dashboard } from './components/Dashboard';
 import { ServicesPage } from './components/Services/ServicesPage';
-import { BookingsView } from './components/BookingsView';
+import { AssignmentsView } from './components/AssignmentsView';
 import { SubscriptionOffer } from './components/Subscription/SubscriptionOffer';
 import { VehicleSelection, LocationPicker, BookingSuccess } from './components/Booking';
 import { PaymentIntegration } from './components/Booking/PaymentIntegration';
@@ -385,7 +385,7 @@ function Profile() {
           gap: 'var(--space-sm)'
         }}>
           <button
-            onClick={() => navigateToView('bookings')}
+            onClick={() => navigateToView('assignments')}
             style={{
               display: 'flex',
               alignItems: 'center',
@@ -682,9 +682,9 @@ function AppRouter() {
         return <BookingFlow />;
       case 'service-selection':
         return <ServiceSelection />;
-      case 'bookings':
+      case 'assignments':
       case 'rides':
-        return <BookingsView />;
+        return <AssignmentsView />;
       case 'account':
         return <AccountView />;
       case 'about':

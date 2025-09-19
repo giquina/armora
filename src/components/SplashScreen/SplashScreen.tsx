@@ -120,7 +120,7 @@ export function SplashScreen() {
 
         {/* Enhanced Tagline */}
         <p className={styles.taglineEnhanced}>
-          Your Personal Security Driver Team
+          Professional Close Protection Services
         </p>
 
         {/* Advanced Security Loading System */}

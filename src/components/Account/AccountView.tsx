@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useApp } from '../../contexts/AppContext';
+import { sanitizeText, validateJSON } from '../../utils/inputSanitization';
 import styles from './AccountView.module.css';
 
 interface UserAccountData {
@@ -133,9 +134,9 @@ const generateMockUserData = (user: any): UserAccountData => {
     },
     achievements: {
       badges: [
-        { id: '1', name: '4p Drive Club', icon: '🚗', earned: true },
+        { id: '1', name: 'Protection Elite', icon: '🛡️', earned: true },
         { id: '2', name: 'Verified', icon: '✓', earned: true },
-        { id: '3', name: 'Safe Rider', icon: '🛡️', earned: true },
+        { id: '3', name: 'Trusted Principal', icon: '🎖️', earned: true },
         { id: '4', name: 'Elite', icon: '⭐', earned: true }
       ]
     }
@@ -219,7 +220,7 @@ export function AccountView() {
           <span className={styles.scoreValue}>0/20 ✗</span>
         </div>
         <div className={styles.scoreItem}>
-          <span className={styles.scoreLabel}>Ride History</span>
+          <span className={styles.scoreLabel}>Service History</span>
           <span className={styles.scoreValue}>19/20 ✓</span>
         </div>
         <div className={styles.scoreItem}>
@@ -253,7 +254,7 @@ export function AccountView() {
           <span className={styles.financialValue}>£{userData.stats.totalSpent.toFixed(2)}</span>
         </div>
         <div className={styles.financialCard}>
-          <span className={styles.financialLabel}>Average per ride:</span>
+          <span className={styles.financialLabel}>Average per service:</span>
           <span className={styles.financialValue}>£{userData.stats.averagePerRide.toFixed(2)}</span>
         </div>
       </div>
@@ -263,11 +264,11 @@ export function AccountView() {
         <div className={styles.monthlyGrid}>
           <div className={styles.monthlyCard}>
             <span className={styles.monthlyLabel}>This Month:</span>
-            <span className={styles.monthlyValue}>£{userData.stats.thisMonth.amount.toFixed(2)} ({userData.stats.thisMonth.rides} rides)</span>
+            <span className={styles.monthlyValue}>£{userData.stats.thisMonth.amount.toFixed(2)} ({userData.stats.thisMonth.rides} services)</span>
           </div>
           <div className={styles.monthlyCard}>
             <span className={styles.monthlyLabel}>Last Month:</span>
-            <span className={styles.monthlyValue}>£{userData.stats.lastMonth.amount.toFixed(2)} ({userData.stats.lastMonth.rides} rides)</span>
+            <span className={styles.monthlyValue}>£{userData.stats.lastMonth.amount.toFixed(2)} ({userData.stats.lastMonth.rides} services)</span>
           </div>
         </div>
       </div>
@@ -314,7 +315,7 @@ export function AccountView() {
           <h4 className={styles.howItWorksTitle}>How it works:</h4>
           <ol className={styles.stepsList}>
             <li>Friend signs up with your code</li>
-            <li>They complete first ride</li>
+            <li>They complete first service</li>
             <li>You both get £50 credits</li>
           </ol>
         </div>
@@ -406,19 +407,31 @@ export function AccountView() {
         <div className={styles.statsGrid}>
           <div className={`${styles.statCard} ${styles.miniCard}`}>
             <span className={styles.statValue}>{userData.stats.totalRides}</span>
-            <span className={styles.statLabel}>Total Rides</span>
+            <span className={styles.statLabel}>Protection Assignments</span>
           </div>
           <div className={`${styles.statCard} ${styles.miniCard}`}>
             <span className={styles.statValue}>{userData.stats.totalHours} hrs</span>
-            <span className={styles.statLabel}>Protected</span>
+            <span className={styles.statLabel}>Hours Protected</span>
           </div>
           <div className={`${styles.statCard} ${styles.miniCard}`}>
             <span className={styles.statValue}>£{userData.stats.totalSpent.toFixed(0)}</span>
-            <span className={styles.statLabel}>Total Spent</span>
+            <span className={styles.statLabel}>Investment in Security</span>
           </div>
           <div className={`${styles.statCard} ${styles.miniCard}`}>
             <span className={styles.statValue}>⭐ {userData.stats.userRating}</span>
-            <span className={styles.statLabel}>Your Rating</span>
+            <span className={styles.statLabel}>Client Satisfaction</span>
+          </div>
+          <div className={`${styles.statCard} ${styles.miniCard}`}>
+            <span className={styles.statValue}>100%</span>
+            <span className={styles.statLabel}>Threat-Free Journeys</span>
+          </div>
+          <div className={`${styles.statCard} ${styles.miniCard}`}>
+            <span className={styles.statValue}>5</span>
+            <span className={styles.statLabel}>Preferred Officers</span>
+          </div>
+          <div className={`${styles.statCard} ${styles.miniCard}`}>
+            <span className={styles.statValue}>Executive</span>
+            <span className={styles.statLabel}>Security Level</span>
           </div>
         </div>
 
@@ -426,7 +439,7 @@ export function AccountView() {
           className={styles.detailsButton}
           onClick={() => setCurrentPage('financial')}
         >
-          VIEW DETAILED STATS
+          VIEW SECURITY REPORT
         </button>
       </div>
 
@@ -471,7 +484,7 @@ export function AccountView() {
             <span className={styles.settingIcon}>🔔</span>
             <div className={styles.settingContent}>
               <span className={styles.settingTitle}>Notifications</span>
-              <span className={styles.settingDesc}>Ride updates, offers, news</span>
+              <span className={styles.settingDesc}>Security alerts, protection updates</span>
             </div>
             <span className={styles.settingArrow}>→</span>
           </button>

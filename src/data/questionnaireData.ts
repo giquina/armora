@@ -85,7 +85,7 @@ export const questionnaireSteps: QuestionnaireStep[] = [
         id: "student",
         label: "📚 Are you a student?",
         value: "student",
-        description: "Are you studying at university or college? Need safe transport for late library sessions, social events, or trips home? We understand student life has unique transport needs.",
+        description: "Are you studying at university or college? Need safe protection for late library sessions, social events, or trips home? We understand student life has unique security needs.",
         examples: "*Choose this if you're currently in full-time education."
       },
       {
@@ -106,7 +106,7 @@ export const questionnaireSteps: QuestionnaireStep[] = [
         id: "security",
         label: "🛡️ Are you in security or law enforcement?",
         value: "security",
-        description: "Do you work in private security, police services, or military? You understand protocols and appreciate professional standards in transport services.",
+        description: "Do you work in private security, police services, or military? You understand protocols and appreciate professional standards in protection services.",
         examples: "*Choose this if you're in any security, police, or military role requiring civilian transport."
       },
       {
@@ -120,7 +120,7 @@ export const questionnaireSteps: QuestionnaireStep[] = [
         id: "general",
         label: "🚗 Are you looking for general premium transport?",
         value: "general",
-        description: "Do you simply want reliable, comfortable transport without specific professional requirements? Sometimes you just need a dependable ride.",
+        description: "Do you simply want reliable, comfortable protection without specific professional requirements? Sometimes you just need dependable security.",
         examples: "*Choose this if you need quality transport but don't fit other specific categories."
       },
       {
@@ -146,12 +146,12 @@ export const questionnaireSteps: QuestionnaireStep[] = [
       benefits: [
         "Personalized security recommendations",
         "Matched with appropriate protection level",
-        "Optimized routing and driver selection",
+        "Optimized routing and officer selection",
         "Exclusive 50% discount on first booking"
       ],
       securityAssurance: "All responses are encrypted and used exclusively for service matching. Your privacy is our priority."
     },
-    stepDescription: "Tell us what you do so we can match you with the right drivers. A CEO might need someone who understands business confidentiality, while a student might prefer a friendly driver who knows the best late-night food spots. It's all about finding your perfect match."
+    stepDescription: "Tell us what you do so we can match you with the right officers. A CEO might need someone who understands business confidentiality, while a student might prefer a friendly officer who knows the best late-night food spots. It's all about finding your perfect match."
   },
   {
     id: 2,

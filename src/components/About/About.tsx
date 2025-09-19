@@ -55,8 +55,8 @@ export function About({ onBack }: AboutProps) {
               After years protecting high-net-worth individuals at exclusive venues like
               <span className={styles.highlight}> Soho House Private Members' Club</span>, and being
               featured in national media for professional security services, our founder understood
-              that VIP transport requires more than premium vehicles - it demands the seamless fusion
-              of close protection and secure transportation.
+              that VIP protection requires more than premium vehicles - it demands the seamless fusion
+              of close protection and comprehensive security services.
             </p>
           </div>
         </div>
@@ -137,7 +137,7 @@ export function About({ onBack }: AboutProps) {
               className={styles.primaryButton}
               onClick={() => window.location.href = '/'}
             >
-              Book Secure Transport
+              Book Protection Services
             </button>
             <button
               className={styles.secondaryButton}

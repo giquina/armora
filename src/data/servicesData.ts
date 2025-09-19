@@ -9,11 +9,11 @@ export const SERVICES_DATA: ServiceData[] = [
     vehicle: 'Nissan Leaf EV (Eco-friendly, discrete)',
     price: 'From £45.00/hour',
     rating: '⭐⭐⭐⭐⭐ 4.8',
-    totalRides: '(2,847 rides)',
+    totalRides: '(2,847 services)',
     collapsedFeatures: [
       'Certified Close Protection Officers',
       'Background verified & insured',
-      'Personal Security Drivers'
+      'Personal Protection Officers'
     ],
     collapsedReview: {
       snippet: 'Been using for 6 months now and honestly can\'t fault it',
@@ -28,7 +28,7 @@ export const SERVICES_DATA: ServiceData[] = [
       'Real-time journey monitoring'
     ],
     officerDescription: {
-      general: 'All our Close Protection Officers hold both security and private hire licenses, ensuring legal compliance and professional standards. Each officer undergoes enhanced DBS checks, defensive driving training, and conflict resolution certification. They\'re not just drivers - they\'re your personal security team.',
+      general: 'All our Close Protection Officers hold both security and private hire licenses, ensuring legal compliance and professional standards. Each officer undergoes enhanced DBS checks, defensive driving training, and conflict resolution certification. They\'re not just transport - they\'re your personal security team.',
       qualifications: [
         'SIA Close Protection License',
         'Enhanced DBS checked',
@@ -40,13 +40,13 @@ export const SERVICES_DATA: ServiceData[] = [
     reviews: [
       {
         rating: 5,
-        text: 'Been using for 6 months now and honestly can\'t fault it. It\'s not over the top, just solid, reliable protection. My driver Amy is brilliant - professional but friendly, always on time, makes me feel safe without being dramatic about it. Exactly what I needed',
+        text: 'Been using for 6 months now and honestly can\'t fault it. It\'s not over the top, just solid, reliable protection. My officer Amy is brilliant - professional but friendly, always on time, makes me feel safe without being dramatic about it. Exactly what I needed',
         author: 'Emma',
         role: 'Marketing Manager'
       },
       {
         rating: 5,
-        text: 'Look I\'m not a CEO or celebrity, just wanted to feel safer commuting. This is perfect for normal people like me. Drivers are properly trained (you can tell) but it doesn\'t feel excessive. My guy Marcus even remembers I like Radio 4 in the mornings 😊',
+        text: 'Look I\'m not a CEO or celebrity, just wanted to feel safer commuting. This is perfect for normal people like me. Officers are properly trained (you can tell) but it doesn\'t feel excessive. My guy Marcus even remembers I like Radio 4 in the mornings 😊',
         author: 'James',
         role: 'Teacher'
       },
@@ -99,7 +99,7 @@ export const SERVICES_DATA: ServiceData[] = [
     vehicle: 'BMW 5 Series',
     price: 'From £95.00/hour',
     rating: '⭐⭐⭐⭐⭐ 4.9',
-    totalRides: '(1,653 rides)',
+    totalRides: '(1,653 services)',
     collapsedFeatures: [
       'Ex-military/police officers',
       'Advanced driving certified',
@@ -189,7 +189,7 @@ export const SERVICES_DATA: ServiceData[] = [
     vehicle: 'Unmarked vehicles (changes regularly)',
     price: 'From £125.00/hour',
     rating: '⭐⭐⭐⭐⭐ 5.0',
-    totalRides: '(892 rides)',
+    totalRides: '(892 services)',
     collapsedFeatures: [
       'Elite Close Protection team',
       'Counter-surveillance specialists',
@@ -279,7 +279,7 @@ export const SERVICES_DATA: ServiceData[] = [
     vehicle: 'Bentley/Rolls Royce/S-Class Mercedes',
     price: 'From £200.00/hour',
     rating: '⭐⭐⭐⭐⭐ 5.0',
-    totalRides: '(456 rides)',
+    totalRides: '(456 services)',
     collapsedFeatures: [
       'Diplomatic protection trained',
       'Executive chauffeur certified',
@@ -369,9 +369,9 @@ export const SERVICES_DATA: ServiceData[] = [
     vehicle: 'Your own vehicle (any make/model)',
     price: 'From £55.00/hour',
     rating: '⭐⭐⭐⭐⭐ 4.7',
-    totalRides: '(1,234 rides)',
+    totalRides: '(1,234 services)',
     collapsedFeatures: [
-      'Personal Security Drivers',
+      'Personal Protection Officers',
       'Fully insured any vehicle',
       'Discrete protection trained'
     ],

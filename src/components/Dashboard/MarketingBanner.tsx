@@ -139,15 +139,27 @@ export function MarketingBanner({
     requestAnimationFrame(update);
   }, [createMoneyParticles]);
 
-  // Show banner with delay on dashboard load - FIXED: Move shouldShowBanner logic inline
+  // Show banner with smart timing - only on dashboard, respects dismissals
   useEffect(() => {
     let showTimer: NodeJS.Timeout;
     let bounceTimer: NodeJS.Timeout;
     let animationTimer: NodeJS.Timeout;
 
-    // Inline banner visibility check to avoid circular dependencies
     const checkAndShow = () => {
-      // Don't show to Essential members
+      // Check dismissal with expiry
+      const dismissed = localStorage.getItem('membershipBannerDismissed');
+      if (dismissed) {
+        try {
+          const dismissData = JSON.parse(dismissed);
+          if (Date.now() < dismissData.expiresAt) {
+            return; // Still within dismissal period (7 days)
+          }
+        } catch (e) {
+          // Invalid data, continue to show
+        }
+      }
+
+      // Don't show to Essential members (they already have membership)
       if (state.subscription?.tier === 'essential') {
         return;
       }
@@ -157,7 +169,7 @@ export function MarketingBanner({
         return;
       }
 
-      // Show banner (other checks will be done after state loads)
+      // Only show on dashboard view after 5 second delay
       showTimer = setTimeout(() => {
         setBannerState(prev => ({ ...prev, isVisible: true }));
 
@@ -172,7 +184,7 @@ export function MarketingBanner({
           setShowBounce(true);
           setTimeout(() => setShowBounce(false), 600);
         }, 4000);
-      }, 3000); // 3 second delay after dashboard load
+      }, 5000); // 5 second delay for less intrusion
     };
 
     // Only run once on mount
@@ -184,7 +196,7 @@ export function MarketingBanner({
       clearTimeout(animationTimer);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []); // Only run once on mount - dependencies ignored intentionally
+  }, []); // Only run once on mount
 
   // Additional visibility checks after banner state loads - FIXED: Separate effect
   useEffect(() => {
@@ -232,53 +244,33 @@ export function MarketingBanner({
     return () => {}; // No cleanup needed for disabled timer
   }, [bannerState.isVisible]);
 
-  // Handle banner dismissal
+  // Handle banner dismissal with 7-day expiry
   const handleDismiss = () => {
-    const newDismissCount = bannerState.dismissCount + 1;
-    const dismissTime = new Date().toISOString();
+    const dismissData = {
+      timestamp: Date.now(),
+      expiresAt: Date.now() + (7 * 24 * 60 * 60 * 1000), // 7 days
+      dismissCount: bannerState.dismissCount + 1
+    };
 
     setBannerState(prev => ({
       ...prev,
       isVisible: false,
-      dismissCount: newDismissCount,
-      lastDismissed: dismissTime
+      dismissCount: dismissData.dismissCount,
+      lastDismissed: new Date().toISOString()
     }));
 
-    // Save to localStorage
-    localStorage.setItem('marketingBannerDismissCount', newDismissCount.toString());
-    localStorage.setItem('marketingBannerLastDismissed', dismissTime);
-    localStorage.setItem('marketingBannerDismissed', 'true'); // Flag for reopen button
+    // Save dismissal with expiry to localStorage
+    localStorage.setItem('membershipBannerDismissed', JSON.stringify(dismissData));
 
     // Track dismissal
-    console.log('📊 Analytics: banner_dismissed', {
-      dismissCount: newDismissCount,
+    console.log('📊 Analytics: membership_banner_dismissed', {
+      dismissCount: dismissData.dismissCount,
       variant,
-      timeOnScreen: Date.now() // Would calculate actual time in real app
+      expiresAt: new Date(dismissData.expiresAt).toISOString()
     });
   };
 
-  // Handle banner reopen
-  const handleReopen = () => {
-    setBannerState(prev => ({
-      ...prev,
-      isVisible: true,
-      dismissCount: 0, // Reset dismiss count on manual reopen
-      lastDismissed: null
-    }));
-
-    // Clear dismissal flags
-    localStorage.removeItem('marketingBannerDismissed');
-    localStorage.removeItem('marketingBannerDismissCount');
-    localStorage.removeItem('marketingBannerLastDismissed');
-
-    // Start animations
-    setTimeout(() => {
-      setIsAnimating(true);
-      animateCounter();
-    }, 500);
-
-    console.log('📊 Analytics: banner_reopened', { variant });
-  };
+  // Note: handleReopen function removed - functionality moved to ProtectionStatusFAB
 
   // Handle CTA click
   const handleTrialClick = async () => {
@@ -303,23 +295,7 @@ export function MarketingBanner({
     }
   };
 
-  // Check if banner was dismissed and should show reopen button
-  const isDismissed = localStorage.getItem('marketingBannerDismissed') === 'true';
-
-  // Show reopen button if dismissed and not permanently hidden
-  if (!bannerState.isVisible && isDismissed && bannerState.dismissCount < 3) {
-    return (
-      <div className={styles.reopenContainer}>
-        <button
-          className={styles.reopenButton}
-          onClick={handleReopen}
-          aria-label="View Personal Security Detail membership offers"
-        >
-          🛡️ Your Security Detail
-        </button>
-      </div>
-    );
-  }
+  // Note: Reopen button functionality moved to ProtectionStatusFAB component
 
   // Don't render if not visible and not dismissed recently
   if (!bannerState.isVisible) {
@@ -358,10 +334,10 @@ export function MarketingBanner({
           {/* Header */}
           <div className={styles.header}>
             <h3 className={styles.headerTitle}>
-              💰 Your Personal Security Detail Membership
+              🛡️ Executive Protection Membership
             </h3>
             <p className={styles.headerSubtext}>
-              Save £{marketingData.averageSavings}/month + fund priority security transport:
+              Save £{marketingData.averageSavings}/month on professional protection services
             </p>
           </div>
 
@@ -371,7 +347,7 @@ export function MarketingBanner({
               <span className={`${styles.counterNumber} ${isAnimating ? styles.animating : ''}`}>
                 {bannerState.currentRidesCount.toLocaleString()}
               </span>
-              <span className={styles.counterText}>safe rides funded & counting</span>
+              <span className={styles.counterText}>successful protection assignments</span>
             </div>
           </div>
 
@@ -381,16 +357,16 @@ export function MarketingBanner({
               <div className={styles.benefitHeader}>Essential Membership - £14.99/month</div>
             </div>
             <div className={styles.benefitItem}>
-              <span className={styles.benefitBullet}>🛡️</span>
-              <span className={styles.benefitText}>Professional security drivers 24/7</span>
+              <span className={styles.benefitBullet}>✓</span>
+              <span className={styles.benefitText}>SIA-licensed protection officers 24/7</span>
             </div>
             <div className={styles.benefitItem}>
-              <span className={styles.benefitBullet}>💰</span>
-              <span className={styles.benefitText}>Save £32/month on security transport</span>
+              <span className={styles.benefitBullet}>✓</span>
+              <span className={styles.benefitText}>Save £32/month on protection services</span>
             </div>
             <div className={styles.benefitItem}>
-              <span className={styles.benefitBullet}>⭐</span>
-              <span className={styles.benefitText}>£0 booking fees on all driver requests</span>
+              <span className={styles.benefitBullet}>✓</span>
+              <span className={styles.benefitText}>Priority assignment for all security requests</span>
             </div>
           </div>
 
@@ -406,7 +382,7 @@ export function MarketingBanner({
               No payment required • Cancel anytime
             </div>
             <div className={styles.socialProof}>
-              Join {bannerState.currentMemberCount.toLocaleString()} members
+              Join {bannerState.currentMemberCount.toLocaleString()} protected members
             </div>
           </div>
         </div>

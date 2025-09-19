@@ -62,7 +62,7 @@ export function LiveTrackingDashboard({
           Live Tracking Dashboard
         </h2>
         <div className={styles.activeCount}>
-          {activeBookings.length} Active Ride{activeBookings.length > 1 ? 's' : ''}
+          {activeBookings.length} Active Service{activeBookings.length > 1 ? 's' : ''}
         </div>
       </div>
 

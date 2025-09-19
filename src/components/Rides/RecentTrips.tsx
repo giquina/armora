@@ -2,15 +2,15 @@ import React from 'react';
 import { BookingHistoryItem, FavoriteRoute } from '../../types';
 import { BookingHistoryManager } from '../../utils/bookingHistory';
 import { useApp } from '../../contexts/AppContext';
-import styles from './RecentTrips.module.css';
+import styles from './RecentServices.module.css';
 
-interface RecentTripsProps {
+interface RecentServicesProps {
   onRebook?: (item: BookingHistoryItem) => void;
   onAddToFavorites?: (item: BookingHistoryItem) => void;
   maxItems?: number;
 }
 
-export function RecentTrips({ onRebook, onAddToFavorites, maxItems = 5 }: RecentTripsProps) {
+export function RecentServices({ onRebook, onAddToFavorites, maxItems = 5 }: RecentServicesProps) {
   const { navigateToView } = useApp();
   const [history, setHistory] = React.useState<BookingHistoryItem[]>([]);
   const [favorites, setFavorites] = React.useState<FavoriteRoute[]>([]);
@@ -102,7 +102,7 @@ export function RecentTrips({ onRebook, onAddToFavorites, maxItems = 5 }: Recent
     return (
       <div className={styles.emptyState}>
         <div className={styles.emptyIcon}>🎯</div>
-        <h3 className={styles.emptyTitle}>No Recent Trips</h3>
+        <h3 className={styles.emptyTitle}>No Recent Services</h3>
         <p className={styles.emptyText}>
           Your completed journeys will appear here after your first ride with Armora.
         </p>
@@ -110,14 +110,14 @@ export function RecentTrips({ onRebook, onAddToFavorites, maxItems = 5 }: Recent
           className={styles.emptyAction}
           onClick={() => navigateToView('booking')}
         >
-          📅 Book Your First Ride
+          📅 Book Your First Service
         </button>
       </div>
     );
   }
 
   return (
-    <div className={styles.recentTrips}>
+    <div className={styles.recentServices}>
       <h2 className={styles.sectionTitle}>🚗 Recent Journeys</h2>
 
       <div className={styles.tripsList}>
@@ -199,7 +199,7 @@ export function RecentTrips({ onRebook, onAddToFavorites, maxItems = 5 }: Recent
           className={styles.viewAllButton}
           onClick={() => navigateToView('rides')}
         >
-          View All Trips →
+          View All Services →
         </button>
       )}
     </div>

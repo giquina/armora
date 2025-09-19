@@ -9,7 +9,7 @@ interface ShareButtonsProps {
 export function ShareButtons({ referralCode, referralLink }: ShareButtonsProps) {
   const [showCopySuccess, setShowCopySuccess] = useState(false);
 
-  const shareMessage = `I use Armora for secure transport. Use my code ${referralCode} to get £5 off your first ride and 1 month free premium!`;
+  const shareMessage = `I use Armora for secure protection services. Use my code ${referralCode} to get £5 off your first service and 1 month free premium!`;
 
   const handleWhatsAppShare = () => {
     const encodedMessage = encodeURIComponent(`${shareMessage} ${referralLink}`);

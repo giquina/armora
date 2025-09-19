@@ -120,7 +120,7 @@ export function WelcomePage() {
                     <ArmoraTagline />
                   </p>
                   <p className={styles.taglineSubtext}>
-                    Protection for You. Safety for All.
+                    Your Security. Our Priority.
                   </p>
                 </div>
               </div>
