@@ -1,126 +1,214 @@
-/* EMERGENCY SOS FLOATING BUTTON */
+/* IMMEDIATE PROTECTION SIDE TAB BUTTON */
 .sosButton {
   position: fixed;
-  bottom: 100px; /* Above bottom navigation */
-  left: 20px;
-  width: 56px;
-  height: 56px;
-  background: linear-gradient(135deg, #dc2626, #ef4444);
-  border: none;
-  border-radius: 50%;
-  box-shadow: 0 8px 24px rgba(220, 38, 38, 0.4);
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  background: linear-gradient(135deg, #1e3a8a, #1e40af);
+  border: 2px solid #fbbf24;
+  border-left: none; /* No border on screen edge */
+  border-radius: 0 12px 12px 0; /* Rounded only on right */
+  box-shadow: 2px 0 20px rgba(251, 191, 36, 0.3);
   cursor: pointer;
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 2px;
-  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.3s ease;
   z-index: 999;
   user-select: none;
   -webkit-tap-highlight-color: transparent;
+}
 
-  /* Ensure accessibility */
-  min-width: 44px;
-  min-height: 44px;
+/* Collapsed state (default) */
+.sosButton.collapsed {
+  width: 48px;
+  height: 140px;
+  flex-direction: column;
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  padding: 12px 8px;
+  gap: 8px;
+}
+
+/* Expanded state */
+.sosButton.expanded {
+  width: 280px;
+  height: 80px;
+  flex-direction: column;
+  writing-mode: horizontal-tb;
+  padding: 12px 16px;
+  gap: 4px;
 }
 
 .sosButton:hover {
-  background: linear-gradient(135deg, #b91c1c, #dc2626);
-  box-shadow: 0 12px 32px rgba(220, 38, 38, 0.6);
-  transform: translateY(-2px) scale(1.05);
+  background: linear-gradient(135deg, #1e40af, #2563eb);
+  box-shadow: 4px 0 25px rgba(251, 191, 36, 0.5);
+}
+
+.sosButton.collapsed:hover {
+  transform: translateY(-50%) translateX(2px);
+}
+
+.sosButton.expanded:hover {
+  transform: translateY(-50%) translateX(4px);
 }
 
 .sosButton:focus {
-  outline: 3px solid rgba(220, 38, 38, 0.5);
+  outline: 3px solid rgba(251, 191, 36, 0.5);
   outline-offset: 2px;
 }
 
 .sosButton.pressed {
-  transform: translateY(0) scale(0.95);
-  box-shadow: 0 4px 12px rgba(220, 38, 38, 0.3);
+  transform: translateY(-50%) scale(0.98);
+  box-shadow: 2px 0 12px rgba(251, 191, 36, 0.3);
 }
 
-/* SOS Button Animation */
+/* Protection Button Animation */
 .sosButton.pulsing {
-  animation: sosPulse 2s infinite;
+  animation: protectionPulse 2s infinite;
 }
 
-@keyframes sosPulse {
+@keyframes protectionPulse {
   0%, 100% {
-    transform: scale(1);
-    box-shadow: 0 8px 24px rgba(220, 38, 38, 0.4),
-                0 0 0 0 rgba(220, 38, 38, 0.7);
+    transform: translateY(-50%) scale(1);
+    box-shadow: 2px 0 20px rgba(251, 191, 36, 0.3),
+                0 0 0 0 rgba(251, 191, 36, 0.7);
   }
   50% {
-    transform: scale(1.05);
-    box-shadow: 0 12px 32px rgba(220, 38, 38, 0.6),
-                0 0 20px 10px rgba(220, 38, 38, 0);
+    transform: translateY(-50%) scale(1.02);
+    box-shadow: 4px 0 25px rgba(251, 191, 36, 0.5),
+                0 0 20px 10px rgba(251, 191, 36, 0);
   }
 }
 
 .sosIcon {
-  font-size: 28px;
+  font-size: 20px;
   line-height: 1;
   filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
 }
 
-.sosText {
-  font-size: 11px;
-  font-weight: 800;
-  color: white;
-  text-transform: uppercase;
-  letter-spacing: 1px;
+.collapsed .sosIcon {
+  font-size: 18px;
+  margin-bottom: 8px;
+}
+
+.expanded .sosIcon {
+  font-size: 20px;
+}
+
+.mainText {
+  font-size: 12px;
+  font-weight: bold;
+  color: #fbbf24;
+  white-space: nowrap;
   line-height: 1;
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
 }
 
+.subText {
+  font-size: 9px;
+  color: #fff;
+  opacity: 0.9;
+  white-space: nowrap;
+  line-height: 1;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.collapsedText {
+  font-size: 10px;
+  font-weight: bold;
+  color: #fbbf24;
+  line-height: 1;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+  letter-spacing: 1px;
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+}
+
 /* Mobile optimizations */
 @media (max-width: 768px) {
-  .sosButton {
-    width: 64px;
-    height: 64px;
-    left: 16px;
-    bottom: 100px; /* Adjust for mobile nav */
+  .sosButton.collapsed {
+    width: 40px;
+    height: 120px;
+    padding: 10px 6px;
   }
 
-  .sosIcon {
-    font-size: 24px;
+  .sosButton.expanded {
+    width: 240px;
+    height: 70px;
+    padding: 10px 14px;
   }
 
-  .sosText {
-    font-size: 10px;
+  .collapsed .sosIcon {
+    font-size: 16px;
+    margin-bottom: 6px;
+  }
+
+  .expanded .sosIcon {
+    font-size: 18px;
+  }
+
+  .mainText {
+    font-size: 11px;
+  }
+
+  .subText {
+    font-size: 8px;
+  }
+
+  .collapsedText {
+    font-size: 9px;
   }
 }
 
 /* Small mobile */
 @media (max-width: 480px) {
-  .sosButton {
-    width: 60px;
+  .sosButton.collapsed {
+    width: 36px;
+    height: 100px;
+    padding: 8px 4px;
+  }
+
+  .sosButton.expanded {
+    width: 200px;
     height: 60px;
-    left: 12px;
-    bottom: 90px;
+    padding: 8px 12px;
   }
 
-  .sosIcon {
-    font-size: 22px;
+  .collapsed .sosIcon {
+    font-size: 14px;
+    margin-bottom: 4px;
   }
 
-  .sosText {
-    font-size: 9px;
+  .expanded .sosIcon {
+    font-size: 16px;
+  }
+
+  .mainText {
+    font-size: 10px;
+  }
+
+  .subText {
+    font-size: 7px;
+  }
+
+  .collapsedText {
+    font-size: 8px;
   }
 }
 
 /* High contrast mode */
 @media (prefers-contrast: high) {
   .sosButton {
-    border: 3px solid white;
-    background: #dc2626;
+    border: 3px solid #fbbf24;
+    border-left: none;
+    background: #1e3a8a;
   }
 
   .sosButton:hover {
-    background: #b91c1c;
-    border-color: #ffffff;
+    background: #1e40af;
+    border-color: #fbbf24;
+    border-left: none;
   }
 }
 
@@ -128,6 +216,7 @@
 @media (prefers-reduced-motion: reduce) {
   .sosButton {
     animation: none;
+    transition: width 0.3s ease; /* Keep width transition for expand/collapse */
   }
 
   .sosButton.pulsing {
@@ -135,6 +224,10 @@
   }
 
   .sosButton:hover {
-    transform: none;
+    transform: translateY(-50%); /* Keep vertical centering */
+  }
+
+  .sosButton.pressed {
+    transform: translateY(-50%); /* Keep vertical centering */
   }
 }

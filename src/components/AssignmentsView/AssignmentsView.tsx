@@ -243,7 +243,7 @@ export function AssignmentsView() {
         )}
         {assignment.status === 'completed' && (
           <>
-            <button className={styles.primaryAction}>Book Again</button>
+            <button className={styles.primaryAction}>Request Protection Again</button>
             <button className={styles.secondaryAction}>Receipt</button>
           </>
         )}
@@ -266,7 +266,7 @@ export function AssignmentsView() {
         className={styles.emptyAction}
         onClick={() => navigateToView('home')}
       >
-        Book Protection Now
+Request Protection Now
       </button>
     </div>
   );
@@ -347,15 +347,15 @@ export function AssignmentsView() {
         <div className={styles.quickActions}>
           <button className={styles.quickActionPrimary}>
             <span className={styles.actionIcon}>🔄</span>
-            <span className={styles.actionLabel}>Book Again</span>
+            <span className={styles.actionLabel}>Request Protection</span>
           </button>
           <button className={styles.quickActionSecondary}>
             <span className={styles.actionIcon}>📅</span>
-            <span className={styles.actionLabel}>Schedule</span>
+            <span className={styles.actionLabel}>Schedule Protection</span>
           </button>
           <button className={styles.quickActionSecondary}>
             <span className={styles.actionIcon}>🆘</span>
-            <span className={styles.actionLabel}>Support</span>
+            <span className={styles.actionLabel}>24/7 Support</span>
           </button>
         </div>
       </div>

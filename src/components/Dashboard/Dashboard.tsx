@@ -3,15 +3,10 @@ import { useApp } from '../../contexts/AppContext';
 import { Button } from '../UI/Button';
 import { ServiceCard } from './ServiceCard';
 // import { CreatorImpactWidget } from './CreatorImpactWidget';
-import { MarketingBanner } from './MarketingBanner';
 import { SmartRecommendation } from './SmartRecommendation';
 import { BookingSearchInterface } from './BookingSearchInterface';
 import { ProtectionStatus } from '../UI/ProtectionStatus';
 import { FloatingSOSButton } from './FloatingSOSButton';
-import { LiveAvailabilityWidget } from './LiveAvailabilityWidget';
-import { QuickPriceCalculator } from './QuickPriceCalculator';
-import { TrustIndicators } from './TrustIndicators';
-import { MembershipBar } from './MembershipBar';
 import { ActivityTicker } from './ActivityTicker';
 // import ArmoraFoundationModal from '../ArmoraFoundation/ArmoraFoundationModal';
 import { ServiceLevel } from '../../types';
@@ -45,7 +40,6 @@ export function Dashboard() {
   const { state, navigateToView } = useApp();
   const { user, questionnaireData, deviceCapabilities } = state;
   const [showRewardBanner, setShowRewardBanner] = useState(false);
-  const [showSafeRideModal, setShowSafeRideModal] = useState(false);
   const [currentCarouselIndex, setCurrentCarouselIndex] = useState(0);
 
 
@@ -312,10 +306,7 @@ export function Dashboard() {
   // For registered users - show full dashboard
   return (
     <div className={styles.dashboard}>
-      {/* Booking Search Interface - Uber-style "Where to?" - STAYS AT TOP */}
-      <BookingSearchInterface />
-
-      {/* Achievement Banner - Moved above Live Availability */}
+      {/* Achievement Banner - Moved to top for immediate visibility */}
       {showRewardBanner && (
         <div className={styles.rewardBanner} onClick={() => navigateToView('booking')}>
           <div className={styles.rewardContent}>
@@ -325,7 +316,7 @@ export function Dashboard() {
               <div className={styles.discountValue}>50% OFF</div>
               <div className={styles.rewardDetails}>
                 <span className={styles.rewardDescription}>
-                  Your first protection assignment (up to £15) • Valid 30 days
+                  Save up to £15 • Valid 30 days
                 </span>
                 <span className={styles.rewardCTA}>Begin Protection →</span>
               </div>
@@ -344,15 +335,175 @@ export function Dashboard() {
         </div>
       )}
 
-      {/* Live Availability Widget - Now below Achievement Banner */}
-      <LiveAvailabilityWidget />
+      {/* Booking Search Interface - Uber-style "Where to?" - Now below Achievement Banner */}
+      <BookingSearchInterface />
 
+      {/* Get Started Section - 5 Card Carousel - MOVED HERE */}
+      <div className={styles.getStartedSection}>
+        <div className={styles.getStartedHeader}>
+          <h2 className={styles.getStartedTitle}>GET STARTED</h2>
+          <div className={styles.getStartedUnderline}></div>
+        </div>
 
-      {/* Quick Price Calculator - NEW */}
-      <QuickPriceCalculator />
+        <div
+          className={styles.carouselWrapper}
+          role="region"
+          aria-label="Get started carousel"
+          tabIndex={0}
+        >
+          {/* Carousel Container */}
+          <div
+            className={styles.carouselContainer}
+            id="getStartedCarousel"
+            role="tabpanel"
+            aria-live="polite"
+            aria-atomic="false"
+            aria-label={`Showing card ${currentCarouselIndex + 1} of ${carouselCards}`}
+          >
+            <div className={styles.carouselTrack}>
+              {/* Card 1: RIDE NOW */}
+              <button
+                className={styles.getStartedCard}
+                onClick={() => navigateToView('booking')}
+              >
+                <div className={styles.getStartedIcon}>⚡</div>
+                <div className={styles.getStartedContent}>
+                  <h3 className={styles.getStartedCardTitle}>Immediate Protection</h3>
+                  <p className={styles.getStartedCardDescription}>Protection available now</p>
+                  <p className={styles.getStartedCardDetails}>Officers ready in 2 minutes</p>
+                </div>
+                <div className={styles.getStartedArrow}>→</div>
+              </button>
 
-      {/* Trust & Stats Banner - NEW */}
-      <TrustIndicators />
+              {/* Card 2: AIRPORT */}
+              <button
+                className={styles.getStartedCard}
+                onClick={() => {
+                  localStorage.setItem('armora_booking_preset', 'airport');
+                  localStorage.setItem('armora_quick_destination', 'London Heathrow Airport (LHR)');
+                  navigateToView('booking');
+                }}
+              >
+                <div className={styles.getStartedIcon}>✈️</div>
+                <div className={styles.getStartedContent}>
+                  <h3 className={styles.getStartedCardTitle}>Airport Protection</h3>
+                  <p className={styles.getStartedCardDescription}>Secure airport service</p>
+                  <p className={styles.getStartedCardDetails}>All London terminals</p>
+                </div>
+                <div className={styles.getStartedArrow}>→</div>
+              </button>
+
+              {/* Card 3: SCHEDULE */}
+              <button
+                className={styles.getStartedCard}
+                onClick={() => {
+                  localStorage.setItem('armora_booking_preset', 'schedule');
+                  navigateToView('booking');
+                }}
+              >
+                <div className={styles.getStartedIcon}>📅</div>
+                <div className={styles.getStartedContent}>
+                  <h3 className={styles.getStartedCardTitle}>Schedule Protection</h3>
+                  <p className={styles.getStartedCardDescription}>Advance planning</p>
+                  <p className={styles.getStartedCardDetails}>Pre-arrange protection detail</p>
+                </div>
+                <div className={styles.getStartedArrow}>→</div>
+              </button>
+
+              {/* Card 4: EXECUTIVE */}
+              <button
+                className={styles.getStartedCard}
+                onClick={() => navigateToView('services')}
+              >
+                <div className={styles.getStartedIcon}>👔</div>
+                <div className={styles.getStartedContent}>
+                  <h3 className={styles.getStartedCardTitle}>Executive Protection</h3>
+                  <p className={styles.getStartedCardDescription}>Enhanced security</p>
+                  <p className={styles.getStartedCardDetails}>Senior CPOs • Premium vehicles</p>
+                </div>
+                <div className={styles.getStartedArrow}>→</div>
+              </button>
+
+              {/* Card 5: EVENTS */}
+              <button
+                className={styles.getStartedCard}
+                onClick={() => navigateToView('venue-protection-welcome')}
+              >
+                <div className={styles.getStartedIcon}>🎭</div>
+                <div className={styles.getStartedContent}>
+                  <h3 className={styles.getStartedCardTitle}>Event Security</h3>
+                  <p className={styles.getStartedCardDescription}>Venue protection</p>
+                  <p className={styles.getStartedCardDetails}>Functions • Galas • Corporate</p>
+                </div>
+                <div className={styles.getStartedArrow}>→</div>
+              </button>
+            </div>
+          </div>
+
+          {/* Carousel Navigation Arrows */}
+          <button
+            className={styles.carouselArrow + ' ' + styles.carouselArrowLeft}
+            onClick={() => navigateCarousel('left')}
+            disabled={currentCarouselIndex === 0}
+            aria-label={`Previous cards. Currently showing card ${currentCarouselIndex + 1} of ${carouselCards}`}
+          >
+            ←
+          </button>
+          <button
+            className={styles.carouselArrow + ' ' + styles.carouselArrowRight}
+            onClick={() => navigateCarousel('right')}
+            disabled={currentCarouselIndex === carouselCards - 1}
+            aria-label={`Next cards. Currently showing card ${currentCarouselIndex + 1} of ${carouselCards}`}
+          >
+            →
+          </button>
+
+          {/* Carousel Indicators */}
+          <div className={styles.carouselIndicators} role="tablist" aria-label="Get started navigation">
+            {Array.from({ length: carouselCards }, (_, index) => (
+              <button
+                key={index}
+                className={`${styles.carouselDot} ${currentCarouselIndex === index ? styles.active : ''}`}
+                onClick={() => scrollToCarouselIndex(index)}
+                role="tab"
+                aria-selected={currentCarouselIndex === index}
+                aria-label={`Go to card ${index + 1}: ${
+                  ['Immediate Protection', 'Airport Protection', 'Schedule Protection', 'Executive Protection', 'Event Security'][index]
+                }`}
+                tabIndex={currentCarouselIndex === index ? 0 : -1}
+              />
+            ))}
+          </div>
+        </div>
+
+        {/* Need Help Section */}
+        <div className={styles.needHelpSection}>
+          <h3 className={styles.needHelpTitle}>NEED HELP?</h3>
+          <div className={styles.needHelpLinks}>
+            <button
+              className={styles.needHelpLink}
+              onClick={() => navigateToView('services')}
+            >
+              Protection Options
+            </button>
+            <span className={styles.needHelpSeparator}>•</span>
+            <button
+              className={styles.needHelpLink}
+              onClick={() => window.open('tel:+442071234567')}
+            >
+              24/7 Support
+            </button>
+            <span className={styles.needHelpSeparator}>•</span>
+            <button
+              className={styles.needHelpLink}
+              onClick={() => navigateToView('about')}
+            >
+              Protection Process
+            </button>
+          </div>
+        </div>
+      </div>
+
 
       {/* Live Activity Ticker - NEW */}
       <ActivityTicker />
@@ -381,171 +532,6 @@ export function Dashboard() {
         </div>
       )}
 
-      {/* Get Started Section - 5 Card Carousel */}
-      <div className={styles.getStartedSection}>
-        <div className={styles.getStartedHeader}>
-          <h2 className={styles.getStartedTitle}>GET STARTED</h2>
-          <div className={styles.getStartedUnderline}></div>
-        </div>
-
-        <div
-          className={styles.carouselWrapper}
-          role="region"
-          aria-label="Service options carousel"
-          tabIndex={0}
-        >
-          {/* Carousel Container */}
-          <div
-            className={styles.carouselContainer}
-            id="getStartedCarousel"
-            role="tabpanel"
-            aria-live="polite"
-            aria-atomic="false"
-            aria-label={`Showing card ${currentCarouselIndex + 1} of ${carouselCards}`}
-          >
-            <div className={styles.carouselTrack}>
-              {/* Card 1: RIDE NOW */}
-              <button
-                className={styles.getStartedCard}
-                onClick={() => navigateToView('booking')}
-              >
-                <div className={styles.getStartedIcon}>⚡</div>
-                <div className={styles.getStartedContent}>
-                  <h3 className={styles.getStartedCardTitle}>Book Now</h3>
-                  <p className={styles.getStartedCardDescription}>Immediate pickup</p>
-                  <p className={styles.getStartedCardDetails}>Available in 2 minutes</p>
-                </div>
-                <div className={styles.getStartedArrow}>→</div>
-              </button>
-
-              {/* Card 2: AIRPORT */}
-              <button
-                className={styles.getStartedCard}
-                onClick={() => {
-                  localStorage.setItem('armora_booking_preset', 'airport');
-                  localStorage.setItem('armora_quick_destination', 'London Heathrow Airport (LHR)');
-                  navigateToView('booking');
-                }}
-              >
-                <div className={styles.getStartedIcon}>✈️</div>
-                <div className={styles.getStartedContent}>
-                  <h3 className={styles.getStartedCardTitle}>Airport Transfer</h3>
-                  <p className={styles.getStartedCardDescription}>Any terminal</p>
-                  <p className={styles.getStartedCardDetails}>Heathrow • Gatwick • City</p>
-                </div>
-                <div className={styles.getStartedArrow}>→</div>
-              </button>
-
-              {/* Card 3: SCHEDULE */}
-              <button
-                className={styles.getStartedCard}
-                onClick={() => {
-                  localStorage.setItem('armora_booking_preset', 'schedule');
-                  navigateToView('booking');
-                }}
-              >
-                <div className={styles.getStartedIcon}>📅</div>
-                <div className={styles.getStartedContent}>
-                  <h3 className={styles.getStartedCardTitle}>Schedule Service</h3>
-                  <p className={styles.getStartedCardDescription}>Plan ahead</p>
-                  <p className={styles.getStartedCardDetails}>Book for any time</p>
-                </div>
-                <div className={styles.getStartedArrow}>→</div>
-              </button>
-
-              {/* Card 4: EXECUTIVE */}
-              <button
-                className={styles.getStartedCard}
-                onClick={() => navigateToView('services')}
-              >
-                <div className={styles.getStartedIcon}>👔</div>
-                <div className={styles.getStartedContent}>
-                  <h3 className={styles.getStartedCardTitle}>Executive</h3>
-                  <p className={styles.getStartedCardDescription}>Premium service</p>
-                  <p className={styles.getStartedCardDetails}>BMW • Ex-military drivers</p>
-                </div>
-                <div className={styles.getStartedArrow}>→</div>
-              </button>
-
-              {/* Card 5: EVENTS */}
-              <button
-                className={styles.getStartedCard}
-                onClick={() => navigateToView('venue-protection-welcome')}
-              >
-                <div className={styles.getStartedIcon}>🎭</div>
-                <div className={styles.getStartedContent}>
-                  <h3 className={styles.getStartedCardTitle}>Special Events</h3>
-                  <p className={styles.getStartedCardDescription}>VIP occasions</p>
-                  <p className={styles.getStartedCardDetails}>Weddings • Galas • Corporate</p>
-                </div>
-                <div className={styles.getStartedArrow}>→</div>
-              </button>
-            </div>
-          </div>
-
-          {/* Carousel Navigation Arrows */}
-          <button
-            className={styles.carouselArrow + ' ' + styles.carouselArrowLeft}
-            onClick={() => navigateCarousel('left')}
-            disabled={currentCarouselIndex === 0}
-            aria-label={`Previous cards. Currently showing card ${currentCarouselIndex + 1} of ${carouselCards}`}
-          >
-            ←
-          </button>
-          <button
-            className={styles.carouselArrow + ' ' + styles.carouselArrowRight}
-            onClick={() => navigateCarousel('right')}
-            disabled={currentCarouselIndex === carouselCards - 1}
-            aria-label={`Next cards. Currently showing card ${currentCarouselIndex + 1} of ${carouselCards}`}
-          >
-            →
-          </button>
-
-          {/* Carousel Indicators */}
-          <div className={styles.carouselIndicators} role="tablist" aria-label="Carousel navigation">
-            {Array.from({ length: carouselCards }, (_, index) => (
-              <button
-                key={index}
-                className={`${styles.carouselDot} ${currentCarouselIndex === index ? styles.active : ''}`}
-                onClick={() => scrollToCarouselIndex(index)}
-                role="tab"
-                aria-selected={currentCarouselIndex === index}
-                aria-label={`Go to card ${index + 1}: ${
-                  ['Book Now', 'Airport Transfer', 'Schedule Service', 'Executive', 'Special Events'][index]
-                }`}
-                tabIndex={currentCarouselIndex === index ? 0 : -1}
-              />
-            ))}
-          </div>
-        </div>
-
-        {/* Need Help Section */}
-        <div className={styles.needHelpSection}>
-          <h3 className={styles.needHelpTitle}>NEED HELP?</h3>
-          <div className={styles.needHelpLinks}>
-            <button
-              className={styles.needHelpLink}
-              onClick={() => navigateToView('services')}
-            >
-              View All Services
-            </button>
-            <span className={styles.needHelpSeparator}>•</span>
-            <button
-              className={styles.needHelpLink}
-              onClick={() => window.open('tel:+442071234567')}
-            >
-              24/7 Support
-            </button>
-            <span className={styles.needHelpSeparator}>•</span>
-            <button
-              className={styles.needHelpLink}
-              onClick={() => navigateToView('about')}
-            >
-              How It Works
-            </button>
-          </div>
-        </div>
-      </div>
 
       {/* Service Overview Section */}
       <div id="service-overview" className={styles.servicesSection}>
@@ -593,12 +579,6 @@ export function Dashboard() {
       </div>
 
 
-      {/* Marketing Banner for Non-Members */}
-      <MarketingBanner
-        onTrialStart={() => navigateToView('booking')}
-        currentUser={user}
-        variant="savings"
-      />
 
       {/* Complete Event Protection Section - Cleaned */}
       <div className={styles.eventSecuritySection}>
@@ -665,8 +645,6 @@ export function Dashboard() {
       {/* Emergency SOS Button - Fixed Position - NEW */}
       <FloatingSOSButton />
 
-      {/* Membership Conversion Bar - Moved to Bottom */}
-      <MembershipBar />
 
     </div>
   );

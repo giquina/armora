@@ -108,18 +108,17 @@
   gap: 16px;
 }
 
-/* PREMIUM ASSIGNMENT CARDS - COMPACT VERSION */
+/* PREMIUM ASSIGNMENT CARDS - EXPANDED LAYOUT */
 .assignmentCard {
   background: white;
   border-radius: 16px;
-  padding: 16px;
-  margin-bottom: 12px;
+  padding: 20px; /* Increased from 16px for better spacing */
+  margin-bottom: 16px; /* Increased gap between cards */
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08), 0 1px 4px rgba(0, 0, 0, 0.06);
   border: 1px solid rgba(0, 0, 0, 0.05);
   transition: all 0.2s ease;
-  overflow: hidden;
   position: relative;
-  min-height: 100px; /* Reduced from ~180px */
+  min-height: auto; /* Allow cards to expand based on content */
   backdrop-filter: blur(10px);
 }
 
@@ -142,42 +141,44 @@
   background: linear-gradient(90deg, var(--armora-gold), #f59e0b);
 }
 
-/* CONSOLIDATED LINES */
+/* CONSOLIDATED LINES - IMPROVED SPACING */
 .statusLine {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 12px;
+  margin-bottom: 16px; /* Increased spacing */
 }
 
 .officerLine {
   display: flex;
   align-items: center;
   gap: 12px;
-  margin-bottom: 8px;
+  margin-bottom: 12px; /* Increased spacing */
 }
 
 .journeyLine {
-  margin-bottom: 8px;
+  margin-bottom: 12px; /* Increased spacing */
 }
 
 .serviceLine {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 12px;
+  margin-bottom: 16px; /* Increased spacing */
 }
 
 .statusBadge {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  padding: 8px 16px; /* Slightly larger padding */
+  padding: 10px 18px; /* Increased padding for better visibility */
   border-radius: 20px;
-  font-size: 16px; /* Increased by 15% from var(--font-sm) */
-  font-weight: 600;
+  font-size: 14px; /* Optimized size for badges */
+  font-weight: 700; /* Increased weight for prominence */
   text-transform: uppercase;
   letter-spacing: 0.5px;
+  min-width: 120px; /* Consistent badge widths */
+  justify-content: center;
 }
 
 .statusActive {
@@ -218,36 +219,45 @@
 }
 
 .timeAgo {
-  font-size: 16px; /* Increased by 15% from var(--font-sm) */
+  font-size: 14px; /* Appropriately sized for timestamp */
   color: #6b7280;
+  font-weight: 500;
+  text-align: right; /* Right-aligned consistently */
 }
 
-/* CONSOLIDATED TEXT STYLES */
+/* CONSOLIDATED TEXT STYLES - IMPROVED READABILITY */
 .officerText {
-  font-size: 16px; /* Increased by 15% */
+  font-size: 16px;
   font-weight: 600;
   color: #1f2937;
   flex: 1;
-  line-height: 1.4;
+  line-height: 1.5; /* Improved readability */
+  white-space: normal; /* Allow text wrapping */
+  word-wrap: break-word; /* Handle long SIA license numbers */
 }
 
 .journeyText {
-  font-size: 16px; /* Increased by 15% */
+  font-size: 16px;
   font-weight: 500;
   color: #1f2937;
-  line-height: 1.4;
+  line-height: 1.5; /* Improved readability */
+  white-space: normal; /* Allow text wrapping for long addresses */
+  word-wrap: break-word;
 }
 
 .serviceText {
-  font-size: 18px; /* Increased by 15% */
+  font-size: 16px; /* Standardized font size */
   font-weight: 600;
   color: #1f2937;
+  line-height: 1.5;
+  white-space: normal; /* Allow text wrapping */
 }
 
 .progressText {
-  font-size: 14px; /* Increased by 15% */
+  font-size: 14px;
   color: #22c55e;
   font-weight: 600;
+  line-height: 1.4;
 }
 
 /* CARD CONTENT */
@@ -433,24 +443,26 @@
   margin: 0;
 }
 
-/* ACTION SECTION - COMPACT */
+/* ACTION SECTION - IMPROVED SPACING */
 .actionSection {
   display: flex;
-  gap: 8px;
-  padding-top: 12px;
+  gap: 12px; /* Increased gap for better spacing */
+  padding-top: 16px; /* More padding to separate from content */
+  border-top: 1px solid #f3f4f6; /* Subtle separator */
 }
 
 .primaryAction {
   flex: 1;
-  padding: 10px 14px; /* Slightly reduced for compact layout */
+  padding: 14px 16px; /* Increased for better touch targets */
   background: var(--armora-dark);
   color: white;
   border: none;
   border-radius: 8px;
-  font-size: 16px; /* Increased by 15% */
+  font-size: 16px;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.2s ease;
+  min-height: 48px; /* Ensure adequate touch target */
 }
 
 .primaryAction:hover {
@@ -464,15 +476,16 @@
 
 .secondaryAction {
   flex: 1;
-  padding: 10px 14px; /* Slightly reduced for compact layout */
+  padding: 14px 16px; /* Increased for better touch targets */
   background: white;
   color: var(--armora-dark);
   border: 2px solid #e5e7eb;
   border-radius: 8px;
-  font-size: 16px; /* Increased by 15% */
+  font-size: 16px;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.2s ease;
+  min-height: 48px; /* Ensure adequate touch target */
 }
 
 .secondaryAction:hover {
@@ -637,14 +650,14 @@
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
 }
 
-/* MOBILE RESPONSIVENESS */
-@media (max-width: 375px) {
+/* MOBILE RESPONSIVENESS - IMPROVED */
+@media (max-width: 480px) {
   .assignmentsView {
     padding: 0 12px 100px 12px;
   }
 
   .pageHeader {
-    padding: 20px;
+    padding: 16px;
     margin-bottom: 20px;
   }
 
@@ -653,11 +666,39 @@
   }
 
   .assignmentCard {
-    padding: 16px;
+    padding: 16px; /* Adequate padding for mobile */
   }
 
-  .officerSection {
-    padding: 12px;
+  .officerLine {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .officerText {
+    font-size: 15px; /* Slightly smaller for mobile */
+    line-height: 1.5;
+  }
+
+  .journeyText {
+    font-size: 15px;
+    line-height: 1.5;
+  }
+
+  .serviceText {
+    font-size: 15px;
+  }
+
+  .actionSection {
+    flex-direction: column; /* Stack buttons vertically on small screens */
+    gap: 8px;
+  }
+
+  .primaryAction,
+  .secondaryAction {
+    width: 100%;
+    padding: 12px 16px;
+    font-size: 15px;
   }
 
   .statsBar {
@@ -667,6 +708,17 @@
 
   .statItem {
     justify-content: center;
+  }
+
+  .quickActions {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .quickActionPrimary,
+  .quickActionSecondary {
+    width: 100%;
+    min-height: 48px;
   }
 }
 

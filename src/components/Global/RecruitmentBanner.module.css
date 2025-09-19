@@ -1,0 +1,172 @@
+/* Global Recruitment Banner Styles */
+
+.recruitmentBanner {
+  position: fixed;
+  top: 12px;
+  right: 12px;
+  z-index: 9999;
+  background: linear-gradient(135deg, #fbbf24, #f59e0b);
+  border-radius: 12px;
+  padding: 16px;
+  box-shadow: 0 4px 20px rgba(251, 191, 36, 0.3);
+  border: 2px solid #fbbf24;
+  animation: slideDown 0.3s ease-out;
+  max-width: 280px;
+}
+
+.bannerContent {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.bannerText {
+  color: #000000;
+  text-align: center;
+}
+
+.bannerTitle {
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.bannerDescription {
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.3;
+}
+
+.applyButton {
+  background: #1e3a8a;
+  color: #ffffff;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(30, 58, 138, 0.3);
+  border: none;
+  transition: all 0.3s ease;
+  width: 100%;
+}
+
+.applyButton:hover {
+  background: #1e40af;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(30, 58, 138, 0.4);
+}
+
+.applyButton:active {
+  transform: translateY(0);
+}
+
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  .recruitmentBanner {
+    top: 20px;
+    right: 12px;
+    max-width: 240px;
+    padding: 12px;
+  }
+
+  .bannerTitle {
+    font-size: 14px;
+  }
+
+  .bannerDescription {
+    font-size: 12px;
+  }
+
+  .applyButton {
+    font-size: 13px;
+    padding: 8px 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .recruitmentBanner {
+    max-width: 200px;
+    padding: 10px;
+  }
+
+  .bannerTitle {
+    font-size: 13px;
+  }
+
+  .bannerDescription {
+    font-size: 11px;
+  }
+
+  .applyButton {
+    padding: 7px 14px;
+    font-size: 12px;
+  }
+
+}
+
+@media (max-width: 320px) {
+  .recruitmentBanner {
+    max-width: 180px;
+    padding: 8px;
+    top: 16px;
+    right: 8px;
+  }
+
+  .bannerTitle {
+    font-size: 12px;
+  }
+
+  .bannerDescription {
+    font-size: 10px;
+  }
+
+  .applyButton {
+    padding: 6px 12px;
+    font-size: 11px;
+  }
+
+}
+
+/* Animation for smooth entry */
+@keyframes slideDown {
+  from {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .applyButton {
+    background: #fff;
+    color: #000;
+    border-color: #fff;
+  }
+
+  .applyButton:hover {
+    background: #ccc;
+    color: #000;
+  }
+
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .recruitmentBanner {
+    animation: none;
+  }
+
+  .applyButton {
+    transition: none;
+  }
+
+  .applyButton:hover {
+    transform: none;
+  }
+}

@@ -4,6 +4,7 @@ import styles from './TrustIndicators.module.css';
 interface StatItem {
   value: string;
   label: string;
+  icon?: string;
   countUp?: boolean;
   targetValue?: number;
 }
@@ -81,24 +82,28 @@ export function TrustIndicators() {
     {
       value: "12,847",
       label: "Protected Clients",
+      icon: "🛡️",
       countUp: true,
       targetValue: 12847
     },
     {
       value: "4.9★",
       label: "Average Rating",
+      icon: "⭐",
       countUp: true,
       targetValue: 49 // Will be divided by 10 for display
     },
     {
       value: "100%",
       label: "SIA Licensed",
+      icon: "🎖️",
       countUp: true,
       targetValue: 100
     },
     {
       value: "<3min",
-      label: "Avg Response"
+      label: "Response Time",
+      icon: "⚡"
     }
   ];
 
@@ -141,29 +146,32 @@ export function TrustIndicators() {
               animationDelay: `${index * 0.1}s`
             }}
           >
-            <div className={styles.statValue}>
-              {stat.countUp && stat.targetValue ? (
-                stat.label === "Average Rating" ? (
-                  <>
+            <div className={styles.statContent}>
+              {stat.icon && <span className={styles.statIcon}>{stat.icon}</span>}
+              <div className={styles.statValue}>
+                {stat.countUp && stat.targetValue ? (
+                  stat.label === "Average Rating" ? (
+                    <>
+                      <AnimatedNumber
+                        value="4.9"
+                        targetValue={49}
+                        isVisible={isVisible}
+                      />
+                      <span>★</span>
+                    </>
+                  ) : (
                     <AnimatedNumber
-                      value="4.9"
-                      targetValue={49}
+                      value={stat.value}
+                      targetValue={stat.targetValue}
                       isVisible={isVisible}
                     />
-                    <span>★</span>
-                  </>
+                  )
                 ) : (
-                  <AnimatedNumber
-                    value={stat.value}
-                    targetValue={stat.targetValue}
-                    isVisible={isVisible}
-                  />
-                )
-              ) : (
-                <span>{stat.value}</span>
-              )}
+                  <span>{stat.value}</span>
+                )}
+              </div>
+              <div className={styles.statLabel}>{stat.label}</div>
             </div>
-            <div className={styles.statLabel}>{stat.label}</div>
           </div>
         ))}
       </div>
@@ -182,10 +190,8 @@ export function TrustIndicators() {
               }}
               title={badge.description}
             >
-              <div className={styles.badgeIcon}>{badge.icon}</div>
-              <div className={styles.badgeText}>
-                <span className={styles.badgeName}>{badge.name}</span>
-              </div>
+              <span className={styles.badgeIcon}>{badge.icon}</span>
+              <span className={styles.badgeName}>{badge.name}</span>
             </div>
           ))}
         </div>
@@ -193,18 +199,20 @@ export function TrustIndicators() {
 
       <div className={styles.trustFooter}>
         <div className={styles.trustPoints}>
-          <div className={styles.trustPoint}>
+          <span className={styles.trustPoint}>
             <span className={styles.trustIcon}>✅</span>
             <span>Background-checked officers</span>
-          </div>
-          <div className={styles.trustPoint}>
+          </span>
+          <span className={styles.trustSeparator}>•</span>
+          <span className={styles.trustPoint}>
             <span className={styles.trustIcon}>✅</span>
-            <span>24/7 operational support</span>
-          </div>
-          <div className={styles.trustPoint}>
+            <span>24/7 support</span>
+          </span>
+          <span className={styles.trustSeparator}>•</span>
+          <span className={styles.trustPoint}>
             <span className={styles.trustIcon}>✅</span>
             <span>Real-time tracking</span>
-          </div>
+          </span>
         </div>
       </div>
     </div>

@@ -882,7 +882,7 @@
    GET STARTED SECTION - SIMPLIFIED
 ======================================== */
 .getStartedSection {
-  margin: var(--space-lg) var(--space-md);
+  margin: var(--space-xl) var(--space-md) var(--space-xxl) var(--space-md);
   padding: var(--space-xl) 0;
   background: var(--bg-secondary);
   border-radius: var(--radius-lg);

@@ -18,10 +18,11 @@ import { VehicleSelection, LocationPicker, BookingSuccess } from './components/B
 import { PaymentIntegration } from './components/Booking/PaymentIntegration';
 import { BookingErrorBoundary } from './components/Booking/BookingErrorBoundary';
 import { ServiceSelection } from './components/ServiceSelection/ServiceSelection';
-import { FloatingActionButton, RecruitmentModal } from './components/Recruitment';
+import { RecruitmentModal } from './components/Recruitment';
 import { ReferralSection } from './components/Account/ReferralSection';
 import { PPOVenueBooking } from './components/Account/PPOVenueBooking';
 import { AccountView } from './components/Account/AccountView';
+import RecruitmentBanner from './components/Global/RecruitmentBanner';
 import { VenueProtectionWelcome } from './components/VenueProtection/VenueProtectionWelcome';
 import { VenueSecurityQuestionnaire } from './components/VenueProtection/VenueSecurityQuestionnaire';
 import { VenueProtectionSuccess } from './components/VenueProtection/VenueProtectionSuccess';
@@ -633,14 +634,7 @@ function AppRouter() {
     localStorage.setItem('armora_achievement_banner_dismissed', new Date().toISOString());
   };
 
-  // Determine FAB visibility - only show on Home (dashboard) and Account (profile) tabs
-  const shouldShowFab = (): boolean => {
-    return !!(user && (currentView === 'home' || currentView === 'account'));
-  };
 
-  const handleOpenRecruitmentModal = () => {
-    setIsRecruitmentModalOpen(true);
-  };
 
   const handleCloseRecruitmentModal = () => {
     setIsRecruitmentModalOpen(false);
@@ -704,6 +698,7 @@ function AppRouter() {
   if (['splash', 'welcome', 'login', 'signup', 'guest-disclaimer', 'questionnaire', 'achievement'].includes(currentView)) {
     return (
       <>
+        <RecruitmentBanner />
         {renderCurrentView()}
         {showAchievementBanner && (
           <AchievementBanner
@@ -713,10 +708,6 @@ function AppRouter() {
             userName={user?.name || 'Member'}
           />
         )}
-        <FloatingActionButton
-          isVisible={Boolean(shouldShowFab())}
-          onClick={handleOpenRecruitmentModal}
-        />
         <RecruitmentModal
           isOpen={isRecruitmentModalOpen}
           onClose={handleCloseRecruitmentModal}
@@ -727,6 +718,7 @@ function AppRouter() {
 
   return (
     <>
+      <RecruitmentBanner />
       <AppLayout>
         {renderCurrentView()}
       </AppLayout>
@@ -738,10 +730,6 @@ function AppRouter() {
           userName={user?.name || 'Member'}
         />
       )}
-      <FloatingActionButton
-        isVisible={Boolean(shouldShowFab())}
-        onClick={handleOpenRecruitmentModal}
-      />
       <RecruitmentModal
         isOpen={isRecruitmentModalOpen}
         onClose={handleCloseRecruitmentModal}

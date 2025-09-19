@@ -1,0 +1,450 @@
+/* Panic Alert Handler Component Styles */
+
+.alertOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(220, 38, 38, 0.95);
+  z-index: 99999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  animation: alertEntry 0.3s ease-out;
+}
+
+@keyframes alertEntry {
+  from {
+    opacity: 0;
+    background: rgba(0, 0, 0, 0);
+  }
+  to {
+    opacity: 1;
+    background: rgba(220, 38, 38, 0.95);
+  }
+}
+
+.alertContainer {
+  background: white;
+  border-radius: 16px;
+  max-width: 500px;
+  width: 100%;
+  padding: 0;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+  animation: alertScale 0.3s ease-out;
+  overflow: hidden;
+}
+
+@keyframes alertScale {
+  from {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.alertHeader {
+  background: linear-gradient(135deg, #dc2626, #b91c1c);
+  color: white;
+  padding: 20px;
+  text-align: center;
+  position: relative;
+}
+
+.alertIcon {
+  font-size: 48px;
+  margin-bottom: 8px;
+  animation: shake 0.5s infinite;
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-3px); }
+  75% { transform: translateX(3px); }
+}
+
+.alertTitle {
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 8px;
+  letter-spacing: 0.5px;
+}
+
+.countdownTimer {
+  background: rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 20px;
+  padding: 6px 16px;
+  font-size: 14px;
+  font-weight: 600;
+  display: inline-block;
+  animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.05);
+    opacity: 0.9;
+  }
+}
+
+.clientInfo {
+  padding: 24px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.clientName {
+  font-size: 24px;
+  font-weight: 700;
+  color: #1f2937;
+  margin-bottom: 16px;
+  text-align: center;
+}
+
+.clientDetails {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.detailItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 12px;
+  background: #f9fafb;
+  border-radius: 6px;
+}
+
+.detailLabel {
+  font-weight: 600;
+  color: #6b7280;
+  font-size: 14px;
+}
+
+.detailValue {
+  font-weight: 500;
+  color: #1f2937;
+  font-size: 14px;
+}
+
+.locationInfo {
+  padding: 20px 24px;
+  background: #fef2f2;
+  border-bottom: 1px solid #fecaca;
+}
+
+.locationTitle {
+  font-size: 16px;
+  font-weight: 600;
+  color: #dc2626;
+  margin-bottom: 8px;
+}
+
+.locationAddress {
+  font-size: 16px;
+  font-weight: 600;
+  color: #1f2937;
+  margin-bottom: 4px;
+  line-height: 1.4;
+}
+
+.locationCoords {
+  font-size: 14px;
+  color: #6b7280;
+  font-family: 'Courier New', monospace;
+}
+
+.accuracy {
+  color: #059669;
+  font-weight: 500;
+  margin-left: 8px;
+}
+
+.alertActions {
+  padding: 24px;
+}
+
+.actionButton {
+  width: 100%;
+  padding: 14px 20px;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.actionButton:last-child {
+  margin-bottom: 0;
+}
+
+.acknowledgeButton {
+  background: linear-gradient(135deg, #059669, #047857);
+  color: white;
+}
+
+.acknowledgeButton:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(5, 150, 105, 0.4);
+}
+
+.callButton {
+  background: linear-gradient(135deg, #2563eb, #1d4ed8);
+  color: white;
+}
+
+.callButton:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(37, 99, 235, 0.4);
+}
+
+.navigateButton {
+  background: linear-gradient(135deg, #7c3aed, #6d28d9);
+  color: white;
+}
+
+.navigateButton:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(124, 58, 237, 0.4);
+}
+
+.dismissButton {
+  background: #f3f4f6;
+  color: #6b7280;
+  border: 1px solid #d1d5db;
+}
+
+.dismissButton:hover {
+  background: #e5e7eb;
+  color: #374151;
+}
+
+.acknowledgedStatus {
+  background: linear-gradient(135deg, #059669, #047857);
+  color: white;
+  padding: 16px;
+  border-radius: 8px;
+  text-align: center;
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+
+.followUpActions {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.urgencyIndicator {
+  background: #fee2e2;
+  border-top: 1px solid #fecaca;
+  padding: 16px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.urgencyPulse {
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(220, 38, 38, 0.3), transparent);
+  animation: sweep 2s infinite;
+}
+
+@keyframes sweep {
+  0% { left: -100%; }
+  100% { left: 100%; }
+}
+
+.urgencyText {
+  font-size: 14px;
+  font-weight: 700;
+  color: #dc2626;
+  letter-spacing: 0.5px;
+  position: relative;
+  z-index: 1;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 480px) {
+  .alertOverlay {
+    padding: 12px;
+  }
+
+  .alertContainer {
+    max-width: 100%;
+  }
+
+  .alertHeader {
+    padding: 16px;
+  }
+
+  .alertIcon {
+    font-size: 40px;
+  }
+
+  .alertTitle {
+    font-size: 16px;
+  }
+
+  .clientInfo {
+    padding: 20px;
+  }
+
+  .clientName {
+    font-size: 20px;
+  }
+
+  .locationInfo {
+    padding: 16px 20px;
+  }
+
+  .alertActions {
+    padding: 20px;
+  }
+
+  .actionButton {
+    padding: 12px 16px;
+    font-size: 15px;
+  }
+
+  .detailItem {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+  }
+
+  .followUpActions {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 320px) {
+  .alertOverlay {
+    padding: 8px;
+  }
+
+  .alertHeader {
+    padding: 12px;
+  }
+
+  .alertIcon {
+    font-size: 36px;
+  }
+
+  .alertTitle {
+    font-size: 14px;
+  }
+
+  .clientInfo {
+    padding: 16px;
+  }
+
+  .clientName {
+    font-size: 18px;
+  }
+
+  .locationInfo {
+    padding: 12px 16px;
+  }
+
+  .alertActions {
+    padding: 16px;
+  }
+
+  .actionButton {
+    padding: 10px 12px;
+    font-size: 14px;
+  }
+
+  .countdownTimer {
+    font-size: 12px;
+    padding: 4px 12px;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .alertOverlay {
+    background: rgba(255, 0, 0, 0.98);
+  }
+
+  .alertContainer {
+    border: 3px solid #000;
+  }
+
+  .alertHeader {
+    background: #ff0000;
+    color: #fff;
+    border-bottom: 2px solid #000;
+  }
+
+  .locationInfo {
+    background: #ffff00;
+    color: #000;
+    border: 2px solid #000;
+  }
+
+  .actionButton {
+    border: 2px solid #000;
+  }
+
+  .acknowledgeButton {
+    background: #008000;
+  }
+
+  .callButton {
+    background: #0000ff;
+  }
+
+  .navigateButton {
+    background: #800080;
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .alertOverlay {
+    animation: none;
+  }
+
+  .alertContainer {
+    animation: none;
+  }
+
+  .alertIcon {
+    animation: none;
+  }
+
+  .countdownTimer {
+    animation: none;
+  }
+
+  .urgencyPulse {
+    animation: none;
+  }
+
+  .actionButton:hover {
+    transform: none;
+  }
+}

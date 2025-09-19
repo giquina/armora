@@ -9,13 +9,13 @@ export function MembershipBar() {
   const [memberCount, setMemberCount] = useState(1247);
   const [isVisible, setIsVisible] = useState(false);
 
-  // Check if user has already dismissed this offer
+  // Check if user has already dismissed this offer and clear stuck dismissals
   useEffect(() => {
     const dismissed = localStorage.getItem('armora_membership_bar_dismissed');
-    const dismissTime = localStorage.getItem('armora_membership_bar_dismiss_time');
+    const initialDismissTime = localStorage.getItem('armora_membership_bar_dismiss_time');
 
-    if (dismissed && dismissTime) {
-      const dismissedAt = parseInt(dismissTime);
+    if (dismissed && initialDismissTime) {
+      const dismissedAt = parseInt(initialDismissTime);
       const now = Date.now();
       const oneDayMs = 24 * 60 * 60 * 1000;
 
@@ -25,6 +25,17 @@ export function MembershipBar() {
         localStorage.removeItem('armora_membership_bar_dismiss_time');
       } else {
         setIsDismissed(true);
+      }
+    }
+
+    // Clear any stuck dismissals on component mount (use different variable name)
+    const storedDismissTime = localStorage.getItem('armora_membership_bar_dismiss_time');
+    if (storedDismissTime) {
+      const timeSinceDismiss = Date.now() - parseInt(storedDismissTime);
+      const twentyFourHours = 24 * 60 * 60 * 1000;
+      if (timeSinceDismiss > twentyFourHours) {
+        localStorage.removeItem('armora_membership_bar_dismissed');
+        localStorage.removeItem('armora_membership_bar_dismiss_time');
       }
     }
   }, []);
@@ -64,16 +75,16 @@ export function MembershipBar() {
     return () => clearInterval(memberTimer);
   }, []);
 
-  // Show membership bar after user scrolls to bottom
+  // Show membership bar after user scrolls 10% (much earlier than before)
   useEffect(() => {
     const handleScroll = () => {
       const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
       const windowHeight = window.innerHeight;
       const documentHeight = document.documentElement.scrollHeight;
 
-      // Show when user has scrolled 50% of the page or reaches near bottom
+      // Show when user has scrolled 10% of the page (much earlier)
       const scrollPercent = scrollTop / (documentHeight - windowHeight);
-      setIsVisible(scrollPercent > 0.5);
+      setIsVisible(scrollPercent > 0.1);
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });

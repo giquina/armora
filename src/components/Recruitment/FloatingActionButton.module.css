@@ -1,27 +1,28 @@
 .fab {
   position: fixed;
-  bottom: 80px; /* Above bottom navigation */
-  right: 20px;
-  width: 56px;
-  height: 56px;
-  border-radius: 50%;
-  background: var(--color-gold-muted, #B8860B);
+  bottom: var(--bottom-button-desktop);
+  right: var(--side-margin-desktop);
+  background: linear-gradient(135deg, #fbbf24, #f59e0b);
+  color: #1e3a8a;
+  padding: 10px 16px;
+  border-radius: 25px;
+  font-weight: 600;
   border: none;
   cursor: pointer;
-  z-index: 1000;
+  z-index: var(--z-recruitment);
   display: flex;
   align-items: center;
-  justify-content: center;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  gap: 6px;
+  box-shadow: 0 4px 15px rgba(251, 191, 36, 0.3);
   transition: all 0.3s ease;
-  color: var(--color-navy, #1a1a2e);
-  overflow: visible;
+  min-width: 180px;
+  min-height: 44px;
 }
 
 .fab:hover {
-  transform: scale(1.1);
-  background: var(--color-gold, #FFD700);
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+  transform: scale(1.05);
+  background: linear-gradient(135deg, #f59e0b, #d97706);
+  box-shadow: 0 6px 20px rgba(251, 191, 36, 0.5);
 }
 
 .fab:active {
@@ -29,62 +30,73 @@
 }
 
 .fab:focus {
-  outline: 2px solid var(--color-gold, #FFD700);
+  outline: 2px solid #fbbf24;
   outline-offset: 2px;
 }
 
 .fabIcon {
-  width: 24px;
-  height: 24px;
-  stroke-width: 2;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .fabText {
-  position: absolute;
-  right: 64px; /* Position to the left of the button */
-  white-space: nowrap;
-  background: var(--color-navy, #1a1a2e);
-  color: var(--color-gold, #FFD700);
-  padding: 8px 12px;
-  border-radius: 20px;
-  font-size: 0.875rem;
+  font-size: 13px;
   font-weight: 600;
-  opacity: 0;
-  transform: translateX(10px);
-  transition: all 0.3s ease;
-  pointer-events: none;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-}
-
-.fab:hover .fabText {
-  opacity: 1;
-  transform: translateX(0);
+  display: block !important; /* Force visibility on all devices */
+  white-space: nowrap;
+  color: #1e3a8a;
 }
 
 /* Mobile adjustments */
 @media (max-width: 768px) {
   .fab {
-    width: 48px;
-    height: 48px;
-    bottom: 90px; /* Give more space on mobile */
-    right: 16px;
+    bottom: var(--bottom-button-tablet);
+    right: var(--side-margin-tablet);
+    padding: 10px 14px;
+    min-width: 170px;
   }
 
   .fabIcon {
-    width: 20px;
-    height: 20px;
+    font-size: 16px;
   }
 
   .fabText {
-    right: 56px;
-    font-size: 0.8rem;
-    padding: 6px 10px;
+    font-size: 12px;
   }
 }
 
-/* Hide text on very small screens */
+/* Small mobile adjustments */
 @media (max-width: 480px) {
+  .fab {
+    bottom: var(--bottom-button-mobile);
+    right: var(--side-margin-mobile);
+    padding: 10px 12px;
+    min-width: 160px;
+  }
+
+  .fabIcon {
+    font-size: 16px;
+  }
+
   .fabText {
-    display: none;
+    font-size: 11px;
+  }
+}
+
+/* Extra small devices */
+@media (max-width: 375px) {
+  .fab {
+    min-width: 150px;
+    padding: 9px 11px;
+  }
+
+  .fabText {
+    font-size: 10px;
+  }
+
+  .fabIcon {
+    font-size: 15px;
   }
 }

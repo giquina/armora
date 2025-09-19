@@ -9,7 +9,7 @@
   padding: 12px 16px;
   box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.15);
   backdrop-filter: blur(10px);
-  z-index: 997;
+  z-index: var(--z-membership);
   animation: slideUp 0.5s ease-out;
   overflow: hidden;
 }
@@ -149,11 +149,12 @@
 
 /* Dismiss Button */
 .dismissButton {
-  background: rgba(255, 255, 255, 0.2);
-  border: none;
+  background: transparent;
+  border: 1px solid #FFD700;
+  color: #FFD700;
   border-radius: 50%;
-  width: 32px;
-  height: 32px;
+  width: 28px;
+  height: 28px;
   cursor: pointer;
   transition: all 0.2s ease;
   display: flex;
@@ -161,17 +162,19 @@
   justify-content: center;
   margin-left: 8px;
   flex-shrink: 0;
+  font-size: 16px;
+  font-weight: bold;
 }
 
 .dismissButton:hover {
-  background: rgba(255, 255, 255, 0.3);
-  transform: scale(1.1);
+  background: #FFD700;
+  color: #0f172a;
+  transform: scale(1.05);
 }
 
 .dismissIcon {
-  font-size: 20px;
+  font-size: 16px;
   font-weight: 700;
-  color: white;
   line-height: 1;
 }
 
@@ -207,6 +210,8 @@
 @media (max-width: 768px) {
   .membershipBar {
     padding: 10px 12px;
+    bottom: var(--membership-bottom-mobile);
+    min-height: 50px;
   }
 
   .membershipContent {
@@ -238,19 +243,21 @@
   }
 
   .dismissButton {
-    width: 28px;
-    height: 28px;
+    width: 26px;
+    height: 26px;
     margin-left: 4px;
+    font-size: 14px;
   }
 
   .dismissIcon {
-    font-size: 18px;
+    font-size: 16px;
   }
 }
 
 @media (max-width: 480px) {
   .membershipBar {
     padding: 8px 10px;
+    min-height: 45px;
   }
 
   .membershipContent {
@@ -289,10 +296,11 @@
   .dismissButton {
     width: 24px;
     height: 24px;
+    font-size: 12px;
   }
 
   .dismissIcon {
-    font-size: 16px;
+    font-size: 14px;
   }
 }
 
@@ -321,10 +329,11 @@
     right: 4px;
     width: 20px;
     height: 20px;
+    font-size: 10px;
   }
 
   .dismissIcon {
-    font-size: 14px;
+    font-size: 12px;
   }
 }
 
@@ -332,7 +341,7 @@
 @media (prefers-contrast: high) {
   .membershipBar {
     background: #16a34a;
-    border-bottom: 2px solid #ffffff;
+    border-top: 2px solid #ffffff;
   }
 
   .membershipCTA {
@@ -341,12 +350,14 @@
   }
 
   .dismissButton {
-    background: rgba(255, 255, 255, 0.9);
-    border: 1px solid #1f2937;
+    background: transparent;
+    border: 2px solid #ffffff;
+    color: #ffffff;
   }
 
-  .dismissIcon {
-    color: #1f2937;
+  .dismissButton:hover {
+    background: #ffffff;
+    color: #16a34a;
   }
 }
 

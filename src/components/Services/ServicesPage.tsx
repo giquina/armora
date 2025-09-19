@@ -3,20 +3,15 @@ import { useApp } from '../../contexts/AppContext';
 import { WeddingEventSecurity } from '../WeddingEventSecurity';
 import { ServiceCard } from './ServiceCard';
 import { ServiceComparisonTable } from './ServiceComparisonTable';
-import { ServicePricingCalculator } from './ServicePricingCalculator';
-import { QuickToolsBar } from './QuickToolsBar';
-import { LiveServiceAvailability } from './LiveServiceAvailability';
 import { TrustBadges } from './TrustBadges';
 import { SERVICES_DATA, getRecommendedService } from '../../data/servicesData';
 import styles from './ServicesPage.module.css';
 
 export function ServicesPage() {
   const { state, navigateToView } = useApp();
-  const { questionnaireData, deviceCapabilities } = state;
+  const { questionnaireData } = state;
   const [expandedService, setExpandedService] = useState<string | null>(null);
   const [showComparison, setShowComparison] = useState(false);
-  const [showCalculator, setShowCalculator] = useState(false);
-  const [showChat, setShowChat] = useState(false);
 
   // Memoize expensive calculations
   const recommendedService = useMemo(() => {
@@ -34,20 +29,7 @@ export function ServicesPage() {
   }, []);
 
   const handleShowComparison = useCallback(() => {
-    setShowComparison(true);
-    setShowCalculator(false);
-  }, []);
-
-  const handleShowCalculator = useCallback(() => {
-    setShowCalculator(true);
-    setShowComparison(false);
-  }, []);
-
-
-  const handleShowChat = useCallback(() => {
-    setShowChat(true);
-    // You can implement a chat modal here
-    console.log('Opening live chat...');
+    setShowComparison(prev => !prev);
   }, []);
 
   return (
@@ -78,19 +60,19 @@ export function ServicesPage() {
               🎯 {SERVICES_DATA.find(s => s.id === recommendedService)?.name} recommended for you
             </div>
           )}
+
+          {/* Service Comparison Toggle */}
+          <button
+            className={styles.comparisonToggle}
+            onClick={handleShowComparison}
+          >
+            📊 {showComparison ? 'Hide' : 'Compare Services'}
+          </button>
         </div>
       </div>
 
-      {/* Quick Tools Bar */}
-      <QuickToolsBar
-        onShowComparison={handleShowComparison}
-        onShowCalculator={handleShowCalculator}
-        onShowChat={handleShowChat}
-      />
-
       {/* Interactive Components */}
       {showComparison && <ServiceComparisonTable />}
-      {showCalculator && <ServicePricingCalculator />}
 
       {/* Services Grid - All 5 Services with Enhanced Features */}
       <div className={styles.servicesGrid}>
@@ -105,8 +87,6 @@ export function ServicesPage() {
               expandedService={expandedService}
             />
 
-            {/* Live Availability for each service */}
-            <LiveServiceAvailability serviceId={service.id} />
 
             {/* Trust Badges for expanded service */}
             {expandedService === service.id && (

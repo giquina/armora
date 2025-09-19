@@ -12,6 +12,7 @@ export interface User {
   id?: string;
   email: string;
   name?: string;
+  phone?: string;
   legalName?: {
     first: string;
     last: string;
@@ -235,6 +236,7 @@ export interface AppState {
   safeRideFundMetrics: SafeRideFundMetrics | null;
   communityImpactData: CommunityImpactData | null;
   venueProtectionData?: any; // Venue protection assessment data
+  assignmentState: AssignmentState;
   isLoading: boolean;
   error: string | null;
 }
@@ -707,4 +709,92 @@ export interface PersonalizationAnalytics {
     monthly: Record<string, number>;
     seasonal: Record<string, number>;
   };
+}
+
+// Assignment and Security Types
+export type AssignmentStatus = 'scheduled' | 'active' | 'in_progress' | 'completed' | 'cancelled';
+
+export interface Assignment {
+  id: string;
+  clientId: string;
+  officerId: string;
+  serviceLevel: string;
+  status: AssignmentStatus;
+  startTime: string;
+  estimatedEndTime: string;
+  actualEndTime?: string;
+  pickupLocation: {
+    address: string;
+    lat: number;
+    lng: number;
+  };
+  destination: {
+    address: string;
+    lat: number;
+    lng: number;
+  };
+  venueProtection?: {
+    enabled: boolean;
+    duration: number; // hours
+    requirements: string[];
+  };
+  additionalOptions?: {
+    femaleOfficer?: boolean;
+    discreteProtection?: boolean;
+    shoppingAssistance?: boolean;
+  };
+  cost: {
+    journey: number;
+    venue: number;
+    vehicle: number;
+    total: number;
+  };
+  officerDetails?: {
+    name: string;
+    phone: string;
+    vehicle: string;
+    licensePlate: string;
+    photo?: string;
+    rating: number;
+  };
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface PanicAlert {
+  id: string;
+  type: 'PANIC_ALERT';
+  assignmentId: string;
+  clientId: string;
+  clientName: string;
+  clientPhone: string;
+  officerId: string;
+  location: {
+    lat: number;
+    lng: number;
+    address: string;
+    accuracy?: number;
+  };
+  timestamp: string;
+  status: 'sent' | 'acknowledged' | 'responded' | 'resolved';
+  acknowledgementTime?: string;
+  responseTime?: string;
+  resolutionTime?: string;
+  officerNotes?: string;
+  escalated?: boolean;
+  escalationTime?: string;
+}
+
+export interface AssignmentState {
+  currentAssignment: Assignment | null;
+  hasActiveAssignment: boolean;
+  activeAssignmentId: string | null;
+  panicAlertSent: boolean;
+  panicAlertTimestamp: Date | null;
+  lastKnownLocation: {
+    lat: number;
+    lng: number;
+    address: string;
+    timestamp: string;
+  } | null;
 }

@@ -6,8 +6,21 @@ export function FloatingSOSButton() {
   const { navigateToView } = useApp();
   const [isPulsing, setIsPulsing] = useState(true);
   const [isPressed, setIsPressed] = useState(false);
+  const [isExpanded, setIsExpanded] = useState(false);
 
-  const handleEmergencyProtection = useCallback(() => {
+  const handleToggleExpand = useCallback((e: React.MouseEvent) => {
+    e.stopPropagation();
+    setIsExpanded(!isExpanded);
+    setIsPulsing(false);
+  }, [isExpanded]);
+
+  const handleEmergencyProtection = useCallback((e: React.MouseEvent) => {
+    // Only trigger booking if expanded, otherwise just expand
+    if (!isExpanded) {
+      handleToggleExpand(e);
+      return;
+    }
+
     setIsPressed(true);
     setIsPulsing(false);
 
@@ -26,7 +39,7 @@ export function FloatingSOSButton() {
 
     // Navigate to immediate booking
     navigateToView('booking');
-  }, [navigateToView]);
+  }, [navigateToView, isExpanded, handleToggleExpand]);
 
   const handleMouseDown = () => setIsPressed(true);
   const handleMouseUp = () => setIsPressed(false);
@@ -34,16 +47,23 @@ export function FloatingSOSButton() {
 
   return (
     <button
-      className={`${styles.sosButton} ${isPulsing ? styles.pulsing : ''} ${isPressed ? styles.pressed : ''}`}
+      className={`${styles.sosButton} ${isPulsing ? styles.pulsing : ''} ${isPressed ? styles.pressed : ''} ${isExpanded ? styles.expanded : styles.collapsed}`}
       onClick={handleEmergencyProtection}
       onMouseDown={handleMouseDown}
       onMouseUp={handleMouseUp}
       onMouseLeave={handleMouseLeave}
-      aria-label="Emergency SOS - Immediate protection request"
-      title="Emergency Protection Request"
+      aria-label={isExpanded ? "Immediate Protection - 24/7 Security Response" : "Expand protection menu"}
+      title={isExpanded ? "Request Immediate Protection" : "Click to expand"}
     >
       <span className={styles.sosIcon}>🛡️</span>
-      <span className={styles.sosText}>SOS</span>
+      {isExpanded ? (
+        <>
+          <span className={styles.mainText}>Immediate Protection</span>
+          <span className={styles.subText}>24/7 Protection Team</span>
+        </>
+      ) : (
+        <span className={styles.collapsedText}>PROTECT</span>
+      )}
     </button>
   );
 }

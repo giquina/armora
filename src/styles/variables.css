@@ -91,6 +91,25 @@
   --z-popover: 1060;
   --z-tooltip: 1070;
   --z-toast: 1080;
+
+  /* BOTTOM UI COMPONENTS SPACING SYSTEM */
+  /* Desktop spacing */
+  --bottom-button-desktop: 100px;
+  --side-margin-desktop: 20px;
+
+  /* Tablet spacing */
+  --bottom-button-tablet: 120px;
+  --side-margin-tablet: 18px;
+
+  /* Mobile spacing */
+  --bottom-button-mobile: 150px;
+  --side-margin-mobile: 16px;
+  --membership-bottom-mobile: 80px;
+
+  /* Z-INDEX for bottom components */
+  --z-recruitment: 1000;
+  --z-protection: 999;
+  --z-membership: 997;
 }
 
 /* DARK THEME OVERRIDES (Default) */

@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useReducer, useEffect, useCallback, ReactNode } from 'react';
-import { AppState, ViewState, User, PersonalizationData, DeviceCapabilities, UserSubscription, SubscriptionTier, PremiumInterest, NotificationData, SafeRideFundMetrics, CommunityImpactData } from '../types';
+import { AppState, ViewState, User, PersonalizationData, DeviceCapabilities, UserSubscription, SubscriptionTier, PremiumInterest, NotificationData, SafeRideFundMetrics, CommunityImpactData, AssignmentState, Assignment, PanicAlert } from '../types';
 
 // Initial state
 const initialState: AppState = {
@@ -20,6 +20,14 @@ const initialState: AppState = {
   userProfileSelection: undefined,
   safeRideFundMetrics: null,
   communityImpactData: null,
+  assignmentState: {
+    currentAssignment: null,
+    hasActiveAssignment: false,
+    activeAssignmentId: null,
+    panicAlertSent: false,
+    panicAlertTimestamp: null,
+    lastKnownLocation: null,
+  },
   isLoading: false,
   error: null,
 };
@@ -35,6 +43,10 @@ type AppAction =
   | { type: 'SET_SELECTED_SERVICE'; payload: string }
   | { type: 'SET_SAFE_RIDE_FUND_METRICS'; payload: SafeRideFundMetrics | null }
   | { type: 'SET_COMMUNITY_IMPACT_DATA'; payload: CommunityImpactData | null }
+  | { type: 'SET_ASSIGNMENT'; payload: Assignment | null }
+  | { type: 'UPDATE_ASSIGNMENT_STATUS'; payload: { assignmentId: string; status: string } }
+  | { type: 'SET_PANIC_ALERT_SENT'; payload: { sent: boolean; timestamp?: Date } }
+  | { type: 'UPDATE_LAST_KNOWN_LOCATION'; payload: { lat: number; lng: number; address: string; timestamp: string } }
   | { type: 'SET_LOADING'; payload: boolean }
   | { type: 'SET_ERROR'; payload: string | null }
   | { type: 'CLEAR_ERROR' }
@@ -68,6 +80,49 @@ function appReducer(state: AppState, action: AppAction): AppState {
       return { ...state, safeRideFundMetrics: action.payload };
     case 'SET_COMMUNITY_IMPACT_DATA':
       return { ...state, communityImpactData: action.payload };
+    case 'SET_ASSIGNMENT':
+      return {
+        ...state,
+        assignmentState: {
+          ...state.assignmentState,
+          currentAssignment: action.payload,
+          hasActiveAssignment: action.payload?.status === 'active' || action.payload?.status === 'in_progress',
+          activeAssignmentId: action.payload?.id || null,
+        }
+      };
+    case 'UPDATE_ASSIGNMENT_STATUS':
+      if (state.assignmentState.currentAssignment?.id === action.payload.assignmentId) {
+        const updatedAssignment = {
+          ...state.assignmentState.currentAssignment,
+          status: action.payload.status as any,
+        };
+        return {
+          ...state,
+          assignmentState: {
+            ...state.assignmentState,
+            currentAssignment: updatedAssignment,
+            hasActiveAssignment: action.payload.status === 'active' || action.payload.status === 'in_progress',
+          }
+        };
+      }
+      return state;
+    case 'SET_PANIC_ALERT_SENT':
+      return {
+        ...state,
+        assignmentState: {
+          ...state.assignmentState,
+          panicAlertSent: action.payload.sent,
+          panicAlertTimestamp: action.payload.timestamp || null,
+        }
+      };
+    case 'UPDATE_LAST_KNOWN_LOCATION':
+      return {
+        ...state,
+        assignmentState: {
+          ...state.assignmentState,
+          lastKnownLocation: action.payload,
+        }
+      };
     case 'CLEAR_ERROR':
       return { ...state, error: null };
     case 'RESET_APP':
