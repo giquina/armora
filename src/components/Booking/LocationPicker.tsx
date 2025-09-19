@@ -28,7 +28,7 @@ export function LocationPicker({ selectedService, onLocationConfirmed, onBack, u
   const [estimatedDuration, setEstimatedDuration] = useState<number>(0);
   const [protectionHours, setProtectionHours] = useState<number>(2);
   const [errors, setErrors] = useState<{ destination?: string }>({});
-  // const [showVenues, setShowVenues] = useState(false); // For future autocomplete integration
+  const [showVenues, setShowVenues] = useState(false);
   const [recentDestinations] = useState<string[]>([
     'The Dorchester Hotel, London',
     'Claridge\'s Hotel, London',
@@ -54,7 +54,7 @@ export function LocationPicker({ selectedService, onLocationConfirmed, onBack, u
   // Handle venue selection
   const handleVenueSelect = (venue: { name: string; address: string }) => {
     setDestination(venue.address);
-    // setShowVenues(false); // For future autocomplete integration
+    setShowVenues(false);
   };
 
   // Real-time calculation with immediate feedback
@@ -187,7 +187,7 @@ export function LocationPicker({ selectedService, onLocationConfirmed, onBack, u
                 type="text"
                 value={destination}
                 onChange={(e) => setDestination(e.target.value)}
-                onFocus={() => {/* Future: setShowVenues(true) for autocomplete */}}
+                onFocus={() => setShowVenues(true)}
                 placeholder="Search destination..."
                 className={`${styles.searchInput} ${errors.destination ? styles.inputError : ''}`}
                 autoComplete="off"
