@@ -318,10 +318,10 @@ export const venueSecuritySteps: VenueSecurityStepData[] = [
     type: "radio",
     options: [
       {
-        id: "standard",
-        label: "Standard Protection (£500-600/day per officer)",
-        value: "standard",
-        description: "SIA Level 3 Licensed • Venue perimeter security • Guest list management • Emergency response protocols • Ideal for: Corporate events, standard weddings"
+        id: "essential",
+        label: "Essential Protection (£500-600/day per officer)",
+        value: "essential",
+        description: "SIA Level 3 Licensed • Venue perimeter security • Guest list management • Emergency response protocols • Ideal for: Corporate events, essential weddings"
       },
       {
         id: "executive",

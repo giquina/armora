@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useApp } from '../../contexts/AppContext';
 import { Button } from '../UI/Button';
-import { ArmoraLogo } from '../UI/ArmoraLogo';
+// Logo removed - keeping auth pages clean and focused
 import styles from './LoginForm.module.css';
 
 interface FormData {
@@ -109,14 +109,8 @@ export function LoginForm() {
   return (
     <div className={styles.loginPage}>
       <div className={`${styles.loginContainer} ${showContent ? styles.visible : ''}`}>
-        {/* Header */}
+        {/* Header - Logo removed for cleaner interface */}
         <header className={styles.header}>
-          <ArmoraLogo 
-            size="medium" 
-            showOrbits={false}
-            variant="animated"
-            className={styles.logo}
-          />
           <h1 className={styles.title}>Welcome Back</h1>
           <p className={styles.subtitle}>Sign in to your Armora account</p>
         </header>

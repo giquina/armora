@@ -109,19 +109,19 @@ export class BookingErrorBoundary extends Component<BookingErrorBoundaryProps, B
     const { error } = this.state;
     
     // Create a pre-filled support email or redirect to support form
-    const subject = encodeURIComponent('Booking Error Report - Armora Security Transport');
+    const subject = encodeURIComponent('Protection Service Error Report - Armora Security Transport');
     const body = encodeURIComponent(`
 Hello Armora Support Team,
 
-I encountered an error while trying to complete my booking. Here are the details:
+I encountered an error while trying to arrange my protection service. Here are the details:
 
 Error: ${error?.message || 'Unknown error'}
-Component: ${this.props.fallbackComponent || 'Booking flow'}
+Component: ${this.props.fallbackComponent || 'Protection service flow'}
 Time: ${new Date().toLocaleString()}
 
 ${this.props.preservedState?.selectedService ? `Selected Service: ${this.props.preservedState.selectedService.name}` : ''}
 
-Please help me complete my booking.
+Please help me arrange my protection service.
 
 Thank you,
 [Your name]
@@ -143,11 +143,11 @@ Thank you,
             <div className={styles.errorIcon}>⚠️</div>
             
             <h2 className={styles.errorTitle}>
-              Booking Error
+              Protection Service Error
             </h2>
-            
+
             <p className={styles.errorMessage}>
-              We encountered an issue while processing your booking. 
+              We encountered an issue while arranging your protection service. 
               {preservedState?.selectedService && (
                 <>
                   {' '}Your {preservedState.selectedService.name} selection has been saved.
@@ -206,13 +206,13 @@ Thank you,
               {preservedState?.bookingData && (
                 <>
                   <div className={styles.preservedItem}>
-                    <span className={styles.preservedLabel}>Pickup:</span>
+                    <span className={styles.preservedLabel}>Starting Point:</span>
                     <span className={styles.preservedValue}>
                       {preservedState.bookingData.pickup}
                     </span>
                   </div>
                   <div className={styles.preservedItem}>
-                    <span className={styles.preservedLabel}>Destination:</span>
+                    <span className={styles.preservedLabel}>Secure Destination:</span>
                     <span className={styles.preservedValue}>
                       {preservedState.bookingData.destination}
                     </span>
@@ -229,7 +229,7 @@ Thank you,
 
             <div className={styles.helpText}>
               <p>
-                Don't worry - your booking information is safe. You can try again 
+                Don't worry - your protection service information is safe. You can try again
                 or contact our support team for immediate assistance.
               </p>
               <p className={styles.supportInfo}>

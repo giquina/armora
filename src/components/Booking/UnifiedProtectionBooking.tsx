@@ -38,8 +38,8 @@ export function UnifiedProtectionBooking() {
   const { state, navigateToView } = useApp();
   const { user } = state;
 
-  // Booking state
-  const [destination, setDestination] = useState('');
+  // Protection service state
+  const [secureDestination, setSecureDestination] = useState('');
   const [venueProtection, setVenueProtection] = useState(false);
   const [serviceLevel, setServiceLevel] = useState<ServiceLevel>('shadow');
   const [venueTime, setVenueTime] = useState(2);
@@ -62,16 +62,16 @@ export function UnifiedProtectionBooking() {
   });
   const [isUpdating, setIsUpdating] = useState(false);
 
-  // Load saved addresses for quick destination buttons
+  // Load saved addresses for quick secure destination buttons
   useEffect(() => {
     const homeAddress = localStorage.getItem('armora_home_address');
     const workAddress = localStorage.getItem('armora_work_address');
 
-    // Pre-populate if user has saved addresses and no destination set
-    if (homeAddress && !destination) {
+    // Pre-populate if user has saved addresses and no secure destination set
+    if (homeAddress && !secureDestination) {
       // Don't auto-populate, let user choose
     }
-  }, [destination]);
+  }, [secureDestination]);
 
   // Simulate real-time availability updates
   const updateAvailability = useCallback(() => {
@@ -94,7 +94,7 @@ export function UnifiedProtectionBooking() {
     return () => clearInterval(interval);
   }, [updateAvailability]);
 
-  // Smart suggestions based on destination
+  // Smart suggestions based on secure destination
   const getSuggestions = (dest: string) => {
     const lower = dest.toLowerCase();
     if (lower.includes('airport') || lower.includes('heathrow') || lower.includes('gatwick')) {
@@ -111,7 +111,7 @@ export function UnifiedProtectionBooking() {
 
   // Calculate protection fee
   const calculateProtectionFee = useCallback(async () => {
-    if (!destination.trim()) return;
+    if (!secureDestination.trim()) return;
 
     setIsCalculating(true);
     setShowQuote(true);
@@ -153,7 +153,7 @@ export function UnifiedProtectionBooking() {
 
       // Analytics
       console.log('[Analytics] Unified quote calculated', {
-        destination,
+        destination: secureDestination,
         serviceLevel,
         venueProtection,
         estimate: priceEstimate,
@@ -165,17 +165,17 @@ export function UnifiedProtectionBooking() {
     } finally {
       setIsCalculating(false);
     }
-  }, [destination, serviceLevel, venueProtection, venueTime, user?.userType]);
+  }, [secureDestination, serviceLevel, venueProtection, venueTime, user?.userType]);
 
-  // Handle quick destination selection
+  // Handle quick secure destination selection
   const handleQuickDestination = (type: 'home' | 'office' | 'airport') => {
-    const destinations = {
+    const secureDestinations = {
       home: localStorage.getItem('armora_home_address') || 'Home Address',
       office: localStorage.getItem('armora_work_address') || 'Office',
       airport: 'London Heathrow Airport (LHR)'
     };
 
-    setDestination(destinations[type]);
+    setSecureDestination(secureDestinations[type]);
 
     // Auto-suggest venue protection for airports
     if (type === 'airport') {
@@ -184,12 +184,12 @@ export function UnifiedProtectionBooking() {
     }
   };
 
-  // Handle booking confirmation
+  // Handle protection service confirmation
   const handleConfirmProtection = () => {
     if (estimate) {
-      // Store booking data
+      // Store protection service data
       localStorage.setItem('armora_booking_data', JSON.stringify({
-        destination,
+        destination: secureDestination,
         serviceLevel,
         venueProtection,
         venueTime,
@@ -197,7 +197,7 @@ export function UnifiedProtectionBooking() {
         estimate
       }));
 
-      // Navigate to full booking flow
+      // Navigate to full protection service flow
       navigateToView('booking');
     }
   };
@@ -220,7 +220,7 @@ export function UnifiedProtectionBooking() {
         </button>
       </div>
 
-      {/* Destination Input */}
+      {/* Secure Destination Input */}
       <div className={styles.destinationSection}>
         <label className={styles.sectionLabel}>
           WHERE DO YOU NEED PROTECTION?
@@ -229,9 +229,9 @@ export function UnifiedProtectionBooking() {
           <span className={styles.inputIcon}>📍</span>
           <input
             type="text"
-            placeholder="Enter destination or select below"
-            value={destination}
-            onChange={(e) => setDestination(e.target.value)}
+            placeholder="Enter secure destination or select below"
+            value={secureDestination}
+            onChange={(e) => setSecureDestination(e.target.value)}
             className={styles.textInput}
           />
           <button
@@ -243,7 +243,7 @@ export function UnifiedProtectionBooking() {
           </button>
         </div>
 
-        {/* Quick Destinations */}
+        {/* Quick Secure Destinations */}
         <div className={styles.quickDestinations}>
           <button
             className={styles.quickBtn}
@@ -280,7 +280,7 @@ export function UnifiedProtectionBooking() {
       {/* Venue Protection Option */}
       <div className={styles.venueSection}>
         <label className={styles.sectionLabel}>
-          AT YOUR DESTINATION:
+          AT YOUR SECURE DESTINATION:
         </label>
 
         <div className={styles.venueOptions}>
@@ -397,7 +397,7 @@ export function UnifiedProtectionBooking() {
       <button
         className={`${styles.quoteBtn} ${isCalculating ? styles.calculating : ''}`}
         onClick={calculateProtectionFee}
-        disabled={!destination.trim() || isCalculating}
+        disabled={!secureDestination.trim() || isCalculating}
       >
         {isCalculating ? (
           <>
@@ -414,7 +414,7 @@ export function UnifiedProtectionBooking() {
         <div className={styles.quoteDisplay}>
           <div className={styles.quoteHeader}>
             <h4>🛡️ Your Protection Quote</h4>
-            <span className={styles.quoteRoute}>To: {destination}</span>
+            <span className={styles.quoteRoute}>To: {secureDestination}</span>
           </div>
 
           <div className={styles.quoteBreakdown}>
@@ -454,7 +454,7 @@ export function UnifiedProtectionBooking() {
                 className={styles.signupCTA}
                 onClick={() => navigateToView('signup')}
               >
-                Create Account to Book & Save £{estimate.savings}
+                Create Account to Arrange Protection & Save £{estimate.savings}
               </button>
             ) : (
               <button

@@ -123,27 +123,23 @@
 .serviceCard {
   position: relative;
   background: var(--bg-secondary);
-  border: 2px solid var(--border-primary);
+  border: 1px solid var(--border-primary);
   border-radius: var(--radius-lg);
   padding: 1.5rem;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: border-color 0.2s ease;
   width: 100%;
-  overflow: hidden;
   min-height: var(--touch-target);
   touch-action: manipulation;
 }
 
 .serviceCard:hover {
   border-color: var(--armora-gold);
-  transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
 }
 
 .serviceCard.selected {
   border-color: var(--armora-gold);
   background: rgba(255, 215, 0, 0.05);
-  box-shadow: 0 0 0 1px var(--armora-gold);
 }
 
 .serviceCard.popular {

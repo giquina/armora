@@ -311,6 +311,12 @@
   color: #1e3a8a;
 }
 
+/* Pricing Container */
+.pricingContainer {
+  margin-top: var(--space-lg);
+  width: 100%;
+}
+
 .fullQuoteButton {
   width: 100%;
   padding: 12px;
@@ -322,6 +328,7 @@
   font-weight: 600;
   cursor: pointer;
   transition: all 0.2s ease;
+  margin-top: var(--space-md);
 }
 
 .fullQuoteButton:hover {

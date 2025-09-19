@@ -17,6 +17,7 @@ const fs = require('fs');
 const path = require('path');
 const chokidar = require('chokidar');
 const { exec } = require('child_process');
+const ClaudeTaskBridge = require('./claude-task-bridge');
 
 const COLORS = {
   reset: '\x1b[0m',
@@ -205,6 +206,7 @@ class AgentOrchestrator {
     this.fileWatcher = null;
     this.recentActivity = [];
     this.maxActivityHistory = 50;
+    this.taskBridge = new ClaudeTaskBridge();
   }
 
   log(message, level = 'info') {
@@ -316,16 +318,13 @@ class AgentOrchestrator {
       this.log(`  ${index + 1}. ${action}`, 'info');
     });
 
-    // Generate Task call for Claude Code
-    const subagentPrompt = this.generateAgentPrompt(agentId, context);
-    
-    this.log('\n📋 Auto-generated Task call:', 'success');
-    console.log(colorize(`
-Task({
-  description: "${agent.name} - Auto-activated",
-  prompt: \`${subagentPrompt}\`,
-  subagent_type: "general-purpose"
-})`, 'cyan'));
+    // Actually activate agent via Claude Task Bridge
+    try {
+      const taskId = await this.taskBridge.activateAgent(agentId, context, reason);
+      this.log(`🎯 Agent ${agentId} activated via Claude Code Task tool (${taskId})`, 'success');
+    } catch (error) {
+      this.log(`❌ Failed to activate ${agentId} via Task tool: ${error.message}`, 'error');
+    }
 
     // Set timeout to deactivate agent
     setTimeout(() => {

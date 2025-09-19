@@ -3,9 +3,9 @@
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
 ## Project Overview
-Armora is a React 19.1.1 TypeScript application for premium VIP security transport service. Mobile-first Progressive Web App targeting app store distribution.
+Armora is a React 19.1.1 TypeScript application for premium close protection and security transport services. Mobile-first Progressive Web App targeting app store distribution.
 
-**PASSENGER-FOCUSED**: Write all UI copy from the passenger's perspective, emphasizing safety benefits and convenience over technical features.
+**PROFESSIONAL PROTECTION FOCUSED**: Use close protection terminology throughout - "CPO" (Close Protection Officer), "Principal" (not passenger), "Protection Detail" (not ride), "Security Assessment" (not booking review). All UI copy should reflect professional security services, not taxi/ride-sharing language.
 
 ## Critical Dependencies
 - **React 19.1.1** with new JSX Transform
@@ -88,17 +88,19 @@ src/
 ├── components/
 │   ├── Auth/                   - Authentication flow
 │   ├── Questionnaire/          - 9-step onboarding system
-│   ├── Dashboard/              - Service selection
-│   ├── Booking/                - Complete booking flow
+│   ├── Dashboard/              - Protection tier selection
+│   ├── AssignmentsView/        - Professional protection assignments command centre
+│   ├── Booking/                - Complete protection booking flow
 │   ├── UI/ArmoraLogo.tsx       - Premium 4D logo system
 │   └── Layout/AppLayout.tsx    - Header with navigation
 └── data/questionnaireData.ts   - Dynamic questionnaire logic
 ```
 
 ## Business Context
-**Service Levels**: Standard (£45/h), Executive (£75/h), Shadow (£65/h - most popular 67%)
-**User Journey**: splash → welcome → auth → questionnaire → achievement → dashboard → booking
-**User Capabilities**: Registered/Google users get direct booking + 50% reward; guests get quotes only
+**Protection Tiers**: Essential (£45/h), Executive (£75/h), Shadow (£65/h - most popular 67%)
+**User Journey**: splash → welcome → auth → questionnaire → achievement → dashboard → assignments
+**User Capabilities**: Registered/Google users get direct protection booking + 50% reward; guests get quotes only
+**Professional Standards**: All officers are SIA licensed with specializations in Executive Protection, Threat Assessment, and Medical Response
 
 ### Safe Ride Fund Initiative
 - **Impact Counter**: Live counter showing 3,741+ safe rides delivered (animated on WelcomePage)
@@ -155,8 +157,8 @@ src/
 - **Current coverage**: Limited - focus on critical booking flow components first
 
 ## Current Status
-✅ **Complete**: Auth, Questionnaire (9-step + privacy), Dashboard, Booking flow, Achievement, 4D logo system, Safe Ride Fund integration
-⚠️ **Critical Needs**: Test coverage (only App.test.tsx exists), PWA service worker, payment integration
+✅ **Complete**: Auth, Questionnaire (9-step + privacy), Dashboard, Professional Assignments View, Booking flow, Achievement, 4D logo system, Safe Ride Fund integration
+⚠️ **Critical Needs**: Test coverage (only App.test.tsx exists), PWA service worker, payment integration, location search page improvements
 🔜 **Planned**: Real-time tracking, push notifications, offline mode
 
 ## Key Utility Functions
@@ -169,11 +171,19 @@ src/
 ### Questionnaire System (`/src/data/questionnaireData.ts`)
 Dynamic 9-step system with privacy options. Enhanced mobile typography (1.4-1.5rem) and `calc(100vw - 8px)` width utilization.
 
-### Booking Flow Architecture
+### Protection Booking Flow Architecture
 Complete flow: VehicleSelection → LocationPicker → BookingConfirmation → BookingSuccess.
 - State managed in App.tsx BookingFlow component (`src/App.tsx:17-95`)
 - Error boundary wrapper: `BookingErrorBoundary` component
 - Test data available in `src/utils/testUserScenarios.ts`
+
+### Professional Assignments View (`src/components/AssignmentsView/`)
+Premium close protection command centre with professional terminology:
+- Protection duration tracking with progress indicators
+- CPO credentials including SIA licenses, experience, and specializations
+- Security-focused status messages (Protection Detail Active, CPO Approaching, etc.)
+- Service tier badges (Essential/Executive/Shadow) with professional color coding
+- Professional action buttons (Live Tracking, Contact CPO, Emergency)
 
 ### WelcomePage Features (`src/components/Auth/WelcomePage.tsx`)
 - **Animated impact counter**: Shows 3,741+ safe rides with random increments
@@ -183,9 +193,9 @@ Complete flow: VehicleSelection → LocationPicker → BookingConfirmation → B
 
 ### Authentication & User Types
 Three distinct user types with different capabilities:
-- **Registered**: Full booking + 50% rewards
+- **Registered**: Full protection booking + 50% rewards
 - **Google**: Same as registered
-- **Guest**: Quote-only mode, no direct booking
+- **Guest**: Quote-only mode, no direct protection booking
 
 ## Important Code Patterns
 
@@ -216,6 +226,15 @@ Verify view state in `AppContext` and check if component is included in App.tsx 
 ### Styling Not Applied
 Ensure CSS Module imports use correct syntax: `import styles from './Component.module.css'`
 
+### Professional Terminology Requirements
+When updating any UI text, ensure professional close protection language:
+- "Driver" → "Protection Officer/CPO"
+- "Ride/Trip" → "Assignment/Protection Detail"
+- "Passenger" → "Principal"
+- "Standard" → "Essential" (for protection tier)
+- "In Progress" → "Protection Detail Active"
+- "En Route" → "CPO Approaching Principal"
+
 ## Development Workflow Best Practices
 
 ### Before Making Changes
@@ -236,4 +255,4 @@ Ensure CSS Module imports use correct syntax: `import styles from './Component.m
 - Types: Centralized in `/src/types/index.ts`
 - Data: Static data in `/src/data/`
 
-Last updated: 2025-09-19T15:26:32.379Z
+Last updated: 2025-09-19T22:41:24.123Z

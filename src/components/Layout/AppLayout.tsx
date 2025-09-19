@@ -25,8 +25,8 @@ export function AppLayout({
   const { state, navigateToView } = useApp();
   const { currentView, user } = state;
 
-  const shouldShowHeader = showHeader && currentView !== 'splash' &&
-                        !['home', 'services', 'assignments', 'account'].includes(currentView);
+  // Only show header (with logo) on welcome and splash pages
+  const shouldShowHeader = showHeader && ['welcome', 'splash'].includes(currentView);
   const shouldShowNav = showNavigation && user && currentView !== 'splash';
 
   const getHeaderInfo = () => {

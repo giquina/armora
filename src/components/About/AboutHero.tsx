@@ -1,18 +1,12 @@
 import React from 'react';
-import { ArmoraLogo } from '../UI/ArmoraLogo';
-import { getLogoProps } from '../../styles/brandConstants';
+// Logo removed - keeping pages clean and focused
 import styles from './AboutHero.module.css';
 
 export function AboutHero() {
   return (
     <section className={styles.heroSection}>
       <div className={styles.heroContent}>
-        <div className={styles.logoContainer}>
-          <ArmoraLogo
-            {...getLogoProps('large')}
-            className={styles.heroLogo}
-          />
-        </div>
+        {/* Logo container removed for cleaner interface */}
 
         <div className={styles.heroText}>
           <h1 className={styles.heroTitle}>

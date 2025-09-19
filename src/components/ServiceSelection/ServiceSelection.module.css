@@ -43,6 +43,7 @@
 .serviceOptions {
   padding: var(--space-lg) var(--space-md) 0 var(--space-md);
   animation: slideInFromBottom 0.6s cubic-bezier(0.4, 0, 0.2, 1) 0.3s both;
+  overflow: visible; /* Ensure content is not clipped */
 }
 
 .sectionTitle {
@@ -178,6 +179,8 @@
   display: flex;
   flex-direction: column;
   gap: var(--space-md);
+  overflow: visible; /* Ensure cards are not clipped */
+  width: 100%;
 }
 
 .serviceCard {
@@ -217,6 +220,8 @@
 
 .serviceContent {
   flex: 1;
+  min-width: 0; /* Allow text to wrap properly */
+  overflow: visible; /* Ensure text is not clipped */
 }
 
 .serviceName {

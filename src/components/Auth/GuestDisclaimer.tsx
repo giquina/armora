@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useApp } from '../../contexts/AppContext';
 import { Button } from '../UI/Button';
-import { ArmoraLogo } from '../UI/ArmoraLogo';
+// Logo removed - keeping pages clean and focused
 import styles from './GuestDisclaimer.module.css';
 
 export function GuestDisclaimer() {
@@ -53,14 +53,8 @@ export function GuestDisclaimer() {
     <div className={styles.disclaimerPage}>
       <div className={`${styles.disclaimerContainer} ${showContent ? styles.visible : ''}`}>
         
-        {/* Header */}
+        {/* Header - Logo removed for cleaner interface */}
         <header className={styles.header}>
-          <ArmoraLogo 
-            size="medium" 
-            showOrbits={false}
-            variant="animated"
-            className={styles.logo}
-          />
           <h1 className={styles.title}>Guest Access</h1>
           <p className={styles.subtitle}>
             Experience Armora with limited access or create an account for full features

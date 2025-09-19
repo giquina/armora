@@ -5,7 +5,6 @@ import { VenueTimeData } from './VenueTimeEstimator';
 import { ProtectionServiceRequest, calculateProtectionPricing } from '../../utils/protectionPricingCalculator';
 import { formatPrice } from '../../utils/priceFormatter';
 import { LoadingSpinner } from '../UI/LoadingSpinner';
-import { BookingProgressIndicator } from '../UI/ProgressIndicator';
 import styles from './BookingConfirmation.module.css';
 
 interface BookingConfirmationProps {
@@ -78,46 +77,18 @@ export function BookingConfirmation({
 
   return (
     <div className={styles.container}>
-      {/* Progress Indicator */}
-      <BookingProgressIndicator currentStep="booking-confirmation" />
       
       <div className={styles.header}>
         <button className={styles.backButton} onClick={onBack}>
           ← Back
         </button>
-        <h1 className={styles.title}>Confirm Your Booking</h1>
+        <h1 className={styles.title}>Confirm Protection</h1>
         <p className={styles.subtitle}>
-          Review your security transport details before confirming
+          {protectionLevel.name} • Review protection details before confirming
         </p>
       </div>
 
       <div className={styles.bookingSummary}>
-        <div className={styles.serviceSection}>
-          <h3 className={styles.sectionTitle}>Protection Service</h3>
-          <div className={styles.serviceCard}>
-            <div className={styles.serviceInfo}>
-              <h4>{protectionLevel.name}</h4>
-              <p>SIA-licensed close protection service</p>
-              <div className={styles.protectionDetails}>
-                {protectionLevel.type === 'personal' ? (
-                  <>
-                    <span className={styles.protectionBadge}>👤 Personal Protection</span>
-                    <span className={styles.protectionNote}>Your officer will accompany you</span>
-                  </>
-                ) : (
-                  <>
-                    <span className={styles.protectionBadge}>🚗 Transport Protection</span>
-                    <span className={styles.protectionNote}>Officer secures vehicle and waits</span>
-                  </>
-                )}
-              </div>
-            </div>
-            <div className={styles.servicePrice}>
-              <span className={styles.price}>From £{protectionLevel.priceFrom}</span>
-              <span className={styles.perHour}>/hour</span>
-            </div>
-          </div>
-        </div>
 
         <div className={styles.routeSection}>
           <h3 className={styles.sectionTitle}>Service Details</h3>
@@ -147,12 +118,12 @@ export function BookingConfirmation({
                 </div>
                 {venueTimeData.discreteProtection && (
                   <div className={styles.specialRequest}>
-                    🕴️ Discrete protection requested
+                    Discrete protection requested
                   </div>
                 )}
                 {venueTimeData.femaleOfficerPreferred && (
                   <div className={styles.specialRequest}>
-                    👩‍💼 Female officer preferred
+                    Female officer preferred
                   </div>
                 )}
               </div>
@@ -237,11 +208,10 @@ export function BookingConfirmation({
           {isBooking ? (
             <div className={styles.bookingLoader}>
               <LoadingSpinner size="small" variant="light" inline />
-              <span>Confirming Your Booking...</span>
+              <span>Confirming Protection Service...</span>
             </div>
           ) : (
             <>
-              <span className={styles.lockIcon}>🔒</span>
               <span>Confirm Protection Service - {formatPrice(pricingBreakdown.total)}</span>
             </>
           )}

@@ -12,7 +12,7 @@ import { ServiceLevel, User, BookingData } from '../../../types';
 const mockServices: ServiceLevel[] = [
   {
     id: 'standard',
-    name: 'Armora Standard',
+    name: 'Armora Essential',
     tagline: 'Professional Security Transport',
     price: '£45',
     hourlyRate: 45,
@@ -305,7 +305,7 @@ describe('Booking Components Coverage Tests', () => {
     test('should handle different service levels for cost calculation', async () => {
       const { rerender } = renderWithProvider(
         <LocationPicker
-          selectedService={mockServices[0]} // Standard
+          selectedService={mockServices[0]} // Essential
           onLocationConfirmed={jest.fn()}
           onBack={jest.fn()}
           user={mockUsers.registered}

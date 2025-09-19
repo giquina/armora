@@ -294,7 +294,7 @@ export const selectionFeedbackData: SelectionFeedbackData = {
       benefits: [
         'Premium vehicle standards',
         'Comfort-focused amenities',
-        'Convenient pickup locations',
+        'Convenient protection start points',
         'Flexible service options'
       ],
       icon: '⭐'

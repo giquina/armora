@@ -1,0 +1,464 @@
+/* Pricing Calculator Component */
+.calculatorContainer {
+  background: var(--bg-secondary);
+  border-radius: var(--radius-lg);
+  padding: var(--space-lg);
+  border: 1px solid var(--border-subtle);
+  max-width: var(--content-max-width);
+  margin: 0 auto;
+}
+
+/* Trust Badge */
+.trustBadge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-xs);
+  background: rgba(34, 197, 94, 0.1);
+  border: 1px solid rgba(34, 197, 94, 0.3);
+  border-radius: var(--radius-md);
+  padding: var(--space-sm) var(--space-md);
+  margin-bottom: var(--space-lg);
+  font-weight: 600;
+  color: var(--success);
+  font-size: var(--font-sm);
+}
+
+.badgeIcon {
+  font-size: 16px;
+}
+
+/* Calculating Display */
+.calculatingDisplay {
+  text-align: center;
+  padding: var(--space-xl) var(--space-lg);
+}
+
+.calculatingHeader {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-md);
+}
+
+.calculatingHeader h3 {
+  font-size: var(--font-lg);
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.spinner {
+  font-size: 24px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.calculationStage {
+  color: var(--text-secondary);
+  font-size: var(--font-base);
+  margin: var(--space-sm) 0;
+  font-style: italic;
+}
+
+.loadingBars {
+  display: flex;
+  gap: var(--space-xs);
+  justify-content: center;
+  margin-top: var(--space-lg);
+}
+
+.loadingBar {
+  width: 4px;
+  height: 40px;
+  background: var(--accent-primary);
+  border-radius: 2px;
+  animation: loading 1.2s ease-in-out infinite;
+}
+
+@keyframes loading {
+  0%, 80%, 100% {
+    transform: scaleY(0.5);
+    opacity: 0.5;
+  }
+  40% {
+    transform: scaleY(1);
+    opacity: 1;
+  }
+}
+
+/* No Calculation State */
+.noCalculation {
+  text-align: center;
+  padding: var(--space-xl);
+  color: var(--text-secondary);
+}
+
+.calculateButton {
+  background: var(--accent-primary);
+  color: #1a1a2e;
+  border: none;
+  padding: var(--space-md) var(--space-lg);
+  border-radius: var(--radius-md);
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: var(--space-md);
+  transition: all 0.2s ease;
+}
+
+.calculateButton:hover:not(:disabled) {
+  background: #FFA500;
+  transform: translateY(-1px);
+}
+
+.calculateButton:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Calculation Summary */
+.calculationSummary {
+  margin-bottom: var(--space-lg);
+}
+
+.summaryHeader {
+  text-align: center;
+  margin-bottom: var(--space-md);
+}
+
+.summaryHeader h3 {
+  font-size: var(--font-lg);
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.calculationDetails {
+  background: var(--bg-primary);
+  border-radius: var(--radius-md);
+  padding: var(--space-md);
+  border: 1px solid var(--border-subtle);
+}
+
+.detailRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--space-xs) 0;
+  font-size: var(--font-base);
+}
+
+.detailRow:not(:last-child) {
+  border-bottom: 1px dotted var(--border-subtle);
+}
+
+.detailRow span:first-child {
+  color: var(--text-secondary);
+}
+
+.detailRow span:last-child {
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+/* Investment Section */
+.investmentSection {
+  background: var(--bg-primary);
+  border-radius: var(--radius-md);
+  padding: var(--space-lg);
+  border: 2px solid var(--accent-primary);
+  margin-bottom: var(--space-lg);
+  position: relative;
+}
+
+.investmentTitle {
+  font-size: var(--font-lg);
+  font-weight: 700;
+  color: var(--accent-primary);
+  margin: 0 0 var(--space-md) 0;
+  text-align: center;
+  letter-spacing: 0.5px;
+}
+
+.breakdownRows {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-md);
+}
+
+.breakdownRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: var(--font-base);
+  padding: var(--space-xs) 0;
+}
+
+.breakdownRow span:first-child {
+  color: var(--text-primary);
+  font-weight: 500;
+}
+
+.breakdownRow span:last-child {
+  color: var(--text-primary);
+  font-weight: 600;
+  font-size: var(--font-lg);
+}
+
+.divider {
+  height: 2px;
+  background: linear-gradient(90deg, transparent 0%, var(--accent-primary) 50%, transparent 100%);
+  margin: var(--space-md) 0;
+}
+
+.totalRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--space-sm) 0;
+  font-size: var(--font-lg);
+  font-weight: 700;
+}
+
+.totalLabel {
+  color: var(--text-primary);
+}
+
+.totalAmount {
+  color: var(--accent-primary);
+  font-size: var(--font-xl);
+}
+
+/* Member Pricing */
+.memberPricing {
+  background: rgba(34, 197, 94, 0.1);
+  border: 1px solid rgba(34, 197, 94, 0.3);
+  border-radius: var(--radius-md);
+  padding: var(--space-md);
+  margin-top: var(--space-md);
+}
+
+.memberRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: var(--font-lg);
+  font-weight: 600;
+}
+
+.memberRow span:first-child {
+  color: var(--success);
+}
+
+.memberPrice {
+  color: var(--success);
+  font-size: var(--font-xl);
+  font-weight: 700;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 2px;
+}
+
+.savings {
+  font-size: var(--font-sm);
+  font-weight: 600;
+  color: var(--success);
+  background: rgba(34, 197, 94, 0.2);
+  padding: 2px var(--space-xs);
+  border-radius: var(--radius-sm);
+  letter-spacing: 0.5px;
+}
+
+/* Membership CTA */
+.membershipCTA {
+  background: linear-gradient(135deg, rgba(34, 197, 94, 0.1) 0%, rgba(34, 197, 94, 0.05) 100%);
+  border: 1px solid rgba(34, 197, 94, 0.3);
+  border-radius: var(--radius-md);
+  padding: var(--space-md);
+  margin-top: var(--space-md);
+  text-align: center;
+}
+
+.potentialSavings {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--space-sm);
+  font-weight: 600;
+}
+
+.potentialSavings span:first-child {
+  color: var(--text-primary);
+}
+
+.potentialSavingsAmount {
+  color: var(--success);
+  font-weight: 700;
+  background: rgba(34, 197, 94, 0.2);
+  padding: 2px var(--space-xs);
+  border-radius: var(--radius-sm);
+  letter-spacing: 0.5px;
+}
+
+.membershipButton {
+  width: 100%;
+  background: var(--success);
+  color: white;
+  border: none;
+  padding: var(--space-md);
+  border-radius: var(--radius-md);
+  font-weight: 600;
+  font-size: var(--font-base);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.membershipButton:hover {
+  background: #059669;
+  transform: translateY(-1px);
+}
+
+.membershipButton:active {
+  transform: translateY(0) scale(0.98);
+}
+
+/* Trust Signals */
+.trustSignals {
+  display: grid;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-lg);
+}
+
+@media (min-width: 768px) {
+  .trustSignals {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.trustSignal {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  background: var(--bg-primary);
+  padding: var(--space-sm);
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-subtle);
+  font-size: var(--font-sm);
+  color: var(--text-secondary);
+}
+
+.trustIcon {
+  color: var(--success);
+  font-weight: bold;
+  font-size: 14px;
+}
+
+/* Service Level Info */
+.serviceLevelInfo {
+  background: rgba(59, 130, 246, 0.05);
+  border: 1px solid rgba(59, 130, 246, 0.2);
+  border-radius: var(--radius-md);
+  padding: var(--space-md);
+}
+
+.serviceLevelInfo h5 {
+  font-size: var(--font-base);
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0 0 var(--space-xs) 0;
+}
+
+.serviceLevelDescription {
+  font-size: var(--font-sm);
+  color: var(--text-secondary);
+  margin: 0;
+  line-height: 1.4;
+}
+
+/* Mobile Optimizations */
+@media (max-width: 480px) {
+  .calculatorContainer {
+    padding: var(--space-md);
+  }
+
+  .calculatingDisplay {
+    padding: var(--space-lg) var(--space-sm);
+  }
+
+  .calculatingHeader {
+    flex-direction: column;
+    gap: var(--space-xs);
+  }
+
+  .investmentSection {
+    padding: var(--space-md);
+  }
+
+  .investmentTitle {
+    font-size: var(--font-base);
+  }
+
+  .totalRow {
+    flex-direction: column;
+    gap: var(--space-xs);
+    text-align: center;
+  }
+
+  .memberRow {
+    flex-direction: column;
+    gap: var(--space-xs);
+    text-align: center;
+  }
+
+  .memberPrice {
+    align-items: center;
+  }
+
+  .potentialSavings {
+    flex-direction: column;
+    gap: var(--space-xs);
+  }
+
+  .trustSignals {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Touch Device Optimizations */
+@media (hover: none) and (pointer: coarse) {
+  .calculateButton,
+  .membershipButton {
+    min-height: var(--touch-target);
+  }
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .spinner,
+  .loadingBar {
+    animation: none;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .trustBadge,
+  .memberPricing,
+  .membershipCTA {
+    border-width: 2px;
+  }
+
+  .divider {
+    background: var(--accent-primary);
+    height: 1px;
+  }
+}

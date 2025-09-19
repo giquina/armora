@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useApp } from '../../contexts/AppContext';
+import { PricingCalculator } from './PricingCalculator';
 import styles from './QuickProtectionEstimate.module.css';
 
 interface ServiceOption {
@@ -196,35 +197,25 @@ export function QuickProtectionEstimate() {
         )}
       </button>
 
-      {/* Price Estimate Display */}
-      {showEstimate && estimate && (
-        <div className={styles.estimateDisplay}>
-          <div className={styles.estimateHeader}>
-            <h4 className={styles.estimateTitle}>Protection Quote</h4>
-            <p className={styles.estimateRoute}>To: {estimate.destination}</p>
-          </div>
+      {/* Enhanced Pricing Calculator */}
+      {destination && (
+        <div className={styles.pricingContainer}>
+          <PricingCalculator
+            destination={destination}
+            serviceLevel={selectedService.id as 'essential' | 'executive' | 'shadow' | 'client-vehicle'}
+            autoCalculate={true}
+            showMembershipCTA={true}
+            isCalculating={isCalculating}
+          />
 
-          <div className={styles.estimateBreakdown}>
-            <div className={styles.estimateRow}>
-              <span>Protection ({estimate.estimatedDuration}h):</span>
-              <span>£{estimate.protectionFee}</span>
-            </div>
-            <div className={styles.estimateRow}>
-              <span>Vehicle ({estimate.estimatedDistance}km):</span>
-              <span>£{Math.round(estimate.estimatedDistance * 2.5)}</span>
-            </div>
-            <div className={styles.estimateTotal}>
-              <span>Total:</span>
-              <span>£{estimate.total}</span>
-            </div>
-          </div>
-
-          <button
-            className={styles.fullQuoteButton}
-            onClick={handleGetFullQuote}
-          >
-            Complete Booking →
-          </button>
+          {!isCalculating && (
+            <button
+              className={styles.fullQuoteButton}
+              onClick={handleGetFullQuote}
+            >
+              Complete Protection Booking →
+            </button>
+          )}
         </div>
       )}
     </div>

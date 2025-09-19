@@ -4,7 +4,7 @@ import styles from './AssignmentsView.module.css';
 
 type AssignmentStatus = 'active' | 'upcoming' | 'completed';
 type ProtectionTier = 'essential' | 'executive' | 'shadow';
-type SecurityStatus = 'with-principal' | 'approaching' | 'advance-team' | 'covert' | 'incident-response' | 'venue-sweep' | 'en-route';
+type SecurityStatus = 'with-principal' | 'approaching' | 'advance-team' | 'covert' | 'incident-response' | 'venue-sweep' | 'cpo-approaching';
 
 interface Assignment {
   id: string;
@@ -178,7 +178,7 @@ const mockAssignments: Assignment[] = [
       vehicle: 'Premium Security Vehicle',
       initials: 'TBA'
     },
-    timeAgo: 'CPO Assignment in Progress',
+    timeAgo: 'Protection Detail Active',
     threatLevel: 'low',
     specialRequirements: ['Corporate Access', 'Executive Briefing']
   },
@@ -302,8 +302,8 @@ export function AssignmentsView() {
       case 'advance-team': return 'Advance Team Conducting Security Assessment';
       case 'covert': return 'Covert Operations - Shadow Mode Active';
       case 'incident-response': return '🚨 Incident Response - Immediate Action';
-      case 'venue-sweep': return 'Venue Security Sweep in Progress';
-      case 'en-route': return 'En Route - Principal Secure';
+      case 'venue-sweep': return 'Venue Security Sweep - Protection Detail Active';
+      case 'cpo-approaching': return 'CPO Approaching Principal';
       default: return 'Security Status Unknown';
     }
   }, []);

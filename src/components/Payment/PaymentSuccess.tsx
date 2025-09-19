@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { BookingData, PaymentIntent } from '../../types';
 import { Button } from '../UI/Button';
-import { ArmoraLogo } from '../UI/ArmoraLogo';
+// Logo removed - keeping pages clean and focused
 import styles from './PaymentSuccess.module.css';
 
 interface PaymentSuccessProps {
@@ -71,9 +71,8 @@ export function PaymentSuccess({
         <div className={styles.checkmark}>✓</div>
       </div>
 
-      {/* Header */}
+      {/* Header - Logo removed for cleaner interface */}
       <div className={styles.header}>
-        <ArmoraLogo size="large" variant="animated" />
         <h1 className={styles.title}>Payment Successful!</h1>
         <p className={styles.subtitle}>Your security transport is confirmed</p>
       </div>

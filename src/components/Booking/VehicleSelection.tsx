@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { ServiceLevel, User } from '../../types';
 import { LoadingSpinner } from '../UI/LoadingSpinner';
 import { ServiceCardSkeletonLoader } from '../UI/SkeletonLoader';
-import { BookingProgressIndicator } from '../UI/ProgressIndicator';
 import { ServiceCard } from '../Dashboard/ServiceCard';
 import { SmartRecommendation } from '../Dashboard/SmartRecommendation';
 import { GuestQuoteModal } from './GuestQuoteModal';
@@ -61,11 +60,11 @@ export function VehicleSelection({ user, onServiceSelected, onBack, onSignUp }: 
   const handleServiceSelect = (service: ServiceLevel) => {
     setSelectedService(service);
 
-    // If user is a guest, show quote modal instead of proceeding to booking
+    // If user is a guest, show quote modal instead of proceeding to protection
     if (user?.userType === 'guest') {
       setShowGuestQuote(true);
     } else {
-      // Registered users can proceed directly to booking
+      // Registered users can proceed directly to protection arrangement
       onServiceSelected(service);
     }
   };
@@ -114,8 +113,6 @@ export function VehicleSelection({ user, onServiceSelected, onBack, onSignUp }: 
 
   return (
     <div className={styles.container}>
-      {/* Progress Indicator */}
-      <BookingProgressIndicator currentStep="vehicle-selection" />
       
       <div className={styles.header}>
         {onBack && (
@@ -194,7 +191,7 @@ export function VehicleSelection({ user, onServiceSelected, onBack, onSignUp }: 
             {isLoading ? (
               <LoadingSpinner size="small" variant="light" text="Preparing..." inline />
             ) : (
-              <>Continue to Location Selection →</>
+              <>Continue to Protection Planning →</>
             )}
           </button>
         </div>

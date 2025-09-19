@@ -7,9 +7,9 @@ import { BookingSuccess } from '../BookingSuccess';
 import { AppProvider } from '../../../contexts/AppContext';
 import { ServiceLevel, User, BookingData } from '../../../types';
 
-const mockStandardService: ServiceLevel = {
+const mockEssentialService: ServiceLevel = {
   id: 'standard',
-  name: 'Armora Standard',
+  name: 'Armora Essential',
   tagline: 'Professional Security Transport',
   price: '£45',
   hourlyRate: 45,
@@ -29,7 +29,7 @@ const mockRegisteredUser: User = {
 };
 
 const mockBookingData: BookingData = {
-  service: mockStandardService,
+  service: mockEssentialService,
   pickup: '123 Test Street, London',
   destination: '456 Demo Avenue, London',
   estimatedDistance: 15,
@@ -57,7 +57,7 @@ describe('Booking Components Basic Tests', () => {
         />
       );
 
-      expect(screen.getByText('Armora Standard')).toBeInTheDocument();
+      expect(screen.getByText('Armora Essential')).toBeInTheDocument();
       expect(screen.getByText('Professional Security Transport')).toBeInTheDocument();
     });
 
@@ -79,7 +79,7 @@ describe('Booking Components Basic Tests', () => {
     test('should render location picker component', () => {
       renderWithProvider(
         <LocationPicker
-          selectedService={mockStandardService}
+          selectedService={mockEssentialService}
           onLocationConfirmed={jest.fn()}
           onBack={jest.fn()}
           user={mockRegisteredUser}
@@ -93,14 +93,14 @@ describe('Booking Components Basic Tests', () => {
     test('should display selected service information', () => {
       renderWithProvider(
         <LocationPicker
-          selectedService={mockStandardService}
+          selectedService={mockEssentialService}
           onLocationConfirmed={jest.fn()}
           onBack={jest.fn()}
           user={mockRegisteredUser}
         />
       );
 
-      expect(screen.getByText('Armora Standard')).toBeInTheDocument();
+      expect(screen.getByText('Armora Essential')).toBeInTheDocument();
     });
   });
 
@@ -263,13 +263,13 @@ describe('Booking Components Basic Tests', () => {
         />
       );
 
-      expect(screen.getByText('Armora Standard')).toBeInTheDocument();
+      expect(screen.getByText('Armora Essential')).toBeInTheDocument();
     });
 
     test('should be accessible with proper ARIA labels', () => {
       renderWithProvider(
         <LocationPicker
-          selectedService={mockStandardService}
+          selectedService={mockEssentialService}
           onLocationConfirmed={jest.fn()}
           onBack={jest.fn()}
           user={mockRegisteredUser}

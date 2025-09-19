@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useApp } from '../../contexts/AppContext';
 import { Button } from '../UI/Button';
-import { ArmoraLogo } from '../UI/ArmoraLogo';
-import { getLogoProps } from '../../styles/brandConstants';
+// Logo removed - keeping pages clean and focused
 import confetti from 'canvas-confetti';
 import styles from './VenueProtectionSuccess.module.css';
 
@@ -79,12 +78,8 @@ export function VenueProtectionSuccess() {
 
   return (
     <div className={styles.container}>
-      {/* Success Header */}
+      {/* Success Header - Logo removed for cleaner interface */}
       <div className={styles.header}>
-        <ArmoraLogo
-          {...getLogoProps('compact')}
-          className={styles.logo}
-        />
         <div className={styles.successIcon}>
           <div className={`${styles.checkmark} ${showConfetti ? styles.animate : ''}`}>
             ✓

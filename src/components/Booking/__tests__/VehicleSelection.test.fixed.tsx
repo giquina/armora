@@ -64,7 +64,7 @@ describe('VehicleSelection Component', () => {
         />
       );
 
-      expect(screen.getByText('Armora Standard')).toBeInTheDocument();
+      expect(screen.getByText('Armora Essential')).toBeInTheDocument();
       expect(screen.getByText('Armora Executive')).toBeInTheDocument();
       expect(screen.getByText('Armora Shadow')).toBeInTheDocument();
     });
@@ -77,7 +77,7 @@ describe('VehicleSelection Component', () => {
         />
       );
 
-      expect(screen.getByText('£45')).toBeInTheDocument(); // Standard
+      expect(screen.getByText('£45')).toBeInTheDocument(); // Essential
       expect(screen.getByText('£75')).toBeInTheDocument(); // Executive
       expect(screen.getByText('£65')).toBeInTheDocument(); // Shadow
     });
@@ -90,7 +90,7 @@ describe('VehicleSelection Component', () => {
         />
       );
 
-      // Standard service features
+      // Essential service features
       expect(screen.getByText('Professional Security Transport')).toBeInTheDocument();
       expect(screen.getByText('Certified security professional')).toBeInTheDocument();
       expect(screen.getByText('Advanced vehicle protection')).toBeInTheDocument();
@@ -142,7 +142,7 @@ describe('VehicleSelection Component', () => {
   });
 
   describe('Service Selection Interactions', () => {
-    test('should call onServiceSelected when Standard service is clicked', async () => {
+    test('should call onServiceSelected when Essential service is clicked', async () => {
       renderWithProvider(
         <VehicleSelection
           user={mockRegisteredUser}
@@ -156,7 +156,7 @@ describe('VehicleSelection Component', () => {
       expect(mockOnServiceSelected).toHaveBeenCalledWith(
         expect.objectContaining({
           id: 'standard',
-          name: 'Armora Standard',
+          name: 'Armora Essential',
           hourlyRate: 45
         })
       );

@@ -1,0 +1,123 @@
+/* Pricing Calculator Demo Styles */
+.demoContainer {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: var(--space-lg);
+  background: var(--bg-primary);
+  color: var(--text-primary);
+}
+
+.demoHeader {
+  text-align: center;
+  margin-bottom: var(--space-xl);
+}
+
+.demoHeader h2 {
+  font-size: var(--font-xl);
+  font-weight: 700;
+  color: var(--accent-primary);
+  margin: 0 0 var(--space-sm) 0;
+}
+
+.demoHeader p {
+  color: var(--text-secondary);
+  font-size: var(--font-base);
+  margin: 0;
+}
+
+.demoControls {
+  background: var(--bg-secondary);
+  border-radius: var(--radius-lg);
+  padding: var(--space-lg);
+  margin-bottom: var(--space-xl);
+  border: 1px solid var(--border-subtle);
+}
+
+.controlGroup {
+  margin-bottom: var(--space-md);
+}
+
+.controlGroup:last-child {
+  margin-bottom: 0;
+}
+
+.controlGroup label {
+  display: block;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: var(--space-xs);
+  font-size: var(--font-sm);
+}
+
+.demoInput,
+.demoSelect {
+  width: 100%;
+  padding: var(--space-sm);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  font-size: var(--font-base);
+  transition: border-color 0.2s ease;
+}
+
+.demoInput:focus,
+.demoSelect:focus {
+  outline: none;
+  border-color: var(--accent-primary);
+  box-shadow: 0 0 0 2px rgba(255, 215, 0, 0.2);
+}
+
+.calculatorDemo {
+  margin-bottom: var(--space-xl);
+}
+
+.calculatorDemo h3 {
+  font-size: var(--font-lg);
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: var(--space-md);
+  text-align: center;
+}
+
+.demoFeatures {
+  background: var(--bg-secondary);
+  border-radius: var(--radius-lg);
+  padding: var(--space-lg);
+  border: 1px solid var(--border-subtle);
+}
+
+.demoFeatures h3 {
+  font-size: var(--font-lg);
+  font-weight: 600;
+  color: var(--accent-primary);
+  margin: 0 0 var(--space-md) 0;
+}
+
+.demoFeatures ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.demoFeatures li {
+  padding: var(--space-xs) 0;
+  color: var(--text-secondary);
+  font-size: var(--font-sm);
+  line-height: 1.5;
+}
+
+/* Mobile optimizations */
+@media (max-width: 768px) {
+  .demoContainer {
+    padding: var(--space-md);
+  }
+
+  .demoControls {
+    padding: var(--space-md);
+  }
+
+  .demoFeatures {
+    padding: var(--space-md);
+  }
+}
