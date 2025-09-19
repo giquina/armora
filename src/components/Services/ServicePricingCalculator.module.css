@@ -1,0 +1,441 @@
+/* Service Pricing Calculator - Interactive Component */
+.calculator {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.9));
+  border-radius: 20px;
+  margin: var(--space-xl) 0;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+  border: 1px solid rgba(255, 215, 0, 0.2);
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.calculator:hover {
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.18);
+  transform: translateY(-2px);
+}
+
+/* Calculator Header */
+.calculatorHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--space-lg);
+  background: linear-gradient(135deg, var(--armora-dark), #334155);
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.calculatorHeader:hover {
+  background: linear-gradient(135deg, #0f172a, var(--armora-dark));
+}
+
+.headerContent {
+  display: flex;
+  align-items: center;
+  gap: var(--space-lg);
+  flex: 1;
+}
+
+.title {
+  font-size: var(--font-xl);
+  font-weight: 700;
+  margin: 0;
+}
+
+.quickPrice {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.priceValue {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--armora-gold);
+  line-height: 1;
+}
+
+.priceLabel {
+  font-size: var(--font-sm);
+  opacity: 0.8;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.expandButton {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 1.5rem;
+  cursor: pointer;
+  padding: var(--space-sm);
+  border-radius: 50%;
+  transition: all 0.3s ease;
+  min-width: 40px;
+  min-height: 40px;
+}
+
+.expandButton:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/* Calculator Content */
+.calculatorContent {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease-out;
+}
+
+.calculatorContent.expanded {
+  max-height: 1000px;
+}
+
+.controls {
+  padding: var(--space-xl);
+  display: grid;
+  gap: var(--space-lg);
+}
+
+/* Control Groups */
+.controlGroup {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.controlLabel {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: var(--font-base);
+  font-weight: 600;
+  color: var(--armora-dark);
+}
+
+.controlValue {
+  font-size: var(--font-sm);
+  color: var(--armora-gold);
+  font-weight: 700;
+}
+
+/* Sliders */
+.slider {
+  width: 100%;
+  height: 8px;
+  border-radius: 4px;
+  background: #e5e7eb;
+  outline: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.slider::-webkit-slider-thumb {
+  appearance: none;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--armora-gold), #f59e0b);
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+}
+
+.slider::-webkit-slider-thumb:hover {
+  transform: scale(1.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.slider::-moz-range-thumb {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--armora-gold), #f59e0b);
+  cursor: pointer;
+  border: none;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.sliderLabels {
+  display: flex;
+  justify-content: space-between;
+  font-size: var(--font-xs);
+  color: var(--text-tertiary);
+  margin-top: var(--space-xs);
+}
+
+/* Service Buttons */
+.serviceButtons {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: var(--space-sm);
+}
+
+.serviceButton {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-xs);
+  padding: var(--space-md);
+  background: rgba(255, 255, 255, 0.5);
+  border: 2px solid rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  min-height: 80px;
+}
+
+.serviceButton:hover {
+  border-color: var(--armora-gold);
+  background: rgba(255, 215, 0, 0.1);
+  transform: translateY(-2px);
+}
+
+.serviceButton.active {
+  border-color: var(--armora-gold);
+  background: linear-gradient(135deg, rgba(255, 215, 0, 0.2), rgba(255, 215, 0, 0.1));
+  box-shadow: 0 4px 12px rgba(255, 215, 0, 0.3);
+}
+
+.serviceIcon {
+  font-size: var(--font-xl);
+}
+
+.serviceName {
+  font-size: var(--font-sm);
+  font-weight: 600;
+  color: var(--armora-dark);
+  text-align: center;
+}
+
+.serviceRate {
+  font-size: var(--font-xs);
+  color: var(--text-secondary);
+}
+
+/* Selects */
+.select {
+  padding: var(--space-sm) var(--space-md);
+  border: 2px solid rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  background: white;
+  font-size: var(--font-base);
+  color: var(--armora-dark);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.select:focus {
+  outline: none;
+  border-color: var(--armora-gold);
+  box-shadow: 0 0 0 3px rgba(255, 215, 0, 0.1);
+}
+
+/* Membership Toggle */
+.membershipToggle {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: var(--space-md);
+  background: linear-gradient(135deg, rgba(255, 215, 0, 0.1), rgba(255, 215, 0, 0.05));
+  border: 2px solid rgba(255, 215, 0, 0.2);
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.membershipToggle:hover {
+  border-color: var(--armora-gold);
+  background: linear-gradient(135deg, rgba(255, 215, 0, 0.2), rgba(255, 215, 0, 0.1));
+}
+
+.checkbox {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+}
+
+.checkboxLabel {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  font-size: var(--font-base);
+  font-weight: 600;
+  color: var(--armora-dark);
+}
+
+.membershipIcon {
+  font-size: var(--font-lg);
+}
+
+/* Price Breakdown */
+.breakdown {
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  padding: var(--space-xl);
+  background: rgba(26, 26, 46, 0.02);
+}
+
+.breakdownTitle {
+  font-size: var(--font-lg);
+  font-weight: 700;
+  color: var(--armora-dark);
+  margin: 0 0 var(--space-lg) 0;
+}
+
+.breakdownLines {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-lg);
+}
+
+.breakdownLine {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: var(--font-base);
+  color: var(--armora-dark);
+}
+
+.breakdownLine.discount {
+  color: #22c55e;
+  font-weight: 600;
+}
+
+.total {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--space-md) 0;
+  border-top: 2px solid var(--armora-gold);
+  margin-bottom: var(--space-md);
+}
+
+.totalLabel {
+  font-size: var(--font-lg);
+  font-weight: 700;
+  color: var(--armora-dark);
+}
+
+.totalPrice {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--armora-gold);
+}
+
+.priceDetails {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--space-lg);
+  font-size: var(--font-sm);
+}
+
+.perMile {
+  color: var(--text-secondary);
+}
+
+.savings {
+  color: #22c55e;
+  font-weight: 600;
+}
+
+.bookButton {
+  width: 100%;
+  padding: var(--space-lg);
+  background: linear-gradient(135deg, var(--armora-gold), #f59e0b);
+  color: var(--armora-dark);
+  border: none;
+  border-radius: 12px;
+  font-size: var(--font-lg);
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(255, 215, 0, 0.3);
+}
+
+.bookButton:hover {
+  background: linear-gradient(135deg, #f59e0b, #d97706);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(255, 215, 0, 0.4);
+}
+
+.bookButton:active {
+  transform: translateY(0);
+}
+
+/* Mobile Optimizations */
+@media (max-width: 768px) {
+  .calculatorHeader {
+    padding: var(--space-md);
+  }
+
+  .headerContent {
+    gap: var(--space-md);
+  }
+
+  .title {
+    font-size: var(--font-lg);
+  }
+
+  .priceValue {
+    font-size: 1.5rem;
+  }
+
+  .controls {
+    padding: var(--space-lg) var(--space-md);
+    gap: var(--space-md);
+  }
+
+  .serviceButtons {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-xs);
+  }
+
+  .serviceButton {
+    padding: var(--space-sm);
+    min-height: 70px;
+  }
+
+  .serviceName {
+    font-size: 11px;
+  }
+
+  .serviceRate {
+    font-size: 10px;
+  }
+
+  .breakdown {
+    padding: var(--space-lg) var(--space-md);
+  }
+
+  .totalPrice {
+    font-size: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .calculator {
+    margin: var(--space-lg) 0;
+  }
+
+  .serviceButtons {
+    grid-template-columns: 1fr;
+  }
+
+  .breakdownLine {
+    font-size: var(--font-sm);
+  }
+
+  .total {
+    flex-direction: column;
+    gap: var(--space-sm);
+    text-align: center;
+  }
+
+  .priceDetails {
+    flex-direction: column;
+    gap: var(--space-xs);
+    text-align: center;
+  }
+}

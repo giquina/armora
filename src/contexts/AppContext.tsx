@@ -335,7 +335,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
     } else {
       updateSafeRideFundMetrics(null);
     }
-  }, [state.subscription, initializeSafeRideFundData]);
+  }, [state.subscription?.tier]); // Only depend on tier to prevent infinite loop
 
   // Monitor device capabilities
   useEffect(() => {

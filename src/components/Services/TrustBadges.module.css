@@ -1,0 +1,311 @@
+/* Trust Badges Component */
+.trustBadges {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 16px;
+  padding: var(--space-lg);
+  margin: var(--space-lg) 0;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
+}
+
+.badgesTitle {
+  font-size: var(--font-lg);
+  font-weight: 700;
+  color: var(--armora-dark);
+  margin: 0 0 var(--space-lg) 0;
+  text-align: center;
+}
+
+/* Badges Grid */
+.badgesGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: var(--space-md);
+  margin-bottom: var(--space-lg);
+}
+
+/* Individual Badge */
+.badge {
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  position: relative;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.badge:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+}
+
+.badgeHeader {
+  padding: var(--space-md);
+  text-align: center;
+  background: linear-gradient(135deg, #22c55e, #16a34a);
+  position: relative;
+}
+
+.badgeIcon {
+  font-size: 2rem;
+  display: block;
+}
+
+.badgeContent {
+  padding: var(--space-md);
+  text-align: center;
+}
+
+.badgeLabel {
+  display: block;
+  font-size: var(--font-base);
+  font-weight: 700;
+  color: var(--armora-dark);
+  margin-bottom: var(--space-xs);
+}
+
+.badgeTooltip {
+  display: block;
+  font-size: var(--font-sm);
+  color: var(--text-secondary);
+  line-height: 1.4;
+}
+
+/* Badge Level Indicators */
+.eliteBadge,
+.premiumBadge {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  padding: 2px 6px;
+  border-radius: 6px;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.eliteBadge {
+  background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+  color: white;
+  box-shadow: 0 0 8px rgba(139, 92, 246, 0.4);
+}
+
+.premiumBadge {
+  background: linear-gradient(135deg, #f59e0b, #d97706);
+  color: white;
+  box-shadow: 0 0 8px rgba(245, 158, 11, 0.4);
+}
+
+/* Badge Level Styling */
+.badgebasic .badgeHeader {
+  background: linear-gradient(135deg, #22c55e, #16a34a);
+}
+
+.badgepremium .badgeHeader {
+  background: linear-gradient(135deg, #f59e0b, #d97706);
+}
+
+.badgeelite .badgeHeader {
+  background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+}
+
+/* Level Summary */
+.levelSummary {
+  background: linear-gradient(135deg, rgba(26, 26, 46, 0.05), rgba(26, 26, 46, 0.02));
+  border-radius: 12px;
+  padding: var(--space-md);
+  border: 1px solid rgba(26, 26, 46, 0.1);
+}
+
+.summaryContent {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-sm);
+}
+
+.summaryIcon {
+  font-size: var(--font-xl);
+}
+
+.summaryText {
+  font-size: var(--font-base);
+  font-weight: 600;
+  color: var(--armora-dark);
+}
+
+/* Compact Version */
+.trustBadgesCompact {
+  display: flex;
+  gap: var(--space-xs);
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.badgeCompact {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  padding: var(--space-xs) var(--space-sm);
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid #22c55e;
+  border-radius: 20px;
+  font-size: var(--font-xs);
+  font-weight: 600;
+  color: var(--armora-dark);
+  transition: all 0.3s ease;
+  cursor: help;
+}
+
+.badgeCompact:hover {
+  background: rgba(34, 197, 94, 0.1);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(34, 197, 94, 0.2);
+}
+
+.badgeCompact .badgeIcon {
+  font-size: var(--font-sm);
+}
+
+.badgeCompact .badgeLabel {
+  white-space: nowrap;
+}
+
+.moreIndicator {
+  padding: var(--space-xs) var(--space-sm);
+  background: rgba(0, 0, 0, 0.05);
+  border-radius: 12px;
+  font-size: var(--font-xs);
+  color: var(--text-secondary);
+  font-weight: 600;
+}
+
+/* Mobile Optimizations */
+@media (max-width: 768px) {
+  .trustBadges {
+    padding: var(--space-md);
+  }
+
+  .badgesGrid {
+    grid-template-columns: 1fr;
+    gap: var(--space-sm);
+  }
+
+  .badge {
+    max-width: none;
+  }
+
+  .badgeHeader {
+    padding: var(--space-sm);
+  }
+
+  .badgeIcon {
+    font-size: 1.5rem;
+  }
+
+  .badgeContent {
+    padding: var(--space-sm);
+  }
+
+  .badgeLabel {
+    font-size: var(--font-sm);
+  }
+
+  .badgeTooltip {
+    font-size: var(--font-xs);
+  }
+
+  .summaryContent {
+    flex-direction: column;
+    text-align: center;
+    gap: var(--space-xs);
+  }
+
+  .summaryText {
+    font-size: var(--font-sm);
+  }
+}
+
+@media (max-width: 480px) {
+  .trustBadges {
+    padding: var(--space-sm);
+    margin: var(--space-md) 0;
+  }
+
+  .badgesGrid {
+    gap: var(--space-xs);
+  }
+
+  .trustBadgesCompact {
+    gap: 4px;
+  }
+
+  .badgeCompact {
+    padding: 4px 8px;
+    font-size: 11px;
+  }
+
+  .badgeCompact .badgeIcon {
+    font-size: 12px;
+  }
+
+  .moreIndicator {
+    padding: 4px 8px;
+    font-size: 11px;
+  }
+}
+
+/* High-Quality Animations */
+@keyframes badgeAppear {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.badge {
+  animation: badgeAppear 0.5s ease-out;
+}
+
+.badge:nth-child(1) { animation-delay: 0.1s; }
+.badge:nth-child(2) { animation-delay: 0.2s; }
+.badge:nth-child(3) { animation-delay: 0.3s; }
+.badge:nth-child(4) { animation-delay: 0.4s; }
+.badge:nth-child(5) { animation-delay: 0.5s; }
+
+/* Accessibility */
+.badge:focus {
+  outline: 2px solid var(--armora-gold);
+  outline-offset: 2px;
+}
+
+.badgeCompact:focus {
+  outline: 2px solid var(--armora-gold);
+  outline-offset: 2px;
+}
+
+/* Print Styles */
+@media print {
+  .trustBadges {
+    background: white;
+    box-shadow: none;
+    border: 1px solid #ccc;
+  }
+
+  .badge {
+    break-inside: avoid;
+    box-shadow: none;
+    border: 1px solid #ccc;
+  }
+
+  .badgeHeader {
+    background: #f5f5f5 !important;
+    color: #333 !important;
+  }
+}

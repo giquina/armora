@@ -152,6 +152,26 @@ export function LocationPicker({ isOpen, onClose, onLocationSelect }: LocationPi
           <h2 className={styles.title}>Arrange Protection Service</h2>
         </div>
 
+        {/* Service Explanation Banner */}
+        <div className={styles.serviceExplanation}>
+          <div className={styles.serviceHeader}>
+            <div className={styles.shieldIcon}>
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+              </svg>
+            </div>
+            <h3 className={styles.serviceTitle}>Your Protection Service</h3>
+          </div>
+          <p className={styles.serviceDescription}>
+            Select your destination. Your SIA-licensed Protection Officer will provide secure transport and, if requested, personal protection at your destination.
+          </p>
+          <div className={styles.servicePills}>
+            <span className={styles.pill}>⏱️ 2hr minimum</span>
+            <span className={styles.pill}>🛡️ SIA Licensed</span>
+            <span className={styles.pill}>🚗 Secure transport</span>
+          </div>
+        </div>
+
         {/* Current Location */}
         <div className={styles.locationSection}>
           <div className={styles.locationItem}>
@@ -176,10 +196,27 @@ export function LocationPicker({ isOpen, onClose, onLocationSelect }: LocationPi
               ref={searchInputRef}
               className={styles.searchInput}
               type="text"
-              placeholder="Secure destination"
+              placeholder="Enter address, venue, or postcode"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
             />
+          </div>
+          <p className={styles.searchHelper}>Tell us where you need protection</p>
+        </div>
+
+        {/* Quick Destination Cards - Enhanced */}
+        <div className={styles.quickDestinationsSection}>
+          <div className={styles.quickDestination} onClick={() => handleLocationSelect('✈️ Airport Protection')}>
+            <div className={styles.quickIcon}>✈️</div>
+            <span className={styles.quickLabel}>Airport Protection</span>
+          </div>
+          <div className={styles.quickDestination} onClick={() => handleLocationSelect('🛍️ Retail Security')}>
+            <div className={styles.quickIcon}>🛍️</div>
+            <span className={styles.quickLabel}>Retail Security</span>
+          </div>
+          <div className={styles.quickDestination} onClick={() => handleLocationSelect('🏥 Medical Facility')}>
+            <div className={styles.quickIcon}>🏥</div>
+            <span className={styles.quickLabel}>Medical Facility</span>
           </div>
         </div>
 
@@ -214,6 +251,9 @@ export function LocationPicker({ isOpen, onClose, onLocationSelect }: LocationPi
                       {place.type === 'home' ? 'Secure Residence' : 'Executive Office'}
                     </span>
                     <span className={styles.placeAddress}>{place.address}</span>
+                    <span className={styles.usageCount}>
+                      {place.type === 'home' ? 'Used 12 times' : 'Used 8 times'}
+                    </span>
                   </div>
                 </button>
               ))}

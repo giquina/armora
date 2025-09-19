@@ -150,6 +150,113 @@
   color: var(--text-tertiary);
 }
 
+.searchHelper {
+  font-size: var(--font-sm);
+  color: var(--text-secondary);
+  margin-top: var(--space-xs);
+  padding: 0;
+}
+
+/* Service Explanation Banner */
+.serviceExplanation {
+  background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+  margin: var(--space-md);
+  padding: var(--space-md);
+  border-radius: var(--radius-lg);
+  color: #1a1a2e;
+}
+
+.serviceHeader {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  margin-bottom: var(--space-sm);
+}
+
+.shieldIcon {
+  color: #1a1a2e;
+}
+
+.serviceTitle {
+  font-size: var(--font-base);
+  font-weight: 600;
+  margin: 0;
+  color: #1a1a2e;
+}
+
+.serviceDescription {
+  font-size: var(--font-sm);
+  line-height: 1.5;
+  margin: 0 0 var(--space-sm) 0;
+  color: #1a1a2e;
+  opacity: 0.9;
+}
+
+.servicePills {
+  display: flex;
+  gap: var(--space-xs);
+  flex-wrap: wrap;
+}
+
+.pill {
+  background: rgba(26, 26, 46, 0.1);
+  color: #1a1a2e;
+  font-size: var(--font-xs);
+  font-weight: 500;
+  padding: 4px 8px;
+  border-radius: var(--radius-full);
+  white-space: nowrap;
+}
+
+/* Quick Destinations Section */
+.quickDestinationsSection {
+  display: flex;
+  gap: var(--space-sm);
+  padding: var(--space-md);
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.quickDestination {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 80px;
+  padding: var(--space-sm);
+  background: var(--bg-secondary);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: center;
+}
+
+.quickDestination:hover {
+  background: var(--bg-tertiary);
+  transform: translateY(-1px);
+}
+
+.quickDestination:active {
+  transform: translateY(0) scale(0.98);
+}
+
+.quickIcon {
+  font-size: 20px;
+  margin-bottom: var(--space-xs);
+}
+
+.quickLabel {
+  font-size: var(--font-xs);
+  font-weight: 500;
+  color: var(--text-primary);
+  line-height: 1.2;
+}
+
+.usageCount {
+  font-size: var(--font-xs);
+  color: var(--text-tertiary);
+  margin-top: 2px;
+}
+
 /* Content */
 .content {
   flex: 1;

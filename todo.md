@@ -1,4 +1,287 @@
-# Armora Security Transport - Development TODO
+# ARMORA TODO - ASSIGNMENTS PAGE REDESIGN + GLOBAL POLISH
+Last updated: 2025-09-19T15:26:32.622Z
+
+Strategy: Minimal changes everywhere, complete overhaul for Assignments page only
+
+## 🚨 PART 1: CRITICAL BUG FIX (1 Hour)
+### Fix React Performance Issues
+- [ ] Debug "Maximum update depth exceeded" errors across all components
+- [ ] Fix useEffect dependencies in App.tsx and all page components
+- [ ] Test that infinite loops are resolved
+**Priority:** URGENT - Do this first!
+**Files:** All components with useEffect hooks
+**Time:** 1 hour
+
+---
+
+## ✨ PART 2: GLOBAL MINIMAL ENHANCEMENTS (2 Hours)
+*Apply these to EVERY page in the app*
+
+### Typography Boost (All Pages)
+- [ ] Increase all font sizes by 20%:
+  ```css
+  /* In index.css or tailwind config */
+  --text-xs: 12px → 14px
+  --text-sm: 14px → 17px
+  --text-base: 16px → 19px
+  --text-lg: 18px → 22px
+  --text-xl: 20px → 24px
+  --text-2xl: 24px → 29px
+  ```
+- [ ] Increase line-height to 1.6 for all body text
+- [ ] Add font-weight: 600 to all headings
+**Files:** index.css, tailwind.config.js
+**Time:** 30 minutes
+
+### Spacing & Padding (All Pages)
+- [ ] Add global CSS rule for more padding:
+  ```css
+  /* All cards and containers */
+  .card, [class*="card"] { padding: 20px; } /* up from 12-16px */
+  .section { margin-bottom: 32px; } /* up from 20px */
+  ```
+- [ ] Increase button padding: `py-3 px-6` (up from py-2 px-4)
+- [ ] Add margin between all list items: `mb-2`
+**Time:** 30 minutes
+
+### Subtle Shadows (All Pages)
+- [ ] Add to all cards: `shadow-md` or `box-shadow: 0 4px 12px rgba(0,0,0,0.08)`
+- [ ] Add to all buttons: `shadow-sm hover:shadow-md`
+- [ ] Add to navigation bar: `shadow-lg`
+**Time:** 30 minutes
+
+### Quick Color Fixes (All Pages)
+- [ ] Brighten yellow/gold text: #F5A623 → #FFD700
+- [ ] Ensure all gray text is at least #4B5563 (not lighter)
+- [ ] Add hover states to all buttons: `hover:opacity-90`
+**Time:** 30 minutes
+
+---
+
+## 🎯 PART 3: ASSIGNMENTS PAGE - COMPLETE OVERHAUL (6 Hours)
+
+### File: src/components/AssignmentsView.tsx
+
+### 1. Page Header Redesign
+- [ ] Create new header section with:
+  ```jsx
+  <div className="bg-gradient-to-br from-slate-900 to-slate-800 p-6 rounded-2xl mb-6">
+    <h1 className="text-3xl font-bold text-white mb-2">Your Protection Assignments</h1>
+    <p className="text-gray-300">Track and manage your security services</p>
+    <div className="flex gap-4 mt-4">
+      <div className="bg-white/10 backdrop-blur px-4 py-2 rounded-lg">
+        <span className="text-yellow-400 font-bold text-xl">12</span>
+        <span className="text-gray-300 text-sm ml-2">Total</span>
+      </div>
+      <div className="bg-white/10 backdrop-blur px-4 py-2 rounded-lg">
+        <span className="text-green-400 font-bold text-xl">3</span>
+        <span className="text-gray-300 text-sm ml-2">This Week</span>
+      </div>
+    </div>
+  </div>
+  ```
+**Time:** 1 hour
+
+### 2. Assignment Status Tabs
+- [ ] Replace existing navigation with modern tabs:
+  ```jsx
+  <div className="flex gap-2 mb-6 p-1 bg-gray-100 rounded-xl">
+    <button className="flex-1 py-3 px-4 rounded-lg bg-white shadow-sm font-semibold">
+      Active (2)
+    </button>
+    <button className="flex-1 py-3 px-4 rounded-lg text-gray-600">
+      Upcoming (5)
+    </button>
+    <button className="flex-1 py-3 px-4 rounded-lg text-gray-600">
+      Completed (5)
+    </button>
+  </div>
+  ```
+**Time:** 45 minutes
+
+### 3. Assignment Cards - Premium Redesign
+- [ ] Create new assignment card component:
+  ```jsx
+  <div className="bg-white rounded-2xl shadow-lg p-5 mb-4 border border-gray-100">
+    {/* Status Badge */}
+    <div className="flex justify-between items-start mb-4">
+      <span className="px-3 py-1 bg-green-100 text-green-700 rounded-full text-sm font-semibold">
+        Active Protection
+      </span>
+      <span className="text-gray-500 text-sm">2 hours ago</span>
+    </div>
+
+    {/* Main Content */}
+    <div className="space-y-3">
+      <h3 className="font-bold text-xl text-gray-900">Executive Protection - City Meeting</h3>
+
+      {/* Officer Info */}
+      <div className="flex items-center gap-3 p-3 bg-gray-50 rounded-lg">
+        <div className="w-12 h-12 bg-navy-600 rounded-full flex items-center justify-center">
+          <span className="text-white font-bold">JD</span>
+        </div>
+        <div>
+          <p className="font-semibold">John Davis</p>
+          <p className="text-sm text-gray-600">SIA License: 1234-5678</p>
+        </div>
+        <div className="ml-auto">
+          <div className="flex text-yellow-500">⭐⭐⭐⭐⭐</div>
+        </div>
+      </div>
+
+      {/* Journey Details */}
+      <div className="space-y-2">
+        <div className="flex items-start gap-3">
+          <div className="w-2 h-2 bg-green-500 rounded-full mt-2"></div>
+          <div className="flex-1">
+            <p className="font-medium">Pickup: Home</p>
+            <p className="text-sm text-gray-600">14:30 - On Time</p>
+          </div>
+        </div>
+        <div className="border-l-2 border-gray-200 ml-1 h-4"></div>
+        <div className="flex items-start gap-3">
+          <div className="w-2 h-2 bg-red-500 rounded-full mt-2"></div>
+          <div className="flex-1">
+            <p className="font-medium">Destination: Canary Wharf</p>
+            <p className="text-sm text-gray-600">15:15 - In Progress</p>
+          </div>
+        </div>
+      </div>
+
+      {/* Service & Cost */}
+      <div className="flex justify-between items-center pt-3 border-t">
+        <div>
+          <p className="text-sm text-gray-600">Service Level</p>
+          <p className="font-semibold">Executive Shield</p>
+        </div>
+        <div className="text-right">
+          <p className="text-sm text-gray-600">Total Cost</p>
+          <p className="font-bold text-xl">£125.00</p>
+        </div>
+      </div>
+
+      {/* Actions */}
+      <div className="flex gap-2 pt-3">
+        <button className="flex-1 py-2 bg-navy-600 text-white rounded-lg font-semibold">
+          Track Live
+        </button>
+        <button className="flex-1 py-2 border-2 border-gray-300 rounded-lg font-semibold">
+          Contact Officer
+        </button>
+      </div>
+    </div>
+  </div>
+  ```
+**Time:** 2 hours
+
+### 4. Empty State Design
+- [ ] Create beautiful empty state for no assignments:
+  ```jsx
+  <div className="text-center py-12">
+    <div className="w-24 h-24 bg-gray-100 rounded-full mx-auto mb-4 flex items-center justify-center">
+      <Shield className="w-12 h-12 text-gray-400" />
+    </div>
+    <h3 className="font-bold text-xl mb-2">No Active Assignments</h3>
+    <p className="text-gray-600 mb-6">Your protection history will appear here</p>
+    <button className="px-6 py-3 bg-yellow-500 text-navy-900 rounded-lg font-bold">
+      Book Protection Now
+    </button>
+  </div>
+  ```
+**Time:** 30 minutes
+
+### 5. Quick Actions Bar
+- [ ] Add floating action bar at bottom (above navigation):
+  ```jsx
+  <div className="fixed bottom-20 left-4 right-4 bg-white rounded-2xl shadow-xl p-4 border">
+    <div className="flex gap-2">
+      <button className="flex-1 py-3 bg-green-500 text-white rounded-lg font-bold">
+        Book Again
+      </button>
+      <button className="p-3 bg-gray-100 rounded-lg">
+        <Calendar className="w-6 h-6" />
+      </button>
+      <button className="p-3 bg-gray-100 rounded-lg">
+        <Download className="w-6 h-6" />
+      </button>
+    </div>
+  </div>
+  ```
+**Time:** 45 minutes
+
+### 6. Add Smooth Animations
+- [ ] Add Framer Motion or CSS transitions:
+  ```css
+  /* Card hover effects */
+  .assignment-card {
+    transition: all 0.3s ease;
+  }
+  .assignment-card:hover {
+    transform: translateY(-2px);
+    shadow: 0 8px 24px rgba(0,0,0,0.12);
+  }
+
+  /* Tab transitions */
+  .tab-active {
+    animation: slideIn 0.3s ease;
+  }
+
+  /* Fade in on load */
+  .fade-in {
+    animation: fadeIn 0.5s ease;
+  }
+  ```
+**Time:** 30 minutes
+
+### 7. Status Indicators
+- [ ] Add visual status system:
+  - Active: Pulsing green dot
+  - Upcoming: Static blue dot
+  - Completed: Checkmark icon
+  - Cancelled: Crossed out gray
+**Time:** 30 minutes
+
+### 8. Mobile Responsiveness Check
+- [ ] Ensure all cards look good on 375px width
+- [ ] Test swipe gestures for tabs (optional)
+- [ ] Verify touch targets are 48x48px minimum
+- [ ] Check scroll performance
+**Time:** 30 minutes
+
+---
+
+## 🧪 TESTING CHECKLIST
+- [ ] No more React performance errors
+- [ ] All text is readable at arm's length
+- [ ] Assignments page feels premium
+- [ ] Cards have proper shadows and spacing
+- [ ] Animations are smooth (60fps)
+- [ ] Works on iPhone and Android
+
+---
+
+## SUMMARY
+**Part 1:** Bug fix (1 hour)
+**Part 2:** Global polish for all pages (2 hours)
+**Part 3:** Complete Assignments page redesign (6 hours)
+**Total Time:** 9 hours
+
+## FILES TO MODIFY
+1. `src/components/AssignmentsView.tsx` - Complete rewrite
+2. `index.css` - Global styles
+3. `tailwind.config.js` - Spacing and shadow utilities
+4. All components - Minor padding/font adjustments
+
+## SUCCESS METRICS
+- Fonts are 20% larger everywhere
+- All cards have shadows
+- More padding throughout
+- Assignments page looks like a £75/hour service
+- No performance issues
+
+---
+
+## 📋 PREVIOUS MILESTONES ACHIEVED
 
 ## 🎉 MASSIVE BREAKTHROUGH COMPLETED (September 13, 2025)
 
@@ -250,5 +533,5 @@ The Armora Security Transport service is now **business-model aligned** with:
 
 ---
 
-*Last updated: 2025-09-19T03:56:20.672Z
+*Last updated: 2025-09-19T15:26:32.622Z
 *Status: BUSINESS MODEL ALIGNED 🛡️ + BOOKING FLOW PRODUCTION READY 🚗*

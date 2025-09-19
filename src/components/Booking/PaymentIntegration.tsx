@@ -62,7 +62,7 @@ export function PaymentIntegration({
 
   // Calculate cost with both rewards and credits
   let baseCost = hasReward ? Math.round(estimatedCost * 0.5) : estimatedCost;
-  const maxCreditsAllowed = Math.floor(baseCost * 0.5); // Maximum 50% of ride can be paid with credits
+  const maxCreditsAllowed = Math.floor(baseCost * 0.5); // Maximum 50% of protection service can be paid with credits
   const actualCreditsToApply = applyCredits ? Math.min(creditsToApply, maxCreditsAllowed, userCredits) : 0;
   const finalCost = Math.max(baseCost - actualCreditsToApply, 0);
 

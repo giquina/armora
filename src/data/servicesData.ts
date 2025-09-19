@@ -4,10 +4,10 @@ export const SERVICES_DATA: ServiceData[] = [
   {
     id: 'standard',
     icon: '🛡️',
-    name: 'Standard Protection',
+    name: 'Essential Protection',
     tagline: 'Close Protection Officers for everyday safety',
     vehicle: 'Nissan Leaf EV (Eco-friendly, discrete)',
-    price: 'From £45.00/hour',
+    price: 'From £50/hour',
     rating: '⭐⭐⭐⭐⭐ 4.8',
     totalRides: '(2,847 services)',
     collapsedFeatures: [
@@ -97,7 +97,7 @@ export const SERVICES_DATA: ServiceData[] = [
     name: 'Executive Shield',
     tagline: 'Executive Protection Specialists for business leaders',
     vehicle: 'BMW 5 Series',
-    price: 'From £95.00/hour',
+    price: 'From £95/hour',
     rating: '⭐⭐⭐⭐⭐ 4.9',
     totalRides: '(1,653 services)',
     collapsedFeatures: [
@@ -187,7 +187,7 @@ export const SERVICES_DATA: ServiceData[] = [
     name: 'Shadow Protocol',
     tagline: 'Elite Close Protection with complete discretion',
     vehicle: 'Unmarked vehicles (changes regularly)',
-    price: 'From £125.00/hour',
+    price: 'From £125/hour',
     rating: '⭐⭐⭐⭐⭐ 5.0',
     totalRides: '(892 services)',
     collapsedFeatures: [
@@ -277,7 +277,7 @@ export const SERVICES_DATA: ServiceData[] = [
     name: 'Luxury Elite',
     tagline: 'VIP Protection Specialists with luxury vehicles',
     vehicle: 'Bentley/Rolls Royce/S-Class Mercedes',
-    price: 'From £200.00/hour',
+    price: 'From £200/hour',
     rating: '⭐⭐⭐⭐⭐ 5.0',
     totalRides: '(456 services)',
     collapsedFeatures: [
@@ -367,7 +367,7 @@ export const SERVICES_DATA: ServiceData[] = [
     name: 'Personal Vehicle Service',
     tagline: 'Personal Security Drivers for your vehicle',
     vehicle: 'Your own vehicle (any make/model)',
-    price: 'From £55.00/hour',
+    price: 'From £55/hour',
     rating: '⭐⭐⭐⭐⭐ 4.7',
     totalRides: '(1,234 services)',
     collapsedFeatures: [

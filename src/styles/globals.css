@@ -181,6 +181,49 @@ button:disabled {
   }
 }
 
+/* GLOBAL TYPOGRAPHY IMPROVEMENTS */
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 600; /* All headings get semibold weight */
+  line-height: var(--line-tight);
+}
+
+/* GLOBAL SPACING AND PADDING IMPROVEMENTS */
+.card, [class*="card"] {
+  padding: 20px !important; /* Up from 12-16px */
+  margin-bottom: var(--space-md);
+}
+
+.section {
+  margin-bottom: 32px !important; /* Up from 20px */
+}
+
+/* GLOBAL SHADOW IMPROVEMENTS */
+.card, [class*="card"] {
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08) !important;
+  border-radius: var(--radius-lg);
+}
+
+button {
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  transition: all 0.2s ease;
+  padding: 12px 24px; /* Increased button padding */
+}
+
+button:hover {
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  opacity: 0.9;
+}
+
+/* NAVIGATION SHADOW */
+nav, [class*="nav"], .app-header {
+  box-shadow: 0 8px 24px rgba(0,0,0,0.12) !important;
+}
+
+/* LIST IMPROVEMENTS */
+li {
+  margin-bottom: 8px;
+}
+
 /* UTILITY CLASSES */
 .container {
   width: 100%;
@@ -285,25 +328,82 @@ img, video, iframe {
   max-width: 100%;
 }
 
-/* MOBILE-FIRST RESPONSIVE DESIGN */
-@media (max-width: 320px) {
-  .container {
-    padding: 0 var(--space-sm);
-  }
-  
-  html {
-    font-size: 14px;
-  }
+/* IMPROVED TEXT CONTRAST GLOBALLY */
+body {
+  color: #ffffff; /* Pure white for better contrast */
 }
 
+/* Better contrast for all text elements */
+p, span, div, label {
+  color: inherit;
+}
+
+/* Secondary text with better contrast */
+.text-secondary {
+  color: #94a3b8 !important;
+}
+
+/* Ensure good contrast on light backgrounds */
+.card, [class*="card"] {
+  color: var(--text-light-bg);
+}
+
+/* DESKTOP OPTIMIZATIONS */
 @media (min-width: 768px) {
   .container {
     padding: 0 var(--space-lg);
+    max-width: 1200px;
+  }
+
+  /* Larger typography for desktop */
+  h1 {
+    font-size: 3rem;
+  }
+
+  h2 {
+    font-size: 2rem;
+  }
+
+  h3 {
+    font-size: 1.5rem;
+  }
+
+  /* Better button sizing for desktop */
+  button {
+    padding: 14px 28px;
+    font-size: var(--font-lg);
   }
 }
 
 @media (min-width: 1024px) {
   .container {
     padding: 0 var(--space-xl);
+  }
+
+  /* Even larger headings for large screens */
+  h1 {
+    font-size: 3.5rem;
+    letter-spacing: -0.025em;
+  }
+
+  h2 {
+    font-size: 2.25rem;
+  }
+
+  /* Enhanced button styling for desktop */
+  button {
+    padding: 16px 32px;
+    font-size: var(--font-xl);
+  }
+}
+
+/* MOBILE-FIRST RESPONSIVE DESIGN */
+@media (max-width: 320px) {
+  .container {
+    padding: 0 var(--space-sm);
+  }
+
+  html {
+    font-size: 14px;
   }
 }

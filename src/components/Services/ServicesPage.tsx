@@ -1,7 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo, useCallback } from 'react';
 import { useApp } from '../../contexts/AppContext';
 import { WeddingEventSecurity } from '../WeddingEventSecurity';
 import { ServiceCard } from './ServiceCard';
+import { ServiceComparisonTable } from './ServiceComparisonTable';
+import { ServicePricingCalculator } from './ServicePricingCalculator';
+import { QuickToolsBar } from './QuickToolsBar';
+import { LiveServiceAvailability } from './LiveServiceAvailability';
+import { TrustBadges } from './TrustBadges';
 import { SERVICES_DATA, getRecommendedService } from '../../data/servicesData';
 import styles from './ServicesPage.module.css';
 
@@ -9,18 +14,41 @@ export function ServicesPage() {
   const { state, navigateToView } = useApp();
   const { questionnaireData, deviceCapabilities } = state;
   const [expandedService, setExpandedService] = useState<string | null>(null);
+  const [showComparison, setShowComparison] = useState(false);
+  const [showCalculator, setShowCalculator] = useState(false);
+  const [showChat, setShowChat] = useState(false);
 
-  const handleBooking = (serviceId: string) => {
+  // Memoize expensive calculations
+  const recommendedService = useMemo(() => {
+    return getRecommendedService(questionnaireData);
+  }, [questionnaireData]);
+
+  const handleBooking = useCallback((serviceId: string) => {
     localStorage.setItem('armora_selected_service', serviceId);
     navigateToView('booking');
-  };
+  }, [navigateToView]);
 
-  const handleServiceExpand = (serviceId: string) => {
+  const handleServiceExpand = useCallback((serviceId: string) => {
     // Only one service can be expanded at a time
-    setExpandedService(expandedService === serviceId ? null : serviceId);
-  };
+    setExpandedService(current => current === serviceId ? null : serviceId);
+  }, []);
 
-  const recommendedService = getRecommendedService(questionnaireData);
+  const handleShowComparison = useCallback(() => {
+    setShowComparison(true);
+    setShowCalculator(false);
+  }, []);
+
+  const handleShowCalculator = useCallback(() => {
+    setShowCalculator(true);
+    setShowComparison(false);
+  }, []);
+
+
+  const handleShowChat = useCallback(() => {
+    setShowChat(true);
+    // You can implement a chat modal here
+    console.log('Opening live chat...');
+  }, []);
 
   return (
     <div className={styles.servicesContainer}>
@@ -53,18 +81,38 @@ export function ServicesPage() {
         </div>
       </div>
 
-      {/* Services Grid - All 5 Services */}
+      {/* Quick Tools Bar */}
+      <QuickToolsBar
+        onShowComparison={handleShowComparison}
+        onShowCalculator={handleShowCalculator}
+        onShowChat={handleShowChat}
+      />
+
+      {/* Interactive Components */}
+      {showComparison && <ServiceComparisonTable />}
+      {showCalculator && <ServicePricingCalculator />}
+
+      {/* Services Grid - All 5 Services with Enhanced Features */}
       <div className={styles.servicesGrid}>
         {SERVICES_DATA.map((service) => (
-          <ServiceCard
-            key={service.id}
-            service={service}
-            isRecommended={recommendedService === service.id}
-            onExpand={handleServiceExpand}
-            onBook={handleBooking}
-            autoCollapse={true}
-            expandedService={expandedService}
-          />
+          <div key={service.id} className={styles.serviceCardWrapper}>
+            <ServiceCard
+              service={service}
+              isRecommended={recommendedService === service.id}
+              onExpand={handleServiceExpand}
+              onBook={handleBooking}
+              autoCollapse={true}
+              expandedService={expandedService}
+            />
+
+            {/* Live Availability for each service */}
+            <LiveServiceAvailability serviceId={service.id} />
+
+            {/* Trust Badges for expanded service */}
+            {expandedService === service.id && (
+              <TrustBadges serviceLevel={service.id} compact={false} />
+            )}
+          </div>
         ))}
       </div>
 

@@ -1,0 +1,319 @@
+/* Live Service Availability Widget */
+.availability {
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  padding: var(--space-md);
+  margin: var(--space-md) 0;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+}
+
+.availability:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transform: translateY(-1px);
+}
+
+/* Header */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--space-md);
+}
+
+.liveIndicator {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+}
+
+.liveDot {
+  width: 8px;
+  height: 8px;
+  background: #22c55e;
+  border-radius: 50%;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.5;
+    transform: scale(1.1);
+  }
+}
+
+.liveText {
+  font-size: var(--font-xs);
+  font-weight: 700;
+  color: #22c55e;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.surge {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  padding: var(--space-xs) var(--space-sm);
+  background: linear-gradient(135deg, #f59e0b, #d97706);
+  color: white;
+  border-radius: 12px;
+  font-size: var(--font-xs);
+  font-weight: 600;
+  animation: glow 2s ease-in-out infinite alternate;
+}
+
+@keyframes glow {
+  from {
+    box-shadow: 0 0 5px rgba(245, 158, 11, 0.5);
+  }
+  to {
+    box-shadow: 0 0 15px rgba(245, 158, 11, 0.8);
+  }
+}
+
+.surgeIcon {
+  font-size: var(--font-sm);
+}
+
+/* Availability Bar */
+.availabilityBar {
+  position: relative;
+  width: 100%;
+  height: 6px;
+  background: #f3f4f6;
+  border-radius: 3px;
+  overflow: hidden;
+  margin-bottom: var(--space-sm);
+}
+
+.availableBar {
+  height: 100%;
+  border-radius: 3px;
+  transition: all 0.5s ease;
+  position: relative;
+}
+
+.availableBar::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+  animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+.unavailableBar {
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 100%;
+  background: #e5e7eb;
+  border-radius: 3px;
+}
+
+/* Availability Info */
+.availabilityInfo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--space-sm);
+}
+
+.availabilityText {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.availableCount {
+  font-size: var(--font-base);
+  font-weight: 700;
+  color: var(--armora-dark);
+}
+
+.availableLabel {
+  font-size: var(--font-xs);
+  color: var(--text-secondary);
+}
+
+.demandStatus {
+  font-size: var(--font-sm);
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+}
+
+/* Response Info */
+.responseInfo {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-md);
+  padding: var(--space-sm);
+  background: rgba(0, 0, 0, 0.02);
+  border-radius: 8px;
+}
+
+.responseTime,
+.nextAvailable {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.responseLabel,
+.nextLabel {
+  font-size: var(--font-xs);
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.responseValue,
+.nextValue {
+  font-size: var(--font-sm);
+  font-weight: 600;
+  color: var(--armora-dark);
+}
+
+/* Quick Actions */
+.quickActions {
+  display: flex;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-sm);
+}
+
+.bookNowButton {
+  flex: 2;
+  padding: var(--space-sm) var(--space-md);
+  background: #22c55e;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: var(--font-sm);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-xs);
+}
+
+.bookNowButton:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(34, 197, 94, 0.3);
+}
+
+.waitlistButton {
+  flex: 2;
+  padding: var(--space-sm) var(--space-md);
+  background: #6b7280;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: var(--font-sm);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-xs);
+}
+
+.waitlistButton:hover {
+  background: #4b5563;
+  transform: translateY(-1px);
+}
+
+.notifyButton {
+  flex: 1;
+  padding: var(--space-sm);
+  background: rgba(255, 255, 255, 0.8);
+  color: var(--armora-dark);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  font-size: var(--font-xs);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.notifyButton:hover {
+  border-color: var(--armora-gold);
+  background: rgba(255, 215, 0, 0.1);
+}
+
+/* Last Updated */
+.lastUpdated {
+  text-align: center;
+  font-size: var(--font-xs);
+  color: var(--text-tertiary);
+  font-style: italic;
+}
+
+/* Mobile Optimizations */
+@media (max-width: 768px) {
+  .availability {
+    padding: var(--space-sm);
+  }
+
+  .responseInfo {
+    grid-template-columns: 1fr;
+    gap: var(--space-xs);
+  }
+
+  .quickActions {
+    flex-direction: column;
+  }
+
+  .bookNowButton,
+  .waitlistButton,
+  .notifyButton {
+    flex: 1;
+  }
+
+  .availabilityInfo {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-xs);
+  }
+}
+
+@media (max-width: 480px) {
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-xs);
+  }
+
+  .surge {
+    align-self: flex-end;
+  }
+
+  .responseInfo {
+    padding: var(--space-xs);
+  }
+
+  .quickActions {
+    gap: var(--space-xs);
+  }
+}

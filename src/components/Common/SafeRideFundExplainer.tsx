@@ -110,14 +110,14 @@ export function SafeRideFundExplainer({
             <div className={styles.breakdownDesc}>Your Benefits & Service</div>
           </div>
           <div className={`${styles.breakdownRow} ${styles.impactRow}`}>
-            <div className={styles.breakdownLabel}>£3.00</div>
+            <div className={styles.breakdownLabel}>£3</div>
             <div className={styles.breakdownBar}>
               <div className={`${styles.breakdownFill} ${styles.impactFill}`} style={{ width: '20%' }}></div>
             </div>
             <div className={styles.breakdownDesc}>Safety Charities</div>
           </div>
           <div className={`${styles.breakdownRow} ${styles.impactRow}`}>
-            <div className={styles.breakdownLabel}>£1.00</div>
+            <div className={styles.breakdownLabel}>£1</div>
             <div className={styles.breakdownBar}>
               <div className={`${styles.breakdownFill} ${styles.impactFill}`} style={{ width: '7%' }}></div>
             </div>
@@ -179,11 +179,11 @@ export function SafeRideFundExplainer({
             <h4 className={styles.allocationTitle}>£4 from your £14.99 subscription goes to:</h4>
             <div className={styles.allocationList}>
               <div className={styles.allocationItem}>
-                <div className={styles.allocationAmount}>£3.00</div>
+                <div className={styles.allocationAmount}>£3</div>
                 <div className={styles.allocationDesc}>Partner safety charities</div>
               </div>
               <div className={styles.allocationItem}>
-                <div className={styles.allocationAmount}>£1.00</div>
+                <div className={styles.allocationAmount}>£1</div>
                 <div className={styles.allocationDesc}>Safe transport assistance for vulnerable communities</div>
               </div>
             </div>

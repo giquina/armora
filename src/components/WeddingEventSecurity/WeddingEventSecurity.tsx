@@ -177,7 +177,7 @@ const weddingPackages: WeddingPackage[] = [
     brandName: 'Fortress Protocol',
     icon: '🏰',
     price: '£1,500',
-    pricePerGuest: '£5.00 per guest',
+    pricePerGuest: '£5 per guest',
     duration: 'Full day',
     officers: 5,
     coverageLevel: 5,

@@ -1,1321 +1,847 @@
-/* ARMORA BOOKINGS VIEW - SMART DYNAMIC DESIGN */
+/* ARMORA ASSIGNMENTS VIEW - PREMIUM DESIGN */
 
 .assignmentsView {
   min-height: 100vh;
-  background: var(--bg-primary);
-  padding: 0;
-  padding-bottom: calc(80px + var(--space-xl));
-  margin: 0;
-  width: 100%;
-  max-width: 100vw;
-  overflow-x: hidden;
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+  padding: 0 16px 100px 16px; /* Bottom padding for quick actions bar */
+  color: var(--text-primary);
 }
 
-/* ========================================
-   HEADER SECTION
-======================================== */
-.header {
-  padding: var(--space-lg) var(--space-md);
-  text-align: center;
-  background: var(--bg-primary);
-  position: sticky;
-  top: 0;
-  z-index: 100;
+/* PREMIUM PAGE HEADER */
+.pageHeader {
+  background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+  padding: 24px;
+  border-radius: 20px;
+  margin-bottom: 24px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
   backdrop-filter: blur(10px);
-  border-bottom: 1px solid rgba(255, 215, 0, 0.1);
+  border: 1px solid rgba(255, 215, 0, 0.1);
 }
 
 .pageTitle {
-  font-size: var(--font-xl);
+  font-size: var(--font-xxl);
   font-weight: 700;
-  color: var(--text-primary);
-  margin: 0 0 var(--space-sm) 0;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-}
-
-.titleUnderline {
-  width: 80px;
-  height: 3px;
-  background: linear-gradient(90deg, var(--accent-primary), #FFA500, var(--accent-primary));
-  margin: 0 auto;
-  border-radius: 2px;
-}
-
-/* ========================================
-   TAB NAVIGATION
-======================================== */
-.tabNavigation {
-  display: flex;
-  justify-content: center;
-  gap: var(--space-sm);
-  padding: 0 var(--space-md) var(--space-lg);
-  background: var(--bg-primary);
-  position: sticky;
-  top: 120px;
-  z-index: 90;
-  backdrop-filter: blur(10px);
-}
-
-.tabButton {
-  display: flex;
-  align-items: center;
-  gap: var(--space-xs);
-  padding: var(--space-sm) var(--space-md);
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 215, 0, 0.2);
-  border-radius: var(--radius-md);
-  color: var(--text-secondary);
-  font-size: var(--font-sm);
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  font-family: inherit;
-  min-height: var(--touch-target);
-}
-
-.tabButton:hover {
-  background: rgba(255, 215, 0, 0.1);
-  border-color: var(--accent-primary);
-  color: var(--text-primary);
-}
-
-.tabButton.activeTab {
-  background: linear-gradient(135deg, rgba(255, 215, 0, 0.2), rgba(255, 215, 0, 0.1));
-  border-color: var(--accent-primary);
-  color: var(--accent-primary);
-  font-weight: 600;
-}
-
-.tabIcon {
-  font-size: 1rem;
-}
-
-.tabLabel {
-  font-weight: inherit;
-}
-
-.tabCount {
-  opacity: 0.8;
-  font-size: 0.85em;
-}
-
-/* ========================================
-   CONTENT SECTIONS
-======================================== */
-.contentSection {
-  max-width: var(--content-max-width);
-  margin: 0 auto;
-  padding: 0 var(--space-md) var(--space-xl);
-}
-
-.sectionHeader {
-  margin-bottom: var(--space-xl);
-  text-align: center;
-}
-
-.sectionTitle {
-  font-size: var(--font-lg);
-  font-weight: 600;
-  color: var(--text-primary);
-  margin: 0 0 var(--space-sm) 0;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-}
-
-.sectionSubtitle {
-  font-size: var(--font-base);
-  font-weight: 600;
-  color: var(--accent-primary);
-  margin: 0 0 var(--space-md) 0;
-}
-
-.sectionUnderline {
-  width: 60px;
-  height: 2px;
-  background: linear-gradient(90deg, var(--accent-primary), #FFA500);
-  margin: 0 auto;
-  border-radius: 1px;
-}
-
-.sectionFooter {
-  text-align: center;
-  margin-top: var(--space-xl);
-}
-
-/* ========================================
-   STATE 1: NEW USER EMPTY STATE
-======================================== */
-.emptyState {
-  text-align: center;
-  padding: var(--space-xxl) var(--space-lg);
-}
-
-.emptyStateTitle {
-  font-size: var(--font-lg);
-  font-weight: 600;
-  color: var(--text-primary);
-  margin: 0 0 var(--space-xl) 0;
-}
-
-.popularAssignments {
-  margin-bottom: var(--space-xxl);
-}
-
-.suggestionsList {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-md);
-  margin-bottom: var(--space-xl);
-}
-
-.suggestionItem {
-  display: flex;
-  align-items: center;
-  gap: var(--space-md);
-  padding: var(--space-md);
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 215, 0, 0.2);
-  border-radius: var(--radius-md);
-  transition: all 0.3s ease;
-}
-
-.suggestionItem:hover {
-  background: rgba(255, 215, 0, 0.05);
-  border-color: var(--accent-primary);
-}
-
-.suggestionIcon {
-  font-size: 1.5rem;
-  min-width: 40px;
-  text-align: center;
-}
-
-.suggestionContent {
-  flex: 1;
-  text-align: left;
-}
-
-.suggestionTitle {
-  display: block;
-  font-weight: 600;
-  color: var(--text-primary);
-  margin-bottom: 2px;
-}
-
-.suggestionDesc {
-  display: block;
-  font-size: var(--font-sm);
-  color: var(--text-secondary);
-}
-
-.actionButtons {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-md);
-  margin-bottom: var(--space-xxl);
-  align-items: center;
-}
-
-.primaryCTA {
-  background: linear-gradient(45deg, var(--accent-primary), #FFA500);
-  color: var(--armora-dark);
-  border: none;
-  padding: var(--space-md) var(--space-xl);
-  border-radius: var(--radius-md);
-  font-size: var(--font-base);
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  min-height: var(--touch-target);
-  box-shadow: 0 4px 16px rgba(255, 215, 0, 0.3);
-  font-family: inherit;
-}
-
-.primaryCTA:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(255, 215, 0, 0.4);
-}
-
-.secondaryCTA {
-  background: transparent;
-  color: var(--accent-primary);
-  border: 2px solid var(--accent-primary);
-  padding: var(--space-sm) var(--space-lg);
-  border-radius: var(--radius-md);
-  font-size: var(--font-sm);
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  min-height: var(--touch-target);
-  font-family: inherit;
-}
-
-.secondaryCTA:hover {
-  background: rgba(255, 215, 0, 0.1);
-}
-
-.trustSignals {
-  margin-top: var(--space-xl);
-}
-
-.trustTitle {
-  font-size: var(--font-base);
-  font-weight: 600;
-  color: var(--text-primary);
-  margin: 0 0 var(--space-md) 0;
-}
-
-.trustItems {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-sm);
-}
-
-.trustItem {
-  display: flex;
-  align-items: center;
-  gap: var(--space-sm);
-  font-size: var(--font-sm);
-  color: var(--text-secondary);
-}
-
-.trustIcon {
-  color: #10B981;
-  font-weight: bold;
-  min-width: 20px;
-}
-
-/* ========================================
-   STATE 2: LIVE RIDE CARD
-======================================== */
-.liveRideCard {
-  background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(34, 197, 94, 0.05));
-  border: 2px solid #10B981;
-  border-radius: var(--radius-lg);
-  padding: var(--space-xl);
-  margin-bottom: var(--space-xl);
-  position: relative;
-  overflow: hidden;
-  animation: livePulse 2s infinite;
-}
-
-/* Status header with progress */
-.statusHeader {
-  background: rgba(16, 185, 129, 0.1);
-  border-radius: 8px;
-  padding: 12px;
-  margin-bottom: 16px;
-}
-
-.statusProgress {
-  display: flex;
-  align-items: center;
-  gap: var(--space-sm);
-  margin-bottom: 8px;
-}
-
-.statusDot {
-  width: 8px;
-  height: 8px;
-  background: #10B981;
-  border-radius: 50%;
-  display: inline-block;
-  animation: pulse 2s infinite;
-}
-
-@keyframes pulse {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.5; }
-}
-
-.assignmentId {
-  color: var(--text-secondary);
-  font-family: monospace;
-  font-size: var(--font-sm);
-}
-
-.progressSteps {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 8px;
-  font-size: 12px;
-}
-
-.progressSteps span {
-  opacity: 0.5;
-  color: var(--text-secondary);
-}
-
-.progressSteps .completed {
-  opacity: 1;
-  color: #10B981;
-}
-
-.progressSteps .active {
-  opacity: 1;
-  color: #FFD700;
-  font-weight: 600;
-}
-
-.progressSteps .pending {
-  opacity: 0.5;
-  color: var(--text-secondary);
-}
-
-/* Map container with overlay */
-.mapContainer {
-  position: relative;
-  margin-bottom: var(--space-lg);
-}
-
-.mapOverlay {
-  position: absolute;
-  top: 16px;
-  right: 16px;
-  z-index: 10;
-}
-
-.etaCard {
-  background: rgba(16, 185, 129, 0.9);
   color: white;
-  padding: 12px;
-  border-radius: 8px;
-  text-align: center;
-  backdrop-filter: blur(10px);
+  margin: 0 0 8px 0;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
-.etaCard h3 {
-  margin: 0 0 4px 0;
+.pageSubtitle {
   font-size: var(--font-lg);
-  font-weight: bold;
+  color: #94a3b8;
+  margin: 0 0 20px 0;
+  line-height: var(--line-base);
 }
 
-.etaCard p {
-  margin: 0;
-  font-size: var(--font-sm);
-  opacity: 0.9;
-}
-
-/* Officer card compact */
-.officerCard {
-  background: rgba(255, 255, 255, 0.02);
-  border-radius: 8px;
-  padding: 16px;
-  margin: 16px 0;
-}
-
-.officerName {
-  font-weight: 600;
-  color: var(--text-primary);
-  font-size: var(--font-base);
-  margin-bottom: 8px;
-}
-
-.vehicleInfo {
-  font-size: var(--font-sm);
-  color: var(--text-secondary);
-  margin-bottom: 8px;
-}
-
-.arrivalTime {
-  color: #10B981;
-  font-weight: 600;
-  margin-top: 8px;
-}
-
-/* Timeline visualization */
-.operationTimeline {
-  margin: 20px 0;
-  position: relative;
-}
-
-.timelineBar {
-  height: 4px;
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 2px;
-  margin: 20px 0;
-  position: relative;
-}
-
-.timelineProgress {
-  height: 100%;
-  background: linear-gradient(90deg, #10B981, #FFD700);
-  border-radius: 2px;
-  transition: width 1s ease;
-}
-
-.timelinePoints {
+.statsBar {
   display: flex;
-  justify-content: space-between;
-  position: relative;
-}
-
-.startPoint,
-.endPoint {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 4px;
-}
-
-.startPoint .dot,
-.endPoint .dot {
-  color: #10B981;
-  font-size: 12px;
-}
-
-.location {
-  font-size: var(--font-sm);
-  color: var(--text-primary);
-  font-weight: 600;
-  text-align: center;
-}
-
-.time {
-  font-size: var(--font-xs);
-  color: var(--text-secondary);
-}
-
-/* Button hierarchy */
-.actionButtons {
-  margin-top: var(--space-lg);
-}
-
-.primaryAction {
-  width: 100%;
-  padding: 16px;
-  background: #10B981;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  font-size: 16px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: var(--space-sm);
-  font-family: inherit;
-}
-
-.primaryAction:hover {
-  background: #059669;
-  transform: translateY(-1px);
-}
-
-.secondaryActions {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 12px;
-  margin-top: 12px;
-}
-
-.secondaryButton {
-  padding: 12px;
-  background: rgba(255, 215, 0, 0.9);
-  color: var(--armora-dark);
-  border: none;
-  border-radius: 8px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: var(--space-xs);
-  font-family: inherit;
-}
-
-.emergencyButton {
-  padding: 12px;
-  background: rgba(239, 68, 68, 0.9);
-  color: white;
-  border: none;
-  border-radius: 8px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: var(--space-xs);
-  font-family: inherit;
-}
-
-.secondaryButton:hover,
-.emergencyButton:hover {
-  transform: translateY(-1px);
-}
-
-.shareLink {
-  background: none;
-  border: none;
-  color: rgba(255, 255, 255, 0.6);
-  margin-top: 12px;
-  text-align: center;
-  width: 100%;
-  padding: 8px;
-  cursor: pointer;
-  transition: color 0.3s ease;
-  font-family: inherit;
-}
-
-.shareLink:hover {
-  color: var(--accent-primary);
-}
-
-.icon {
-  font-size: 1rem;
-}
-
-@keyframes livePulse {
-  0%, 100% {
-    box-shadow: 0 0 20px rgba(16, 185, 129, 0.3);
-  }
-  50% {
-    box-shadow: 0 0 30px rgba(16, 185, 129, 0.5);
-  }
-}
-
-.mapPlaceholder {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 200px;
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 215, 0, 0.2);
-  border-radius: var(--radius-md);
-  gap: var(--space-sm);
-}
-
-.mapIcon {
-  font-size: 2rem;
-  opacity: 0.6;
-}
-
-.mapText {
-  font-size: var(--font-sm);
-  color: var(--text-secondary);
-  opacity: 0.8;
-}
-
-
-/* ========================================
-   QUICK ACTIONS SECTION
-======================================== */
-.quickActionsSection {
-  margin-bottom: var(--space-xl);
-}
-
-.quickActionsList {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--space-sm);
-  justify-content: center;
-}
-
-.quickActionButton {
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 215, 0, 0.3);
-  border-radius: var(--radius-md);
-  padding: var(--space-sm) var(--space-md);
-  font-size: var(--font-sm);
-  color: var(--text-secondary);
-  cursor: pointer;
-  transition: all 0.3s ease;
-  font-family: inherit;
-  min-height: var(--touch-target);
-}
-
-.quickActionButton:hover {
-  background: rgba(255, 215, 0, 0.1);
-  border-color: var(--accent-primary);
-  color: var(--accent-primary);
-}
-
-/* ========================================
-   UPCOMING BOOKINGS
-======================================== */
-.upcomingList {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-lg);
-  margin-bottom: var(--space-xl);
-}
-
-.upcomingCard {
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 215, 0, 0.2);
-  border-radius: var(--radius-lg);
-  padding: var(--space-lg);
-  transition: all 0.3s ease;
-}
-
-.upcomingCard:hover {
-  background: rgba(255, 215, 0, 0.05);
-  border-color: var(--accent-primary);
-}
-
-.upcomingHeader {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: var(--space-md);
-}
-
-.upcomingTime {
-  display: flex;
-  align-items: center;
-  gap: var(--space-xs);
-  font-weight: 600;
-  color: var(--accent-primary);
-}
-
-.timeIcon {
-  font-size: 1rem;
-}
-
-.upcomingStatus {
-  display: flex;
-  align-items: center;
-  gap: var(--space-xs);
-  font-size: var(--font-sm);
-  color: var(--text-secondary);
-}
-
-.statusDot {
-  width: 6px;
-  height: 6px;
-  background: var(--accent-primary);
-  border-radius: 50%;
-}
-
-.upcomingDetails {
-  margin-bottom: var(--space-md);
-}
-
-.upcomingService {
-  font-size: var(--font-base);
-  font-weight: 600;
-  color: var(--text-primary);
-  margin: 0 0 var(--space-xs) 0;
-}
-
-.upcomingRoute,
-.upcomingDriver,
-.upcomingPrice {
-  font-size: var(--font-sm);
-  color: var(--text-secondary);
-  margin-bottom: 4px;
-}
-
-.upcomingPrice {
-  font-weight: 600;
-  color: var(--accent-primary);
-}
-
-.upcomingActions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--space-xs);
-}
-
-.changeTimeButton,
-.upgradeButton,
-.addReturnButton,
-.cancelButton {
-  padding: var(--space-xs) var(--space-sm);
-  border-radius: var(--radius-sm);
-  font-size: var(--font-xs);
-  font-weight: 500;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  font-family: inherit;
-  border: 1px solid transparent;
-}
-
-.changeTimeButton,
-.upgradeButton,
-.addReturnButton {
-  background: rgba(255, 215, 0, 0.1);
-  color: var(--accent-primary);
-  border-color: var(--accent-primary);
-}
-
-.cancelButton {
-  background: rgba(239, 68, 68, 0.1);
-  color: #EF4444;
-  border-color: #EF4444;
-}
-
-.changeTimeButton:hover,
-.upgradeButton:hover,
-.addReturnButton:hover {
-  background: rgba(255, 215, 0, 0.2);
-}
-
-.cancelButton:hover {
-  background: rgba(239, 68, 68, 0.2);
-}
-
-.scheduleAnotherButton {
-  background: transparent;
-  color: var(--accent-primary);
-  border: 2px solid var(--accent-primary);
-  padding: var(--space-md) var(--space-xl);
-  border-radius: var(--radius-md);
-  font-size: var(--font-base);
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  font-family: inherit;
-}
-
-.scheduleAnotherButton:hover {
-  background: rgba(255, 215, 0, 0.1);
-}
-
-/* ========================================
-   FREQUENT ROUTES
-======================================== */
-.frequentRoutesSection {
-  margin-bottom: var(--space-xxl);
-}
-
-.frequentRouteCard {
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 215, 0, 0.2);
-  border-radius: var(--radius-lg);
-  padding: var(--space-lg);
-  margin-bottom: var(--space-md);
-  transition: all 0.3s ease;
-}
-
-.frequentRouteCard:hover {
-  background: rgba(255, 215, 0, 0.05);
-  border-color: var(--accent-primary);
-}
-
-.routeInfo {
-  margin-bottom: var(--space-md);
-}
-
-.routeName {
-  font-size: var(--font-base);
-  font-weight: 600;
-  color: var(--text-primary);
-  margin: 0 0 var(--space-xs) 0;
-}
-
-.routeStats {
-  font-size: var(--font-sm);
-  color: var(--text-secondary);
-}
-
-.routeActions {
-  display: flex;
-  gap: var(--space-sm);
-  flex-wrap: wrap;
-}
-
-.bookAgainButton,
-.setDailyButton {
-  padding: var(--space-sm) var(--space-md);
-  border-radius: var(--radius-md);
-  font-size: var(--font-sm);
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  font-family: inherit;
-  border: none;
-}
-
-.bookAgainButton {
-  background: linear-gradient(45deg, var(--accent-primary), #FFA500);
-  color: var(--armora-dark);
-}
-
-.setDailyButton {
-  background: transparent;
-  color: var(--accent-primary);
-  border: 1px solid var(--accent-primary);
-}
-
-.bookAgainButton:hover,
-.setDailyButton:hover {
-  transform: translateY(-1px);
-}
-
-.setDailyButton:hover {
-  background: rgba(255, 215, 0, 0.1);
-}
-
-/* ========================================
-   HISTORY SECTION
-======================================== */
-.historySection {
-  margin-bottom: var(--space-xxl);
-}
-
-.historyList {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-lg);
-  margin-bottom: var(--space-xl);
-}
-
-.historyCard {
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: var(--radius-lg);
-  padding: var(--space-lg);
-  transition: all 0.3s ease;
-}
-
-.historyCard:hover {
-  background: rgba(255, 255, 255, 0.05);
-  border-color: rgba(255, 215, 0, 0.2);
-}
-
-.historyHeader {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: var(--space-md);
-}
-
-.historyDate {
-  font-weight: 600;
-  color: var(--text-primary);
-  font-size: var(--font-sm);
-}
-
-.historyStatus {
-  display: flex;
-  align-items: center;
-  gap: var(--space-xs);
-  font-size: var(--font-sm);
-  color: var(--text-secondary);
-}
-
-.completedIcon {
-  color: #10B981;
-  font-weight: bold;
-}
-
-.historyDetails {
-  margin-bottom: var(--space-md);
-}
-
-.historyService {
-  font-size: var(--font-base);
-  font-weight: 600;
-  color: var(--text-primary);
-  margin: 0 0 var(--space-xs) 0;
-}
-
-.historyRoute,
-.historyDriver,
-.historyPrice {
-  font-size: var(--font-sm);
-  color: var(--text-secondary);
-  margin-bottom: 4px;
-}
-
-.historyPrice {
-  font-weight: 600;
-  color: var(--accent-primary);
-}
-
-.historyActions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--space-xs);
-}
-
-.bookReturnButton,
-.viewReceiptButton {
-  padding: var(--space-xs) var(--space-sm);
-  border-radius: var(--radius-sm);
-  font-size: var(--font-xs);
-  font-weight: 500;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  font-family: inherit;
-  background: rgba(255, 215, 0, 0.1);
-  color: var(--accent-primary);
-  border: 1px solid var(--accent-primary);
-}
-
-.bookReturnButton:hover,
-.viewReceiptButton:hover {
-  background: rgba(255, 215, 0, 0.2);
-}
-
-.viewAllHistory {
-  text-align: center;
-}
-
-.viewAllButton {
-  background: transparent;
-  color: var(--accent-primary);
-  border: 1px solid var(--accent-primary);
-  padding: var(--space-sm) var(--space-lg);
-  border-radius: var(--radius-md);
-  font-size: var(--font-sm);
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  font-family: inherit;
-}
-
-.viewAllButton:hover {
-  background: rgba(255, 215, 0, 0.1);
-}
-
-/* ========================================
-   MONTHLY STATS
-======================================== */
-.monthlyStatsSection {
-  margin-bottom: var(--space-xl);
-}
-
-.statsGrid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: var(--space-md);
-  margin-bottom: var(--space-lg);
+  gap: 16px;
+  margin-top: 16px;
 }
 
 .statItem {
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 215, 0, 0.2);
-  border-radius: var(--radius-md);
-  padding: var(--space-md);
-  text-align: center;
-  transition: all 0.3s ease;
-}
-
-.statItem:hover {
-  background: rgba(255, 215, 0, 0.05);
-  border-color: var(--accent-primary);
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  padding: 12px 16px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
 .statValue {
-  display: block;
-  font-size: var(--font-lg);
-  font-weight: bold;
-  color: var(--accent-primary);
-  margin-bottom: var(--space-xs);
+  font-size: var(--font-xl);
+  font-weight: 700;
+  color: var(--armora-gold);
 }
 
 .statLabel {
-  display: block;
   font-size: var(--font-sm);
-  color: var(--text-secondary);
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
+  color: #94a3b8;
 }
 
-.detailedBreakdownButton {
-  background: transparent;
-  color: var(--accent-primary);
-  border: 1px solid var(--accent-primary);
-  padding: var(--space-sm) var(--space-lg);
-  border-radius: var(--radius-md);
-  font-size: var(--font-sm);
+/* MODERN STATUS TABS */
+.tabContainer {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 24px;
+  padding: 4px;
+  background: #f1f5f9;
+  border-radius: 16px;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.tab {
+  flex: 1;
+  padding: 12px 16px;
+  border-radius: 12px;
+  background: none;
+  border: none;
+  font-size: var(--font-base);
   font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
+  color: #64748b;
   cursor: pointer;
   transition: all 0.3s ease;
-  font-family: inherit;
-  display: block;
-  margin: 0 auto;
+  position: relative;
 }
 
-.detailedBreakdownButton:hover {
-  background: rgba(255, 215, 0, 0.1);
+.tab:hover {
+  color: #334155;
+  transform: translateY(-1px);
 }
 
-/* ========================================
-   UPCOMING PREVIEW (for mixed states)
-======================================== */
-.upcomingPreview {
-  margin-top: var(--space-xl);
-  padding: var(--space-lg);
-  background: rgba(255, 215, 0, 0.05);
-  border: 1px solid rgba(255, 215, 0, 0.2);
-  border-radius: var(--radius-md);
+.activeTab {
+  background: white;
+  color: #1e293b;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transform: translateY(-1px);
 }
 
-.previewTitle {
-  font-size: var(--font-sm);
-  font-weight: bold;
-  color: var(--accent-primary);
-  margin: 0 0 var(--space-sm) 0;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
+/* TAB CONTENT */
+.tabContent {
+  min-height: 400px;
 }
 
-.previewCard {
-  padding: var(--space-xs) 0;
-  font-size: var(--font-sm);
-  color: var(--text-secondary);
+.assignmentsList {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 }
 
-.previewTime {
-  font-weight: 600;
+/* PREMIUM ASSIGNMENT CARDS - COMPACT VERSION */
+.assignmentCard {
+  background: white;
+  border-radius: 16px;
+  padding: 16px;
+  margin-bottom: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08), 0 1px 4px rgba(0, 0, 0, 0.06);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  transition: all 0.2s ease;
+  overflow: hidden;
+  position: relative;
+  min-height: 100px; /* Reduced from ~180px */
+  backdrop-filter: blur(10px);
 }
 
-.previewRoute {
-  opacity: 0.8;
+.assignmentCard:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
 }
 
-/* Enhanced scheduled section */
-.scheduledCard {
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 215, 0, 0.2);
-  border-radius: var(--radius-md);
-  padding: var(--space-md);
-  margin-bottom: var(--space-sm);
-  transition: all 0.3s ease;
+.assignmentCard:active {
+  transform: scale(0.98);
 }
 
-.scheduledCard:hover {
-  background: rgba(255, 215, 0, 0.05);
-  border-color: var(--accent-primary);
+.assignmentCard::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--armora-gold), #f59e0b);
 }
 
-.scheduleHeader {
+/* CONSOLIDATED LINES */
+.statusLine {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: var(--space-xs);
+  margin-bottom: 12px;
 }
 
-.scheduleLabel {
-  font-size: var(--font-xs);
-  color: var(--accent-primary);
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-}
-
-.scheduleTime {
-  font-size: var(--font-sm);
-  color: var(--text-primary);
-  font-weight: 600;
-}
-
-.scheduleRoute {
-  font-size: var(--font-base);
-  color: var(--text-primary);
-  font-weight: 600;
-  margin-bottom: var(--space-xs);
-}
-
-.scheduleDetails {
-  font-size: var(--font-sm);
-  color: var(--text-secondary);
-  margin-bottom: var(--space-sm);
-}
-
-.scheduleActions {
+.officerLine {
   display: flex;
-  gap: var(--space-sm);
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 8px;
 }
 
-.scheduleActions button {
-  padding: var(--space-xs) var(--space-sm);
-  border-radius: var(--radius-sm);
-  font-size: var(--font-xs);
-  font-weight: 500;
+.journeyLine {
+  margin-bottom: 8px;
+}
+
+.serviceLine {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.statusBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px; /* Slightly larger padding */
+  border-radius: 20px;
+  font-size: 16px; /* Increased by 15% from var(--font-sm) */
+  font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.5px;
+}
+
+.statusActive {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.statusUpcoming {
+  background: #dbeafe;
+  color: #1e40af;
+}
+
+.statusCompleted {
+  background: #f3f4f6;
+  color: #374151;
+}
+
+.pulsingDot {
+  width: 8px;
+  height: 8px;
+  background: #22c55e;
+  border-radius: 50%;
+  animation: pulse 2s infinite;
+  box-shadow: 0 0 6px rgba(34, 197, 94, 0.4);
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+    box-shadow: 0 0 6px rgba(34, 197, 94, 0.4);
+  }
+  50% {
+    opacity: 0.7;
+    transform: scale(1.1);
+    box-shadow: 0 0 12px rgba(34, 197, 94, 0.6);
+  }
+}
+
+.timeAgo {
+  font-size: 16px; /* Increased by 15% from var(--font-sm) */
+  color: #6b7280;
+}
+
+/* CONSOLIDATED TEXT STYLES */
+.officerText {
+  font-size: 16px; /* Increased by 15% */
+  font-weight: 600;
+  color: #1f2937;
+  flex: 1;
+  line-height: 1.4;
+}
+
+.journeyText {
+  font-size: 16px; /* Increased by 15% */
+  font-weight: 500;
+  color: #1f2937;
+  line-height: 1.4;
+}
+
+.serviceText {
+  font-size: 18px; /* Increased by 15% */
+  font-weight: 600;
+  color: #1f2937;
+}
+
+.progressText {
+  font-size: 14px; /* Increased by 15% */
+  color: #22c55e;
+  font-weight: 600;
+}
+
+/* CARD CONTENT */
+.cardContent {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.assignmentTitle {
+  font-size: var(--font-xl);
+  font-weight: 700;
+  color: #1f2937;
+  margin: 0;
+  line-height: var(--line-tight);
+}
+
+/* OFFICER SECTION */
+.officerSection {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px;
+  background: #f8fafc;
+  border-radius: 12px;
+}
+
+.officerAvatar {
+  width: 36px; /* Reduced for compact layout */
+  height: 36px; /* Reduced for compact layout */
+  background: var(--armora-dark);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.officerInitials {
+  color: white;
+  font-size: 16px; /* Increased by 15% but proportional to smaller avatar */
+  font-weight: 700;
+}
+
+.officerInfo {
+  flex: 1;
+}
+
+.officerName {
+  font-size: var(--font-base);
+  font-weight: 600;
+  color: #1f2937;
+  margin: 0 0 4px 0;
+}
+
+.siaLicense {
+  font-size: var(--font-sm);
+  color: #6b7280;
+  margin: 0;
+}
+
+.officerRating {
+  margin-left: auto;
+}
+
+.stars {
+  font-size: var(--font-lg);
+  color: var(--armora-gold);
+}
+
+/* JOURNEY SECTION */
+.journeySection {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.journeyPoint {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.journeyDot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  margin-top: 4px;
+  flex-shrink: 0;
+}
+
+.pickupDot {
+  background: #22c55e;
+}
+
+.destinationDot {
+  background: #ef4444;
+}
+
+.journeyLine {
+  width: 2px;
+  height: 16px;
+  background: #e5e7eb;
+  margin-left: 5px;
+}
+
+.journeyDetails {
+  flex: 1;
+}
+
+.journeyLabel {
+  font-size: var(--font-base);
+  font-weight: 600;
+  color: #1f2937;
+  margin: 0 0 2px 0;
+}
+
+.journeyTime {
+  font-size: var(--font-sm);
+  color: #6b7280;
+  margin: 0;
+}
+
+/* PROGRESS SECTION */
+.progressSection {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.progressBar {
+  width: 100%;
+  height: 6px;
+  background: #e5e7eb;
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.progressFill {
+  height: 100%;
+  background: linear-gradient(90deg, #22c55e, #16a34a);
+  border-radius: 3px;
+  transition: width 0.3s ease;
+}
+
+.progressText {
+  font-size: var(--font-sm);
+  color: #22c55e;
+  font-weight: 600;
+}
+
+/* SERVICE SECTION */
+.serviceSection {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 16px;
+  border-top: 1px solid #f3f4f6;
+}
+
+.serviceInfo, .costInfo {
+  display: flex;
+  flex-direction: column;
+}
+
+.serviceLabel, .costLabel {
+  font-size: var(--font-sm);
+  color: #6b7280;
+  margin: 0 0 4px 0;
+}
+
+.serviceName {
+  font-size: var(--font-base);
+  font-weight: 600;
+  color: #1f2937;
+  margin: 0;
+}
+
+.costAmount {
+  font-size: var(--font-xl);
+  font-weight: 700;
+  color: #1f2937;
+  margin: 0;
+}
+
+/* ACTION SECTION - COMPACT */
+.actionSection {
+  display: flex;
+  gap: 8px;
+  padding-top: 12px;
+}
+
+.primaryAction {
+  flex: 1;
+  padding: 10px 14px; /* Slightly reduced for compact layout */
+  background: var(--armora-dark);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px; /* Increased by 15% */
+  font-weight: 600;
   cursor: pointer;
-  transition: all 0.3s ease;
-  font-family: inherit;
-  background: rgba(255, 215, 0, 0.1);
-  color: var(--accent-primary);
-  border: 1px solid var(--accent-primary);
+  transition: all 0.2s ease;
 }
 
-.scheduleActions button:hover {
-  background: rgba(255, 215, 0, 0.2);
+.primaryAction:hover {
+  background: #0f172a;
+  transform: translateY(-1px);
 }
 
-/* ========================================
-   MOBILE RESPONSIVE
-======================================== */
-@media (max-width: 768px) {
-  .tabNavigation {
-    padding: 0 var(--space-sm) var(--space-md);
-    gap: var(--space-xs);
-  }
+.primaryAction:active {
+  transform: scale(0.98);
+}
 
-  .tabButton {
-    padding: var(--space-xs) var(--space-sm);
-    font-size: var(--font-xs);
-  }
+.secondaryAction {
+  flex: 1;
+  padding: 10px 14px; /* Slightly reduced for compact layout */
+  background: white;
+  color: var(--armora-dark);
+  border: 2px solid #e5e7eb;
+  border-radius: 8px;
+  font-size: 16px; /* Increased by 15% */
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
 
-  .contentSection {
-    padding: 0 var(--space-sm) var(--space-xl);
-  }
+.secondaryAction:hover {
+  border-color: var(--armora-dark);
+  transform: translateY(-1px);
+}
 
-  .actionButtons {
-    width: 100%;
-  }
+.secondaryAction:active {
+  transform: scale(0.98);
+}
 
-  .primaryCTA,
-  .secondaryCTA {
-    width: 100%;
-  }
+/* EMPTY STATE */
+.emptyState {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 48px 24px;
+  color: #6b7280;
+}
 
-  .suggestionsList {
-    gap: var(--space-sm);
-  }
+.emptyIcon {
+  margin-bottom: 24px;
+}
 
-  .secondaryActions {
-    grid-template-columns: 1fr;
-    gap: var(--space-sm);
-  }
+.emptyTitle {
+  font-size: var(--font-xl);
+  font-weight: 700;
+  color: #1f2937;
+  margin: 0 0 8px 0;
+}
 
-  .primaryAction,
-  .secondaryButton,
-  .emergencyButton {
-    min-height: 50px;
-  }
+.emptyDescription {
+  font-size: var(--font-base);
+  color: #6b7280;
+  margin: 0 0 24px 0;
+  line-height: var(--line-base);
+}
 
-  .icon {
-    font-size: 0.9rem;
-  }
+.emptyAction {
+  padding: 12px 24px;
+  background: var(--armora-gold);
+  color: var(--armora-dark);
+  border: none;
+  border-radius: 12px;
+  font-size: var(--font-base);
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
 
-  .quickActionsList {
-    gap: var(--space-xs);
-  }
+.emptyAction:hover {
+  background: #f59e0b;
+  transform: translateY(-1px);
+}
 
-  .quickActionButton {
-    padding: var(--space-xs) var(--space-sm);
-    font-size: var(--font-xs);
-  }
+/* QUICK ACTIONS BAR */
+.quickActionsBar {
+  position: fixed;
+  bottom: 80px; /* Above navigation */
+  left: 16px;
+  right: 16px;
+  background: white;
+  border-radius: 20px;
+  padding: 16px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(10px);
+  z-index: 100;
+}
 
-  .statsGrid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: var(--space-sm);
-  }
+.quickActions {
+  display: flex;
+  gap: 12px;
+}
 
-  .routeActions,
-  .upcomingActions,
-  .historyActions {
-    gap: var(--space-xs);
-  }
+.quickActionPrimary {
+  flex: 2;
+  padding: 14px 18px; /* Increased by 15% */
+  background: #22c55e;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-size: 18px; /* Increased by 15% */
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  justify-content: center;
+}
 
-  .upcomingHeader {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: var(--space-xs);
-  }
+.quickActionPrimary:hover {
+  background: #16a34a;
+  transform: translateY(-1px);
+}
 
-  .historyHeader {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: var(--space-xs);
+.quickActionPrimary:active {
+  transform: scale(0.98);
+}
+
+.quickActionSecondary {
+  flex: 1;
+  padding: 14px 12px; /* Increased padding */
+  background: #f3f4f6;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  min-height: 60px; /* Ensure adequate height */
+}
+
+.quickActionSecondary:hover {
+  background: #e5e7eb;
+  transform: translateY(-1px);
+}
+
+.quickActionSecondary:active {
+  transform: scale(0.98);
+}
+
+.actionIcon {
+  font-size: 20px; /* Increased by 15% */
+}
+
+.actionLabel {
+  font-size: 14px; /* Increased by 15% */
+  font-weight: 600;
+  color: #374151;
+}
+
+/* ENHANCED ANIMATIONS */
+.fadeIn {
+  animation: slideUp 0.3s ease-out;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
-@media (max-width: 480px) {
-  .header {
-    padding: var(--space-md) var(--space-sm);
+/* Enhanced card hover effects */
+.assignmentCard {
+  transition: all 0.2s ease;
+}
+
+.assignmentCard:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+}
+
+/* MOBILE RESPONSIVENESS */
+@media (max-width: 375px) {
+  .assignmentsView {
+    padding: 0 12px 100px 12px;
+  }
+
+  .pageHeader {
+    padding: 20px;
+    margin-bottom: 20px;
   }
 
   .pageTitle {
-    font-size: var(--font-lg);
+    font-size: var(--font-xl);
   }
 
-  .emptyState {
-    padding: var(--space-lg) var(--space-md);
+  .assignmentCard {
+    padding: 16px;
   }
 
-  .mapPlaceholder {
-    height: 150px;
+  .officerSection {
+    padding: 12px;
   }
 
-  .statsGrid {
-    grid-template-columns: 1fr;
-    gap: var(--space-sm);
+  .statsBar {
+    flex-direction: column;
+    gap: 8px;
   }
 
-  .trustItems {
-    gap: var(--space-xs);
-  }
-
-  .suggestionItem {
-    padding: var(--space-sm);
+  .statItem {
+    justify-content: center;
   }
 }
 
-/* ========================================
-   ACCESSIBILITY & ANIMATIONS
-======================================== */
-@media (prefers-reduced-motion: reduce) {
-  .livePulse,
-  .liveBlink {
-    animation: none;
-  }
+/* TOUCH TARGETS */
+.tab,
+.primaryAction,
+.secondaryAction,
+.quickActionPrimary,
+.quickActionSecondary,
+.emptyAction {
+  min-height: 48px;
+  min-width: 48px;
+}
 
-  .liveRideCard {
-    animation: none;
-  }
-
-  .liveDot {
-    animation: none;
-    opacity: 1;
+/* HOVER EFFECTS FOR DESKTOP */
+@media (hover: hover) {
+  .assignmentCard:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
   }
 }
 
-@media (prefers-contrast: high) {
-  .tabButton,
-  .upcomingCard,
-  .historyCard,
-  .frequentRouteCard {
-    border-width: 2px;
+/* DESKTOP RESPONSIVENESS - LARGER SCREENS */
+@media (min-width: 768px) {
+  .assignmentsView {
+    padding: 0 32px 100px 32px; /* More padding on larger screens */
   }
 
-  .liveRideCard {
-    border-width: 3px;
+  .pageHeader {
+    padding: 32px;
+    margin-bottom: 32px;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .pageTitle {
+    font-size: 3rem; /* Larger title for desktop */
+    letter-spacing: -0.025em;
+  }
+
+  .pageSubtitle {
+    font-size: 1.25rem;
+    color: #cbd5e1; /* Better contrast for larger screens */
+  }
+
+  .statsBar {
+    justify-content: center;
+    gap: 24px;
+  }
+
+  .statValue {
+    font-size: 2rem; /* Larger stats on desktop */
+  }
+
+  .assignmentCard {
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 24px;
+  }
+
+  .tabContainer {
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 32px;
+  }
+
+  .quickActionsBar {
+    max-width: 800px;
+    left: 50%;
+    right: auto;
+    transform: translateX(-50%);
   }
 }
 
-/* ========================================
-   LOADING STATES
-======================================== */
-.loadingState {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 200px;
-  color: var(--text-secondary);
+@media (min-width: 1024px) {
+  .assignmentsView {
+    padding: 0 48px 100px 48px;
+  }
+
+  .pageHeader {
+    padding: 40px;
+  }
+
+  .assignmentCard {
+    padding: 32px; /* More padding on large screens */
+  }
+
+  .officerSection {
+    padding: 24px;
+  }
+
+  .actionSection {
+    gap: 16px;
+  }
+
+  .primaryAction,
+  .secondaryAction {
+    padding: 16px 24px;
+    font-size: 1.1rem;
+  }
 }
 
-.refreshing {
-  opacity: 0.7;
-  pointer-events: none;
+/* IMPROVED TEXT CONTRAST FOR ALL SCREENS */
+.pageSubtitle {
+  color: #cbd5e1 !important; /* Better contrast than #94a3b8 */
+}
+
+.timeAgo {
+  color: #64748b !important; /* Darker gray for better readability */
+}
+
+.siaLicense {
+  color: #64748b !important;
+}
+
+.journeyTime {
+  color: #64748b !important;
+}
+
+.serviceLabel,
+.costLabel {
+  color: #64748b !important;
+}
+
+.statLabel {
+  color: #cbd5e1 !important;
+}
+
+/* ENHANCED CONTRAST FOR TABS */
+.tab {
+  color: #475569 !important; /* Much darker for readability */
+}
+
+.tab:hover {
+  color: #1e293b !important;
+}
+
+/* DARK THEME OVERRIDES */
+@media (prefers-color-scheme: dark) {
+  .assignmentCard {
+    background: #1e293b;
+    color: white;
+  }
+
+  .assignmentTitle,
+  .officerName,
+  .serviceName,
+  .costAmount,
+  .journeyLabel {
+    color: white;
+  }
+
+  .officerSection {
+    background: #334155;
+  }
+
+  .secondaryAction {
+    background: #334155;
+    color: white;
+    border-color: #475569;
+  }
+
+  .tabContainer {
+    background: #334155;
+  }
+
+  .tab {
+    color: #94a3b8 !important;
+  }
+
+  .activeTab {
+    background: #1e293b;
+    color: white;
+  }
 }

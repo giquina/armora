@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useApp } from '../../contexts/AppContext';
 import { Button } from '../UI/Button';
 import { ServiceCard } from './ServiceCard';
@@ -7,6 +7,12 @@ import { MarketingBanner } from './MarketingBanner';
 import { SmartRecommendation } from './SmartRecommendation';
 import { BookingSearchInterface } from './BookingSearchInterface';
 import { ProtectionStatus } from '../UI/ProtectionStatus';
+import { FloatingSOSButton } from './FloatingSOSButton';
+import { LiveAvailabilityWidget } from './LiveAvailabilityWidget';
+import { QuickPriceCalculator } from './QuickPriceCalculator';
+import { TrustIndicators } from './TrustIndicators';
+import { MembershipBar } from './MembershipBar';
+import { ActivityTicker } from './ActivityTicker';
 // import ArmoraFoundationModal from '../ArmoraFoundation/ArmoraFoundationModal';
 import { ServiceLevel } from '../../types';
 // import { getDisplayName } from '../../utils/nameUtils'; // Removed since header is no longer displayed
@@ -109,20 +115,20 @@ export function Dashboard() {
     }
   };
 
-  const scrollToCarouselIndex = (index: number) => {
+  const scrollToCarouselIndex = useCallback((index: number) => {
     const container = document.getElementById('getStartedCarousel');
     if (container) {
       container.scrollTo({ left: getCarouselScrollPosition(index), behavior: 'smooth' });
       setCurrentCarouselIndex(index);
     }
-  };
+  }, []);
 
-  const navigateCarousel = (direction: 'left' | 'right') => {
+  const navigateCarousel = useCallback((direction: 'left' | 'right') => {
     const newIndex = direction === 'left'
       ? Math.max(0, currentCarouselIndex - 1)
       : Math.min(carouselCards - 1, currentCarouselIndex + 1);
     scrollToCarouselIndex(newIndex);
-  };
+  }, [currentCarouselIndex, scrollToCarouselIndex]);
 
   // Keyboard navigation for carousel
   useEffect(() => {
@@ -306,10 +312,10 @@ export function Dashboard() {
   // For registered users - show full dashboard
   return (
     <div className={styles.dashboard}>
-      {/* Booking Search Interface - Uber-style "Where to?" */}
+      {/* Booking Search Interface - Uber-style "Where to?" - STAYS AT TOP */}
       <BookingSearchInterface />
 
-      {/* Reward Banner */}
+      {/* Achievement Banner - Moved above Live Availability */}
       {showRewardBanner && (
         <div className={styles.rewardBanner} onClick={() => navigateToView('booking')}>
           <div className={styles.rewardContent}>
@@ -338,6 +344,18 @@ export function Dashboard() {
         </div>
       )}
 
+      {/* Live Availability Widget - Now below Achievement Banner */}
+      <LiveAvailabilityWidget />
+
+
+      {/* Quick Price Calculator - NEW */}
+      <QuickPriceCalculator />
+
+      {/* Trust & Stats Banner - NEW */}
+      <TrustIndicators />
+
+      {/* Live Activity Ticker - NEW */}
+      <ActivityTicker />
 
       {/* Impact Widget for Essential Members */}
       {/* <CreatorImpactWidget /> */}
@@ -643,6 +661,12 @@ export function Dashboard() {
 
       {/* Protection Status - Only shows when active/scheduled */}
       <ProtectionStatus />
+
+      {/* Emergency SOS Button - Fixed Position - NEW */}
+      <FloatingSOSButton />
+
+      {/* Membership Conversion Bar - Moved to Bottom */}
+      <MembershipBar />
 
     </div>
   );

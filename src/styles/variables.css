@@ -3,7 +3,7 @@
 :root {
   /* PRIMARY BRAND COLORS */
   --armora-dark: #1a1a2e;       /* Premium dark navy - professional security aesthetic */
-  --armora-gold: #FFD700;       /* Premium gold - VIP luxury positioning */
+  --armora-gold: #FFD700;       /* Premium gold - VIP luxury positioning - BRIGHTENED */
   --armora-light: #e0e0e0;      /* Light text - high contrast readability */
   /* Border tokens */
   --armora-gold-alpha: rgba(255, 215, 0, 0.45);
@@ -14,9 +14,10 @@
   --primary: var(--armora-dark);
   --accent: var(--armora-gold);
   --accent-primary: var(--armora-gold); /* Alias for accent-primary used throughout app */
-  --text-primary: var(--armora-light);
-  --text-secondary: #b0b0b0;
+  --text-primary: #ffffff; /* Pure white for better contrast on dark backgrounds */
+  --text-secondary: #94a3b8; /* Lighter secondary text for better readability */
   --text-dark: var(--armora-dark);
+  --text-light-bg: #1f2937; /* Dark text for light backgrounds */
   
   /* BACKGROUND VARIATIONS */
   --bg-primary: var(--armora-dark);
@@ -40,18 +41,18 @@
   --space-xl: 32px;
   --space-xxl: 48px;
   
-  /* TYPOGRAPHY SCALE */
-  --font-xs: 12px;
-  --font-sm: 14px;
-  --font-base: 16px;
-  --font-lg: 18px;
-  --font-xl: 24px;
-  --font-xxl: 32px;
-  --font-display: 48px;
-  
-  /* LINE HEIGHTS */
+  /* TYPOGRAPHY SCALE - 20% LARGER FOR BETTER READABILITY */
+  --font-xs: 14px;    /* 12px → 14px */
+  --font-sm: 17px;    /* 14px → 17px */
+  --font-base: 19px;  /* 16px → 19px */
+  --font-lg: 22px;    /* 18px → 22px */
+  --font-xl: 29px;    /* 24px → 29px */
+  --font-xxl: 38px;   /* 32px → 38px */
+  --font-display: 58px; /* 48px → 58px */
+
+  /* LINE HEIGHTS - IMPROVED FOR READABILITY */
   --line-tight: 1.2;
-  --line-base: 1.5;
+  --line-base: 1.6;   /* 1.5 → 1.6 for better readability */
   --line-loose: 1.8;
   
   /* BORDER RADIUS */

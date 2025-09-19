@@ -82,14 +82,32 @@
   margin-top: var(--space-md);
 }
 
-/* Services Grid - Mobile-First for All 5 Services */
+/* Services Grid - Enhanced with New Components */
 .servicesGrid {
   display: grid;
   grid-template-columns: 1fr;
-  gap: var(--space-lg);
+  gap: var(--space-xl);
   padding: var(--space-md);
   max-width: var(--content-max-width);
   margin: 0 auto;
+}
+
+.serviceCardWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  background: rgba(255, 255, 255, 0.02);
+  border-radius: 20px;
+  padding: var(--space-lg);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.3s ease;
+}
+
+.serviceCardWrapper:hover {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 215, 0, 0.2);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
 }
 
 @media (min-width: 768px) {

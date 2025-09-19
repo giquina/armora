@@ -1,0 +1,285 @@
+/* Quick Tools Bar - Sticky Navigation */
+.toolsBar {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.9));
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  margin: var(--space-xl) 0;
+  padding: var(--space-lg);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(255, 215, 0, 0.2);
+  transition: all 0.3s ease;
+  position: relative;
+  z-index: 50;
+}
+
+.toolsBar.sticky {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: calc(100% - 40px);
+  max-width: 800px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  border: 2px solid var(--armora-gold);
+  animation: slideDown 0.3s ease-out;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+}
+
+.toolsContainer {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.toolsTitle {
+  font-size: var(--font-xl);
+  font-weight: 700;
+  color: var(--armora-dark);
+  text-align: center;
+  margin: 0 0 var(--space-lg) 0;
+}
+
+.sticky .toolsTitle {
+  display: none;
+}
+
+/* Tools Grid */
+.tools {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-md);
+}
+
+.tool {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-xs);
+  padding: var(--space-md);
+  background: rgba(255, 255, 255, 0.8);
+  border: 2px solid rgba(0, 0, 0, 0.1);
+  border-radius: 16px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: center;
+  min-height: 100px;
+  position: relative;
+  overflow: hidden;
+}
+
+.tool::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 215, 0, 0.1), transparent);
+  transition: left 0.5s ease;
+}
+
+.tool:hover::before {
+  left: 100%;
+}
+
+.tool:hover {
+  border-color: var(--armora-gold);
+  background: rgba(255, 215, 0, 0.1);
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgba(255, 215, 0, 0.3);
+}
+
+.tool:active {
+  transform: translateY(-2px);
+}
+
+.toolIcon {
+  font-size: 2rem;
+  margin-bottom: var(--space-xs);
+}
+
+.toolLabel {
+  font-size: var(--font-base);
+  font-weight: 700;
+  color: var(--armora-dark);
+  margin-bottom: var(--space-xs);
+}
+
+.toolDescription {
+  font-size: var(--font-sm);
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+/* Mobile CTA - Hidden on Desktop */
+.mobileCTA {
+  display: none;
+  margin-top: var(--space-lg);
+}
+
+.mobileCTAButton {
+  width: 100%;
+  padding: var(--space-lg);
+  background: linear-gradient(135deg, var(--armora-gold), #f59e0b);
+  color: var(--armora-dark);
+  border: none;
+  border-radius: 16px;
+  font-size: var(--font-lg);
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(255, 215, 0, 0.3);
+}
+
+.mobileCTAButton:hover {
+  background: linear-gradient(135deg, #f59e0b, #d97706);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(255, 215, 0, 0.4);
+}
+
+/* Tablet Optimizations */
+@media (max-width: 1024px) {
+  .toolsBar.sticky {
+    width: calc(100% - 20px);
+    top: 10px;
+  }
+
+  .tools {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-sm);
+  }
+
+  .tool {
+    min-height: 80px;
+    padding: var(--space-sm);
+  }
+
+  .toolIcon {
+    font-size: 1.5rem;
+  }
+
+  .toolLabel {
+    font-size: var(--font-sm);
+  }
+
+  .toolDescription {
+    font-size: var(--font-xs);
+  }
+}
+
+/* Mobile Optimizations */
+@media (max-width: 768px) {
+  .toolsBar {
+    padding: var(--space-md);
+    margin: var(--space-lg) 0;
+  }
+
+  .toolsBar.sticky {
+    position: static;
+    transform: none;
+    width: auto;
+    border-radius: 20px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(255, 215, 0, 0.2);
+  }
+
+  .toolsTitle {
+    font-size: var(--font-lg);
+    margin-bottom: var(--space-md);
+  }
+
+  .tools {
+    display: none;
+  }
+
+  .mobileCTA {
+    display: block;
+  }
+
+  .sticky .mobileCTA {
+    display: block;
+  }
+
+  .sticky .toolsTitle {
+    display: block;
+    font-size: var(--font-base);
+    margin-bottom: var(--space-sm);
+  }
+}
+
+@media (max-width: 480px) {
+  .toolsBar {
+    padding: var(--space-sm);
+  }
+
+  .toolsTitle {
+    font-size: var(--font-base);
+  }
+
+  .mobileCTAButton {
+    padding: var(--space-md);
+    font-size: var(--font-base);
+  }
+}
+
+/* Desktop Hover States */
+@media (hover: hover) {
+  .tool {
+    transition: all 0.2s ease;
+  }
+
+  .tool:hover {
+    transform: translateY(-2px) scale(1.02);
+  }
+
+  .mobileCTAButton:hover {
+    transform: translateY(-2px);
+  }
+}
+
+/* High Contrast Mode */
+@media (prefers-contrast: high) {
+  .toolsBar {
+    border: 2px solid #000;
+    background: white;
+  }
+
+  .tool {
+    border: 2px solid #000;
+    background: white;
+  }
+
+  .tool:hover {
+    background: #ffff00;
+    border-color: #000;
+  }
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  .toolsBar {
+    animation: none;
+    transition: none;
+  }
+
+  .tool {
+    transition: none;
+  }
+
+  .tool::before {
+    transition: none;
+  }
+
+  .mobileCTAButton {
+    transition: none;
+  }
+}

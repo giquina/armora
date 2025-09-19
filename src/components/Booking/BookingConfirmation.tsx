@@ -1,29 +1,48 @@
 import React, { useState } from 'react';
 import { BookingData } from '../../types';
+import { ProtectionLevel } from './ProtectionLevelSelector';
+import { VenueTimeData } from './VenueTimeEstimator';
+import { ProtectionServiceRequest, calculateProtectionPricing } from '../../utils/protectionPricingCalculator';
+import { formatPrice } from '../../utils/priceFormatter';
 import { LoadingSpinner } from '../UI/LoadingSpinner';
 import { BookingProgressIndicator } from '../UI/ProgressIndicator';
 import styles from './BookingConfirmation.module.css';
 
 interface BookingConfirmationProps {
   bookingData: BookingData;
+  protectionLevel: ProtectionLevel;
+  venueTimeData?: VenueTimeData;
+  destination: string;
   onConfirmBooking: (bookingId: string) => void;
   onBack: () => void;
 }
 
-export function BookingConfirmation({ bookingData, onConfirmBooking, onBack }: BookingConfirmationProps) {
+export function BookingConfirmation({
+  bookingData,
+  protectionLevel,
+  venueTimeData,
+  destination,
+  onConfirmBooking,
+  onBack
+}: BookingConfirmationProps) {
   const [isBooking, setIsBooking] = useState(false);
   const [additionalRequirements, setAdditionalRequirements] = useState('');
   const [agreedToTerms, setAgreedToTerms] = useState(false);
 
-  const { service, pickup, destination, estimatedDistance, estimatedDuration, estimatedCost, user } = bookingData;
+  const { user } = bookingData;
   const hasReward = user?.hasUnlockedReward && user?.userType !== 'guest';
 
-  const formatDuration = (minutes: number) => {
-    if (minutes < 60) return `${minutes}m`;
-    const hours = Math.floor(minutes / 60);
-    const remainingMinutes = minutes % 60;
-    return remainingMinutes > 0 ? `${hours}h ${remainingMinutes}m` : `${hours}h`;
+  // Calculate pricing using the new protection pricing system
+  const protectionRequest: ProtectionServiceRequest = {
+    destination,
+    protectionLevel,
+    venueTimeData,
+    userType: user?.userType || 'guest',
+    hasUnlockedReward: hasReward
   };
+
+  const pricingBreakdown = calculateProtectionPricing(protectionRequest);
+
 
   const handleConfirmBooking = async () => {
     if (!agreedToTerms) return;
@@ -40,10 +59,9 @@ export function BookingConfirmation({ bookingData, onConfirmBooking, onBack }: B
     const bookingRecord = {
       id: bookingId,
       userId: user?.id,
-      service: service.id,
-      pickup,
+      service: protectionLevel.name,
       destination,
-      estimatedCost,
+      totalCost: pricingBreakdown.total,
       additionalRequirements,
       createdAt: new Date(),
       status: 'confirmed'
@@ -75,34 +93,40 @@ export function BookingConfirmation({ bookingData, onConfirmBooking, onBack }: B
 
       <div className={styles.bookingSummary}>
         <div className={styles.serviceSection}>
-          <h3 className={styles.sectionTitle}>Selected Service</h3>
+          <h3 className={styles.sectionTitle}>Protection Service</h3>
           <div className={styles.serviceCard}>
             <div className={styles.serviceInfo}>
-              <h4>{service.name}</h4>
-              <p>{service.tagline}</p>
+              <h4>{protectionLevel.name}</h4>
+              <p>SIA-licensed close protection service</p>
+              <div className={styles.protectionDetails}>
+                {protectionLevel.type === 'personal' ? (
+                  <>
+                    <span className={styles.protectionBadge}>👤 Personal Protection</span>
+                    <span className={styles.protectionNote}>Your officer will accompany you</span>
+                  </>
+                ) : (
+                  <>
+                    <span className={styles.protectionBadge}>🚗 Transport Protection</span>
+                    <span className={styles.protectionNote}>Officer secures vehicle and waits</span>
+                  </>
+                )}
+              </div>
             </div>
             <div className={styles.servicePrice}>
-              {hasReward ? (
-                <>
-                  <span className={styles.discountedPrice}>£{service.hourlyRate * 0.5}</span>
-                  <span className={styles.originalPrice}>£{service.hourlyRate}</span>
-                </>
-              ) : (
-                <span className={styles.price}>£{service.hourlyRate}</span>
-              )}
-              <span className={styles.perHour}>/hr</span>
+              <span className={styles.price}>From £{protectionLevel.priceFrom}</span>
+              <span className={styles.perHour}>/hour</span>
             </div>
           </div>
         </div>
 
         <div className={styles.routeSection}>
-          <h3 className={styles.sectionTitle}>Route Details</h3>
+          <h3 className={styles.sectionTitle}>Service Details</h3>
           <div className={styles.routeCard}>
             <div className={styles.routeItem}>
               <span className={styles.routeIcon}>📍</span>
               <div>
-                <div className={styles.routeLabel}>Pickup</div>
-                <div className={styles.routeLocation}>{pickup}</div>
+                <div className={styles.routeLabel}>Protection starts from</div>
+                <div className={styles.routeLocation}>Current location</div>
               </div>
             </div>
             <div className={styles.routeSeparator}>
@@ -111,33 +135,54 @@ export function BookingConfirmation({ bookingData, onConfirmBooking, onBack }: B
             <div className={styles.routeItem}>
               <span className={styles.routeIcon}>🏁</span>
               <div>
-                <div className={styles.routeLabel}>Destination</div>
+                <div className={styles.routeLabel}>Secure destination</div>
                 <div className={styles.routeLocation}>{destination}</div>
               </div>
             </div>
+            {protectionLevel.type === 'personal' && venueTimeData && (
+              <div className={styles.venueDetails}>
+                <div className={styles.venueTime}>
+                  <span className={styles.venueLabel}>Time at venue:</span>
+                  <span className={styles.venueValue}>{venueTimeData.venueHours} hours</span>
+                </div>
+                {venueTimeData.discreteProtection && (
+                  <div className={styles.specialRequest}>
+                    🕴️ Discrete protection requested
+                  </div>
+                )}
+                {venueTimeData.femaleOfficerPreferred && (
+                  <div className={styles.specialRequest}>
+                    👩‍💼 Female officer preferred
+                  </div>
+                )}
+              </div>
+            )}
           </div>
         </div>
 
         <div className={styles.estimateSection}>
-          <h3 className={styles.sectionTitle}>Service Estimate</h3>
+          <h3 className={styles.sectionTitle}>Cost Breakdown</h3>
           <div className={styles.estimateCard}>
-            <div className={styles.estimateRow}>
-              <span>Distance:</span>
-              <span>{estimatedDistance} miles</span>
-            </div>
-            <div className={styles.estimateRow}>
-              <span>Duration:</span>
-              <span>{formatDuration(estimatedDuration)}</span>
-            </div>
-            <div className={`${styles.estimateRow} ${styles.totalCost}`}>
-              <span>Estimated Total:</span>
-              <span className={styles.costAmount}>£{estimatedCost}</span>
-            </div>
-            {hasReward && (
-              <div className={styles.rewardBanner}>
-                🎉 50% First Ride Discount Applied!
+            {pricingBreakdown.components.map((component, index) => (
+              <div key={index} className={styles.estimateRow}>
+                <span>{component.label}</span>
+                <span>{formatPrice(component.amount)}</span>
               </div>
-            )}
+            ))}
+            <div className={styles.subtotalRow}>
+              <span>Subtotal:</span>
+              <span>{formatPrice(pricingBreakdown.subtotal)}</span>
+            </div>
+            {pricingBreakdown.discounts.map((discount, index) => (
+              <div key={index} className={styles.discountRow}>
+                <span>{discount.label}</span>
+                <span className={styles.discountAmount}>-{formatPrice(discount.amount)}</span>
+              </div>
+            ))}
+            <div className={`${styles.estimateRow} ${styles.totalCost}`}>
+              <span>Total Service Fee:</span>
+              <span className={styles.costAmount}>{formatPrice(pricingBreakdown.total)}</span>
+            </div>
           </div>
         </div>
 
@@ -146,10 +191,14 @@ export function BookingConfirmation({ bookingData, onConfirmBooking, onBack }: B
           <textarea
             value={additionalRequirements}
             onChange={(e) => setAdditionalRequirements(e.target.value)}
-            placeholder="Any special requirements or instructions for your security officer..."
+            placeholder="Any special requirements or instructions for your Protection Officer..."
             className={styles.requirementsTextarea}
             rows={3}
+            maxLength={200}
           />
+          <div className={styles.characterCount}>
+            {additionalRequirements.length}/200 characters
+          </div>
         </div>
 
         <div className={styles.termsSection}>
@@ -172,10 +221,11 @@ export function BookingConfirmation({ bookingData, onConfirmBooking, onBack }: B
         <div className={styles.importantNotes}>
           <h4>Important Notes:</h4>
           <ul>
-            <li>Your security officer will arrive 5-10 minutes before scheduled pickup</li>
-            <li>Final cost may vary based on actual travel time and traffic conditions</li>
-            <li>Minimum charge: 1 hour service</li>
-            <li>Cancellation within 30 minutes of pickup incurs a £15 fee</li>
+            <li>Your Protection Officer will arrive 5-10 minutes before scheduled service</li>
+            <li>Final cost may vary based on actual service duration</li>
+            <li>Minimum service duration: 2 hours</li>
+            {protectionLevel.type === 'personal' && <li>Client covers officer's venue entry fees if required</li>}
+            <li>Cancellation within 30 minutes of service incurs a £15 fee</li>
           </ul>
         </div>
         
@@ -192,7 +242,7 @@ export function BookingConfirmation({ bookingData, onConfirmBooking, onBack }: B
           ) : (
             <>
               <span className={styles.lockIcon}>🔒</span>
-              <span>Confirm Secure Booking - £{estimatedCost}</span>
+              <span>Confirm Protection Service - {formatPrice(pricingBreakdown.total)}</span>
             </>
           )}
         </button>

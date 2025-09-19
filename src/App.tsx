@@ -85,7 +85,7 @@ function BookingFlow() {
         console.log('[Booking] Pre-selected service found, skipping to location:', preSelectedServiceId);
       }
     }
-  }, [selectedService]);
+  }, []); // Remove selectedService dependency to prevent infinite loop
 
   // Preserve booking state in localStorage for error recovery
   const preserveBookingState = () => {
@@ -572,22 +572,22 @@ function AppRouter() {
       if (['splash', 'welcome', 'login', 'signup', 'guest-disclaimer', 'questionnaire', 'achievement'].includes(currentView)) {
         return false;
       }
-      
+
       // Show banner for users who completed questionnaire and haven't made a booking yet
       if (user?.hasCompletedQuestionnaire && !user?.hasUnlockedReward) {
         const bannerDismissed = localStorage.getItem('armora_achievement_banner_dismissed');
         const firstBookingMade = localStorage.getItem('armora_first_booking_completed');
-        
+
         // Don't show if user has made their first booking
         if (firstBookingMade) {
           return false;
         }
-        
+
         // Show banner if not permanently dismissed
         if (!bannerDismissed) {
           return true;
         }
-        
+
         // Even if dismissed, show again if it's been more than 3 days (to remind them)
         const dismissedTime = new Date(bannerDismissed).getTime();
         const daysSinceDismissed = (Date.now() - dismissedTime) / (1000 * 60 * 60 * 24);
@@ -597,13 +597,13 @@ function AppRouter() {
           return true;
         }
       }
-      
+
       return false;
     };
-    
+
     const showBanner = shouldShowBanner();
     setShowAchievementBanner(showBanner);
-    
+
     // Record when banner is shown
     if (showBanner) {
       localStorage.setItem('armora_achievement_banner_shown', new Date().toISOString());

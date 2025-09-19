@@ -78,11 +78,15 @@
 }
 
 .serviceTagline {
-  font-size: 1rem;
+  font-size: 16px; /* Improved readability */
   color: #e0e0e0;
   margin: 0;
-  opacity: 0.9;
-  line-height: 1.4;
+  opacity: 0.95;
+  line-height: 1.6; /* Better line spacing */
+  width: 100%; /* Ensure full width usage */
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 .vehicleAndPrice {
@@ -210,9 +214,10 @@
   align-items: flex-start;
   gap: 12px;
   margin-bottom: 12px;
-  font-size: 0.9rem;
+  font-size: 15px; /* Improved from 0.9rem for better readability */
   color: #e0e0e0;
-  line-height: 1.4;
+  line-height: 1.6; /* Better line spacing */
+  width: 100%; /* Ensure full width usage */
 }
 
 .bulletItem::before {
@@ -225,11 +230,15 @@
 
 /* Officer Description */
 .officerDescription {
-  font-size: 0.95rem;
+  font-size: 16px; /* Improved from 0.95rem for better readability */
   color: #e0e0e0;
   line-height: 1.6;
   margin: 0;
-  opacity: 0.9;
+  opacity: 0.95;
+  width: 100%; /* Ensure full width usage */
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 /* Reviews Section */
@@ -277,11 +286,12 @@
 }
 
 .reviewText {
-  font-size: 0.9rem;
+  font-size: 15px; /* Improved from 0.9rem for better readability */
   color: #e0e0e0;
-  line-height: 1.5;
+  line-height: 1.6; /* Better line spacing */
   margin: 0;
   font-style: italic;
+  width: 100%; /* Ensure full width usage */
 }
 
 /* Case Studies Section */
@@ -312,9 +322,10 @@
 }
 
 .caseStudyItem {
-  font-size: 0.9rem;
+  font-size: 15px; /* Improved from 0.9rem for better readability */
   color: #e0e0e0;
-  line-height: 1.4;
+  line-height: 1.6; /* Better line spacing */
+  width: 100%; /* Ensure full width usage */
 }
 
 .caseStudyItem strong {
@@ -435,7 +446,7 @@
   }
 
   .serviceTagline {
-    font-size: 0.9rem;
+    font-size: 15px; /* Maintain good readability on mobile */
   }
 
   .vehicleAndPrice {
@@ -514,7 +525,7 @@
   }
 
   .serviceTagline {
-    font-size: 0.85rem;
+    font-size: 14px; /* Maintain readability even on small screens */
   }
 
   .expandToggle {

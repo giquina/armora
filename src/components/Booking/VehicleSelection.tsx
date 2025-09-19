@@ -30,8 +30,8 @@ const convertToServiceLevel = (): ServiceLevel[] => {
              service.id === 'executive' ? 'BMW 5 Series' :
              service.id === 'client-vehicle' ? 'Your Personal Vehicle' : 'Protected BMW X5',
     capacity: service.id === 'client-vehicle' ? 'Any vehicle size' : '4 passengers',
-    driverQualification: service.id === 'standard' || service.id === 'client-vehicle' ? 'SIA Level 2 Security Certified' :
-                        service.id === 'executive' ? 'SIA Level 3 Security Certified' : 'Special Forces Trained',
+    protectionOfficerQualification: service.id === 'standard' || service.id === 'client-vehicle' ? 'SIA Level 2 Close Protection' :
+                        service.id === 'executive' ? 'SIA Level 3 Close Protection' : 'Special Forces Trained',
     description: service.description,
     features: service.features.map(f => f.text), // Convert from {icon, text} to string array
     isPopular: service.id === 'shadow', // Shadow is marked as most popular
@@ -128,11 +128,11 @@ export function VehicleSelection({ user, onServiceSelected, onBack, onSignUp }: 
         </h1>
         <p className={styles.subtitle}>Step 1 of 3 • Security Level Selection</p>
         <p className={styles.description}>
-          Professional security drivers available 24/7 with premium fleet vehicles
+          Professional Protection Officers available 24/7 with secure transport fleet
         </p>
         {hasReward && (
           <div className={styles.rewardBanner}>
-            🎉 50% off your first ride - reward applied!
+            🎉 50% off your first protection service - reward applied!
           </div>
         )}
         {rebookData && (

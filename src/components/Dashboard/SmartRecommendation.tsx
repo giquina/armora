@@ -102,7 +102,7 @@ export const SmartRecommendation: React.FC<SmartRecommendationProps> = ({
       <div className={styles.returningUserRec}>
         <div className={styles.quickRec}>
           <span className={styles.checkmark}>✅</span>
-          <strong>Standard Protection</strong> - Your trusted security service
+          <strong>Essential Protection</strong> - Your trusted security service
           <span className={styles.availability}> • 2 min away • Available now</span>
           <button
             className={styles.quickBookBtn}
@@ -154,11 +154,11 @@ export const SmartRecommendation: React.FC<SmartRecommendationProps> = ({
 
       {/* Service details */}
       <div className={styles.serviceSection}>
-        <h2 className={styles.serviceName}>STANDARD PROTECTION</h2>
-        <div className={styles.serviceDetails}>
-          <span className={styles.price}>£45/hour</span>
-          <span className={styles.separator}>•</span>
-          <span className={styles.availability}>Available in 2 minutes</span>
+        <h2 className={styles.serviceName}>ESSENTIAL PROTECTION</h2>
+        <div className="flex items-center justify-center gap-3 text-lg">
+          <span className="font-bold text-yellow-400">£50/hour</span>
+          <span className="text-gray-500">•</span>
+          <span className="text-green-400">From 2 hours minimum</span>
         </div>
       </div>
 
@@ -166,28 +166,28 @@ export const SmartRecommendation: React.FC<SmartRecommendationProps> = ({
       <div className={styles.benefits}>
         <div className={styles.benefitItem}>
           <span className={styles.check}>✓</span>
-          <span>Matches your requirements</span>
+          <span>Professional security officer</span>
         </div>
         <div className={styles.benefitItem}>
           <span className={styles.check}>✓</span>
-          <span>SIA-certified officers</span>
+          <span>Secure travel included</span>
         </div>
         <div className={styles.benefitItem}>
           <span className={styles.check}>✓</span>
-          <span>Immediate availability</span>
+          <span>Perfect for your needs</span>
         </div>
       </div>
 
       {/* Trust indicators */}
       <div className={styles.trustBar}>
         <span>⭐ 4.8</span>
-        <span>👥 2.8K</span>
-        <span>✓ Verified</span>
+        <span>👥 2.8K Protected</span>
+        <span>✓ SIA Verified</span>
       </div>
 
       {/* Single clear CTA */}
       <button className={styles.activateBtn} onClick={handleBeginProtection}>
-        ACTIVATE PROTECTION
+        BOOK PROTECTION NOW
       </button>
 
       {/* Alternative actions */}
