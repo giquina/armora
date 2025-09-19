@@ -2,10 +2,6 @@
 
 Premium VIP security transport mobile app built with React TypeScript + PWA for app store distribution.
 
-## ⚠️ CRITICAL COMPLIANCE REQUIREMENT
-**All developers MUST read `/docs/SIA_COMPLIANCE_GUIDE.md` before making ANY text changes to the app.**
-This ensures we maintain SIA Close Protection compliance and avoid PHV/taxi regulatory issues.
-
 ## 🚀 Quick Start
 
 ```bash
@@ -136,21 +132,6 @@ The app is configured for deployment as a Progressive Web App, ready for:
 - Apple App Store (via WebView wrapper)
 - Direct web access
 
-## 🌐 Related Repositories
-
-- **[Driver App](https://github.com/giquina/armora-driver)** - Professional driver application
-- **[Backend API](https://github.com/giquina/armora-backend)** - Node.js backend with Supabase
-
-## 🏃‍♂️ Local Development Setup
-
-**Multi-App Development**:
-- **Passenger App**: http://localhost:3000
-- **Driver App**: http://localhost:3001
-- **Backend API**: http://localhost:3002
-
-**Environment Configuration**:
-Each app runs on a different port to allow simultaneous development and testing of the complete platform.
-
 ## 🤝 Contributing
 
 1. Run `npm run suggest` for AI task suggestions
@@ -165,7 +146,4 @@ Proprietary - Armora Security Transport Ltd.
 
 ---
 
-**Last Updated**: September 2025
-**Version**: 1.0.0
-**React**: 19.1.1
-**TypeScript**: 4.9.5
+Last updated: 2025-09-19T03:56:20.640Z

@@ -141,8 +141,8 @@ export function WelcomePage() {
                   </svg>
                 </div>
                 <div className={styles.featureText}>
-                  <h3 className={styles.featureTitleOnly}>Government-Licensed Security Cab Drivers</h3>
-                  <p className={styles.featureSubtitle}>SIA-certified drivers with enhanced background screening</p>
+                  <h3 className={styles.featureTitleOnly}>Licensed Security Professionals</h3>
+                  <p className={styles.featureSubtitle}>SIA-certified protection officers you can trust</p>
                 </div>
               </div>
             </div>
@@ -151,15 +151,13 @@ export function WelcomePage() {
               <div className={styles.featureContent}>
                 <div className={styles.featureIconWrapper}>
                   <svg className={styles.featureLogo} viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M18.92 6.01C18.72 5.42 18.16 5 17.5 5H6.5C5.84 5 5.28 5.42 5.08 6.01L3 12V20C3 20.55 3.45 21 4 21H5C5.55 21 6 20.55 6 20V19H18V20C18 20.55 18.45 21 19 21H20C20.55 21 21 20.55 21 20V12L18.92 6.01Z"/>
-                    <circle cx="7.5" cy="16.5" r="1.5"/>
-                    <circle cx="16.5" cy="16.5" r="1.5"/>
-                    <path d="M12 8L10 10L14 14L12 16" stroke="currentColor" strokeWidth="1" fill="none"/>
+                    <circle cx="12" cy="12" r="10"/>
+                    <polyline points="12,6 12,12 16,14" stroke="white" strokeWidth="2" fill="none"/>
                   </svg>
                 </div>
                 <div className={styles.featureText}>
-                  <h3 className={styles.featureTitleOnly}>Secure Private Hire Transport</h3>
-                  <p className={styles.featureSubtitle}>Licensed transport with enhanced safety protocols</p>
+                  <h3 className={styles.featureTitleOnly}>Book Protection By The Hour</h3>
+                  <p className={styles.featureSubtitle}>Minimum 2 hours - perfect for meetings, events, or evenings out</p>
                 </div>
               </div>
             </div>
@@ -168,13 +166,15 @@ export function WelcomePage() {
               <div className={styles.featureContent}>
                 <div className={styles.featureIconWrapper}>
                   <svg className={styles.featureLogo} viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M12 2L4 7V14C4 19 12 22 12 22S20 19 20 14V7L12 2Z" />
-                    <path d="M10 14L8 12L9.5 10.5L10 11L14.5 6.5L16 8L10 14Z" />
+                    <path d="M18.92 6.01C18.72 5.42 18.16 5 17.5 5H6.5C5.84 5 5.28 5.42 5.08 6.01L3 12V20C3 20.55 3.45 21 4 21H5C5.55 21 6 20.55 6 20V19H18V20C18 20.55 18.45 21 19 21H20C20.55 21 21 20.55 21 20V12L18.92 6.01Z"/>
+                    <circle cx="7.5" cy="16.5" r="1.5"/>
+                    <circle cx="16.5" cy="16.5" r="1.5"/>
+                    <path d="M12 2L4 7V14C4 19 12 22 12 22S20 19 20 14V7L12 2Z" stroke="white" strokeWidth="1" fill="none"/>
                   </svg>
                 </div>
                 <div className={styles.featureText}>
-                  <h3 className={styles.featureTitleOnly}>Safe Ride Fund Initiative</h3>
-                  <p className={styles.featureSubtitle}>Your membership helps vulnerable communities access safe transport</p>
+                  <h3 className={styles.featureTitleOnly}>Secure Travel Included</h3>
+                  <p className={styles.featureSubtitle}>Professional protection with safe, comfortable vehicles</p>
                 </div>
               </div>
             </div>
@@ -183,14 +183,14 @@ export function WelcomePage() {
               <div className={styles.featureContent}>
                 <div className={styles.featureIconWrapper}>
                   <svg className={styles.featureLogo} viewBox="0 0 24 24" fill="currentColor">
-                    <circle cx="12" cy="12" r="10"/>
-                    <polyline points="12,6 12,12 16,14" stroke="white" strokeWidth="2" fill="none"/>
-                    <text x="12" y="4" textAnchor="middle" fontSize="3" fill="currentColor">24/7</text>
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                    <circle cx="12" cy="7" r="4"/>
+                    <path d="M16 11l2 2 4-4" stroke="white" strokeWidth="2" fill="none"/>
                   </svg>
                 </div>
                 <div className={styles.featureText}>
-                  <h3 className={styles.featureTitleOnly}>24/7 Protection Booking</h3>
-                  <p className={styles.featureSubtitle}>Instant booking with security-conscious drivers available anytime</p>
+                  <h3 className={styles.featureTitleOnly}>Choose Your Service Level</h3>
+                  <p className={styles.featureSubtitle}>From visible security to discreet, plainclothes protection</p>
                 </div>
               </div>
             </div>
@@ -199,13 +199,14 @@ export function WelcomePage() {
               <div className={styles.featureContent}>
                 <div className={styles.featureIconWrapper}>
                   <svg className={styles.featureLogo} viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M5 16L3 7L7 10L12 6L17 10L21 7L19 16H5Z"/>
-                    <text x="12" y="20" textAnchor="middle" fontSize="3" fill="currentColor">VIP</text>
+                    <path d="M9 12l2 2 4-4"/>
+                    <path d="M21 12c0 4.97-4.03 9-9 9s-9-4.03-9-9 4.03-9 9-9c2.03 0 3.89.67 5.39 1.8"/>
+                    <path d="M16 8l2-2 4 4" stroke="white" strokeWidth="1" fill="none"/>
                   </svg>
                 </div>
                 <div className={styles.featureText}>
-                  <h3 className={styles.featureTitleOnly}>Discrete Professional Service</h3>
-                  <p className={styles.featureSubtitle}>VIP-level confidential transport standards</p>
+                  <h3 className={styles.featureTitleOnly}>Transparent Pricing</h3>
+                  <p className={styles.featureSubtitle}>See your total cost upfront - no surprises</p>
                 </div>
               </div>
             </div>

@@ -9,12 +9,12 @@ const SecurityStatus = () => {
   const [isTyping, setIsTyping] = useState(true);
 
   const securityMessages = useMemo(() => [
-    "Initializing quantum encryption...",
-    "Scanning driver authentication matrix...",
-    "Verifying biometric security protocols...",
-    "Establishing secure communication channels...",
-    "Loading executive protection network...",
-    "Securing your journey..."
+    "Connecting you with licensed security professionals...",
+    "Verifying SIA-certified protection officers...",
+    "Preparing your secure travel experience...",
+    "Setting up transparent pricing details...",
+    "Confirming your protection service level...",
+    "Ready to keep you safe..."
   ], []);
 
   useEffect(() => {
