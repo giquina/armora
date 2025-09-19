@@ -1,8 +1,8 @@
 /* Expanded Services Page - Wide Layout */
 .servicesContainer {
-  max-width: 1400px; /* Expanded from 680px to use more screen width */
-  margin: 0 auto;
-  padding: 0 16px; /* Reduced side padding for wider content */
+  max-width: 100%; /* Full width */
+  margin: 0;
+  padding: 0 4px; /* Reduced to 4px for edge-to-edge feel */
   padding-bottom: calc(80px + var(--space-xl));
   background: var(--bg-primary);
   min-height: 100vh;
@@ -14,7 +14,7 @@
     rgba(26, 26, 46, 0.95),
     rgba(76, 175, 80, 0.1)
   );
-  padding: var(--space-xl) 16px; /* Reduced padding to use more width */
+  padding: var(--space-xl) 4px; /* Reduced to 4px for edge-to-edge feel */
   text-align: center;
   border-bottom: 1px solid var(--border-subtle);
 }
@@ -109,10 +109,10 @@
 .servicesGrid {
   display: grid;
   grid-template-columns: 1fr;
-  gap: var(--space-xl);
-  padding: 16px; /* Reduced padding for wider content */
+  gap: var(--space-lg); /* Reduced gap for more card space */
+  padding: 4px; /* Minimal padding for edge-to-edge feel */
   max-width: 100%; /* Remove width constraint to use full container */
-  margin: 0 auto;
+  margin: 0;
 }
 
 .serviceCardWrapper {

@@ -3,7 +3,7 @@
 .assignmentsView {
   min-height: 100vh;
   background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-  padding: 0 16px 100px 16px; /* Bottom padding for quick actions bar */
+  padding: 0 4px 100px 4px;
   color: var(--text-primary);
 }
 
@@ -108,18 +108,33 @@
   gap: 16px;
 }
 
-/* PREMIUM ASSIGNMENT CARDS - EXPANDED LAYOUT */
+/* PREMIUM ASSIGNMENT CARDS - PROFESSIONAL DESIGN */
 .assignmentCard {
   background: white;
   border-radius: 16px;
-  padding: 20px; /* Increased from 16px for better spacing */
-  margin-bottom: 16px; /* Increased gap between cards */
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08), 0 1px 4px rgba(0, 0, 0, 0.06);
-  border: 1px solid rgba(0, 0, 0, 0.05);
-  transition: all 0.2s ease;
+  padding: 20px;
+  margin: 0 4px 20px 4px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12), 0 2px 8px rgba(0, 0, 0, 0.08);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
   position: relative;
-  min-height: auto; /* Allow cards to expand based on content */
+  min-height: auto;
   backdrop-filter: blur(10px);
+  overflow: visible;
+  z-index: 1;
+}
+
+/* PROTECTION TIER STYLING */
+.tier-essential {
+  border-left: 6px solid #1e40af;
+}
+
+.tier-executive {
+  border-left: 6px solid #d97706;
+}
+
+.tier-shadow {
+  border-left: 6px solid #374151;
 }
 
 .assignmentCard:hover {
@@ -139,32 +154,251 @@
   right: 0;
   height: 4px;
   background: linear-gradient(90deg, var(--armora-gold), #f59e0b);
+  border-radius: 16px 16px 0 0;
 }
 
-/* CONSOLIDATED LINES - IMPROVED SPACING */
+/* PROFESSIONAL STATUS LINES */
 .statusLine {
   display: flex;
   justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+  gap: 8px;
+  position: relative;
+  z-index: 2;
+}
+
+.statusGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.protectionTierBadge {
+  display: inline-flex;
   align-items: center;
-  margin-bottom: 16px; /* Increased spacing */
+  gap: 4px;
+  padding: 6px 12px;
+  border: 2px solid;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  background: rgba(255, 255, 255, 0.9);
+}
+
+/* PROTECTION DURATION LINE */
+.durationLine {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 12px;
+  background: #f8fafc;
+  border-radius: 8px;
+  border-left: 4px solid var(--armora-gold);
+}
+
+.durationInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.durationText {
+  font-size: 14px;
+  font-weight: 700;
+  color: #1f2937;
+}
+
+.remainingText {
+  font-size: 12px;
+  color: #059669;
+  font-weight: 600;
+}
+
+.investmentInfo {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 2px;
+}
+
+.totalInvestment {
+  font-size: 18px;
+  font-weight: 800;
+  color: #1f2937;
+}
+
+.memberDiscount {
+  font-size: 11px;
+  color: #059669;
+  font-weight: 600;
+  background: #dcfce7;
+  padding: 2px 6px;
+  border-radius: 4px;
 }
 
 .officerLine {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: 12px;
-  margin-bottom: 12px; /* Increased spacing */
+  margin-bottom: 16px;
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  padding: 12px;
+  background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
 }
 
-.journeyLine {
-  margin-bottom: 12px; /* Increased spacing */
+/* ENHANCED ROUTE SECTION */
+.routeSection {
+  margin-bottom: 16px;
+  padding: 12px;
+  background: linear-gradient(135deg, #fefce8 0%, #fef3c7 100%);
+  border-radius: 12px;
+  border-left: 4px solid var(--armora-gold);
+  position: relative;
+  z-index: 2;
 }
 
-.serviceLine {
+.routeInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.locationLine {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.locationIcon {
+  font-size: 16px;
+  margin-top: 2px;
+  flex-shrink: 0;
+}
+
+.locationText {
+  flex: 1;
+}
+
+.locationLabel {
+  font-size: 11px;
+  font-weight: 600;
+  color: #92400e;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 2px;
+}
+
+.locationAddress {
+  font-size: 14px;
+  font-weight: 600;
+  color: #1f2937;
+  line-height: 1.4;
+}
+
+.routeArrow {
+  font-size: 20px;
+  color: var(--armora-gold);
+  text-align: center;
+  margin: 4px 0;
+}
+
+.securityMeta {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 16px; /* Increased spacing */
+  flex-wrap: wrap;
+  gap: 8px;
+  padding-top: 8px;
+  border-top: 1px solid rgba(217, 119, 6, 0.2);
+}
+
+.threatLevel {
+  display: flex;
+  align-items: center;
+}
+
+.threatIndicator {
+  font-size: 11px;
+  font-weight: 700;
+  padding: 4px 8px;
+  border-radius: 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.threat-low {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.threat-medium {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.threat-high {
+  background: #fee2e2;
+  color: #dc2626;
+}
+
+.requirements {
+  display: flex;
+  gap: 4px;
+  flex-wrap: wrap;
+}
+
+.requirementTag {
+  font-size: 10px;
+  font-weight: 600;
+  color: #7c2d12;
+  background: rgba(217, 119, 6, 0.1);
+  padding: 2px 6px;
+  border-radius: 4px;
+  white-space: nowrap;
+}
+
+/* SECURITY STATUS UPDATE LINE */
+.statusUpdateLine {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 16px;
+  padding: 12px;
+  background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+  border-radius: 12px;
+  border-left: 4px solid #0ea5e9;
+  position: relative;
+  z-index: 2;
+}
+
+.securityStatus {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.statusIndicator {
+  font-size: 12px;
+  flex-shrink: 0;
+}
+
+.statusMessage {
+  font-size: 14px;
+  font-weight: 600;
+  color: #0c4a6e;
+  line-height: 1.4;
 }
 
 .statusBadge {
@@ -219,38 +453,108 @@
 }
 
 .timeAgo {
-  font-size: 14px; /* Appropriately sized for timestamp */
-  color: #6b7280;
+  font-size: 13px;
+  color: #475569;
   font-weight: 500;
-  text-align: right; /* Right-aligned consistently */
+  text-align: right;
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 
 /* CONSOLIDATED TEXT STYLES - IMPROVED READABILITY */
 .officerText {
-  font-size: 16px;
-  font-weight: 600;
-  color: #1f2937;
   flex: 1;
-  line-height: 1.5; /* Improved readability */
-  white-space: normal; /* Allow text wrapping */
-  word-wrap: break-word; /* Handle long SIA license numbers */
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.officerName {
+  font-size: 16px;
+  font-weight: 700;
+  color: #1f2937;
+  line-height: 1.4;
+  word-break: break-word;
+  overflow: visible;
+  text-overflow: unset;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.designation {
+  font-size: 12px;
+  font-weight: 600;
+  color: #059669;
+  background: #dcfce7;
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+.officerDetails {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: 4px;
+}
+
+.licenseInfo {
+  font-size: 12px;
+  color: #475569;
+  line-height: 1.4;
+}
+
+.experienceInfo {
+  font-size: 12px;
+  color: #6b7280;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.specializations {
+  display: flex;
+  gap: 4px;
+  flex-wrap: wrap;
+  margin-top: 4px;
+}
+
+.specializationTag {
+  font-size: 10px;
+  font-weight: 600;
+  color: #1e40af;
+  background: #dbeafe;
+  padding: 2px 6px;
+  border-radius: 4px;
+  white-space: nowrap;
+}
+
+.officerRating {
+  color: #fbbf24;
 }
 
 .journeyText {
   font-size: 16px;
   font-weight: 500;
   color: #1f2937;
-  line-height: 1.5; /* Improved readability */
-  white-space: normal; /* Allow text wrapping for long addresses */
+  line-height: 1.6;
+  white-space: normal;
   word-wrap: break-word;
+  word-break: break-word;
+  display: block;
+  margin: 8px 0;
+  overflow: visible;
+  text-overflow: unset;
 }
 
 .serviceText {
-  font-size: 16px; /* Standardized font size */
+  font-size: 16px;
   font-weight: 600;
   color: #1f2937;
   line-height: 1.5;
-  white-space: normal; /* Allow text wrapping */
+  white-space: normal;
+  overflow: visible;
+  text-overflow: unset;
 }
 
 .progressText {
@@ -286,31 +590,40 @@
 }
 
 .officerAvatar {
-  width: 36px; /* Reduced for compact layout */
-  height: 36px; /* Reduced for compact layout */
-  background: var(--armora-dark);
-  border-radius: 50%;
+  width: 48px;
+  height: 48px;
+  background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%);
+  border-radius: 12px;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
+  position: relative;
+  box-shadow: 0 4px 12px rgba(30, 58, 138, 0.2);
+}
+
+.siaIndicator {
+  position: absolute;
+  bottom: -4px;
+  right: -4px;
+  background: var(--armora-gold);
+  color: #1f2937;
+  font-size: 8px;
+  font-weight: 800;
+  padding: 2px 4px;
+  border-radius: 4px;
+  border: 2px solid white;
 }
 
 .officerInitials {
   color: white;
-  font-size: 16px; /* Increased by 15% but proportional to smaller avatar */
-  font-weight: 700;
+  font-size: 18px;
+  font-weight: 800;
+  letter-spacing: 0.5px;
 }
 
 .officerInfo {
   flex: 1;
-}
-
-.officerName {
-  font-size: var(--font-base);
-  font-weight: 600;
-  color: #1f2937;
-  margin: 0 0 4px 0;
 }
 
 .siaLicense {
@@ -390,17 +703,19 @@
 
 .progressBar {
   width: 100%;
-  height: 6px;
-  background: #e5e7eb;
-  border-radius: 3px;
+  height: 8px;
+  background: #e0f2fe;
+  border-radius: 4px;
   overflow: hidden;
+  margin-top: 4px;
 }
 
 .progressFill {
   height: 100%;
-  background: linear-gradient(90deg, #22c55e, #16a34a);
-  border-radius: 3px;
+  background: linear-gradient(90deg, #0ea5e9, #0284c7);
+  border-radius: 4px;
   transition: width 0.3s ease;
+  box-shadow: 0 2px 4px rgba(14, 165, 233, 0.3);
 }
 
 .progressText {
@@ -443,30 +758,95 @@
   margin: 0;
 }
 
-/* ACTION SECTION - IMPROVED SPACING */
+/* PROFESSIONAL ACTION SECTION */
 .actionSection {
   display: flex;
-  gap: 12px; /* Increased gap for better spacing */
-  padding-top: 16px; /* More padding to separate from content */
-  border-top: 1px solid #f3f4f6; /* Subtle separator */
+  gap: 8px;
+  padding-top: 16px;
+  border-top: 1px solid #f3f4f6;
+  position: relative;
+  z-index: 3;
+  clear: both;
+}
+
+.emergencyAction {
+  flex: 1;
+  padding: 12px 8px;
+  background: linear-gradient(135deg, #dc2626 0%, #ef4444 100%);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  min-height: 44px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.emergencyAction:hover {
+  background: linear-gradient(135deg, #ef4444 0%, #f87171 100%);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(220, 38, 38, 0.3);
+}
+
+.tertiaryAction {
+  flex: 1;
+  padding: 12px 8px;
+  background: white;
+  color: #6b7280;
+  border: 2px solid #e5e7eb;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  min-height: 44px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.tertiaryAction:hover {
+  background: #f9fafb;
+  border-color: #d1d5db;
+  color: #374151;
+  transform: translateY(-1px);
 }
 
 .primaryAction {
   flex: 1;
-  padding: 14px 16px; /* Increased for better touch targets */
-  background: var(--armora-dark);
-  color: white;
+  padding: 12px 8px;
+  background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%);
+  color: #fbbf24;
   border: none;
   border-radius: 8px;
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.2s ease;
-  min-height: 48px; /* Ensure adequate touch target */
+  min-height: 44px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
 }
 
 .primaryAction:hover {
-  background: #0f172a;
+  background: linear-gradient(135deg, #1e40af 0%, #2563eb 100%);
   transform: translateY(-1px);
 }
 
@@ -476,20 +856,28 @@
 
 .secondaryAction {
   flex: 1;
-  padding: 14px 16px; /* Increased for better touch targets */
+  padding: 12px 8px;
   background: white;
-  color: var(--armora-dark);
-  border: 2px solid #e5e7eb;
+  color: #1e3a8a;
+  border: 2px solid #1e3a8a;
   border-radius: 8px;
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.2s ease;
-  min-height: 48px; /* Ensure adequate touch target */
+  min-height: 44px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
 }
 
 .secondaryAction:hover {
-  border-color: var(--armora-dark);
+  background: #f8fafc;
+  border-color: #1e40af;
   transform: translateY(-1px);
 }
 
@@ -546,12 +934,12 @@
 /* QUICK ACTIONS BAR */
 .quickActionsBar {
   position: fixed;
-  bottom: 80px; /* Above navigation */
-  left: 16px;
-  right: 16px;
+  bottom: 80px;
+  left: 8px;
+  right: 8px;
   background: white;
   border-radius: 20px;
-  padding: 16px;
+  padding: 12px;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
   border: 1px solid rgba(0, 0, 0, 0.1);
   backdrop-filter: blur(10px);
@@ -565,23 +953,27 @@
 
 .quickActionPrimary {
   flex: 2;
-  padding: 14px 18px; /* Increased by 15% */
-  background: #22c55e;
-  color: white;
+  padding: 12px 16px;
+  background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%);
+  color: #fbbf24;
   border: none;
   border-radius: 12px;
-  font-size: 18px; /* Increased by 15% */
+  font-size: 16px;
   font-weight: 700;
   cursor: pointer;
   transition: all 0.2s ease;
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
   justify-content: center;
+  min-height: 52px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 
 .quickActionPrimary:hover {
-  background: #16a34a;
+  background: linear-gradient(135deg, #1e40af 0%, #2563eb 100%);
   transform: translateY(-1px);
 }
 
@@ -591,9 +983,9 @@
 
 .quickActionSecondary {
   flex: 1;
-  padding: 14px 12px; /* Increased padding */
-  background: #f3f4f6;
-  border: none;
+  padding: 10px 8px;
+  background: white;
+  border: 2px solid #1e3a8a;
   border-radius: 12px;
   cursor: pointer;
   transition: all 0.2s ease;
@@ -601,12 +993,14 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 4px;
-  min-height: 60px; /* Ensure adequate height */
+  gap: 2px;
+  min-height: 52px;
+  overflow: hidden;
 }
 
 .quickActionSecondary:hover {
-  background: #e5e7eb;
+  background: #f8fafc;
+  border-color: #1e40af;
   transform: translateY(-1px);
 }
 
@@ -614,14 +1008,32 @@
   transform: scale(0.98);
 }
 
+/* Support button specific styling (last secondary button) */
+.quickActionSecondary:last-child {
+  background: #fbbf24;
+  border: 2px solid #fbbf24;
+}
+
+.quickActionSecondary:last-child:hover {
+  background: #f59e0b;
+  border-color: #f59e0b;
+}
+
 .actionIcon {
-  font-size: 20px; /* Increased by 15% */
+  font-size: 18px;
+  flex-shrink: 0;
 }
 
 .actionLabel {
-  font-size: 14px; /* Increased by 15% */
+  font-size: 12px;
   font-weight: 600;
-  color: #374151;
+  color: #1e3a8a;
+  text-align: center;
+  line-height: 1.2;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  max-width: 100%;
 }
 
 /* ENHANCED ANIMATIONS */
@@ -653,7 +1065,7 @@
 /* MOBILE RESPONSIVENESS - IMPROVED */
 @media (max-width: 480px) {
   .assignmentsView {
-    padding: 0 12px 100px 12px;
+    padding: 0 2px 100px 2px;
   }
 
   .pageHeader {
@@ -666,39 +1078,97 @@
   }
 
   .assignmentCard {
-    padding: 16px; /* Adequate padding for mobile */
+    padding: 12px;
+    margin: 0 2px 12px 2px;
   }
 
   .officerLine {
-    flex-direction: column;
+    flex-direction: row;
     align-items: flex-start;
-    gap: 8px;
+    gap: 10px;
+    margin-bottom: 10px;
   }
 
   .officerText {
-    font-size: 15px; /* Slightly smaller for mobile */
-    line-height: 1.5;
+    font-size: 15px;
+    line-height: 1.6;
+  }
+
+  .officerName {
+    font-size: 16px;
+  }
+
+  .officerDetails {
+    font-size: 13px;
+    line-height: 1.6;
   }
 
   .journeyText {
-    font-size: 15px;
+    font-size: 14px;
     line-height: 1.5;
+    margin: 4px 0;
+    overflow: visible;
+    text-overflow: unset;
+    white-space: normal;
+    clear: both;
   }
 
   .serviceText {
-    font-size: 15px;
+    font-size: 14px;
+    line-height: 1.4;
+    overflow: visible;
+    text-overflow: unset;
+    margin: 2px 0;
   }
 
   .actionSection {
-    flex-direction: column; /* Stack buttons vertically on small screens */
+    flex-direction: column;
+    gap: 6px;
+    padding-top: 12px;
+  }
+
+  .routeSection {
+    padding: 10px;
+  }
+
+  .locationAddress {
+    font-size: 13px;
+  }
+
+  .durationLine {
+    flex-direction: column;
+    align-items: flex-start;
     gap: 8px;
+    padding: 10px;
+  }
+
+  .investmentInfo {
+    align-items: flex-start;
+  }
+
+  .officerLine {
+    padding: 10px;
+  }
+
+  .officerAvatar {
+    width: 42px;
+    height: 42px;
+  }
+
+  .statusUpdateLine {
+    padding: 10px;
   }
 
   .primaryAction,
   .secondaryAction {
     width: 100%;
-    padding: 12px 16px;
-    font-size: 15px;
+    padding: 12px 12px;
+    font-size: 14px;
+    min-height: 42px;
+    white-space: normal;
+    text-overflow: unset;
+    overflow: visible;
+    line-height: 1.3;
   }
 
   .statsBar {
@@ -712,13 +1182,38 @@
 
   .quickActions {
     flex-direction: column;
-    gap: 8px;
+    gap: 6px;
   }
 
   .quickActionPrimary,
   .quickActionSecondary {
     width: 100%;
-    min-height: 48px;
+    min-height: 46px;
+    padding: 10px 12px;
+  }
+
+  .quickActionPrimary {
+    font-size: 15px;
+    white-space: normal;
+  }
+
+  .emergencyAction,
+  .tertiaryAction {
+    width: 100%;
+    padding: 12px 12px;
+    font-size: 12px;
+    min-height: 42px;
+    white-space: normal;
+    text-overflow: unset;
+    overflow: visible;
+    line-height: 1.3;
+  }
+
+  .actionLabel {
+    font-size: 11px;
+    white-space: normal;
+    overflow: visible;
+    text-overflow: unset;
   }
 }
 
@@ -750,14 +1245,16 @@
   .pageHeader {
     padding: 32px;
     margin-bottom: 32px;
-    max-width: 1200px;
-    margin-left: auto;
-    margin-right: auto;
+    margin-left: 0;
+    margin-right: 0;
   }
 
   .pageTitle {
-    font-size: 3rem; /* Larger title for desktop */
+    font-size: 2.5rem; /* Professional size for desktop */
     letter-spacing: -0.025em;
+    display: flex;
+    align-items: center;
+    gap: 12px;
   }
 
   .pageSubtitle {
@@ -775,23 +1272,21 @@
   }
 
   .assignmentCard {
-    max-width: 800px;
+    max-width: 100%; /* Allow full width on desktop */
     margin-left: auto;
     margin-right: auto;
     margin-bottom: 24px;
   }
 
   .tabContainer {
-    max-width: 600px;
-    margin-left: auto;
-    margin-right: auto;
+    margin-left: 0;
+    margin-right: 0;
     margin-bottom: 32px;
   }
 
   .quickActionsBar {
-    max-width: 800px;
-    left: 50%;
-    right: auto;
+    left: 8px;
+    right: 8px;
     transform: translateX(-50%);
   }
 }
@@ -853,10 +1348,21 @@
 /* ENHANCED CONTRAST FOR TABS */
 .tab {
   color: #475569 !important; /* Much darker for readability */
+  font-size: 14px;
+  padding: 14px 12px;
 }
 
 .tab:hover {
   color: #1e293b !important;
+}
+
+/* TAB ICONS ALIGNMENT */
+.tab {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  text-align: center;
 }
 
 /* DARK THEME OVERRIDES */

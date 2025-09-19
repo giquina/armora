@@ -32,7 +32,7 @@
     "test": "react-scripts test",
     "test:e2e": "playwright test",
     "eject": "react-scripts eject",
-    "dev": "npm run orchestrate & node dev-tools/hooks/hooks-manager.js start && npm start",
+    "dev": "npm run agents:start & node dev-tools/hooks/hooks-manager.js start && npm start",
     "hooks:start": "node dev-tools/hooks/hooks-manager.js start",
     "hooks:stop": "node dev-tools/hooks/hooks-manager.js stop",
     "hooks:status": "node dev-tools/hooks/hooks-manager.js status",
@@ -50,10 +50,12 @@
     "project-health": "node .claude/commands/project-health.js",
     "statusline": "node .claude/commands/statusline.js",
     "agents": "node .claude/commands/agents.js",
-    "orchestrate": "node .claude/agent-orchestrator.js watch",
-    "orchestrate:status": "node .claude/agent-orchestrator.js status",
-    "orchestrate:test": "node .claude/agent-orchestrator.js test",
-    "orchestrate:activate": "node .claude/agent-orchestrator.js activate"
+    "agents:start": "node .claude/claude-agent-bridge.js start",
+    "agents:status": "node .claude/claude-agent-bridge.js status",
+    "agents:test": "node .claude/claude-agent-bridge.js test",
+    "agents:file": "node .claude/claude-agent-bridge.js file",
+    "orchestrate": "echo 'Use agents:start instead'",
+    "orchestrate:status": "npm run agents:status"
   },
   "eslintConfig": {
     "extends": [

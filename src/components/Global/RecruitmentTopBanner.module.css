@@ -1,0 +1,329 @@
+/* Top Recruitment Banner Styles */
+
+.topBanner {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 9999;
+  background: linear-gradient(135deg, #fbbf24, #f59e0b);
+  border-bottom: 1px solid #f59e0b;
+  transition: height 0.3s ease;
+  height: 40px;
+  overflow: hidden;
+}
+
+.topBanner.expanded {
+  height: auto;
+  min-height: 40px;
+}
+
+.bannerContent {
+  padding: 8px 16px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.mainRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 24px;
+  min-height: 24px;
+}
+
+.bannerText {
+  flex: 1;
+  margin-right: 16px;
+}
+
+.bannerTitle {
+  font-size: 14px;
+  font-weight: 600;
+  color: #1e3a8a;
+  line-height: 1;
+}
+
+.desktopText {
+  display: inline;
+}
+
+.mobileText {
+  display: none;
+}
+
+.controls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.applyButton {
+  background: #1e3a8a;
+  color: #fbbf24;
+  padding: 6px 16px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  transition: all 0.2s ease;
+  min-height: 28px;
+  white-space: nowrap;
+}
+
+.applyButton:hover {
+  background: #1e40af;
+  transform: translateY(-1px);
+}
+
+.applyButton:active {
+  transform: translateY(0);
+}
+
+.expandButton {
+  background: transparent;
+  border: none;
+  color: #1e3a8a;
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+  min-height: 28px;
+  min-width: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.expandButton:hover {
+  background: rgba(30, 58, 138, 0.1);
+}
+
+.expandButton svg {
+  transition: transform 0.3s ease;
+}
+
+.expandButton svg.rotated {
+  transform: rotate(180deg);
+}
+
+.closeButton {
+  background: transparent;
+  border: none;
+  color: #1e3a8a;
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+  min-height: 28px;
+  min-width: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.closeButton:hover {
+  background: rgba(30, 58, 138, 0.1);
+}
+
+.expandedContent {
+  padding-top: 12px;
+  border-top: 1px solid rgba(30, 58, 138, 0.2);
+  margin-top: 8px;
+}
+
+.highlights {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 8px;
+}
+
+.highlights li {
+  font-size: 13px;
+  color: #1e3a8a;
+  font-weight: 500;
+  position: relative;
+  padding-left: 16px;
+}
+
+.highlights li::before {
+  content: "•";
+  color: #1e3a8a;
+  font-weight: bold;
+  position: absolute;
+  left: 0;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  .bannerContent {
+    padding: 6px 12px;
+  }
+
+  .bannerTitle {
+    font-size: 13px;
+  }
+
+  .desktopText {
+    display: none;
+  }
+
+  .mobileText {
+    display: inline;
+  }
+
+  .applyButton {
+    font-size: 11px;
+    padding: 6px 12px;
+  }
+
+  .controls {
+    gap: 6px;
+  }
+
+  .highlights {
+    grid-template-columns: 1fr;
+    gap: 6px;
+  }
+
+  .highlights li {
+    font-size: 12px;
+  }
+
+  .expandedContent {
+    padding-top: 8px;
+    margin-top: 6px;
+  }
+}
+
+@media (max-width: 480px) {
+  .bannerContent {
+    padding: 6px 8px;
+  }
+
+  .mainRow {
+    gap: 8px;
+  }
+
+  .bannerText {
+    margin-right: 8px;
+  }
+
+  .bannerTitle {
+    font-size: 12px;
+  }
+
+  .applyButton {
+    font-size: 10px;
+    padding: 5px 10px;
+    min-height: 26px;
+  }
+
+  .expandButton,
+  .closeButton {
+    min-height: 26px;
+    min-width: 26px;
+    padding: 3px;
+  }
+
+  .expandButton svg,
+  .closeButton svg {
+    width: 14px;
+    height: 14px;
+  }
+}
+
+@media (max-width: 320px) {
+  .bannerContent {
+    padding: 4px 6px;
+  }
+
+  .bannerTitle {
+    font-size: 11px;
+  }
+
+  .applyButton {
+    font-size: 9px;
+    padding: 4px 8px;
+    min-height: 24px;
+  }
+
+  .expandButton,
+  .closeButton {
+    min-height: 24px;
+    min-width: 24px;
+    padding: 2px;
+  }
+
+  .expandButton svg,
+  .closeButton svg {
+    width: 12px;
+    height: 12px;
+  }
+
+  .highlights li {
+    font-size: 11px;
+  }
+}
+
+/* Touch targets for mobile */
+@media (max-width: 768px) {
+  .applyButton,
+  .expandButton,
+  .closeButton {
+    min-height: 44px;
+    min-width: 44px;
+  }
+
+  .applyButton {
+    min-width: auto;
+    padding: 8px 12px;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .topBanner {
+    border-bottom: 2px solid #000;
+  }
+
+  .applyButton {
+    background: #000;
+    color: #fff;
+    border: 1px solid #000;
+  }
+
+  .applyButton:hover {
+    background: #333;
+  }
+
+  .expandButton,
+  .closeButton {
+    border: 1px solid #000;
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .topBanner {
+    transition: none;
+  }
+
+  .applyButton,
+  .expandButton,
+  .closeButton {
+    transition: none;
+  }
+
+  .applyButton:hover {
+    transform: none;
+  }
+
+  .expandButton svg {
+    transition: none;
+  }
+}

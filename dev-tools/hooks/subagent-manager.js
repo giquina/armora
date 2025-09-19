@@ -21,7 +21,7 @@ const path = require('path');
 class SubagentManager {
     constructor(options = {}) {
         this.projectRoot = options.projectRoot || process.cwd();
-        this.subagentsPath = path.join(this.projectRoot, 'dev-tools', 'subagents');
+        this.subagentsPath = path.join(this.projectRoot, '.claude', 'agents');
         this.isRunning = false;
         
         // Registered subagents registry

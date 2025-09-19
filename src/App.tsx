@@ -18,11 +18,10 @@ import { VehicleSelection, LocationPicker, BookingSuccess } from './components/B
 import { PaymentIntegration } from './components/Booking/PaymentIntegration';
 import { BookingErrorBoundary } from './components/Booking/BookingErrorBoundary';
 import { ServiceSelection } from './components/ServiceSelection/ServiceSelection';
-import { RecruitmentModal } from './components/Recruitment';
 import { ReferralSection } from './components/Account/ReferralSection';
 import { PPOVenueBooking } from './components/Account/PPOVenueBooking';
 import { AccountView } from './components/Account/AccountView';
-import RecruitmentBanner from './components/Global/RecruitmentBanner';
+import { RecruitmentTopBanner } from './components/Global/RecruitmentTopBanner';
 import { VenueProtectionWelcome } from './components/VenueProtection/VenueProtectionWelcome';
 import { VenueSecurityQuestionnaire } from './components/VenueProtection/VenueSecurityQuestionnaire';
 import { VenueProtectionSuccess } from './components/VenueProtection/VenueProtectionSuccess';
@@ -563,8 +562,6 @@ function AppRouter() {
   // Achievement banner state
   const [showAchievementBanner, setShowAchievementBanner] = useState(false);
 
-  // Recruitment modal state
-  const [isRecruitmentModalOpen, setIsRecruitmentModalOpen] = useState(false);
   
   // Show achievement banner after questionnaire completion for eligible users
   useEffect(() => {
@@ -635,11 +632,6 @@ function AppRouter() {
   };
 
 
-
-  const handleCloseRecruitmentModal = () => {
-    setIsRecruitmentModalOpen(false);
-  };
-
   const renderCurrentView = () => {
     switch (currentView) {
       case 'splash':
@@ -698,7 +690,7 @@ function AppRouter() {
   if (['splash', 'welcome', 'login', 'signup', 'guest-disclaimer', 'questionnaire', 'achievement'].includes(currentView)) {
     return (
       <>
-        <RecruitmentBanner />
+        <RecruitmentTopBanner />
         {renderCurrentView()}
         {showAchievementBanner && (
           <AchievementBanner
@@ -708,17 +700,13 @@ function AppRouter() {
             userName={user?.name || 'Member'}
           />
         )}
-        <RecruitmentModal
-          isOpen={isRecruitmentModalOpen}
-          onClose={handleCloseRecruitmentModal}
-        />
       </>
     );
   }
 
   return (
     <>
-      <RecruitmentBanner />
+      <RecruitmentTopBanner />
       <AppLayout>
         {renderCurrentView()}
       </AppLayout>
@@ -730,10 +718,6 @@ function AppRouter() {
           userName={user?.name || 'Member'}
         />
       )}
-      <RecruitmentModal
-        isOpen={isRecruitmentModalOpen}
-        onClose={handleCloseRecruitmentModal}
-      />
     </>
   );
 }

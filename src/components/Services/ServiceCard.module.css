@@ -4,14 +4,17 @@
   background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
   border: 2px solid rgba(255, 215, 0, 0.3);
   border-radius: 16px;
-  padding: 24px;
-  margin-bottom: 24px;
+  padding: 16px; /* Reduced padding for more content space */
+  margin-bottom: 16px; /* Reduced margin for tighter spacing */
   position: relative;
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   overflow: hidden;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-  width: 100%;
+  width: calc(100vw - 16px); /* Use full viewport width minus minimal margins */
   max-width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  box-sizing: border-box;
 }
 
 .serviceCard:hover {
@@ -427,8 +430,9 @@
 /* Mobile Responsive */
 @media (max-width: 768px) {
   .serviceCard {
-    padding: 20px;
-    margin-bottom: 20px;
+    padding: 12px; /* Reduced padding for edge-to-edge feel */
+    margin-bottom: 12px;
+    width: calc(100vw - 12px); /* Close to edges on mobile */
   }
 
   .serviceHeader {
@@ -506,8 +510,9 @@
 
 @media (max-width: 480px) {
   .serviceCard {
-    padding: 16px;
-    margin-bottom: 16px;
+    padding: 8px; /* Minimal padding for maximum space usage */
+    margin-bottom: 8px;
+    width: calc(100vw - 8px); /* Very close to edges on small screens */
   }
 
   .serviceHeader {

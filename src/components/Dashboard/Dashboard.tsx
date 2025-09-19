@@ -519,18 +519,6 @@ export function Dashboard() {
         onServiceSelect={handleServiceSelection}
       />
 
-      {/* Quick Booking Prompt for Users Without Active Protection */}
-      {(user?.userType === 'registered' || user?.userType === 'google') && (
-        <div className={styles.quickBookingPrompt}>
-          <span className={styles.promptText}>Need protection?</span>
-          <button
-            className={styles.promptButton}
-            onClick={() => navigateToView('booking')}
-          >
-            Request Now →
-          </button>
-        </div>
-      )}
 
 
       {/* Service Overview Section */}

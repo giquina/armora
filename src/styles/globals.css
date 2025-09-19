@@ -36,6 +36,11 @@ body {
   box-sizing: border-box;
 }
 
+/* Account for fixed recruitment banner at top */
+body.has-recruitment-banner {
+  padding-top: 40px;
+}
+
 /* PREMIUM SCROLLBARS */
 ::-webkit-scrollbar {
   width: 8px;

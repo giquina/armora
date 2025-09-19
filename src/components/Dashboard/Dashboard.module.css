@@ -29,7 +29,8 @@
    VENUE PROTECTION SECTION STYLES
 ======================================== */
 .venueProtectionSection {
-  margin: var(--space-sm);
+  margin: 0;
+  padding: 0 8px;
   margin-top: var(--space-lg); /* Reduced extra space when positioned at bottom */
   margin-bottom: var(--space-xl); /* Reduced bottom spacing for more screen usage */
   min-height: auto; /* Allow content to determine height */
@@ -311,8 +312,8 @@
 .rewardBanner {
   background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
   color: var(--text-dark);
-  padding: 16px 0; /* Better padding for reward banner */
-  margin: 16px var(--space-md) 24px var(--space-md); /* Better spacing around banner */
+  padding: 16px 8px; /* Better padding for reward banner */
+  margin: 16px 8px 24px 8px; /* Minimal margins for full width */
   position: relative;
   animation:
     bounceEntrance 3s ease-out forwards,
@@ -570,9 +571,8 @@
 .actionSection,
 .upgradeSection,
 .contactSection {
-  max-width: var(--content-max-width);
-  margin: 0 auto 24px auto; /* Better spacing between major sections */
-  padding: 0 var(--content-padding-mobile);
+  margin: 0 0 24px 0; /* Better spacing between major sections */
+  padding: 0 4px; /* Reduced to 4px for more edge-to-edge feel */
 }
 
 /* CRITICAL SPACING FIX: Add space after recommendation to location section */
@@ -603,12 +603,13 @@
 ======================================== */
 .servicesGrid {
   display: grid;
-  gap: 24px; /* Better spacing between service cards */
+  gap: 16px; /* Reduced gap for more card space */
   width: 100%;
   /* Default: Single column on mobile to prevent button clipping */
   grid-template-columns: 1fr;
-  max-width: var(--content-max-width);
-  margin: 0 auto;
+  max-width: 100%; /* Remove width constraint for full container usage */
+  margin: 0;
+  padding: 0 4px; /* Minimal padding for edge-to-edge feel */
 }
 
 /* Small screens: Single column with tighter spacing */
@@ -882,7 +883,7 @@
    GET STARTED SECTION - SIMPLIFIED
 ======================================== */
 .getStartedSection {
-  margin: var(--space-xl) var(--space-md) var(--space-xxl) var(--space-md);
+  margin: var(--space-xl) 8px var(--space-xxl) 8px;
   padding: var(--space-xl) 0;
   background: var(--bg-secondary);
   border-radius: var(--radius-lg);
@@ -1167,7 +1168,7 @@
 
 /* Need Help Section */
 .needHelpSection {
-  margin-top: var(--space-xxl);
+  margin: var(--space-xxl) 8px 0 8px;
   padding-top: var(--space-xl);
   border-top: 1px solid rgba(255, 215, 0, 0.2);
   text-align: center;
@@ -2231,7 +2232,7 @@
    EVENT SECURITY SECTION - REDESIGNED
 ======================================== */
 .eventSecuritySection {
-  margin: var(--space-xl) var(--space-md);
+  margin: var(--space-xl) 8px;
   padding: var(--space-xxl) var(--space-lg);
   background: linear-gradient(135deg,
     rgba(255, 255, 255, 0.05) 0%,
@@ -2562,7 +2563,7 @@
   border: 2px solid rgba(255, 215, 0, 0.2);
   border-radius: 16px;
   padding: var(--space-xl);
-  margin: var(--space-lg) 0;
+  margin: var(--space-lg) 8px;
   backdrop-filter: blur(10px);
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
 }
