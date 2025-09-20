@@ -1,18 +1,18 @@
 import React, { useEffect, useState } from 'react';
-import { BookingData, PaymentIntent } from '../../types';
+import { ProtectionAssignmentData, PaymentIntent } from '../../types';
 import { Button } from '../UI/Button';
 // Logo removed - keeping pages clean and focused
 import styles from './PaymentSuccess.module.css';
 
 interface PaymentSuccessProps {
-  bookingData: BookingData;
+  protectionAssignmentData: ProtectionAssignmentData;
   paymentIntent: PaymentIntent;
   onContinue: () => void;
   onDownloadReceipt?: () => void;
 }
 
 export function PaymentSuccess({
-  bookingData,
+  protectionAssignmentData,
   paymentIntent,
   onContinue,
   onDownloadReceipt
@@ -23,8 +23,8 @@ export function PaymentSuccess({
   useEffect(() => {
     // Calculate estimated arrival time
     const now = new Date();
-    if (bookingData.scheduledDateTime) {
-      setEstimatedArrival(new Date(bookingData.scheduledDateTime).toLocaleString('en-GB', {
+    if (protectionAssignmentData.scheduledDateTime) {
+      setEstimatedArrival(new Date(protectionAssignmentData.scheduledDateTime).toLocaleString('en-GB', {
         weekday: 'long',
         year: 'numeric',
         month: 'long',
@@ -45,11 +45,11 @@ export function PaymentSuccess({
     console.log('[Analytics] Payment successful', {
       bookingId,
       amount: paymentIntent.amount,
-      service: bookingData.service.id,
+      service: protectionAssignmentData.service.id,
       paymentMethod: paymentIntent.paymentMethod?.type || 'card',
       timestamp: Date.now()
     });
-  }, [bookingData, paymentIntent, bookingId]);
+  }, [protectionAssignmentData, paymentIntent, bookingId]);
 
   const formatCurrency = (amount: number): string => {
     return `£${(amount / 100).toFixed(2)}`;
@@ -82,7 +82,7 @@ export function PaymentSuccess({
         <div className={styles.cardHeader}>
           <div className={styles.bookingInfo}>
             <h2 className={styles.bookingTitle}>
-              {getServiceEmoji(bookingData.service.id)} {bookingData.service.name}
+              {getServiceEmoji(protectionAssignmentData.service.id)} {protectionAssignmentData.service.name}
             </h2>
             <div className={styles.bookingId}>Booking ID: {bookingId}</div>
           </div>
@@ -97,7 +97,7 @@ export function PaymentSuccess({
               <span className={styles.routeIcon}>📍</span>
               <div className={styles.routeInfo}>
                 <div className={styles.routeLabel}>Pickup</div>
-                <div className={styles.routeAddress}>{bookingData.pickup}</div>
+                <div className={styles.routeAddress}>{protectionAssignmentData.pickup}</div>
               </div>
             </div>
 
@@ -107,7 +107,7 @@ export function PaymentSuccess({
               <span className={styles.routeIcon}>🏁</span>
               <div className={styles.routeInfo}>
                 <div className={styles.routeLabel}>Destination</div>
-                <div className={styles.routeAddress}>{bookingData.destination}</div>
+                <div className={styles.routeAddress}>{protectionAssignmentData.destination}</div>
               </div>
             </div>
           </div>
@@ -115,11 +115,11 @@ export function PaymentSuccess({
           <div className={styles.journeyMeta}>
             <div className={styles.metaItem}>
               <span className={styles.metaLabel}>Distance:</span>
-              <span className={styles.metaValue}>{bookingData.estimatedDistance} miles</span>
+              <span className={styles.metaValue}>{protectionAssignmentData.estimatedDistance} miles</span>
             </div>
             <div className={styles.metaItem}>
               <span className={styles.metaLabel}>Duration:</span>
-              <span className={styles.metaValue}>{Math.floor(bookingData.estimatedDuration / 60)}h {bookingData.estimatedDuration % 60}m</span>
+              <span className={styles.metaValue}>{Math.floor(protectionAssignmentData.estimatedDuration / 60)}h {protectionAssignmentData.estimatedDuration % 60}m</span>
             </div>
             <div className={styles.metaItem}>
               <span className={styles.metaLabel}>Arrival:</span>
@@ -215,7 +215,7 @@ export function PaymentSuccess({
         </div>
 
         <div className={styles.confirmationNote}>
-          A confirmation email has been sent to {bookingData.user?.email || 'your registered email address'}
+          A confirmation email has been sent to {protectionAssignmentData.user?.email || 'your registered email address'}
         </div>
       </div>
     </div>

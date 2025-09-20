@@ -362,7 +362,11 @@ export function Dashboard() {
               {/* Card 1: RIDE NOW */}
               <button
                 className={styles.getStartedCard}
-                onClick={() => navigateToView('booking')}
+                onClick={() => {
+                  localStorage.setItem('armora_booking_context', 'immediate');
+                  localStorage.setItem('armora_selected_service', 'standard');
+                  navigateToView('booking');
+                }}
               >
                 <div className={styles.getStartedIcon}>⚡</div>
                 <div className={styles.getStartedContent}>
@@ -377,8 +381,8 @@ export function Dashboard() {
               <button
                 className={styles.getStartedCard}
                 onClick={() => {
-                  localStorage.setItem('armora_booking_preset', 'airport');
-                  localStorage.setItem('armora_quick_destination', 'London Heathrow Airport (LHR)');
+                  localStorage.setItem('armora_booking_context', 'airport');
+                  localStorage.setItem('armora_selected_service', 'executive');
                   navigateToView('booking');
                 }}
               >
@@ -395,7 +399,8 @@ export function Dashboard() {
               <button
                 className={styles.getStartedCard}
                 onClick={() => {
-                  localStorage.setItem('armora_booking_preset', 'schedule');
+                  localStorage.setItem('armora_booking_context', 'schedule');
+                  localStorage.setItem('armora_selected_service', 'executive');
                   navigateToView('booking');
                 }}
               >
@@ -552,7 +557,11 @@ export function Dashboard() {
         <div className={styles.mainCTA}>
           <button
             className={styles.bookNowMainButton}
-            onClick={() => navigateToView('booking')}
+            onClick={() => {
+              localStorage.setItem('armora_booking_context', 'executive');
+              localStorage.setItem('armora_selected_service', 'executive');
+              navigateToView('booking');
+            }}
           >
             🚀 Book Protection Services
           </button>
@@ -611,7 +620,11 @@ export function Dashboard() {
         <div className={styles.eventCTAButtons}>
           <button
             className={styles.eventPrimaryCTA}
-            onClick={() => navigateToView('booking')}
+            onClick={() => {
+              localStorage.setItem('armora_booking_context', 'event');
+              localStorage.setItem('armora_selected_service', 'executive');
+              navigateToView('booking');
+            }}
           >
             Book Security Service
           </button>
@@ -626,7 +639,59 @@ export function Dashboard() {
       {/* Protection Status - Only shows when active/scheduled */}
       <ProtectionStatus />
 
+      {/* Why Choose Armora Protection Section */}
+      <div className={styles.whyChooseSection}>
+        <h2 className={styles.whyChooseTitle}>Why Choose Armora Protection</h2>
+        <div className={styles.whyChooseGrid}>
+          <div className={styles.whyChooseCard}>
+            <div className={styles.whyChooseIcon}>🛡️</div>
+            <h3 className={styles.whyChooseCardTitle}>SIA-Licensed Officers</h3>
+            <p className={styles.whyChooseCardText}>
+              All protection officers hold valid SIA licenses with advanced close protection training
+            </p>
+          </div>
 
+          <div className={styles.whyChooseCard}>
+            <div className={styles.whyChooseIcon}>🚗</div>
+            <h3 className={styles.whyChooseCardTitle}>Premium Fleet</h3>
+            <p className={styles.whyChooseCardText}>
+              Executive vehicles including BMW 5 Series and armored options for maximum security
+            </p>
+          </div>
+
+          <div className={styles.whyChooseCard}>
+            <div className={styles.whyChooseIcon}>📍</div>
+            <h3 className={styles.whyChooseCardTitle}>Nationwide Coverage</h3>
+            <p className={styles.whyChooseCardText}>
+              Complete service across England & Wales with specialized airport and city teams
+            </p>
+          </div>
+
+          <div className={styles.whyChooseCard}>
+            <div className={styles.whyChooseIcon}>⏰</div>
+            <h3 className={styles.whyChooseCardTitle}>24/7 Availability</h3>
+            <p className={styles.whyChooseCardText}>
+              Round-the-clock protection services with rapid response times nationwide
+            </p>
+          </div>
+
+          <div className={styles.whyChooseCard}>
+            <div className={styles.whyChooseIcon}>🎖️</div>
+            <h3 className={styles.whyChooseCardTitle}>Elite Training</h3>
+            <p className={styles.whyChooseCardText}>
+              Officers trained in threat assessment, medical response, and defensive driving
+            </p>
+          </div>
+
+          <div className={styles.whyChooseCard}>
+            <div className={styles.whyChooseIcon}>🔒</div>
+            <h3 className={styles.whyChooseCardTitle}>Discreet Service</h3>
+            <p className={styles.whyChooseCardText}>
+              Professional, confidential protection maintaining your privacy at all times
+            </p>
+          </div>
+        </div>
+      </div>
 
     </div>
   );

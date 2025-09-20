@@ -1,5 +1,5 @@
 import React, { Component, ReactNode } from 'react';
-import { ServiceLevel, BookingData } from '../../types';
+import { ServiceLevel, ProtectionAssignmentData } from '../../types';
 import styles from './BookingErrorBoundary.module.css';
 
 interface ErrorInfo {
@@ -16,13 +16,13 @@ interface BookingErrorBoundaryState {
 
 interface BookingErrorBoundaryProps {
   children: ReactNode;
-  fallbackComponent?: 'vehicle-selection' | 'location-picker' | 'booking-confirmation';
+  fallbackComponent?: 'where-when' | 'vehicle-selection' | 'location-picker' | 'booking-confirmation';
   onError?: (error: Error, errorInfo: ErrorInfo) => void;
   onRetry?: () => void;
   onNavigateBack?: () => void;
   preservedState?: {
     selectedService?: ServiceLevel | null;
-    bookingData?: BookingData | null;
+    protectionAssignmentData?: ProtectionAssignmentData | null;
     bookingId?: string;
   };
 }
@@ -203,24 +203,24 @@ Thank you,
                 </div>
               )}
               
-              {preservedState?.bookingData && (
+              {preservedState?.protectionAssignmentData && (
                 <>
                   <div className={styles.preservedItem}>
                     <span className={styles.preservedLabel}>Starting Point:</span>
                     <span className={styles.preservedValue}>
-                      {preservedState.bookingData.pickup}
+                      {preservedState.protectionAssignmentData.pickup}
                     </span>
                   </div>
                   <div className={styles.preservedItem}>
                     <span className={styles.preservedLabel}>Secure Destination:</span>
                     <span className={styles.preservedValue}>
-                      {preservedState.bookingData.destination}
+                      {preservedState.protectionAssignmentData.destination}
                     </span>
                   </div>
                   <div className={styles.preservedItem}>
                     <span className={styles.preservedLabel}>Estimated Cost:</span>
                     <span className={styles.preservedValue}>
-                      £{preservedState.bookingData.estimatedCost}
+                      £{preservedState.protectionAssignmentData.estimatedCost}
                     </span>
                   </div>
                 </>

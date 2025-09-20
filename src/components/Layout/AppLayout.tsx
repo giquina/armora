@@ -112,13 +112,14 @@ export function AppLayout({
           <div className={styles.headerContent}>
             {/* Left Section - Logo and Brand */}
             <div className={styles.headerLeft}>
-              {currentView !== 'welcome' && currentView !== 'home' && (
+              {currentView !== 'welcome' && currentView !== 'splash' && (
                 <button
                   className={styles.backButton}
                   onClick={handleBack}
                   aria-label="Go back"
+                  title="Go back"
                 >
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
                     <path d="m15 18-6-6 6-6"/>
                   </svg>
                 </button>

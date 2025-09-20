@@ -1,18 +1,18 @@
 import React from 'react';
-import { BookingHistoryItem, FavoriteRoute } from '../../types';
+import { ProtectionAssignmentHistoryItem, FavoriteRoute } from '../../types';
 import { BookingHistoryManager } from '../../utils/bookingHistory';
 import { useApp } from '../../contexts/AppContext';
 import styles from './RecentServices.module.css';
 
 interface RecentServicesProps {
-  onRebook?: (item: BookingHistoryItem) => void;
-  onAddToFavorites?: (item: BookingHistoryItem) => void;
+  onRebook?: (item: ProtectionAssignmentHistoryItem) => void;
+  onAddToFavorites?: (item: ProtectionAssignmentHistoryItem) => void;
   maxItems?: number;
 }
 
 export function RecentServices({ onRebook, onAddToFavorites, maxItems = 5 }: RecentServicesProps) {
   const { navigateToView } = useApp();
-  const [history, setHistory] = React.useState<BookingHistoryItem[]>([]);
+  const [history, setHistory] = React.useState<ProtectionAssignmentHistoryItem[]>([]);
   const [favorites, setFavorites] = React.useState<FavoriteRoute[]>([]);
 
   React.useEffect(() => {
@@ -22,7 +22,7 @@ export function RecentServices({ onRebook, onAddToFavorites, maxItems = 5 }: Rec
     setFavorites(favoriteRoutes);
   }, [maxItems]);
 
-  const handleRebook = (item: BookingHistoryItem) => {
+  const handleRebook = (item: ProtectionAssignmentHistoryItem) => {
     if (onRebook) {
       onRebook(item);
     } else {
@@ -37,7 +37,7 @@ export function RecentServices({ onRebook, onAddToFavorites, maxItems = 5 }: Rec
     }
   };
 
-  const handleAddToFavorites = (item: BookingHistoryItem) => {
+  const handleAddToFavorites = (item: ProtectionAssignmentHistoryItem) => {
     BookingHistoryManager.addToFavorites(item, false);
     const updatedFavorites = BookingHistoryManager.getFavoriteRoutes();
     setFavorites(updatedFavorites);
@@ -47,7 +47,7 @@ export function RecentServices({ onRebook, onAddToFavorites, maxItems = 5 }: Rec
     }
   };
 
-  const isRouteInFavorites = (item: BookingHistoryItem): boolean => {
+  const isRouteInFavorites = (item: ProtectionAssignmentHistoryItem): boolean => {
     return favorites.some(fav => fav.from === item.from && fav.to === item.to);
   };
 
@@ -152,10 +152,10 @@ export function RecentServices({ onRebook, onAddToFavorites, maxItems = 5 }: Rec
                 <span className={styles.detailIcon}>💰</span>
                 <span className={styles.detailText}>{trip.price}</span>
               </div>
-              {trip.driver && (
+              {trip.protectionOfficer && (
                 <div className={styles.detailItem}>
                   <span className={styles.detailIcon}>👨‍💼</span>
-                  <span className={styles.detailText}>{trip.driver}</span>
+                  <span className={styles.detailText}>{trip.protectionOfficer}</span>
                 </div>
               )}
               {trip.frequency > 1 && (

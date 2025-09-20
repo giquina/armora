@@ -1,5 +1,5 @@
 // Booking History Management Utilities
-import { BookingHistoryItem, FavoriteRoute, QuickActionItem, PersonalizationAnalytics, BookingData } from '../types';
+import { ProtectionAssignmentHistoryItem, FavoriteRoute, QuickActionItem, PersonalizationAnalytics, ProtectionAssignmentData } from '../types';
 
 // Storage keys
 export const STORAGE_KEYS = {
@@ -17,31 +17,31 @@ export class BookingHistoryManager {
   /**
    * Save a completed booking to history
    */
-  static saveBookingToHistory(bookingData: BookingData, bookingId: string, driverName?: string): void {
+  static saveBookingToHistory(protectionAssignmentData: ProtectionAssignmentData, bookingId: string, protectionOfficerName?: string): void {
     try {
       const history = this.getBookingHistory();
 
-      const historyItem: BookingHistoryItem = {
+      const historyItem: ProtectionAssignmentHistoryItem = {
         id: bookingId,
-        service: bookingData.service.id,
-        serviceName: bookingData.service.name,
-        from: bookingData.pickup,
-        to: bookingData.destination,
-        price: `£${bookingData.estimatedCost}`,
-        estimatedCost: bookingData.estimatedCost,
+        service: protectionAssignmentData.service.id,
+        serviceName: protectionAssignmentData.service.name,
+        from: protectionAssignmentData.pickup,
+        to: protectionAssignmentData.destination,
+        price: `£${protectionAssignmentData.estimatedCost}`,
+        estimatedCost: protectionAssignmentData.estimatedCost,
         date: new Date().toISOString().split('T')[0], // YYYY-MM-DD format
         time: new Date().toLocaleTimeString('en-GB', {
           hour: '2-digit',
           minute: '2-digit',
           hour12: false
         }),
-        driver: driverName,
-        frequency: this.calculateRouteFrequency(history, bookingData.pickup, bookingData.destination),
+        protectionOfficer: protectionOfficerName,
+        frequency: this.calculateRouteFrequency(history, protectionAssignmentData.pickup, protectionAssignmentData.destination),
         status: 'completed',
-        additionalRequirements: bookingData.additionalRequirements,
-        estimatedDistance: bookingData.estimatedDistance,
-        estimatedDuration: bookingData.estimatedDuration,
-        userId: bookingData.user?.id,
+        additionalRequirements: protectionAssignmentData.additionalRequirements,
+        estimatedDistance: protectionAssignmentData.estimatedDistance,
+        estimatedDuration: protectionAssignmentData.estimatedDuration,
+        userId: protectionAssignmentData.user?.id,
       };
 
       // Add to beginning of array
@@ -68,7 +68,7 @@ export class BookingHistoryManager {
   /**
    * Get booking history from localStorage
    */
-  static getBookingHistory(): BookingHistoryItem[] {
+  static getBookingHistory(): ProtectionAssignmentHistoryItem[] {
     try {
       const stored = localStorage.getItem(STORAGE_KEYS.BOOKING_HISTORY);
       return stored ? JSON.parse(stored) : [];
@@ -94,7 +94,7 @@ export class BookingHistoryManager {
   /**
    * Calculate how many times a route has been booked
    */
-  private static calculateRouteFrequency(history: BookingHistoryItem[], from: string, to: string): number {
+  private static calculateRouteFrequency(history: ProtectionAssignmentHistoryItem[], from: string, to: string): number {
     return history.filter(item =>
       item.from === from && item.to === to
     ).length + 1; // +1 for current booking
@@ -103,7 +103,7 @@ export class BookingHistoryManager {
   /**
    * Check if a route should be added to favorites and add it
    */
-  private static checkAndAddToFavorites(historyItem: BookingHistoryItem): void {
+  private static checkAndAddToFavorites(historyItem: ProtectionAssignmentHistoryItem): void {
     if (historyItem.frequency >= MIN_FREQUENCY_FOR_FAVORITE) {
       this.addToFavorites(historyItem, true);
     }
@@ -112,7 +112,7 @@ export class BookingHistoryManager {
   /**
    * Add a route to favorites
    */
-  static addToFavorites(item: BookingHistoryItem | FavoriteRoute, isAutoFavorite: boolean = false): void {
+  static addToFavorites(item: ProtectionAssignmentHistoryItem | FavoriteRoute, isAutoFavorite: boolean = false): void {
     try {
       const favorites = this.getFavoriteRoutes();
       const routeId = `${item.from}|${item.to}`;
@@ -232,7 +232,7 @@ export class BookingHistoryManager {
   /**
    * Generate smart suggestions based on booking patterns
    */
-  static generateSmartSuggestions(history: BookingHistoryItem[]): QuickActionItem[] {
+  static generateSmartSuggestions(history: ProtectionAssignmentHistoryItem[]): QuickActionItem[] {
     const suggestions: QuickActionItem[] = [];
 
     // Pattern: Same day of week bookings
@@ -321,12 +321,12 @@ export class BookingHistoryManager {
   /**
    * Update personalization analytics
    */
-  private static updatePersonalizationAnalytics(historyItem: BookingHistoryItem): void {
+  private static updatePersonalizationAnalytics(historyItem: ProtectionAssignmentHistoryItem): void {
     try {
       const analytics = this.getPersonalizationAnalytics();
 
-      analytics.totalBookings += 1;
-      analytics.averageBookingValue = this.recalculateAverageBookingValue(analytics, historyItem);
+      analytics.totalProtectionAssignments += 1;
+      analytics.averageAssignmentValue = this.recalculateAverageAssignmentValue(analytics, historyItem);
 
       // Update most used service
       const serviceCount = this.getBookingHistory()
@@ -344,9 +344,9 @@ export class BookingHistoryManager {
       const monthName = date.toLocaleString('default', { month: 'long' });
       const season = this.getSeason(date.getMonth());
 
-      analytics.bookingPatterns.weekly[dayName] = (analytics.bookingPatterns.weekly[dayName] || 0) + 1;
-      analytics.bookingPatterns.monthly[monthName] = (analytics.bookingPatterns.monthly[monthName] || 0) + 1;
-      analytics.bookingPatterns.seasonal[season] = (analytics.bookingPatterns.seasonal[season] || 0) + 1;
+      analytics.assignmentPatterns.weekly[dayName] = (analytics.assignmentPatterns.weekly[dayName] || 0) + 1;
+      analytics.assignmentPatterns.monthly[monthName] = (analytics.assignmentPatterns.monthly[monthName] || 0) + 1;
+      analytics.assignmentPatterns.seasonal[season] = (analytics.assignmentPatterns.seasonal[season] || 0) + 1;
 
       localStorage.setItem(STORAGE_KEYS.PERSONALIZATION_ANALYTICS, JSON.stringify(analytics));
     } catch (error) {
@@ -369,13 +369,13 @@ export class BookingHistoryManager {
 
     // Return default analytics
     return {
-      totalBookings: 0,
+      totalProtectionAssignments: 0,
       favoriteRoutes: [],
       mostUsedService: '',
-      averageBookingValue: 0,
+      averageAssignmentValue: 0,
       peakUsageTime: '',
       frequentDestinations: [],
-      bookingPatterns: {
+      assignmentPatterns: {
         weekly: {},
         monthly: {},
         seasonal: {},
@@ -418,18 +418,18 @@ export class BookingHistoryManager {
     return location.substring(0, 17) + '...';
   }
 
-  private static calculateAveragePrice(existing: FavoriteRoute, newItem: BookingHistoryItem | FavoriteRoute): number {
+  private static calculateAveragePrice(existing: FavoriteRoute, newItem: ProtectionAssignmentHistoryItem | FavoriteRoute): number {
     const newPrice = 'estimatedCost' in newItem ? newItem.estimatedCost : newItem.averagePrice;
     return Math.round(((existing.averagePrice * existing.count) + newPrice) / (existing.count + 1));
   }
 
-  private static recalculateAverageBookingValue(analytics: PersonalizationAnalytics, newItem: BookingHistoryItem): number {
-    return Math.round(((analytics.averageBookingValue * (analytics.totalBookings - 1)) + newItem.estimatedCost) / analytics.totalBookings);
+  private static recalculateAverageAssignmentValue(analytics: PersonalizationAnalytics, newItem: ProtectionAssignmentHistoryItem): number {
+    return Math.round(((analytics.averageAssignmentValue * (analytics.totalProtectionAssignments - 1)) + newItem.estimatedCost) / analytics.totalProtectionAssignments);
   }
 
-  private static getMostCommonRoute(bookings: BookingHistoryItem[]): BookingHistoryItem | null {
-    const routeCounts = bookings.reduce((acc, booking) => {
-      const key = `${booking.from}|${booking.to}`;
+  private static getMostCommonRoute(protectionAssignments: ProtectionAssignmentHistoryItem[]): ProtectionAssignmentHistoryItem | null {
+    const routeCounts = protectionAssignments.reduce((acc, assignment) => {
+      const key = `${assignment.from}|${assignment.to}`;
       acc[key] = (acc[key] || 0) + 1;
       return acc;
     }, {} as Record<string, number>);
@@ -442,7 +442,7 @@ export class BookingHistoryManager {
     const [routeKey] = mostCommonRoute;
     const [from, to] = routeKey.split('|');
 
-    return bookings.find(b => b.from === from && b.to === to) || null;
+    return protectionAssignments.find(a => a.from === from && a.to === to) || null;
   }
 
   private static getDayName(dayIndex: number): string {
@@ -469,7 +469,7 @@ export class BookingHistoryManager {
   /**
    * Export booking data for user download
    */
-  static exportBookingData(): string {
+  static exportProtectionAssignmentData(): string {
     const history = this.getBookingHistory();
     const favorites = this.getFavoriteRoutes();
     const analytics = this.getPersonalizationAnalytics();

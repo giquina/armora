@@ -179,6 +179,8 @@
   background: #FFFFFF;
   transition: all 0.2s ease;
   box-sizing: border-box;
+  overflow: hidden;
+  white-space: nowrap;
 }
 
 .searchInput:focus {
@@ -434,7 +436,8 @@
   padding: 24px;
   max-width: 400px;
   width: 100%;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.15);
+  border: 1px solid #E5E7EB;
 }
 
 .terminalTitle {
@@ -660,6 +663,11 @@
   .footer {
     padding: 16px;
   }
+
+  /* Shorter placeholder text for mobile */
+  .searchInput::placeholder {
+    font-size: 15px;
+  }
 }
 
 @media (max-width: 480px) {
@@ -719,6 +727,17 @@
   .continueButton {
     min-height: 52px;
     font-size: 15px;
+  }
+
+  /* Even shorter placeholder for small mobile */
+  .searchInput::placeholder {
+    font-size: 14px;
+  }
+
+  /* Ensure no text overflow on small screens */
+  .searchInput {
+    max-width: calc(100vw - 80px);
+    text-overflow: ellipsis;
   }
 }
 

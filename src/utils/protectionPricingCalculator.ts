@@ -33,7 +33,7 @@ export interface ProtectionServiceRequest {
 
 const RATES = {
   TRANSPORT_PROTECTION: 50, // £50/hour
-  PERSONAL_PROTECTION: 65,  // £65/hour
+  PERSONAL_PROTECTION: 50,  // £50/hour - standardized to Essential Protection rate
   VEHICLE_COST_PER_MILE: 2.50, // £2.50/mile
   PARKING_ESTIMATE: 15, // £15 average parking
   MINIMUM_HOURS: 2
@@ -162,7 +162,7 @@ export function calculateProtectionPricing(request: ProtectionServiceRequest): P
  * Convert nationwide pricing to legacy PricingBreakdown format
  */
 function convertNationwideToPricingBreakdown(request: ProtectionServiceRequest): PricingBreakdown {
-  const serviceLevel = request.protectionLevel.id === 'executive' ? 'Executive' : 'Essential';
+  const serviceLevel = request.protectionLevel.name.includes('Executive') ? 'Executive' : 'Essential';
   const isMember = request.userType === 'registered' || request.userType === 'google';
 
   const nationwidePricing = calculateNationwideProtection(

@@ -252,9 +252,9 @@ const AchievementUnlock: React.FC<AchievementUnlockProps> = ({
             <div className={styles.pricingGrid}>
               <div className={styles.priceCard}>
                 <div className={styles.serviceType}>Standard</div>
-                <div className={styles.originalPrice}>£45/hr</div>
-                <div className={styles.discountedPrice}>£22.50/hr</div>
-                <div className={styles.saveAmount}>Save £22.50</div>
+                <div className={styles.originalPrice}>£50/hr</div>
+                <div className={styles.discountedPrice}>£25.00/hr</div>
+                <div className={styles.saveAmount}>Save £25.00</div>
               </div>
               
               <div className={`${styles.priceCard} ${styles.popular}`}>

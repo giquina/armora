@@ -1,8 +1,9 @@
 import React, { useEffect } from 'react';
 import { useApp } from '../../contexts/AppContext';
 import { BookingHistoryManager } from '../../utils/bookingHistory';
-import { BookingData } from '../../types';
+import { ProtectionAssignmentData } from '../../types';
 import styles from './BookingSuccess.module.css';
+import '../../styles/booking-white-theme.css';
 
 interface BookingSuccessProps {
   bookingId: string;
@@ -17,14 +18,14 @@ export function BookingSuccess({ bookingId }: BookingSuccessProps) {
       const preserved = localStorage.getItem('armora_booking_state');
       if (preserved) {
         const state = JSON.parse(preserved);
-        const bookingData: BookingData = state.bookingData;
+        const protectionAssignmentData: ProtectionAssignmentData = state.protectionAssignmentData;
 
-        if (bookingData) {
+        if (protectionAssignmentData) {
           // Generate a random driver name for the demo
           const driverNames = ['John S.', 'Sarah M.', 'David L.', 'Emma R.', 'Michael T.', 'Lisa K.'];
           const randomDriver = driverNames[Math.floor(Math.random() * driverNames.length)];
 
-          BookingHistoryManager.saveBookingToHistory(bookingData, bookingId, randomDriver);
+          BookingHistoryManager.saveBookingToHistory(protectionAssignmentData, bookingId, randomDriver);
           console.log('✅ Booking saved to history:', bookingId);
         }
       }
@@ -51,7 +52,7 @@ export function BookingSuccess({ bookingId }: BookingSuccessProps) {
   };
 
   return (
-    <div className={styles.container}>
+    <div className={`${styles.container} booking-white-theme`}>
       <div className={styles.successCard}>
         <div className={styles.successIcon}>
           <div className={styles.checkmark}>✓</div>

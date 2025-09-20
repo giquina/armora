@@ -122,5 +122,5 @@
 
 ---
 
-*Last updated: 2025-09-19T22:34:50.432Z
+*Last updated: 2025-09-20T16:50:52.155Z
 *These rules are mandatory for all Armora mobile development*

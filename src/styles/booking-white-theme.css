@@ -1,0 +1,297 @@
+/* BOOKING WHITE THEME - Professional Security Services */
+/* Apply this theme ONLY to booking-related pages */
+
+.booking-white-theme {
+  /* Override background colors for booking pages */
+  --bg-primary-booking: #ffffff;
+  --bg-secondary-booking: #f8fafc;
+  --bg-card-booking: #ffffff;
+  --bg-overlay-booking: rgba(255, 255, 255, 0.95);
+
+  /* Text colors for white background */
+  --text-primary-booking: #1a202c;
+  --text-secondary-booking: #4a5568;
+  --text-muted-booking: #718096;
+
+  /* Keep gold accent for professional branding */
+  --accent-booking: #D4AF37;
+  --accent-hover-booking: #B8941F;
+  --accent-active-booking: #9c7d1a;
+
+  /* Border colors for white theme */
+  --border-light-booking: #e2e8f0;
+  --border-medium-booking: #cbd5e0;
+  --border-dark-booking: #a0aec0;
+
+  /* Shadows for white background */
+  --shadow-light-booking: 0 1px 3px rgba(0, 0, 0, 0.1);
+  --shadow-medium-booking: 0 4px 6px rgba(0, 0, 0, 0.1);
+  --shadow-strong-booking: 0 10px 15px rgba(0, 0, 0, 0.1);
+  --shadow-gold-booking: 0 4px 16px rgba(212, 175, 55, 0.2);
+
+  /* Professional blue for security emphasis */
+  --security-blue: #2563eb;
+  --security-blue-light: #3b82f6;
+  --security-blue-dark: #1d4ed8;
+}
+
+/* Apply white theme to booking container */
+.booking-white-theme .container {
+  background: var(--bg-primary-booking);
+  color: var(--text-primary-booking);
+}
+
+/* Header styling for white theme */
+.booking-white-theme .header {
+  background: var(--bg-primary-booking);
+  border-bottom: 1px solid var(--border-light-booking);
+  box-shadow: var(--shadow-light-booking);
+}
+
+.booking-white-theme .backButton {
+  background: var(--bg-primary-booking);
+  border: 2px solid var(--accent-booking);
+  color: var(--accent-booking);
+  box-shadow: var(--shadow-light-booking);
+}
+
+.booking-white-theme .backButton:hover {
+  background: var(--accent-booking);
+  color: white;
+  box-shadow: var(--shadow-gold-booking);
+}
+
+.booking-white-theme .title {
+  color: var(--text-primary-booking);
+}
+
+/* Section titles */
+.booking-white-theme .sectionTitle {
+  color: var(--text-primary-booking);
+}
+
+/* Service cards for white theme */
+.booking-white-theme .serviceCard {
+  background: var(--bg-card-booking);
+  border: 2px solid var(--border-light-booking);
+  box-shadow: var(--shadow-light-booking);
+}
+
+.booking-white-theme .serviceCard:hover {
+  border-color: var(--accent-booking);
+  box-shadow: var(--shadow-gold-booking);
+  background: rgba(212, 175, 55, 0.05);
+}
+
+.booking-white-theme .serviceCardActive {
+  border-color: var(--accent-booking);
+  background: rgba(212, 175, 55, 0.1);
+  box-shadow: var(--shadow-gold-booking);
+}
+
+.booking-white-theme .serviceName {
+  color: var(--text-primary-booking);
+}
+
+.booking-white-theme .servicePrice {
+  color: var(--accent-booking);
+}
+
+.booking-white-theme .serviceDescription {
+  color: var(--text-secondary-booking);
+}
+
+.booking-white-theme .selectedIndicator {
+  background: var(--accent-booking);
+  color: white;
+}
+
+/* Location inputs */
+.booking-white-theme .locationLabel {
+  color: var(--accent-booking);
+}
+
+.booking-white-theme .locationRow {
+  background: var(--bg-secondary-booking);
+  border: 1px solid var(--border-light-booking);
+}
+
+.booking-white-theme .locationRow:focus-within {
+  border-color: var(--accent-booking);
+  box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.1);
+}
+
+.booking-white-theme .locationInput {
+  color: var(--text-primary-booking);
+}
+
+.booking-white-theme .locationInput::placeholder {
+  color: var(--text-muted-booking);
+}
+
+.booking-white-theme .locationText {
+  color: var(--text-primary-booking);
+}
+
+.booking-white-theme .editButton {
+  border: 1px solid var(--accent-booking);
+  color: var(--accent-booking);
+}
+
+.booking-white-theme .editButton:hover {
+  background: var(--accent-booking);
+  color: white;
+}
+
+/* Airport selection */
+.booking-white-theme .quickSelectTitle {
+  color: var(--text-primary-booking);
+}
+
+.booking-white-theme .airportButton {
+  background: var(--bg-secondary-booking);
+  border: 1px solid var(--border-light-booking);
+}
+
+.booking-white-theme .airportButton:hover {
+  border-color: var(--accent-booking);
+  background: rgba(212, 175, 55, 0.05);
+}
+
+.booking-white-theme .airportName {
+  color: var(--text-primary-booking);
+}
+
+.booking-white-theme .airportDistance {
+  color: var(--text-secondary-booking);
+}
+
+/* Time selection */
+.booking-white-theme .timeOption {
+  background: var(--bg-secondary-booking);
+  border: 2px solid var(--border-light-booking);
+}
+
+.booking-white-theme .timeOption:hover {
+  border-color: var(--accent-booking);
+  background: rgba(212, 175, 55, 0.05);
+}
+
+.booking-white-theme .timeOptionActive {
+  border-color: var(--accent-booking);
+  background: rgba(212, 175, 55, 0.1);
+  box-shadow: var(--shadow-gold-booking);
+}
+
+.booking-white-theme .timeTitle {
+  color: var(--text-primary-booking);
+}
+
+.booking-white-theme .timeDescription {
+  color: var(--text-secondary-booking);
+}
+
+/* Schedule inputs */
+.booking-white-theme .scheduleInputs {
+  background: var(--bg-secondary-booking);
+  border: 1px solid var(--border-light-booking);
+}
+
+.booking-white-theme .scheduleLabel {
+  color: var(--accent-booking);
+}
+
+.booking-white-theme .scheduleInput {
+  background: var(--bg-card-booking);
+  border: 1px solid var(--border-medium-booking);
+  color: var(--text-primary-booking);
+}
+
+.booking-white-theme .scheduleInput:focus {
+  border-color: var(--accent-booking);
+  box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.1);
+}
+
+/* Price card */
+.booking-white-theme .priceCard {
+  background: linear-gradient(135deg, rgba(212, 175, 55, 0.1) 0%, rgba(212, 175, 55, 0.05) 100%);
+  border: 2px solid var(--accent-booking);
+  box-shadow: var(--shadow-gold-booking);
+}
+
+.booking-white-theme .priceTitle {
+  color: var(--text-primary-booking);
+}
+
+.booking-white-theme .priceAmount {
+  color: var(--accent-booking);
+}
+
+.booking-white-theme .priceBreakdown {
+  color: var(--text-secondary-booking);
+}
+
+.booking-white-theme .priceNote {
+  color: var(--text-muted-booking);
+}
+
+.booking-white-theme .rushBadge {
+  background: #dc2626;
+  color: white;
+}
+
+/* Continue button */
+.booking-white-theme .buttonSection {
+  background: linear-gradient(to top, var(--bg-primary-booking) 0%, transparent 100%);
+}
+
+.booking-white-theme .continueButton {
+  background: linear-gradient(135deg, var(--accent-booking) 0%, var(--accent-hover-booking) 100%);
+  color: white;
+  box-shadow: var(--shadow-gold-booking);
+}
+
+.booking-white-theme .continueButton:hover:not(:disabled) {
+  box-shadow: 0 8px 25px rgba(212, 175, 55, 0.3);
+}
+
+/* Navigation icons for white background */
+.booking-white-theme .navButton {
+  color: var(--text-secondary-booking);
+}
+
+.booking-white-theme .navButton:hover {
+  color: var(--accent-booking);
+  background: var(--bg-secondary-booking);
+}
+
+.booking-white-theme .navButtonActive {
+  color: var(--accent-booking);
+}
+
+/* Header quick actions for white background */
+.booking-white-theme .quickActionButton {
+  background: rgba(212, 175, 55, 0.1);
+  color: var(--accent-booking);
+  border: 1px solid rgba(212, 175, 55, 0.2);
+}
+
+.booking-white-theme .quickActionButton:hover {
+  background: rgba(212, 175, 55, 0.2);
+}
+
+/* Professional security emphasis */
+.booking-white-theme .security-emphasis {
+  color: var(--security-blue);
+  font-weight: 600;
+}
+
+.booking-white-theme .protection-badge {
+  background: var(--security-blue);
+  color: white;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+}

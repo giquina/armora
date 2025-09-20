@@ -15,7 +15,6 @@ import styles from './WelcomePage.module.css';
 
 export function WelcomePage() {
   const { navigateToView, setUser, updateQuestionnaireData } = useApp();
-  const [showFeatures, setShowFeatures] = useState(false);
   const [showContent, setShowContent] = useState(false);
   const [showCredentialsModal, setShowCredentialsModal] = useState(false);
   const [showSafeRideModal, setShowSafeRideModal] = useState(false);
@@ -31,10 +30,8 @@ export function WelcomePage() {
   const showDevButton = isDevelopment;
 
   useEffect(() => {
-    const featureTimer = setTimeout(() => setShowFeatures(true), 1400);
     const contentTimer = setTimeout(() => setShowContent(true), 1600);
     return () => {
-      clearTimeout(featureTimer);
       clearTimeout(contentTimer);
     };
   }, []);
@@ -129,109 +126,6 @@ export function WelcomePage() {
           </div>
         </header>
 
-        {/* Main Content - Why Choose Armora Protection */}
-        <main className={styles.welcomeContent}>
-          {/* Section Header */}
-          <div className={styles.sectionHeader}>
-            <h2 className={styles.sectionTitle}>WHY CHOOSE ARMORA PROTECTION</h2>
-          </div>
-
-          {/* Feature Cards */}
-          <div className={`${styles.features} ${showFeatures ? styles.featuresVisible : ''}`}>
-            {/* Card 1 - Personal Protection */}
-            <div className={styles.featureCard} style={{ animationDelay: '0ms', '--delay': 0 } as React.CSSProperties}>
-              <div className={styles.featureCardContent}>
-                <div className={styles.featureIconWrapper}>
-                  <svg className={styles.featureLogo} viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M12 2L4 7V14C4 19 12 22 12 22S20 19 20 14V7L12 2Z" />
-                    <path d="M10 14L8 12L9.5 10.5L10 11L14.5 6.5L16 8L10 14Z" />
-                  </svg>
-                </div>
-                <div className={styles.featureText}>
-                  <h3 className={styles.featureTitle}>Personal Protection</h3>
-                  <h4 className={styles.featureSubtitle}>SIA-Licensed Protection Officers</h4>
-                  <p className={styles.featureDescription}>2-hour minimum • Fully vetted professionals</p>
-                  <button className={styles.featureButton} onClick={() => navigateToView('services')}>View Services</button>
-                </div>
-              </div>
-            </div>
-
-            {/* Card 2 - Secure Transport */}
-            <div className={styles.featureCard} style={{ animationDelay: '100ms', '--delay': 1 } as React.CSSProperties}>
-              <div className={styles.featureCardContent}>
-                <div className={styles.featureIconWrapper}>
-                  <svg className={styles.featureLogo} viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M18.92 6.01C18.72 5.42 18.16 5 17.5 5H6.5C5.84 5 5.28 5.42 5.08 6.01L3 12V20C3 20.55 3.45 21 4 21H5C5.55 21 6 20.55 6 20V19H18V20C18 20.55 18.45 21 19 21H20C20.55 21 21 20.55 21 20V12L18.92 6.01Z"/>
-                    <circle cx="7.5" cy="16.5" r="1.5"/>
-                    <circle cx="16.5" cy="16.5" r="1.5"/>
-                    <path d="M12 2L4 7V14C4 19 12 22 12 22S20 19 20 14V7L12 2Z" stroke="white" strokeWidth="1" fill="none"/>
-                  </svg>
-                </div>
-                <div className={styles.featureText}>
-                  <h3 className={styles.featureTitle}>Secure Transport</h3>
-                  <h4 className={styles.featureSubtitle}>Threat-Assessed Routes</h4>
-                  <p className={styles.featureDescription}>Executive vehicles • Live GPS tracking</p>
-                  <button className={styles.featureButton} onClick={() => navigateToView('services')}>Protection Levels</button>
-                </div>
-              </div>
-            </div>
-
-            {/* Card 3 - Nationwide Coverage */}
-            <div className={styles.featureCard} style={{ animationDelay: '200ms', '--delay': 2 } as React.CSSProperties}>
-              <div className={styles.featureCardContent}>
-                <div className={styles.featureIconWrapper}>
-                  <svg className={styles.featureLogo} viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M3 12C3 7.5 6.5 4 12 4S21 7.5 21 12C21 16.5 17.5 20 12 20S3 16.5 3 12Z"/>
-                    <circle cx="9" cy="9" r="1" fill="white"/>
-                    <circle cx="15" cy="11" r="1" fill="white"/>
-                    <circle cx="12" cy="15" r="1" fill="white"/>
-                    <path d="M7 8L9 10L11 8M13 10L15 12L17 10M10 14L12 16L14 14" stroke="white" strokeWidth="0.5" fill="none"/>
-                  </svg>
-                </div>
-                <div className={styles.featureText}>
-                  <h3 className={styles.featureTitle}>England & Wales</h3>
-                  <h4 className={styles.featureSubtitle}>Nationwide Protection</h4>
-                  <p className={styles.featureDescription}>London specialists • All major cities</p>
-                  <button className={styles.featureButton} onClick={() => navigateToView('services')}>Coverage Areas</button>
-                </div>
-              </div>
-            </div>
-
-            {/* Card 4 - SIA Licensed */}
-            <div className={styles.featureCard} style={{ animationDelay: '300ms', '--delay': 3 } as React.CSSProperties}>
-              <div className={styles.featureCardContent}>
-                <div className={styles.featureIconWrapper}>
-                  <svg className={styles.featureLogo} viewBox="0 0 24 24" fill="currentColor">
-                    <rect x="3" y="4" width="18" height="14" rx="2" ry="2"/>
-                    <rect x="6" y="7" width="4" height="3" rx="0.5" fill="white"/>
-                    <line x1="12" y1="8" x2="18" y2="8" stroke="white" strokeWidth="1"/>
-                    <line x1="12" y1="11" x2="16" y2="11" stroke="white" strokeWidth="1"/>
-                    <circle cx="8" cy="14" r="1" fill="white"/>
-                    <path d="M10 14H18" stroke="white" strokeWidth="1"/>
-                  </svg>
-                </div>
-                <div className={styles.featureText}>
-                  <h3 className={styles.featureTitle}>Fully Verified</h3>
-                  <h4 className={styles.featureSubtitle}>Government Licensed</h4>
-                  <p className={styles.featureDescription}>Background checked • £10m insured</p>
-                  <button className={styles.featureButton} onClick={() => setShowCredentialsModal(true)}>Our Standards</button>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Trust Indicators */}
-          <div className={styles.trustIndicators}>
-            <div className={styles.trustIndicator}>
-              <span className={styles.trustIcon}>🛡️</span>
-              <span className={styles.trustText}>Founded by Former Military & Police Protection Specialists</span>
-            </div>
-            <div className={styles.trustIndicator}>
-              <span className={styles.trustIcon}>⭐</span>
-              <span className={styles.trustText}>Operating across England & Wales • London-based rapid response</span>
-            </div>
-          </div>
-        </main>
 
 
 

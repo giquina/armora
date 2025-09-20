@@ -58,7 +58,7 @@ export function PricingCalculatorDemo() {
             <option value="essential">Essential (£50/hr)</option>
             <option value="executive">Executive (£75/hr)</option>
             <option value="shadow">Shadow (£65/hr)</option>
-            <option value="client-vehicle">Client Vehicle (£45/hr)</option>
+            <option value="client-vehicle">Client Vehicle (£55/hr)</option>
           </select>
         </div>
 

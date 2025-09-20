@@ -233,8 +233,8 @@ function PaymentFormContent({
         type: 'card',
         card: cardElement,
         billing_details: {
-          name: paymentFlow.bookingDetails.user?.name || 'Anonymous',
-          email: paymentFlow.bookingDetails.user?.email || '',
+          name: paymentFlow.protectionAssignmentDetails.user?.name || 'Anonymous',
+          email: paymentFlow.protectionAssignmentDetails.user?.email || '',
         },
       });
 
@@ -346,7 +346,7 @@ function PaymentFormContent({
           <span className={styles.itemLabel}>VAT (20%)</span>
           <span className={styles.itemValue}>£{(priceBreakdown.vatAmount / 100).toFixed(2)}</span>
         </div>
-        {paymentFlow.bookingDetails.user?.hasUnlockedReward && (
+        {paymentFlow.protectionAssignmentDetails.user?.hasUnlockedReward && (
           <div className={styles.breakdownItem}>
             <span className={styles.itemLabel}>50% Reward Discount</span>
             <span className={styles.itemValue}>-£{((priceBreakdown.totalPrice * 0.5) / 100).toFixed(2)}</span>
@@ -355,7 +355,7 @@ function PaymentFormContent({
         <div className={styles.breakdownTotal}>
           <span className={styles.totalLabel}>Total</span>
           <span className={styles.totalValue}>
-            £{((paymentFlow.bookingDetails.user?.hasUnlockedReward ? priceBreakdown.totalPrice * 0.5 : priceBreakdown.totalPrice) / 100).toFixed(2)}
+            £{((paymentFlow.protectionAssignmentDetails.user?.hasUnlockedReward ? priceBreakdown.totalPrice * 0.5 : priceBreakdown.totalPrice) / 100).toFixed(2)}
           </span>
         </div>
       </div>
@@ -429,7 +429,7 @@ function PaymentFormContent({
               {isProcessing ? (
                 <LoadingSpinner size="small" variant="light" text="Processing..." inline />
               ) : (
-                `Pay £${((paymentFlow.bookingDetails.user?.hasUnlockedReward ? priceBreakdown.totalPrice * 0.5 : priceBreakdown.totalPrice) / 100).toFixed(2)}`
+                `Pay £${((paymentFlow.protectionAssignmentDetails.user?.hasUnlockedReward ? priceBreakdown.totalPrice * 0.5 : priceBreakdown.totalPrice) / 100).toFixed(2)}`
               )}
             </Button>
           )}
@@ -482,7 +482,7 @@ function PaymentFormContent({
             {isProcessing ? (
               <LoadingSpinner size="small" variant="light" text="Processing..." inline />
             ) : (
-              `Pay £${((paymentFlow.bookingDetails.user?.hasUnlockedReward ? priceBreakdown.totalPrice * 0.5 : priceBreakdown.totalPrice) / 100).toFixed(2)}`
+              `Pay £${((paymentFlow.protectionAssignmentDetails.user?.hasUnlockedReward ? priceBreakdown.totalPrice * 0.5 : priceBreakdown.totalPrice) / 100).toFixed(2)}`
             )}
           </Button>
 

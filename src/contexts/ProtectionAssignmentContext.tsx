@@ -28,7 +28,7 @@ export interface ServiceOption {
   isEco?: boolean;
 }
 
-export interface BookingData {
+export interface ProtectionAssignmentData {
   pickupLocation?: Location;
   pickup?: Location; // Alias for compatibility
   destination?: Location;
@@ -40,26 +40,34 @@ export interface BookingData {
     brand?: string;
     name: string;
   };
-  bookingTime?: Date;
+  assignmentTime?: Date;
   specialRequests?: string;
   estimatedDuration?: string;
   estimatedDistance?: string;
 }
 
+// Legacy alias for backward compatibility during transition
+export interface BookingData extends ProtectionAssignmentData {
+  bookingTime?: Date;
+}
+
 // Actions
-type BookingAction =
+type ProtectionAssignmentAction =
   | { type: 'SET_PICKUP_LOCATION'; payload: Location }
   | { type: 'SET_DESTINATION'; payload: Location }
   | { type: 'SET_SELECTED_SERVICE'; payload: ServiceOption }
-  | { type: 'SET_PAYMENT_METHOD'; payload: BookingData['paymentMethod'] }
-  | { type: 'SET_BOOKING_TIME'; payload: Date }
+  | { type: 'SET_PAYMENT_METHOD'; payload: ProtectionAssignmentData['paymentMethod'] }
+  | { type: 'SET_ASSIGNMENT_TIME'; payload: Date }
   | { type: 'SET_SPECIAL_REQUESTS'; payload: string }
   | { type: 'SET_ROUTE_INFO'; payload: { duration: string; distance: string } }
-  | { type: 'CLEAR_BOOKING' }
-  | { type: 'LOAD_FROM_STORAGE'; payload: Partial<BookingData> };
+  | { type: 'CLEAR_ASSIGNMENT' }
+  | { type: 'LOAD_FROM_STORAGE'; payload: Partial<ProtectionAssignmentData> };
+
+// Legacy action type alias for backward compatibility
+type BookingAction = ProtectionAssignmentAction | { type: 'SET_BOOKING_TIME'; payload: Date } | { type: 'CLEAR_BOOKING' };
 
 // Initial state
-const initialState: BookingData = {
+const initialState: ProtectionAssignmentData = {
   paymentMethod: {
     id: 'default-card',
     type: 'card',
@@ -70,7 +78,7 @@ const initialState: BookingData = {
 };
 
 // Reducer
-function bookingReducer(state: BookingData, action: BookingAction): BookingData {
+function protectionAssignmentReducer(state: ProtectionAssignmentData, action: ProtectionAssignmentAction | BookingAction): ProtectionAssignmentData {
   switch (action.type) {
     case 'SET_PICKUP_LOCATION':
       return { ...state, pickupLocation: action.payload };
@@ -80,8 +88,10 @@ function bookingReducer(state: BookingData, action: BookingAction): BookingData 
       return { ...state, selectedService: action.payload };
     case 'SET_PAYMENT_METHOD':
       return { ...state, paymentMethod: action.payload };
-    case 'SET_BOOKING_TIME':
-      return { ...state, bookingTime: action.payload };
+    case 'SET_ASSIGNMENT_TIME':
+      return { ...state, assignmentTime: action.payload };
+    case 'SET_BOOKING_TIME': // Legacy support
+      return { ...state, assignmentTime: action.payload };
     case 'SET_SPECIAL_REQUESTS':
       return { ...state, specialRequests: action.payload };
     case 'SET_ROUTE_INFO':
@@ -92,7 +102,8 @@ function bookingReducer(state: BookingData, action: BookingAction): BookingData 
       };
     case 'LOAD_FROM_STORAGE':
       return { ...state, ...action.payload };
-    case 'CLEAR_BOOKING':
+    case 'CLEAR_ASSIGNMENT':
+    case 'CLEAR_BOOKING': // Legacy support
       return initialState;
     default:
       return state;
@@ -100,10 +111,23 @@ function bookingReducer(state: BookingData, action: BookingAction): BookingData 
 }
 
 // Context
+interface ProtectionAssignmentContextType {
+  protectionAssignmentData: ProtectionAssignmentData;
+  dispatch: React.Dispatch<ProtectionAssignmentAction>;
+  // Helper functions
+  setPickupLocation: (location: Location) => void;
+  setDestination: (location: Location) => void;
+  setSelectedService: (service: ServiceOption) => void;
+  setPaymentMethod: (method: ProtectionAssignmentData['paymentMethod']) => void;
+  clearAssignment: () => void;
+  saveToStorage: () => void;
+  loadFromStorage: () => void;
+}
+
+// Legacy context type alias for backward compatibility
 interface BookingContextType {
   bookingData: BookingData;
   dispatch: React.Dispatch<BookingAction>;
-  // Helper functions
   setPickupLocation: (location: Location) => void;
   setDestination: (location: Location) => void;
   setSelectedService: (service: ServiceOption) => void;
@@ -113,11 +137,12 @@ interface BookingContextType {
   loadFromStorage: () => void;
 }
 
-const BookingContext = createContext<BookingContextType | null>(null);
+const ProtectionAssignmentContext = createContext<ProtectionAssignmentContextType | null>(null);
+const BookingContext = ProtectionAssignmentContext; // Legacy alias
 
 // Provider
-export function BookingProvider({ children }: { children: ReactNode }) {
-  const [bookingData, dispatch] = useReducer(bookingReducer, initialState);
+export function ProtectionAssignmentProvider({ children }: { children: ReactNode }) {
+  const [protectionAssignmentData, dispatch] = useReducer(protectionAssignmentReducer, initialState);
 
   // Helper functions
   const setPickupLocation = (location: Location) => {
@@ -132,17 +157,17 @@ export function BookingProvider({ children }: { children: ReactNode }) {
     dispatch({ type: 'SET_SELECTED_SERVICE', payload: service });
   };
 
-  const setPaymentMethod = (method: BookingData['paymentMethod']) => {
+  const setPaymentMethod = (method: ProtectionAssignmentData['paymentMethod']) => {
     dispatch({ type: 'SET_PAYMENT_METHOD', payload: method });
   };
 
-  const clearBooking = () => {
-    dispatch({ type: 'CLEAR_BOOKING' });
-    localStorage.removeItem('armora_booking_data');
+  const clearAssignment = () => {
+    dispatch({ type: 'CLEAR_ASSIGNMENT' });
+    localStorage.removeItem('armora_booking_data'); // Keep same storage key for compatibility
   };
 
   const saveToStorage = () => {
-    localStorage.setItem('armora_booking_data', JSON.stringify(bookingData));
+    localStorage.setItem('armora_booking_data', JSON.stringify(protectionAssignmentData));
   };
 
   const loadFromStorage = () => {
@@ -152,7 +177,7 @@ export function BookingProvider({ children }: { children: ReactNode }) {
         const data = JSON.parse(stored);
         dispatch({ type: 'LOAD_FROM_STORAGE', payload: data });
       } catch (error) {
-        console.error('Error loading booking data from storage:', error);
+        console.error('Error loading protection assignment data from storage:', error);
       }
     }
 
@@ -172,32 +197,59 @@ export function BookingProvider({ children }: { children: ReactNode }) {
     }
   };
 
-  const value: BookingContextType = {
-    bookingData,
+  const value: ProtectionAssignmentContextType = {
+    protectionAssignmentData,
     dispatch,
     setPickupLocation,
     setDestination,
     setSelectedService,
     setPaymentMethod,
-    clearBooking,
+    clearAssignment,
     saveToStorage,
     loadFromStorage
   };
 
   return (
-    <BookingContext.Provider value={value}>
+    <ProtectionAssignmentContext.Provider value={value}>
       {children}
-    </BookingContext.Provider>
+    </ProtectionAssignmentContext.Provider>
   );
 }
 
+// Legacy provider alias for backward compatibility
+export const BookingProvider = ProtectionAssignmentProvider;
+
 // Hook
-export function useBooking() {
+export function useProtectionAssignment() {
+  const context = useContext(ProtectionAssignmentContext);
+  if (!context) {
+    throw new Error('useProtectionAssignment must be used within a ProtectionAssignmentProvider');
+  }
+  return context;
+}
+
+// Legacy hook alias for backward compatibility
+export function useBooking(): BookingContextType {
   const context = useContext(BookingContext);
   if (!context) {
     throw new Error('useBooking must be used within a BookingProvider');
   }
-  return context;
+
+  // Adapt new context to legacy interface
+  return {
+    bookingData: {
+      ...context.protectionAssignmentData,
+      bookingTime: context.protectionAssignmentData.assignmentTime
+    },
+    dispatch: context.dispatch as React.Dispatch<BookingAction>,
+    setPickupLocation: context.setPickupLocation,
+    setDestination: context.setDestination,
+    setSelectedService: context.setSelectedService,
+    setPaymentMethod: context.setPaymentMethod,
+    clearBooking: context.clearAssignment,
+    saveToStorage: context.saveToStorage,
+    loadFromStorage: context.loadFromStorage
+  };
 }
 
 // Service options data

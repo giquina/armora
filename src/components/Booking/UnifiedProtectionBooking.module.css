@@ -690,4 +690,80 @@
   .servicePrice {
     font-size: 12px;
   }
+
+  /* Mobile optimization for protection banner */
+  .protectionBanner {
+    padding: 14px 16px;
+    margin: 20px 12px 12px 12px;
+  }
+
+  .bannerTitle {
+    font-size: 16px;
+  }
+
+  .bannerFeatures {
+    font-size: 13px;
+  }
+
+  .bannerRating {
+    font-size: 12px;
+  }
+}
+
+/* Protection Service Banner - Option 1: Minimal Trust Badge */
+.protectionBanner {
+  background: linear-gradient(135deg, #FFD700 0%, #FFC700 100%);
+  border-radius: 12px;
+  padding: 16px 20px;
+  margin: 24px 16px 16px 16px;
+  text-align: center;
+  box-shadow: 0 2px 8px rgba(255, 215, 0, 0.2);
+  animation: slideUp 0.3s ease-out;
+}
+
+.bannerIcon {
+  font-size: 24px;
+  margin-bottom: 8px;
+}
+
+.bannerTitle {
+  color: #1a1a2e;
+  font-size: 18px;
+  font-weight: 600;
+  margin: 0 0 8px 0;
+}
+
+.bannerFeatures {
+  color: #333;
+  font-size: 14px;
+  margin-bottom: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.dot {
+  color: #666;
+  margin: 0 4px;
+}
+
+.bannerRating {
+  color: #1a1a2e;
+  font-size: 13px;
+  font-weight: 500;
+  opacity: 0.9;
+}
+
+/* Smooth entrance animation */
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }

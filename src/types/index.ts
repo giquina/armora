@@ -231,7 +231,7 @@ export interface AppState {
   questionnaireData: PersonalizationData | null;
   deviceCapabilities: DeviceCapabilities;
   subscription: UserSubscription | null;
-  selectedServiceForBooking?: string;
+  selectedServiceForProtectionAssignment?: string;
   userProfileSelection?: string; // Step 1 profile for FloatingCTA personalization
   safeRideFundMetrics: SafeRideFundMetrics | null;
   communityImpactData: CommunityImpactData | null;
@@ -241,8 +241,8 @@ export interface AppState {
   error: string | null;
 }
 
-export interface BookingStep {
-  step: 'vehicle-selection' | 'location-picker' | 'booking-confirmation' | 'booking-success';
+export interface ProtectionAssignmentStep {
+  step: 'vehicle-selection' | 'location-picker' | 'protection-assignment-confirmation' | 'protection-assignment-success';
   data?: any;
 }
 
@@ -272,7 +272,7 @@ export interface LocationSection {
   };
 }
 
-export interface BookingData {
+export interface ProtectionAssignmentData {
   service: ServiceLevel;
   pickup: string;
   destination: string;
@@ -285,7 +285,7 @@ export interface BookingData {
   isScheduled?: boolean;
 }
 
-export interface BookingRecord {
+export interface ProtectionAssignmentRecord {
   id: string;
   userId?: string;
   service: string;
@@ -304,7 +304,7 @@ export type PaymentMethodType = 'card' | 'apple_pay' | 'google_pay' | 'paypal' |
 export type PaymentStatus = 'pending' | 'processing' | 'succeeded' | 'failed' | 'cancelled' | 'requires_action' | 'requires_payment_method';
 
 export interface PaymentFlow {
-  bookingDetails: BookingData;
+  protectionAssignmentDetails: ProtectionAssignmentData;
   paymentMethod: PaymentMethodType;
   amount: number;
   currency: 'GBP';
@@ -313,7 +313,7 @@ export interface PaymentFlow {
     serviceType: string;
     route: string;
     scheduledTime?: string;
-    corporateBooking?: boolean;
+    corporateAssignment?: boolean;
     vatNumber?: string;
   };
 }
@@ -649,8 +649,8 @@ export interface SecurityTimeline {
   debrief: Date;
 }
 
-// Booking History and Personalization Types
-export interface BookingHistoryItem {
+// Protection Assignment History and Personalization Types
+export interface ProtectionAssignmentHistoryItem {
   id: string;
   service: string;
   serviceName: string;
@@ -660,8 +660,8 @@ export interface BookingHistoryItem {
   estimatedCost: number;
   date: string;
   time: string;
-  driver?: string;
-  driverRating?: number;
+  protectionOfficer?: string;
+  officerRating?: number;
   frequency: number;
   status: 'completed' | 'cancelled' | 'in-progress';
   additionalRequirements?: string;
@@ -691,20 +691,20 @@ export interface QuickActionItem {
   subtitle: string;
   icon: string;
   type: 'recent' | 'frequent' | 'suggestion' | 'default';
-  data?: BookingHistoryItem | FavoriteRoute;
+  data?: ProtectionAssignmentHistoryItem | FavoriteRoute;
   isPersonalized: boolean;
   usageCount?: number;
   lastUsed?: string;
 }
 
 export interface PersonalizationAnalytics {
-  totalBookings: number;
+  totalProtectionAssignments: number;
   favoriteRoutes: FavoriteRoute[];
   mostUsedService: string;
-  averageBookingValue: number;
+  averageAssignmentValue: number;
   peakUsageTime: string;
   frequentDestinations: string[];
-  bookingPatterns: {
+  assignmentPatterns: {
     weekly: Record<string, number>;
     monthly: Record<string, number>;
     seasonal: Record<string, number>;

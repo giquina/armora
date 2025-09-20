@@ -30,12 +30,12 @@ const SERVICE_RATES = {
   essential: 50,    // £50/hour
   executive: 75,    // £75/hour
   shadow: 65,       // £65/hour
-  'client-vehicle': 45  // £45/hour (reduced rate for client vehicle)
+  'client-vehicle': 55  // £55/hour
 };
 
 const VEHICLE_RATES = {
-  essential: 2.2,      // £2.20/mile
-  executive: 2.8,      // £2.80/mile
+  essential: 2.5,      // £2.50/mile
+  executive: 2.5,      // £2.50/mile
   shadow: 2.5,         // £2.50/mile
   'client-vehicle': 0  // No vehicle cost when using client's vehicle
 };

@@ -16,7 +16,7 @@ const initialState: AppState = {
     supportsInstallPrompt: 'serviceWorker' in navigator,
   },
   subscription: null,
-  selectedServiceForBooking: undefined,
+  selectedServiceForProtectionAssignment: undefined,
   userProfileSelection: undefined,
   safeRideFundMetrics: null,
   communityImpactData: null,
@@ -85,7 +85,7 @@ function appReducer(state: AppState, action: AppAction): AppState {
     case 'SET_SUBSCRIPTION':
       return { ...state, subscription: action.payload };
     case 'SET_SELECTED_SERVICE':
-      return { ...state, selectedServiceForBooking: action.payload };
+      return { ...state, selectedServiceForProtectionAssignment: action.payload };
     case 'SET_SAFE_RIDE_FUND_METRICS':
       return { ...state, safeRideFundMetrics: action.payload };
     case 'SET_COMMUNITY_IMPACT_DATA':

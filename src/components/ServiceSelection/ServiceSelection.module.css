@@ -186,20 +186,22 @@
 .serviceCard {
   padding: var(--space-lg);
   background: var(--bg-secondary);
-  border: 2px solid var(--border-subtle);
+  border: 1px solid #e5e5e5;
   border-radius: var(--radius-lg);
   cursor: pointer;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.3s ease;
   display: flex;
   align-items: center;
   gap: var(--space-md);
   animation: serviceCardEnter 0.5s ease-out both;
   transform-origin: center;
+  position: relative;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
 .serviceCard:hover {
-  transform: translateY(-4px) scale(1.02);
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  transform: translateY(-2px);
   border-color: var(--border-primary);
 }
 
@@ -209,13 +211,14 @@
 }
 
 .serviceCard.selected {
-  background: linear-gradient(135deg, rgba(255, 215, 0, 0.08), rgba(255, 215, 0, 0.04));
-  border-color: var(--accent-primary);
-  box-shadow: 0 8px 32px rgba(255, 215, 0, 0.2);
+  border: 2px solid #FFD700;
+  background: linear-gradient(135deg, #fffef5 0%, #fff 100%);
+  box-shadow: 0 4px 20px rgba(255, 215, 0, 0.2);
 }
 
 .serviceCard.selected:hover {
-  box-shadow: 0 12px 40px rgba(255, 215, 0, 0.3);
+  box-shadow: 0 6px 24px rgba(255, 215, 0, 0.3);
+  transform: translateY(-2px);
 }
 
 .serviceContent {
@@ -302,6 +305,74 @@
   transition: color 0.2s ease;
 }
 
+/* Popular Badge */
+.popularBadge {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: #FFD700;
+  color: #1F2937;
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  z-index: 2;
+}
+
+.badgeIcon {
+  font-size: 12px;
+}
+
+.badgeText {
+  white-space: nowrap;
+}
+
+/* Trust Badges */
+.trustBadges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.trustBadges span {
+  font-size: 11px;
+  color: #059669;
+  background: #ECFDF5;
+  padding: 2px 6px;
+  border-radius: 4px;
+  white-space: nowrap;
+}
+
+/* Response Time */
+.responseTime {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 12px;
+  color: #6B7280;
+  margin-top: 4px;
+  margin-bottom: 8px;
+}
+
+.responseIcon {
+  font-size: 12px;
+}
+
+.responseText {
+  white-space: nowrap;
+}
+
+/* Price Unit */
+.priceUnit {
+  font-size: var(--font-xs);
+  color: var(--text-secondary);
+  font-weight: 400;
+}
+
 /* Animations */
 @keyframes spin {
   from { transform: rotate(0deg); }
@@ -379,6 +450,30 @@
   .confirmButton {
     padding: var(--space-md);
     font-size: var(--font-sm);
+  }
+
+  .popularBadge {
+    top: 8px;
+    right: 8px;
+    padding: 3px 8px;
+    font-size: 10px;
+  }
+
+  .trustBadges {
+    gap: 6px;
+  }
+
+  .trustBadges span {
+    font-size: 10px;
+    padding: 1px 4px;
+  }
+
+  .serviceCard {
+    padding: var(--space-md);
+  }
+
+  .responseTime {
+    font-size: 11px;
   }
 }
 

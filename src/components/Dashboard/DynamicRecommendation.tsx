@@ -167,7 +167,7 @@ export function DynamicRecommendation({
             Professional security transport designed for peace of mind.
             Our <strong>SIA Level 2 certified drivers</strong> provide discreet protection
             in eco-friendly <strong>Nissan Leaf EVs</strong>, combining safety with
-            environmental responsibility at accessible <strong>£45/hour</strong> pricing.
+            environmental responsibility at accessible <strong>£50/hour</strong> pricing.
           </p>
         </div>
 

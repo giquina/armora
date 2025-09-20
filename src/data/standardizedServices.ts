@@ -62,13 +62,13 @@ export const STANDARDIZED_SERVICES: Record<string, StandardizedService> = {
     pricingOptions: {
       hourly: {
         type: 'hourly',
-        baseRate: 65,
-        minimumHours: 4,
-        hourlyBlocks: [4, 6, 8]
+        baseRate: 50,
+        minimumHours: 2,
+        hourlyBlocks: [2, 4, 6, 8]
       },
       journey: {
         type: 'journey',
-        baseRate: 65,
+        baseRate: 50,
         journeyMultiplier: 1.2
       }
     }
@@ -78,9 +78,9 @@ export const STANDARDIZED_SERVICES: Record<string, StandardizedService> = {
     id: 'client-vehicle',
     name: 'Client Vehicle',
     tagline: 'Your vehicle, our protection officer - maximum privacy and discretion',
-    price: 65,
-    priceDisplay: '£65/hour + £2.50/mile',
-    hourlyRate: 65,
+    price: 55,
+    priceDisplay: '£55/hour + £2.50/mile',
+    hourlyRate: 55,
     mileageRate: 2.50,
     description: 'SIA certified protection officers provide security using your personal vehicle, ensuring complete privacy and discretion while maintaining comprehensive protection coverage.',
     features: [
@@ -101,8 +101,8 @@ export const STANDARDIZED_SERVICES: Record<string, StandardizedService> = {
       hourly: {
         type: 'hourly',
         baseRate: 55,
-        minimumHours: 4,
-        hourlyBlocks: [4, 6, 8]
+        minimumHours: 2,
+        hourlyBlocks: [2, 4, 6, 8]
       },
       journey: {
         type: 'journey',
@@ -137,13 +137,13 @@ export const STANDARDIZED_SERVICES: Record<string, StandardizedService> = {
     pricingOptions: {
       hourly: {
         type: 'hourly',
-        baseRate: 95,
-        minimumHours: 6,
-        hourlyBlocks: [6, 8, 12]
+        baseRate: 75,
+        minimumHours: 2,
+        hourlyBlocks: [2, 4, 6, 8]
       },
       journey: {
         type: 'journey',
-        baseRate: 95,
+        baseRate: 75,
         journeyMultiplier: 1.4
       }
     }
@@ -175,13 +175,13 @@ export const STANDARDIZED_SERVICES: Record<string, StandardizedService> = {
     pricingOptions: {
       hourly: {
         type: 'hourly',
-        baseRate: 125,
-        minimumHours: 8,
-        hourlyBlocks: [8, 12, 24]
+        baseRate: 65,
+        minimumHours: 2,
+        hourlyBlocks: [2, 4, 6, 8]
       },
       journey: {
         type: 'journey',
-        baseRate: 125,
+        baseRate: 65,
         journeyMultiplier: 1.6
       }
     }

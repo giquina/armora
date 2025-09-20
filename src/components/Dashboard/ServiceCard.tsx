@@ -5,7 +5,7 @@ import { InlineQuickScheduling } from '../UI/InlineQuickScheduling';
 import { StreamlinedBookingModal } from '../UI/StreamlinedBookingModal';
 import styles from './ServiceCard.module.css';
 
-// Service tier configuration with breakdown pricing format
+// Service tier configuration with complete pricing and enhanced SIA-compliant descriptions
 const SERVICE_CONFIG = {
   standard: {
     name: 'Essential Protection',
@@ -15,28 +15,30 @@ const SERVICE_CONFIG = {
     reviews: '2,847',
     vehicle: 'Nissan Leaf EV • Eco-friendly, discrete',
     icon: '🛡️',
-    tagline: 'Professional protection for everyday security',
-    credentials: 'SIA-licensed protection officers',
+    tagline: 'Professional security with secure transport',
+    credentials: 'SIA-licensed protection officer',
     features: [
-      'Background verified & insured',
-      'Real-time tracking',
-      '24/7 support'
+      'Threat assessment and route planning',
+      'Professional close protection training',
+      'Real-time tracking and support',
+      'Ideal for: Business meetings, personal security, medical appointments'
     ]
   },
   'client-vehicle': {
-    name: 'Personal Vehicle Service',
+    name: 'Client Vehicle Service',
     protectionRate: '£55',
     transportRate: 'No mileage charge',
     rating: 4.8,
     reviews: '2,156',
-    vehicle: 'Your vehicle requirements',
+    vehicle: 'Your personal vehicle',
     icon: '🔑',
-    tagline: 'Your car, our protection expertise',
-    credentials: 'Perfect for luxury car owners',
+    tagline: 'Security-trained professional for your own vehicle',
+    credentials: 'Protection officer operates your personal transport',
     features: [
-      'Maintain total privacy',
-      'Save on mileage charges',
-      'Any vehicle type accepted'
+      'Security assessment with familiar vehicle comfort',
+      'Professional driving and protection skills',
+      'Compatible with any vehicle type',
+      'Ideal for: Using your own car, family vehicles, regular commutes'
     ]
   },
   executive: {
@@ -47,28 +49,30 @@ const SERVICE_CONFIG = {
     reviews: '1,326',
     vehicle: 'Mercedes S-Class • Ultimate luxury',
     icon: '👔',
-    tagline: 'Premium security for high-profile clients',
-    credentials: 'Senior protection officers (10+ years)',
+    tagline: 'Enhanced security protocols for high-profile clients',
+    credentials: 'Senior protection officer with advanced training',
     features: [
-      'Enhanced security protocols',
-      'Premium vehicle fleet',
-      'Route reconnaissance included'
+      'Comprehensive threat assessment and advance planning',
+      'Premium vehicle fleet with enhanced security',
+      'Route reconnaissance and security briefings',
+      'Ideal for: Corporate executives, public figures, sensitive meetings'
     ]
   },
   shadow: {
-    name: 'Shadow Protection',
+    name: 'Shadow Protocol',
     protectionRate: '£65',
     transportRate: '£2.50',
     rating: 4.7,
     reviews: '1,892',
-    vehicle: 'Unmarked premium vehicles • Blend in',
+    vehicle: 'Unmarked premium vehicles • Maximum discretion',
     icon: '🕵️',
-    tagline: 'Discreet security without drawing attention',
-    credentials: 'Plainclothes protection specialists',
+    tagline: 'Discreet, plainclothes protection services',
+    credentials: 'Special Forces trained protection specialists',
     features: [
-      'Covert security operations',
-      'Surveillance detection',
-      'Maximum discretion'
+      'Covert security operations with surveillance detection',
+      'Plainclothes officers blend seamlessly',
+      'Advanced counter-surveillance techniques',
+      'Ideal for: Confidential meetings, personal privacy, threat situations'
     ]
   }
 };

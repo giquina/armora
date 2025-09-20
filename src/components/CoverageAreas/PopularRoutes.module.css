@@ -509,6 +509,97 @@
   }
 }
 
+/* Why Choose Armora Protection Section */
+.whyChooseSection {
+  margin-top: var(--space-xxl);
+  padding: var(--space-xl) 0;
+  background: linear-gradient(135deg, var(--bg-secondary), rgba(255, 215, 0, 0.02));
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-subtle);
+}
+
+.whyChooseTitle {
+  font-size: var(--font-xxl);
+  font-weight: 700;
+  color: var(--text-primary);
+  text-align: center;
+  margin: 0 0 var(--space-xl) 0;
+  line-height: 1.2;
+}
+
+.whyChooseGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-lg);
+  padding: 0 var(--space-lg);
+}
+
+@media (min-width: 768px) {
+  .whyChooseGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .whyChooseGrid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.whyChooseCard {
+  background: var(--bg-primary);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: var(--space-lg);
+  text-align: center;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.whyChooseCard:hover {
+  border-color: var(--accent-primary);
+  transform: translateY(-4px);
+  box-shadow: 0 8px 25px rgba(255, 215, 0, 0.15);
+}
+
+.whyChooseCard::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.whyChooseCard:hover::before {
+  opacity: 1;
+}
+
+.whyChooseIcon {
+  font-size: 3rem;
+  margin-bottom: var(--space-md);
+  display: block;
+}
+
+.whyChooseCardTitle {
+  font-size: var(--font-lg);
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0 0 var(--space-sm) 0;
+  line-height: 1.3;
+}
+
+.whyChooseCardText {
+  font-size: var(--font-sm);
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin: 0;
+}
+
 /* Accessibility */
 .categoryButton:focus-visible,
 .bookRouteButton:focus-visible,

@@ -20,14 +20,39 @@ interface RecentPlace {
   coordinates?: { lat: number; lng: number };
 }
 
-const SUGGESTED_DESTINATIONS = [
-  { name: 'London Heathrow Airport', address: 'Heathrow Airport, Hounslow TW6 1AP, UK', type: 'airport' },
-  { name: 'London Gatwick Airport', address: 'Gatwick Airport, Horley RH6 0NP, UK', type: 'airport' },
-  { name: 'King\'s Cross Station', address: 'King\'s Cross, London N1C 4AH, UK', type: 'transport' },
-  { name: 'Westminster', address: 'Westminster, London SW1A 0AA, UK', type: 'government' },
-  { name: 'Canary Wharf', address: 'Canary Wharf, London E14 5AB, UK', type: 'business' },
-  { name: 'The Shard', address: '32 London Bridge St, London SE1 9SG, UK', type: 'landmark' }
-];
+const LOCATION_DATA = {
+  airport: [
+    { name: 'London Heathrow Airport', address: 'Heathrow Airport, Hounslow TW6 1AP, UK', distance: '15 miles' },
+    { name: 'London Gatwick Airport', address: 'Gatwick Airport, Horley RH6 0NP, UK', distance: '28 miles' },
+    { name: 'London City Airport', address: 'London City Airport, London E16 2PX, UK', distance: '8 miles' },
+    { name: 'London Stansted Airport', address: 'Stansted Airport, Stansted CM24 1QW, UK', distance: '31 miles' },
+    { name: 'London Luton Airport', address: 'Luton Airport, Luton LU2 9LY, UK', distance: '34 miles' }
+  ],
+  retail: [
+    { name: 'Harrods', address: '87-135 Brompton Rd, London SW1X 7XL, UK', distance: '12 miles' },
+    { name: 'Selfridges Oxford Street', address: '400 Oxford St, London W1A 1AB, UK', distance: '10 miles' },
+    { name: 'Westfield Stratford City', address: 'Montfichet Rd, London E20 1EJ, UK', distance: '18 miles' },
+    { name: 'Westfield White City', address: 'Ariel Way, London W12 7GF, UK', distance: '14 miles' },
+    { name: 'Covent Garden Market', address: 'Covent Garden, London WC2E 8RF, UK', distance: '9 miles' }
+  ],
+  medical: [
+    { name: 'Guy\'s Hospital', address: 'Great Maze Pond, London SE1 9RT, UK', distance: '7 miles' },
+    { name: 'St Thomas\' Hospital', address: 'Westminster Bridge Rd, London SE1 7EH, UK', distance: '8 miles' },
+    { name: 'King\'s College Hospital', address: 'Denmark Hill, London SE5 9RS, UK', distance: '11 miles' },
+    { name: 'The London Clinic', address: '20 Devonshire Pl, London W1G 6BW, UK', distance: '9 miles' },
+    { name: 'Royal Free Hospital', address: 'Pond St, London NW3 2QG, UK', distance: '13 miles' }
+  ],
+  business: [
+    { name: 'Canary Wharf', address: 'Canary Wharf, London E14 5AB, UK', distance: '16 miles' },
+    { name: 'The Shard', address: '32 London Bridge St, London SE1 9SG, UK', distance: '6 miles' },
+    { name: 'City of London', address: 'City of London, London EC2V 7HH, UK', distance: '8 miles' },
+    { name: 'Westminster', address: 'Westminster, London SW1A 0AA, UK', distance: '7 miles' },
+    { name: 'King\'s Cross Business District', address: 'King\'s Cross, London N1C 4AH, UK', distance: '5 miles' }
+  ]
+};
+
+// Commented out as we now use Recent locations instead of Suggested
+// const ALL_SUGGESTED = Object.values(LOCATION_DATA).flat();
 
 export function LocationPicker({ isOpen, onClose, onLocationSelect }: LocationPickerProps) {
   const { navigateToView } = useApp();
@@ -35,15 +60,22 @@ export function LocationPicker({ isOpen, onClose, onLocationSelect }: LocationPi
   const [savedPlaces, setSavedPlaces] = useState<SavedPlace[]>([]);
   const [recentPlaces, setRecentPlaces] = useState<RecentPlace[]>([]);
   const [currentLocation, setCurrentLocation] = useState<string>('Detecting location...');
+  const [isEditingFromLocation, setIsEditingFromLocation] = useState(false);
   const searchInputRef = useRef<HTMLInputElement>(null);
   const overlayRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (isOpen) {
+      // Prevent body scroll when modal is open
+      document.body.style.overflow = 'hidden';
+
+      // Focus management for accessibility
+      const previouslyFocusedElement = document.activeElement as HTMLElement;
+
       // Focus search input when opened
       setTimeout(() => {
         searchInputRef.current?.focus();
-      }, 100);
+      }, 150);
 
       // Load saved places
       const homeAddress = localStorage.getItem('armora_home_address');
@@ -71,7 +103,22 @@ export function LocationPicker({ isOpen, onClose, onLocationSelect }: LocationPi
 
       // Detect current location
       detectCurrentLocation();
+
+      // Return focus to previously focused element when modal closes
+      return () => {
+        if (previouslyFocusedElement && typeof previouslyFocusedElement.focus === 'function') {
+          previouslyFocusedElement.focus();
+        }
+      };
+    } else {
+      // Restore body scroll when modal is closed
+      document.body.style.overflow = '';
     }
+
+    // Cleanup function to restore body scroll if component unmounts
+    return () => {
+      document.body.style.overflow = '';
+    };
   }, [isOpen]);
 
   const detectCurrentLocation = () => {
@@ -129,6 +176,32 @@ export function LocationPicker({ isOpen, onClose, onLocationSelect }: LocationPi
     if (e.key === 'Escape') {
       onClose();
     }
+
+    // Tab navigation focus trap
+    if (e.key === 'Tab') {
+      const focusableElements = overlayRef.current?.querySelectorAll(
+        'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+      );
+
+      if (focusableElements && focusableElements.length > 0) {
+        const firstElement = focusableElements[0] as HTMLElement;
+        const lastElement = focusableElements[focusableElements.length - 1] as HTMLElement;
+
+        if (e.shiftKey) {
+          // Shift + Tab (backward)
+          if (document.activeElement === firstElement) {
+            e.preventDefault();
+            lastElement.focus();
+          }
+        } else {
+          // Tab (forward)
+          if (document.activeElement === lastElement) {
+            e.preventDefault();
+            firstElement.focus();
+          }
+        }
+      }
+    }
   };
 
   if (!isOpen) return null;
@@ -144,81 +217,92 @@ export function LocationPicker({ isOpen, onClose, onLocationSelect }: LocationPi
       <div className={styles.modal}>
         {/* Header */}
         <div className={styles.header}>
-          <button className={styles.backButton} onClick={onClose}>
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-              <path d="m15 18-6-6 6-6"/>
+          <button className={styles.backButton} onClick={onClose} aria-label="Close location picker">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+              <path d="m15 18-6-6 6-6" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
           </button>
           <h2 className={styles.title}>Arrange Protection Service</h2>
+          <button className={styles.closeButton} onClick={onClose} aria-label="Close">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+              <line x1="18" y1="6" x2="6" y2="18" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" />
+              <line x1="6" y1="6" x2="18" y2="18" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" />
+            </svg>
+          </button>
         </div>
 
-        {/* Service Explanation Banner */}
-        <div className={styles.serviceExplanation}>
-          <div className={styles.serviceHeader}>
-            <div className={styles.shieldIcon}>
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-              </svg>
-            </div>
-            <h3 className={styles.serviceTitle}>Your Protection Service</h3>
-          </div>
-          <p className={styles.serviceDescription}>
-            Select your destination. Your SIA-licensed Protection Officer will provide secure transport and, if requested, personal protection at your destination.
-          </p>
-          <div className={styles.servicePills}>
-            <span className={styles.pill}>⏱️ 2hr minimum</span>
-            <span className={styles.pill}>🛡️ SIA Licensed</span>
-            <span className={styles.pill}>🚗 Secure transport</span>
-          </div>
-        </div>
 
-        {/* Current Location */}
+        {/* FROM/TO Location Section */}
         <div className={styles.locationSection}>
+          {/* FROM Location */}
           <div className={styles.locationItem}>
             <div className={styles.locationIcon}>
               <div className={styles.currentLocationDot}></div>
             </div>
             <div className={styles.locationText}>
-              <span className={styles.locationLabel}>Protection starts from</span>
+              <span className={styles.locationLabel}>FROM</span>
               <span className={styles.locationAddress}>{currentLocation}</span>
+            </div>
+            {!isEditingFromLocation && (
+              <button
+                className={styles.editButton}
+                onClick={() => setIsEditingFromLocation(true)}
+              >
+                Edit
+              </button>
+            )}
+          </div>
+
+          {isEditingFromLocation && (
+            <div className={styles.locationItem}>
+              <div className={styles.locationIcon}>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                  <circle cx="11" cy="11" r="8"/>
+                  <path d="m21 21-4.35-4.35"/>
+                </svg>
+              </div>
+              <div className={styles.locationText}>
+                <input
+                  className={styles.fromLocationInput}
+                  type="text"
+                  placeholder="Enter pickup location"
+                  defaultValue={currentLocation}
+                  onBlur={() => setIsEditingFromLocation(false)}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter') {
+                      setIsEditingFromLocation(false);
+                    }
+                  }}
+                  autoFocus
+                />
+              </div>
+            </div>
+          )}
+
+          {/* TO Location */}
+          <div className={styles.locationItem}>
+            <div className={styles.locationIcon}>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                <circle cx="12" cy="10" r="3"/>
+              </svg>
+            </div>
+            <div className={styles.locationText}>
+              <span className={styles.locationLabel}>TO</span>
+              <div className={styles.searchInputContainer}>
+                <input
+                  ref={searchInputRef}
+                  className={styles.toLocationInput}
+                  type="text"
+                  placeholder="Where do you require protection?"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                />
+              </div>
             </div>
           </div>
         </div>
 
-        {/* Search Input */}
-        <div className={styles.searchSection}>
-          <div className={styles.searchInputContainer}>
-            <svg className={styles.searchIcon} width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-              <circle cx="11" cy="11" r="8"/>
-              <path d="m21 21-4.35-4.35"/>
-            </svg>
-            <input
-              ref={searchInputRef}
-              className={styles.searchInput}
-              type="text"
-              placeholder="Enter address, venue, or postcode"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-            />
-          </div>
-          <p className={styles.searchHelper}>Tell us where you need protection</p>
-        </div>
-
-        {/* Quick Destination Cards - Enhanced */}
-        <div className={styles.quickDestinationsSection}>
-          <div className={styles.quickDestination} onClick={() => handleLocationSelect('✈️ Airport Protection')}>
-            <div className={styles.quickIcon}>✈️</div>
-            <span className={styles.quickLabel}>Airport Protection</span>
-          </div>
-          <div className={styles.quickDestination} onClick={() => handleLocationSelect('🛍️ Retail Security')}>
-            <div className={styles.quickIcon}>🛍️</div>
-            <span className={styles.quickLabel}>Retail Security</span>
-          </div>
-          <div className={styles.quickDestination} onClick={() => handleLocationSelect('🏥 Medical Facility')}>
-            <div className={styles.quickIcon}>🏥</div>
-            <span className={styles.quickLabel}>Medical Facility</span>
-          </div>
-        </div>
 
         {/* Content */}
         <div className={styles.content}>
@@ -327,29 +411,39 @@ export function LocationPicker({ isOpen, onClose, onLocationSelect }: LocationPi
             </div>
           )}
 
-          {/* Suggested Destinations */}
-          <div className={styles.section}>
-            <h3 className={styles.sectionTitle}>Suggested</h3>
-            <p className={styles.sectionSubtext}>Frequently protected routes</p>
-            {SUGGESTED_DESTINATIONS.map((place) => (
-              <button
-                key={place.address}
-                className={styles.placeItem}
-                onClick={() => handleLocationSelect(place.address)}
-              >
-                <div className={styles.placeIcon}>
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
-                    <circle cx="12" cy="10" r="3"/>
-                  </svg>
-                </div>
-                <div className={styles.placeContent}>
-                  <span className={styles.placeName}>{place.name}</span>
-                  <span className={styles.placeAddress}>{place.address}</span>
-                </div>
-              </button>
-            ))}
-          </div>
+          {/* Recent Destinations */}
+          {recentPlaces.length > 0 && (
+            <div className={styles.section}>
+              <h3 className={styles.sectionTitle}>Recent</h3>
+              <p className={styles.sectionSubtext}>Your most recent locations</p>
+              {recentPlaces.slice(0, 5).map((place, index) => (
+                <button
+                  key={`${place.address}-${place.timestamp}`}
+                  className={styles.placeItem}
+                  onClick={() => handleLocationSelect(place.address, place.coordinates)}
+                >
+                  <div className={styles.placeIcon}>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                      <circle cx="12" cy="12" r="10"/>
+                      <polyline points="12,6 12,12 16,14"/>
+                    </svg>
+                  </div>
+                  <div className={styles.placeContent}>
+                    <span className={styles.placeName}>{place.address.split(',')[0]}</span>
+                    <span className={styles.placeAddress}>{place.address}</span>
+                    <span className={styles.placeTime}>
+                      {new Date(place.timestamp).toLocaleDateString('en-GB', {
+                        month: 'short',
+                        day: 'numeric',
+                        hour: '2-digit',
+                        minute: '2-digit'
+                      })}
+                    </span>
+                  </div>
+                </button>
+              ))}
+            </div>
+          )}
 
           {/* Set Location on Map */}
           <div className={styles.section}>
@@ -370,6 +464,29 @@ export function LocationPicker({ isOpen, onClose, onLocationSelect }: LocationPi
                 <span className={styles.placeName}>Set location on map</span>
               </div>
             </button>
+          </div>
+
+          {/* Protection Service Banner - How It Works Process */}
+          <div className={styles.protectionBanner}>
+            <div className={styles.bannerIcon}>🛡️</div>
+            <h3 className={styles.bannerTitle}>How It Works - Simple & Secure</h3>
+
+            <div className={styles.processSteps}>
+              <div className={styles.stepText}>1. Select your protection level</div>
+              <div className={styles.stepText}>2. Enter your destination</div>
+              <div className={styles.stepText}>3. Your officer arrives in 15-20 mins</div>
+            </div>
+
+            <div className={styles.bannerFeatures}>
+              <span>✓ Secure vehicle included</span>
+              <span className={styles.dot}>•</span>
+              <span>✓ Real-time tracking</span>
+              <span className={styles.dot}>•</span>
+              <span>✓ Fixed transparent pricing</span>
+            </div>
+            <div className={styles.bannerRating}>
+              ⭐ 4.9 rating from 2,847 protected clients
+            </div>
           </div>
         </div>
       </div>

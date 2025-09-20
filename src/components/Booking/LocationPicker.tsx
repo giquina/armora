@@ -114,6 +114,19 @@ export function LocationPicker({ selectedService, onLocationConfirmed, onBack, o
   const protectionHistory = getMockProtectionHistory(user);
   const savedLocations = getMockSavedLocations(user);
 
+  // Responsive placeholder text based on screen width
+  const getPlaceholderText = () => {
+    if (typeof window === 'undefined') return 'Enter any address in England or Wales';
+
+    const width = window.innerWidth;
+    if (width <= 320) return 'Where to?';
+    if (width <= 480) return 'Destination';
+    if (width <= 768) return 'Enter address in England or Wales';
+    return 'Enter any address in England or Wales';
+  };
+
+  const [placeholderText, setPlaceholderText] = useState(getPlaceholderText());
+
   // Handle close with confirmation if data would be lost
   const handleClose = () => {
     if (destination.trim() && onClose) {
@@ -176,6 +189,16 @@ export function LocationPicker({ selectedService, onLocationConfirmed, onBack, o
   const handleSavedLocationSelect = (address: string) => {
     setDestination(address);
   };
+
+  // Handle responsive placeholder text
+  useEffect(() => {
+    const handleResize = () => {
+      setPlaceholderText(getPlaceholderText());
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   // Real-time calculation with nationwide pricing
   useEffect(() => {
@@ -360,7 +383,7 @@ export function LocationPicker({ selectedService, onLocationConfirmed, onBack, o
                 type="text"
                 value={destination}
                 onChange={(e) => setDestination(e.target.value)}
-                placeholder="Enter any address in England or Wales"
+                placeholder={placeholderText}
                 className={`${styles.searchInput} ${errors.destination ? styles.inputError : ''}`}
                 autoComplete="off"
               />
@@ -611,7 +634,7 @@ export function LocationPicker({ selectedService, onLocationConfirmed, onBack, o
         <button
           className={styles.continueButton}
           onClick={handleContinue}
-          disabled={!destination || isLoading || (coverageStatus && !coverageStatus.covered)}
+          disabled={!destination || isLoading || (coverageStatus ? !coverageStatus.covered : false)}
         >
           {isLoading ? (
             <LoadingSpinner size="small" variant="light" text="Processing..." inline />

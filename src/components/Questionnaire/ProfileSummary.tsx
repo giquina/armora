@@ -188,7 +188,7 @@ export default function ProfileSummaryComponent({ userResponses, userName }: Pro
       name: 'Armora Standard',
       tier: 'Professional Security Transport',
       features: 'professional SIA-licensed drivers, premium vehicles, and standard security protocols',
-      price: '£45/hour',
+      price: '£50/hour',
       confidence: 'suitable'
     };
   };

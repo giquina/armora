@@ -238,7 +238,7 @@ export function Bookings() {
           <button
             className={styles.actionButtonSecondary}
             onClick={() => {
-              const data = BookingHistoryManager.exportBookingData();
+              const data = BookingHistoryManager.exportProtectionAssignmentData();
               const blob = new Blob([data], { type: 'application/json' });
               const url = URL.createObjectURL(blob);
               const a = document.createElement('a');

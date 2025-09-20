@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { AppProvider, useApp } from './contexts/AppContext';
-import { BookingProvider } from './contexts/BookingContext';
+import { ProtectionAssignmentProvider } from './contexts/ProtectionAssignmentContext';
 import { AppLayout } from './components/Layout/AppLayout';
 import { SplashScreen } from './components/SplashScreen/SplashScreen';
 import { WelcomePage } from './components/Auth/WelcomePage';
@@ -14,9 +14,10 @@ import { Dashboard } from './components/Dashboard';
 import { ServicesPage } from './components/Services/ServicesPage';
 import { AssignmentsView } from './components/AssignmentsView';
 import { SubscriptionOffer } from './components/Subscription/SubscriptionOffer';
-import { VehicleSelection, LocationPicker, BookingSuccess } from './components/Booking';
+import { VehicleSelection, LocationPicker } from './components/Booking';
+import { ProtectionAssignmentSuccess, WhereWhenView } from './components/ProtectionAssignment';
 import { PaymentIntegration } from './components/Booking/PaymentIntegration';
-import { BookingErrorBoundary } from './components/Booking/BookingErrorBoundary';
+import { ProtectionAssignmentErrorBoundary } from './components/ProtectionAssignment/ProtectionAssignmentErrorBoundary';
 import { ServiceSelection } from './components/ServiceSelection/ServiceSelection';
 import { ReferralSection } from './components/Account/ReferralSection';
 import { PPOVenueBooking } from './components/Account/PPOVenueBooking';
@@ -27,10 +28,11 @@ import { VenueSecurityQuestionnaire } from './components/VenueProtection/VenueSe
 import { VenueProtectionSuccess } from './components/VenueProtection/VenueProtectionSuccess';
 import { About } from './components/About/About';
 import { CoverageAreas } from './components/CoverageAreas/CoverageAreas';
-import { ServiceLevel, BookingData, LocationData } from './types';
+import { ServiceLevel, ProtectionAssignmentData, LocationData } from './types';
 import { getAllServices } from './data/standardizedServices';
 import './styles/globals.css';
 import './styles/disable-infinite-animations.css'; /* CRITICAL FIX: Stop infinite animations causing flashing */
+import './styles/booking-white-theme.css'; /* BOOKING WHITE THEME: Apply white background to booking pages only */
 
 // Development tools for testing user scenarios
 if (process.env.NODE_ENV === 'development') {
@@ -60,40 +62,66 @@ const convertToServiceLevel = (): ServiceLevel[] => {
 function BookingFlow() {
   const { state, navigateToView } = useApp();
 
-  // Check if we should start with location-first flow (from "Where to?" button)
-  const [bookingFlow] = useState(() => localStorage.getItem('armora_booking_flow'));
-  const initialStep = bookingFlow === 'location-first' ? 'location-picker' : 'vehicle-selection';
-
-  const [currentStep, setCurrentStep] = useState<'vehicle-selection' | 'location-picker' | 'booking-confirmation' | 'booking-success'>(initialStep);
-  const [selectedService, setSelectedService] = useState<ServiceLevel | null>(null);
-  const [bookingData, setBookingData] = useState<BookingData | null>(null);
+  // New simplified flow: where-when -> booking-confirmation -> booking-success
+  const [currentStep, setCurrentStep] = useState<'where-when' | 'booking-confirmation' | 'booking-success'>('where-when');
+  const [protectionAssignmentData, setProtectionAssignmentData] = useState<ProtectionAssignmentData | null>(null);
   const [bookingId, setBookingId] = useState<string>('');
+
+  // Detect booking context from localStorage or URL params
+  const getBookingContext = (): { serviceId?: string; context?: 'immediate' | 'airport' | 'executive' | 'schedule' | 'event' } => {
+    // Check for pre-selected service
+    const preSelectedServiceId = localStorage.getItem('armora_selected_service');
+    const bookingContext = localStorage.getItem('armora_booking_context');
+
+    // Clean up the localStorage items after reading
+    if (preSelectedServiceId) {
+      localStorage.removeItem('armora_selected_service');
+    }
+    if (bookingContext) {
+      localStorage.removeItem('armora_booking_context');
+    }
+
+    return {
+      serviceId: preSelectedServiceId || undefined,
+      context: bookingContext as any
+    };
+  };
+
+  const { serviceId: preSelectedServiceId, context: bookingContext } = getBookingContext();
 
   const handleGuestSignUp = () => {
     navigateToView('signup');
   };
 
-  // Check for pre-selected service from direct booking
-  useEffect(() => {
-    const preSelectedServiceId = localStorage.getItem('armora_selected_service');
-    if (preSelectedServiceId && !selectedService) {
-      // Get all services to find the selected one
-      const services = convertToServiceLevel();
-      const service = services.find(s => s.id === preSelectedServiceId);
-      if (service) {
-        setSelectedService(service);
-        setCurrentStep('location-picker');
-        console.log('[Booking] Pre-selected service found, skipping to location:', preSelectedServiceId);
-      }
-    }
-  }, []); // Remove selectedService dependency to prevent infinite loop
+  // Handle WhereWhenView completion
+  const handleWhereWhenComplete = (data: {
+    selectedService: ServiceLevel;
+    location: LocationData;
+    scheduledTime?: Date;
+    isImmediate: boolean;
+  }) => {
+    const protectionAssignmentInfo: ProtectionAssignmentData = {
+      service: data.selectedService,
+      pickup: data.location.pickup,
+      destination: data.location.destination,
+      estimatedDistance: data.location.estimatedDistance || 10,
+      estimatedDuration: data.location.estimatedDuration || 30,
+      estimatedCost: 130, // This would be calculated properly
+      user: state.user,
+      scheduledDateTime: data.scheduledTime?.toISOString(),
+      isScheduled: !data.isImmediate
+    };
+
+    setProtectionAssignmentData(protectionAssignmentInfo);
+    setCurrentStep('booking-confirmation');
+    preserveBookingState();
+  };
 
   // Preserve booking state in localStorage for error recovery
   const preserveBookingState = () => {
     const stateToPreserve = {
       currentStep,
-      selectedService,
-      bookingData,
+      protectionAssignmentData,
       bookingId,
       timestamp: new Date().toISOString(),
     };
@@ -109,9 +137,8 @@ function BookingFlow() {
         // Only recover if the state is less than 30 minutes old
         const stateAge = Date.now() - new Date(state.timestamp).getTime();
         if (stateAge < 30 * 60 * 1000) { // 30 minutes
-          setCurrentStep(state.currentStep || 'vehicle-selection');
-          setSelectedService(state.selectedService || null);
-          setBookingData(state.bookingData || null);
+          setCurrentStep(state.currentStep || 'where-when');
+          setProtectionAssignmentData(state.protectionAssignmentData || null);
           setBookingId(state.bookingId || '');
         }
       }
@@ -120,54 +147,6 @@ function BookingFlow() {
     }
   };
 
-  const handleServiceSelected = (service: ServiceLevel) => {
-    setSelectedService(service);
-
-    // Check if we have pre-stored location data from location-first flow
-    const storedLocationData = localStorage.getItem('armora_location_data');
-    if (storedLocationData) {
-      try {
-        const locationData = JSON.parse(storedLocationData);
-        // Move directly to booking confirmation with the stored location data
-        const bookingInfo: BookingData = {
-          service: service,
-          pickup: locationData.pickup,
-          destination: locationData.destination,
-          estimatedDistance: locationData.estimatedDistance ?? 0,
-          estimatedDuration: locationData.estimatedDuration ?? 0,
-          estimatedCost: locationData.estimatedCost,
-          user: state.user,
-        };
-        setBookingData(bookingInfo);
-        setCurrentStep('booking-confirmation');
-        localStorage.removeItem('armora_location_data'); // Clean up
-      } catch (error) {
-        console.warn('Failed to parse stored location data:', error);
-        setCurrentStep('location-picker');
-      }
-    } else {
-      setCurrentStep('location-picker');
-    }
-
-    preserveBookingState();
-  };
-
-  const handleLocationConfirmed = (locationData: LocationData & { estimatedCost: number }) => {
-    if (selectedService) {
-      const bookingInfo: BookingData = {
-        service: selectedService,
-        pickup: locationData.pickup,
-        destination: locationData.destination,
-        estimatedDistance: locationData.estimatedDistance ?? 0,
-        estimatedDuration: locationData.estimatedDuration ?? 0,
-        estimatedCost: locationData.estimatedCost,
-        user: state.user,
-      };
-      setBookingData(bookingInfo);
-      setCurrentStep('booking-confirmation');
-      preserveBookingState();
-    }
-  };
 
   const handleBookingConfirmed = (confirmedBookingId: string) => {
     setBookingId(confirmedBookingId);
@@ -176,16 +155,6 @@ function BookingFlow() {
     localStorage.removeItem('armora_booking_state');
   };
 
-  const handleBackToVehicleSelection = () => {
-    setCurrentStep('vehicle-selection');
-    setSelectedService(null);
-    preserveBookingState();
-  };
-
-  const handleBackToLocationPicker = () => {
-    setCurrentStep('location-picker');
-    preserveBookingState();
-  };
 
   const handleErrorRetry = () => {
     // Attempt to recover state on retry
@@ -195,129 +164,64 @@ function BookingFlow() {
   const handleErrorNavigateBack = () => {
     // Navigate back to previous step on error
     switch (currentStep) {
-      case 'location-picker':
-        setCurrentStep('vehicle-selection');
-        break;
       case 'booking-confirmation':
-        setCurrentStep('location-picker');
+        setCurrentStep('where-when');
         break;
       default:
-        setCurrentStep('vehicle-selection');
+        setCurrentStep('where-when');
     }
   };
 
   const getPreservedState = () => ({
-    selectedService,
-    bookingData,
+    protectionAssignmentData,
     bookingId,
   });
 
   switch (currentStep) {
-    case 'vehicle-selection':
+    case 'where-when':
       return (
-        <BookingErrorBoundary
-          fallbackComponent="vehicle-selection"
+        <ProtectionAssignmentErrorBoundary
+          fallbackComponent="where-when"
           onRetry={handleErrorRetry}
           preservedState={getPreservedState()}
         >
-          <VehicleSelection
-            user={state.user}
-            onServiceSelected={handleServiceSelected}
-            onSignUp={handleGuestSignUp}
+          <WhereWhenView
+            onContinueToPayment={handleWhereWhenComplete}
+            preSelectedServiceId={preSelectedServiceId}
+            preSelectedContext={bookingContext}
           />
-        </BookingErrorBoundary>
+        </ProtectionAssignmentErrorBoundary>
       );
-    case 'location-picker':
-      // If no service selected and we're in location-first flow, handle it differently
-      if (!selectedService && bookingFlow === 'location-first') {
-        // Create a default service for location picker to work with
-        const defaultService: ServiceLevel = {
-          id: 'standard',
-          name: 'Standard Protection',
-          tagline: 'Professional security transport',
-          price: '£65/hour',
-          hourlyRate: 65,
-          vehicle: 'Secure Vehicle',
-          capacity: '4 passengers',
-          driverQualification: 'SIA Level 2 Security Certified',
-          description: 'Professional security transport service',
-          features: ['SIA certified driver', 'Secure vehicle', 'GPS tracking']
-        };
-
-        return (
-          <BookingErrorBoundary
-            fallbackComponent="location-picker"
-            onRetry={handleErrorRetry}
-            onNavigateBack={() => {
-              // Clear location-first flag and go back to dashboard
-              localStorage.removeItem('armora_booking_flow');
-              navigateToView('home');
-            }}
-            preservedState={getPreservedState()}
-          >
-            <LocationPicker
-              selectedService={defaultService}
-              onLocationConfirmed={(locationData) => {
-                // Store location data and move to service selection
-                localStorage.setItem('armora_location_data', JSON.stringify(locationData));
-                setCurrentStep('vehicle-selection');
-                localStorage.removeItem('armora_booking_flow'); // Clear the flag
-              }}
-              onBack={() => {
-                localStorage.removeItem('armora_booking_flow');
-                navigateToView('home');
-              }}
-              user={state.user}
-            />
-          </BookingErrorBoundary>
-        );
-      }
-
-      return selectedService ? (
-        <BookingErrorBoundary
-          fallbackComponent="location-picker"
-          onRetry={handleErrorRetry}
-          onNavigateBack={handleErrorNavigateBack}
-          preservedState={getPreservedState()}
-        >
-          <LocationPicker
-            selectedService={selectedService}
-            onLocationConfirmed={handleLocationConfirmed}
-            onBack={handleBackToVehicleSelection}
-            user={state.user}
-          />
-        </BookingErrorBoundary>
-      ) : null;
     case 'booking-confirmation':
-      return bookingData ? (
-        <BookingErrorBoundary
-          fallbackComponent="booking-confirmation"
+      return protectionAssignmentData ? (
+        <ProtectionAssignmentErrorBoundary
+          fallbackComponent="assignment-confirmation"
           onRetry={handleErrorRetry}
           onNavigateBack={handleErrorNavigateBack}
           preservedState={getPreservedState()}
         >
           <PaymentIntegration
-            bookingData={bookingData}
+            protectionAssignmentData={protectionAssignmentData}
             onBookingComplete={handleBookingConfirmed}
-            onBack={handleBackToLocationPicker}
+            onBack={() => setCurrentStep('where-when')}
           />
-        </BookingErrorBoundary>
+        </ProtectionAssignmentErrorBoundary>
       ) : null;
     case 'booking-success':
-      return <BookingSuccess bookingId={bookingId} />;
+      return <ProtectionAssignmentSuccess assignmentId={bookingId} />;
     default:
       return (
-        <BookingErrorBoundary
-          fallbackComponent="vehicle-selection"
+        <ProtectionAssignmentErrorBoundary
+          fallbackComponent="where-when"
           onRetry={handleErrorRetry}
           preservedState={getPreservedState()}
         >
-          <VehicleSelection
-            user={state.user}
-            onServiceSelected={handleServiceSelected}
-            onSignUp={handleGuestSignUp}
+          <WhereWhenView
+            onContinueToPayment={handleWhereWhenComplete}
+            preSelectedServiceId={preSelectedServiceId}
+            preSelectedContext={bookingContext}
           />
-        </BookingErrorBoundary>
+        </ProtectionAssignmentErrorBoundary>
       );
   }
 }
@@ -588,6 +492,9 @@ function AppRouter() {
   const { state, navigateToView } = useApp();
   const { currentView, user, questionnaireData, assignmentState } = state;
 
+  // Determine if current view should use white theme for booking
+  const isBookingTheme = currentView === 'booking';
+
   // Achievement banner state
   const [showAchievementBanner, setShowAchievementBanner] = useState(false);
 
@@ -728,7 +635,7 @@ function AppRouter() {
   // Don't wrap authentication screens, questionnaire, and achievement in AppLayout (they're full-screen)
   if (['splash', 'welcome', 'login', 'signup', 'guest-disclaimer', 'questionnaire', 'achievement'].includes(currentView)) {
     return (
-      <>
+      <div className={isBookingTheme ? 'booking-white-theme' : ''}>
         <RecruitmentTopBanner />
         {renderCurrentView()}
         {showAchievementBanner && (
@@ -739,12 +646,12 @@ function AppRouter() {
             userName={user?.name || 'Member'}
           />
         )}
-      </>
+      </div>
     );
   }
 
   return (
-    <>
+    <div className={isBookingTheme ? 'booking-white-theme' : ''}>
       <RecruitmentTopBanner />
       <AppLayout>
         {renderCurrentView()}
@@ -757,16 +664,16 @@ function AppRouter() {
           userName={user?.name || 'Member'}
         />
       )}
-    </>
+    </div>
   );
 }
 
 function App() {
   return (
     <AppProvider>
-      <BookingProvider>
+      <ProtectionAssignmentProvider>
         <AppRouter />
-      </BookingProvider>
+      </ProtectionAssignmentProvider>
     </AppProvider>
   );
 }

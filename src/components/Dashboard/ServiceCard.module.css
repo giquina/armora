@@ -1,17 +1,18 @@
 /* ARMORA SERVICE CARD - CLEAN ICON-FOCUSED DESIGN */
 
 .serviceCard {
-  background: #1a1a2e;
-  border: 1px solid rgba(255, 215, 0, 0.3);
-  border-radius: 12px;
-  padding: 20px;
+  background: linear-gradient(135deg, #1a1a2e 0%, rgba(31, 41, 84, 0.8) 100%);
+  border: 2px solid rgba(255, 215, 0, 0.4);
+  border-radius: 16px;
+  padding: 24px;
   max-width: calc(100vw - 32px);
-  margin: 0 auto 16px auto;
+  margin: 0 auto 20px auto;
   box-sizing: border-box;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   position: relative;
   overflow: hidden;
+  backdrop-filter: blur(10px);
 }
 
 .serviceCard:hover {
@@ -97,11 +98,13 @@
 
 /* Service Rates Breakdown */
 .serviceRates {
-  background: rgba(31, 41, 84, 0.05);
-  border-radius: 8px;
-  padding: 12px;
-  margin: 16px 0;
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 215, 0, 0.2);
+  border-radius: 12px;
+  padding: 16px;
+  margin: 20px 0;
   font-family: 'Inter', sans-serif;
+  backdrop-filter: blur(5px);
 }
 
 .ratesTitle {
@@ -425,11 +428,15 @@
   }
 }
 
-/* Tablet and Desktop */
+/* Tablet and Desktop - Enhanced for Two-Column Layout */
 @media (min-width: 768px) {
   .serviceCard {
-    max-width: 400px;
+    max-width: none;
+    width: 100%;
     padding: 24px;
+    min-height: 420px;
+    display: flex;
+    flex-direction: column;
   }
 
   .serviceName {
@@ -444,6 +451,10 @@
     font-size: 15px;
   }
 
+  .actionButtons {
+    margin-top: auto;
+  }
+
   .bookButton,
   .moreInfoButton {
     font-size: 15px !important;
@@ -453,8 +464,16 @@
 
 @media (min-width: 1024px) {
   .serviceCard {
-    max-width: 450px;
+    max-width: none;
+    width: 100%;
     padding: 28px;
+    min-height: 460px;
+  }
+
+  .serviceCard:hover {
+    border-color: #FFD700;
+    box-shadow: 0 8px 32px rgba(255, 215, 0, 0.25);
+    transform: translateY(-4px);
   }
 
   .serviceName {
@@ -467,6 +486,15 @@
 
   .infoText {
     font-size: 16px;
+  }
+
+  .serviceRates {
+    padding: 16px;
+    margin: 20px 0;
+  }
+
+  .rateValue {
+    font-size: 24px;
   }
 }
 

@@ -1,6 +1,6 @@
 # 🛡️ Armora Security Transport
 
-Nationwide professional close protection and security transport services across England & Wales. Premium security mobile app built with React TypeScript + PWA for app store distribution.
+Premium VIP security transport mobile app built with React TypeScript + PWA for app store distribution.
 
 ## 🚀 Quick Start
 
@@ -23,9 +23,7 @@ npm test           # Run tests
 
 - **SPA Pattern**: Single-page app with view-based routing
 - **User Flow**: Splash → Welcome → Auth → Questionnaire → Dashboard → Booking
-- **Service Levels**: Standard Protection (£65/hr) | Executive Shield (£95/hr) | Shadow Protocol (£125/hr) | Client Vehicle (£55/hr)
-- **Geographic Coverage**: England & Wales with regional pricing variations
-- **Professional Standards**: SIA-licensed Close Protection Officers (CPOs)
+- **Service Levels**: Standard (£45/hr) | Executive (£75/hr) | Shadow (£65/hr)
 - **State Management**: React Context with useReducer (no Redux)
 
 ## 🔧 Development Commands
@@ -148,4 +146,4 @@ Proprietary - Armora Security Transport Ltd.
 
 ---
 
-Last updated: 2025-09-19T22:34:50.381Z
+Last updated: 2025-09-20T16:50:51.973Z

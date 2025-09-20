@@ -77,7 +77,7 @@ describe('VehicleSelection Component', () => {
         />
       );
 
-      expect(screen.getByText('£45')).toBeInTheDocument(); // Essential
+      expect(screen.getByText('£50')).toBeInTheDocument(); // Essential
       expect(screen.getByText('£75')).toBeInTheDocument(); // Executive
       expect(screen.getByText('£65')).toBeInTheDocument(); // Shadow
     });

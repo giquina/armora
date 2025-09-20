@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { BookingData } from '../../types';
+import { ProtectionAssignmentData } from '../../types';
 import { ProtectionLevel } from './ProtectionLevelSelector';
 import { VenueTimeData } from './VenueTimeEstimator';
 import { ProtectionServiceRequest, calculateProtectionPricing } from '../../utils/protectionPricingCalculator';
@@ -7,9 +7,10 @@ import { formatPrice } from '../../utils/priceFormatter';
 import { LoadingSpinner } from '../UI/LoadingSpinner';
 import { NationwidePricingBreakdown } from '../../utils/nationwidePricing';
 import styles from './BookingConfirmation.module.css';
+import '../../styles/booking-white-theme.css';
 
 interface BookingConfirmationProps {
-  bookingData: BookingData & { pricingBreakdown?: NationwidePricingBreakdown };
+  protectionAssignmentData: ProtectionAssignmentData & { pricingBreakdown?: NationwidePricingBreakdown };
   protectionLevel: ProtectionLevel;
   venueTimeData?: VenueTimeData;
   destination: string;
@@ -18,7 +19,7 @@ interface BookingConfirmationProps {
 }
 
 export function BookingConfirmation({
-  bookingData,
+  protectionAssignmentData,
   protectionLevel,
   venueTimeData,
   destination,
@@ -29,14 +30,14 @@ export function BookingConfirmation({
   const [additionalRequirements, setAdditionalRequirements] = useState('');
   const [agreedToTerms, setAgreedToTerms] = useState(false);
 
-  const { user } = bookingData;
+  const { user } = protectionAssignmentData;
   const hasReward = user?.hasUnlockedReward && user?.userType !== 'guest';
 
   // Use nationwide pricing if available, otherwise calculate using legacy system
-  let pricingBreakdown;
-  if (bookingData.pricingBreakdown) {
+  let pricingBreakdown: any;
+  if (protectionAssignmentData.pricingBreakdown) {
     // Convert nationwide pricing to legacy format for display
-    const nationwide = bookingData.pricingBreakdown;
+    const nationwide = protectionAssignmentData.pricingBreakdown;
     pricingBreakdown = {
       components: [
         {
@@ -117,7 +118,7 @@ export function BookingConfirmation({
   };
 
   return (
-    <div className={styles.container}>
+    <div className={`${styles.container} booking-white-theme`}>
       
       <div className={styles.header}>
         <button className={styles.backButton} onClick={onBack}>
@@ -134,10 +135,10 @@ export function BookingConfirmation({
         <div className={styles.routeSection}>
           <h3 className={styles.sectionTitle}>Protection Service Details</h3>
           <div className={styles.routeCard}>
-            {bookingData.pricingBreakdown && (
+            {protectionAssignmentData.pricingBreakdown && (
               <div className={styles.serviceHeader}>
-                <div className={styles.serviceLevel}>{bookingData.pricingBreakdown.protectionOfficer.serviceLevel} Protection</div>
-                <div className={styles.serviceCoverage}>{bookingData.pricingBreakdown.serviceCoverage}</div>
+                <div className={styles.serviceLevel}>{protectionAssignmentData.pricingBreakdown.protectionOfficer.serviceLevel} Protection</div>
+                <div className={styles.serviceCoverage}>{protectionAssignmentData.pricingBreakdown.serviceCoverage}</div>
               </div>
             )}
             <div className={styles.routeItem}>
@@ -157,19 +158,19 @@ export function BookingConfirmation({
                 <div className={styles.routeLocation}>{destination}</div>
               </div>
             </div>
-            {bookingData.pricingBreakdown && (
+            {protectionAssignmentData.pricingBreakdown && (
               <div className={styles.journeyMeta}>
                 <div className={styles.metaDetail}>
                   <span className={styles.metaIcon}>🛣️</span>
-                  <span>Distance: {bookingData.pricingBreakdown.vehicleOperation.miles} miles</span>
+                  <span>Distance: {protectionAssignmentData.pricingBreakdown.vehicleOperation.miles} miles</span>
                 </div>
                 <div className={styles.metaDetail}>
                   <span className={styles.metaIcon}>⏱️</span>
-                  <span>Est. journey: {Math.round(bookingData.pricingBreakdown.estimatedJourneyTime)} minutes</span>
+                  <span>Est. journey: {Math.round(protectionAssignmentData.pricingBreakdown.estimatedJourneyTime)} minutes</span>
                 </div>
                 <div className={styles.metaDetail}>
                   <span className={styles.metaIcon}>🛡️</span>
-                  <span>Protection time: {bookingData.pricingBreakdown.protectionOfficer.hours}h minimum</span>
+                  <span>Protection time: {protectionAssignmentData.pricingBreakdown.protectionOfficer.hours}h minimum</span>
                 </div>
               </div>
             )}
@@ -197,7 +198,7 @@ export function BookingConfirmation({
         <div className={styles.estimateSection}>
           <h3 className={styles.sectionTitle}>Nationwide Protection Pricing</h3>
           <div className={styles.estimateCard}>
-            {pricingBreakdown.components.map((component, index) => (
+            {pricingBreakdown.components.map((component: any, index: number) => (
               <div key={index} className={styles.estimateRow}>
                 <span>{component.label}</span>
                 <span>{formatPrice(component.amount)}</span>
@@ -207,7 +208,7 @@ export function BookingConfirmation({
               <span>Subtotal:</span>
               <span>{formatPrice(pricingBreakdown.subtotal)}</span>
             </div>
-            {pricingBreakdown.discounts.map((discount, index) => (
+            {pricingBreakdown.discounts.map((discount: any, index: number) => (
               <div key={index} className={styles.discountRow}>
                 <span>{discount.label}</span>
                 <span className={styles.discountAmount}>-{formatPrice(discount.amount)}</span>

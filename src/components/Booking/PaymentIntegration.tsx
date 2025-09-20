@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import {
-  BookingData,
+  ProtectionAssignmentData,
   PaymentFlow,
   PaymentIntent,
   PaymentError,
@@ -16,7 +16,7 @@ import { LoadingSpinner } from '../UI/LoadingSpinner';
 import styles from './PaymentIntegration.module.css';
 
 interface PaymentIntegrationProps {
-  bookingData: BookingData;
+  protectionAssignmentData: ProtectionAssignmentData;
   onBookingComplete: (bookingId: string) => void;
   onBack: () => void;
   corporateAccount?: CorporateAccount;
@@ -25,7 +25,7 @@ interface PaymentIntegrationProps {
 type PaymentStep = 'confirmation' | 'corporate-billing' | 'payment' | 'processing' | 'success' | 'error';
 
 export function PaymentIntegration({
-  bookingData,
+  protectionAssignmentData,
   onBookingComplete,
   onBack,
   corporateAccount
@@ -57,7 +57,7 @@ export function PaymentIntegration({
   const [creditsToApply, setCreditsToApply] = useState<number>(0);
   const [applyCredits, setApplyCredits] = useState<boolean>(true);
 
-  const { service, pickup, destination, estimatedDistance, estimatedDuration, estimatedCost, user } = bookingData;
+  const { service, pickup, destination, estimatedDistance, estimatedDuration, estimatedCost, user } = protectionAssignmentData;
   const hasReward = user?.hasUnlockedReward && user?.userType !== 'guest';
 
   // Calculate cost with both rewards and credits
@@ -90,7 +90,7 @@ export function PaymentIntegration({
   // Initialize payment flow
   useEffect(() => {
     const flow: PaymentFlow = {
-      bookingDetails: bookingData,
+      protectionAssignmentDetails: protectionAssignmentData,
       paymentMethod: 'card',
       amount: finalCost * 100, // Convert to pence for Stripe
       currency: 'GBP',
@@ -98,13 +98,13 @@ export function PaymentIntegration({
       metadata: {
         serviceType: service.id,
         route: `${pickup} → ${destination}`,
-        scheduledTime: bookingData.scheduledDateTime,
-        corporateBooking: isCorporateBooking
+        scheduledTime: protectionAssignmentData.scheduledDateTime,
+        corporateAssignment: isCorporateBooking
       }
     };
 
     setPaymentFlow(flow);
-  }, [bookingData, finalCost, isCorporateBooking, service, pickup, destination]);
+  }, [protectionAssignmentData, finalCost, isCorporateBooking, service, pickup, destination]);
 
   const formatDuration = (minutes: number): string => {
     if (minutes < 60) return `${minutes}m`;
@@ -130,7 +130,7 @@ export function PaymentIntegration({
         ...paymentFlow,
         metadata: {
           ...paymentFlow.metadata,
-          corporateBooking: true,
+          corporateAssignment: true,
           vatNumber: billingData.vatNumber
         }
       });
@@ -298,11 +298,11 @@ export function PaymentIntegration({
                 <span className={styles.metaLabel}>Duration:</span>
                 <span className={styles.metaValue}>{formatDuration(estimatedDuration)}</span>
               </div>
-              {bookingData.scheduledDateTime && (
+              {protectionAssignmentData.scheduledDateTime && (
                 <div className={styles.metaItem}>
                   <span className={styles.metaLabel}>Scheduled:</span>
                   <span className={styles.metaValue}>
-                    {new Date(bookingData.scheduledDateTime).toLocaleString('en-GB')}
+                    {new Date(protectionAssignmentData.scheduledDateTime).toLocaleString('en-GB')}
                   </span>
                 </div>
               )}
@@ -521,7 +521,7 @@ export function PaymentIntegration({
   if (currentStep === 'success' && paymentIntent && bookingId) {
     return (
       <PaymentSuccess
-        bookingData={bookingData}
+        protectionAssignmentData={protectionAssignmentData}
         paymentIntent={paymentIntent}
         onContinue={handleBackToBooking}
         onDownloadReceipt={handleDownloadReceipt}

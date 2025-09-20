@@ -84,18 +84,23 @@ Includes automated hooks system and AI task management:
 ### Key File Structure
 ```
 src/
-├── App.tsx                     - Main router with view switching
-├── contexts/AppContext.tsx     - Global state management
-├── types/index.ts              - TypeScript interfaces
+├── App.tsx                               - Main router with view switching
+├── contexts/
+│   ├── AppContext.tsx                    - Global state management
+│   └── ProtectionAssignmentContext.tsx  - Protection assignment booking state
+├── types/index.ts                        - TypeScript interfaces
 ├── components/
-│   ├── Auth/                   - Authentication flow
-│   ├── Questionnaire/          - 9-step onboarding system
-│   ├── Dashboard/              - Protection tier selection
-│   ├── AssignmentsView/        - Professional protection assignments command centre
-│   ├── Booking/                - Complete protection booking flow
-│   ├── UI/ArmoraLogo.tsx       - Premium 4D logo system
-│   └── Layout/AppLayout.tsx    - Header with navigation
-└── data/questionnaireData.ts   - Dynamic questionnaire logic
+│   ├── Auth/                            - Authentication flow
+│   ├── Questionnaire/                   - 9-step onboarding system
+│   ├── Dashboard/                       - Protection tier selection
+│   ├── AssignmentsView/                 - Professional protection assignments command centre
+│   ├── Booking/                         - Complete protection booking flow
+│   ├── ProtectionAssignment/            - New unified protection booking system
+│   ├── VenueProtection/                 - Venue security services
+│   ├── WeddingEventSecurity/            - Specialized event protection
+│   ├── UI/ArmoraLogo.tsx                - Premium 4D logo system
+│   └── Layout/AppLayout.tsx             - Header with navigation
+└── data/questionnaireData.ts            - Dynamic questionnaire logic
 ```
 
 ## Business Context
@@ -182,17 +187,28 @@ src/
 - **timeEstimate** (`src/utils/timeEstimate.ts`) - Standardized time formatting across app
 - **seasonalThemes** (`src/utils/seasonalThemes.ts`) - Dynamic seasonal theming
 - **dynamicPersonalization** (`src/utils/dynamicPersonalization.ts`) - User-specific content
+- **protectionPricingCalculator** (`src/utils/protectionPricingCalculator.ts`) - Protection service pricing logic
+- **assignmentHistory** (`src/utils/assignmentHistory.ts`) - Protection assignment tracking and history
+- **siaVerification** (`src/utils/siaVerification.ts`) - SIA license verification utilities
+- **martynsLawCompliance** (`src/utils/martynsLawCompliance.ts`) - Martyn's Law compliance checking
+- **venueSecurityCalculator** (`src/utils/venueSecurityCalculator.ts`) - Venue protection pricing and requirements
 
 ## Critical Implementation Notes
 
 ### Questionnaire System (`/src/data/questionnaireData.ts`)
 Dynamic 9-step system with privacy options. Enhanced mobile typography (1.4-1.5rem) and `calc(100vw - 8px)` width utilization.
 
-### Nationwide Booking Flow Architecture
-Complete flow: VehicleSelection → LocationPicker → BookingConfirmation → BookingSuccess.
+### Protection Assignment System
+**New Unified System** (`src/contexts/ProtectionAssignmentContext.tsx`):
+- Replaces legacy booking system with professional protection terminology
+- Complete flow: WhereWhenView → UnifiedProtectionBooking → ProtectionAssignmentConfirmation → ProtectionAssignmentSuccess
+- State management with `useProtectionAssignment` hook and `ProtectionAssignmentProvider`
+- Backward compatibility maintained with legacy `useBooking` hook
+
+**Legacy Booking Flow** (being phased out):
+- Original flow: VehicleSelection → LocationPicker → BookingConfirmation → BookingSuccess
 - State managed in App.tsx BookingFlow component (`src/App.tsx:17-95`)
 - Error boundary wrapper: `BookingErrorBoundary` component
-- Test data available in `src/utils/testUserScenarios.ts`
 
 **Geographic Integration**:
 - Coverage area validation for England & Wales boundaries
@@ -200,11 +216,7 @@ Complete flow: VehicleSelection → LocationPicker → BookingConfirmation → B
 - Airport specialist availability checking for major airports
 - Automatic routing between major cities with time estimates
 
-**Pricing Calculator Components**:
-- `RegionalPricingEngine` - Handles location-based rate adjustments
-- `ServiceTierCalculator` - Processes hourly vs per-journey pricing
-- `VenueProtectionQuotes` - Generates PPO contract estimates
-- `CoverageAreaValidator` - Verifies service availability by postcode
+**Test Data**: Available in `src/utils/testUserScenarios.ts` for development testing
 
 ### Professional Assignments View (`src/components/AssignmentsView/`)
 Premium close protection command centre with professional terminology:
@@ -226,25 +238,29 @@ Three distinct user types with different capabilities:
 - **Google**: Same as registered
 - **Guest**: Quote-only mode, no direct protection booking
 
+### Venue Protection & Event Security
+**Venue Protection Services** (`src/components/VenueProtection/`):
+- Professional venue security management
+- Day/weekend/monthly/annual contract pricing
+- 1-10 officer scaling with tier-based services
+- Specialized security assessments and compliance
+
+**Wedding & Event Security** (`src/components/WeddingEventSecurity/`):
+- Specialized event protection services
+- Custom security planning for special occasions
+- Professional discrete protection for high-profile events
+
 ### Compliance & Regulatory Components
-**SIA License Integration** (`src/components/Compliance/`):
-- `SIAVerificationSystem` - Real-time license status checking
-- `ComplianceFooter` - Mandatory regulatory information display
-- `CertificationTracker` - Officer qualification monitoring
-- `BackgroundCheckFlow` - User security vetting process
+**SIA License Integration**:
+- `siaVerification` utility (`src/utils/siaVerification.ts`) - License status checking
+- Martyn's Law compliance checking (`src/utils/martynsLawCompliance.ts`)
+- Professional standards certification tracking
 
 **Geographic Compliance**:
 - England & Wales service boundary enforcement
 - Regional regulatory variation handling
 - Airport security protocol integration
 - Cross-border service restrictions (Scotland/NI)
-
-**Footer Compliance Requirements** (`src/components/Layout/ComplianceFooter.tsx`):
-- SIA registration number display
-- Professional standards certification
-- Insurance coverage information
-- Emergency contact protocols
-- Regulatory compliance statements
 
 ## Important Code Patterns
 
@@ -304,4 +320,25 @@ When updating any UI text, ensure professional close protection language:
 - Types: Centralized in `/src/types/index.ts`
 - Data: Static data in `/src/data/`
 
-Last updated: 2025-09-19T22:41:24.123Z
+## State Management Architecture
+
+### Context Providers
+The app uses React Context for state management with two main contexts:
+
+1. **AppContext** (`src/contexts/AppContext.tsx`):
+   - Global application state (user, currentView, device capabilities)
+   - View-based routing without React Router
+   - Subscription and authentication management
+
+2. **ProtectionAssignmentContext** (`src/contexts/ProtectionAssignmentContext.tsx`):
+   - Protection booking/assignment state management
+   - Service selection, location picking, payment methods
+   - Backward compatibility with legacy booking system
+   - Persistent storage with localStorage integration
+
+### Hook Usage
+- `useAppContext()` - Access global app state and navigation
+- `useProtectionAssignment()` - Access protection assignment state (new system)
+- `useBooking()` - Legacy hook for backward compatibility (being phased out)
+
+Last updated: 2025-09-20T17:45:00.000Z

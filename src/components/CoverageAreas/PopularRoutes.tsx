@@ -2,363 +2,212 @@ import React, { useState } from 'react';
 import { useApp } from '../../contexts/AppContext';
 import styles from './PopularRoutes.module.css';
 
+interface RoutePrice {
+  from: string;
+  to: string;
+  distance: number;
+  price: number;
+  time: string;
+  popular?: boolean;
+}
+
 export function PopularRoutes() {
   const { navigateToView } = useApp();
-  const [selectedCategory, setSelectedCategory] = useState<'london' | 'intercity' | 'airport'>('london');
+  const [selectedTab, setSelectedTab] = useState<'london' | 'intercity' | 'airports'>('london');
 
-  const londonRoutes = [
-    {
-      id: 'mayfair-heathrow',
-      from: 'Mayfair',
-      to: 'Heathrow Airport',
-      distance: '16.8 mi',
-      duration: '35-45 mins',
-      price: 152,
-      popular: true,
-      description: 'Premium West London to international hub'
-    },
-    {
-      id: 'canary-wharf-gatwick',
-      from: 'Canary Wharf',
-      to: 'Gatwick Airport',
-      distance: '42 mi',
-      duration: '55-75 mins',
-      price: 198,
-      popular: false,
-      description: 'Financial district to South London airport'
-    },
-    {
-      id: 'westminster-stansted',
-      from: 'Westminster',
-      to: 'Stansted Airport',
-      distance: '38 mi',
-      duration: '50-70 mins',
-      price: 176,
-      popular: false,
-      description: 'Central London to Essex aviation hub'
-    },
-    {
-      id: 'city-london-city',
-      from: 'The City',
-      to: 'London City Airport',
-      distance: '6 mi',
-      duration: '15-25 mins',
-      price: 96,
-      popular: true,
-      description: 'Financial district to business airport'
-    },
-    {
-      id: 'knightsbridge-kensington',
-      from: 'Knightsbridge',
-      to: 'Kensington Palace',
-      distance: '2.1 mi',
-      duration: '8-12 mins',
-      price: 78,
-      popular: false,
-      description: 'Luxury shopping to royal residence'
-    },
-    {
-      id: 'shoreditch-canary-wharf',
-      from: 'Shoreditch',
-      to: 'Canary Wharf',
-      distance: '8.2 mi',
-      duration: '20-30 mins',
-      price: 112,
-      popular: true,
-      description: 'Creative quarter to financial district'
-    }
+  // Pre-calculated popular routes
+  const londonRoutes: RoutePrice[] = [
+    { from: 'Mayfair', to: 'Heathrow Airport', distance: 16.8, price: 152, time: '42 min', popular: true },
+    { from: 'Canary Wharf', to: 'Gatwick Airport', distance: 42.0, price: 198, time: '65 min', popular: true },
+    { from: 'Westminster', to: 'Stansted Airport', distance: 38.0, price: 176, time: '55 min' },
+    { from: 'The City', to: 'London City Airport', distance: 6.0, price: 96, time: '15 min', popular: true },
+    { from: 'Kensington', to: 'Luton Airport', distance: 32.5, price: 162, time: '48 min' },
+    { from: 'Chelsea', to: 'Oxford Street', distance: 3.2, price: 85, time: '12 min' },
+    { from: 'Shoreditch', to: 'Waterloo Station', distance: 4.5, price: 88, time: '18 min' },
+    { from: 'Hampstead', to: 'The Shard', distance: 8.2, price: 102, time: '25 min' }
   ];
 
-  const intercityRoutes = [
-    {
-      id: 'london-manchester',
-      from: 'Central London',
-      to: 'Manchester',
-      distance: '200 mi',
-      duration: '4-5 hours',
-      price: 802,
-      popular: true,
-      description: 'Capital to northern powerhouse'
-    },
-    {
-      id: 'london-birmingham',
-      from: 'Central London',
-      to: 'Birmingham',
-      distance: '120 mi',
-      duration: '2.5-3 hours',
-      price: 425,
-      popular: true,
-      description: 'London to second city'
-    },
-    {
-      id: 'manchester-liverpool',
-      from: 'Manchester',
-      to: 'Liverpool',
-      distance: '35 mi',
-      duration: '45-60 mins',
-      price: 186,
-      popular: false,
-      description: 'Northwest cities connection'
-    },
-    {
-      id: 'london-bristol',
-      from: 'Central London',
-      to: 'Bristol',
-      distance: '118 mi',
-      duration: '2-3 hours',
-      price: 398,
-      popular: false,
-      description: 'Capital to southwest hub'
-    },
-    {
-      id: 'birmingham-manchester',
-      from: 'Birmingham',
-      to: 'Manchester',
-      distance: '88 mi',
-      duration: '1.5-2 hours',
-      price: 312,
-      popular: false,
-      description: 'Midlands to northwest'
-    },
-    {
-      id: 'london-oxford',
-      from: 'Central London',
-      to: 'Oxford',
-      distance: '56 mi',
-      duration: '1-1.5 hours',
-      price: 248,
-      popular: true,
-      description: 'Capital to university city'
-    }
+  const intercityRoutes: RoutePrice[] = [
+    { from: 'London', to: 'Manchester', distance: 201.0, price: 802, time: '3.5 hours', popular: true },
+    { from: 'London', to: 'Birmingham', distance: 113.0, price: 425, time: '2 hours' },
+    { from: 'Manchester', to: 'Liverpool', distance: 35.0, price: 186, time: '45 min' },
+    { from: 'Birmingham', to: 'Bristol', distance: 91.0, price: 328, time: '1.5 hours' },
+    { from: 'Leeds', to: 'Manchester', distance: 44.0, price: 210, time: '1 hour' },
+    { from: 'London', to: 'Bristol', distance: 118.0, price: 445, time: '2 hours' },
+    { from: 'London', to: 'Cardiff', distance: 155.0, price: 538, time: '3 hours', popular: true },
+    { from: 'Birmingham', to: 'London', distance: 113.0, price: 425, time: '2 hours' }
   ];
 
-  const airportRoutes = [
-    {
-      id: 'heathrow-gatwick',
-      from: 'Heathrow',
-      to: 'Gatwick',
-      distance: '45 mi',
-      duration: '60-90 mins',
-      price: 215,
-      popular: true,
-      description: 'Major airport transfer'
-    },
-    {
-      id: 'stansted-heathrow',
-      from: 'Stansted',
-      to: 'Heathrow',
-      distance: '42 mi',
-      duration: '55-80 mins',
-      price: 198,
-      popular: false,
-      description: 'International hub connection'
-    },
-    {
-      id: 'luton-gatwick',
-      from: 'Luton',
-      to: 'Gatwick',
-      distance: '58 mi',
-      duration: '70-100 mins',
-      price: 264,
-      popular: false,
-      description: 'Cross-London airport transfer'
-    },
-    {
-      id: 'manchester-airport-city',
-      from: 'Manchester Airport',
-      to: 'Manchester City Centre',
-      distance: '9 mi',
-      duration: '20-30 mins',
-      price: 118,
-      popular: true,
-      description: 'Airport to city center'
-    },
-    {
-      id: 'birmingham-airport-city',
-      from: 'Birmingham Airport',
-      to: 'Birmingham City Centre',
-      distance: '8 mi',
-      duration: '18-25 mins',
-      price: 108,
-      popular: false,
-      description: 'Airport to city center'
-    },
-    {
-      id: 'bristol-airport-city',
-      from: 'Bristol Airport',
-      to: 'Bristol City Centre',
-      distance: '7 mi',
-      duration: '15-22 mins',
-      price: 98,
-      popular: false,
-      description: 'Airport to city center'
-    }
+  const airportRoutes: RoutePrice[] = [
+    { from: 'Central Manchester', to: 'Manchester Airport', distance: 9.5, price: 124, time: '20 min', popular: true },
+    { from: 'Birmingham Centre', to: 'Birmingham Airport', distance: 11.0, price: 128, time: '25 min' },
+    { from: 'Bristol Centre', to: 'Bristol Airport', distance: 8.0, price: 120, time: '18 min' },
+    { from: 'Liverpool Centre', to: 'Liverpool Airport', distance: 7.5, price: 119, time: '20 min' },
+    { from: 'Newcastle Centre', to: 'Newcastle Airport', distance: 7.0, price: 118, time: '15 min' },
+    { from: 'Edinburgh Centre', to: 'Edinburgh Airport', distance: 9.0, price: 145, time: '25 min' },
+    { from: 'Cardiff Centre', to: 'Cardiff Airport', distance: 12.0, price: 130, time: '30 min' },
+    { from: 'Leeds Centre', to: 'Leeds Bradford', distance: 10.0, price: 125, time: '25 min' }
   ];
 
-  const getRoutes = () => {
-    switch (selectedCategory) {
-      case 'london': return londonRoutes;
-      case 'intercity': return intercityRoutes;
-      case 'airport': return airportRoutes;
-      default: return londonRoutes;
+  const getCurrentRoutes = () => {
+    switch (selectedTab) {
+      case 'london':
+        return londonRoutes;
+      case 'intercity':
+        return intercityRoutes;
+      case 'airports':
+        return airportRoutes;
+      default:
+        return londonRoutes;
     }
   };
 
-  const handleBookRoute = (route: any) => {
+  const handleQuickBook = (route: RoutePrice) => {
     // Store route data for quick booking
-    const routeData = {
-      pickup: route.from,
-      destination: route.to,
-      estimatedDistance: parseFloat(route.distance),
-      estimatedDuration: route.duration,
-      estimatedCost: route.price
-    };
-
-    localStorage.setItem('armora_quick_route', JSON.stringify(routeData));
+    localStorage.setItem('armora_quick_route', JSON.stringify(route));
     navigateToView('booking');
   };
 
-  const categories = [
-    { id: 'london', label: 'Central London', icon: '🏛️' },
-    { id: 'intercity', label: 'Inter-City', icon: '🚗' },
-    { id: 'airport', label: 'Airport Routes', icon: '✈️' }
-  ];
+  const formatPrice = (price: number) => {
+    return `£${price.toFixed(0)}`;
+  };
 
   return (
-    <section className={styles.routesSection}>
-      <div className={styles.sectionContent}>
-        <h2 className={styles.sectionTitle}>Popular Protection Routes</h2>
-        <p className={styles.sectionSubtitle}>
-          Pre-calculated pricing for frequently requested journeys
+    <section className={styles.container}>
+      <div className={styles.content}>
+        <h2 className={styles.title}>POPULAR PROTECTION ROUTES</h2>
+        <p className={styles.subtitle}>
+          Pre-calculated prices for frequently requested journeys
         </p>
 
-        {/* Category Selector */}
-        <div className={styles.categorySelector}>
-          {categories.map((category) => (
-            <button
-              key={category.id}
-              className={`${styles.categoryButton} ${
-                selectedCategory === category.id ? styles.categoryActive : ''
-              }`}
-              onClick={() => setSelectedCategory(category.id as any)}
-            >
-              <span className={styles.categoryIcon}>{category.icon}</span>
-              <span className={styles.categoryLabel}>{category.label}</span>
-            </button>
-          ))}
+        {/* Tab Navigation */}
+        <div className={styles.tabs}>
+          <button
+            className={`${styles.tab} ${selectedTab === 'london' ? styles.activeTab : ''}`}
+            onClick={() => setSelectedTab('london')}
+          >
+            <span className={styles.tabIcon}>🏙️</span>
+            London Routes
+          </button>
+          <button
+            className={`${styles.tab} ${selectedTab === 'intercity' ? styles.activeTab : ''}`}
+            onClick={() => setSelectedTab('intercity')}
+          >
+            <span className={styles.tabIcon}>🚗</span>
+            Inter-City
+          </button>
+          <button
+            className={`${styles.tab} ${selectedTab === 'airports' ? styles.activeTab : ''}`}
+            onClick={() => setSelectedTab('airports')}
+          >
+            <span className={styles.tabIcon}>✈️</span>
+            Regional Airports
+          </button>
         </div>
 
-        {/* Routes Grid */}
-        <div className={styles.routesGrid}>
-          {getRoutes().map((route) => (
-            <div key={route.id} className={`${styles.routeCard} ${route.popular ? styles.routePopular : ''}`}>
+        {/* Routes Table */}
+        <div className={styles.routesTable}>
+          <div className={styles.tableHeader}>
+            <div className={styles.headerFrom}>From</div>
+            <div className={styles.headerTo}>To</div>
+            <div className={styles.headerDistance}>Distance</div>
+            <div className={styles.headerTime}>Time</div>
+            <div className={styles.headerPrice}>Price</div>
+            <div className={styles.headerAction}></div>
+          </div>
+
+          {getCurrentRoutes().map((route, index) => (
+            <div
+              key={index}
+              className={`${styles.routeRow} ${route.popular ? styles.popularRoute : ''}`}
+            >
               {route.popular && (
-                <div className={styles.popularBadge}>
-                  <span className={styles.popularIcon}>⭐</span>
-                  <span className={styles.popularText}>Popular</span>
-                </div>
+                <span className={styles.popularBadge}>Popular</span>
               )}
-
-              <div className={styles.routeHeader}>
-                <div className={styles.routePath}>
-                  <div className={styles.fromLocation}>{route.from}</div>
-                  <div className={styles.routeArrow}>→</div>
-                  <div className={styles.toLocation}>{route.to}</div>
-                </div>
-                <div className={styles.routePrice}>£{route.price}</div>
+              <div className={styles.routeFrom}>
+                <span className={styles.locationIcon}>📍</span>
+                {route.from}
               </div>
-
-              <div className={styles.routeDetails}>
-                <div className={styles.routeInfo}>
-                  <div className={styles.infoItem}>
-                    <span className={styles.infoIcon}>📍</span>
-                    <span className={styles.infoText}>{route.distance}</span>
-                  </div>
-                  <div className={styles.infoItem}>
-                    <span className={styles.infoIcon}>⏱️</span>
-                    <span className={styles.infoText}>{route.duration}</span>
-                  </div>
-                </div>
-                <p className={styles.routeDescription}>{route.description}</p>
+              <div className={styles.routeTo}>
+                <span className={styles.locationIcon}>🏁</span>
+                {route.to}
               </div>
-
-              <div className={styles.routeActions}>
+              <div className={styles.routeDistance}>{route.distance} mi</div>
+              <div className={styles.routeTime}>{route.time}</div>
+              <div className={styles.routePrice}>
+                <span className={styles.priceAmount}>{formatPrice(route.price)}</span>
+                <span className={styles.priceLabel}>estimated</span>
+              </div>
+              <div className={styles.routeAction}>
                 <button
-                  className={styles.bookRouteButton}
-                  onClick={() => handleBookRoute(route)}
+                  className={styles.bookButton}
+                  onClick={() => handleQuickBook(route)}
                 >
-                  Book This Route
-                </button>
-                <button
-                  className={styles.quoteButton}
-                  onClick={() => handleBookRoute(route)}
-                >
-                  Get Quote
+                  Quick Book
                 </button>
               </div>
             </div>
           ))}
         </div>
 
-        {/* Route Information */}
-        <div className={styles.routeInfo}>
-          <div className={styles.infoCard}>
-            <h3 className={styles.infoTitle}>
-              <span className={styles.infoTitleIcon}>💰</span>
-              Transparent Pricing
-            </h3>
-            <p className={styles.infoText}>
-              All prices include SIA-licensed officer, secure vehicle, fuel, and insurance.
-              No hidden fees or surge pricing.
-            </p>
-          </div>
-
-          <div className={styles.infoCard}>
-            <h3 className={styles.infoTitle}>
-              <span className={styles.infoTitleIcon}>🕐</span>
-              Time Estimates
-            </h3>
-            <p className={styles.infoText}>
-              Journey times include security briefing and route optimization.
-              Real-time traffic monitoring for accurate arrivals.
-            </p>
-          </div>
-
-          <div className={styles.infoCard}>
-            <h3 className={styles.infoTitle}>
-              <span className={styles.infoTitleIcon">🛡️</span>
-              Protection Included
-            </h3>
-            <p className={styles.infoText}>
-              Every route includes threat assessment, secure vehicle, and
-              trained Close Protection Officer throughout the journey.
-            </p>
+        {/* Pricing Notes */}
+        <div className={styles.pricingNotes}>
+          <h3 className={styles.notesTitle}>Pricing Information</h3>
+          <div className={styles.notesGrid}>
+            <div className={styles.noteItem}>
+              <span className={styles.noteIcon}>💷</span>
+              <div>
+                <strong>Standard Protection:</strong> £50/hour (2h minimum)
+              </div>
+            </div>
+            <div className={styles.noteItem}>
+              <span className={styles.noteIcon}>🚗</span>
+              <div>
+                <strong>Vehicle Operation:</strong> £2.50 per mile
+              </div>
+            </div>
+            <div className={styles.noteItem}>
+              <span className={styles.noteIcon}>⭐</span>
+              <div>
+                <strong>Members:</strong> 20% discount on all routes
+              </div>
+            </div>
+            <div className={styles.noteItem}>
+              <span className={styles.noteIcon}>📍</span>
+              <div>
+                <strong>Regional:</strong> Additional fees may apply outside London
+              </div>
+            </div>
           </div>
         </div>
+
+        {/* Long Distance Notice */}
+        {selectedTab === 'intercity' && (
+          <div className={styles.longDistanceNotice}>
+            <div className={styles.noticeIcon}>ℹ️</div>
+            <div className={styles.noticeContent}>
+              <strong>Long Distance Protection Services</strong>
+              <p>
+                For journeys over 100 miles, we recommend our overnight protection packages.
+                Officer deployment from regional hubs may be required for optimal service.
+              </p>
+              <button className={styles.noticeButton}>
+                Learn About Overnight Protection
+              </button>
+            </div>
+          </div>
+        )}
 
         {/* Custom Route CTA */}
-        <div className={styles.customRouteSection}>
-          <div className={styles.customRouteCard}>
-            <h3 className={styles.customRouteTitle}>Don't See Your Route?</h3>
-            <p className={styles.customRouteText}>
-              We provide protection services anywhere in the UK.
-              Get a custom quote for your specific journey requirements.
-            </p>
-            <div className={styles.customRouteButtons}>
-              <button
-                className={styles.customQuoteButton}
-                onClick={() => navigateToView('booking')}
-              >
-                Get Custom Quote
-              </button>
-              <button
-                className={styles.callButton}
-                onClick={() => window.location.href = 'tel:+442071234567'}
-              >
-                Call for Consultation
-              </button>
-            </div>
-          </div>
+        <div className={styles.customRouteCTA}>
+          <h3>Need a custom route quote?</h3>
+          <p>Get instant pricing for any journey in England & Wales</p>
+          <button
+            className={styles.customRouteButton}
+            onClick={() => navigateToView('booking')}
+          >
+            Calculate Custom Route
+          </button>
         </div>
       </div>
     </section>

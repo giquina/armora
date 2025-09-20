@@ -411,14 +411,14 @@
   font-style: italic;
 }
 
-/* Protection Service Banner - Option 1: Minimal Trust Badge */
+/* Protection Service Banner - How It Works Process */
 .protectionBanner {
   background: linear-gradient(135deg, #FFD700 0%, #FFC700 100%);
   border-radius: 12px;
-  padding: 16px 20px;
+  padding: 20px;
   margin: 24px 0 16px 0;
   text-align: center;
-  box-shadow: 0 2px 8px rgba(255, 215, 0, 0.2);
+  box-shadow: 0 4px 12px rgba(255, 215, 0, 0.2);
   animation: slideUp 0.3s ease-out;
 }
 
@@ -430,8 +430,25 @@
 .bannerTitle {
   color: #1a1a2e;
   font-size: 18px;
-  font-weight: 600;
-  margin: 0 0 8px 0;
+  font-weight: 700;
+  margin: 0 0 16px 0;
+}
+
+/* Process Steps */
+.processSteps {
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 8px;
+  padding: 12px;
+  margin: 12px 0 16px 0;
+}
+
+.stepText {
+  display: block;
+  color: #2c2c2c;
+  font-size: 14px;
+  font-weight: 500;
+  margin: 8px 0;
+  line-height: 1.4;
 }
 
 .bannerFeatures {
@@ -569,7 +586,7 @@
 
   /* Mobile optimization for protection banner */
   .protectionBanner {
-    padding: 14px 16px;
+    padding: 16px;
     margin: 20px 0 12px 0;
   }
 
@@ -577,8 +594,24 @@
     font-size: 16px;
   }
 
+  .processSteps {
+    padding: 10px;
+    margin: 10px 0 14px 0;
+  }
+
+  .stepText {
+    font-size: 13px;
+    margin: 6px 0;
+  }
+
   .bannerFeatures {
     font-size: 13px;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .dot {
+    display: none;
   }
 
   .bannerRating {
