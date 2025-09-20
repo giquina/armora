@@ -1,16 +1,23 @@
-/* Location Picker Overlay */
+/* Location Picker Overlay - Professional Security Aesthetic */
 .overlay {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.5);
-  backdrop-filter: blur(4px);
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(8px);
   z-index: 1000;
   display: flex;
   align-items: flex-end;
-  animation: fadeIn 0.3s ease-out;
+  animation: fadeIn 0.2s ease-out;
+}
+
+/* CSS Variables for missing tokens - Armora Professional Theme */
+:root {
+  --border-subtle: rgba(255, 215, 0, 0.2);
+  --bg-tertiary: #3a3a5a;
+  --text-tertiary: #94a3b8;
 }
 
 .modal {
@@ -18,55 +25,235 @@
   width: 100%;
   max-height: 90vh;
   border-radius: 16px 16px 0 0;
-  overflow: hidden;
+  overflow-y: auto;
+  overflow-x: hidden;
   display: flex;
   flex-direction: column;
   animation: slideUp 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  -webkit-overflow-scrolling: touch;
 }
 
-/* Header */
+/* White theme override for booking pages */
+:global(.booking-white-theme) .modal {
+  background: var(--bg-primary-booking, #ffffff);
+}
+
+/* Header with Armora Professional Styling */
 .header {
   display: flex;
   align-items: center;
-  padding: var(--space-lg) var(--space-md);
-  border-bottom: 1px solid var(--border-subtle);
-  background: var(--bg-primary);
+  justify-content: space-between;
+  padding: 20px 16px;
+  border-bottom: 2px solid #FFD700;
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
   position: sticky;
   top: 0;
   z-index: 10;
+  min-height: 70px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* White theme header styling */
+:global(.booking-white-theme) .header {
+  background: var(--bg-primary-booking, #ffffff);
+  border-bottom: 1px solid var(--border-light-booking, #e2e8f0);
+  box-shadow: var(--shadow-light-booking, 0 1px 3px rgba(0, 0, 0, 0.1));
+}
+
+/* White theme button styling */
+:global(.booking-white-theme) .backButton {
+  background: var(--bg-primary-booking, #ffffff);
+  border: 2px solid var(--accent-booking, #D4AF37);
+  color: var(--accent-booking, #D4AF37);
+  box-shadow: var(--shadow-light-booking, 0 1px 3px rgba(0, 0, 0, 0.1));
+}
+
+:global(.booking-white-theme) .backButton:hover {
+  background: var(--accent-booking, #D4AF37);
+  color: white;
+  box-shadow: var(--shadow-gold-booking, 0 4px 16px rgba(212, 175, 55, 0.2));
+}
+
+:global(.booking-white-theme) .closeButton {
+  background: var(--bg-primary-booking, #ffffff);
+  border: 2px solid var(--accent-booking, #D4AF37);
+  color: var(--accent-booking, #D4AF37);
+  box-shadow: var(--shadow-light-booking, 0 1px 3px rgba(0, 0, 0, 0.1));
+}
+
+:global(.booking-white-theme) .closeButton:hover {
+  background: var(--accent-booking, #D4AF37);
+  color: white;
+  box-shadow: var(--shadow-gold-booking, 0 4px 16px rgba(212, 175, 55, 0.2));
 }
 
 .backButton {
-  display: flex;
+  display: flex !important;
   align-items: center;
   justify-content: center;
-  width: 40px;
-  height: 40px;
-  border: none;
-  background: transparent;
-  border-radius: var(--radius-md);
-  color: var(--text-secondary);
+  width: 48px;
+  height: 48px;
+  border: 2px solid #FFD700;
+  background: rgba(255, 215, 0, 0.1);
+  border-radius: 8px;
+  color: #FFD700;
   cursor: pointer;
-  transition: all 0.2s ease;
-  margin-right: var(--space-sm);
+  transition: all 0.3s ease;
+  margin-right: 8px;
+  flex-shrink: 0;
+  position: relative;
 }
 
 .backButton:hover {
-  background: var(--bg-tertiary);
-  color: var(--text-primary);
+  background: #FFD700;
+  color: #1a1a2e;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(255, 215, 0, 0.4);
+}
+
+.backButton:focus {
+  outline: 3px solid rgba(255, 215, 0, 0.5);
+  outline-offset: 2px;
+}
+
+.backButton:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 6px rgba(255, 215, 0, 0.3);
+}
+
+.backButton svg {
+  stroke-width: 2.5;
+  width: 24px !important;
+  height: 24px !important;
+  min-width: 24px;
+  display: block;
+  flex-shrink: 0;
+}
+
+/* Force icon visibility regardless of inheritance quirks */
+.backButton svg path,
+.closeButton svg path,
+.closeButton svg line {
+  stroke: currentColor !important;
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
 }
 
 .title {
-  font-size: var(--font-lg);
-  font-weight: 600;
-  color: var(--text-primary);
+  font-size: 20px;
+  font-weight: 700;
+  color: #FFFFFF;
   margin: 0;
+  flex: 1;
+  text-align: center;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+  letter-spacing: 0.5px;
 }
 
-/* Current Location Section */
+/* White theme title styling */
+:global(.booking-white-theme) .title {
+  color: var(--text-primary-booking, #1a202c);
+  text-shadow: none;
+}
+
+/* White theme content styling */
+:global(.booking-white-theme) .locationSection {
+  background: var(--bg-secondary-booking, #f8fafc);
+}
+
+:global(.booking-white-theme) .sectionTitle {
+  color: var(--text-primary-booking, #1a202c);
+}
+
+:global(.booking-white-theme) .locationLabel {
+  color: var(--accent-booking, #D4AF37);
+}
+
+:global(.booking-white-theme) .locationAddress {
+  color: var(--text-secondary-booking, #4a5568);
+}
+
+:global(.booking-white-theme) .toLocationInput,
+:global(.booking-white-theme) .fromLocationInput {
+  color: var(--text-primary-booking, #1a202c);
+}
+
+:global(.booking-white-theme) .toLocationInput::placeholder,
+:global(.booking-white-theme) .fromLocationInput::placeholder {
+  color: var(--text-muted-booking, #718096);
+}
+
+:global(.booking-white-theme) .placeItem {
+  color: var(--text-primary-booking, #1a202c);
+}
+
+:global(.booking-white-theme) .placeItem:hover {
+  background: var(--bg-secondary-booking, #f8fafc);
+}
+
+:global(.booking-white-theme) .placeName {
+  color: var(--text-primary-booking, #1a202c);
+}
+
+:global(.booking-white-theme) .placeAddress {
+  color: var(--text-secondary-booking, #4a5568);
+}
+
+:global(.booking-white-theme) .placeDistance,
+:global(.booking-white-theme) .placeTime,
+:global(.booking-white-theme) .usageCount {
+  color: var(--text-muted-booking, #718096);
+}
+
+.closeButton {
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border: 2px solid #FFD700;
+  background: rgba(255, 215, 0, 0.1);
+  border-radius: 8px;
+  color: #FFD700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+  position: relative;
+}
+
+.closeButton:hover {
+  background: #FFD700;
+  color: #1a1a2e;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(255, 215, 0, 0.4);
+}
+
+.closeButton:focus {
+  outline: 3px solid rgba(255, 215, 0, 0.5);
+  outline-offset: 2px;
+}
+
+.closeButton:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 6px rgba(255, 215, 0, 0.3);
+}
+
+.closeButton svg {
+  stroke-width: 2.5;
+  width: 22px !important;
+  height: 22px !important;
+  min-width: 22px;
+  display: block;
+  flex-shrink: 0;
+}
+
+/* FROM/TO Location Section */
 .locationSection {
   padding: var(--space-md);
   border-bottom: 1px solid var(--border-subtle);
+  background: var(--bg-secondary);
 }
 
 .locationItem {
@@ -98,6 +285,60 @@
   flex-direction: column;
 }
 
+.editButton {
+  background: transparent;
+  border: 1px solid var(--accent-primary);
+  color: var(--accent-primary);
+  padding: 6px 12px;
+  border-radius: var(--radius-md);
+  font-size: var(--font-sm);
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+
+.editButton:hover {
+  background: var(--accent-primary);
+  color: var(--armora-dark);
+}
+
+.fromLocationInput {
+  width: 100%;
+  background: transparent;
+  border: none;
+  color: var(--text-primary);
+  font-size: var(--font-base);
+  font-weight: 500;
+  padding: 4px 0;
+  outline: none;
+}
+
+.fromLocationInput::placeholder {
+  color: var(--text-tertiary);
+}
+
+.toLocationInput {
+  width: 100%;
+  background: transparent;
+  border: none;
+  color: var(--text-primary);
+  font-size: var(--font-base);
+  padding: 4px 0;
+  outline: none;
+}
+
+.toLocationInput::placeholder {
+  color: var(--text-tertiary);
+}
+
+.searchInputContainer {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
 .locationLabel {
   font-size: var(--font-sm);
   font-weight: 600;
@@ -110,146 +351,53 @@
   margin-top: 2px;
 }
 
-/* Search Section */
-.searchSection {
-  padding: var(--space-md);
-  border-bottom: 1px solid var(--border-subtle);
+
+/* Protection Service Banner - Option 1: Minimal Trust Badge */
+.protectionBanner {
+  background: linear-gradient(135deg, #FFD700 0%, #FFC700 100%);
+  border-radius: 12px;
+  padding: 16px 20px;
+  margin: 24px 16px 16px 16px;
+  text-align: center;
+  box-shadow: 0 2px 8px rgba(255, 215, 0, 0.2);
+  animation: slideUp 0.3s ease-out;
 }
 
-.searchInputContainer {
-  position: relative;
-  display: flex;
-  align-items: center;
+.bannerIcon {
+  font-size: 24px;
+  margin-bottom: 8px;
 }
 
-.searchIcon {
-  position: absolute;
-  left: var(--space-sm);
-  color: var(--text-secondary);
-  z-index: 1;
-}
-
-.searchInput {
-  width: 100%;
-  padding: var(--space-md) var(--space-md) var(--space-md) calc(var(--space-sm) * 2 + 20px);
-  background: var(--bg-secondary);
-  border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-lg);
-  color: var(--text-primary);
-  font-size: var(--font-base);
-  transition: all 0.2s ease;
-}
-
-.searchInput:focus {
-  outline: none;
-  border-color: var(--accent-primary);
-  box-shadow: 0 0 0 3px rgba(255, 215, 0, 0.1);
-}
-
-.searchInput::placeholder {
-  color: var(--text-tertiary);
-}
-
-.searchHelper {
-  font-size: var(--font-sm);
-  color: var(--text-secondary);
-  margin-top: var(--space-xs);
-  padding: 0;
-}
-
-/* Service Explanation Banner */
-.serviceExplanation {
-  background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
-  margin: var(--space-md);
-  padding: var(--space-md);
-  border-radius: var(--radius-lg);
+.bannerTitle {
   color: #1a1a2e;
-}
-
-.serviceHeader {
-  display: flex;
-  align-items: center;
-  gap: var(--space-xs);
-  margin-bottom: var(--space-sm);
-}
-
-.shieldIcon {
-  color: #1a1a2e;
-}
-
-.serviceTitle {
-  font-size: var(--font-base);
+  font-size: 18px;
   font-weight: 600;
-  margin: 0;
-  color: #1a1a2e;
+  margin: 0 0 8px 0;
 }
 
-.serviceDescription {
-  font-size: var(--font-sm);
-  line-height: 1.5;
-  margin: 0 0 var(--space-sm) 0;
+.bannerFeatures {
+  color: #333;
+  font-size: 14px;
+  margin-bottom: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.dot {
+  color: #666;
+  margin: 0 4px;
+}
+
+.bannerRating {
   color: #1a1a2e;
+  font-size: 13px;
+  font-weight: 500;
   opacity: 0.9;
 }
 
-.servicePills {
-  display: flex;
-  gap: var(--space-xs);
-  flex-wrap: wrap;
-}
-
-.pill {
-  background: rgba(26, 26, 46, 0.1);
-  color: #1a1a2e;
-  font-size: var(--font-xs);
-  font-weight: 500;
-  padding: 4px 8px;
-  border-radius: var(--radius-full);
-  white-space: nowrap;
-}
-
-/* Quick Destinations Section */
-.quickDestinationsSection {
-  display: flex;
-  gap: var(--space-sm);
-  padding: var(--space-md);
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
-}
-
-.quickDestination {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  min-width: 80px;
-  padding: var(--space-sm);
-  background: var(--bg-secondary);
-  border-radius: var(--radius-md);
-  cursor: pointer;
-  transition: all 0.2s ease;
-  text-align: center;
-}
-
-.quickDestination:hover {
-  background: var(--bg-tertiary);
-  transform: translateY(-1px);
-}
-
-.quickDestination:active {
-  transform: translateY(0) scale(0.98);
-}
-
-.quickIcon {
-  font-size: 20px;
-  margin-bottom: var(--space-xs);
-}
-
-.quickLabel {
-  font-size: var(--font-xs);
-  font-weight: 500;
-  color: var(--text-primary);
-  line-height: 1.2;
-}
 
 .usageCount {
   font-size: var(--font-xs);
@@ -262,6 +410,8 @@
   flex: 1;
   overflow-y: auto;
   padding: 0 0 var(--space-lg) 0;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
 }
 
 .section {
@@ -351,6 +501,12 @@
   text-overflow: ellipsis;
 }
 
+.placeDistance {
+  font-size: var(--font-xs);
+  color: var(--text-tertiary);
+  margin-top: 2px;
+}
+
 .placeTime {
   font-size: var(--font-xs);
   color: var(--text-tertiary);
@@ -398,6 +554,49 @@
   }
 }
 
+/* Mobile-first optimizations */
+@media (max-width: 767px) {
+  .modal {
+    height: 90vh;
+    max-height: none;
+  }
+
+  .overlay {
+    padding: 0;
+  }
+
+  .backButton,
+  .closeButton {
+    min-width: var(--touch-target);
+    min-height: var(--touch-target);
+  }
+
+  .placeItem {
+    min-height: var(--touch-target);
+    padding: var(--space-md);
+  }
+}
+
+/* Mobile optimization for protection banner */
+@media (max-width: 480px) {
+  .protectionBanner {
+    padding: 14px 16px;
+    margin: 20px 8px 12px 8px;
+  }
+
+  .bannerTitle {
+    font-size: 16px;
+  }
+
+  .bannerFeatures {
+    font-size: 13px;
+  }
+
+  .bannerRating {
+    font-size: 12px;
+  }
+}
+
 /* Desktop Styles */
 @media (min-width: 768px) {
   .overlay {
@@ -420,6 +619,7 @@
 
   .searchSection {
     padding: var(--space-lg);
+    top: 73px;
   }
 
   .locationSection {
