@@ -1,6 +1,7 @@
 import React, { ReactNode } from 'react';
 import { useApp } from '../../contexts/AppContext';
 import { ArmoraLogo } from '../UI/ArmoraLogo';
+import { Footer } from '../Footer';
 import { getDisplayName } from '../../utils/nameUtils';
 import { getLogoProps } from '../../styles/brandConstants';
 import styles from './AppLayout.module.css';
@@ -213,6 +214,8 @@ export function AppLayout({
           {children}
         </div>
       </main>
+
+      <Footer />
 
       {shouldShowNav && (
         <nav className={styles.navigation}>

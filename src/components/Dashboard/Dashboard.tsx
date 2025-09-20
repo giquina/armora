@@ -6,8 +6,6 @@ import { ServiceCard } from './ServiceCard';
 import { SmartRecommendation } from './SmartRecommendation';
 import { BookingSearchInterface } from './BookingSearchInterface';
 import { ProtectionStatus } from '../UI/ProtectionStatus';
-import { FloatingSOSButton } from './FloatingSOSButton';
-import { ActivityTicker } from './ActivityTicker';
 // import ArmoraFoundationModal from '../ArmoraFoundation/ArmoraFoundationModal';
 import { ServiceLevel } from '../../types';
 // import { getDisplayName } from '../../utils/nameUtils'; // Removed since header is no longer displayed
@@ -242,7 +240,7 @@ export function Dashboard() {
               <h2 className={styles.upgradeTitle}>Create Account to Book</h2>
               <p className={styles.upgradeDescription}>
                 Register now to unlock direct booking, personalized recommendations, 
-                and exclusive rewards including 50% off your first ride.
+                and exclusive rewards including 50% off your first protection assignment.
               </p>
               <Button
                 variant="primary"
@@ -505,8 +503,6 @@ export function Dashboard() {
       </div>
 
 
-      {/* Live Activity Ticker - NEW */}
-      <ActivityTicker />
 
       {/* Impact Widget for Essential Members */}
       {/* <CreatorImpactWidget /> */}
@@ -630,8 +626,6 @@ export function Dashboard() {
       {/* Protection Status - Only shows when active/scheduled */}
       <ProtectionStatus />
 
-      {/* Emergency SOS Button - Fixed Position - NEW */}
-      <FloatingSOSButton />
 
 
     </div>

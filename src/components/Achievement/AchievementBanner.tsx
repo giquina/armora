@@ -76,6 +76,19 @@ const AchievementBanner: React.FC<AchievementBannerProps> = ({
     }, 5000);
   }, [currentState]);
 
+  // Add/remove body class for proper spacing
+  useEffect(() => {
+    if (isVisible && currentState !== 'hidden') {
+      document.body.classList.add('has-achievement-banner');
+    } else {
+      document.body.classList.remove('has-achievement-banner');
+    }
+
+    return () => {
+      document.body.classList.remove('has-achievement-banner');
+    };
+  }, [isVisible, currentState]);
+
   useEffect(() => {
     if (isVisible && currentState === 'hidden') {
       setCurrentState('showing');

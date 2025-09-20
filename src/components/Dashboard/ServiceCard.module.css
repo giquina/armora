@@ -1,75 +1,33 @@
-/* ARMORA SERVICE CARD - FIXED LAYOUT WITH NO OVERLAPS */
+/* ARMORA SERVICE CARD - CLEAN ICON-FOCUSED DESIGN */
 
 .serviceCard {
-  background: var(--bg-card);
-  border: 2px solid transparent;
-  border-radius: var(--radius-lg);
-  padding: var(--space-md); /* Reduced padding for more content space */
-  cursor: pointer;
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  position: relative;
-  overflow: visible; /* Allow button borders and shadows to show fully */
-  min-height: auto; /* Allow card to grow with content */
-  display: flex;
-  flex-direction: column;
-  width: calc(100vw - 16px); /* Use full viewport width minus minimal margins */
-  max-width: 100%;
-  margin: 0 auto;
+  background: #1a1a2e;
+  border: 1px solid rgba(255, 215, 0, 0.3);
+  border-radius: 12px;
+  padding: 20px;
+  max-width: calc(100vw - 32px);
+  margin: 0 auto 16px auto;
   box-sizing: border-box;
-  touch-action: manipulation;
-  -webkit-tap-highlight-color: transparent;
-  /* Service-specific theming via CSS custom properties */
-  background: var(--service-gradient, var(--bg-card));
-  border-color: var(--service-accent, transparent);
-  backdrop-filter: blur(10px);
-  box-shadow:
-    0 4px 20px rgba(0, 0, 0, 0.1),
-    inset 0 1px 0 rgba(255, 255, 255, 0.1);
-  /* Entrance animation */
-  animation: cardEnter 0.6s ease-out both;
-  transform-origin: center bottom;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
 }
 
 .serviceCard:hover {
-  transform: translateY(-8px) scale(1.03);
-  box-shadow:
-    0 20px 50px rgba(0, 0, 0, 0.2),
-    0 0 0 1px var(--service-accent, var(--accent)),
-    inset 0 1px 0 rgba(255, 255, 255, 0.2);
-  border-color: var(--service-accent, var(--accent));
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border-color: #FFD700;
+  box-shadow: 0 4px 20px rgba(255, 215, 0, 0.2);
+  transform: translateY(-2px);
 }
 
-.serviceCard:active {
-  transform: translateY(-2px) scale(1.01);
-  transition: all 0.1s ease;
-}
-
-/* Selected state */
 .serviceCard.selected {
-  border-color: var(--service-accent, var(--accent));
-  background: var(--service-gradient, linear-gradient(135deg, var(--bg-card), var(--bg-secondary)));
-  box-shadow:
-    0 8px 32px rgba(255, 215, 0, 0.3),
-    0 0 0 2px var(--service-accent, var(--accent)),
-    inset 0 2px 0 rgba(255, 255, 255, 0.2);
-  animation: selectedPulse 2s ease-in-out infinite;
+  border-color: #FFD700;
+  box-shadow: 0 8px 24px rgba(255, 215, 0, 0.3);
 }
 
-@keyframes selectedPulse {
-  0%, 100% { transform: translateY(-2px) scale(1); }
-  50% { transform: translateY(-2px) scale(1.01); }
-}
-
-/* Recommended state */
 .serviceCard.recommended {
-  border-color: var(--accent);
-  background: linear-gradient(135deg, var(--bg-card) 0%, rgba(255, 215, 0, 0.05) 100%);
-}
-
-/* Popular card enhancement */
-.serviceCard.popular {
-  position: relative;
+  border-color: #FFD700;
+  background: linear-gradient(135deg, #1a1a2e 0%, rgba(255, 215, 0, 0.05) 100%);
 }
 
 .serviceCard.popular::before {
@@ -78,45 +36,247 @@
   top: 0;
   left: 0;
   right: 0;
-  height: 4px;
-  background: linear-gradient(90deg,
-    transparent 0%,
-    var(--service-accent, var(--accent)) 20%,
-    var(--hover-gold) 50%,
-    var(--service-accent, var(--accent)) 80%,
-    transparent 100%);
-  background-size: 200% 100%;
-  animation: shimmer 3s linear infinite;
-  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
-  z-index: 1;
+  height: 3px;
+  background: linear-gradient(90deg, transparent 0%, #FFD700 50%, transparent 100%);
+  animation: shimmer 2s ease-in-out infinite;
 }
 
 @keyframes shimmer {
-  0% { background-position: -200% 0; }
-  100% { background-position: 200% 0; }
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 1; }
 }
 
-@keyframes cardEnter {
-  from {
-    opacity: 0;
-    transform: translateY(40px) scale(0.95);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
+/* Card Header */
+.cardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 12px;
 }
 
-@keyframes buttonPulse {
-  0%, 100% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(1.05);
-  }
+.serviceTitle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
-/* Preview mode (for guest users) */
+.serviceIcon {
+  font-size: 20px;
+}
+
+.serviceName {
+  font-size: 24px;
+  font-weight: bold;
+  color: #FFD700;
+  margin: 0;
+}
+
+.serviceTagline {
+  color: #e0e0e0;
+  font-size: 16px;
+  margin: 0 0 12px 0;
+  line-height: 1.5;
+}
+
+.vehicleInfo {
+  color: #b0b0b0;
+  font-size: 16px;
+  margin-bottom: 16px;
+  font-style: italic;
+}
+
+.recommendedBadge {
+  background: #FFD700;
+  color: #1a1a2e;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 11px;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+/* Service Rates Breakdown */
+.serviceRates {
+  background: rgba(31, 41, 84, 0.05);
+  border-radius: 8px;
+  padding: 12px;
+  margin: 16px 0;
+  font-family: 'Inter', sans-serif;
+}
+
+.ratesTitle {
+  color: #e0e0e0;
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.rateItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 4px;
+}
+
+.rateLabel {
+  color: #e0e0e0;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.rateValue {
+  color: #FFD700;
+  font-size: 22px;
+  font-weight: 700;
+}
+
+.rateMinimum {
+  color: #e0e0e0;
+  font-size: 14px;
+  font-style: italic;
+  margin-top: 4px;
+  text-align: center;
+}
+
+/* Rating Section */
+.ratingSection {
+  margin: 12px 0;
+}
+
+.rating {
+  color: #e0e0e0;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+/* Features List */
+.featuresList {
+  margin: 16px 0;
+}
+
+.featuresTitle {
+  color: #FFD700;
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.featureItem {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 4px;
+}
+
+.checkmark {
+  color: #FFD700;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.featureText {
+  color: #e0e0e0;
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+/* Info Grid */
+.infoGrid {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 12px;
+  margin-bottom: 20px;
+  align-items: center;
+}
+
+.infoIcon {
+  width: 20px;
+  text-align: center;
+  font-size: 16px;
+}
+
+.infoText {
+  color: #e0e0e0;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+/* Expanded Info */
+.expandedInfo {
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 20px;
+  border-top: 2px solid #FFD700;
+}
+
+.expandedHeader {
+  color: #FFD700;
+  font-size: 12px;
+  font-weight: bold;
+  text-transform: uppercase;
+  margin: 12px 0 8px 0;
+}
+
+.expandedHeader:first-child {
+  margin-top: 0;
+}
+
+.expandedItem {
+  color: #e0e0e0;
+  font-size: 13px;
+  margin-bottom: 4px;
+}
+
+/* Action Buttons */
+.actionButtons {
+  display: flex;
+  gap: 12px;
+}
+
+.bookButton {
+  flex: 1;
+  background: #FFD700 !important;
+  color: #1a1a2e !important;
+  border: none !important;
+  padding: 12px !important;
+  border-radius: 8px !important;
+  font-weight: bold !important;
+  font-size: 16px !important;
+  min-height: 44px;
+  transition: all 0.3s ease;
+}
+
+.bookButton:hover {
+  background: #e6c200 !important;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(255, 215, 0, 0.4);
+}
+
+.bookButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.moreInfoButton {
+  padding: 12px 16px !important;
+  background: transparent !important;
+  border: 1px solid #FFD700 !important;
+  color: #FFD700 !important;
+  border-radius: 8px !important;
+  font-size: 16px !important;
+  min-height: 44px;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+}
+
+.moreInfoButton:hover {
+  background: rgba(255, 215, 0, 0.1) !important;
+  transform: translateY(-1px);
+}
+
+/* Preview mode styling */
 .serviceCard.preview {
   cursor: default;
   opacity: 0.9;
@@ -124,1128 +284,222 @@
 
 .serviceCard.preview:hover {
   transform: none;
-  box-shadow: var(--shadow-md);
-  border-color: var(--bg-secondary);
-}
-
-/* ========================================
-   TOP SECTION - ICON AND BADGES
-======================================== */
-.topSection {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  margin-bottom: var(--space-md);
-  min-height: 48px; /* Ensure consistent height */
-}
-
-.serviceIconContainer {
-  flex-shrink: 0;
-  z-index: 2;
-}
-
-.serviceIcon {
-  font-size: 2.5rem;
-  opacity: 0.8;
-  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
-  transition: all var(--transition-base);
-  display: block;
-}
-
-.serviceCard:hover .serviceIcon {
-  transform: scale(1.1);
-  opacity: 1;
-}
-
-.topRightBadges {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  gap: var(--space-xs);
-  z-index: 3;
-}
-
-/* Availability Indicator */
-.availabilityIndicator {
-  display: flex;
-  align-items: center;
-  gap: var(--space-xs);
-  background: rgba(0, 0, 0, 0.7);
-  padding: var(--space-xs) var(--space-sm);
-  border-radius: var(--radius-full);
-  backdrop-filter: blur(10px);
-  white-space: nowrap;
-}
-
-.availabilityDot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: var(--availability-color);
-  animation: pulse 2s infinite;
-}
-
-@keyframes pulse {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.5; }
-}
-
-.availabilityText {
-  font-size: var(--font-xs);
-  color: white;
-  font-weight: 600;
-}
-
-/* Popular Badge - Top Right */
-.popularBadge {
-  background: linear-gradient(45deg, #ff6b35, #f7931e);
-  color: white;
-  font-size: var(--font-xs);
-  font-weight: 700;
-  padding: var(--space-xs) var(--space-sm);
-  border-radius: var(--radius-full);
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  box-shadow:
-    0 4px 12px rgba(255, 107, 53, 0.4),
-    inset 0 1px 0 rgba(255, 255, 255, 0.3);
-  display: flex;
-  align-items: center;
-  gap: var(--space-xs);
-  animation: popularGlow 3s ease-in-out infinite;
-  white-space: nowrap;
-}
-
-.popularIcon {
-  font-size: 10px;
-  animation: flicker 2s ease-in-out infinite;
-}
-
-@keyframes popularGlow {
-  0%, 100% { box-shadow: 0 4px 12px rgba(255, 107, 53, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.3); }
-  50% { box-shadow: 0 6px 20px rgba(255, 107, 53, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.4); }
-}
-
-@keyframes flicker {
-  0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.2); }
-}
-
-/* Recommended Badge - Top Right */
-.recommendedBadge {
-  background: linear-gradient(135deg, var(--accent), var(--hover-gold));
-  color: var(--text-dark);
-  font-size: var(--font-xs);
-  font-weight: 700;
-  padding: var(--space-xs) var(--space-sm);
-  border-radius: var(--radius-full);
-  display: flex;
-  align-items: center;
-  gap: var(--space-xs);
-  box-shadow:
-    0 4px 12px rgba(255, 215, 0, 0.4),
-    inset 0 1px 0 rgba(255, 255, 255, 0.3);
-  animation: recommendedShine 4s ease-in-out infinite;
-  white-space: nowrap;
-}
-
-@keyframes recommendedShine {
-  0%, 100% { transform: translateX(0); }
-  25% { transform: translateX(2px); }
-  50% { transform: translateX(0); }
-  75% { transform: translateX(-2px); }
-}
-
-.recommendedIcon {
-  font-size: 12px;
-  line-height: 1;
-}
-
-/* ========================================
-   SERVICE HEADER
-======================================== */
-.serviceHeader {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  margin-bottom: var(--space-md);
-  gap: var(--space-md);
-}
-
-.serviceInfo {
-  flex: 1;
-  min-width: 0;
-}
-
-.serviceName {
-  font-size: var(--font-lg);
-  font-weight: 700;
-  color: var(--text-primary);
-  margin: 0 0 var(--space-xs) 0;
-  line-height: var(--line-tight);
-}
-
-.serviceTagline {
-  font-size: var(--font-sm);
-  color: var(--text-secondary);
-  margin: 0;
-  line-height: var(--line-base);
-  opacity: 0.9;
-}
-
-.priceInfo {
-  text-align: right;
-  flex-shrink: 0;
-}
-
-.price {
-  font-size: var(--font-xl);
-  font-weight: 700;
-  color: var(--service-accent, var(--accent));
-  line-height: var(--line-tight);
-}
-
-.surgeIndicator {
-  font-size: var(--font-xs);
-  color: #ef4444;
-  font-weight: 600;
-  margin-top: var(--space-xs);
-}
-
-/* ========================================
-   VEHICLE AND DRIVER SECTION - COMPACT HORIZONTAL LAYOUT
-======================================== */
-.vehicleSection {
-  background: rgba(0, 0, 0, 0.2);
-  border-radius: var(--radius-md);
-  padding: 8px 12px; /* Even more compact */
-  margin-bottom: var(--space-xs); /* Reduced spacing */
-  backdrop-filter: blur(5px);
-}
-
-.vehicleInfo {
-  margin-bottom: var(--space-xs); /* Reduced from var(--space-sm) */
-}
-
-.vehicleDetail {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin: 0; /* Remove margin for horizontal layout */
-}
-
-.vehicleDetail:last-child {
-  margin-bottom: 0;
-}
-
-.vehicleLabel {
-  font-size: var(--font-sm);
-  color: var(--text-secondary);
-  font-weight: 500;
-}
-
-.vehicleValue {
-  font-size: var(--font-sm);
-  color: var(--text-primary);
-  font-weight: 600;
-}
-
-.driverInfo {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding-top: var(--space-xs); /* Reduced from var(--space-sm) */
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.driverLabel {
-  font-size: var(--font-sm);
-  color: var(--text-secondary);
-  font-weight: 500;
-}
-
-.driverLevel {
-  font-size: var(--font-sm);
-  font-weight: 600;
-  color: var(--service-accent, var(--accent));
-}
-
-/* ========================================
-   RATING SECTION - COMPACT HORIZONTAL
-======================================== */
-.ratingSection {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: var(--space-xs); /* Further reduced */
-  padding: 4px 0; /* Minimal padding */
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.stars {
-  display: flex;
-  align-items: center;
-  gap: 2px;
-}
-
-.starFilled {
-  font-size: 12px;
-  filter: drop-shadow(0 1px 2px rgba(255, 215, 0, 0.5));
-}
-
-.starEmpty {
-  font-size: 12px;
-  opacity: 0.3;
-}
-
-.ratingNumber {
-  font-size: var(--font-sm);
-  font-weight: 600;
-  color: var(--text-primary);
-  margin-left: var(--space-xs);
-}
-
-.reviewCount {
-  font-size: var(--font-xs);
-  color: var(--text-secondary);
-  opacity: 0.8;
-}
-
-/* ========================================
-   DESCRIPTION SECTION - FULL WIDTH
-======================================== */
-.descriptionSection {
-  margin-bottom: var(--space-md);
-  width: 100%;
-}
-
-.description {
-  font-size: 16px; /* Increased from var(--font-sm) for better readability */
-  color: var(--text-secondary);
-  line-height: 1.6; /* Improved line height for readability */
-  margin: 0;
-  opacity: 0.95;
-  width: 100%; /* Ensure full width usage */
-  display: block;
-  /* Allow full text to be visible */
-  overflow: visible;
-  word-wrap: break-word;
-  hyphens: auto;
-  /* Improve text rendering */
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-
-/* ========================================
-   SOCIAL PROOF - COMPACT HORIZONTAL
-======================================== */
-.socialProof {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  padding: var(--space-sm); /* Reduced from var(--space-md) */
-  background: rgba(255, 255, 255, 0.05);
-  border-radius: var(--radius-md);
-  margin-bottom: var(--space-sm); /* Reduced from var(--space-md) */
-  backdrop-filter: blur(5px);
-}
-
-.socialProofItem {
-  text-align: center;
-  flex: 1;
-}
-
-.socialProofNumber {
-  display: block;
-  font-size: var(--font-lg);
-  font-weight: 700;
-  color: var(--service-accent, var(--accent));
-  line-height: var(--line-tight);
-}
-
-.socialProofLabel {
-  font-size: var(--font-xs);
-  color: var(--text-secondary);
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  margin-top: var(--space-xs);
-}
-
-/* ========================================
-   CARD FOOTER
-======================================== */
-.cardFooter {
-  margin-top: auto; /* Push to bottom */
-  padding-top: var(--space-md);
-  position: relative;
-  z-index: 10; /* Ensure buttons are above other content */
-}
-
-/* ========================================
-   QUICK BOOKING DROPDOWN
-======================================== */
-.quickBookingDropdown {
-  position: absolute;
-  top: 100%;
-  left: 0;
-  right: 0;
-  z-index: 2000; /* Higher than other dropdowns */
-  background: var(--bg-card);
-  border: 2px solid var(--service-accent, var(--accent));
-  border-top: none;
-  border-radius: 0 0 var(--radius-lg) var(--radius-lg);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
-  padding: var(--space-lg);
-  animation: slideDown 0.3s ease;
-  backdrop-filter: blur(15px);
-}
-
-@keyframes slideDown {
-  from {
-    opacity: 0;
-    transform: translateY(-10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.quickBookingHeader {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: var(--space-md);
-  padding-bottom: var(--space-sm);
-  border-bottom: 1px solid var(--bg-secondary);
-}
-
-.quickBookingTitle {
-  font-size: 1.1rem;
-  font-weight: 600;
-  color: var(--text);
-  margin: 0;
-}
-
-.quickBookingClose {
-  background: none;
-  border: none;
-  font-size: 1.5rem;
-  color: var(--text-secondary);
-  cursor: pointer;
-  padding: 0;
-  width: 24px;
-  height: 24px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: var(--radius-sm);
-  transition: all var(--transition-base);
-}
-
-.quickBookingClose:hover {
-  background: var(--bg-secondary);
-  color: var(--text);
-}
-
-.quickBookingContent {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-md);
-}
-
-.pickupTimeOptions {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-sm);
-}
-
-.pickupLabel {
-  font-size: 0.9rem;
-  font-weight: 600;
-  color: var(--text);
-  margin-bottom: var(--space-xs);
-}
-
-.timeButtons {
-  display: flex;
-  gap: var(--space-xs);
-}
-
-.timeButton {
-  flex: 1;
-  padding: var(--space-sm) var(--space-md);
-  border: 2px solid var(--bg-secondary);
-  border-radius: var(--radius-md);
-  background: var(--bg-secondary);
-  color: var(--text);
-  font-size: 0.9rem;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all var(--transition-base);
-  min-height: 44px; /* Touch target */
-}
-
-.timeButton:hover {
-  border-color: var(--service-accent, var(--accent));
-  background: rgba(255, 215, 0, 0.1);
-}
-
-.timeButton.selected {
-  border-color: var(--service-accent, var(--accent));
-  background: var(--service-accent, var(--accent));
-  color: var(--bg-card);
-}
-
-.quickLocationInput {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-xs);
-}
-
-.locationInput {
-  width: 100%;
-  padding: var(--space-sm) var(--space-md);
-  border: 2px solid var(--bg-secondary);
-  border-radius: var(--radius-md);
-  background: var(--bg-secondary);
-  color: var(--text);
-  font-size: 1rem;
-  min-height: 44px; /* Touch target */
-  transition: all var(--transition-base);
-}
-
-.locationInput:focus {
-  outline: none;
-  border-color: var(--service-accent, var(--accent));
-  background: var(--bg-card);
-}
-
-.locationInput::placeholder {
-  color: var(--text-secondary);
-}
-
-/* ========================================
-   ENHANCED QUICK BOOKING STYLES
-======================================== */
-
-/* Location Section Enhancement */
-.locationSection {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-md);
-  margin: var(--space-md) 0;
-}
-
-.sectionHeader {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: var(--space-sm);
-}
-
-.sectionTitle {
-  font-size: 1rem;
-  font-weight: 600;
-  color: var(--text);
-  margin: 0;
-}
-
-.journeyEstimate {
-  background: rgba(255, 215, 0, 0.1);
-  padding: var(--space-xs) var(--space-sm);
-  border-radius: var(--radius-md);
-  border: 1px solid rgba(255, 215, 0, 0.2);
-}
-
-.estimateText {
-  font-size: 0.85rem;
-  font-weight: 500;
-  color: var(--service-accent, var(--accent));
-}
-
-/* Enhanced Location Input Group */
-.locationInputGroup {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-sm);
-}
-
-.locationInputWrapper {
-  display: flex;
-  align-items: stretch;
-  background: var(--bg-secondary);
-  border: 2px solid var(--bg-secondary);
-  border-radius: var(--radius-md);
-  transition: all var(--transition-base);
-  min-height: 60px; /* Larger for better UX */
-}
-
-.locationInputWrapper:focus-within {
-  border-color: var(--service-accent, var(--accent));
-  background: var(--bg-card);
-  box-shadow: 0 0 0 3px rgba(255, 215, 0, 0.1);
-}
-
-.locationIcon {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 48px;
-  font-size: 1.2rem;
-  background: rgba(255, 215, 0, 0.1);
-  border-right: 1px solid var(--bg-tertiary);
-}
-
-.locationInputField {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  padding: var(--space-xs) var(--space-sm);
-  min-width: 0; /* Prevent overflow */
-}
-
-.locationLabel {
-  font-size: 0.75rem;
-  font-weight: 600;
-  color: var(--text-secondary);
-  margin: 0 0 2px 0;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-}
-
-.locationInput {
-  border: none;
-  background: transparent;
-  color: var(--text);
-  font-size: 1rem;
-  font-weight: 500;
-  padding: 0;
-  margin: 0;
-  width: 100%;
-  flex: 1;
-}
-
-.locationInput:focus {
-  outline: none;
-}
-
-.inputError {
-  border-color: #ef4444 !important;
-  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1) !important;
-}
-
-.currentLocationButton,
-.swapLocationButton {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 44px;
-  background: none;
-  border: none;
-  color: var(--text-secondary);
-  cursor: pointer;
-  transition: all var(--transition-base);
-  border-left: 1px solid var(--bg-tertiary);
-}
-
-.currentLocationButton:hover,
-.swapLocationButton:hover {
-  background: rgba(255, 215, 0, 0.1);
-  color: var(--service-accent, var(--accent));
-}
-
-.swapLocationButton:disabled {
-  opacity: 0.3;
-  cursor: not-allowed;
-}
-
-/* Route Connector Visual */
-.routeConnector {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 24px;
-  margin: var(--space-xs) 0;
-  position: relative;
-}
-
-.routeLine {
-  position: absolute;
-  left: 24px;
-  width: 2px;
-  height: 100%;
-  background: linear-gradient(180deg,
-    var(--service-accent, var(--accent)) 0%,
-    rgba(255, 215, 0, 0.3) 50%,
-    var(--service-accent, var(--accent)) 100%
-  );
-}
-
-.routeDots {
-  display: flex;
-  gap: 4px;
-  margin-left: 20px;
-}
-
-.routeDot {
-  width: 4px;
-  height: 4px;
-  border-radius: 50%;
-  background: var(--service-accent, var(--accent));
-  opacity: 0.6;
-  animation: pulse 2s ease-in-out infinite;
-}
-
-.routeDot:nth-child(2) {
-  animation-delay: 0.3s;
-}
-
-.routeDot:nth-child(3) {
-  animation-delay: 0.6s;
-}
-
-@keyframes pulse {
-  0%, 100% { opacity: 0.3; }
-  50% { opacity: 1; }
-}
-
-/* Action Section Enhancement */
-.actionSection {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-sm);
-  margin-top: var(--space-lg);
-  padding-top: var(--space-md);
-  border-top: 1px solid var(--bg-secondary);
-}
-
-.validationMessage {
-  display: flex;
-  align-items: center;
-  gap: var(--space-xs);
-  background: rgba(239, 68, 68, 0.1);
-  padding: var(--space-sm) var(--space-md);
-  border-radius: var(--radius-md);
-  border: 1px solid rgba(239, 68, 68, 0.2);
-}
-
-.validationIcon {
-  font-size: 1rem;
-}
-
-.validationText {
-  font-size: 0.9rem;
-  color: #ef4444;
-  font-weight: 500;
-}
-
-/* Enhanced Confirm Button */
-.confirmBookingButton {
-  position: relative;
-  overflow: hidden;
-  font-weight: 600;
-  min-height: 56px; /* Larger touch target */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: var(--space-xs);
-  transition: all var(--transition-base);
-}
-
-.confirmBookingButton:not(.disabledButton):hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(255, 215, 0, 0.4);
-}
-
-.confirmBookingButton:not(.disabledButton):active {
-  transform: translateY(-1px);
-}
-
-.disabledButton {
-  opacity: 0.6;
-  cursor: not-allowed;
-  background: var(--bg-tertiary) !important;
-  color: var(--text-secondary) !important;
-}
-
-.buttonIcon {
-  font-size: 1.1rem;
-}
-
-.loadingSpinner {
-  animation: spin 1s linear infinite;
-}
-
-@keyframes spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-}
-
-/* Mobile Optimizations */
-@media (max-width: 768px) {
-  .quickBookingDropdown {
-    position: fixed;
-    top: auto;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    z-index: 2500;
-    border-radius: var(--radius-lg) var(--radius-lg) 0 0;
-    max-height: 80vh;
-    overflow-y: auto;
-    animation: slideUp 0.3s ease;
-  }
-
-  @keyframes slideUp {
-    from {
-      opacity: 0;
-      transform: translateY(100%);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-
-  .timeButton {
-    min-height: 48px; /* Larger touch targets on mobile */
-    font-size: 1rem;
-  }
-
-  .locationInput {
-    font-size: 1.1rem; /* Better mobile readability */
-  }
-
-  /* Enhanced Mobile Optimizations */
-  .locationInputWrapper {
-    min-height: 64px; /* Larger touch targets on mobile */
-  }
-
-  .locationIcon {
-    min-width: 52px;
-    font-size: 1.4rem;
-  }
-
-  .currentLocationButton,
-  .swapLocationButton {
-    min-width: 48px;
-    font-size: 1.2rem;
-  }
-
-  .confirmBookingButton {
-    min-height: 60px; /* Larger mobile touch target */
-    font-size: 1.1rem;
-  }
-
-  .validationMessage {
-    padding: var(--space-md);
-    font-size: 1rem;
-  }
-
-  .journeyEstimate {
-    padding: var(--space-sm) var(--space-md);
-  }
-
-  .estimateText {
-    font-size: 0.9rem;
-  }
-}
-
-/* Direct booking actions - no more select button */
-.bookingActions {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: var(--space-xs);
-  width: 100%;
-  overflow: visible; /* Ensure button borders show */
-  padding-bottom: 4px; /* Add breathing room for button shadows */
-  margin-bottom: -4px; /* Compensate for the padding */
-}
-
-.bookNowButton,
-.scheduleButton {
-  font-size: var(--font-sm);
-  font-weight: 600;
-  min-height: var(--touch-target);
-  padding: var(--space-sm);
-  white-space: nowrap;
-  transition: all var(--transition-base);
-}
-
-.bookNowButton:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(255, 215, 0, 0.3);
-}
-
-.scheduleButton:hover {
-  transform: translateY(-2px);
-  border-color: var(--accent);
-  background: rgba(255, 215, 0, 0.05);
 }
 
 .previewFooter {
   text-align: center;
-  padding: var(--space-md);
+  padding: 16px;
   background: rgba(255, 255, 255, 0.05);
-  border-radius: var(--radius-md);
+  border-radius: 8px;
   border: 1px solid rgba(255, 255, 255, 0.1);
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  position: relative;
-  overflow: hidden;
+  margin-top: 20px;
 }
 
 .previewText {
-  font-size: var(--font-sm);
-  color: var(--text-secondary);
+  font-size: 14px;
+  color: #e0e0e0;
   margin: 0;
   font-style: italic;
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* CRITICAL FIX: Make preview text glow on card hover */
 .serviceCard:hover .previewFooter {
-  background: linear-gradient(135deg, #FFD700, #e6c200) !important;
-  border: 2px solid #e6c200 !important;
-  transform: scale(1.05) !important;
-  box-shadow: 0 8px 25px rgba(255, 215, 0, 0.5) !important;
+  background: #FFD700 !important;
+  border-color: #FFD700 !important;
 }
 
 .serviceCard:hover .previewText {
-  color: var(--armora-dark) !important;
-  font-weight: 700 !important;
-  text-shadow: 0 0 10px rgba(255, 215, 0, 0.8) !important;
+  color: #1a1a2e !important;
+  font-weight: bold !important;
   font-style: normal !important;
-  text-transform: uppercase !important;
-  letter-spacing: 0.5px !important;
 }
 
-/* Add shimmer effect */
-.previewFooter::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 215, 0, 0.6), transparent);
-  transition: left 0.6s;
-}
-
-.serviceCard:hover .previewFooter::before {
-  left: 100%;
-}
-
-/* Removed old selected footer styles - no longer needed */
-
-/* Mobile Responsiveness for Direct Booking Actions */
-@media (max-width: 480px) {
-  .bookingActions {
-    grid-template-columns: 1fr; /* Single column to prevent border clipping */
-    gap: var(--space-sm);
+/* Mobile Responsiveness */
+@media (max-width: 400px) {
+  .actionButtons {
+    flex-direction: column;
   }
 
-  .bookNowButton,
-  .scheduleButton {
-    font-size: var(--font-sm);
-    padding: var(--space-sm) var(--space-md); /* Reduce vertical padding */
-    width: 100%; /* Ensure full width usage */
+  .moreInfoButton {
+    width: 100%;
   }
 }
 
-/* ========================================
-   SELECTION INDICATOR
-======================================== */
-.selectionIndicator {
-  position: absolute;
-  top: var(--space-md);
-  right: var(--space-md);
-  z-index: 5;
-  animation: selectionAppear 0.3s ease-out;
-}
-
-.selectionCheck {
-  width: 32px;
-  height: 32px;
-  background: var(--service-accent, var(--accent));
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: white;
-  box-shadow: 0 4px 12px rgba(255, 215, 0, 0.4);
-}
-
-@keyframes selectionAppear {
-  0% {
-    opacity: 0;
-    transform: scale(0.5);
-  }
-  100% {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-
-/* ========================================
-   RESPONSIVE DESIGN
-======================================== */
-
-/* Small Mobile (320px - 479px) */
 @media (max-width: 479px) {
   .serviceCard {
-    padding: var(--space-xs); /* Minimal padding for edge-to-edge feel */
-    min-height: auto; /* Allow card to expand to fit content */
-    padding-bottom: var(--space-md); /* Compact bottom spacing */
-    width: calc(100vw - 8px); /* Even closer to edges on small screens */
-  }
-
-  .servicesGrid {
-    padding: 0 2px; /* Minimal container padding on mobile */
-  }
-
-  /* Maintain readable font size on mobile */
-  .description {
-    font-size: 14px; /* Increased from 12px for better mobile readability */
-    line-height: 1.5; /* Improved line height */
-    margin-bottom: var(--space-sm);
-  }
-
-  .serviceIcon {
-    font-size: 2rem;
+    padding: 16px;
+    max-width: calc(100vw - 24px);
   }
 
   .serviceName {
-    font-size: var(--font-base);
+    font-size: 16px;
   }
 
-  .price {
-    font-size: var(--font-lg);
+  .serviceTagline {
+    font-size: 13px;
   }
 
-  .vehicleSection {
-    padding: var(--space-sm);
+  .vehicleInfo {
+    font-size: 12px;
   }
 
-  .topRightBadges {
-    gap: 2px;
+  .serviceRates {
+    padding: 10px;
+    margin: 12px 0;
   }
 
-  .popularBadge,
+  .ratesTitle {
+    font-size: 13px;
+  }
+
+  .rateLabel {
+    font-size: 13px;
+  }
+
+  .rateValue {
+    font-size: 15px;
+  }
+
+  .featuresTitle {
+    font-size: 12px;
+  }
+
+  .featureText {
+    font-size: 12px;
+  }
+
+  .expandedInfo {
+    padding: 12px;
+  }
+
+  .actionButtons {
+    gap: 8px;
+  }
+
+  .bookButton,
+  .moreInfoButton {
+    padding: 10px 12px !important;
+    font-size: 13px !important;
+  }
+}
+
+@media (max-width: 320px) {
+  .serviceCard {
+    padding: 12px;
+    max-width: calc(100vw - 16px);
+  }
+
+  .cardHeader {
+    margin-bottom: 12px;
+  }
+
+  .serviceName {
+    font-size: 15px;
+  }
+
   .recommendedBadge {
-    padding: 2px var(--space-xs);
     font-size: 10px;
+    padding: 3px 6px;
+  }
+
+  .priceDisplay {
+    font-size: 18px;
+    margin: 12px 0;
+  }
+
+  .infoGrid {
+    gap: 8px;
+    margin-bottom: 12px;
+  }
+
+  .infoText {
+    font-size: 12px;
+  }
+
+  .expandedInfo {
+    padding: 10px;
+    margin-bottom: 12px;
+  }
+
+  .actionButtons {
+    gap: 6px;
   }
 }
 
-/* Large Mobile (480px - 767px) */
-@media (min-width: 480px) and (max-width: 767px) {
+/* Tablet and Desktop */
+@media (min-width: 768px) {
   .serviceCard {
-    min-height: 280px; /* Reduced from 320px */
-    width: calc(100vw - 12px); /* Maintain edge-to-edge feel */
+    max-width: 400px;
+    padding: 24px;
   }
 
-  /* Optimal description typography for large mobile */
-  .description {
-    font-size: 15px; /* Slightly larger for better readability */
-    line-height: 1.5;
-    margin-bottom: var(--space-md);
-  }
-}
-
-/* Tablet (768px - 1023px) */
-@media (min-width: 768px) and (max-width: 1023px) {
-  .serviceCard {
-    min-height: 300px; /* Reduced from 350px */
-    padding: var(--space-md); /* Maintain compact padding */
-    width: calc(100vw - 24px); /* Appropriate margin for tablet */
+  .serviceName {
+    font-size: 20px;
   }
 
-  .serviceHeader {
-    margin-bottom: var(--space-lg);
+  .priceDisplay {
+    font-size: 28px;
   }
 
-  .vehicleSection {
-    padding: var(--space-lg);
+  .infoText {
+    font-size: 15px;
+  }
+
+  .bookButton,
+  .moreInfoButton {
+    font-size: 15px !important;
+    padding: 14px 18px !important;
   }
 }
 
-/* Desktop (1024px+) */
 @media (min-width: 1024px) {
   .serviceCard {
-    min-height: 320px; /* Reduced from 380px */
-    padding: var(--space-lg); /* Balanced padding for desktop */
-    width: 100%; /* Let grid control width on desktop */
-    max-width: 450px; /* Prevent cards from becoming too wide */
-  }
-
-  .serviceIcon {
-    font-size: 3rem;
+    max-width: 450px;
+    padding: 28px;
   }
 
   .serviceName {
-    font-size: var(--font-xl);
+    font-size: 22px;
   }
 
-  .serviceHeader {
-    margin-bottom: var(--space-xl);
+  .priceDisplay {
+    font-size: 32px;
   }
 
-  .vehicleSection {
-    padding: var(--space-lg);
-  }
-
-  .socialProof {
-    padding: var(--space-lg);
+  .infoText {
+    font-size: 16px;
   }
 }
 
-/* ========================================
-   ACCESSIBILITY & INTERACTION
-======================================== */
-
-/* Focus states */
+/* Accessibility */
 .serviceCard:focus {
-  outline: 2px solid var(--accent);
+  outline: 2px solid #FFD700;
   outline-offset: 2px;
 }
 
-.selectButton:focus {
-  outline: 2px solid var(--accent);
+.bookButton:focus,
+.moreInfoButton:focus {
+  outline: 2px solid #FFD700;
   outline-offset: 2px;
 }
 
-/* High contrast mode support */
+/* High contrast mode */
 @media (prefers-contrast: high) {
   .serviceCard {
-    border-color: var(--text-primary);
-    border-width: 3px;
+    border-width: 2px;
+    border-color: #FFD700;
   }
 
-
-  .popularBadge,
-  .recommendedBadge {
-    border: 2px solid white;
+  .infoText {
+    color: #ffffff;
   }
 }
 
-/* Reduced motion preferences */
+/* Reduced motion */
 @media (prefers-reduced-motion: reduce) {
   .serviceCard,
-  .serviceIcon,
-  .selectButton {
+  .bookButton,
+  .moreInfoButton {
     transition: none;
-    animation: none;
-  }
-
-  .availabilityDot {
-    animation: none;
-  }
-
-  .popularBadge,
-  .recommendedBadge {
     animation: none;
   }
 
@@ -1253,19 +507,20 @@
     transform: none;
   }
 
-  .serviceCard.selected {
-    animation: none;
+  .bookButton:hover,
+  .moreInfoButton:hover {
+    transform: none;
   }
 }
 
 /* Touch device optimizations */
 @media (pointer: coarse) {
   .serviceCard {
-    cursor: pointer;
     -webkit-tap-highlight-color: rgba(255, 215, 0, 0.1);
   }
 
-  .selectButton {
-    min-height: calc(var(--touch-target-lg) + var(--space-sm));
+  .bookButton,
+  .moreInfoButton {
+    min-height: 48px;
   }
 }

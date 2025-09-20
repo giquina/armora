@@ -26,6 +26,7 @@ import { VenueProtectionWelcome } from './components/VenueProtection/VenueProtec
 import { VenueSecurityQuestionnaire } from './components/VenueProtection/VenueSecurityQuestionnaire';
 import { VenueProtectionSuccess } from './components/VenueProtection/VenueProtectionSuccess';
 import { About } from './components/About/About';
+import { CoverageAreas } from './components/CoverageAreas/CoverageAreas';
 import { ServiceLevel, BookingData, LocationData } from './types';
 import { getAllServices } from './data/standardizedServices';
 import './styles/globals.css';
@@ -441,6 +442,34 @@ function Profile() {
             🛡️ Venue Security Services
           </button>
           <button
+            onClick={() => navigateToView('coverage-areas')}
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: 'var(--space-sm)',
+              width: '100%',
+              padding: 'var(--space-md)',
+              background: 'var(--bg-tertiary)',
+              border: '1px solid var(--border-subtle)',
+              borderRadius: 'var(--radius-md)',
+              color: 'var(--text-primary)',
+              fontSize: 'var(--font-base)',
+              fontWeight: '500',
+              cursor: 'pointer',
+              transition: 'all 0.2s ease'
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.background = 'var(--bg-quaternary)';
+              e.currentTarget.style.borderColor = 'var(--accent-primary)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.background = 'var(--bg-tertiary)';
+              e.currentTarget.style.borderColor = 'var(--border-subtle)';
+            }}
+          >
+            🗺️ Coverage Areas & Routes
+          </button>
+          <button
             onClick={() => navigateToView('about')}
             style={{
               display: 'flex',
@@ -557,12 +586,20 @@ function Profile() {
 
 function AppRouter() {
   const { state, navigateToView } = useApp();
-  const { currentView, user, questionnaireData } = state;
+  const { currentView, user, questionnaireData, assignmentState } = state;
 
   // Achievement banner state
   const [showAchievementBanner, setShowAchievementBanner] = useState(false);
 
-  
+  // Auto-navigate to assignments page when there's an active assignment
+  useEffect(() => {
+    // Only auto-navigate if user is logged in and has completed onboarding
+    if (assignmentState?.hasActiveAssignment && user && currentView === 'home') {
+      console.log('Active assignment detected, navigating to assignments page');
+      navigateToView('assignments');
+    }
+  }, [assignmentState?.hasActiveAssignment, user, currentView, navigateToView]);
+
   // Show achievement banner after questionnaire completion for eligible users
   useEffect(() => {
     const shouldShowBanner = () => {
@@ -571,8 +608,8 @@ function AppRouter() {
         return false;
       }
 
-      // Show banner for users who completed questionnaire and haven't made a booking yet
-      if (user?.hasCompletedQuestionnaire && !user?.hasUnlockedReward) {
+      // Show banner for NON-GUEST users who completed questionnaire and haven't made a booking yet
+      if (user?.hasCompletedQuestionnaire && !user?.hasUnlockedReward && user?.userType !== 'guest') {
         const bannerDismissed = localStorage.getItem('armora_achievement_banner_dismissed');
         const firstBookingMade = localStorage.getItem('armora_first_booking_completed');
 
@@ -675,6 +712,8 @@ function AppRouter() {
         return <AccountView />;
       case 'about':
         return <About onBack={() => navigateToView('home')} />;
+      case 'coverage-areas':
+        return <CoverageAreas onBack={() => navigateToView('home')} />;
       case 'venue-protection-welcome':
         return <VenueProtectionWelcome />;
       case 'venue-security-questionnaire':

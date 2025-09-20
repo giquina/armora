@@ -1,7 +1,7 @@
 {
   "short_name": "Armora",
-  "name": "Armora Security Transport",
-  "description": "Premium VIP security transport - Your personal security driver team",
+  "name": "Armora Protection Services",
+  "description": "Professional close protection services",
   "icons": [
     {
       "src": "favicon.ico",
@@ -26,7 +26,7 @@
   "orientation": "portrait-primary",
   "theme_color": "#1a1a2e",
   "background_color": "#1a1a2e",
-  "categories": ["transport", "travel", "business"],
+  "categories": ["security", "business", "professional"],
   "scope": "/",
   "lang": "en-GB",
   "dir": "ltr"

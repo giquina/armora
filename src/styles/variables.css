@@ -5,6 +5,7 @@
   --armora-dark: #1a1a2e;       /* Premium dark navy - professional security aesthetic */
   --armora-gold: #FFD700;       /* Premium gold - VIP luxury positioning - BRIGHTENED */
   --armora-light: #e0e0e0;      /* Light text - high contrast readability */
+  --armora-midnight: #16213e;   /* Deep midnight navy for gradients/backgrounds */
   /* Border tokens */
   --armora-gold-alpha: rgba(255, 215, 0, 0.45);
   /* Unified solid gold line used across sections/buttons */

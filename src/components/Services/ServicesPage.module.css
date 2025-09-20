@@ -43,9 +43,14 @@
 .trustIndicators {
   display: flex;
   justify-content: center;
-  gap: var(--space-lg);
+  align-items: center;
+  gap: var(--space-md);
   margin: var(--space-lg) 0;
   flex-wrap: wrap;
+  padding: var(--space-lg) var(--space-md);
+  background: rgba(255, 255, 255, 0.02);
+  border-radius: var(--radius-lg);
+  border: 1px solid rgba(255, 215, 0, 0.1);
 }
 
 .trustItem {
@@ -53,20 +58,38 @@
   flex-direction: column;
   align-items: center;
   gap: var(--space-xs);
-  min-width: 80px;
+  min-width: 90px;
+  text-align: center;
+  animation: fadeInUp 0.6s ease-out;
+}
+
+.trustIcon {
+  font-size: 1.2rem;
+  margin-bottom: 2px;
 }
 
 .trustNumber {
-  font-size: var(--font-lg);
+  font-size: var(--font-xl);
   font-weight: 700;
   color: #FFD700;
+  line-height: 1;
 }
 
 .trustLabel {
-  font-size: var(--font-xs);
+  font-size: 11px;
   color: var(--text-secondary);
   text-transform: uppercase;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.8px;
+  font-weight: 600;
+  line-height: 1.2;
+  margin-top: 2px;
+}
+
+.trustDivider {
+  width: 1px;
+  height: 50px;
+  background: linear-gradient(to bottom, transparent, rgba(255, 215, 0, 0.3), transparent);
+  margin: 0 var(--space-sm);
 }
 
 .personalizedBadge {
@@ -119,16 +142,15 @@
   display: flex;
   flex-direction: column;
   gap: var(--space-md);
-  background: rgba(255, 255, 255, 0.02);
-  border-radius: 20px;
-  padding: var(--space-lg);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: transparent; /* avoid double border look */
+  border-radius: 0;
+  padding: 0; /* let card handle its own padding */
+  border: none;
   transition: all 0.3s ease;
 }
 
 .serviceCardWrapper:hover {
-  background: rgba(255, 255, 255, 0.05);
-  border-color: rgba(255, 215, 0, 0.2);
+  background: transparent;
   transform: translateY(-2px);
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
 }
@@ -222,6 +244,83 @@
   }
 }
 
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes countUp {
+  0% {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* Mobile Optimizations - Trust Indicators */
+@media (max-width: 768px) {
+  .trustIndicators {
+    gap: var(--space-sm);
+    padding: var(--space-md);
+  }
+
+  .trustItem {
+    min-width: 70px;
+  }
+
+  .trustNumber {
+    font-size: var(--font-lg);
+  }
+
+  .trustLabel {
+    font-size: 10px;
+    letter-spacing: 0.5px;
+  }
+
+  .trustDivider {
+    height: 40px;
+    margin: 0 var(--space-xs);
+  }
+}
+
+@media (max-width: 480px) {
+  .trustIndicators {
+    flex-wrap: wrap;
+    gap: var(--space-md);
+    justify-content: space-around;
+  }
+
+  .trustItem {
+    min-width: 60px;
+    flex: 1;
+    max-width: 80px;
+  }
+
+  .trustDivider {
+    display: none; /* Hide dividers on small screens */
+  }
+
+  .trustNumber {
+    font-size: var(--font-base);
+  }
+
+  .trustLabel {
+    font-size: 9px;
+  }
+}
+
 /* Mobile Optimizations - Wider Layout */
 @media (max-width: 480px) {
   .servicesContainer {
@@ -241,9 +340,7 @@
     font-size: var(--font-base);
   }
 
-  .trustIndicators {
-    gap: var(--space-md);
-  }
+  /* Trust indicators already handled above */
 
   .servicesGrid {
     padding: 12px; /* Consistent minimal padding */

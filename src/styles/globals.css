@@ -40,6 +40,11 @@ body.has-recruitment-banner {
   padding-top: 40px;
 }
 
+/* Account for fixed achievement banner */
+body.has-achievement-banner {
+  padding-top: 100px;
+}
+
 /* PREMIUM SCROLLBARS */
 ::-webkit-scrollbar {
   width: 8px;

@@ -5,10 +5,11 @@ import { VenueTimeData } from './VenueTimeEstimator';
 import { ProtectionServiceRequest, calculateProtectionPricing } from '../../utils/protectionPricingCalculator';
 import { formatPrice } from '../../utils/priceFormatter';
 import { LoadingSpinner } from '../UI/LoadingSpinner';
+import { NationwidePricingBreakdown } from '../../utils/nationwidePricing';
 import styles from './BookingConfirmation.module.css';
 
 interface BookingConfirmationProps {
-  bookingData: BookingData;
+  bookingData: BookingData & { pricingBreakdown?: NationwidePricingBreakdown };
   protectionLevel: ProtectionLevel;
   venueTimeData?: VenueTimeData;
   destination: string;
@@ -31,16 +32,56 @@ export function BookingConfirmation({
   const { user } = bookingData;
   const hasReward = user?.hasUnlockedReward && user?.userType !== 'guest';
 
-  // Calculate pricing using the new protection pricing system
-  const protectionRequest: ProtectionServiceRequest = {
-    destination,
-    protectionLevel,
-    venueTimeData,
-    userType: user?.userType || 'guest',
-    hasUnlockedReward: hasReward
-  };
+  // Use nationwide pricing if available, otherwise calculate using legacy system
+  let pricingBreakdown;
+  if (bookingData.pricingBreakdown) {
+    // Convert nationwide pricing to legacy format for display
+    const nationwide = bookingData.pricingBreakdown;
+    pricingBreakdown = {
+      components: [
+        {
+          label: `Protection Officer (${nationwide.protectionOfficer.hours}h @ £${nationwide.protectionOfficer.rate})`,
+          amount: nationwide.protectionOfficer.total
+        },
+        {
+          label: `Secure Vehicle (${nationwide.vehicleOperation.miles} mi @ £${nationwide.vehicleOperation.ratePerMile})`,
+          amount: nationwide.vehicleOperation.total
+        }
+      ],
+      subtotal: nationwide.subtotal,
+      discounts: nationwide.memberDiscount ? [{
+        label: `Member Discount (${nationwide.memberDiscount.percentage}%)`,
+        amount: nationwide.memberDiscount.amount
+      }] : [],
+      total: nationwide.total
+    };
 
-  const pricingBreakdown = calculateProtectionPricing(protectionRequest);
+    // Add deployment surcharge if applicable
+    if (nationwide.deploymentSurcharge) {
+      pricingBreakdown.components.push({
+        label: nationwide.deploymentSurcharge.reason,
+        amount: nationwide.deploymentSurcharge.amount
+      });
+    }
+
+    // Add booking fee if not waived
+    if (!nationwide.bookingFee.waived) {
+      pricingBreakdown.components.push({
+        label: 'Booking Fee',
+        amount: nationwide.bookingFee.amount
+      });
+    }
+  } else {
+    // Legacy pricing calculation
+    const protectionRequest: ProtectionServiceRequest = {
+      destination,
+      protectionLevel,
+      venueTimeData,
+      userType: user?.userType || 'guest',
+      hasUnlockedReward: hasReward
+    };
+    pricingBreakdown = calculateProtectionPricing(protectionRequest);
+  }
 
 
   const handleConfirmBooking = async () => {
@@ -82,17 +123,23 @@ export function BookingConfirmation({
         <button className={styles.backButton} onClick={onBack}>
           ← Back
         </button>
-        <h1 className={styles.title}>Confirm Protection</h1>
+        <h1 className={styles.title}>Confirm Protection Service</h1>
         <p className={styles.subtitle}>
-          {protectionLevel.name} • Review protection details before confirming
+          {protectionLevel.name} • Nationwide coverage • Review details before confirming
         </p>
       </div>
 
       <div className={styles.bookingSummary}>
 
         <div className={styles.routeSection}>
-          <h3 className={styles.sectionTitle}>Service Details</h3>
+          <h3 className={styles.sectionTitle}>Protection Service Details</h3>
           <div className={styles.routeCard}>
+            {bookingData.pricingBreakdown && (
+              <div className={styles.serviceHeader}>
+                <div className={styles.serviceLevel}>{bookingData.pricingBreakdown.protectionOfficer.serviceLevel} Protection</div>
+                <div className={styles.serviceCoverage}>{bookingData.pricingBreakdown.serviceCoverage}</div>
+              </div>
+            )}
             <div className={styles.routeItem}>
               <span className={styles.routeIcon}>📍</span>
               <div>
@@ -110,6 +157,22 @@ export function BookingConfirmation({
                 <div className={styles.routeLocation}>{destination}</div>
               </div>
             </div>
+            {bookingData.pricingBreakdown && (
+              <div className={styles.journeyMeta}>
+                <div className={styles.metaDetail}>
+                  <span className={styles.metaIcon}>🛣️</span>
+                  <span>Distance: {bookingData.pricingBreakdown.vehicleOperation.miles} miles</span>
+                </div>
+                <div className={styles.metaDetail}>
+                  <span className={styles.metaIcon}>⏱️</span>
+                  <span>Est. journey: {Math.round(bookingData.pricingBreakdown.estimatedJourneyTime)} minutes</span>
+                </div>
+                <div className={styles.metaDetail}>
+                  <span className={styles.metaIcon}>🛡️</span>
+                  <span>Protection time: {bookingData.pricingBreakdown.protectionOfficer.hours}h minimum</span>
+                </div>
+              </div>
+            )}
             {protectionLevel.type === 'personal' && venueTimeData && (
               <div className={styles.venueDetails}>
                 <div className={styles.venueTime}>
@@ -132,7 +195,7 @@ export function BookingConfirmation({
         </div>
 
         <div className={styles.estimateSection}>
-          <h3 className={styles.sectionTitle}>Cost Breakdown</h3>
+          <h3 className={styles.sectionTitle}>Nationwide Protection Pricing</h3>
           <div className={styles.estimateCard}>
             {pricingBreakdown.components.map((component, index) => (
               <div key={index} className={styles.estimateRow}>

@@ -38,6 +38,7 @@ type AppAction =
   | { type: 'SET_USER'; payload: User | null }
   | { type: 'SET_QUESTIONNAIRE_DATA'; payload: PersonalizationData }
   | { type: 'SET_USER_PROFILE_SELECTION'; payload: string | undefined }
+  | { type: 'UPDATE_USER_QUESTIONNAIRE_COMPLETION' }
   | { type: 'UPDATE_DEVICE_CAPABILITIES'; payload: Partial<DeviceCapabilities> }
   | { type: 'SET_SUBSCRIPTION'; payload: UserSubscription | null }
   | { type: 'SET_SELECTED_SERVICE'; payload: string }
@@ -63,6 +64,15 @@ function appReducer(state: AppState, action: AppAction): AppState {
       return { ...state, questionnaireData: action.payload };
     case 'SET_USER_PROFILE_SELECTION':
       return { ...state, userProfileSelection: action.payload };
+    case 'UPDATE_USER_QUESTIONNAIRE_COMPLETION':
+      return {
+        ...state,
+        user: state.user ? {
+          ...state.user,
+          hasCompletedQuestionnaire: true,
+          hasUnlockedReward: state.user.userType !== 'guest'
+        } : state.user
+      };
     case 'UPDATE_DEVICE_CAPABILITIES':
       return { 
         ...state, 
@@ -194,22 +204,20 @@ export function AppProvider({ children }: { children: ReactNode }) {
 
   const updateQuestionnaireData = useCallback((data: PersonalizationData) => {
     dispatch({ type: 'SET_QUESTIONNAIRE_DATA', payload: data });
-    
+
     // Store profile selection for personalization
     if (data.profileSelection) {
       dispatch({ type: 'SET_USER_PROFILE_SELECTION', payload: data.profileSelection });
     }
-    
+
     // If questionnaire is completed, mark user as completed
-    if (data.completedAt && state.user) {
-      const updatedUser = { 
-        ...state.user, 
-        hasCompletedQuestionnaire: true,
-        hasUnlockedReward: state.user.userType !== 'guest'
-      };
-      dispatch({ type: 'SET_USER', payload: updatedUser });
+    if (data.completedAt) {
+      dispatch({
+        type: 'UPDATE_USER_QUESTIONNAIRE_COMPLETION'
+      });
     }
-  }, [state.user]);
+  }, []); // Remove state.user dependency to prevent infinite loop
+  // TypeScript update to force recompilation
 
   const setUserProfileSelection = (profileSelection: string | undefined) => {
     dispatch({ type: 'SET_USER_PROFILE_SELECTION', payload: profileSelection });

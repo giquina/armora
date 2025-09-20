@@ -58,8 +58,8 @@ const ExecutiveOnboarding: React.FC<ExecutiveOnboardingProps> = ({
     },
     {
       icon: '🏥',
-      title: 'First Aid Trained Drivers',
-      description: 'All drivers certified in priority first aid response',
+      title: 'First Aid Trained CPOs',
+      description: 'All protection officers certified in priority first aid response',
       verified: true
     },
     {

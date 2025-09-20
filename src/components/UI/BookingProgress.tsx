@@ -169,7 +169,7 @@ export function BookingProgress({
         {currentStep === 'location' && 'Set your pickup and destination locations'}
         {currentStep === 'schedule' && 'Select when you need the transport'}
         {currentStep === 'payment' && 'Confirm payment method and complete booking'}
-        {currentStep === 'confirmation' && 'Your booking is confirmed and driver assigned'}
+        {currentStep === 'confirmation' && 'Your booking is confirmed and protection officer assigned'}
       </div>
     </div>
   );

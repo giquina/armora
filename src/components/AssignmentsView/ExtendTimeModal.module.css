@@ -1,0 +1,531 @@
+/* Extend Time Modal Styles */
+
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  padding: 20px;
+  backdrop-filter: blur(5px);
+}
+
+.modalContent {
+  background: #ffffff;
+  border: 2px solid rgba(255, 215, 0, 0.3);
+  border-radius: 16px;
+  width: 100%;
+  max-width: 450px;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  animation: modalSlideIn 0.3s ease-out;
+}
+
+@keyframes modalSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Modal Header */
+.modalHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 20px 16px 20px;
+  border-bottom: 1px solid rgba(255, 215, 0, 0.2);
+}
+
+.modalTitle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 16px;
+  font-weight: bold;
+  color: #1a1a2e;
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.titleIcon {
+  font-size: 18px;
+}
+
+.closeButton {
+  background: none;
+  border: none;
+  font-size: 24px;
+  color: rgba(26, 26, 46, 0.6);
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+  line-height: 1;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.closeButton:hover {
+  background: rgba(26, 26, 46, 0.1);
+  color: #1a1a2e;
+}
+
+/* Modal Body */
+.modalBody {
+  padding: 20px;
+}
+
+/* Status Section */
+.statusSection {
+  background: rgba(248, 249, 250, 1);
+  border: 1px solid rgba(224, 224, 224, 0.5);
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 20px;
+}
+
+.statusRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.statusRow:last-child {
+  margin-bottom: 0;
+}
+
+.statusLabel {
+  font-size: 14px;
+  color: #4a4a4a;
+}
+
+.statusValue {
+  font-size: 14px;
+  font-weight: 600;
+  color: #1a1a2e;
+}
+
+.statusSuccess {
+  color: #22c55e;
+  margin-left: 4px;
+}
+
+/* Quick Extensions */
+.quickSection {
+  margin-bottom: 20px;
+}
+
+.sectionTitle {
+  font-size: 14px;
+  font-weight: 600;
+  color: #1a1a2e;
+  margin: 0 0 12px 0;
+}
+
+.quickGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+
+.quickButton {
+  background: #ffffff;
+  border: 2px solid rgba(224, 224, 224, 0.5);
+  border-radius: 8px;
+  padding: 12px 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  min-height: 70px;
+}
+
+.quickButton:hover {
+  border-color: rgba(255, 215, 0, 0.4);
+  background: rgba(255, 215, 0, 0.05);
+}
+
+.quickSelected {
+  border-color: #FFD700 !important;
+  background: rgba(255, 215, 0, 0.15) !important;
+  box-shadow: 0 0 0 1px rgba(255, 215, 0, 0.3);
+}
+
+.quickLabel {
+  font-size: 12px;
+  font-weight: 600;
+  color: #4a4a4a;
+  text-align: center;
+}
+
+.quickSelected .quickLabel {
+  color: #FFD700;
+}
+
+.quickPrice {
+  font-size: 14px;
+  font-weight: bold;
+  color: #FFD700;
+}
+
+/* Custom Duration */
+.customSection {
+  margin-bottom: 20px;
+}
+
+.customDurationControl {
+  background: rgba(248, 249, 250, 1);
+  border: 1px solid rgba(224, 224, 224, 0.5);
+  border-radius: 8px;
+  padding: 16px;
+}
+
+.durationSlider {
+  width: 100%;
+  height: 6px;
+  border-radius: 3px;
+  background: rgba(224, 224, 224, 0.5);
+  outline: none;
+  -webkit-appearance: none;
+  appearance: none;
+  margin-bottom: 12px;
+}
+
+.durationSlider::-webkit-slider-thumb {
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #FFD700;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+.durationSlider::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #FFD700;
+  cursor: pointer;
+  border: none;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+.durationLabels {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 12px;
+  color: #4a4a4a;
+}
+
+.durationValue {
+  font-weight: 600;
+  color: #FFD700;
+  font-size: 14px;
+}
+
+/* Preview Section */
+.previewSection {
+  background: rgba(255, 215, 0, 0.05);
+  border: 1px solid rgba(255, 215, 0, 0.3);
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 20px;
+}
+
+.previewRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.previewRow:last-child {
+  margin-bottom: 0;
+}
+
+.previewLabel {
+  font-size: 14px;
+  color: #4a4a4a;
+}
+
+.previewValue {
+  font-size: 14px;
+  font-weight: 600;
+  color: #FFD700;
+}
+
+/* Reason Selection */
+.reasonSection {
+  margin-bottom: 20px;
+}
+
+.reasonGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+}
+
+.reasonButton {
+  background: #ffffff;
+  border: 2px solid rgba(224, 224, 224, 0.5);
+  border-radius: 8px;
+  padding: 10px 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 12px;
+  color: #4a4a4a;
+  text-align: center;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.reasonButton:hover {
+  border-color: rgba(255, 215, 0, 0.4);
+  background: rgba(255, 215, 0, 0.05);
+}
+
+.reasonSelected {
+  border-color: #FFD700 !important;
+  background: rgba(255, 215, 0, 0.15) !important;
+  color: #FFD700 !important;
+  font-weight: 600;
+}
+
+/* Modal Footer */
+.modalFooter {
+  background: rgba(248, 249, 250, 0.5);
+  padding: 20px;
+  border-top: 1px solid rgba(224, 224, 224, 0.3);
+}
+
+.totalSection {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+  padding: 12px 16px;
+  background: rgba(255, 215, 0, 0.1);
+  border: 1px solid rgba(255, 215, 0, 0.3);
+  border-radius: 8px;
+}
+
+.totalLabel {
+  font-size: 16px;
+  font-weight: 600;
+  color: #1a1a2e;
+}
+
+.totalValue {
+  font-size: 20px;
+  font-weight: bold;
+  color: #FFD700;
+}
+
+.footerButtons {
+  display: flex;
+  gap: 12px;
+}
+
+.cancelButton {
+  flex: 1;
+  background: transparent;
+  border: 2px solid rgba(224, 224, 224, 0.5);
+  border-radius: 8px;
+  padding: 12px 16px;
+  color: #4a4a4a;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  min-height: 48px;
+}
+
+.cancelButton:hover {
+  border-color: rgba(224, 224, 224, 0.8);
+  background: rgba(224, 224, 224, 0.1);
+}
+
+.confirmButton {
+  flex: 2;
+  background: #FFD700;
+  border: 2px solid #FFD700;
+  border-radius: 8px;
+  padding: 12px 16px;
+  color: #1a1a2e;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 48px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.confirmButton:hover {
+  background: #e6c200;
+  border-color: #e6c200;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(255, 215, 0, 0.4);
+}
+
+.confirmButton:active {
+  transform: translateY(0);
+}
+
+.confirmIcon {
+  font-size: 16px;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 480px) {
+  .modalOverlay {
+    padding: 16px;
+  }
+
+  .modalContent {
+    max-width: 100%;
+  }
+
+  .modalHeader {
+    padding: 16px 16px 12px 16px;
+  }
+
+  .modalBody {
+    padding: 16px;
+  }
+
+  .quickGrid {
+    grid-template-columns: 1fr;
+    gap: 6px;
+  }
+
+  .quickButton {
+    flex-direction: row;
+    justify-content: space-between;
+    min-height: 50px;
+    padding: 12px 16px;
+  }
+
+  .quickLabel {
+    font-size: 13px;
+    text-align: left;
+  }
+
+  .reasonGrid {
+    grid-template-columns: 1fr;
+    gap: 6px;
+  }
+
+  .reasonButton {
+    min-height: 40px;
+    font-size: 11px;
+  }
+
+  .footerButtons {
+    flex-direction: column;
+  }
+
+  .modalFooter {
+    padding: 16px;
+  }
+}
+
+@media (max-width: 320px) {
+  .modalTitle {
+    font-size: 14px;
+  }
+
+  .statusLabel,
+  .statusValue {
+    font-size: 13px;
+  }
+
+  .quickLabel {
+    font-size: 12px;
+  }
+
+  .quickPrice {
+    font-size: 13px;
+  }
+
+  .durationValue {
+    font-size: 13px;
+  }
+
+  .totalLabel {
+    font-size: 15px;
+  }
+
+  .totalValue {
+    font-size: 18px;
+  }
+}
+
+/* Accessibility */
+.quickButton:focus,
+.reasonButton:focus,
+.cancelButton:focus,
+.confirmButton:focus,
+.closeButton:focus {
+  outline: 2px solid #FFD700;
+  outline-offset: 2px;
+}
+
+.durationSlider:focus {
+  outline: 2px solid #FFD700;
+  outline-offset: 2px;
+}
+
+/* High Contrast Mode */
+@media (prefers-contrast: high) {
+  .modalContent {
+    border-width: 3px;
+  }
+
+  .quickButton,
+  .reasonButton {
+    border-width: 3px;
+  }
+
+  .quickLabel,
+  .reasonButton {
+    color: #ffffff;
+  }
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  .modalContent {
+    animation: none;
+  }
+
+  .confirmButton:hover {
+    transform: none;
+  }
+}

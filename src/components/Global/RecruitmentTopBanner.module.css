@@ -1,4 +1,4 @@
-/* Top Recruitment Banner Styles */
+/* Mobile-Optimized Recruitment Banner Styles */
 
 .topBanner {
   position: fixed;
@@ -8,19 +8,29 @@
   z-index: 9999;
   background: linear-gradient(135deg, #fbbf24, #f59e0b);
   border-bottom: 1px solid #f59e0b;
-  transition: height 0.3s ease;
-  height: 40px;
-  overflow: hidden;
+  transition: all 0.2s ease;
+  height: auto;
+  min-height: 56px;
 }
 
 .topBanner.expanded {
-  height: auto;
-  min-height: 40px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+}
+
+.backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.1);
+  z-index: -1;
+  pointer-events: none;
 }
 
 .bannerContent {
-  padding: 8px 16px;
-  max-width: 1200px;
+  padding: 12px 16px;
+  max-width: 100%;
   margin: 0 auto;
 }
 
@@ -28,57 +38,36 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: 24px;
-  min-height: 24px;
+  cursor: pointer;
+  min-height: 32px;
+  gap: 12px;
 }
 
 .bannerText {
   flex: 1;
-  margin-right: 16px;
+  min-width: 0;
 }
 
 .bannerTitle {
-  font-size: 14px;
-  font-weight: 600;
+  font-size: 16px;
+  font-weight: 700;
   color: #1e3a8a;
-  line-height: 1;
+  line-height: 1.2;
+  margin-bottom: 2px;
 }
 
-.desktopText {
-  display: inline;
-}
-
-.mobileText {
-  display: none;
+.bannerSubtitle {
+  font-size: 14px;
+  font-weight: 500;
+  color: #1e40af;
+  line-height: 1.2;
 }
 
 .controls {
   display: flex;
   align-items: center;
   gap: 8px;
-}
-
-.applyButton {
-  background: #1e3a8a;
-  color: #fbbf24;
-  padding: 6px 16px;
-  border-radius: 6px;
-  font-size: 12px;
-  font-weight: 600;
-  cursor: pointer;
-  border: none;
-  transition: all 0.2s ease;
-  min-height: 28px;
-  white-space: nowrap;
-}
-
-.applyButton:hover {
-  background: #1e40af;
-  transform: translateY(-1px);
-}
-
-.applyButton:active {
-  transform: translateY(0);
+  flex-shrink: 0;
 }
 
 .expandButton {
@@ -86,11 +75,11 @@
   border: none;
   color: #1e3a8a;
   cursor: pointer;
-  padding: 4px;
-  border-radius: 4px;
+  padding: 8px;
+  border-radius: 6px;
   transition: all 0.2s ease;
-  min-height: 28px;
-  min-width: 28px;
+  min-height: 44px;
+  min-width: 44px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -101,7 +90,7 @@
 }
 
 .expandButton svg {
-  transition: transform 0.3s ease;
+  transition: transform 0.2s ease;
 }
 
 .expandButton svg.rotated {
@@ -113,11 +102,11 @@
   border: none;
   color: #1e3a8a;
   cursor: pointer;
-  padding: 4px;
-  border-radius: 4px;
+  padding: 8px;
+  border-radius: 6px;
   transition: all 0.2s ease;
-  min-height: 28px;
-  min-width: 28px;
+  min-height: 44px;
+  min-width: 44px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -127,30 +116,72 @@
   background: rgba(30, 58, 138, 0.1);
 }
 
+/* Expanded Content */
 .expandedContent {
-  padding-top: 12px;
+  padding-top: 16px;
+  margin-top: 12px;
   border-top: 1px solid rgba(30, 58, 138, 0.2);
-  margin-top: 8px;
+  animation: slideDown 0.2s ease-out;
 }
 
-.highlights {
+.benefitsSection {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.benefitItem {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 14px;
+  color: #1e3a8a;
+  font-weight: 500;
+  padding: 8px 0;
+}
+
+.benefitIcon {
+  font-size: 16px;
+  min-width: 20px;
+  text-align: center;
+}
+
+.separator {
+  height: 1px;
+  background: rgba(30, 58, 138, 0.2);
+  margin: 16px 0;
+}
+
+.requirementsSection {
+  margin-bottom: 20px;
+}
+
+.requirementsTitle {
+  font-size: 14px;
+  font-weight: 600;
+  color: #1e3a8a;
+  margin-bottom: 8px;
+}
+
+.requirementsList {
   list-style: none;
   padding: 0;
   margin: 0;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
 }
 
-.highlights li {
-  font-size: 13px;
-  color: #1e3a8a;
+.requirementsList li {
+  font-size: 14px;
+  color: #1e40af;
   font-weight: 500;
   position: relative;
   padding-left: 16px;
 }
 
-.highlights li::before {
+.requirementsList li::before {
   content: "•";
   color: #1e3a8a;
   font-weight: bold;
@@ -158,76 +189,124 @@
   left: 0;
 }
 
+.primaryApplyButton {
+  width: 100%;
+  background: #1e3a8a;
+  color: #ffffff;
+  padding: 16px 24px;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  border: none;
+  transition: all 0.2s ease;
+  margin-bottom: 16px;
+  min-height: 56px;
+  letter-spacing: 0.5px;
+}
+
+.primaryApplyButton:hover {
+  background: #1e40af;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(30, 58, 138, 0.3);
+}
+
+.primaryApplyButton:active {
+  transform: translateY(0);
+}
+
+.urgencyMessage {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-size: 14px;
+  color: #dc2626;
+  font-weight: 600;
+  text-align: center;
+}
+
+.urgencyIcon {
+  font-size: 16px;
+}
+
 /* Mobile Responsive */
 @media (max-width: 768px) {
+  .topBanner {
+    min-height: 52px;
+  }
+
   .bannerContent {
-    padding: 6px 12px;
+    padding: 10px 12px;
   }
 
   .bannerTitle {
+    font-size: 15px;
+  }
+
+  .bannerSubtitle {
     font-size: 13px;
   }
 
-  .desktopText {
-    display: none;
+  .benefitItem {
+    font-size: 13px;
+    padding: 6px 0;
   }
 
-  .mobileText {
-    display: inline;
+  .benefitIcon {
+    font-size: 15px;
+    min-width: 18px;
   }
 
-  .applyButton {
-    font-size: 11px;
-    padding: 6px 12px;
+  .requirementsTitle {
+    font-size: 13px;
   }
 
-  .controls {
-    gap: 6px;
+  .requirementsList li {
+    font-size: 13px;
   }
 
-  .highlights {
-    grid-template-columns: 1fr;
-    gap: 6px;
+  .primaryApplyButton {
+    font-size: 15px;
+    padding: 14px 20px;
+    min-height: 52px;
   }
 
-  .highlights li {
-    font-size: 12px;
-  }
-
-  .expandedContent {
-    padding-top: 8px;
-    margin-top: 6px;
+  .urgencyMessage {
+    font-size: 13px;
   }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 414px) {
+  .topBanner {
+    min-height: 48px;
+  }
+
   .bannerContent {
-    padding: 6px 8px;
+    padding: 8px 10px;
   }
 
   .mainRow {
     gap: 8px;
   }
 
-  .bannerText {
-    margin-right: 8px;
+  .bannerTitle {
+    font-size: 14px;
   }
 
-  .bannerTitle {
+  .bannerSubtitle {
     font-size: 12px;
   }
 
-  .applyButton {
-    font-size: 10px;
-    padding: 5px 10px;
-    min-height: 26px;
+  .controls {
+    gap: 6px;
   }
 
   .expandButton,
   .closeButton {
-    min-height: 26px;
-    min-width: 26px;
-    padding: 3px;
+    min-height: 40px;
+    min-width: 40px;
+    padding: 6px;
   }
 
   .expandButton svg,
@@ -235,28 +314,50 @@
     width: 14px;
     height: 14px;
   }
+
+  .benefitItem {
+    font-size: 12px;
+    gap: 10px;
+  }
+
+  .benefitIcon {
+    font-size: 14px;
+    min-width: 16px;
+  }
+
+  .primaryApplyButton {
+    font-size: 14px;
+    padding: 12px 18px;
+    min-height: 48px;
+  }
+
+  .urgencyMessage {
+    font-size: 12px;
+  }
 }
 
 @media (max-width: 320px) {
+  .topBanner {
+    min-height: 44px;
+  }
+
   .bannerContent {
-    padding: 4px 6px;
+    padding: 6px 8px;
   }
 
   .bannerTitle {
-    font-size: 11px;
+    font-size: 13px;
   }
 
-  .applyButton {
-    font-size: 9px;
-    padding: 4px 8px;
-    min-height: 24px;
+  .bannerSubtitle {
+    font-size: 11px;
   }
 
   .expandButton,
   .closeButton {
-    min-height: 24px;
-    min-width: 24px;
-    padding: 2px;
+    min-height: 36px;
+    min-width: 36px;
+    padding: 4px;
   }
 
   .expandButton svg,
@@ -265,23 +366,44 @@
     height: 12px;
   }
 
-  .highlights li {
+  .benefitItem {
+    font-size: 11px;
+    gap: 8px;
+  }
+
+  .benefitIcon {
+    font-size: 13px;
+    min-width: 15px;
+  }
+
+  .requirementsTitle {
+    font-size: 12px;
+  }
+
+  .requirementsList li {
+    font-size: 12px;
+  }
+
+  .primaryApplyButton {
+    font-size: 13px;
+    padding: 10px 16px;
+    min-height: 44px;
+  }
+
+  .urgencyMessage {
     font-size: 11px;
   }
 }
 
-/* Touch targets for mobile */
-@media (max-width: 768px) {
-  .applyButton,
-  .expandButton,
-  .closeButton {
-    min-height: 44px;
-    min-width: 44px;
+/* Animation for smooth entry */
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
   }
-
-  .applyButton {
-    min-width: auto;
-    padding: 8px 12px;
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
@@ -291,13 +413,13 @@
     border-bottom: 2px solid #000;
   }
 
-  .applyButton {
+  .primaryApplyButton {
     background: #000;
     color: #fff;
     border: 1px solid #000;
   }
 
-  .applyButton:hover {
+  .primaryApplyButton:hover {
     background: #333;
   }
 
@@ -313,17 +435,50 @@
     transition: none;
   }
 
-  .applyButton,
+  .primaryApplyButton,
   .expandButton,
   .closeButton {
     transition: none;
   }
 
-  .applyButton:hover {
+  .primaryApplyButton:hover {
     transform: none;
   }
 
   .expandButton svg {
     transition: none;
+  }
+
+  .expandedContent {
+    animation: none;
+  }
+}
+
+/* Focus states for accessibility */
+.expandButton:focus,
+.closeButton:focus,
+.primaryApplyButton:focus {
+  outline: 2px solid #1e3a8a;
+  outline-offset: 2px;
+}
+
+/* Ensure proper spacing on very small screens */
+@media (max-width: 280px) {
+  .bannerContent {
+    padding: 4px 6px;
+  }
+
+  .bannerTitle {
+    font-size: 12px;
+  }
+
+  .bannerSubtitle {
+    font-size: 10px;
+  }
+
+  .primaryApplyButton {
+    font-size: 12px;
+    padding: 8px 12px;
+    min-height: 40px;
   }
 }

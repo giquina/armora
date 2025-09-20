@@ -41,7 +41,7 @@
   align-items: center;
   gap: 12px;
   margin-bottom: 20px;
-  font-size: 18px;
+  font-size: var(--font-base);
   font-weight: 700;
   color: #FFD700;
 }
@@ -59,7 +59,7 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  font-size: 16px;
+  font-size: var(--font-base);
   color: #ffffff;
   margin-bottom: 8px;
   font-weight: 600;
@@ -76,7 +76,7 @@
 
 .availability {
   color: #10B981;
-  font-size: 14px;
+  font-size: var(--font-sm);
   margin-bottom: 20px;
 }
 
@@ -95,7 +95,7 @@
   justify-content: center;
   gap: 24px;
   margin-bottom: 24px;
-  font-size: 14px;
+  font-size: var(--font-sm);
   color: rgba(255, 255, 255, 0.8);
 }
 
@@ -113,7 +113,7 @@
   border-radius: 8px;
   color: #1a1a2e;
   font-weight: 700;
-  font-size: 15px;
+  font-size: var(--font-base);
   letter-spacing: 1px;
   cursor: pointer;
   transition: all 0.3s ease;
@@ -129,7 +129,7 @@
   background: none;
   border: none;
   color: rgba(255, 255, 255, 0.6);
-  font-size: 13px;
+  font-size: var(--font-xs);
   margin-top: 12px;
   cursor: pointer;
   transition: color 0.3s ease;
@@ -161,16 +161,20 @@
 
 .matchHeader h3 {
   color: #FFD700;
-  font-size: 14px;
-  letter-spacing: 2px;
-  margin-bottom: 4px;
+  font-size: var(--font-xxl);
+  font-weight: 800;
+  letter-spacing: 1px;
+  margin-bottom: 8px;
   margin-top: 0;
+  text-transform: uppercase;
 }
 
 .matchHeader p {
-  color: rgba(255, 255, 255, 0.6);
-  font-size: 12px;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: var(--font-base);
+  font-weight: 500;
   margin: 0;
+  text-transform: capitalize;
 }
 
 /* Match score box with progress bar */
@@ -194,7 +198,7 @@
 .scoreText {
   color: #FFD700;
   font-weight: 700;
-  font-size: 16px;
+  font-size: var(--font-base);
   margin-bottom: 8px;
 }
 
@@ -222,12 +226,13 @@
   gap: 8px;
   margin: 24px 0;
   color: #FFD700;
-  font-weight: 600;
-  font-size: 14px;
+  font-weight: 700;
+  font-size: var(--font-lg);
+  letter-spacing: 1px;
 }
 
 .trophy {
-  font-size: 20px;
+  font-size: 24px;
 }
 
 .serviceSection {
@@ -237,10 +242,11 @@
 
 .serviceName {
   color: white;
-  font-size: 18px;
+  font-size: var(--font-xl);
   margin-bottom: 8px;
   margin-top: 0;
-  letter-spacing: 1px;
+  letter-spacing: 1.5px;
+  font-weight: 700;
 }
 
 .serviceDetails {
@@ -249,7 +255,7 @@
   align-items: center;
   gap: 8px;
   margin: 20px 0;
-  font-size: 16px;
+  font-size: var(--font-base);
   line-height: 1;
   position: relative;
   z-index: 1;
@@ -261,8 +267,8 @@
 
 .price {
   color: #FFD700;
-  font-weight: 700;
-  font-size: 18px;
+  font-weight: 800;
+  font-size: var(--font-xl);
   white-space: nowrap;
   flex-shrink: 0;
 }
@@ -270,15 +276,15 @@
 .separator {
   color: rgba(255, 255, 255, 0.3);
   margin: 0 4px;
-  font-size: 14px;
+  font-size: var(--font-sm);
   white-space: nowrap;
   flex-shrink: 0;
 }
 
 .availability {
   color: #10B981;
-  font-weight: 500;
-  font-size: 16px;
+  font-weight: 600;
+  font-size: var(--font-lg);
   white-space: nowrap;
   flex-shrink: 0;
 }
@@ -298,7 +304,8 @@
   gap: 12px;
   margin-bottom: 8px;
   color: rgba(255, 255, 255, 0.9);
-  font-size: 14px;
+  font-size: var(--font-base);
+  font-weight: 500;
 }
 
 .benefitItem:last-child {
@@ -308,6 +315,7 @@
 .check {
   color: #10B981;
   font-weight: bold;
+  font-size: 18px;
 }
 
 /* Trust indicators */
@@ -319,8 +327,9 @@
   padding: 12px;
   background: rgba(255, 255, 255, 0.02);
   border-radius: 8px;
-  font-size: 14px;
-  color: rgba(255, 255, 255, 0.8);
+  font-size: var(--font-base);
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.9);
 }
 
 /* Main CTA button */
@@ -332,7 +341,7 @@
   border-radius: 10px;
   color: #1a1a2e;
   font-weight: 700;
-  font-size: 16px;
+  font-size: var(--font-base);
   letter-spacing: 1px;
   cursor: pointer;
   transition: all 0.3s ease;
@@ -357,9 +366,23 @@
   background: none;
   border: none;
   color: rgba(255, 255, 255, 0.5);
-  font-size: 13px;
+  font-size: var(--font-xs);
   cursor: pointer;
   transition: color 0.3s;
+}
+
+/* Tiny screens tuning to maintain balance */
+@media (max-width: 360px) {
+  .serviceName { font-size: var(--font-base); }
+  .scoreText { font-size: var(--font-sm); }
+  .benefitItem, .trustBar { font-size: var(--font-xs); }
+  .matchHeader h3 {
+    font-size: var(--font-base);
+    font-weight: 800;
+  }
+  .matchHeader p {
+    font-size: 11px;
+  }
 }
 
 .linkBtn:hover {
@@ -410,13 +433,7 @@
 }
 
 /* Desktop grid children */
-.contentLeft {
-  /* Will be styled in desktop media query */
-}
-
-.contentRight {
-  /* Will be styled in desktop media query */
-}
+/* contentLeft/contentRight are defined in desktop media queries below */
 
 .personalizedMessage {
   display: flex;
@@ -684,11 +701,14 @@
   }
 
   .matchHeader h3 {
-    font-size: 13px;
+    font-size: var(--font-xl);
+    font-weight: 800;
+    letter-spacing: 0.5px;
   }
 
   .matchHeader p {
-    font-size: 11px;
+    font-size: var(--font-sm);
+    font-weight: 500;
   }
 
   .scoreText {
@@ -821,6 +841,17 @@
     padding: 16px;
     margin: 0 12px 16px 12px;
     max-width: calc(100vw - 24px);
+  }
+
+  .matchHeader h3 {
+    font-size: var(--font-lg);
+    font-weight: 800;
+    letter-spacing: 0.5px;
+  }
+
+  .matchHeader p {
+    font-size: var(--font-xs);
+    font-weight: 500;
   }
 
   .matchScoreBox {

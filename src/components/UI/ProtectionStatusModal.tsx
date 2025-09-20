@@ -88,7 +88,7 @@ export function ProtectionStatusModal({ isOpen, onClose, protectionStatus }: Pro
           <div className={styles.activeProtectionSection}>
             <div className={styles.statusHeader}>
               <span className={styles.statusIcon}>✅</span>
-              <h3 className={styles.statusTitle}>PROTECTION ACTIVE</h3>
+              <h3 className={styles.statusTitle}>PROTECTED</h3>
             </div>
 
             <div className={styles.officerDetails}>

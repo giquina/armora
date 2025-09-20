@@ -3,7 +3,9 @@
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
 ## Project Overview
-Armora is a React 19.1.1 TypeScript application for premium close protection and security transport services. Mobile-first Progressive Web App targeting app store distribution.
+Armora is a React 19.1.1 TypeScript application for premium close protection and security transport services across England & Wales. Nationwide service delivery with SIA-licensed Close Protection Officers (CPOs). Mobile-first Progressive Web App targeting app store distribution.
+
+**NATIONWIDE SERVICE SCOPE**: Armora operates across England & Wales with regional pricing and coverage areas. Complete geographic service delivery with specialized airport services and major city coverage.
 
 **PROFESSIONAL PROTECTION FOCUSED**: Use close protection terminology throughout - "CPO" (Close Protection Officer), "Principal" (not passenger), "Protection Detail" (not ride), "Security Assessment" (not booking review). All UI copy should reflect professional security services, not taxi/ride-sharing language.
 
@@ -97,10 +99,25 @@ src/
 ```
 
 ## Business Context
-**Protection Tiers**: Essential (£45/h), Executive (£75/h), Shadow (£65/h - most popular 67%)
+**Nationwide Coverage**: England & Wales with regional pricing variations. London premium rates, major cities -10%, rural areas +15%, airport services +25%.
+
+**Protection Tiers**:
+- Standard Protection (£65/h): SIA Level 2, personal protection trained drivers
+- Executive Shield (£95/h): SIA Level 3, corporate bodyguard services
+- Shadow Protocol (£125/h): Special Forces trained, covert protection specialists
+- Client Vehicle Service (£55/h): Security-trained driver for customer's vehicle
+
+**Venue Protection Services**: Day (£450), Weekend (£850), Monthly (£12,500), Annual (£135,000) contracts with 1-10 officer scaling.
+
 **User Journey**: splash → welcome → auth → questionnaire → achievement → dashboard → assignments
 **User Capabilities**: Registered/Google users get direct protection booking + 50% reward; guests get quotes only
 **Professional Standards**: All officers are SIA licensed with specializations in Executive Protection, Threat Assessment, and Medical Response
+
+**Geographic Service Areas**:
+- Primary: London & Greater London (immediate availability)
+- Major Cities: Manchester, Birmingham, Leeds, Liverpool, Bristol, Cardiff
+- Regional: All major towns with 2-hour response time
+- Airports: Heathrow, Gatwick, Manchester, Birmingham specialists
 
 ### Safe Ride Fund Initiative
 - **Impact Counter**: Live counter showing 3,741+ safe rides delivered (animated on WelcomePage)
@@ -171,11 +188,23 @@ src/
 ### Questionnaire System (`/src/data/questionnaireData.ts`)
 Dynamic 9-step system with privacy options. Enhanced mobile typography (1.4-1.5rem) and `calc(100vw - 8px)` width utilization.
 
-### Protection Booking Flow Architecture
+### Nationwide Booking Flow Architecture
 Complete flow: VehicleSelection → LocationPicker → BookingConfirmation → BookingSuccess.
 - State managed in App.tsx BookingFlow component (`src/App.tsx:17-95`)
 - Error boundary wrapper: `BookingErrorBoundary` component
 - Test data available in `src/utils/testUserScenarios.ts`
+
+**Geographic Integration**:
+- Coverage area validation for England & Wales boundaries
+- Regional pricing calculation based on service location
+- Airport specialist availability checking for major airports
+- Automatic routing between major cities with time estimates
+
+**Pricing Calculator Components**:
+- `RegionalPricingEngine` - Handles location-based rate adjustments
+- `ServiceTierCalculator` - Processes hourly vs per-journey pricing
+- `VenueProtectionQuotes` - Generates PPO contract estimates
+- `CoverageAreaValidator` - Verifies service availability by postcode
 
 ### Professional Assignments View (`src/components/AssignmentsView/`)
 Premium close protection command centre with professional terminology:
@@ -196,6 +225,26 @@ Three distinct user types with different capabilities:
 - **Registered**: Full protection booking + 50% rewards
 - **Google**: Same as registered
 - **Guest**: Quote-only mode, no direct protection booking
+
+### Compliance & Regulatory Components
+**SIA License Integration** (`src/components/Compliance/`):
+- `SIAVerificationSystem` - Real-time license status checking
+- `ComplianceFooter` - Mandatory regulatory information display
+- `CertificationTracker` - Officer qualification monitoring
+- `BackgroundCheckFlow` - User security vetting process
+
+**Geographic Compliance**:
+- England & Wales service boundary enforcement
+- Regional regulatory variation handling
+- Airport security protocol integration
+- Cross-border service restrictions (Scotland/NI)
+
+**Footer Compliance Requirements** (`src/components/Layout/ComplianceFooter.tsx`):
+- SIA registration number display
+- Professional standards certification
+- Insurance coverage information
+- Emergency contact protocols
+- Regulatory compliance statements
 
 ## Important Code Patterns
 

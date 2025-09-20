@@ -30,6 +30,8 @@ export interface ServiceData {
   tagline: string;
   vehicle: string;
   price: string;
+  protectionRate?: string;
+  transportRate?: string;
   rating: string;
   totalRides: string;
   collapsedFeatures: string[];
@@ -125,10 +127,25 @@ export function ServiceCard({
           </div>
         </div>
 
-        {/* Vehicle and Price */}
-        <div className={styles.vehicleAndPrice}>
+        {/* Vehicle Info */}
+        <div className={styles.vehicleInfo}>
           <span className={styles.vehicle}>{service.vehicle}</span>
-          <span className={styles.price}>{service.price}</span>
+        </div>
+
+        {/* Service Rates Breakdown */}
+        <div className={styles.serviceRates}>
+          <div className={styles.ratesTitle}>Service Rates:</div>
+          <div className={styles.rateItem}>
+            <span className={styles.rateLabel}>Protection:</span>
+            <span className={styles.rateValue}>{service.protectionRate || '£50'}/hour</span>
+          </div>
+          <div className={styles.rateItem}>
+            <span className={styles.rateLabel}>Transport:</span>
+            <span className={styles.rateValue}>
+              {service.transportRate === 'No mileage charge' ? 'No mileage charge' : `${service.transportRate || '£2.50'}/mile`}
+            </span>
+          </div>
+          <div className={styles.rateMinimum}>(2-hour minimum)</div>
         </div>
 
         {/* Rating and Rides */}

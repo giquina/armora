@@ -37,27 +37,38 @@ export function ServicesPage() {
       {/* Hero Section */}
       <div className={styles.heroSection}>
         <div className={styles.heroContent}>
-          <h1 className={styles.heroTitle}>Our Security Services</h1>
-          <p className={styles.heroSubtitle}>Professional protection tailored to your needs - from everyday safety to VIP luxury</p>
+          <h1 className={styles.heroTitle}>Our Protection Services</h1>
+          <p className={styles.heroSubtitle}>SIA-Licensed Close Protection Officers • Executive Security Specialists</p>
 
           <div className={styles.trustIndicators}>
             <div className={styles.trustItem}>
-              <span className={styles.trustNumber}>4.9★</span>
-              <span className={styles.trustLabel}>Rating</span>
+              <span className={styles.trustIcon}>⭐</span>
+              <span className={styles.trustNumber}>4.9</span>
+              <span className={styles.trustLabel}>CLIENT RATING</span>
             </div>
+            <div className={styles.trustDivider}></div>
             <div className={styles.trustItem}>
+              <span className={styles.trustIcon}>🛡️</span>
               <span className={styles.trustNumber}>3,741+</span>
-              <span className={styles.trustLabel}>Safe Rides</span>
+              <span className={styles.trustLabel}>ASSIGNMENTS<br/>COMPLETED</span>
             </div>
+            <div className={styles.trustDivider}></div>
             <div className={styles.trustItem}>
+              <span className={styles.trustIcon}>⚡</span>
               <span className={styles.trustNumber}>&lt;10min</span>
-              <span className={styles.trustLabel}>Response</span>
+              <span className={styles.trustLabel}>RESPONSE TIME</span>
+            </div>
+            <div className={styles.trustDivider}></div>
+            <div className={styles.trustItem}>
+              <span className={styles.trustIcon}>🔒</span>
+              <span className={styles.trustNumber}>100%</span>
+              <span className={styles.trustLabel}>SIA LICENSED</span>
             </div>
           </div>
 
           {recommendedService && (
             <div className={styles.personalizedBadge}>
-              🎯 {SERVICES_DATA.find(s => s.id === recommendedService)?.name} recommended for you
+              🎯 {SERVICES_DATA.find(s => s.id === recommendedService)?.name} Protection recommended based on your security profile
             </div>
           )}
 
@@ -66,7 +77,7 @@ export function ServicesPage() {
             className={styles.comparisonToggle}
             onClick={handleShowComparison}
           >
-            📊 {showComparison ? 'Hide' : 'Compare Services'}
+            📊 {showComparison ? 'Hide Comparison' : 'Compare Protection Levels'}
           </button>
         </div>
       </div>

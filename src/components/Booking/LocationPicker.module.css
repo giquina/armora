@@ -1,386 +1,501 @@
-/* REDESIGNED LOCATION PICKER - MOBILE FIRST SINGLE-FOCUS DESIGN */
+/* NATIONWIDE PROTECTION SERVICES LOCATION PICKER */
+
 .container {
   width: 100%;
   max-width: 100vw;
   min-height: 100vh;
-  padding: 1rem;
-  background: var(--bg-primary);
-  color: var(--text-primary);
+  background: #F8FAFC;
+  color: #1F2937;
   display: flex;
   flex-direction: column;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
 }
 
-/* Header with back button and step indicator */
+/* CLEAN HEADER WITH BACK AND CLOSE */
 .header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 2rem;
-  padding: 0.5rem 0;
+  padding: 16px 20px;
+  background: #FFFFFF;
+  border-bottom: 1px solid #E5E7EB;
+  position: sticky;
+  top: 0;
+  z-index: 50;
 }
 
 .backButton {
-  min-width: 48px;
-  min-height: 48px;
-  padding: 0.75rem;
-  background: transparent;
-  color: var(--armora-gold);
-  border: 2px solid rgba(255, 215, 0, 0.3);
-  border-radius: 12px;
-  font-size: 1.25rem;
+  background: none;
+  border: none;
+  color: #3B82F6;
+  font-size: 16px;
+  font-weight: 600;
   cursor: pointer;
-  transition: all 0.2s ease;
-  touch-action: manipulation;
-  font-weight: bold;
+  padding: 8px 12px;
+  border-radius: 8px;
+  transition: background 0.2s ease;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
 }
 
 .backButton:hover {
-  background: rgba(255, 215, 0, 0.1);
-  border-color: var(--armora-gold);
-  transform: translateX(-2px);
+  background: #EFF6FF;
 }
 
-.stepIndicator {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  background: rgba(255, 215, 0, 0.1);
-  padding: 0.5rem 1rem;
-  border-radius: 20px;
-  border: 1px solid rgba(255, 215, 0, 0.3);
-}
-
-.stepNumber {
-  color: var(--armora-gold);
-  font-weight: 700;
-  font-size: 1.1rem;
-}
-
-.stepText {
-  color: var(--text-secondary);
-  font-size: 0.9rem;
-}
-
-/* Page title */
-.pageTitle {
-  text-align: center;
-  margin-bottom: 2rem;
-}
-
-.pageTitle h1 {
-  font-size: 2rem;
-  font-weight: 700;
-  color: var(--text-primary);
-  margin-bottom: 0.5rem;
-  line-height: 1.2;
-}
-
-.pageTitle p {
-  font-size: 1rem;
-  color: var(--text-secondary);
+.headerTitle {
+  font-size: 18px;
+  font-weight: 600;
+  color: #1F2937;
   margin: 0;
+  text-align: center;
+  flex: 1;
 }
 
-/* Location form container */
-.locationForm {
+.closeButton {
+  background: none;
+  border: none;
+  color: #6B7280;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 8px 12px;
+  border-radius: 8px;
+  transition: background 0.2s ease;
+  min-height: 44px;
+}
+
+.closeButton:hover {
+  background: #F3F4F6;
+  color: #374151;
+}
+
+/* MAIN CONTENT */
+.content {
   flex: 1;
+  padding: 24px 20px;
   display: flex;
   flex-direction: column;
-  gap: 2rem;
-}
-
-/* Section styling */
-.section {
+  gap: 32px;
+  max-width: 600px;
+  margin: 0 auto;
   width: 100%;
 }
 
+/* SECTION TITLES */
 .sectionTitle {
-  font-size: 0.9rem;
+  font-size: 16px;
   font-weight: 700;
-  color: var(--armora-gold);
+  color: #1F2937;
   text-transform: uppercase;
-  letter-spacing: 1px;
-  margin-bottom: 1rem;
-  padding-left: 0.5rem;
+  letter-spacing: 0.5px;
+  margin: 0 0 16px 0;
+  padding-bottom: 8px;
+  border-bottom: 2px solid #E5E7EB;
 }
 
-/* Starting Point - Current Location Card */
-.pickupContainer {
-  width: 100%;
+/* SEARCH SECTION */
+.searchSection {
+  background: #FFFFFF;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  border: 1px solid #E5E7EB;
 }
 
+.fromSection,
+.toSection {
+  margin-bottom: 24px;
+}
+
+.fromSection:last-child,
+.toSection:last-child {
+  margin-bottom: 0;
+}
+
+.inputLabel {
+  display: block;
+  font-size: 14px;
+  font-weight: 600;
+  color: #374151;
+  margin-bottom: 8px;
+}
+
+/* CURRENT LOCATION CARD */
 .currentLocationCard {
   display: flex;
   align-items: center;
-  gap: 1rem;
-  background: linear-gradient(135deg, rgba(255, 215, 0, 0.05), rgba(255, 215, 0, 0.02));
-  border: 2px solid rgba(255, 215, 0, 0.3);
-  border-radius: 16px;
-  padding: 1.25rem;
-  min-height: 80px;
-  transition: all 0.3s ease;
+  gap: 12px;
+  background: #F3F4F6;
+  border: 2px solid #E5E7EB;
+  border-radius: 12px;
+  padding: 16px;
   cursor: pointer;
+  transition: all 0.2s ease;
+  min-height: 60px;
 }
 
 .currentLocationCard:hover {
-  border-color: var(--armora-gold);
-  background: linear-gradient(135deg, rgba(255, 215, 0, 0.08), rgba(255, 215, 0, 0.03));
-  transform: translateY(-1px);
-  box-shadow: 0 4px 20px rgba(255, 215, 0, 0.15);
+  border-color: #3B82F6;
+  background: #EFF6FF;
 }
 
 .locationIcon {
-  font-size: 2rem;
-  color: var(--armora-gold);
+  font-size: 24px;
   flex-shrink: 0;
-  filter: drop-shadow(0 2px 4px rgba(255, 215, 0, 0.3));
 }
 
 .locationInfo {
   flex: 1;
-  min-width: 0;
 }
 
-.locationName {
-  font-size: 1.1rem;
+.locationText {
+  font-size: 16px;
   font-weight: 600;
-  color: var(--text-primary);
-  margin-bottom: 0.25rem;
+  color: #1F2937;
+  margin-bottom: 2px;
 }
 
 .locationSubtext {
-  font-size: 0.9rem;
-  color: var(--text-secondary);
-  line-height: 1.4;
+  font-size: 14px;
+  color: #6B7280;
 }
 
-.confirmButton {
-  min-width: 48px;
-  min-height: 48px;
-  background: var(--armora-gold);
-  color: var(--armora-dark);
-  border: none;
-  border-radius: 12px;
-  font-size: 1.25rem;
-  font-weight: bold;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  touch-action: manipulation;
-  flex-shrink: 0;
-}
-
-.confirmButton:hover {
-  background: var(--hover-gold);
-  transform: scale(1.05);
-}
-
-.confirmButton:active {
-  transform: scale(0.95);
-}
-
-/* Destination Section */
-.destinationContainer {
-  width: 100%;
-}
-
+/* SEARCH INPUT */
 .searchContainer {
   position: relative;
-  margin-bottom: 1.5rem;
 }
 
 .searchInput {
   width: 100%;
-  min-height: 56px;
-  padding: 1rem 3rem 1rem 1rem;
-  background: rgba(42, 42, 74, 0.8);
-  border: 2px solid rgba(255, 215, 0, 0.3);
-  border-radius: 16px;
-  color: var(--text-primary);
-  font-size: 16px; /* Prevent iOS zoom */
+  min-height: 52px;
+  padding: 16px 48px 16px 16px;
+  border: 2px solid #E5E7EB;
+  border-radius: 12px;
+  font-size: 16px;
   font-weight: 500;
-  transition: all 0.3s ease;
+  color: #1F2937;
+  background: #FFFFFF;
+  transition: all 0.2s ease;
   box-sizing: border-box;
 }
 
 .searchInput:focus {
   outline: none;
-  border-color: var(--armora-gold);
-  background: rgba(42, 42, 74, 0.95);
-  box-shadow: 0 0 0 4px rgba(255, 215, 0, 0.2);
-  transform: translateY(-1px);
+  border-color: #3B82F6;
+  box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
 }
 
 .searchInput::placeholder {
-  color: rgba(224, 224, 224, 0.6);
-  font-style: normal;
+  color: #9CA3AF;
 }
 
 .searchIcon {
   position: absolute;
-  right: 1rem;
+  right: 16px;
   top: 50%;
   transform: translateY(-50%);
-  font-size: 1.25rem;
-  color: rgba(255, 215, 0, 0.6);
+  font-size: 20px;
+  color: #6B7280;
   pointer-events: none;
 }
 
 .inputError {
-  border-color: #ff4757 !important;
-  background: rgba(255, 71, 87, 0.05) !important;
+  border-color: #EF4444 !important;
+  background: #FEF2F2 !important;
 }
 
 .errorMessage {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
-  color: #ff4757;
-  font-size: 0.9rem;
-  margin-top: 0.75rem;
-  padding: 0.75rem;
-  background: rgba(255, 71, 87, 0.08);
+  gap: 8px;
+  color: #EF4444;
+  font-size: 14px;
+  margin-top: 8px;
+  padding: 8px 12px;
+  background: #FEF2F2;
   border-radius: 8px;
-  border-left: 3px solid #ff4757;
+  border-left: 3px solid #EF4444;
 }
 
 .errorIcon {
-  font-size: 1rem;
+  font-size: 16px;
   flex-shrink: 0;
 }
 
-/* Recent destinations */
-.recentSection {
-  margin-bottom: 2rem;
+/* PROTECTION HISTORY SECTION */
+.historySection {
+  background: #FFFFFF;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  border: 1px solid #E5E7EB;
 }
 
-.recentTitle {
-  font-size: 0.9rem;
-  font-weight: 600;
-  color: var(--text-secondary);
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  margin-bottom: 0.75rem;
-  padding-left: 0.5rem;
+.historyList {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
 }
 
-.locationButton {
+.historyCard {
   display: flex;
   align-items: center;
-  gap: 1rem;
-  width: 100%;
-  min-height: 56px;
-  padding: 1rem;
-  background: transparent;
-  border: 1px solid rgba(255, 215, 0, 0.2);
+  gap: 16px;
+  background: #F8FAFC;
+  border: 1px solid #E5E7EB;
   border-radius: 12px;
-  margin-bottom: 0.5rem;
+  padding: 16px;
   cursor: pointer;
   transition: all 0.2s ease;
   text-align: left;
-  touch-action: manipulation;
+  width: 100%;
 }
 
-.locationButton:hover {
-  background: rgba(255, 215, 0, 0.05);
-  border-color: rgba(255, 215, 0, 0.4);
-  transform: translateX(4px);
+.historyCard:hover {
+  background: #EFF6FF;
+  border-color: #3B82F6;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
-.locationButtonIcon {
-  font-size: 1.25rem;
-  color: var(--armora-gold);
+.historyIcon {
+  font-size: 20px;
+  color: #3B82F6;
   flex-shrink: 0;
 }
 
-.locationButtonText {
-  color: var(--text-primary);
-  font-size: 0.95rem;
-  font-weight: 500;
-  line-height: 1.4;
-  text-overflow: ellipsis;
-  overflow: hidden;
-  white-space: nowrap;
+.historyInfo {
+  flex: 1;
 }
 
-/* Popular venues */
-.venuesSection {
-  margin-bottom: 2rem;
-}
-
-.venuesTitle {
-  font-size: 0.9rem;
+.historyName {
+  font-size: 16px;
   font-weight: 600;
-  color: var(--text-secondary);
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  margin-bottom: 1rem;
-  padding-left: 0.5rem;
+  color: #1F2937;
+  margin-bottom: 4px;
 }
 
-.venuesList {
+.historyMeta {
+  font-size: 14px;
+  color: #6B7280;
+}
+
+/* SAVED LOCATIONS SECTION */
+.savedSection {
+  background: #FFFFFF;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  border: 1px solid #E5E7EB;
+}
+
+.savedList {
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
+  gap: 16px;
 }
 
-.venueButton {
+.savedCard {
   display: flex;
   align-items: center;
-  gap: 1rem;
-  width: 100%;
-  min-height: 64px;
-  padding: 1rem;
-  background: linear-gradient(135deg, rgba(255, 215, 0, 0.03), rgba(255, 215, 0, 0.01));
-  border: 1px solid rgba(255, 215, 0, 0.2);
+  gap: 16px;
+  background: #F8FAFC;
+  border: 1px solid #E5E7EB;
   border-radius: 12px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  text-align: left;
-  touch-action: manipulation;
+  padding: 16px;
 }
 
-.venueButton:hover {
-  background: linear-gradient(135deg, rgba(255, 215, 0, 0.08), rgba(255, 215, 0, 0.03));
-  border-color: var(--armora-gold);
-  transform: translateY(-1px);
-  box-shadow: 0 4px 16px rgba(255, 215, 0, 0.1);
-}
-
-.venueIcon {
-  font-size: 1.5rem;
-  color: var(--armora-gold);
+.savedIcon {
+  font-size: 24px;
+  color: #6B7280;
   flex-shrink: 0;
 }
 
-.venueInfo {
+.savedInfo {
   flex: 1;
-  min-width: 0;
 }
 
-.venueName {
-  color: var(--text-primary);
-  font-size: 1rem;
+.savedName {
+  font-size: 16px;
   font-weight: 600;
-  margin-bottom: 0.25rem;
-  line-height: 1.3;
+  color: #1F2937;
+  margin-bottom: 4px;
 }
 
-.venueAddress {
-  color: var(--text-secondary);
-  font-size: 0.85rem;
-  line-height: 1.4;
-  text-overflow: ellipsis;
-  overflow: hidden;
-  white-space: nowrap;
+.savedAddress {
+  background: none;
+  border: none;
+  font-size: 14px;
+  color: #3B82F6;
+  cursor: pointer;
+  padding: 0;
+  text-align: left;
+  text-decoration: underline;
 }
 
-/* Real-time estimate card */
-.estimateCard {
-  background: linear-gradient(135deg, rgba(255, 215, 0, 0.08), rgba(255, 215, 0, 0.03));
-  border: 2px solid rgba(255, 215, 0, 0.3);
+.savedAddress:hover {
+  color: #2563EB;
+}
+
+.savedEmpty {
+  font-size: 14px;
+  color: #9CA3AF;
+  font-style: italic;
+}
+
+.addLocationButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: #F3F4F6;
+  border: 2px dashed #D1D5DB;
+  border-radius: 12px;
+  padding: 16px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 14px;
+  font-weight: 600;
+  color: #6B7280;
+  width: 100%;
+  min-height: 56px;
+}
+
+.addLocationButton:hover {
+  background: #EFF6FF;
+  border-color: #3B82F6;
+  color: #3B82F6;
+}
+
+.addIcon {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+/* LONDON AIRPORTS SECTION */
+.airportsSection {
+  background: #FFFFFF;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  border: 1px solid #E5E7EB;
+}
+
+.airportGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+
+.airportButton {
+  background: #F3F4F6;
+  border: 2px solid #E5E7EB;
+  border-radius: 12px;
+  padding: 16px;
+  font-size: 18px;
+  font-weight: bold;
+  color: #1F2937;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  min-height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.airportButton:hover {
+  background: #EFF6FF;
+  border-color: #3B82F6;
+  color: #3B82F6;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* TERMINAL SELECTOR MODAL */
+.terminalModal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  padding: 20px;
+}
+
+.terminalContent {
+  background: #FFFFFF;
   border-radius: 16px;
-  padding: 1.5rem;
-  margin-top: 1rem;
+  padding: 24px;
+  max-width: 400px;
+  width: 100%;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+}
+
+.terminalTitle {
+  font-size: 18px;
+  font-weight: 600;
+  color: #1F2937;
+  margin: 0 0 20px 0;
+  text-align: center;
+}
+
+.terminalGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.terminalButton {
+  background: #F3F4F6;
+  border: 2px solid #E5E7EB;
+  border-radius: 12px;
+  padding: 16px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #1F2937;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  min-height: 56px;
+}
+
+.terminalButton:hover {
+  background: #EFF6FF;
+  border-color: #3B82F6;
+  color: #3B82F6;
+}
+
+.terminalClose {
+  width: 100%;
+  background: #F3F4F6;
+  border: 1px solid #D1D5DB;
+  border-radius: 8px;
+  padding: 12px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #6B7280;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.terminalClose:hover {
+  background: #E5E7EB;
+  color: #374151;
+}
+
+/* ESTIMATE CARD */
+.estimateCard {
+  background: #EFF6FF;
+  border: 2px solid #BFDBFE;
+  border-radius: 12px;
+  padding: 20px;
+  margin-top: 16px;
   animation: slideUp 0.3s ease-out;
 }
 
@@ -399,8 +514,8 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0.75rem 0;
-  border-bottom: 1px solid rgba(255, 215, 0, 0.15);
+  padding: 8px 0;
+  border-bottom: 1px solid rgba(59, 130, 246, 0.2);
 }
 
 .estimateRow:last-child {
@@ -409,89 +524,85 @@
 }
 
 .estimateLabel {
-  color: var(--text-secondary);
-  font-size: 0.9rem;
+  color: #374151;
+  font-size: 14px;
   font-weight: 500;
 }
 
 .estimateValue {
-  color: var(--text-primary);
-  font-size: 0.95rem;
+  color: #1F2937;
+  font-size: 14px;
   font-weight: 600;
 }
 
 .costRow {
-  background: rgba(255, 215, 0, 0.05);
+  background: #DBEAFE;
   border-radius: 8px;
-  margin-top: 0.5rem;
-  padding: 1rem 0.75rem;
+  margin-top: 8px;
+  padding: 12px;
   border: none;
 }
 
 .costLabel {
-  color: var(--text-primary);
-  font-size: 1rem;
+  color: #1F2937;
+  font-size: 16px;
   font-weight: 700;
 }
 
 .costValue {
-  color: var(--armora-gold);
-  font-size: 1.25rem;
+  color: #3B82F6;
+  font-size: 20px;
   font-weight: 700;
 }
 
 .discountBadge {
   text-align: center;
-  background: linear-gradient(135deg, var(--armora-gold), var(--hover-gold));
-  color: var(--armora-dark);
-  padding: 0.75rem;
+  background: #10B981;
+  color: #FFFFFF;
+  padding: 12px;
   border-radius: 8px;
   font-weight: 600;
-  font-size: 0.9rem;
-  margin-top: 1rem;
-  box-shadow: 0 2px 8px rgba(255, 215, 0, 0.3);
+  font-size: 14px;
+  margin-top: 16px;
 }
 
-/* Footer */
+/* FOOTER */
 .footer {
   position: sticky;
   bottom: 0;
-  background: var(--bg-primary);
-  padding: 1.5rem 0 1rem;
-  border-top: 1px solid rgba(255, 215, 0, 0.1);
-  margin: 2rem -1rem 0;
-  padding-left: 1rem;
-  padding-right: 1rem;
+  background: #FFFFFF;
+  padding: 20px;
+  border-top: 1px solid #E5E7EB;
+  box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.05);
 }
 
 .continueButton {
   width: 100%;
   min-height: 56px;
-  background: var(--armora-gold);
-  color: var(--armora-dark);
+  background: #3B82F6;
+  color: #FFFFFF;
   border: none;
-  border-radius: 16px;
-  font-size: 1rem;
+  border-radius: 12px;
+  font-size: 16px;
   font-weight: 700;
   cursor: pointer;
-  transition: all 0.3s ease;
-  margin-bottom: 1rem;
-  touch-action: manipulation;
+  transition: all 0.2s ease;
+  margin-bottom: 12px;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 0.5rem;
+  gap: 8px;
 }
 
 .continueButton:hover:not(:disabled) {
-  background: var(--hover-gold);
-  transform: translateY(-2px);
-  box-shadow: 0 4px 20px rgba(255, 215, 0, 0.3);
+  background: #2563EB;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 16px rgba(59, 130, 246, 0.3);
 }
 
 .continueButton:disabled {
-  background: var(--bg-tertiary);
-  color: var(--text-secondary);
+  background: #D1D5DB;
+  color: #9CA3AF;
   cursor: not-allowed;
   transform: none;
   box-shadow: none;
@@ -501,127 +612,349 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 0.5rem;
-  color: var(--text-secondary);
-  font-size: 0.85rem;
+  gap: 8px;
+  color: #6B7280;
+  font-size: 14px;
   text-align: center;
-  line-height: 1.4;
 }
 
 .shieldIcon {
-  color: var(--armora-gold);
-  font-size: 1rem;
+  color: #3B82F6;
+  font-size: 16px;
 }
 
-/* Mobile optimizations */
+/* MOBILE RESPONSIVENESS */
 @media (max-width: 768px) {
-  .container {
-    padding: 0.75rem;
+  .content {
+    padding: 16px;
+    gap: 24px;
   }
 
   .header {
-    margin-bottom: 1.5rem;
+    padding: 12px 16px;
   }
 
-  .pageTitle h1 {
-    font-size: 1.75rem;
+  .headerTitle {
+    font-size: 16px;
   }
 
-  .pageTitle {
-    margin-bottom: 1.5rem;
+  .searchSection,
+  .historySection,
+  .savedSection,
+  .airportsSection {
+    padding: 16px;
   }
 
-  .locationForm {
-    gap: 1.5rem;
+  .airportGrid {
+    grid-template-columns: repeat(2, 1fr);
   }
 
-  .currentLocationCard {
-    padding: 1rem;
-    min-height: 72px;
+  .terminalModal {
+    padding: 16px;
   }
 
-  .searchInput {
-    min-height: 52px;
-    font-size: 16px; /* Prevent iOS zoom */
-  }
-
-  .venueButton {
-    min-height: 60px;
-  }
-
-  .estimateCard {
-    padding: 1.25rem;
+  .terminalContent {
+    padding: 20px;
   }
 
   .footer {
-    padding-top: 1.25rem;
-    margin-top: 1.5rem;
+    padding: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .content {
+    padding: 12px;
+    gap: 20px;
+  }
+
+  .header {
+    padding: 12px;
+  }
+
+  .backButton,
+  .closeButton {
+    padding: 6px 8px;
+    font-size: 14px;
+  }
+
+  .headerTitle {
+    font-size: 14px;
+  }
+
+  .sectionTitle {
+    font-size: 14px;
+  }
+
+  .searchSection,
+  .historySection,
+  .savedSection,
+  .airportsSection {
+    padding: 12px;
+  }
+
+  .historyCard,
+  .savedCard {
+    padding: 12px;
+  }
+
+  .airportGrid {
+    gap: 8px;
+  }
+
+  .airportButton {
+    padding: 12px;
+    font-size: 16px;
+    min-height: 52px;
+  }
+
+  .terminalModal {
+    padding: 12px;
+  }
+
+  .terminalContent {
+    padding: 16px;
   }
 
   .continueButton {
     min-height: 52px;
-    font-size: 0.95rem;
+    font-size: 15px;
   }
 }
 
-/* Extra small screens */
-@media (max-width: 320px) {
-  .container {
-    padding: 0.5rem;
-  }
+/* NATIONWIDE SERVICE COVERAGE */
+.coverageNote {
+  font-size: 14px;
+  color: #6B7280;
+  margin-top: 4px;
+  text-align: center;
+}
 
-  .currentLocationCard {
-    padding: 0.875rem;
-    gap: 0.75rem;
-  }
+.coverageStatus {
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  margin-top: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
 
-  .locationIcon {
-    font-size: 1.75rem;
-  }
+.covered {
+  background: #DCFCE7;
+  color: #166534;
+  border: 1px solid #BBF7D0;
+}
 
-  .locationName {
-    font-size: 1rem;
-  }
+.notCovered {
+  background: #FEF2F2;
+  color: #DC2626;
+  border: 1px solid #FECACA;
+}
 
-  .venueButton {
-    padding: 0.875rem;
-  }
+/* POPULAR DESTINATIONS */
+.popularSection {
+  margin-bottom: 24px;
+}
 
-  .venueName {
-    font-size: 0.95rem;
-  }
+.destinationTabs {
+  margin-top: 12px;
+}
 
-  .venueAddress {
-    font-size: 0.8rem;
+.destinationGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.destinationButton {
+  background: #FFFFFF;
+  border: 1px solid #E5E7EB;
+  border-radius: 12px;
+  padding: 12px;
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  min-height: 60px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.destinationButton:hover {
+  border-color: #3B82F6;
+  box-shadow: 0 2px 8px rgba(59, 130, 246, 0.15);
+  transform: translateY(-1px);
+}
+
+.destName {
+  font-weight: 600;
+  font-size: 14px;
+  color: #1F2937;
+  margin-bottom: 2px;
+}
+
+.destRegion {
+  font-size: 12px;
+  color: #6B7280;
+}
+
+/* UPDATED AIRPORT BUTTONS */
+.airportCode {
+  font-weight: 700;
+  font-size: 16px;
+  color: #1F2937;
+  margin-bottom: 2px;
+}
+
+.airportName {
+  font-size: 11px;
+  color: #6B7280;
+  font-weight: 500;
+}
+
+/* ENHANCED PRICING BREAKDOWN */
+.cardHeader {
+  border-bottom: 1px solid #E5E7EB;
+  padding-bottom: 12px;
+  margin-bottom: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.cardHeader h4 {
+  font-size: 16px;
+  font-weight: 700;
+  color: #1F2937;
+  margin: 0;
+}
+
+.serviceArea {
+  background: #DCFCE7;
+  color: #166534;
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.journeyDetails {
+  margin-bottom: 20px;
+}
+
+.routeInfo {
+  margin-bottom: 12px;
+}
+
+.routePoint {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 4px;
+  font-size: 14px;
+  color: #374151;
+}
+
+.routeIcon {
+  font-size: 16px;
+}
+
+.tripMeta {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.metaItem {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: #6B7280;
+}
+
+.metaIcon {
+  font-size: 14px;
+}
+
+.pricingBreakdown {
+  border-top: 1px solid #E5E7EB;
+  padding-top: 16px;
+  margin-bottom: 16px;
+}
+
+.pricingBreakdown h5 {
+  font-size: 14px;
+  font-weight: 700;
+  color: #374151;
+  margin: 0 0 12px 0;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.priceRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+  font-size: 14px;
+  border-bottom: 1px solid #F3F4F6;
+}
+
+.priceRow:last-child {
+  border-bottom: none;
+}
+
+.priceRow.discount {
+  color: #059669;
+  font-weight: 600;
+}
+
+.priceRow.total {
+  font-weight: 700;
+  font-size: 16px;
+  color: #1F2937;
+  border-top: 2px solid #E5E7EB;
+  padding-top: 12px;
+  margin-top: 8px;
+}
+
+.serviceCoverage {
+  background: #F8FAFC;
+  border: 1px solid #E5E7EB;
+  border-radius: 8px;
+  padding: 12px;
+  font-size: 13px;
+  color: #6B7280;
+  text-align: center;
+  font-style: italic;
+}
+
+/* ACCESSIBILITY */
+@media (prefers-reduced-motion: reduce) {
+  .historyCard,
+  .airportButton,
+  .destinationButton,
+  .continueButton,
+  .estimateCard {
+    transition: none;
+    animation: none;
   }
 }
 
-/* High contrast mode support */
 @media (prefers-contrast: high) {
   .searchInput,
-  .currentLocationCard,
-  .venueButton,
-  .locationButton {
+  .historyCard,
+  .savedCard,
+  .airportButton,
+  .destinationButton {
     border-width: 3px;
   }
 
-  .confirmButton,
   .continueButton {
     font-weight: 800;
-  }
-}
-
-/* Reduced motion support */
-@media (prefers-reduced-motion: reduce) {
-  .currentLocationCard,
-  .venueButton,
-  .locationButton,
-  .searchInput,
-  .continueButton {
-    transition: none;
-  }
-
-  .estimateCard {
-    animation: none;
   }
 }

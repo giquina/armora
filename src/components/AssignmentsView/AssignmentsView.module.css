@@ -1,515 +1,445 @@
-/* ARMORA ASSIGNMENTS VIEW - PREMIUM DESIGN */
+/* PROFESSIONAL SECURITY DASHBOARD - DARK GLASS MORPHISM THEME */
 
 .assignmentsView {
   min-height: 100vh;
-  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-  padding: 0 4px 100px 4px;
-  color: var(--text-primary);
+  background: #0a0b1e;
+  padding: 0 0 200px 0; /* Full-width on mobile, extra bottom padding for sticky panel */
+  color: #E0E0E0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+  position: relative;
 }
 
-/* PREMIUM PAGE HEADER */
+/* SIMPLIFIED PAGE HEADER */
 .pageHeader {
-  background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
-  padding: 24px;
-  border-radius: 20px;
-  margin-bottom: 24px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.02) 100%);
   backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 215, 0, 0.1);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 24px 16px;
+  margin-bottom: 24px;
+  position: relative;
 }
 
 .pageTitle {
-  font-size: var(--font-xxl);
+  font-size: 28px;
   font-weight: 700;
-  color: white;
+  color: #FFFFFF;
   margin: 0 0 8px 0;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  line-height: 1.2;
+  letter-spacing: -0.025em;
+}
+
+/* TOP SECURITY STATUS BAR */
+.topSecurityStatusBar {
+  background: linear-gradient(135deg, #00FF88 0%, #00CC70 100%);
+  border-radius: 8px;
+  margin: 16px 0;
+  padding: 0;
+  box-shadow: 0 4px 20px rgba(0, 255, 136, 0.3);
+  overflow: hidden;
+  animation: statusGlow 2s ease-in-out infinite alternate;
+}
+
+.statusIndicator {
+  display: flex;
+  align-items: center;
+  padding: 16px 20px;
+  gap: 12px;
+  height: 56px;
+  box-sizing: border-box;
+}
+
+.statusPulseDot {
+  width: 12px;
+  height: 12px;
+  background: #1a1b3a;
+  border-radius: 50%;
+  animation: statusPulse 1.5s ease-in-out infinite;
+  flex-shrink: 0;
+}
+
+.statusText {
+  font-size: 14px;
+  font-weight: 600;
+  color: #1a1b3a;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  flex: 1;
+}
+
+@keyframes statusGlow {
+  0% {
+    box-shadow: 0 4px 20px rgba(0, 255, 136, 0.3);
+  }
+  100% {
+    box-shadow: 0 4px 30px rgba(0, 255, 136, 0.5);
+  }
+}
+
+@keyframes statusPulse {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.6;
+    transform: scale(1.1);
+  }
+}
+
+/* Mobile adjustments for status bar */
+@media (max-width: 480px) {
+  .pageTitle {
+    font-size: 24px;
+  }
+
+  .statusIndicator {
+    padding: 14px 16px;
+    height: 50px;
+  }
+
+  .statusText {
+    font-size: 13px;
+  }
 }
 
 .pageSubtitle {
-  font-size: var(--font-lg);
-  color: #94a3b8;
-  margin: 0 0 20px 0;
-  line-height: var(--line-base);
+  font-size: 16px;
+  color: #A0A0A0;
+  margin: 0;
+  line-height: 1.4;
+  font-weight: 500;
 }
 
-.statsBar {
-  display: flex;
-  gap: 16px;
-  margin-top: 16px;
-}
-
-.statItem {
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px);
-  padding: 12px 16px;
-  border-radius: 12px;
+/* RECRUITMENT CHIP */
+.recruitmentChip {
+  position: absolute;
+  top: 24px;
+  right: 16px;
+  background: linear-gradient(135deg, rgba(255, 215, 0, 0.1) 0%, rgba(255, 215, 0, 0.05) 100%);
+  border: 1px solid rgba(255, 215, 0, 0.3);
+  border-radius: 20px;
+  padding: 8px 12px;
+  font-size: 12px;
+  color: #FFD700;
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 4px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-weight: 600;
+  backdrop-filter: blur(10px);
 }
 
-.statValue {
-  font-size: var(--font-xl);
-  font-weight: 700;
-  color: var(--armora-gold);
+.recruitmentChip:hover {
+  background: linear-gradient(135deg, rgba(255, 215, 0, 0.2) 0%, rgba(255, 215, 0, 0.1) 100%);
+  color: #FFD700;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(255, 215, 0, 0.25);
 }
 
-.statLabel {
-  font-size: var(--font-sm);
-  color: #94a3b8;
+.chipIcon {
+  font-size: 14px;
 }
 
-/* MODERN STATUS TABS */
+.chipText {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.chipArrow {
+  font-size: 12px;
+  transition: transform 0.2s ease;
+}
+
+.recruitmentChip:hover .chipArrow {
+  transform: translateX(2px);
+}
+
+/* CLEAN STATUS TABS */
 .tabContainer {
   display: flex;
-  gap: 8px;
-  margin-bottom: 24px;
-  padding: 4px;
-  background: #f1f5f9;
-  border-radius: 16px;
-  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+  gap: 0;
+  margin: 0 16px 32px 16px;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.02) 100%);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 6px;
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
 }
 
 .tab {
   flex: 1;
-  padding: 12px 16px;
-  border-radius: 12px;
+  padding: 14px 16px;
+  border-radius: 8px;
   background: none;
   border: none;
-  font-size: var(--font-base);
+  font-size: 14px;
   font-weight: 600;
-  color: #64748b;
+  color: #A0A0A0;
   cursor: pointer;
-  transition: all 0.3s ease;
-  position: relative;
+  transition: all 0.2s ease;
 }
 
 .tab:hover {
-  color: #334155;
-  transform: translateY(-1px);
+  color: #E0E0E0;
+  background: rgba(255, 255, 255, 0.05);
 }
 
 .activeTab {
-  background: white;
-  color: #1e293b;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  transform: translateY(-1px);
+  background: linear-gradient(135deg, rgba(0, 212, 255, 0.2) 0%, rgba(0, 212, 255, 0.1) 100%);
+  color: #00D4FF;
+  box-shadow: 0 0 20px rgba(0, 212, 255, 0.3), 0 2px 8px rgba(0, 212, 255, 0.15);
+  border: 1px solid rgba(0, 212, 255, 0.3);
 }
 
 /* TAB CONTENT */
 .tabContent {
-  min-height: 400px;
+  min-height: calc(100vh - 200px);
+  display: flex;
+  flex-direction: column;
 }
 
 .assignmentsList {
   display: flex;
   flex-direction: column;
-  gap: 16px;
-}
-
-/* PREMIUM ASSIGNMENT CARDS - PROFESSIONAL DESIGN */
-.assignmentCard {
-  background: white;
-  border-radius: 16px;
-  padding: 20px;
-  margin: 0 4px 20px 4px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12), 0 2px 8px rgba(0, 0, 0, 0.08);
-  border: 1px solid rgba(0, 0, 0, 0.08);
-  transition: all 0.3s ease;
-  position: relative;
-  min-height: auto;
-  backdrop-filter: blur(10px);
-  overflow: visible;
-  z-index: 1;
-}
-
-/* PROTECTION TIER STYLING */
-.tier-essential {
-  border-left: 6px solid #1e40af;
-}
-
-.tier-executive {
-  border-left: 6px solid #d97706;
-}
-
-.tier-shadow {
-  border-left: 6px solid #374151;
-}
-
-.assignmentCard:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
-}
-
-.assignmentCard:active {
-  transform: scale(0.98);
-}
-
-.assignmentCard::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 4px;
-  background: linear-gradient(90deg, var(--armora-gold), #f59e0b);
-  border-radius: 16px 16px 0 0;
-}
-
-/* PROFESSIONAL STATUS LINES */
-.statusLine {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  margin-bottom: 16px;
-  flex-wrap: wrap;
-  gap: 8px;
-  position: relative;
-  z-index: 2;
-}
-
-.statusGroup {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.protectionTierBadge {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  padding: 6px 12px;
-  border: 2px solid;
-  border-radius: 12px;
-  font-size: 12px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  background: rgba(255, 255, 255, 0.9);
-}
-
-/* PROTECTION DURATION LINE */
-.durationLine {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  margin-bottom: 16px;
-  flex-wrap: wrap;
-  gap: 8px;
-  padding: 12px;
-  background: #f8fafc;
-  border-radius: 8px;
-  border-left: 4px solid var(--armora-gold);
-}
-
-.durationInfo {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-
-.durationText {
-  font-size: 14px;
-  font-weight: 700;
-  color: #1f2937;
-}
-
-.remainingText {
-  font-size: 12px;
-  color: #059669;
-  font-weight: 600;
-}
-
-.investmentInfo {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  gap: 2px;
-}
-
-.totalInvestment {
-  font-size: 18px;
-  font-weight: 800;
-  color: #1f2937;
-}
-
-.memberDiscount {
-  font-size: 11px;
-  color: #059669;
-  font-weight: 600;
-  background: #dcfce7;
-  padding: 2px 6px;
-  border-radius: 4px;
-}
-
-.officerLine {
-  display: flex;
-  align-items: flex-start;
-  gap: 12px;
-  margin-bottom: 16px;
-  position: relative;
-  z-index: 2;
-  width: 100%;
-  padding: 12px;
-  background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
-  border-radius: 12px;
-  border: 1px solid #e2e8f0;
-}
-
-/* ENHANCED ROUTE SECTION */
-.routeSection {
-  margin-bottom: 16px;
-  padding: 12px;
-  background: linear-gradient(135deg, #fefce8 0%, #fef3c7 100%);
-  border-radius: 12px;
-  border-left: 4px solid var(--armora-gold);
-  position: relative;
-  z-index: 2;
-}
-
-.routeInfo {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  margin-bottom: 12px;
-}
-
-.locationLine {
-  display: flex;
-  align-items: flex-start;
-  gap: 8px;
-}
-
-.locationIcon {
-  font-size: 16px;
-  margin-top: 2px;
-  flex-shrink: 0;
-}
-
-.locationText {
+  gap: 0;
   flex: 1;
 }
 
-.locationLabel {
-  font-size: 11px;
-  font-weight: 600;
-  color: #92400e;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  margin-bottom: 2px;
-}
-
-.locationAddress {
-  font-size: 14px;
-  font-weight: 600;
-  color: #1f2937;
-  line-height: 1.4;
-}
-
-.routeArrow {
-  font-size: 20px;
-  color: var(--armora-gold);
-  text-align: center;
-  margin: 4px 0;
-}
-
-.securityMeta {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 8px;
-  padding-top: 8px;
-  border-top: 1px solid rgba(217, 119, 6, 0.2);
-}
-
-.threatLevel {
-  display: flex;
-  align-items: center;
-}
-
-.threatIndicator {
-  font-size: 11px;
-  font-weight: 700;
-  padding: 4px 8px;
-  border-radius: 6px;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-}
-
-.threat-low {
-  background: #dcfce7;
-  color: #166534;
-}
-
-.threat-medium {
-  background: #fef3c7;
-  color: #92400e;
-}
-
-.threat-high {
-  background: #fee2e2;
-  color: #dc2626;
-}
-
-.requirements {
-  display: flex;
-  gap: 4px;
-  flex-wrap: wrap;
-}
-
-.requirementTag {
-  font-size: 10px;
-  font-weight: 600;
-  color: #7c2d12;
-  background: rgba(217, 119, 6, 0.1);
-  padding: 2px 6px;
-  border-radius: 4px;
-  white-space: nowrap;
-}
-
-/* SECURITY STATUS UPDATE LINE */
-.statusUpdateLine {
+/* ACTIVE ASSIGNMENT CARD - DARK GLASS MORPHISM DESIGN */
+.activeAssignmentCard {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.02) 100%);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  margin: 0 16px 24px 16px;
+  overflow: hidden;
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+  transition: all 0.2s ease;
+  min-height: calc(100vh - 250px);
   display: flex;
   flex-direction: column;
-  gap: 8px;
-  margin-bottom: 16px;
-  padding: 12px;
-  background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
-  border-radius: 12px;
-  border-left: 4px solid #0ea5e9;
-  position: relative;
-  z-index: 2;
 }
 
-.securityStatus {
+.activeAssignmentCard:hover {
+  box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.5);
+  transform: translateY(-2px);
+  border-color: rgba(255, 255, 255, 0.15);
+}
+
+/* CLEAN HEADER SECTION */
+.assignmentHeader {
   display: flex;
-  align-items: center;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 24px 24px 16px 24px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.headerLeft {
+  display: flex;
+  flex-direction: column;
   gap: 8px;
 }
 
 .statusIndicator {
-  font-size: 12px;
-  flex-shrink: 0;
-}
-
-.statusMessage {
-  font-size: 14px;
-  font-weight: 600;
-  color: #0c4a6e;
-  line-height: 1.4;
-}
-
-.statusBadge {
-  display: inline-flex;
+  display: flex;
   align-items: center;
-  gap: 6px;
-  padding: 10px 18px; /* Increased padding for better visibility */
-  border-radius: 20px;
-  font-size: 14px; /* Optimized size for badges */
-  font-weight: 700; /* Increased weight for prominence */
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  min-width: 120px; /* Consistent badge widths */
-  justify-content: center;
+  gap: 8px;
 }
 
-.statusActive {
-  background: #dcfce7;
-  color: #166534;
-}
-
-.statusUpcoming {
-  background: #dbeafe;
-  color: #1e40af;
-}
-
-.statusCompleted {
-  background: #f3f4f6;
-  color: #374151;
-}
-
-.pulsingDot {
+.statusDot {
   width: 8px;
   height: 8px;
-  background: #22c55e;
+  background: #00FF88;
   border-radius: 50%;
   animation: pulse 2s infinite;
-  box-shadow: 0 0 6px rgba(34, 197, 94, 0.4);
+  box-shadow: 0 0 12px rgba(0, 255, 136, 0.6);
 }
 
 @keyframes pulse {
   0%, 100% {
     opacity: 1;
     transform: scale(1);
-    box-shadow: 0 0 6px rgba(34, 197, 94, 0.4);
   }
   50% {
     opacity: 0.7;
-    transform: scale(1.1);
-    box-shadow: 0 0 12px rgba(34, 197, 94, 0.6);
+    transform: scale(1.2);
   }
 }
 
-.timeAgo {
-  font-size: 13px;
-  color: #475569;
-  font-weight: 500;
-  text-align: right;
-  white-space: nowrap;
-  flex-shrink: 0;
+.statusText {
+  font-size: 14px;
+  font-weight: 700;
+  color: #FFFFFF;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
-/* CONSOLIDATED TEXT STYLES - IMPROVED READABILITY */
-.officerText {
-  flex: 1;
+.serviceInfo {
   display: flex;
-  flex-direction: column;
-  gap: 4px;
+  align-items: center;
+  gap: 8px;
+  font-size: 16px;
+  color: #E0E0E0;
+}
+
+.serviceTier {
+  font-weight: 600;
+  color: #FFFFFF;
+}
+
+.separator {
+  color: #A0A0A0;
 }
 
 .officerName {
-  font-size: 16px;
-  font-weight: 700;
-  color: #1f2937;
-  line-height: 1.4;
-  word-break: break-word;
-  overflow: visible;
-  text-overflow: unset;
-  display: flex;
-  align-items: center;
-  gap: 6px;
+  color: #E0E0E0;
 }
 
-.designation {
-  font-size: 12px;
-  font-weight: 600;
-  color: #059669;
-  background: #dcfce7;
-  padding: 2px 6px;
-  border-radius: 4px;
-}
-
-.officerDetails {
+.headerRight {
   display: flex;
   flex-direction: column;
-  gap: 6px;
-  margin-top: 4px;
+  align-items: flex-end;
+  gap: 4px;
 }
 
-.licenseInfo {
-  font-size: 12px;
-  color: #475569;
-  line-height: 1.4;
+.elapsedTime {
+  font-size: 14px;
+  color: #A0A0A0;
+  text-align: right;
+  font-weight: 500;
 }
 
-.experienceInfo {
-  font-size: 12px;
-  color: #6b7280;
+.totalCost {
+  font-size: 28px;
+  font-weight: 800;
+  color: #FFD700;
+  letter-spacing: -0.025em;
+  text-shadow: 0 0 12px rgba(255, 215, 0, 0.4);
+}
+
+/* PROGRESS SECTION */
+.progressSection {
+  padding: 16px 24px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.progressBar {
+  width: 100%;
+  height: 8px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+  overflow: hidden;
+  margin-bottom: 12px;
+}
+
+.progressFill {
+  height: 100%;
+  background: linear-gradient(90deg, #00D4FF, #00FF88);
+  border-radius: 4px;
+  transition: width 0.3s ease;
+  animation: progressShimmer 2s infinite;
+  box-shadow: 0 0 12px rgba(0, 212, 255, 0.5);
+}
+
+@keyframes progressShimmer {
+  0% { background-position: -200px 0; }
+  100% { background-position: 200px 0; }
+}
+
+.progressInfo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 14px;
+}
+
+.progressText {
+  color: #E0E0E0;
+  font-weight: 600;
+}
+
+.memberRate {
+  color: #00FF88;
+  font-weight: 700;
+  background: rgba(0, 255, 136, 0.15);
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-size: 13px;
+  border: 1px solid rgba(0, 255, 136, 0.3);
+}
+
+/* COMPACT CPO CARD */
+.cpoCard {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 20px 24px;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.03) 0%, rgba(255, 255, 255, 0.01) 100%);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.cpoAvatar {
+  width: 48px;
+  height: 48px;
+  background: linear-gradient(135deg, #00D4FF 0%, #0080FF 100%);
+  border-radius: 12px;
   display: flex;
   align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-shadow: 0 0 16px rgba(0, 212, 255, 0.4);
+}
+
+.cpoInitials {
+  color: #FFFFFF;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.cpoInfo {
+  flex: 1;
+}
+
+.cpoName {
+  font-size: 16px;
+  font-weight: bold;
+  color: #FFFFFF;
+  margin-bottom: 4px;
+  line-height: 1.3;
+}
+
+.cpoDetails {
+  display: flex;
+  flex-direction: column;
   gap: 4px;
+}
+
+.siaLicense {
+  font-size: 14px;
+  color: #A0A0A0;
+  line-height: 1.3;
+}
+
+.cpoMeta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  color: #E0E0E0;
+}
+
+.rating {
+  color: #FFD700;
+}
+
+.experience {
+  color: #A0A0A0;
 }
 
 .specializations {
@@ -519,370 +449,360 @@
   margin-top: 4px;
 }
 
-.specializationTag {
-  font-size: 10px;
+.specTag {
+  font-size: 12px;
   font-weight: 600;
-  color: #1e40af;
-  background: #dbeafe;
+  color: #00D4FF;
+  background: rgba(0, 212, 255, 0.15);
+  border: 1px solid rgba(0, 212, 255, 0.3);
   padding: 2px 6px;
   border-radius: 4px;
-  white-space: nowrap;
 }
 
-.officerRating {
-  color: #fbbf24;
+/* PROTECTION ROUTE SECTION */
+.routeSection {
+  padding: 24px;
 }
 
-.journeyText {
+.routeHeader {
+  margin-bottom: 16px;
+}
+
+.routeTitle {
   font-size: 16px;
-  font-weight: 500;
-  color: #1f2937;
-  line-height: 1.6;
-  white-space: normal;
-  word-wrap: break-word;
-  word-break: break-word;
-  display: block;
-  margin: 8px 0;
-  overflow: visible;
-  text-overflow: unset;
+  font-weight: bold;
+  color: #FFFFFF;
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
-.serviceText {
-  font-size: 16px;
-  font-weight: 600;
-  color: #1f2937;
-  line-height: 1.5;
-  white-space: normal;
-  overflow: visible;
-  text-overflow: unset;
-}
-
-.progressText {
-  font-size: 14px;
-  color: #22c55e;
-  font-weight: 600;
-  line-height: 1.4;
-}
-
-/* CARD CONTENT */
-.cardContent {
+.routeDetails {
   display: flex;
   flex-direction: column;
   gap: 16px;
 }
 
-.assignmentTitle {
-  font-size: var(--font-xl);
-  font-weight: 700;
-  color: #1f2937;
-  margin: 0;
-  line-height: var(--line-tight);
-}
-
-/* OFFICER SECTION */
-.officerSection {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 16px;
-  background: #f8fafc;
-  border-radius: 12px;
-}
-
-.officerAvatar {
-  width: 48px;
-  height: 48px;
-  background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%);
-  border-radius: 12px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  position: relative;
-  box-shadow: 0 4px 12px rgba(30, 58, 138, 0.2);
-}
-
-.siaIndicator {
-  position: absolute;
-  bottom: -4px;
-  right: -4px;
-  background: var(--armora-gold);
-  color: #1f2937;
-  font-size: 8px;
-  font-weight: 800;
-  padding: 2px 4px;
-  border-radius: 4px;
-  border: 2px solid white;
-}
-
-.officerInitials {
-  color: white;
-  font-size: 18px;
-  font-weight: 800;
-  letter-spacing: 0.5px;
-}
-
-.officerInfo {
-  flex: 1;
-}
-
-.siaLicense {
-  font-size: var(--font-sm);
-  color: #6b7280;
-  margin: 0;
-}
-
-.officerRating {
-  margin-left: auto;
-}
-
-.stars {
-  font-size: var(--font-lg);
-  color: var(--armora-gold);
-}
-
-/* JOURNEY SECTION */
-.journeySection {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.journeyPoint {
+.routePoint {
   display: flex;
   align-items: flex-start;
   gap: 12px;
 }
 
-.journeyDot {
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-  margin-top: 4px;
+.routeIcon {
+  font-size: 16px;
+  margin-top: 2px;
   flex-shrink: 0;
 }
 
-.pickupDot {
-  background: #22c55e;
-}
-
-.destinationDot {
-  background: #ef4444;
-}
-
-.journeyLine {
-  width: 2px;
-  height: 16px;
-  background: #e5e7eb;
-  margin-left: 5px;
-}
-
-.journeyDetails {
+.routeInfo {
   flex: 1;
 }
 
-.journeyLabel {
-  font-size: var(--font-base);
+.routeLabel {
+  font-size: 11px;
+  font-weight: bold;
+  color: #A0A0A0;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 2px;
+}
+
+.routeLocation {
+  font-size: 14px;
   font-weight: 600;
-  color: #1f2937;
-  margin: 0 0 2px 0;
+  color: #FFFFFF;
+  line-height: 1.4;
+  margin-bottom: 2px;
 }
 
-.journeyTime {
-  font-size: var(--font-sm);
-  color: #6b7280;
-  margin: 0;
+.routeTime {
+  font-size: 12px;
+  color: #A0A0A0;
 }
 
-/* PROGRESS SECTION */
-.progressSection {
+/* LIVE MAP PREVIEW */
+.mapPreview {
+  margin: 16px 0;
+}
+
+.mapPlaceholder {
+  height: 200px;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.03) 0%, rgba(255, 255, 255, 0.01) 100%);
+  border: 2px dashed rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
   display: flex;
   flex-direction: column;
+  align-items: center;
+  justify-content: center;
   gap: 8px;
-}
-
-.progressBar {
-  width: 100%;
-  height: 8px;
-  background: #e0f2fe;
-  border-radius: 4px;
+  position: relative;
   overflow: hidden;
-  margin-top: 4px;
 }
 
-.progressFill {
-  height: 100%;
-  background: linear-gradient(90deg, #0ea5e9, #0284c7);
-  border-radius: 4px;
-  transition: width 0.3s ease;
-  box-shadow: 0 2px 4px rgba(14, 165, 233, 0.3);
+.mapIcon {
+  font-size: 32px;
+  opacity: 0.5;
 }
 
-.progressText {
-  font-size: var(--font-sm);
-  color: #22c55e;
-  font-weight: 600;
+.mapText {
+  font-size: 14px;
+  font-weight: bold;
+  color: #A0A0A0;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
-/* SERVICE SECTION */
-.serviceSection {
+.currentPosition {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #FF3366;
+  color: #FFFFFF;
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: bold;
+  animation: bounce 2s infinite;
+  box-shadow: 0 0 16px rgba(255, 51, 102, 0.6);
+}
+
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translate(-50%, -50%) translateY(0);
+  }
+  40% {
+    transform: translate(-50%, -50%) translateY(-10px);
+  }
+  60% {
+    transform: translate(-50%, -50%) translateY(-5px);
+  }
+}
+
+/* THREAT LEVEL SECTION */
+.threatLevelSection {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding-top: 16px;
-  border-top: 1px solid #f3f4f6;
+  padding: 12px;
+  background: linear-gradient(135deg, rgba(255, 215, 0, 0.1) 0%, rgba(255, 215, 0, 0.05) 100%);
+  border: 1px solid rgba(255, 215, 0, 0.3);
+  border-radius: 8px;
+  margin-top: 16px;
 }
 
-.serviceInfo, .costInfo {
+.threatIndicator {
+  font-size: 14px;
+  font-weight: bold;
+  padding: 4px 8px;
+  border-radius: 4px;
+  text-transform: uppercase;
+}
+
+.threat-low {
+  background: rgba(0, 255, 136, 0.2);
+  color: #00FF88;
+  border: 1px solid rgba(0, 255, 136, 0.4);
+}
+
+.threat-medium {
+  background: rgba(255, 215, 0, 0.2);
+  color: #FFD700;
+  border: 1px solid rgba(255, 215, 0, 0.4);
+}
+
+.threat-high {
+  background: rgba(255, 51, 102, 0.2);
+  color: #FF3366;
+  border: 1px solid rgba(255, 51, 102, 0.4);
+}
+
+.threatDetails {
+  background: none;
+  border: none;
+  color: #A0A0A0;
+  font-size: 14px;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 4px;
+  transition: background 0.2s ease;
+}
+
+.threatDetails:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #E0E0E0;
+}
+
+/* LIVE STATUS INDICATOR */
+.liveStatus {
+  padding: 16px 24px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.statusContent {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  position: relative;
+}
+
+.statusMessage {
+  font-size: 16px;
+  font-weight: 600;
+  flex: 1;
+}
+
+.livePulse {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  animation: pulse 2s infinite;
+}
+
+/* Status-specific styling */
+.statusSecure .statusMessage {
+  color: #00FF88;
+}
+
+.statusSecure .livePulse {
+  background: #00FF88;
+  box-shadow: 0 0 12px rgba(0, 255, 136, 0.6);
+}
+
+.statusEnRoute .statusMessage {
+  color: #FF3366;
+}
+
+.statusEnRoute .livePulse {
+  background: #FF3366;
+  box-shadow: 0 0 12px rgba(255, 51, 102, 0.6);
+}
+
+.statusVenue .statusMessage {
+  color: #00D4FF;
+}
+
+.statusVenue .livePulse {
+  background: #00D4FF;
+  box-shadow: 0 0 12px rgba(0, 212, 255, 0.6);
+}
+
+.statusCompleting .statusMessage {
+  color: #A0A0A0;
+}
+
+.statusCompleting .livePulse {
+  background: #A0A0A0;
+}
+
+/* FIXED BOTTOM ACTION BAR */
+.fixedActionBar {
+  position: fixed;
+  bottom: 90px;
+  left: 16px;
+  right: 16px;
+  background: #FFFFFF;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  border-radius: 20px;
+  padding: 20px;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08), 0 4px 16px rgba(0, 0, 0, 0.04);
+  backdrop-filter: blur(20px);
+  z-index: 1000;
+  display: flex;
+  gap: 16px;
+}
+
+.emergencyButton {
+  flex: 2;
+  background: linear-gradient(135deg, #EF4444 0%, #DC2626 100%);
+  color: #FFFFFF;
+  border: none;
+  border-radius: 16px;
+  padding: 18px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
   display: flex;
   flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.2s ease;
+  min-height: 70px;
+  justify-content: center;
+  box-shadow: 0 4px 16px rgba(239, 68, 68, 0.25);
 }
 
-.serviceLabel, .costLabel {
-  font-size: var(--font-sm);
-  color: #6b7280;
-  margin: 0 0 4px 0;
+.emergencyButton:hover {
+  background: linear-gradient(135deg, #DC2626 0%, #B91C1C 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(239, 68, 68, 0.35);
 }
 
-.serviceName {
-  font-size: var(--font-base);
-  font-weight: 600;
-  color: #1f2937;
-  margin: 0;
-}
-
-.costAmount {
-  font-size: var(--font-xl);
-  font-weight: 700;
-  color: #1f2937;
-  margin: 0;
-}
-
-/* PROFESSIONAL ACTION SECTION */
-.actionSection {
-  display: flex;
-  gap: 8px;
-  padding-top: 16px;
-  border-top: 1px solid #f3f4f6;
-  position: relative;
-  z-index: 3;
-  clear: both;
-}
-
-.emergencyAction {
+.contactButton {
   flex: 1;
-  padding: 12px 8px;
-  background: linear-gradient(135deg, #dc2626 0%, #ef4444 100%);
-  color: white;
+  background: linear-gradient(135deg, #3B82F6 0%, #2563EB 100%);
+  color: #FFFFFF;
   border: none;
-  border-radius: 8px;
-  font-size: 12px;
-  font-weight: 700;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  min-height: 44px;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-}
-
-.emergencyAction:hover {
-  background: linear-gradient(135deg, #ef4444 0%, #f87171 100%);
-  transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(220, 38, 38, 0.3);
-}
-
-.tertiaryAction {
-  flex: 1;
-  padding: 12px 8px;
-  background: white;
-  color: #6b7280;
-  border: 2px solid #e5e7eb;
-  border-radius: 8px;
-  font-size: 12px;
+  border-radius: 16px;
+  padding: 18px;
+  font-size: 14px;
   font-weight: 600;
   cursor: pointer;
-  transition: all 0.2s ease;
-  min-height: 44px;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  overflow: hidden;
   display: flex;
+  flex-direction: column;
   align-items: center;
+  gap: 6px;
+  transition: all 0.2s ease;
+  min-height: 70px;
   justify-content: center;
-  text-align: center;
+  box-shadow: 0 4px 16px rgba(59, 130, 246, 0.2);
 }
 
-.tertiaryAction:hover {
-  background: #f9fafb;
-  border-color: #d1d5db;
+.contactButton:hover {
+  background: linear-gradient(135deg, #2563EB 0%, #1D4ED8 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(59, 130, 246, 0.3);
+}
+
+.briefingButton {
+  flex: 1;
+  background: #FFFFFF;
   color: #374151;
-  transform: translateY(-1px);
-}
-
-.primaryAction {
-  flex: 1;
-  padding: 12px 8px;
-  background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%);
-  color: #fbbf24;
-  border: none;
-  border-radius: 8px;
+  border: 1px solid #D1D5DB;
+  border-radius: 16px;
+  padding: 18px;
   font-size: 14px;
   font-weight: 600;
   cursor: pointer;
-  transition: all 0.2s ease;
-  min-height: 44px;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  overflow: hidden;
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
-  text-align: center;
-}
-
-.primaryAction:hover {
-  background: linear-gradient(135deg, #1e40af 0%, #2563eb 100%);
-  transform: translateY(-1px);
-}
-
-.primaryAction:active {
-  transform: scale(0.98);
-}
-
-.secondaryAction {
-  flex: 1;
-  padding: 12px 8px;
-  background: white;
-  color: #1e3a8a;
-  border: 2px solid #1e3a8a;
-  border-radius: 8px;
-  font-size: 14px;
-  font-weight: 600;
-  cursor: pointer;
+  gap: 6px;
   transition: all 0.2s ease;
-  min-height: 44px;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  overflow: hidden;
-  display: flex;
-  align-items: center;
+  min-height: 70px;
   justify-content: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.briefingButton:hover {
+  background: #F8FAFC;
+  border-color: #9CA3AF;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.actionIcon {
+  font-size: 22px;
+}
+
+.actionLabel {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
   text-align: center;
-}
-
-.secondaryAction:hover {
-  background: #f8fafc;
-  border-color: #1e40af;
-  transform: translateY(-1px);
-}
-
-.secondaryAction:active {
-  transform: scale(0.98);
+  line-height: 1.2;
 }
 
 /* EMPTY STATE */
@@ -893,513 +813,1072 @@
   justify-content: center;
   text-align: center;
   padding: 48px 24px;
-  color: #6b7280;
+  color: #A0A0A0;
 }
 
 .emptyIcon {
-  margin-bottom: 24px;
+  font-size: 48px;
+  margin-bottom: 16px;
+  opacity: 0.5;
 }
 
 .emptyTitle {
-  font-size: var(--font-xl);
-  font-weight: 700;
-  color: #1f2937;
+  font-size: 20px;
+  font-weight: bold;
+  color: #FFFFFF;
   margin: 0 0 8px 0;
 }
 
 .emptyDescription {
-  font-size: var(--font-base);
-  color: #6b7280;
+  font-size: 16px;
+  color: #A0A0A0;
   margin: 0 0 24px 0;
-  line-height: var(--line-base);
+  line-height: 1.5;
 }
 
 .emptyAction {
-  padding: 12px 24px;
-  background: var(--armora-gold);
-  color: var(--armora-dark);
-  border: none;
-  border-radius: 12px;
-  font-size: var(--font-base);
-  font-weight: 700;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.emptyAction:hover {
-  background: #f59e0b;
-  transform: translateY(-1px);
-}
-
-/* QUICK ACTIONS BAR */
-.quickActionsBar {
-  position: fixed;
-  bottom: 80px;
-  left: 8px;
-  right: 8px;
-  background: white;
-  border-radius: 20px;
-  padding: 12px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  backdrop-filter: blur(10px);
-  z-index: 100;
-}
-
-.quickActions {
-  display: flex;
-  gap: 12px;
-}
-
-.quickActionPrimary {
-  flex: 2;
-  padding: 12px 16px;
-  background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%);
-  color: #fbbf24;
+  padding: 16px 32px;
+  background: linear-gradient(135deg, #00D4FF 0%, #0080FF 100%);
+  color: #FFFFFF;
   border: none;
   border-radius: 12px;
   font-size: 16px;
-  font-weight: 700;
+  font-weight: bold;
   cursor: pointer;
   transition: all 0.2s ease;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  justify-content: center;
-  min-height: 52px;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  overflow: hidden;
+  box-shadow: 0 0 20px rgba(0, 212, 255, 0.4);
 }
 
-.quickActionPrimary:hover {
-  background: linear-gradient(135deg, #1e40af 0%, #2563eb 100%);
-  transform: translateY(-1px);
-}
-
-.quickActionPrimary:active {
-  transform: scale(0.98);
-}
-
-.quickActionSecondary {
-  flex: 1;
-  padding: 10px 8px;
-  background: white;
-  border: 2px solid #1e3a8a;
-  border-radius: 12px;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 2px;
-  min-height: 52px;
-  overflow: hidden;
-}
-
-.quickActionSecondary:hover {
-  background: #f8fafc;
-  border-color: #1e40af;
-  transform: translateY(-1px);
-}
-
-.quickActionSecondary:active {
-  transform: scale(0.98);
-}
-
-/* Support button specific styling (last secondary button) */
-.quickActionSecondary:last-child {
-  background: #fbbf24;
-  border: 2px solid #fbbf24;
-}
-
-.quickActionSecondary:last-child:hover {
-  background: #f59e0b;
-  border-color: #f59e0b;
-}
-
-.actionIcon {
-  font-size: 18px;
-  flex-shrink: 0;
-}
-
-.actionLabel {
-  font-size: 12px;
-  font-weight: 600;
-  color: #1e3a8a;
-  text-align: center;
-  line-height: 1.2;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  overflow: hidden;
-  max-width: 100%;
-}
-
-/* ENHANCED ANIMATIONS */
-.fadeIn {
-  animation: slideUp 0.3s ease-out;
-}
-
-@keyframes slideUp {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* Enhanced card hover effects */
-.assignmentCard {
-  transition: all 0.2s ease;
-}
-
-.assignmentCard:hover {
+.emptyAction:hover {
+  background: linear-gradient(135deg, #0080FF 0%, #0060FF 100%);
   transform: translateY(-2px);
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+  box-shadow: 0 0 25px rgba(0, 212, 255, 0.6);
 }
 
-/* MOBILE RESPONSIVENESS - IMPROVED */
-@media (max-width: 480px) {
+/* MOBILE RESPONSIVENESS */
+@media (max-width: 768px) {
   .assignmentsView {
-    padding: 0 2px 100px 2px;
+    padding: 0 0 160px 0; /* Full-width on mobile */
   }
 
   .pageHeader {
     padding: 16px;
-    margin-bottom: 20px;
+    margin-bottom: 16px;
+  }
+
+  .tabContainer {
+    margin: 0 8px 24px 8px;
+  }
+
+  .activeAssignmentCard {
+    margin: 0 8px 24px 8px;
+    border-radius: 12px;
+  }
+
+  .recruitmentChip {
+    position: relative;
+    top: auto;
+    right: auto;
+    margin-top: 16px;
+    align-self: flex-start;
   }
 
   .pageTitle {
-    font-size: var(--font-xl);
+    font-size: 20px;
   }
 
-  .assignmentCard {
-    padding: 12px;
-    margin: 0 2px 12px 2px;
-  }
-
-  .officerLine {
-    flex-direction: row;
-    align-items: flex-start;
-    gap: 10px;
-    margin-bottom: 10px;
-  }
-
-  .officerText {
-    font-size: 15px;
-    line-height: 1.6;
-  }
-
-  .officerName {
-    font-size: 16px;
-  }
-
-  .officerDetails {
-    font-size: 13px;
-    line-height: 1.6;
-  }
-
-  .journeyText {
+  .pageSubtitle {
     font-size: 14px;
-    line-height: 1.5;
-    margin: 4px 0;
-    overflow: visible;
-    text-overflow: unset;
-    white-space: normal;
-    clear: both;
   }
 
-  .serviceText {
-    font-size: 14px;
-    line-height: 1.4;
-    overflow: visible;
-    text-overflow: unset;
-    margin: 2px 0;
-  }
-
-  .actionSection {
+  .assignmentHeader {
     flex-direction: column;
-    gap: 6px;
-    padding-top: 12px;
+    gap: 16px;
+    align-items: flex-start;
+    padding: 16px;
+  }
+
+  .headerRight {
+    align-items: flex-start;
+  }
+
+  .cpoCard {
+    flex-direction: column;
+    gap: 12px;
+    padding: 16px;
+  }
+
+  .cpoAvatar {
+    align-self: flex-start;
   }
 
   .routeSection {
-    padding: 10px;
+    padding: 16px;
   }
 
-  .locationAddress {
-    font-size: 13px;
+  .mapPlaceholder {
+    height: 150px;
   }
 
-  .durationLine {
+  .fixedActionBar {
+    left: 12px;
+    right: 12px;
+    bottom: 100px;
     flex-direction: column;
-    align-items: flex-start;
-    gap: 8px;
-    padding: 10px;
+    gap: 12px;
+    padding: 16px;
   }
 
-  .investmentInfo {
-    align-items: flex-start;
-  }
-
-  .officerLine {
-    padding: 10px;
-  }
-
-  .officerAvatar {
-    width: 42px;
-    height: 42px;
-  }
-
-  .statusUpdateLine {
-    padding: 10px;
-  }
-
-  .primaryAction,
-  .secondaryAction {
-    width: 100%;
-    padding: 12px 12px;
+  .emergencyButton,
+  .contactButton,
+  .briefingButton {
+    min-height: 50px;
     font-size: 14px;
-    min-height: 42px;
-    white-space: normal;
-    text-overflow: unset;
-    overflow: visible;
-    line-height: 1.3;
   }
 
-  .statsBar {
-    flex-direction: column;
-    gap: 8px;
-  }
-
-  .statItem {
-    justify-content: center;
-  }
-
-  .quickActions {
-    flex-direction: column;
-    gap: 6px;
-  }
-
-  .quickActionPrimary,
-  .quickActionSecondary {
-    width: 100%;
-    min-height: 46px;
-    padding: 10px 12px;
-  }
-
-  .quickActionPrimary {
-    font-size: 15px;
-    white-space: normal;
-  }
-
-  .emergencyAction,
-  .tertiaryAction {
-    width: 100%;
-    padding: 12px 12px;
-    font-size: 12px;
-    min-height: 42px;
-    white-space: normal;
-    text-overflow: unset;
-    overflow: visible;
-    line-height: 1.3;
+  .actionIcon {
+    font-size: 18px;
   }
 
   .actionLabel {
     font-size: 11px;
-    white-space: normal;
-    overflow: visible;
-    text-overflow: unset;
   }
 }
 
-/* TOUCH TARGETS */
-.tab,
-.primaryAction,
-.secondaryAction,
-.quickActionPrimary,
-.quickActionSecondary,
-.emptyAction {
-  min-height: 48px;
-  min-width: 48px;
-}
-
-/* HOVER EFFECTS FOR DESKTOP */
-@media (hover: hover) {
-  .assignmentCard:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
-  }
-}
-
-/* DESKTOP RESPONSIVENESS - LARGER SCREENS */
-@media (min-width: 768px) {
+@media (max-width: 480px) {
   .assignmentsView {
-    padding: 0 32px 100px 32px; /* More padding on larger screens */
+    padding: 0 0 140px 0; /* Full-width on small mobile */
   }
 
   .pageHeader {
-    padding: 32px;
-    margin-bottom: 32px;
-    margin-left: 0;
-    margin-right: 0;
-  }
-
-  .pageTitle {
-    font-size: 2.5rem; /* Professional size for desktop */
-    letter-spacing: -0.025em;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-  }
-
-  .pageSubtitle {
-    font-size: 1.25rem;
-    color: #cbd5e1; /* Better contrast for larger screens */
-  }
-
-  .statsBar {
-    justify-content: center;
-    gap: 24px;
-  }
-
-  .statValue {
-    font-size: 2rem; /* Larger stats on desktop */
-  }
-
-  .assignmentCard {
-    max-width: 100%; /* Allow full width on desktop */
-    margin-left: auto;
-    margin-right: auto;
-    margin-bottom: 24px;
+    padding: 12px;
   }
 
   .tabContainer {
-    margin-left: 0;
-    margin-right: 0;
-    margin-bottom: 32px;
+    margin: 0 4px 20px 4px;
   }
 
-  .quickActionsBar {
+  .activeAssignmentCard {
+    margin: 0 4px 20px 4px;
+    border-radius: 8px;
+  }
+
+  .serviceInfo {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+  }
+
+  .separator {
+    display: none;
+  }
+
+  .cpoDetails {
+    gap: 6px;
+  }
+
+  .specializations {
+    margin-top: 6px;
+  }
+
+  .routePoint {
+    align-items: flex-start;
+  }
+
+  .threatLevelSection {
+    flex-direction: column;
+    gap: 8px;
+    align-items: flex-start;
+  }
+
+  .progressInfo {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+  }
+
+  .fixedActionBar {
     left: 8px;
     right: 8px;
-    transform: translateX(-50%);
   }
 }
 
-@media (min-width: 1024px) {
-  .assignmentsView {
-    padding: 0 48px 100px 48px;
+/* ACCESSIBILITY */
+@media (prefers-reduced-motion: reduce) {
+  .statusDot,
+  .progressFill,
+  .currentPosition,
+  .livePulse {
+    animation: none;
   }
 
-  .pageHeader {
-    padding: 40px;
+  .assignmentCard,
+  .emergencyButton,
+  .contactButton,
+  .briefingButton,
+  .emptyAction {
+    transition: none;
   }
+}
 
+/* HIGH CONTRAST MODE */
+@media (prefers-contrast: high) {
   .assignmentCard {
-    padding: 32px; /* More padding on large screens */
+    border: 2px solid #000000;
   }
 
-  .officerSection {
-    padding: 24px;
+  .statusText,
+  .serviceTier,
+  .cpoName,
+  .routeTitle,
+  .routeLocation {
+    color: #000000 !important;
   }
 
-  .actionSection {
-    gap: 16px;
+  .progressFill {
+    background: #000000;
   }
 
-  .primaryAction,
-  .secondaryAction {
-    padding: 16px 24px;
-    font-size: 1.1rem;
+  .emergencyButton {
+    background: #000000;
+    border: 2px solid #FFFFFF;
   }
 }
 
-/* IMPROVED TEXT CONTRAST FOR ALL SCREENS */
-.pageSubtitle {
-  color: #cbd5e1 !important; /* Better contrast than #94a3b8 */
+/* =================== HUD COMMAND CENTER INTERFACE =================== */
+
+/* COMMAND CENTER HEADER */
+.commandCenterHeader {
+  background: linear-gradient(135deg, rgba(0, 212, 255, 0.05) 0%, rgba(0, 255, 136, 0.02) 100%);
+  border: 1px solid rgba(0, 212, 255, 0.2);
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 20px;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 20px;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
 }
 
-.timeAgo {
-  color: #64748b !important; /* Darker gray for better readability */
+.commandCenterHeader::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #00D4FF, transparent);
+  animation: scanLine 3s infinite;
 }
 
-.siaLicense {
-  color: #64748b !important;
+@keyframes scanLine {
+  0% { left: -100%; }
+  100% { left: 100%; }
 }
 
-.journeyTime {
-  color: #64748b !important;
+/* TIME DISPLAY */
+.timeDisplay {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
 }
 
-.serviceLabel,
-.costLabel {
-  color: #64748b !important;
+.timeLabel {
+  font-family: 'Courier New', monospace;
+  font-size: 10px;
+  color: #00D4FF;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 2px;
 }
 
-.statLabel {
-  color: #cbd5e1 !important;
+.timeValue {
+  font-family: 'Courier New', monospace;
+  font-size: 16px;
+  color: #FFFFFF;
+  font-weight: bold;
+  text-shadow: 0 0 10px rgba(0, 212, 255, 0.5);
 }
 
-/* ENHANCED CONTRAST FOR TABS */
-.tab {
-  color: #475569 !important; /* Much darker for readability */
-  font-size: 14px;
-  padding: 14px 12px;
-}
-
-.tab:hover {
-  color: #1e293b !important;
-}
-
-/* TAB ICONS ALIGNMENT */
-.tab {
+/* PROTECTION STATUS HUD */
+.protectionStatusHud {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 4px;
-  text-align: center;
+  gap: 12px;
+  position: relative;
 }
 
-/* DARK THEME OVERRIDES */
-@media (prefers-color-scheme: dark) {
-  .assignmentCard {
-    background: #1e293b;
-    color: white;
+.protectionActiveText {
+  font-family: 'Courier New', monospace;
+  font-size: 18px;
+  font-weight: bold;
+  color: #00FF88;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  text-shadow: 0 0 15px rgba(0, 255, 136, 0.7);
+  animation: protectionPulse 2s ease-in-out infinite;
+}
+
+@keyframes protectionPulse {
+  0%, 100% {
+    text-shadow: 0 0 15px rgba(0, 255, 136, 0.7);
+  }
+  50% {
+    text-shadow: 0 0 25px rgba(0, 255, 136, 1), 0 0 35px rgba(0, 255, 136, 0.5);
+  }
+}
+
+.statusPulse {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #00FF88;
+  animation: hudPulse 1.5s ease-in-out infinite;
+  box-shadow: 0 0 10px rgba(0, 255, 136, 0.8);
+}
+
+@keyframes hudPulse {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 0 10px rgba(0, 255, 136, 0.8);
+  }
+  50% {
+    transform: scale(1.3);
+    box-shadow: 0 0 20px rgba(0, 255, 136, 1), 0 0 30px rgba(0, 255, 136, 0.5);
+  }
+}
+
+/* THREAT DISPLAY */
+.threatDisplay {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.threatLabel {
+  font-family: 'Courier New', monospace;
+  font-size: 10px;
+  color: #FFD700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 4px;
+}
+
+.threatBar {
+  display: flex;
+  align-items: center;
+}
+
+.threatSegment {
+  padding: 4px 12px;
+  border-radius: 4px;
+  font-family: 'Courier New', monospace;
+  font-size: 12px;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  position: relative;
+  overflow: hidden;
+}
+
+.threatSegment::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  animation: threatScan 2s infinite;
+}
+
+@keyframes threatScan {
+  0% { left: -100%; }
+  100% { left: 100%; }
+}
+
+.threatLOW {
+  background: rgba(0, 255, 136, 0.2);
+  color: #00FF88;
+  border: 1px solid #00FF88;
+  box-shadow: 0 0 10px rgba(0, 255, 136, 0.3);
+}
+
+.threatMEDIUM {
+  background: rgba(255, 215, 0, 0.2);
+  color: #FFD700;
+  border: 1px solid #FFD700;
+  box-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
+}
+
+.threatHIGH {
+  background: rgba(255, 51, 102, 0.2);
+  color: #FF3366;
+  border: 1px solid #FF3366;
+  box-shadow: 0 0 10px rgba(255, 51, 102, 0.3);
+}
+
+/* PROTECTION OFFICER CARD */
+.protectionOfficerCard {
+  background: linear-gradient(135deg, rgba(0, 212, 255, 0.03) 0%, rgba(0, 255, 136, 0.01) 100%);
+  border: 1px solid rgba(0, 212, 255, 0.3);
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 24px;
+  position: relative;
+  overflow: hidden;
+}
+
+.protectionOfficerCard::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #00D4FF, #00FF88, #00D4FF);
+  animation: officerScan 4s linear infinite;
+}
+
+@keyframes officerScan {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+.officerHeader {
+  border-bottom: 1px solid rgba(0, 212, 255, 0.2);
+  padding-bottom: 12px;
+  margin-bottom: 16px;
+  position: relative;
+}
+
+.officerSectionTitle {
+  font-family: 'Courier New', monospace;
+  font-size: 14px;
+  font-weight: bold;
+  color: #00D4FF;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin: 0 0 4px 0;
+  text-shadow: 0 0 8px rgba(0, 212, 255, 0.5);
+}
+
+.officerSubtitle {
+  font-family: 'Courier New', monospace;
+  font-size: 10px;
+  color: #A0A0A0;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.scanLine {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 1px;
+  width: 100%;
+  background: linear-gradient(90deg, transparent, #00D4FF, transparent);
+  animation: scanningLine 2s infinite;
+}
+
+@keyframes scanningLine {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+.officerContent {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+}
+
+.officerAvatar {
+  width: 60px;
+  height: 60px;
+  border-radius: 8px;
+  background: linear-gradient(135deg, #00D4FF, #00FF88);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid rgba(0, 212, 255, 0.5);
+  box-shadow: 0 0 15px rgba(0, 212, 255, 0.3);
+  position: relative;
+  overflow: hidden;
+}
+
+.officerAvatar::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+  animation: avatarScan 3s infinite;
+}
+
+@keyframes avatarScan {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.officerInitials {
+  font-family: 'Courier New', monospace;
+  font-size: 18px;
+  font-weight: bold;
+  color: #0a0b1e;
+  z-index: 1;
+  position: relative;
+}
+
+.officerInfo {
+  flex: 1;
+}
+
+.officerName {
+  font-family: 'Courier New', monospace;
+  font-size: 16px;
+  font-weight: bold;
+  color: #FFFFFF;
+  margin-bottom: 4px;
+  text-shadow: 0 0 8px rgba(255, 255, 255, 0.3);
+}
+
+.officerRole {
+  font-family: 'Courier New', monospace;
+  font-size: 12px;
+  color: #00D4FF;
+  margin-bottom: 8px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.officerCredentials {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.siaLicense {
+  font-family: 'Courier New', monospace;
+  font-size: 11px;
+  color: #A0A0A0;
+}
+
+.verifiedBadge {
+  font-family: 'Courier New', monospace;
+  font-size: 10px;
+  color: #00FF88;
+  background: rgba(0, 255, 136, 0.1);
+  border: 1px solid #00FF88;
+  padding: 2px 6px;
+  border-radius: 3px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  animation: verifiedGlow 2s ease-in-out infinite;
+}
+
+@keyframes verifiedGlow {
+  0%, 100% {
+    box-shadow: 0 0 5px rgba(0, 255, 136, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 15px rgba(0, 255, 136, 0.6);
+  }
+}
+
+.experienceBar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.experienceLabel {
+  font-family: 'Courier New', monospace;
+  font-size: 10px;
+  color: #A0A0A0;
+  text-transform: uppercase;
+}
+
+.skillBar {
+  flex: 1;
+  height: 6px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 3px;
+  overflow: hidden;
+  position: relative;
+}
+
+.skillFill {
+  height: 100%;
+  background: linear-gradient(90deg, #00D4FF, #00FF88);
+  border-radius: 3px;
+  position: relative;
+  overflow: hidden;
+}
+
+.skillFill::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+  animation: skillScan 2s infinite;
+}
+
+@keyframes skillScan {
+  0% { left: -100%; }
+  100% { left: 100%; }
+}
+
+.experienceYears {
+  font-family: 'Courier New', monospace;
+  font-size: 10px;
+  color: #FFD700;
+  font-weight: bold;
+}
+
+.specializations {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.specChip {
+  font-family: 'Courier New', monospace;
+  font-size: 9px;
+  color: #00D4FF;
+  background: rgba(0, 212, 255, 0.1);
+  border: 1px solid rgba(0, 212, 255, 0.3);
+  padding: 3px 8px;
+  border-radius: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  box-shadow: 0 0 8px rgba(0, 212, 255, 0.2);
+}
+
+/* OPERATION TIMELINE */
+.operationTimeline {
+  background: linear-gradient(135deg, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.1) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 24px;
+  position: relative;
+}
+
+.timelineHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding-bottom: 12px;
+}
+
+.timelineTitle {
+  font-family: 'Courier New', monospace;
+  font-size: 14px;
+  font-weight: bold;
+  color: #FFD700;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin: 0;
+  text-shadow: 0 0 8px rgba(255, 215, 0, 0.5);
+}
+
+.elapsedCounter {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.elapsedLabel {
+  font-family: 'Courier New', monospace;
+  font-size: 10px;
+  color: #A0A0A0;
+  text-transform: uppercase;
+}
+
+.elapsedTime {
+  font-family: 'Courier New', monospace;
+  font-size: 14px;
+  color: #00FF88;
+  font-weight: bold;
+  text-shadow: 0 0 8px rgba(0, 255, 136, 0.5);
+}
+
+.timelineEvents {
+  position: relative;
+}
+
+.timelineEvent {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  margin-bottom: 20px;
+  position: relative;
+}
+
+.timelineEvent:last-child {
+  margin-bottom: 0;
+}
+
+.timelineNode {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  margin-top: 2px;
+  z-index: 1;
+  position: relative;
+}
+
+.nodeCompleted {
+  background: #00FF88;
+  border: 2px solid #00FF88;
+  box-shadow: 0 0 12px rgba(0, 255, 136, 0.6);
+}
+
+.nodeCurrent {
+  background: #00D4FF;
+  border: 2px solid #00D4FF;
+  box-shadow: 0 0 15px rgba(0, 212, 255, 0.8);
+  animation: currentNodePulse 1.5s ease-in-out infinite;
+}
+
+@keyframes currentNodePulse {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 0 15px rgba(0, 212, 255, 0.8);
+  }
+  50% {
+    transform: scale(1.2);
+    box-shadow: 0 0 25px rgba(0, 212, 255, 1), 0 0 35px rgba(0, 212, 255, 0.5);
+  }
+}
+
+.nodeFuture {
+  background: transparent;
+  border: 2px solid rgba(160, 160, 160, 0.5);
+  box-shadow: 0 0 8px rgba(160, 160, 160, 0.3);
+}
+
+.timelineConnector {
+  position: absolute;
+  left: 7px;
+  top: 18px;
+  width: 2px;
+  height: 40px;
+  background: linear-gradient(180deg, rgba(0, 212, 255, 0.8), rgba(160, 160, 160, 0.3));
+  z-index: 0;
+}
+
+.timelineContent {
+  flex: 1;
+}
+
+.eventTime {
+  font-family: 'Courier New', monospace;
+  font-size: 12px;
+  color: #FFFFFF;
+  font-weight: bold;
+  margin-bottom: 4px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.eventLocation {
+  font-size: 14px;
+  color: #E0E0E0;
+  margin-bottom: 2px;
+  line-height: 1.3;
+}
+
+.eventEta {
+  font-family: 'Courier New', monospace;
+  font-size: 11px;
+  color: #00D4FF;
+  font-weight: bold;
+}
+
+.eventRequirement {
+  font-size: 12px;
+  color: #A0A0A0;
+  font-style: italic;
+}
+
+/* LIVE TRACKING SECTION */
+.liveTracking {
+  background: linear-gradient(135deg, rgba(0, 212, 255, 0.02) 0%, rgba(0, 0, 0, 0.3) 100%);
+  border: 1px solid rgba(0, 212, 255, 0.3);
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 24px;
+  position: relative;
+}
+
+.trackingHeader {
+  font-family: 'Courier New', monospace;
+  font-size: 12px;
+  color: #00D4FF;
+  text-align: center;
+  margin-bottom: 16px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-weight: bold;
+  text-shadow: 0 0 8px rgba(0, 212, 255, 0.6);
+}
+
+.trackingFrame {
+  position: relative;
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(0, 212, 255, 0.3);
+  border-radius: 8px;
+  padding: 20px;
+  min-height: 120px;
+}
+
+.cornerBracket {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  border: 2px solid #00D4FF;
+}
+
+.cornerBracket[data-position="top-left"] {
+  top: 5px;
+  left: 5px;
+  border-right: none;
+  border-bottom: none;
+}
+
+.cornerBracket[data-position="top-right"] {
+  top: 5px;
+  right: 5px;
+  border-left: none;
+  border-bottom: none;
+}
+
+.cornerBracket[data-position="bottom-left"] {
+  bottom: 5px;
+  left: 5px;
+  border-right: none;
+  border-top: none;
+}
+
+.cornerBracket[data-position="bottom-right"] {
+  bottom: 5px;
+  right: 5px;
+  border-left: none;
+  border-top: none;
+}
+
+.trackingContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  position: relative;
+  z-index: 1;
+}
+
+.currentPositionBtn {
+  background: linear-gradient(135deg, rgba(0, 212, 255, 0.1), rgba(0, 255, 136, 0.05));
+  border: 1px solid #00D4FF;
+  border-radius: 6px;
+  padding: 12px 20px;
+  color: #00D4FF;
+  font-family: 'Courier New', monospace;
+  font-size: 12px;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.currentPositionBtn:hover {
+  background: linear-gradient(135deg, rgba(0, 212, 255, 0.2), rgba(0, 255, 136, 0.1));
+  box-shadow: 0 0 15px rgba(0, 212, 255, 0.4);
+}
+
+.radarSweep {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 40px;
+  height: 40px;
+  border: 2px solid transparent;
+  border-top: 2px solid #00D4FF;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  animation: radarRotation 2s linear infinite;
+}
+
+@keyframes radarRotation {
+  0% { transform: translate(-50%, -50%) rotate(0deg); }
+  100% { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+.positionText {
+  position: relative;
+  z-index: 1;
+}
+
+.gpsCoordinates {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.coordLabel {
+  font-family: 'Courier New', monospace;
+  font-size: 10px;
+  color: #A0A0A0;
+  text-transform: uppercase;
+}
+
+.coordValue {
+  font-family: 'Courier New', monospace;
+  font-size: 11px;
+  color: #FFD700;
+  font-weight: bold;
+  text-shadow: 0 0 6px rgba(255, 215, 0, 0.5);
+}
+
+/* ENHANCED STATUS BAR HUD */
+.statusBarHud {
+  background: linear-gradient(135deg, rgba(0, 255, 136, 0.05) 0%, rgba(0, 0, 0, 0.3) 100%);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(0, 255, 136, 0.3);
+  border-radius: 8px;
+  padding: 16px;
+  position: relative;
+  overflow: hidden;
+}
+
+.statusGlass {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  z-index: 1;
+}
+
+.scannerLine {
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #00FF88, transparent);
+  animation: knightRider 3s linear infinite;
+}
+
+@keyframes knightRider {
+  0% { left: -100%; }
+  50% { left: 100%; }
+  51% { left: 100%; }
+  100% { left: -100%; }
+}
+
+.radarIcon {
+  width: 16px;
+  height: 16px;
+  border: 2px solid #00FF88;
+  border-radius: 50%;
+  position: relative;
+  margin-right: 8px;
+}
+
+.radarIcon::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 8px;
+  height: 8px;
+  background: #00FF88;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  animation: radarPulse 1s ease-in-out infinite;
+}
+
+@keyframes radarPulse {
+  0%, 100% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(1.5);
+    opacity: 0.7;
+  }
+}
+
+.statusTextHud {
+  font-family: 'Courier New', monospace;
+  font-size: 14px;
+  font-weight: bold;
+  color: #00FF88;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  flex: 1;
+  text-shadow: 0 0 10px rgba(0, 255, 136, 0.6);
+}
+
+.statusPulseHud {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #00FF88;
+  animation: statusHudPulse 1.5s ease-in-out infinite;
+  box-shadow: 0 0 12px rgba(0, 255, 136, 0.8);
+}
+
+@keyframes statusHudPulse {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 0 12px rgba(0, 255, 136, 0.8);
+  }
+  50% {
+    transform: scale(1.3);
+    box-shadow: 0 0 20px rgba(0, 255, 136, 1), 0 0 30px rgba(0, 255, 136, 0.5);
+  }
+}
+
+/* MOBILE RESPONSIVENESS FOR HUD */
+@media (max-width: 768px) {
+  .commandCenterHeader {
+    grid-template-columns: 1fr;
+    gap: 12px;
+    text-align: center;
   }
 
-  .assignmentTitle,
-  .officerName,
-  .serviceName,
-  .costAmount,
-  .journeyLabel {
-    color: white;
+  .threatDisplay {
+    align-items: center;
   }
 
-  .officerSection {
-    background: #334155;
+  .officerContent {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
   }
 
-  .secondaryAction {
-    background: #334155;
-    color: white;
-    border-color: #475569;
+  .timelineEvent {
+    gap: 12px;
   }
 
-  .tabContainer {
-    background: #334155;
-  }
-
-  .tab {
-    color: #94a3b8 !important;
-  }
-
-  .activeTab {
-    background: #1e293b;
-    color: white;
+  .trackingFrame {
+    min-height: 100px;
   }
 }

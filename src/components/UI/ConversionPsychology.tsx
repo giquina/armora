@@ -28,7 +28,7 @@ const ConversionPsychology: React.FC<ConversionPsychologyProps> = ({
       { text: "3 board-level clients scheduled for today", priority: "medium" }
     ],
     government: [
-      { text: "2 government-cleared drivers available now", priority: "high" },
+      { text: "2 government-cleared CPOs available now", priority: "high" },
       { text: "Official protocol specialists: Limited availability", priority: "high" },
       { text: "Security-cleared vehicles: 4 available", priority: "medium" }
     ]
@@ -137,7 +137,7 @@ const ConversionPsychology: React.FC<ConversionPsychologyProps> = ({
           <div className={styles.countdownIcon}>⏰</div>
           <div className={styles.countdownText}>
             <span className={styles.countdownMain}>Secure your profile now</span>
-            <span className={styles.countdownSub}>Your recommended drivers are standing by</span>
+            <span className={styles.countdownSub}>Your recommended protection officers are standing by</span>
           </div>
         </div>
       )}

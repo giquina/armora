@@ -1,10 +1,11 @@
-import React, { useState, useMemo, useCallback } from 'react';
+import React, { useState, useMemo, useCallback, useEffect } from 'react';
 import { useApp } from '../../contexts/AppContext';
+import { ProtectionControlPanel } from './ProtectionControlPanel';
 import styles from './AssignmentsView.module.css';
 
 type AssignmentStatus = 'active' | 'upcoming' | 'completed';
 type ProtectionTier = 'essential' | 'executive' | 'shadow';
-type SecurityStatus = 'with-principal' | 'approaching' | 'advance-team' | 'covert' | 'incident-response' | 'venue-sweep' | 'cpo-approaching';
+type SecurityStatus = 'with-principal' | 'approaching' | 'advance-team' | 'covert' | 'incident-response' | 'venue-sweep' | 'completing';
 
 interface Assignment {
   id: string;
@@ -24,7 +25,7 @@ interface Assignment {
   memberDiscount?: number;
   officer: {
     name: string;
-    designation: string; // CPO designation
+    designation: string;
     siaLicense: string;
     yearsExperience: number;
     specializations: string[];
@@ -44,14 +45,14 @@ interface Assignment {
   incidentReports?: number;
 }
 
-// Mock assignment data with professional close protection terminology
+// Mock assignment data focused on active protection details
 const mockAssignments: Assignment[] = [
   {
     id: 'ASG-001',
     status: 'active',
-    title: 'Executive Protection Detail - City Meeting',
+    title: 'Executive Security Service - City Meeting',
     serviceLevelId: 'executive',
-    serviceLevelName: 'Executive Protection',
+    serviceLevelName: 'Executive Security',
     fromLocation: 'Private Residence, Kensington',
     toLocation: 'One Canada Square, Canary Wharf',
     scheduledTime: '14:30',
@@ -64,443 +65,273 @@ const mockAssignments: Assignment[] = [
     memberDiscount: 50,
     officer: {
       name: 'John Davis',
-      designation: 'Senior CPO',
+      designation: 'Senior Security Officer',
       siaLicense: 'SIA-1234-5678-CP',
       yearsExperience: 12,
-      specializations: ['Executive Protection', 'Threat Assessment', 'Medical Response'],
+      specializations: ['Executive Security', 'Safety Assessment', 'Medical Response'],
       rating: 5,
       vehicle: 'BMW 5 Series (Armoured)',
       initials: 'JD'
     },
-    timeAgo: '2 hours ago',
+    timeAgo: '2h 14m elapsed',
     securityStatus: 'with-principal',
     progress: {
-      current: 'Protection Detail Active - With Principal',
-      percentage: 65,
-      eta: undefined
+      current: 'En route via A4 Westbound',
+      percentage: 70,
+      eta: '14 minutes'
     },
     threatLevel: 'medium',
-    specialRequirements: ['Medical Escort', 'VIP Route'],
-    incidentReports: 0
-  },
-  {
-    id: 'ASG-002',
-    status: 'active',
-    title: 'Essential Protection - Secure Airport Transfer',
-    serviceLevelId: 'essential',
-    serviceLevelName: 'Essential Protection',
-    fromLocation: 'Corporate Offices, City of London',
-    toLocation: 'Heathrow Terminal 5 - VIP Lounge',
-    scheduledTime: '16:00',
-    protectionDuration: {
-      totalHours: 3,
-      completedHours: 1.0,
-      minimumHours: 2
-    },
-    totalInvestment: 135,
-    memberDiscount: 50,
-    officer: {
-      name: 'Sarah Mitchell',
-      designation: 'CPO',
-      siaLicense: 'SIA-2345-6789-CP',
-      yearsExperience: 8,
-      specializations: ['Airport Security', 'Route Protection'],
-      rating: 5,
-      vehicle: 'Mercedes E-Class (Security Package)',
-      initials: 'SM'
-    },
-    timeAgo: '1 hour ago',
-    securityStatus: 'approaching',
-    progress: {
-      current: 'CPO Approaching - Principal Secure',
-      percentage: 35,
-      eta: '8 mins'
-    },
-    threatLevel: 'low',
-    specialRequirements: ['Airport Fast Track'],
-    incidentReports: 0
-  },
-  {
-    id: 'ASG-003',
-    status: 'upcoming',
-    title: 'Shadow Protection - Evening Event Security',
-    serviceLevelId: 'shadow',
-    serviceLevelName: 'Shadow Protection',
-    fromLocation: 'The Dorchester Hotel, Mayfair',
-    toLocation: 'Royal Opera House, Covent Garden',
-    scheduledTime: 'Tomorrow 19:00',
-    protectionDuration: {
-      totalHours: 5,
-      completedHours: 0,
-      minimumHours: 3
-    },
-    totalInvestment: 325,
-    memberDiscount: 50,
-    officer: {
-      name: 'Marcus Thompson',
-      designation: 'Elite CPO',
-      siaLicense: 'SIA-3456-7890-CP',
-      yearsExperience: 15,
-      specializations: ['Covert Protection', 'Event Security', 'Threat Neutralization'],
-      rating: 5,
-      vehicle: 'BMW X5 (Tactical Package)',
-      initials: 'MT'
-    },
-    timeAgo: 'Scheduled',
-    securityStatus: 'advance-team',
-    threatLevel: 'medium',
-    specialRequirements: ['Covert Operations', 'Event Advance Team'],
-    incidentReports: 0
-  },
-  {
-    id: 'ASG-004',
-    status: 'upcoming',
-    title: 'Executive Protection - Corporate Security Detail',
-    serviceLevelId: 'executive',
-    serviceLevelName: 'Executive Protection',
-    fromLocation: 'Private Residence, Chelsea',
-    toLocation: 'Lloyd\'s Building, City of London',
-    scheduledTime: 'Friday 09:00',
-    protectionDuration: {
-      totalHours: 6,
-      completedHours: 0,
-      minimumHours: 3
-    },
-    totalInvestment: 450,
-    memberDiscount: 50,
-    officer: {
-      name: 'CPO Assignment Pending',
-      designation: 'Elite CPO',
-      siaLicense: 'SIA Verified',
-      yearsExperience: 0,
-      specializations: ['Executive Protection', 'Corporate Security'],
-      rating: 0,
-      vehicle: 'Premium Security Vehicle',
-      initials: 'TBA'
-    },
-    timeAgo: 'Protection Detail Active',
-    threatLevel: 'low',
-    specialRequirements: ['Corporate Access', 'Executive Briefing']
-  },
-  {
-    id: 'ASG-005',
-    status: 'completed',
-    title: 'Essential Protection - Secure Shopping Detail',
-    serviceLevelId: 'essential',
-    serviceLevelName: 'Essential Protection',
-    fromLocation: 'Private Residence, Hampstead',
-    toLocation: 'Westfield Shopping Centre, Stratford',
-    scheduledTime: '10:00',
-    protectionDuration: {
-      totalHours: 3,
-      completedHours: 3,
-      minimumHours: 2
-    },
-    totalInvestment: 135,
-    memberDiscount: 50,
-    officer: {
-      name: 'David Wilson',
-      designation: 'CPO',
-      siaLicense: 'SIA-4567-8901-CP',
-      yearsExperience: 6,
-      specializations: ['Personal Protection', 'Crowd Management'],
-      rating: 5,
-      vehicle: 'Audi A4 (Security Package)',
-      initials: 'DW'
-    },
-    timeAgo: 'Yesterday',
-    securityStatus: 'with-principal',
-    progress: {
-      current: 'Principal Delivered Safely',
-      percentage: 100
-    },
-    threatLevel: 'low',
-    specialRequirements: ['Public Area Security'],
-    incidentReports: 0
-  },
-  {
-    id: 'ASG-006',
-    status: 'completed',
-    title: 'Executive Protection - High-Profile Corporate Event',
-    serviceLevelId: 'executive',
-    serviceLevelName: 'Executive Protection',
-    fromLocation: 'Corporate Headquarters, Canary Wharf',
-    toLocation: 'Guildhall, City of London',
-    scheduledTime: '18:30',
-    protectionDuration: {
-      totalHours: 4,
-      completedHours: 4,
-      minimumHours: 3
-    },
-    totalInvestment: 360,
-    memberDiscount: 50,
-    officer: {
-      name: 'Emma Clarke',
-      designation: 'Senior CPO',
-      siaLicense: 'SIA-5678-9012-CP',
-      yearsExperience: 10,
-      specializations: ['Executive Protection', 'Event Security', 'Diplomatic Protocol'],
-      rating: 5,
-      vehicle: 'BMW 7 Series (Executive Package)',
-      initials: 'EC'
-    },
-    timeAgo: '3 days ago',
-    securityStatus: 'with-principal',
-    progress: {
-      current: 'Protection Detail Completed Successfully',
-      percentage: 100
-    },
-    threatLevel: 'medium',
-    specialRequirements: ['VIP Access', 'Diplomatic Protocol'],
+    specialRequirements: ['Medical Support Available'],
     incidentReports: 0
   }
 ];
 
 export function AssignmentsView() {
-  const { navigateToView } = useApp();
+  const { navigateToView, dispatch } = useApp();
   const [activeTab, setActiveTab] = useState<AssignmentStatus>('active');
-
+  const [isLocationSharing, setIsLocationSharing] = useState(true); // Default to active for demo
+  const [currentTime, setCurrentTime] = useState(new Date());
   const assignments = mockAssignments;
 
-  // Memoize filtered assignments to prevent unnecessary re-renders
+  // Real-time clock update
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentTime(new Date());
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, []);
+
+  // Memoize filtered assignments
   const activeAssignments = useMemo(() => assignments.filter(a => a.status === 'active'), [assignments]);
   const upcomingAssignments = useMemo(() => assignments.filter(a => a.status === 'upcoming'), [assignments]);
   const completedAssignments = useMemo(() => assignments.filter(a => a.status === 'completed'), [assignments]);
 
-  // Memoize callback functions to prevent unnecessary re-renders
-  const getStatusBadgeClass = useCallback((status: AssignmentStatus) => {
-    switch (status) {
-      case 'active': return styles.statusActive;
-      case 'upcoming': return styles.statusUpcoming;
-      case 'completed': return styles.statusCompleted;
-      default: return '';
-    }
-  }, []);
+  // Set active assignment in context for auto-navigation
+  // TODO: Fix type mismatch between local Assignment type and global Assignment type
+  // useEffect(() => {
+  //   if (activeAssignments.length > 0) {
+  //     dispatch({ type: 'SET_ASSIGNMENT', payload: activeAssignments[0] });
+  //   } else {
+  //     dispatch({ type: 'SET_ASSIGNMENT', payload: null });
+  //   }
+  // }, [activeAssignments, dispatch]);
 
-  const getStatusText = useCallback((status: AssignmentStatus) => {
-    switch (status) {
-      case 'active': return 'Protection Active';
-      case 'upcoming': return 'Protection Scheduled';
-      case 'completed': return 'Mission Complete';
-      default: return '';
-    }
-  }, []);
-
-  const getProtectionTierBadge = useCallback((tier: ProtectionTier) => {
-    switch (tier) {
-      case 'essential': return { label: 'Essential Protection', color: '#1e40af', icon: '🛡️' };
-      case 'executive': return { label: 'Executive Protection', color: '#d97706', icon: '👑' };
-      case 'shadow': return { label: 'Shadow Protection', color: '#374151', icon: '🥷' };
-      default: return { label: 'Protection Service', color: '#6b7280', icon: '🛡️' };
-    }
-  }, []);
-
-  const getSecurityStatusMessage = useCallback((securityStatus?: SecurityStatus, eta?: string) => {
+  const getSecurityStatusDisplay = useCallback((securityStatus?: SecurityStatus, eta?: string) => {
     switch (securityStatus) {
-      case 'with-principal': return 'Protection Detail Active - With Principal';
-      case 'approaching': return `CPO Approaching Principal${eta ? ` - ETA: ${eta}` : ''}`;
-      case 'advance-team': return 'Advance Team Conducting Security Assessment';
-      case 'covert': return 'Covert Operations - Shadow Mode Active';
-      case 'incident-response': return '🚨 Incident Response - Immediate Action';
-      case 'venue-sweep': return 'Venue Security Sweep - Protection Detail Active';
-      case 'cpo-approaching': return 'CPO Approaching Principal';
-      default: return 'Security Status Unknown';
+      case 'with-principal': return { text: '🟢 With You - All Secure', class: styles.statusSecure };
+      case 'approaching': return { text: `🔴 On The Way to You${eta ? ` - ETA: ${eta}` : ''}`, class: styles.statusEnRoute };
+      case 'advance-team': return { text: '🔵 Location Security Active', class: styles.statusVenue };
+      case 'completing': return { text: '⚫ Service Completing', class: styles.statusCompleting };
+      default: return { text: '🟡 Status Unknown', class: styles.statusUnknown };
     }
   }, []);
 
-  const renderStars = useCallback((rating: number) => {
-    return '⭐'.repeat(rating);
-  }, []);
-
-  const formatProtectionDuration = useCallback((duration: Assignment['protectionDuration']) => {
-    const hoursRemaining = duration.totalHours - duration.completedHours;
-    const progressPercentage = (duration.completedHours / duration.totalHours) * 100;
+  const formatDuration = useCallback((duration: Assignment['protectionDuration']) => {
+    const remaining = duration.totalHours - duration.completedHours;
     return {
-      text: `${duration.totalHours}hr Detail | ${duration.completedHours.toFixed(1)}hr Complete`,
-      remaining: `${hoursRemaining.toFixed(1)}hr Remaining`,
-      percentage: progressPercentage,
-      isMinimumMet: duration.completedHours >= duration.minimumHours
+      elapsed: `${Math.floor(duration.completedHours)}h ${Math.round((duration.completedHours % 1) * 60)}m elapsed`,
+      remaining: `${remaining.toFixed(1)}hr remaining`,
+      percentage: (duration.completedHours / duration.totalHours) * 100
     };
   }, []);
 
-  const renderAssignmentCard = useCallback((assignment: Assignment) => {
-    const tierBadge = getProtectionTierBadge(assignment.serviceLevelId);
-    const durationInfo = formatProtectionDuration(assignment.protectionDuration);
-    const securityMessage = assignment.securityStatus
-      ? getSecurityStatusMessage(assignment.securityStatus, assignment.progress?.eta)
-      : assignment.progress?.current || 'Status Unknown';
+  // Control Panel Handlers
+  const handleLocationToggle = useCallback(() => {
+    setIsLocationSharing(!isLocationSharing);
+    console.log('Location sharing toggled:', !isLocationSharing);
+  }, [isLocationSharing]);
+
+  const handleOfficerCall = useCallback(() => {
+    console.log('Initiating officer call...');
+    // In real app, this would open phone app or secure calling interface
+    if (window.confirm('Call your Protection Officer John Davis directly?')) {
+      // Simulate call initiation
+      alert('Connecting to John Davis...');
+    }
+  }, []);
+
+
+  const renderActiveAssignment = useCallback((assignment: Assignment) => {
+    const durationInfo = formatDuration(assignment.protectionDuration);
+    const statusInfo = getSecurityStatusDisplay(assignment.securityStatus, assignment.progress?.eta);
+    const memberSavings = assignment.memberDiscount ? (assignment.totalInvestment * assignment.memberDiscount / 100) : 0;
 
     return (
-    <div key={assignment.id} className={`${styles.assignmentCard} ${styles.fadeIn} ${styles[`tier-${assignment.serviceLevelId}`]}`}>
-      {/* Professional Status and Protection Tier Line */}
-      <div className={styles.statusLine}>
-        <div className={styles.statusGroup}>
-          <span className={`${styles.statusBadge} ${getStatusBadgeClass(assignment.status)}`}>
-            {assignment.status === 'active' && <span className={styles.pulsingDot}></span>}
-            {getStatusText(assignment.status)}
-          </span>
-          <span className={styles.protectionTierBadge} style={{ borderColor: tierBadge.color, color: tierBadge.color }}>
-            {tierBadge.icon} {tierBadge.label}
-          </span>
-        </div>
-        <span className={styles.timeAgo}>• {assignment.timeAgo}</span>
-      </div>
-
-      {/* Protection Duration and Progress Line */}
-      <div className={styles.durationLine}>
-        <div className={styles.durationInfo}>
-          <span className={styles.durationText}>{durationInfo.text}</span>
-          {assignment.status === 'active' && (
-            <span className={styles.remainingText}>{durationInfo.remaining}</span>
-          )}
-        </div>
-        {assignment.totalInvestment && (
-          <div className={styles.investmentInfo}>
-            <span className={styles.totalInvestment}>£{assignment.totalInvestment}</span>
-            {assignment.memberDiscount && (
-              <span className={styles.memberDiscount}>-{assignment.memberDiscount}% Member</span>
-            )}
+      <div key={assignment.id} className={styles.activeAssignmentCard}>
+        {/* COMMAND CENTER HEADER */}
+        <div className={styles.commandCenterHeader}>
+          <div className={styles.timeDisplay}>
+            <span className={styles.timeLabel}>LOCAL TIME:</span>
+            <span className={styles.timeValue}>{currentTime.toLocaleTimeString('en-GB', { hour12: false })}</span>
           </div>
-        )}
-      </div>
-
-      {/* Enhanced CPO Information Line */}
-      <div className={styles.officerLine}>
-        <div className={styles.officerAvatar}>
-          <span className={styles.officerInitials}>{assignment.officer.initials}</span>
-          <div className={styles.siaIndicator}>SIA</div>
-        </div>
-        <div className={styles.officerText}>
-          <div className={styles.officerName}>
-            {assignment.officer.name}
-            <span className={styles.designation}>({assignment.officer.designation})</span>
+          <div className={styles.protectionStatusHud}>
+            <span className={styles.protectionActiveText}>PROTECTION ACTIVE</span>
+            <div className={styles.statusPulse}></div>
           </div>
-          <div className={styles.officerDetails}>
-            <div className={styles.licenseInfo}>
-              <strong>SIA License:</strong> {assignment.officer.siaLicense}
-            </div>
-            <div className={styles.experienceInfo}>
-              {assignment.officer.yearsExperience > 0 && (
-                <span>{assignment.officer.yearsExperience} Years Experience</span>
-              )}
-              {assignment.officer.rating > 0 && (
-                <span className={styles.officerRating}> • {renderStars(assignment.officer.rating)}</span>
-              )}
-            </div>
-            {assignment.officer.specializations && assignment.officer.specializations.length > 0 && (
-              <div className={styles.specializations}>
-                {assignment.officer.specializations.slice(0, 2).map((spec, index) => (
-                  <span key={index} className={styles.specializationTag}>{spec}</span>
-                ))}
+          <div className={styles.threatDisplay}>
+            <span className={styles.threatLabel}>THREAT LEVEL:</span>
+            <div className={styles.threatBar}>
+              <div className={`${styles.threatSegment} ${styles[`threat${assignment.threatLevel?.toUpperCase() || 'MEDIUM'}`]}`}>
+                <span className={styles.threatText}>{assignment.threatLevel?.toUpperCase() || 'MEDIUM'}</span>
               </div>
-            )}
+            </div>
           </div>
         </div>
-      </div>
+        {/* Clean Header Section */}
+        <div className={styles.assignmentHeader}>
+          <div className={styles.headerLeft}>
+            <div className={styles.statusIndicator}>
+              <span className={styles.statusDot}></span>
+              <span className={styles.statusText}>YOU ARE PROTECTED</span>
+            </div>
+            <div className={styles.serviceInfo}>
+              <span className={styles.serviceTier}>{assignment.serviceLevelName}</span>
+              <span className={styles.separator}>|</span>
+              <span className={styles.officerName}>{assignment.officer.name}</span>
+            </div>
+          </div>
+          <div className={styles.headerRight}>
+            <div className={styles.elapsedTime}>{durationInfo.elapsed}</div>
+            <div className={styles.totalCost}>£{assignment.totalInvestment}</div>
+          </div>
+        </div>
 
-      {/* Enhanced Route and Security Information */}
-      <div className={styles.routeSection}>
-        <div className={styles.routeInfo}>
-          <div className={styles.locationLine}>
-            <span className={styles.locationIcon}>📍</span>
-            <div className={styles.locationText}>
-              <div className={styles.locationLabel}>Principal Location:</div>
-              <div className={styles.locationAddress}>{assignment.fromLocation}</div>
-            </div>
-          </div>
-          <div className={styles.routeArrow}>↓</div>
-          <div className={styles.locationLine}>
-            <span className={styles.locationIcon}>🎯</span>
-            <div className={styles.locationText}>
-              <div className={styles.locationLabel}>Destination:</div>
-              <div className={styles.locationAddress}>{assignment.toLocation}</div>
-            </div>
-          </div>
-        </div>
-        {assignment.threatLevel && (
-          <div className={styles.securityMeta}>
-            <div className={styles.threatLevel}>
-              <span className={`${styles.threatIndicator} ${styles[`threat-${assignment.threatLevel}`]}`}>
-                Threat Level: {assignment.threatLevel.toUpperCase()}
-              </span>
-            </div>
-            {assignment.specialRequirements && assignment.specialRequirements.length > 0 && (
-              <div className={styles.requirements}>
-                {assignment.specialRequirements.slice(0, 2).map((req, index) => (
-                  <span key={index} className={styles.requirementTag}>{req}</span>
-                ))}
-              </div>
-            )}
-          </div>
-        )}
-      </div>
-
-      {/* Security Status and Progress Line */}
-      <div className={styles.statusUpdateLine}>
-        <div className={styles.securityStatus}>
-          <span className={styles.statusIndicator}>
-            {assignment.status === 'active' && assignment.securityStatus === 'with-principal' && '🟢'}
-            {assignment.status === 'active' && assignment.securityStatus === 'approaching' && '🔵'}
-            {assignment.status === 'active' && assignment.securityStatus === 'advance-team' && '🟡'}
-            {assignment.status === 'upcoming' && '⚪'}
-            {assignment.status === 'completed' && '✅'}
-          </span>
-          <span className={styles.statusMessage}>{securityMessage}</span>
-        </div>
-        {assignment.status === 'active' && assignment.progress && (
+        {/* Progress Bar */}
+        <div className={styles.progressSection}>
           <div className={styles.progressBar}>
             <div
               className={styles.progressFill}
-              style={{ width: `${assignment.progress.percentage}%` }}
+              style={{ width: `${durationInfo.percentage}%` }}
             ></div>
           </div>
-        )}
-      </div>
+          <div className={styles.progressInfo}>
+            <span className={styles.progressText}>{durationInfo.remaining}</span>
+            {memberSavings > 0 && (
+              <span className={styles.memberRate}>Member rate: -£{memberSavings} (50% off)</span>
+            )}
+          </div>
+        </div>
 
-      {/* Professional Action Section */}
-      <div className={styles.actionSection}>
-        {assignment.status === 'active' && (
-          <>
-            <button className={styles.primaryAction}>🎯 Live Tracking</button>
-            <button className={styles.secondaryAction}>📞 Contact CPO</button>
-            <button className={styles.emergencyAction}>🚨 Emergency</button>
-          </>
-        )}
-        {assignment.status === 'upcoming' && (
-          <>
-            <button className={styles.primaryAction}>📝 Modify Assignment</button>
-            <button className={styles.secondaryAction}>❌ Cancel Protection</button>
-            <button className={styles.tertiaryAction}>📋 Security Brief</button>
-          </>
-        )}
-        {assignment.status === 'completed' && (
-          <>
-            <button className={styles.primaryAction}>🔄 Request Protection Again</button>
-            <button className={styles.secondaryAction}>📄 Mission Report</button>
-            <button className={styles.tertiaryAction}>⭐ Rate CPO</button>
-          </>
-        )}
+        {/* CP OFFICER DETAILS */}
+        <div className={styles.protectionOfficerCard}>
+          <div className={styles.officerHeader}>
+            <h3 className={styles.officerSectionTitle}>CP OFFICER DETAILS</h3>
+            <span className={styles.officerSubtitle}>SIA LICENSED PROTECTION SPECIALIST</span>
+            <div className={styles.scanLine}></div>
+          </div>
+          <div className={styles.officerContent}>
+            <div className={styles.officerAvatar}>
+              <span className={styles.officerInitials}>{assignment.officer.initials}</span>
+            </div>
+            <div className={styles.officerInfo}>
+              <div className={styles.officerName}>
+                {assignment.officer.name} - Senior CP Officer
+              </div>
+              <div className={styles.officerRole}>Close Protection Specialist</div>
+              <div className={styles.officerCredentials}>
+                <span className={styles.siaLicense}>SIA: {assignment.officer.siaLicense.replace('SIA-', '').replace(/-/g, '-')}</span>
+                <span className={styles.verifiedBadge}>[VERIFIED]</span>
+              </div>
+              <div className={styles.experienceBar}>
+                <span className={styles.experienceLabel}>Experience Level:</span>
+                <div className={styles.skillBar}>
+                  <div className={styles.skillFill} style={{ width: `${(assignment.officer.yearsExperience / 15) * 100}%` }}></div>
+                </div>
+                <span className={styles.experienceYears}>{assignment.officer.yearsExperience} Years</span>
+              </div>
+              <div className={styles.specializations}>
+                {assignment.officer.specializations.slice(0, 3).map((spec, index) => (
+                  <span key={index} className={styles.specChip}>{spec}</span>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* OPERATION TIMELINE */}
+        <div className={styles.operationTimeline}>
+          <div className={styles.timelineHeader}>
+            <h3 className={styles.timelineTitle}>OPERATION TIMELINE</h3>
+            <div className={styles.elapsedCounter}>
+              <span className={styles.elapsedLabel}>ELAPSED:</span>
+              <span className={styles.elapsedTime}>{durationInfo.elapsed.replace(' elapsed', '')}</span>
+            </div>
+          </div>
+
+          <div className={styles.timelineEvents}>
+            <div className={styles.timelineEvent}>
+              <div className={`${styles.timelineNode} ${styles.nodeCompleted}`}></div>
+              <div className={styles.timelineContent}>
+                <div className={styles.eventTime}>{assignment.scheduledTime} | COMMENCED</div>
+                <div className={styles.eventLocation}>{assignment.fromLocation}</div>
+              </div>
+            </div>
+
+            <div className={styles.timelineConnector}></div>
+
+            <div className={styles.timelineEvent}>
+              <div className={`${styles.timelineNode} ${styles.nodeCurrent}`}></div>
+              <div className={styles.timelineContent}>
+                <div className={styles.eventTime}>{currentTime.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit', hour12: false })} | EN ROUTE [LIVE]</div>
+                <div className={styles.eventLocation}>{assignment.progress?.current || 'Via A4 Westbound'}</div>
+                <div className={styles.eventEta}>ETA: T-{assignment.progress?.eta || '14:00'}</div>
+              </div>
+            </div>
+
+            <div className={styles.timelineConnector}></div>
+
+            <div className={styles.timelineEvent}>
+              <div className={`${styles.timelineNode} ${styles.nodeFuture}`}></div>
+              <div className={styles.timelineContent}>
+                <div className={styles.eventTime}>17:00 | DESTINATION</div>
+                <div className={styles.eventLocation}>{assignment.toLocation}</div>
+                {assignment.specialRequirements && assignment.specialRequirements[0] && (
+                  <div className={styles.eventRequirement}>{assignment.specialRequirements[0]}</div>
+                )}
+              </div>
+            </div>
+          </div>
+
+          {/* LIVE TRACKING SECTION */}
+          <div className={styles.liveTracking}>
+            <div className={styles.trackingHeader}>[ SATELLITE TRACKING ACTIVE ]</div>
+            <div className={styles.trackingFrame}>
+              <div className={styles.cornerBracket} data-position="top-left"></div>
+              <div className={styles.cornerBracket} data-position="top-right"></div>
+              <div className={styles.cornerBracket} data-position="bottom-left"></div>
+              <div className={styles.cornerBracket} data-position="bottom-right"></div>
+
+              <div className={styles.trackingContent}>
+                <button className={styles.currentPositionBtn}>
+                  <div className={styles.radarSweep}></div>
+                  <span className={styles.positionText}>Current Position</span>
+                </button>
+                <div className={styles.gpsCoordinates}>
+                  <span className={styles.coordLabel}>GPS:</span>
+                  <span className={styles.coordValue}>51.5074°N, 0.1278°W</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        {/* Protection Control Panel moved to sticky bottom */}
       </div>
-    </div>
     );
-  }, [getStatusBadgeClass, getStatusText, getProtectionTierBadge, formatProtectionDuration, getSecurityStatusMessage, renderStars]);
+  }, [formatDuration, getSecurityStatusDisplay, isLocationSharing, handleLocationToggle, handleOfficerCall]);
 
   const renderEmptyState = () => (
     <div className={styles.emptyState}>
-      <div className={styles.emptyIcon}>
-        <svg width="96" height="96" viewBox="0 0 96 96" fill="none">
-          <circle cx="48" cy="48" r="48" fill="#F3F4F6"/>
-          <path d="M48 24L60 36H54V48H42V36H36L48 24Z" fill="#9CA3AF"/>
-          <rect x="32" y="52" width="32" height="20" rx="2" fill="#9CA3AF"/>
-        </svg>
-      </div>
-      <h3 className={styles.emptyTitle}>No Active Protection Assignments</h3>
-      <p className={styles.emptyDescription}>Request protection services when needed - Your security is our priority</p>
+      <div className={styles.emptyIcon}>🛡️</div>
+      <h3 className={styles.emptyTitle}>No Active Security Services</h3>
+      <p className={styles.emptyDescription}>Book security services when you need them - Your safety is our priority</p>
       <button
         className={styles.emptyAction}
-        onClick={() => navigateToView('home')}
+        onClick={() => navigateToView('booking')}
       >
-🛡️ Request Protection Now
+        🛡️ Book Security Now
       </button>
     </div>
   );
@@ -526,42 +357,61 @@ export function AssignmentsView() {
 
     return (
       <div className={styles.assignmentsList}>
-        {assignmentsToShow.map(renderAssignmentCard)}
+        {assignmentsToShow.map(assignment =>
+          assignment.status === 'active' ? renderActiveAssignment(assignment) : renderEmptyState()
+        )}
       </div>
     );
   };
 
   return (
     <div className={styles.assignmentsView}>
-      {/* Premium Header */}
+      {/* Simplified Header */}
       <div className={styles.pageHeader}>
-        <h1 className={styles.pageTitle}>🛡️ Protection Command Centre</h1>
-        <p className={styles.pageSubtitle}>Professional close protection services - SIA licensed and vetted</p>
-        <div className={styles.statsBar}>
-          <div className={styles.statItem}>
-            <span className={styles.statValue}>{assignments.length}</span>
-            <span className={styles.statLabel}>Total</span>
+        <h1 className={styles.pageTitle}>Assignments</h1>
+
+        {/* Security Status Bar - Moved to top */}
+        {activeAssignments.length > 0 && (
+          <div className={styles.topSecurityStatusBar}>
+            <div className={styles.statusIndicator}>
+              <div className={styles.statusPulseDot}></div>
+              <span className={styles.statusText}>
+                {activeAssignments[0].securityStatus === 'with-principal'
+                  ? 'STATUS: PROTECTION ACTIVE | ALL SECURE'
+                  : activeAssignments[0].securityStatus === 'approaching'
+                  ? `STATUS: OFFICER EN ROUTE | ETA: ${activeAssignments[0].progress?.eta || '15 MINUTES'}`
+                  : activeAssignments[0].securityStatus === 'venue-sweep'
+                  ? 'STATUS: AT VENUE | OFFICER STANDING BY'
+                  : 'STATUS: PROTECTION ACTIVE | ALL SECURE'
+                }
+              </span>
+            </div>
           </div>
-          <div className={styles.statItem}>
-            <span className={styles.statValue}>{activeAssignments.length + upcomingAssignments.length}</span>
-            <span className={styles.statLabel}>This Week</span>
-          </div>
-        </div>
+        )}
+
+        <p className={styles.pageSubtitle}>Professional security services - Licensed and background checked</p>
+
+        {/* Subtle Recruitment Chip */}
+        <button className={styles.recruitmentChip} onClick={() => console.log('Officer recruitment modal')}>
+          <span className={styles.chipIcon}>💼</span>
+          <span className={styles.chipText}>Join Our Team</span>
+          <span className={styles.chipArrow}>→</span>
+        </button>
       </div>
 
-      {/* Modern Status Tabs */}
+      {/* Clean Status Tabs */}
       <div className={styles.tabContainer}>
         <button
           className={`${styles.tab} ${activeTab === 'active' ? styles.activeTab : ''}`}
           onClick={() => setActiveTab('active')}
         >
-          🟢 Active Protection ({activeAssignments.length})
+          🟢 Active ({activeAssignments.length})
         </button>
         <button
           className={`${styles.tab} ${activeTab === 'upcoming' ? styles.activeTab : ''}`}
           onClick={() => setActiveTab('upcoming')}
         >
-          📅 Scheduled ({upcomingAssignments.length})
+          📅 Upcoming ({upcomingAssignments.length})
         </button>
         <button
           className={`${styles.tab} ${activeTab === 'completed' ? styles.activeTab : ''}`}
@@ -576,23 +426,23 @@ export function AssignmentsView() {
         {renderTabContent()}
       </div>
 
-      {/* Quick Actions Bar - Clear Labels */}
-      <div className={styles.quickActionsBar}>
-        <div className={styles.quickActions}>
-          <button className={styles.quickActionPrimary}>
-            <span className={styles.actionIcon}>🛡️</span>
-            <span className={styles.actionLabel}>Request Protection</span>
-          </button>
-          <button className={styles.quickActionSecondary}>
-            <span className={styles.actionIcon}>📋</span>
-            <span className={styles.actionLabel}>Security Brief</span>
-          </button>
-          <button className={styles.quickActionSecondary}>
-            <span className={styles.actionIcon}>🚨</span>
-            <span className={styles.actionLabel}>Emergency Line</span>
-          </button>
-        </div>
-      </div>
+      {/* Sticky Protection Control Panel - Only show for active assignments */}
+      {activeTab === 'active' && activeAssignments.length > 0 && (
+        <ProtectionControlPanel
+          officer={{
+            name: activeAssignments[0].officer.name,
+            designation: activeAssignments[0].officer.designation,
+            initials: activeAssignments[0].officer.initials
+          }}
+          assignment={activeAssignments[0]}
+          isLocationSharing={isLocationSharing}
+          onLocationToggle={handleLocationToggle}
+          onOfficerCall={handleOfficerCall}
+          assignmentId={activeAssignments[0].id}
+          currentRate={75} // Executive rate for demo
+        />
+      )}
+
     </div>
   );
 }

@@ -13,9 +13,9 @@ const SocialProofEngine: React.FC<SocialProofEngineProps> = ({ className }) => {
   const liveStats = [
     { number: '127', label: 'Fortune 500 CEOs trust us today', icon: '🏆' },
     { number: '99.8%', label: 'Incident-free service record', icon: '🛡️' },
-    { number: '12', label: 'SIA-certified drivers available now', icon: '👨‍💼' },
+    { number: '12', label: 'SIA-certified protection officers available now', icon: '👨‍💼' },
     { number: '8 min', label: 'Average response time', icon: '⏱️' },
-    { number: '2,847', label: 'Executive trips completed this month', icon: '🚗' }
+    { number: '2,847', label: 'Executive assignments completed this month', icon: '🚗' }
   ];
 
   // Executive testimonials

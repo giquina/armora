@@ -1,7 +1,7 @@
 /* Service Card Styles - New Expandable Design */
 
 .serviceCard {
-  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+  background: linear-gradient(135deg, var(--armora-dark) 0%, var(--armora-midnight) 100%);
   border: 2px solid rgba(255, 215, 0, 0.3);
   border-radius: 16px;
   padding: 16px; /* Reduced padding for more content space */
@@ -10,11 +10,64 @@
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   overflow: hidden;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-  width: calc(100vw - 16px); /* Use full viewport width minus minimal margins */
+  width: 100%; /* Fill container without overflowing viewport */
   max-width: 100%;
   margin-left: auto;
   margin-right: auto;
   box-sizing: border-box;
+}
+
+/* Service Rates Breakdown */
+.serviceRates {
+  background: rgba(31, 41, 84, 0.05);
+  border-radius: 8px;
+  padding: 12px;
+  margin: 16px 0;
+  font-family: 'Inter', sans-serif;
+}
+
+.ratesTitle {
+  color: #e0e0e0;
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.rateItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 4px;
+}
+
+.rateLabel {
+  color: #e0e0e0;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.rateValue {
+  color: #FFD700;
+  font-size: 22px;
+  font-weight: 700;
+}
+
+.rateMinimum {
+  color: #e0e0e0;
+  font-size: 14px;
+  font-style: italic;
+  margin-top: 4px;
+  text-align: center;
+}
+
+.vehicleInfo {
+  margin: 12px 0;
+}
+
+.vehicle {
+  color: #b0b0b0;
+  font-size: 16px;
+  font-style: italic;
 }
 
 .serviceCard:hover {
@@ -23,8 +76,8 @@
 }
 
 .serviceCard.recommended {
-  border-color: #FFD700;
-  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #1a1a2e 100%);
+  border-color: var(--armora-gold);
+  background: linear-gradient(135deg, var(--armora-dark) 0%, var(--armora-midnight) 50%, var(--armora-dark) 100%);
   box-shadow: 0 8px 32px rgba(255, 215, 0, 0.15);
 }
 
@@ -33,8 +86,8 @@
   position: absolute;
   top: 12px;
   right: 12px;
-  background: linear-gradient(45deg, #FFD700, #FFA500);
-  color: #1a1a2e;
+  background: linear-gradient(45deg, var(--armora-gold), var(--hover-gold));
+  color: var(--armora-dark);
   padding: 6px 12px;
   border-radius: 12px;
   font-size: 0.75rem;
@@ -44,7 +97,7 @@
 }
 
 .serviceCard.expanded {
-  border-color: #FFD700;
+  border-color: var(--armora-gold);
   box-shadow: 0 12px 48px rgba(255, 215, 0, 0.2);
 }
 
@@ -73,15 +126,15 @@
 }
 
 .serviceName {
-  font-size: 1.5rem;
+  font-size: 1.75rem;
   font-weight: bold;
-  color: #FFD700;
+  color: var(--armora-gold);
   margin: 0 0 8px 0;
   line-height: 1.2;
 }
 
 .serviceTagline {
-  font-size: 16px; /* Improved readability */
+  font-size: 18px; /* Improved readability */
   color: #e0e0e0;
   margin: 0;
   opacity: 0.95;
@@ -112,7 +165,7 @@
 .price {
   font-size: 1.1rem;
   font-weight: bold;
-  color: #FFD700;
+  color: var(--armora-gold);
   text-align: right;
 }
 
@@ -148,7 +201,7 @@
 }
 
 .checkmark {
-  color: #FFD700;
+  color: var(--armora-gold);
   font-weight: bold;
   min-width: 16px;
 }
@@ -199,7 +252,7 @@
 .sectionTitle {
   font-size: 1.1rem;
   font-weight: bold;
-  color: #FFD700;
+  color: var(--armora-gold);
   margin: 0 0 16px 0;
   text-transform: uppercase;
   letter-spacing: 1px;
@@ -217,7 +270,7 @@
   align-items: flex-start;
   gap: 12px;
   margin-bottom: 12px;
-  font-size: 15px; /* Improved from 0.9rem for better readability */
+  font-size: 16px; /* Improved from 0.9rem for better readability */
   color: #e0e0e0;
   line-height: 1.6; /* Better line spacing */
   width: 100%; /* Ensure full width usage */
@@ -225,7 +278,7 @@
 
 .bulletItem::before {
   content: '•';
-  color: #FFD700;
+  color: var(--armora-gold);
   font-weight: bold;
   min-width: 8px;
   margin-top: 2px;
@@ -233,7 +286,7 @@
 
 /* Officer Description */
 .officerDescription {
-  font-size: 16px; /* Improved from 0.95rem for better readability */
+  font-size: 17px; /* Improved from 0.95rem for better readability */
   color: #e0e0e0;
   line-height: 1.6;
   margin: 0;
@@ -289,7 +342,7 @@
 }
 
 .reviewText {
-  font-size: 15px; /* Improved from 0.9rem for better readability */
+  font-size: 16px; /* Improved from 0.9rem for better readability */
   color: #e0e0e0;
   line-height: 1.6; /* Better line spacing */
   margin: 0;
@@ -325,14 +378,14 @@
 }
 
 .caseStudyItem {
-  font-size: 15px; /* Improved from 0.9rem for better readability */
+  font-size: 16px; /* Improved from 0.9rem for better readability */
   color: #e0e0e0;
   line-height: 1.6; /* Better line spacing */
   width: 100%; /* Ensure full width usage */
 }
 
 .caseStudyItem strong {
-  color: #FFD700;
+  color: var(--armora-gold);
 }
 
 /* Statistics Section */
@@ -363,8 +416,8 @@
 
 .selectButton {
   flex: 1;
-  background: linear-gradient(45deg, #FFD700, #FFA500);
-  color: #1a1a2e;
+  background: linear-gradient(45deg, var(--armora-gold), var(--hover-gold));
+  color: var(--armora-dark);
   border: none;
   padding: 16px 24px;
   border-radius: 12px;
@@ -384,8 +437,8 @@
 
 .compareButton {
   background: transparent;
-  color: #FFD700;
-  border: 2px solid #FFD700;
+  color: var(--armora-gold);
+  border: 2px solid var(--armora-gold);
   padding: 14px 20px;
   border-radius: 12px;
   font-size: 0.9rem;
@@ -407,8 +460,8 @@
   left: 0;
   right: 0;
   width: 100%;
-  background: linear-gradient(135deg, #FFD700, #FFA500);
-  color: #1a1a2e;
+  background: linear-gradient(135deg, var(--armora-gold), var(--hover-gold));
+  color: var(--armora-dark);
   border: none;
   padding: 16px;
   font-size: 1rem;
@@ -418,12 +471,13 @@
   text-transform: uppercase;
   letter-spacing: 1px;
   border-radius: 0 0 14px 14px;
-  margin: 24px -24px -24px -24px;
+  /* Keep button within card to prevent horizontal overflow */
+  margin: 24px 0 0 0;
   box-shadow: 0 -4px 16px rgba(255, 215, 0, 0.3);
 }
 
 .expandToggle:hover {
-  background: linear-gradient(135deg, #FFA500, #FFD700);
+  background: linear-gradient(135deg, var(--hover-gold), var(--armora-gold));
   box-shadow: 0 -6px 20px rgba(255, 215, 0, 0.4);
 }
 
@@ -432,7 +486,7 @@
   .serviceCard {
     padding: 12px; /* Reduced padding for edge-to-edge feel */
     margin-bottom: 12px;
-    width: calc(100vw - 12px); /* Close to edges on mobile */
+    width: 100%; /* Respect parent width to prevent overflow */
   }
 
   .serviceHeader {
@@ -512,7 +566,7 @@
   .serviceCard {
     padding: 8px; /* Minimal padding for maximum space usage */
     margin-bottom: 8px;
-    width: calc(100vw - 8px); /* Very close to edges on small screens */
+    width: 100%; /* Prevent viewport-based overflow on small screens */
   }
 
   .serviceHeader {
@@ -534,7 +588,7 @@
   }
 
   .expandToggle {
-    margin: 20px -16px -16px -16px;
+    margin: 20px 0 0 0;
     padding: 14px;
     font-size: 0.9rem;
   }

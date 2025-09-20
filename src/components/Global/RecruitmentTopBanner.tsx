@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import styles from './RecruitmentTopBanner.module.css';
 
 interface RecruitmentTopBannerProps {
@@ -9,6 +9,8 @@ export function RecruitmentTopBanner({ className }: RecruitmentTopBannerProps) {
   const [isVisible, setIsVisible] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const bannerRef = useRef<HTMLDivElement>(null);
+  const lastScrollY = useRef(0);
 
   useEffect(() => {
     // Check if banner was dismissed
@@ -46,6 +48,36 @@ export function RecruitmentTopBanner({ className }: RecruitmentTopBannerProps) {
       document.body.classList.remove('has-recruitment-banner');
     };
   }, [isVisible]);
+
+  // Auto-close on scroll down
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+
+      // If user scrolls down more than 50px, close the dropdown
+      if (currentScrollY > lastScrollY.current + 50 && isExpanded) {
+        setIsExpanded(false);
+      }
+
+      lastScrollY.current = currentScrollY;
+    };
+
+    const handleClickOutside = (event: MouseEvent) => {
+      if (bannerRef.current && !bannerRef.current.contains(event.target as Node) && isExpanded) {
+        setIsExpanded(false);
+      }
+    };
+
+    if (isExpanded) {
+      window.addEventListener('scroll', handleScroll, { passive: true });
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [isExpanded]);
 
   const handleDismiss = () => {
     setIsVisible(false);
@@ -85,6 +117,15 @@ export function RecruitmentTopBanner({ className }: RecruitmentTopBannerProps) {
     });
   };
 
+  const handleHeaderClick = (event: React.MouseEvent) => {
+    // Don't toggle if clicking on apply button or close button
+    const target = event.target as HTMLElement;
+    if (target.closest(`.${styles.applyButton}`) || target.closest(`.${styles.closeButton}`)) {
+      return;
+    }
+    toggleExpanded();
+  };
+
   // Don't render anything while loading
   if (isLoading) {
     return null;
@@ -96,25 +137,16 @@ export function RecruitmentTopBanner({ className }: RecruitmentTopBannerProps) {
   }
 
   return (
-    <div className={`${styles.topBanner} ${className || ''} ${isExpanded ? styles.expanded : ''}`}>
+    <div ref={bannerRef} className={`${styles.topBanner} ${className || ''} ${isExpanded ? styles.expanded : ''}`}>
+      {isExpanded && <div className={styles.backdrop} />}
       <div className={styles.bannerContent}>
-        <div className={styles.mainRow}>
+        <div className={styles.mainRow} onClick={handleHeaderClick}>
           <div className={styles.bannerText}>
-            <span className={styles.bannerTitle}>
-              <span className={styles.desktopText}>Join Our Team • Recruiting SIA Close Protection Officers</span>
-              <span className={styles.mobileText}>Join Our Team</span>
-            </span>
+            <div className={styles.bannerTitle}>Recruiting SIA Close Protection Officers</div>
+            <div className={styles.bannerSubtitle}>£28-45/hr • SIA License Required • Immediate Start</div>
           </div>
 
           <div className={styles.controls}>
-            <button
-              className={styles.applyButton}
-              onClick={handleApplyClick}
-              aria-label="Apply to join protection team"
-            >
-              Apply Now
-            </button>
-
             <button
               className={styles.expandButton}
               onClick={toggleExpanded}
@@ -147,12 +179,53 @@ export function RecruitmentTopBanner({ className }: RecruitmentTopBannerProps) {
 
         {isExpanded && (
           <div className={styles.expandedContent}>
-            <ul className={styles.highlights}>
-              <li>Competitive rates: £28-45/hr</li>
-              <li>Immediate start available</li>
-              <li>SIA licensed officers wanted</li>
-              <li>Click Apply Now to begin</li>
-            </ul>
+            <div className={styles.benefitsSection}>
+              <div className={styles.benefitItem}>
+                <span className={styles.benefitIcon}>💰</span>
+                <span>£28-45/hour + tips + fuel</span>
+              </div>
+              <div className={styles.benefitItem}>
+                <span className={styles.benefitIcon}>✓</span>
+                <span>SIA license required</span>
+              </div>
+              <div className={styles.benefitItem}>
+                <span className={styles.benefitIcon}>🕐</span>
+                <span>Choose your own hours</span>
+              </div>
+              <div className={styles.benefitItem}>
+                <span className={styles.benefitIcon}>📈</span>
+                <span>Clear progression path</span>
+              </div>
+              <div className={styles.benefitItem}>
+                <span className={styles.benefitIcon}>⚡</span>
+                <span>Start within 7 days</span>
+              </div>
+            </div>
+
+            <div className={styles.separator}></div>
+
+            <div className={styles.requirementsSection}>
+              <div className={styles.requirementsTitle}>Requirements:</div>
+              <ul className={styles.requirementsList}>
+                <li>SIA Close Protection license</li>
+                <li>UK driving license (2+ years)</li>
+                <li>Enhanced DBS check</li>
+                <li>Professional appearance</li>
+              </ul>
+            </div>
+
+            <button
+              className={styles.primaryApplyButton}
+              onClick={handleApplyClick}
+              aria-label="Apply to join protection team"
+            >
+              APPLY NOW - 5 minutes
+            </button>
+
+            <div className={styles.urgencyMessage}>
+              <span className={styles.urgencyIcon}>🔥</span>
+              <span>High demand - 47 positions open</span>
+            </div>
           </div>
         )}
       </div>

@@ -1,6 +1,7 @@
 import { ProtectionLevel } from '../components/Booking/ProtectionLevelSelector';
 import { VenueTimeData } from '../components/Booking/VenueTimeEstimator';
 import { formatPrice } from './priceFormatter';
+import { calculateNationwideProtection, NationwidePricingBreakdown } from './nationwidePricing';
 
 export interface PricingBreakdown {
   components: Array<{
@@ -26,6 +27,8 @@ export interface ProtectionServiceRequest {
   hasUnlockedReward?: boolean;
   estimatedDistance?: number; // in miles
   journeyTimeMinutes?: number; // one-way journey time
+  origin?: string; // for nationwide calculation
+  useNationwidePricing?: boolean; // enable new pricing system
 }
 
 const RATES = {
@@ -43,8 +46,15 @@ const DISCOUNTS = {
 
 /**
  * Calculates comprehensive pricing for protection services
+ * Now supports both legacy and nationwide pricing systems
  */
 export function calculateProtectionPricing(request: ProtectionServiceRequest): PricingBreakdown {
+  // Use nationwide pricing system if enabled and origin is provided
+  if (request.useNationwidePricing && request.origin) {
+    return convertNationwideToPricingBreakdown(request);
+  }
+
+  // Legacy pricing calculation (fallback)
   const {
     protectionLevel,
     venueTimeData,
@@ -144,6 +154,99 @@ export function calculateProtectionPricing(request: ProtectionServiceRequest): P
     subtotal,
     discounts,
     total,
+    formattedBreakdown
+  };
+}
+
+/**
+ * Convert nationwide pricing to legacy PricingBreakdown format
+ */
+function convertNationwideToPricingBreakdown(request: ProtectionServiceRequest): PricingBreakdown {
+  const serviceLevel = request.protectionLevel.id === 'executive' ? 'Executive' : 'Essential';
+  const isMember = request.userType === 'registered' || request.userType === 'google';
+
+  const nationwidePricing = calculateNationwideProtection(
+    request.origin!,
+    request.destination,
+    serviceLevel,
+    {
+      userType: request.userType,
+      isMember,
+      minimumHours: request.venueTimeData?.venueHours ? request.venueTimeData.venueHours + 1 : 2
+    }
+  );
+
+  // Convert to legacy format
+  const components = [
+    {
+      label: `Protection Officer (${nationwidePricing.protectionOfficer.hours}h @ £${nationwidePricing.protectionOfficer.rate})`,
+      amount: nationwidePricing.protectionOfficer.total,
+      description: `${serviceLevel} protection service`
+    },
+    {
+      label: `Secure Vehicle (${nationwidePricing.vehicleOperation.miles} miles @ £${nationwidePricing.vehicleOperation.ratePerMile})`,
+      amount: nationwidePricing.vehicleOperation.total,
+      description: 'Professional security vehicle and fuel'
+    }
+  ];
+
+  // Add deployment surcharge if applicable
+  if (nationwidePricing.deploymentSurcharge) {
+    components.push({
+      label: nationwidePricing.deploymentSurcharge.reason,
+      amount: nationwidePricing.deploymentSurcharge.amount,
+      description: 'Regional deployment fee'
+    });
+  }
+
+  // Add booking fee if not waived
+  if (!nationwidePricing.bookingFee.waived) {
+    components.push({
+      label: 'Booking Fee',
+      amount: nationwidePricing.bookingFee.amount,
+      description: 'Service booking administration'
+    });
+  }
+
+  const discounts = [];
+  if (nationwidePricing.memberDiscount) {
+    discounts.push({
+      label: `Member Discount (${nationwidePricing.memberDiscount.percentage}%)`,
+      amount: nationwidePricing.memberDiscount.amount,
+      percentage: nationwidePricing.memberDiscount.percentage
+    });
+  }
+
+  const formattedBreakdown = [
+    'Nationwide Protection Service:',
+    '--------------------------------',
+    `Service Level: ${serviceLevel}`,
+    `Coverage: ${nationwidePricing.serviceCoverage}`,
+    `Journey Time: ${Math.round(nationwidePricing.estimatedJourneyTime)} minutes`,
+    `Protection Hours: ${nationwidePricing.protectionOfficer.hours}`,
+    '',
+    'Cost Breakdown:'
+  ];
+
+  components.forEach(component => {
+    formattedBreakdown.push(`${component.label}: ${formatPrice(component.amount)}`);
+  });
+
+  formattedBreakdown.push('--------------------------------');
+  formattedBreakdown.push(`Subtotal: ${formatPrice(nationwidePricing.subtotal)}`);
+
+  discounts.forEach(discount => {
+    formattedBreakdown.push(`${discount.label}: -${formatPrice(discount.amount)}`);
+  });
+
+  formattedBreakdown.push('--------------------------------');
+  formattedBreakdown.push(`Total Service Fee: ${formatPrice(nationwidePricing.total)}`);
+
+  return {
+    components,
+    subtotal: nationwidePricing.subtotal,
+    discounts,
+    total: nationwidePricing.total,
     formattedBreakdown
   };
 }

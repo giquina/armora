@@ -1,0 +1,591 @@
+/* PROFESSIONAL SECURITY CONTROL PANEL */
+
+.protectionControlPanel {
+  position: fixed;
+  bottom: calc(64px + env(safe-area-inset-bottom)); /* Sits directly above navigation bar (matches 64px nav) */
+  left: 0;
+  right: 0;
+  background: #FFFFFF;
+  border: none;
+  border-top: 3px solid #00FF88; /* Green accent for active assignments */
+  border-radius: 12px 12px 0 0; /* Only top corners rounded */
+  padding: 8px 20px 20px 20px; /* Remove bottom padding since we're above nav */
+  backdrop-filter: blur(20px);
+  box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.1);
+  z-index: 1020; /* Below navigation bar to keep nav accessible */
+  transition: all 0.3s ease-out;
+  transform: translateY(0);
+  margin: 0; /* Remove any margins that create gaps */
+}
+
+/* COLLAPSED STATE - PROFESSIONAL STATUS BAR */
+.protectionControlPanel.collapsed {
+  height: 65px;
+  padding: 0;
+  transform: translateY(0);
+  /* Panel positioned above nav - no overlap */
+}
+
+.protectionControlPanel.collapsed .controlGrid {
+  display: none;
+}
+
+.protectionControlPanel.collapsed .panelHeader {
+  display: none;
+}
+
+.protectionControlPanel.collapsed .panelHandle {
+  display: none;
+}
+
+/* COLLAPSED PANEL - PROFESSIONAL STATUS BAR */
+.collapsedPanel {
+  height: 65px;
+  background: #FFFFFF;
+  border-top: 3px solid #00FF88; /* Green for active protection */
+  border-radius: 0; /* No border radius to sit flush against navigation */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 16px;
+  box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin: 0; /* Ensure no margins */
+}
+
+.collapsedPanel:hover {
+  background: #FAFBFC;
+  box-shadow: 0 -6px 16px rgba(0, 0, 0, 0.15);
+}
+
+/* Different states for collapsed panel */
+.collapsedPanel.upcoming {
+  border-top-color: #007AFF; /* Blue for upcoming */
+}
+
+.collapsedPanel.completed {
+  border-top-color: #8E8E93; /* Gray for completed */
+}
+
+.leftSection {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+  min-width: 0;
+}
+
+.centerSection {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 2;
+  justify-content: center;
+  min-width: 0;
+}
+
+.rightSection {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+/* STATUS DOT - PROFESSIONAL INDICATORS */
+.statusDot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  animation: pulse 2s infinite;
+  flex-shrink: 0;
+  box-shadow: 0 0 8px rgba(0, 255, 136, 0.6);
+}
+
+.statusDot.active {
+  background: #00FF88;
+  box-shadow: 0 0 8px rgba(0, 255, 136, 0.6);
+}
+
+.statusDot.upcoming {
+  background: #007AFF;
+  box-shadow: 0 0 8px rgba(0, 122, 255, 0.6);
+  animation: none; /* No pulse for upcoming */
+}
+
+.statusDot.completed {
+  background: #8E8E93;
+  box-shadow: none;
+  animation: none; /* No pulse for completed */
+}
+
+/* Collapsed Text */
+.collapsedTitle {
+  font-size: 12px;
+  font-weight: bold;
+  color: #1F2937;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.officerName {
+  font-size: 14px;
+  font-weight: 600;
+  color: #1F2937;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100px;
+}
+
+.separator {
+  color: #9CA3AF;
+  font-size: 12px;
+}
+
+.locationText {
+  font-size: 13px;
+  color: #6B7280;
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Quick Actions */
+.quickCall {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: #EBF5FF;
+  border: 1px solid #3B82F6;
+  color: #3B82F6;
+  font-size: 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+
+.quickCall:hover {
+  background: #DBEAFE;
+  transform: scale(1.05);
+}
+
+.quickCall:active {
+  transform: scale(0.95);
+}
+
+.expandToggle {
+  width: 44px;
+  height: 44px;
+  background: transparent;
+  border: none;
+  font-size: 16px;
+  color: #6B7280;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s ease;
+  flex-shrink: 0;
+}
+
+/* Drag Handle */
+.panelHandle {
+  width: 40px;
+  height: 4px;
+  background: #D1D5DB;
+  border-radius: 2px;
+  margin: 0 auto 16px auto;
+  cursor: grab;
+  transition: background 0.2s ease;
+}
+
+.panelHandle:hover {
+  background: #9CA3AF;
+}
+
+.panelHandle:active {
+  cursor: grabbing;
+}
+
+.panelHeader {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 20px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.panelIcon {
+  font-size: 20px;
+}
+
+.panelTitle {
+  font-size: 16px;
+  font-weight: 800;
+  color: #1F2937;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+}
+
+/* PROFESSIONAL CONTROL GRID */
+.controlGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.controlButton {
+  background: #FFFFFF;
+  border: 1px solid #E0E0E0;
+  border-radius: 8px;
+  padding: 20px 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  min-height: 90px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.controlButton:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+}
+
+.controlButton:active {
+  transform: translateY(0);
+}
+
+.buttonIcon {
+  font-size: 22px;
+  margin-bottom: 6px;
+  color: #1F2937;
+}
+
+.buttonTitle {
+  font-size: 11px;
+  font-weight: 700;
+  color: #1F2937;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  line-height: 1.2;
+}
+
+.buttonSubtext {
+  font-size: 9px;
+  color: #6B7280;
+  text-align: center;
+  line-height: 1.3;
+  font-weight: 500;
+}
+
+.buttonHelper {
+  font-size: 8px;
+  color: #9CA3AF;
+  text-align: center;
+  line-height: 1.2;
+  font-weight: 400;
+  margin-top: 2px;
+}
+
+/* REQUEST BACKUP BUTTON - Professional Emergency */
+.assistanceButton:hover {
+  border-color: #FF3366;
+  box-shadow: 0 2px 8px rgba(255, 51, 102, 0.15);
+}
+
+.assistanceActive {
+  border-color: #00FF88 !important;
+  background: rgba(0, 255, 136, 0.05) !important;
+  animation: assistancePulse 2s ease-in-out infinite;
+}
+
+.assistanceActive .buttonIcon {
+  color: #00FF88;
+}
+
+.assistanceActive .buttonTitle {
+  color: #00FF88;
+  font-weight: 800;
+}
+
+@keyframes assistancePulse {
+  0%, 100% {
+    box-shadow: 0 2px 8px rgba(0, 255, 136, 0.3);
+  }
+  50% {
+    box-shadow: 0 4px 16px rgba(0, 255, 136, 0.5);
+  }
+}
+
+.pulsing {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border: 2px solid rgba(34, 197, 94, 0.5);
+  border-radius: 8px;
+  animation: pulseRing 2s ease-out infinite;
+}
+
+@keyframes pulseRing {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1.1);
+    opacity: 0;
+  }
+}
+
+/* DIRECT LINE BUTTON - Professional Communication */
+.officerButton:hover {
+  border-color: #007AFF;
+  box-shadow: 0 2px 8px rgba(0, 122, 255, 0.15);
+}
+
+/* LOCATION SHARING BUTTON - Toggle Style */
+.locationButton:hover {
+  border-color: #9CA3AF;
+  box-shadow: 0 2px 8px rgba(156, 163, 175, 0.15);
+}
+
+.locationActive {
+  border-color: #00FF88 !important;
+  background: rgba(0, 255, 136, 0.05) !important;
+}
+
+.locationActive .buttonIcon {
+  color: #00FF88;
+}
+
+.locationActive .buttonTitle {
+  color: #00FF88;
+  font-weight: 800;
+}
+
+/* EXTEND TIME BUTTON - Premium Service */
+.extendButton:hover {
+  border-color: #FFD700;
+  box-shadow: 0 2px 8px rgba(255, 215, 0, 0.15);
+}
+
+
+/* Context Info - Dynamic status text */
+.contextInfo {
+  font-size: 11px;
+  font-weight: 600;
+  color: #1F2937;
+  text-align: center;
+}
+
+/* Additional Button Types */
+.trackButton:hover {
+  border-color: #007AFF;
+  box-shadow: 0 2px 8px rgba(0, 122, 255, 0.15);
+}
+
+.rateButton:hover {
+  border-color: #FFD700;
+  box-shadow: 0 2px 8px rgba(255, 215, 0, 0.15);
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+  .protectionControlPanel {
+    bottom: calc(64px + env(safe-area-inset-bottom)); /* Sits directly above mobile navigation */
+    padding: 8px 16px 16px 16px; /* Remove bottom padding since we're above nav */
+    margin: 0; /* Ensure no gap */
+  }
+
+  .protectionControlPanel.collapsed {
+    margin: 0; /* Ensure no gap in collapsed state */
+  }
+
+  .collapsedPanel {
+    padding: 0 12px;
+  }
+
+  .officerName {
+    max-width: 80px;
+  }
+
+  .collapsedTitle {
+    font-size: 11px; /* Smaller on mobile but still visible */
+  }
+}
+
+@media (max-width: 400px) {
+  .protectionControlPanel {
+    bottom: calc(64px + env(safe-area-inset-bottom)); /* Sits directly above small mobile navigation */
+    padding: 8px 12px 12px 12px; /* Remove bottom padding since we're above nav */
+    margin: 0; /* Ensure no gap */
+  }
+
+  .protectionControlPanel.collapsed {
+    margin: 0; /* Ensure no gap in collapsed state */
+  }
+
+  .collapsedPanel {
+    padding: 0 8px;
+  }
+
+  .centerSection {
+    gap: 4px;
+  }
+
+  .officerName {
+    max-width: 60px;
+    font-size: 13px;
+  }
+
+  .locationText {
+    font-size: 12px;
+    max-width: 80px;
+  }
+
+  .quickCall {
+    width: 32px;
+    height: 32px;
+    font-size: 14px;
+  }
+
+  .expandToggle {
+    width: 36px;
+    height: 36px;
+    font-size: 14px;
+  }
+
+  .separator {
+    font-size: 10px;
+  }
+
+  .collapsedTitle {
+    font-size: 10px; /* Even smaller but still visible */
+  }
+
+  .controlGrid {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+
+  .controlButton {
+    min-height: 80px;
+    padding: 12px 8px;
+  }
+
+  .buttonIcon {
+    font-size: 20px;
+  }
+
+  .buttonTitle {
+    font-size: 11px;
+  }
+
+  .buttonSubtext {
+    font-size: 9px;
+  }
+}
+
+@media (max-width: 320px) {
+  .protectionControlPanel {
+    bottom: calc(64px + env(safe-area-inset-bottom)); /* Sits directly above small navigation */
+    padding: 6px 12px 12px 12px; /* Remove bottom padding since we're above nav */
+    margin: 0; /* Ensure no gap */
+  }
+
+  .protectionControlPanel.collapsed {
+    margin: 0; /* Ensure no gap in collapsed state */
+  }
+
+  .panelTitle {
+    font-size: 12px;
+  }
+
+  .controlButton {
+    min-height: 70px;
+    padding: 10px 6px;
+  }
+
+  .buttonIcon {
+    font-size: 18px;
+  }
+
+  .buttonTitle {
+    font-size: 10px;
+  }
+
+  .buttonSubtext {
+    font-size: 8px;
+    line-height: 1.2;
+  }
+}
+
+/* Large screens with shorter navigation */
+@media (min-width: 1440px) {
+  .protectionControlPanel {
+    bottom: calc(64px + env(safe-area-inset-bottom)); /* Sits directly above large screen navigation */
+    padding: 8px 20px 20px 20px; /* Remove bottom padding since we're above nav */
+    margin: 0; /* Ensure no gap */
+  }
+
+  .protectionControlPanel.collapsed {
+    margin: 0; /* Ensure no gap in collapsed state */
+  }
+}
+
+/* Touch Device Optimizations */
+@media (pointer: coarse) {
+  .controlButton {
+    min-height: 110px;
+    -webkit-tap-highlight-color: rgba(255, 215, 0, 0.1);
+  }
+
+}
+
+/* Accessibility */
+.controlButton:focus {
+  outline: 2px solid #FFD700;
+  outline-offset: 2px;
+}
+
+/* High Contrast Mode */
+@media (prefers-contrast: high) {
+  .controlButton {
+    border-width: 3px;
+  }
+
+  .buttonTitle {
+    color: #ffffff;
+  }
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  .controlButton {
+    transition: none;
+    animation: none;
+  }
+
+  .controlButton:hover {
+    transform: none;
+  }
+
+  .assistancePulse,
+  .pulseRing {
+    animation: none;
+  }
+}
