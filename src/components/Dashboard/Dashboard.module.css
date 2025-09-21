@@ -582,6 +582,24 @@
   margin-bottom: calc(var(--space-xxl) + var(--space-xl)); /* 48px + 32px = 80px spacing for breathing room */
 }
 
+/* Full-bleed (edge-to-edge) recommendation section */
+.recommendationSection {
+  padding-left: 0;
+  padding-right: 0;
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
+  width: 100vw; /* ensure spans entire viewport width */
+}
+
+/* On small screens, match Get Started section width (8px gutters) */
+@media (max-width: 768px) {
+  .recommendationSection {
+    margin-left: 8px;
+    margin-right: 8px;
+    width: auto;
+  }
+}
+
 .sectionTitle {
   font-size: var(--font-lg);
   font-weight: 600;
@@ -2988,8 +3006,8 @@
 .stepNumber {
   width: 60px;
   height: 60px;
-  background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
-  color: #1a1a2e; /* Dark navy for high contrast on gold background */
+  background: linear-gradient(135deg, var(--armora-gold), #FFA500);
+  color: #1a1a2e; /* Dark navy text on gold background for maximum contrast */
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -3001,6 +3019,7 @@
   position: relative;
   z-index: 1;
   border: 2px solid rgba(26, 26, 46, 0.2); /* Subtle border for definition */
+  text-shadow: 0 1px 0 rgba(255,255,255,0.2); /* Improve numeral clarity */
 }
 
 .stepContent {

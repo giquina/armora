@@ -150,9 +150,25 @@
   position: relative;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
   display: block;
-  /* Full width on desktop, responsive margins on smaller screens */
-  margin: 0;
+  margin: 0 auto; /* Center within section */
   width: 100%;
+  max-width: var(--content-max-width); /* Mobile/tablet safe width */
+  box-sizing: border-box; /* Include padding in width calc */
+}
+
+@media (min-width: 1024px) {
+  .recommendationCard {
+    max-width: none; /* Fill the full-width section on desktop */
+    padding-left: calc(var(--content-padding-desktop));
+    padding-right: calc(var(--content-padding-desktop));
+  }
+}
+
+@media (max-width: 768px) {
+  .recommendationCard {
+    max-width: none; /* follow the section width (8px gutters) */
+    width: 100%;
+  }
 }
 
 .matchHeader {
@@ -194,10 +210,11 @@
   );
   background-size: 200% 100%;
   animation: shimmer 3s infinite;
+  color: #0b0b12; /* fallback for text inside if needed */
 }
 
 .scoreText {
-  color: #FFD700;
+  color: #ffea77; /* brighter for contrast on dark gradient */
   font-weight: 700;
   font-size: var(--font-base);
   margin-bottom: 8px;
@@ -260,9 +277,8 @@
   line-height: 1;
   position: relative;
   z-index: 1;
-  flex-wrap: nowrap;
-  white-space: nowrap;
-  min-width: fit-content;
+  flex-wrap: wrap; /* allow wrapping to prevent overflow */
+  white-space: normal; /* allow wrapping */
   max-width: 100%;
 }
 
@@ -332,6 +348,13 @@
   box-sizing: border-box;
   max-width: 100%;
   overflow: hidden;
+}
+
+/* Card already fills its container; section padding handled in Dashboard.module.css */
+
+@media (max-width: 480px) {
+  .recommendationCard { padding: 20px; }
+  .serviceName { font-size: var(--font-lg); }
 }
 
 .pricingTitle {

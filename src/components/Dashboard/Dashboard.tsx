@@ -337,12 +337,14 @@ export function Dashboard() {
       <BookingSearchInterface />
 
       {/* Smart Recommendation - Your Protection Match Section */}
-      <SmartRecommendation
-        services={ARMORA_SERVICES}
-        user={user}
-        questionnaireData={questionnaireData}
-        onServiceSelect={handleServiceSelection}
-      />
+      <div className={styles.recommendationSection}>
+        <SmartRecommendation
+          services={ARMORA_SERVICES}
+          user={user}
+          questionnaireData={questionnaireData}
+          onServiceSelect={handleServiceSelection}
+        />
+      </div>
 
       {/* Get Started Section - 5 Card Carousel - Now below Protection Match */}
       <div className={styles.getStartedSection}>

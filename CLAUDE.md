@@ -37,12 +37,16 @@ Armora is a React 19.1.1 TypeScript application for premium close protection and
 Includes automated hooks system and AI task management:
 - `npm run dev` - Start with hooks system and orchestration
 - `npm run hooks:start/stop/status/restart/emergency` - Manage development hooks
+- `npm run hooks:help` - Show hooks system help
 - `npm run suggest` - AI task suggestions via codebase analysis
+- `npm run select-suggestion` - Interactive suggestion selector
+- `npm run refresh-suggestions` - Refresh AI task suggestions
 - `npm run add-task/complete-task/start-task/task-status` - Task management system
 - `npm run update-docs` - Update documentation automatically
 - `npm run project-health` - Check overall project health
+- `npm run statusline` - Update status line
 - `npm run agents` - Manage specialized agents (.claude/agents/)
-- `npm run orchestrate` - Start intelligent agent orchestration service
+- `npm run agents:start/status/test/file` - Agent management commands
 - `npm run orchestrate:status` - View active agents and system status
 
 **Hooks System**: 9 tools including mobile viewport tester (prevents horizontal scrolling), auto-saver, dev server monitor, brand compliance, and AI agent management.
@@ -341,4 +345,4 @@ The app uses React Context for state management with two main contexts:
 - `useProtectionAssignment()` - Access protection assignment state (new system)
 - `useBooking()` - Legacy hook for backward compatibility (being phased out)
 
-Last updated: 2025-09-20T17:45:00.000Z
+Last updated: 2025-09-21T09:15:26.000Z
