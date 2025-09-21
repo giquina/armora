@@ -212,25 +212,108 @@
   cursor: grabbing;
 }
 
+/* Mobile-First Header Design for Protection Control Panel */
 .panelHeader {
-  display: flex;
-  align-items: center;
-  gap: 8px;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.2) 100%);
+  border-bottom: 1px solid rgba(255, 215, 0, 0.2);
+  padding: 10px 12px 8px 12px;
   margin-bottom: 20px;
-  padding-bottom: 16px;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 8px 8px 0 0;
 }
 
-.panelIcon {
-  font-size: 20px;
+.headerTop {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 4px;
+}
+
+.titleSection {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex: 1;
+}
+
+.statusDot {
+  font-size: 10px;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.6; }
 }
 
 .panelTitle {
-  font-size: 16px;
-  font-weight: 800;
-  color: #1F2937;
+  font-size: 13px;
+  font-weight: 700;
+  color: #ffd700;
+  margin: 0;
+  letter-spacing: 0.5px;
   text-transform: uppercase;
-  letter-spacing: 0.8px;
+  line-height: 1;
+}
+
+.controlSection {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.timer {
+  font-size: 14px;
+  color: #ffd700;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.5px;
+  min-width: 56px;
+  text-align: right;
+}
+
+.collapseButton {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: rgba(255, 255, 255, 0.9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  padding: 0;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.collapseButton:active {
+  transform: scale(0.92);
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.headerBottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 2px;
+}
+
+.officerName {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.95);
+  font-weight: 500;
+  letter-spacing: 0.2px;
+}
+
+.officerType {
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.6);
+  font-weight: 400;
+  letter-spacing: 0.3px;
 }
 
 /* PROFESSIONAL CONTROL GRID */
@@ -570,6 +653,75 @@
 
   .buttonTitle {
     color: #ffffff;
+  }
+}
+
+/* Header Responsive Breakpoints */
+/* Larger phones (375px+) */
+@media (min-width: 375px) {
+  .panelHeader {
+    padding: 12px 16px 10px 16px;
+  }
+
+  .panelTitle {
+    font-size: 14px;
+  }
+
+  .timer {
+    font-size: 15px;
+    min-width: 64px;
+  }
+
+  .collapseButton {
+    width: 32px;
+    height: 32px;
+    font-size: 18px;
+  }
+
+  .officerName {
+    font-size: 14px;
+  }
+
+  .officerType {
+    font-size: 12px;
+  }
+}
+
+/* Desktop/Tablet */
+@media (min-width: 768px) {
+  .panelHeader {
+    padding: 14px 20px 12px 20px;
+  }
+
+  .headerTop {
+    margin-bottom: 6px;
+  }
+
+  .panelTitle {
+    font-size: 16px;
+  }
+
+  .timer {
+    font-size: 16px;
+  }
+
+  .officerName {
+    font-size: 15px;
+  }
+}
+
+/* Ultra-small phones fallback */
+@media (max-width: 320px) {
+  .officerType {
+    display: none; /* Hide on very small screens */
+  }
+
+  .panelTitle {
+    font-size: 12px;
+  }
+
+  .timer {
+    font-size: 13px;
   }
 }
 

@@ -114,19 +114,27 @@ export function ActiveProtectionPanel({ isOpen, onClose, isActive }: ActiveProte
 
   return (
     <div className={`${styles.activeProtectionPanel} ${isOpen ? styles.open : ''}`}>
-      {/* Fixed Header */}
-      <div className={styles.fixedHeader}>
-        <div className={styles.headerLeft}>
-          <h2 className={styles.title}>ACTIVE PROTECTION</h2>
-          <span className={styles.officerName}>{protectionData.officerName}</span>
+      {/* Mobile-First Header */}
+      <div className={styles.panelHeader}>
+        <div className={styles.headerTop}>
+          <div className={styles.titleSection}>
+            <span className={styles.statusDot}>🟢</span>
+            <h2 className={styles.panelTitle}>ACTIVE PROTECTION</h2>
+          </div>
+          <div className={styles.controlSection}>
+            <span className={styles.timer}>{elapsedTime}</span>
+            <button
+              className={styles.closeButton}
+              onClick={onClose}
+              aria-label="Close protection panel"
+            >
+              ✕
+            </button>
+          </div>
         </div>
-        <div className={styles.headerRight}>
-          <span className={styles.elapsedTime}>{elapsedTime}</span>
-          <button className={styles.closeButton} onClick={onClose}>
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-              <path d="M18 6L6 18M6 6l12 12"/>
-            </svg>
-          </button>
+        <div className={styles.headerBottom}>
+          <span className={styles.officerName}>{protectionData.officerName}</span>
+          <span className={styles.protectionType}>Executive Protection</span>
         </div>
       </div>
 

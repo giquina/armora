@@ -1,6 +1,6 @@
 import React, { useState, useMemo, useCallback } from 'react';
 import { useApp } from '../../contexts/AppContext';
-import { ProtectionControlPanel } from './ProtectionControlPanel';
+import { NavigationCards } from './NavigationCards/NavigationCards';
 import styles from './AssignmentsView.module.css';
 
 type AssignmentStatus = 'current' | 'upcoming' | 'completed' | 'analytics';
@@ -80,7 +80,7 @@ const mockAssignments: Assignment[] = [
 
 export function AssignmentsView() {
   const { navigateToView } = useApp();
-  const [activeTab, setActiveTab] = useState<AssignmentStatus>('current');
+  const [activeSection, setActiveSection] = useState<AssignmentStatus>('current');
   const assignments = mockAssignments;
 
   // Memoize filtered assignments
@@ -174,19 +174,57 @@ export function AssignmentsView() {
     );
   }, [getServiceTierBadge]);
 
-  const renderEmptyState = () => (
-    <div className={styles.emptyState}>
-      <div className={styles.emptyIcon}>🛡️</div>
-      <h3 className={styles.emptyTitle}>No Assignments Found</h3>
-      <p className={styles.emptyDescription}>Your protection assignments will appear here</p>
-      <button
-        className={styles.emptyAction}
-        onClick={() => navigateToView('booking')}
-      >
-        ➕ Book Protection
-      </button>
-    </div>
-  );
+  const renderEmptyState = (type: AssignmentStatus) => {
+    const emptyStates = {
+      current: {
+        icon: '🛡️',
+        title: 'No Active Protection',
+        description: 'Request protection now for immediate service',
+        buttonText: 'Book Protection'
+      },
+      upcoming: {
+        icon: '📅',
+        title: 'No Upcoming Assignments',
+        description: 'Schedule your next protection service',
+        buttonText: 'Book Protection'
+      },
+      completed: {
+        icon: '✅',
+        title: 'No Completed Assignments',
+        description: 'Your completed assignments will appear here',
+        buttonText: 'Book Protection'
+      },
+      analytics: {
+        icon: '📊',
+        title: 'No Data Available',
+        description: 'Analytics will be available after your first assignment',
+        buttonText: 'View Sample Report'
+      }
+    };
+
+    const state = emptyStates[type];
+
+    return (
+      <div className={styles.emptyState}>
+        <div className={styles.emptyIcon}>{state.icon}</div>
+        <h3 className={styles.emptyTitle}>{state.title}</h3>
+        <p className={styles.emptyDescription}>{state.description}</p>
+        <button
+          className={styles.emptyAction}
+          onClick={() => {
+            if (type === 'analytics') {
+              // Could show analytics demo
+              console.log('Show analytics demo');
+            } else {
+              navigateToView('booking');
+            }
+          }}
+        >
+          {type === 'analytics' ? '📊' : '➕'} {state.buttonText}
+        </button>
+      </div>
+    );
+  };
 
   const renderAnalytics = () => (
     <div className={styles.analyticsContent}>
@@ -200,14 +238,14 @@ export function AssignmentsView() {
     </div>
   );
 
-  const renderTabContent = () => {
-    if (activeTab === 'analytics') {
+  const renderSectionContent = () => {
+    if (activeSection === 'analytics') {
       return renderAnalytics();
     }
 
     let assignmentsToShow: Assignment[] = [];
 
-    switch (activeTab) {
+    switch (activeSection) {
       case 'current':
         assignmentsToShow = currentAssignments;
         break;
@@ -220,7 +258,7 @@ export function AssignmentsView() {
     }
 
     if (assignmentsToShow.length === 0) {
-      return renderEmptyState();
+      return renderEmptyState(activeSection);
     }
 
     return (
@@ -238,40 +276,16 @@ export function AssignmentsView() {
         <p className={styles.subtitle}>Protection History & Scheduling</p>
       </div>
 
-      {/* Tab Navigation */}
-      <div className={styles.tabNavigation}>
-        <button
-          className={`${styles.tab} ${activeTab === 'current' ? styles.active : ''}`}
-          onClick={() => setActiveTab('current')}
-        >
-          <span className={styles.tabIcon}>📋</span>
-          <span className={styles.tabLabel}>Current</span>
-          <span className={styles.tabCount}>({currentAssignments.length})</span>
-        </button>
-        <button
-          className={`${styles.tab} ${activeTab === 'upcoming' ? styles.active : ''}`}
-          onClick={() => setActiveTab('upcoming')}
-        >
-          <span className={styles.tabIcon}>📅</span>
-          <span className={styles.tabLabel}>Upcoming</span>
-          <span className={styles.tabCount}>({upcomingAssignments.length})</span>
-        </button>
-        <button
-          className={`${styles.tab} ${activeTab === 'completed' ? styles.active : ''}`}
-          onClick={() => setActiveTab('completed')}
-        >
-          <span className={styles.tabIcon}>✅</span>
-          <span className={styles.tabLabel}>Completed</span>
-          <span className={styles.tabCount}>({completedAssignments.length})</span>
-        </button>
-        <button
-          className={`${styles.tab} ${activeTab === 'analytics' ? styles.active : ''}`}
-          onClick={() => setActiveTab('analytics')}
-        >
-          <span className={styles.tabIcon}>📊</span>
-          <span className={styles.tabLabel}>Analytics</span>
-        </button>
-      </div>
+      {/* Enhanced Navigation Cards */}
+      <NavigationCards
+        activeSection={activeSection}
+        setActiveSection={setActiveSection}
+        assignmentCounts={{
+          current: currentAssignments.length,
+          upcoming: upcomingAssignments.length,
+          completed: completedAssignments.length
+        }}
+      />
 
       {/* Quick Stats Cards */}
       <div className={styles.statsGrid}>
@@ -307,7 +321,7 @@ export function AssignmentsView() {
 
       {/* Assignment List */}
       <div className={styles.assignmentsList}>
-        {renderTabContent()}
+        {renderSectionContent()}
       </div>
 
       {/* Quick Actions */}

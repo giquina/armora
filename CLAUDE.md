@@ -98,6 +98,8 @@ src/
 │   ├── Questionnaire/                   - 9-step onboarding system
 │   ├── Dashboard/                       - Protection tier selection
 │   ├── AssignmentsView/                 - Professional protection assignments command centre
+│   │   ├── NavigationCards/             - Interactive assignment status navigation cards
+│   │   └── ActiveProtectionPanel/       - Real-time protection detail monitoring
 │   ├── Booking/                         - Complete protection booking flow
 │   ├── ProtectionAssignment/            - New unified protection booking system
 │   ├── VenueProtection/                 - Venue security services
@@ -111,7 +113,7 @@ src/
 **Nationwide Coverage**: England & Wales with regional pricing variations. London premium rates, major cities -10%, rural areas +15%, airport services +25%.
 
 **Protection Tiers**:
-- Standard Protection (£65/h): SIA Level 2, personal protection trained drivers
+- Essential Protection (£65/h): SIA Level 2, personal protection trained drivers
 - Executive Shield (£95/h): SIA Level 3, corporate bodyguard services
 - Shadow Protocol (£125/h): Special Forces trained, covert protection specialists
 - Client Vehicle Service (£55/h): Security-trained driver for customer's vehicle
@@ -183,7 +185,7 @@ src/
 - **Current coverage**: Limited - focus on critical booking flow components first
 
 ## Current Status
-✅ **Complete**: Auth, Questionnaire (9-step + privacy), Dashboard, Professional Assignments View, Booking flow, Achievement, 4D logo system, Safe Ride Fund integration
+✅ **Complete**: Auth, Questionnaire (9-step + privacy), Dashboard, Professional Assignments View with NavigationCards, Mobile-optimized Active Protection Panel, Booking flow, Achievement, 4D logo system, Safe Ride Fund integration
 ⚠️ **Critical Needs**: Test coverage (only App.test.tsx exists), PWA service worker, payment integration, location search page improvements
 🔜 **Planned**: Real-time tracking, push notifications, offline mode
 
@@ -224,6 +226,8 @@ Dynamic 9-step system with privacy options. Enhanced mobile typography (1.4-1.5r
 
 ### Professional Assignments View (`src/components/AssignmentsView/`)
 Premium close protection command centre with professional terminology:
+- **NavigationCards System** (`NavigationCards/`): Interactive card-based navigation for current/upcoming/completed/analytics views with real-time data visualization
+- **Active Protection Panel** (`ActiveProtectionPanel/`): Mobile-optimized full-screen scroll snap UX for real-time protection monitoring
 - Protection duration tracking with progress indicators
 - CPO credentials including SIA licenses, experience, and specializations
 - Security-focused status messages (Protection Detail Active, CPO Approaching, etc.)
@@ -301,6 +305,8 @@ When updating any UI text, ensure professional close protection language:
 - "Ride/Trip" → "Assignment/Protection Detail"
 - "Passenger" → "Principal"
 - "Standard" → "Essential" (for protection tier)
+- "Premium" → "Executive" (for mid-tier service)
+- "VIP" → "Shadow Protocol" (for highest tier)
 - "In Progress" → "Protection Detail Active"
 - "En Route" → "CPO Approaching Principal"
 
@@ -345,4 +351,4 @@ The app uses React Context for state management with two main contexts:
 - `useProtectionAssignment()` - Access protection assignment state (new system)
 - `useBooking()` - Legacy hook for backward compatibility (being phased out)
 
-Last updated: 2025-09-21T17:56:36.886Z
+Last updated: 2025-09-21T18:12:45.123Z

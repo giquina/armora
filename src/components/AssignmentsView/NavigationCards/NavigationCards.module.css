@@ -1,0 +1,847 @@
+/* NAVIGATION CARDS - ENHANCED DASHBOARD SYSTEM */
+
+/* Grid Layout - Always 1 per row (vertical stack) */
+.navigationGrid {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+/* Base card design with glassmorphism */
+.navCard {
+  width: 100%;
+  background: linear-gradient(135deg,
+    rgba(255, 255, 255, 0.08) 0%,
+    rgba(255, 255, 255, 0.02) 100%);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 16px;
+  padding: 12px;
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+  min-height: 120px;
+}
+
+/* Unique left accent bars */
+.navCard::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  transition: width 0.3s ease;
+}
+
+.navCard.current::before { background: #FFD700; }
+.navCard.upcoming::before { background: #00D4FF; }
+.navCard.completed::before { background: #00FF88; }
+.navCard.analytics::before { background: #FF6B6B; }
+
+/* Active state */
+.navCard.active {
+  transform: scale(1.02);
+  box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+  border-color: rgba(255, 215, 0, 0.5);
+}
+
+.navCard.active::before {
+  width: 5px;
+}
+
+/* Hover state */
+.navCard:hover:not(.active) {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.navCard:active {
+  transform: scale(0.99);
+}
+
+/* Header Section */
+.navCardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.navCardLeft {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex: 1;
+  min-width: 0;
+}
+
+.navCardIcon {
+  font-size: 18px;
+  flex-shrink: 0;
+}
+
+.navCardTitle {
+  font-size: 14px;
+  font-weight: 600;
+  color: white;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+}
+
+.navCardCount {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.5);
+  font-weight: 400;
+  white-space: nowrap;
+  margin-left: 2px;
+}
+
+.activeIndicator {
+  color: #ffd700;
+  font-size: 12px;
+  animation: pulse 2s ease-in-out infinite;
+  flex-shrink: 0;
+}
+
+.newBadge {
+  font-size: 10px;
+  padding: 3px 5px;
+  background: rgba(255, 215, 0, 0.2);
+  color: #ffd700;
+  border-radius: 4px;
+  text-transform: uppercase;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.pendingBadge {
+  background: #FF6B6B;
+  color: white;
+  font-size: 10px;
+  padding: 3px 7px;
+  border-radius: 50%;
+  font-weight: 600;
+  min-width: 18px;
+  height: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+/* Card Content - Optimized for horizontal layout */
+.cardContent {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 13px;
+}
+
+/* For larger screens, use horizontal layout within cards */
+@media (min-width: 414px) {
+  .cardContent {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-template-rows: auto auto auto;
+    gap: 8px 16px;
+    align-items: start;
+  }
+
+  /* Main content flows vertically on the left */
+  .primaryStatus,
+  .progressRow,
+  .officerInfo,
+  .nextAssignment,
+  .countdownRow,
+  .officerSchedule,
+  .monthProgress,
+  .statsRow,
+  .spendSection {
+    grid-column: 1;
+  }
+
+  /* Visual elements align on the right */
+  .progressRing,
+  .miniCalendar,
+  .ratingSection,
+  .sparkline {
+    grid-column: 2;
+    grid-row: 1 / -1;
+    align-self: center;
+    justify-self: center;
+  }
+
+  /* Bottom elements span full width */
+  .bottomRow,
+  .calendarSection,
+  .recentInfo,
+  .loyaltySection,
+  .chartSection,
+  .topStat,
+  .savingsSection,
+  .reportSection,
+  .quickActions,
+  .smartInsight {
+    grid-column: 1 / -1;
+  }
+}
+
+/* CURRENT CARD STYLES */
+.primaryStatus {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.statusText {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.9);
+  font-weight: 600;
+}
+
+.liveIndicator {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.statusDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+.statusDot.online {
+  background: #00FF88;
+}
+
+.statusDot.offline {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.statusLabel {
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.6);
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+.progressRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.timeInfo {
+  flex: 1;
+}
+
+.timeRemaining {
+  font-size: 14px;
+  color: #FFD700;
+  font-weight: 600;
+  line-height: 1;
+}
+
+.eta {
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.5);
+  margin-top: 2px;
+}
+
+.progressRing {
+  flex-shrink: 0;
+}
+
+.officerInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.officerName {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.8);
+  font-weight: 500;
+}
+
+.currentLocation {
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.bottomRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.serviceTier {
+  font-size: 11px;
+  padding: 3px 7px;
+  border-radius: 4px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+.runningFare {
+  font-size: 14px;
+  color: #FFD700;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.fareIcon {
+  font-size: 12px;
+  animation: bounce 2s ease-in-out infinite;
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-2px); }
+}
+
+/* UPCOMING CARD STYLES */
+.nextAssignment {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.assignmentTime {
+  font-size: 13px;
+  color: #00D4FF;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.weatherIcon {
+  font-size: 12px;
+}
+
+.dayOfWeek {
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.countdownRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.countdown {
+  display: flex;
+  flex-direction: column;
+}
+
+.countdownTime {
+  font-size: 14px;
+  color: #FFD700;
+  font-weight: 600;
+  line-height: 1;
+}
+
+.countdownLabel {
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.favoriteSlot {
+  font-size: 12px;
+  animation: twinkle 3s ease-in-out infinite;
+}
+
+@keyframes twinkle {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+.officerSchedule {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.assignedOfficer,
+.totalScheduled {
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.calendarSection {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.calendarLabel {
+  font-size: 10px;
+  color: rgba(255, 255, 255, 0.5);
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+.miniCalendar {
+  align-self: flex-start;
+}
+
+/* COMPLETED CARD STYLES */
+.monthProgress {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.progressHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.progressLabel {
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.6);
+  text-transform: uppercase;
+}
+
+.progressValue {
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.8);
+  font-weight: 600;
+}
+
+.progressBar {
+  height: 4px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.progressFill {
+  height: 100%;
+  border-radius: 2px;
+  transition: width 1s ease-out;
+}
+
+.statsRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.totalCompleted {
+  display: flex;
+  flex-direction: column;
+}
+
+.statNumber {
+  font-size: 14px;
+  color: #00FF88;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.statLabel {
+  font-size: 10px;
+  color: rgba(255, 255, 255, 0.5);
+  text-transform: uppercase;
+}
+
+.ratingSection {
+  display: flex;
+  align-items: center;
+}
+
+.recentInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.lastAssignment,
+.monthlySavings {
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.loyaltySection {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.loyaltyHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.loyaltyPoints {
+  font-size: 12px;
+  color: #FFD700;
+  font-weight: 600;
+}
+
+.loyaltyNext {
+  font-size: 10px;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+/* ANALYTICS CARD STYLES */
+.spendSection {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.monthlySpend {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.spendAmount {
+  font-size: 13px;
+  color: white;
+  font-weight: 700;
+}
+
+.spendTrend {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.trendIcon {
+  font-size: 12px;
+}
+
+.spendLabel {
+  font-size: 10px;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.chartSection {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.chartLabel {
+  font-size: 10px;
+  color: rgba(255, 255, 255, 0.5);
+  text-transform: uppercase;
+}
+
+.sparkline {
+  align-self: flex-start;
+}
+
+.topStat {
+  font-size: 12px;
+  color: #FFD700;
+  font-weight: 600;
+}
+
+.savingsSection {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.savingsAmount {
+  font-size: 13px;
+  color: #00FF88;
+  font-weight: 600;
+}
+
+.savingsLabel {
+  font-size: 10px;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.reportSection {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.reportStatus {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.statusText {
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.lastUpdated {
+  font-size: 10px;
+  color: rgba(255, 255, 255, 0.4);
+}
+
+/* Quick Actions */
+.quickActions {
+  display: flex;
+  gap: 4px;
+  margin-top: 4px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.navCard:hover .quickActions {
+  opacity: 1;
+}
+
+.quickAction {
+  width: 20px;
+  height: 20px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.quickAction:hover {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 215, 0, 0.5);
+  transform: scale(1.1);
+}
+
+.quickAction .actionIcon {
+  font-size: 12px;
+}
+
+/* Smart Insights */
+.smartInsight {
+  font-size: 10px;
+  color: rgba(255, 255, 255, 0.5);
+  font-style: italic;
+  margin-top: 4px;
+  padding: 4px 7px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 4px;
+  border-left: 2px solid rgba(255, 215, 0, 0.3);
+}
+
+/* Empty States */
+.emptyCardState {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 16px 8px;
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.emptyText {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.6);
+  font-weight: 500;
+  margin-bottom: 2px;
+}
+
+.emptySubtext {
+  font-size: 10px;
+  color: rgba(255, 255, 255, 0.4);
+}
+
+/* Mobile Responsive Adjustments - Enhanced for 1 per row layout */
+@media (max-width: 374px) {
+  .navCard {
+    padding: 12px;
+    min-height: 110px;
+  }
+
+  .navCardTitle {
+    font-size: 13px;
+  }
+
+  .cardContent {
+    gap: 8px;
+    font-size: 12px;
+  }
+
+  .quickActions {
+    opacity: 0.5; /* Show but subdued on small screens */
+  }
+
+  .smartInsight {
+    font-size: 10px; /* Keep but smaller */
+  }
+
+  .statusText {
+    font-size: 12px;
+  }
+
+  .timeRemaining {
+    font-size: 13px;
+  }
+
+  .officerName {
+    font-size: 11px;
+  }
+
+  .runningFare {
+    font-size: 13px;
+  }
+
+  .assignmentTime {
+    font-size: 12px;
+  }
+
+  .countdownTime {
+    font-size: 13px;
+  }
+}
+
+@media (min-width: 375px) {
+  .navCard {
+    padding: 14px;
+    min-height: 130px;
+  }
+
+  .navCardTitle {
+    font-size: 14px;
+  }
+
+  .cardContent {
+    font-size: 13px;
+    gap: 10px;
+  }
+
+  .quickActions {
+    opacity: 0.7; /* More visible on larger screens */
+  }
+
+  .statusText {
+    font-size: 13px;
+  }
+
+  .timeRemaining {
+    font-size: 14px;
+  }
+
+  .officerName {
+    font-size: 12px;
+  }
+
+  .runningFare {
+    font-size: 14px;
+  }
+
+  .assignmentTime {
+    font-size: 13px;
+  }
+
+  .countdownTime {
+    font-size: 14px;
+  }
+}
+
+@media (min-width: 414px) {
+  .navCard {
+    padding: 16px;
+    min-height: 140px;
+  }
+
+  .navCardTitle {
+    font-size: 15px;
+  }
+
+  .cardContent {
+    font-size: 14px;
+    gap: 12px;
+  }
+
+  .quickActions {
+    opacity: 0.8; /* Even more visible */
+  }
+
+  .statusText {
+    font-size: 14px;
+  }
+
+  .timeRemaining {
+    font-size: 15px;
+  }
+
+  .officerName {
+    font-size: 13px;
+  }
+
+  .runningFare {
+    font-size: 15px;
+  }
+
+  .assignmentTime {
+    font-size: 14px;
+  }
+
+  .countdownTime {
+    font-size: 15px;
+  }
+}
+
+@media (min-width: 768px) {
+  .navCard {
+    padding: 18px;
+    min-height: 150px;
+  }
+
+  .cardContent {
+    gap: 14px;
+  }
+
+  .quickActions {
+    opacity: 1; /* Always visible on desktop */
+  }
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .navCard,
+  .progressFill,
+  .statusDot,
+  .fareIcon,
+  .favoriteSlot,
+  .quickAction {
+    transition: none;
+    animation: none;
+  }
+}
+
+/* Focus styles */
+.navCard:focus,
+.quickAction:focus {
+  outline: 2px solid #ffd700;
+  outline-offset: 2px;
+}

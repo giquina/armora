@@ -244,13 +244,33 @@ export function ProtectionControlPanel({
           ></div>
 
           <div className={styles.panelHeader}>
-            <span className={styles.panelIcon}>
-              {assignment?.status === 'active' && '⚡'}
-              {assignment?.status === 'upcoming' && '📅'}
-              {assignment?.status === 'completed' && '✅'}
-              {(!assignment || assignment.status === 'active') && '⚡'}
-            </span>
-            <span className={styles.panelTitle}>{getPanelTitle()}</span>
+            <div className={styles.headerTop}>
+              <div className={styles.titleSection}>
+                <span className={styles.statusDot}>
+                  {assignment?.status === 'active' && '🟢'}
+                  {assignment?.status === 'upcoming' && '🟡'}
+                  {assignment?.status === 'completed' && '✅'}
+                  {(!assignment || assignment.status === 'active') && '🟢'}
+                </span>
+                <h2 className={styles.panelTitle}>{getPanelTitle()}</h2>
+              </div>
+              <div className={styles.controlSection}>
+                <span className={styles.timer}>
+                  {assignment?.status === 'active' ? `${assignment.protectionDuration ? Math.floor(assignment.protectionDuration.completedHours) : 2}h ${assignment.protectionDuration ? Math.round((assignment.protectionDuration.completedHours % 1) * 60) : 14}m` : 'Ready'}
+                </span>
+                <button
+                  className={styles.collapseButton}
+                  onClick={handleTogglePanel}
+                  aria-label="Collapse panel"
+                >
+                  ↓
+                </button>
+              </div>
+            </div>
+            <div className={styles.headerBottom}>
+              <span className={styles.officerName}>{officer.name}</span>
+              <span className={styles.officerType}>{officer.designation}</span>
+            </div>
           </div>
 
       <div className={styles.controlGrid}>

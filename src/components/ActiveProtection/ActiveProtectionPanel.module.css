@@ -21,107 +21,124 @@
   visibility: visible;
 }
 
-/* Fixed header - always visible at top */
-.fixedHeader {
+/* Mobile-First Header Design */
+.panelHeader {
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.2) 100%);
+  border-bottom: 1px solid rgba(255, 215, 0, 0.2);
+  padding: 10px 12px 8px 12px;
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
-  height: 80px;
-  background: linear-gradient(135deg, rgba(26, 26, 46, 0.95) 0%, rgba(30, 30, 58, 0.95) 100%);
-  backdrop-filter: blur(12px);
-  border-bottom: 1px solid var(--armora-gold);
-  padding: var(--space-md) var(--space-lg);
+  z-index: 10001;
+  backdrop-filter: blur(8px);
+}
+
+.headerTop {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  z-index: 10001;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.3);
+  margin-bottom: 4px;
 }
 
-.headerLeft {
+.titleSection {
   display: flex;
-  flex-direction: column;
-  gap: var(--space-xs);
+  align-items: center;
+  gap: 6px;
+  flex: 1;
 }
 
-.headerRight {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  gap: var(--space-xs);
+.statusDot {
+  font-size: 10px;
+  animation: pulse 2s ease-in-out infinite;
 }
 
-.title {
-  font-size: var(--font-lg);
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.6; }
+}
+
+.panelTitle {
+  font-size: 13px;
   font-weight: 700;
-  color: var(--armora-gold);
+  color: #ffd700;
   margin: 0;
-  letter-spacing: 1px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
   line-height: 1;
+}
+
+.controlSection {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.timer {
+  font-size: 14px;
+  color: #ffd700;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.5px;
+  min-width: 56px; /* Prevents layout shift */
+  text-align: right;
+}
+
+.headerBottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 2px;
 }
 
 .officerName {
-  font-size: var(--font-sm);
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.95);
   font-weight: 500;
-  color: var(--text-primary);
-  line-height: 1;
+  letter-spacing: 0.2px;
 }
 
-.elapsedTime {
-  font-size: var(--font-lg);
-  font-weight: 700;
-  color: var(--armora-gold);
-  font-family: 'Courier New', monospace;
-  line-height: 1;
+.protectionType {
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.6);
+  font-weight: 400;
+  letter-spacing: 0.3px;
 }
 
 .closeButton {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: rgba(255, 255, 255, 0.9);
   display: flex;
   align-items: center;
   justify-content: center;
-  width: var(--touch-target);
-  height: var(--touch-target);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  background: rgba(0, 0, 0, 0.35);
-  color: #ffffff;
-  border-radius: var(--radius-md);
   cursor: pointer;
-  transition: all var(--transition-base);
-  backdrop-filter: blur(4px);
-  position: relative;
-  z-index: 10005;
-}
-
-.closeButton:hover {
-  background: var(--armora-gold);
-  color: #1a1a2e;
-  border-color: var(--armora-gold);
-  transform: scale(1.05);
-}
-
-.closeButton svg {
-  width: 22px;
-  height: 22px;
-  fill: none !important;
-  stroke: currentColor !important;
-  stroke-width: 2.75;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-  opacity: 1 !important;
-}
-
-.closeButton::after {
-  content: '\2715'; /* Fallback '✕' */
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  font-size: 18px;
+  transition: all 0.2s ease;
+  padding: 0;
+  font-size: 16px;
+  font-weight: 400;
   line-height: 1;
-  color: #ffffff;
-  pointer-events: none;
-  opacity: 0.9;
+  -webkit-tap-highlight-color: transparent; /* Remove tap highlight on mobile */
+  position: relative;
+}
+
+.closeButton:active {
+  transform: scale(0.92);
+  background: rgba(255, 255, 255, 0.12);
+}
+
+/* Invisible expanded touch target */
+.closeButton::before {
+  content: '';
+  position: absolute;
+  top: -8px;
+  left: -8px;
+  right: -8px;
+  bottom: -8px;
+  /* Invisible expanded touch target */
 }
 
 /* Scroll container with CSS scroll snap */
@@ -134,7 +151,7 @@
   -webkit-overflow-scrolling: touch; /* iOS momentum scrolling */
   scrollbar-width: none; /* Hide scrollbar Firefox */
   -ms-overflow-style: none; /* Hide scrollbar IE/Edge */
-  padding-top: 80px; /* Account for fixed header */
+  padding-top: 50px; /* Account for compact header */
   padding-bottom: max(88px, env(safe-area-inset-bottom)); /* Ensure content not hidden by nav */
 }
 
@@ -545,105 +562,72 @@
   50% { opacity: 0.7; transform: scale(1.2); }
 }
 
-/* Responsive design */
-@media (max-width: 480px) {
-  .activeProtectionPanel {
-    height: 100vh;
-    height: 100dvh;
+/* Larger phones (375px+) */
+@media (min-width: 375px) {
+  .panelHeader {
+    padding: 12px 16px 10px 16px;
   }
 
-  .fixedHeader {
-    height: 60px; /* Smaller header on mobile */
-    padding: var(--space-sm) var(--space-md);
+  .panelTitle {
+    font-size: 14px;
   }
 
-  .scrollContainer {
-    height: 100vh;
-    height: 100dvh;
-    padding-top: 60px; /* Match smaller header */
-    padding-bottom: max(16px, env(safe-area-inset-bottom));
+  .timer {
+    font-size: 15px;
+    min-width: 64px;
   }
 
-  .scrollSection.mapSection {
-    min-height: calc(100vh - 60px);
-    min-height: calc(100dvh - 60px);
-  }
-
-  .scrollSection.detailsSection {
-    min-height: calc(70vh - 60px);
-    min-height: calc(70dvh - 60px);
-  }
-
-  .scrollSection.securitySection {
-    min-height: calc(50vh - 60px);
-    min-height: calc(50dvh - 60px);
-  }
-
-  .scrollSection.actionsSection {
-    min-height: calc(100vh - 60px);
-    min-height: calc(100dvh - 60px);
-  }
-
-  .title {
-    font-size: var(--font-base);
-  }
-
-  .elapsedTime {
-    font-size: var(--font-base);
-  }
-
-  .detailsGrid {
-    grid-template-columns: 1fr;
-    gap: var(--space-md);
-  }
-
-  .actionsGrid {
-    grid-template-columns: 1fr;
-    gap: var(--space-sm);
-  }
-
-  .securityValue {
-    font-size: 2rem;
-  }
-
-  .bottomActions {
-    flex-direction: column;
-  }
-
-  /* Smaller map on mobile for better content visibility */
-  .mapPlaceholder {
-    height: 200px;
-    max-height: 25vh;
-  }
-}
-
-@media (max-width: 360px) {
-  .headerLeft,
-  .headerRight {
-    gap: 2px;
-  }
-
-  .title {
-    font-size: var(--font-sm);
+  .closeButton {
+    width: 32px;
+    height: 32px;
+    font-size: 18px;
   }
 
   .officerName {
-    font-size: var(--font-xs);
+    font-size: 14px;
   }
 
-  .elapsedTime {
-    font-size: var(--font-sm);
+  .protectionType {
+    font-size: 12px;
+  }
+}
+
+/* Desktop/Tablet */
+@media (min-width: 768px) {
+  .panelHeader {
+    padding: 14px 20px 12px 20px;
   }
 
-  .securityValue {
-    font-size: 1.8rem;
-    letter-spacing: 2px;
+  /* Could switch to single-line layout on desktop if desired */
+  .headerTop {
+    margin-bottom: 6px;
   }
 
-  /* Even smaller map for very small devices */
-  .mapPlaceholder {
-    height: 180px;
-    max-height: 22vh;
+  .panelTitle {
+    font-size: 16px;
+  }
+
+  .timer {
+    font-size: 16px;
+  }
+
+  .officerName {
+    font-size: 15px;
+  }
+}
+
+/* Ultra-small phones fallback */
+@media (max-width: 320px) {
+  .protectionType {
+    display: none; /* Hide on very small screens */
+  }
+
+  .panelTitle {
+    font-size: 12px;
+  }
+
+  .timer {
+    font-size: 13px;
   }
 }
 

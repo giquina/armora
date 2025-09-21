@@ -15,82 +15,182 @@
 }
 
 .pageTitle {
-  font-size: 18px;
+  font-size: 22px;
   font-weight: 700;
-  letter-spacing: 1px;
   color: #ffd700;
-  margin-bottom: 8px;
+  letter-spacing: 1px;
   text-transform: uppercase;
+  margin-bottom: 8px;
 }
 
 .subtitle {
-  font-size: 14px;
-  color: rgba(255, 255, 255, 0.6);
+  font-size: 15px;
+  color: rgba(255, 255, 255, 0.7);
+  font-weight: 400;
+  letter-spacing: 0.3px;
   margin: 0;
 }
 
-/* Tab Navigation - Style like Protection Panel sections */
-.tabNavigation {
+/* Navigation Cards - Vertical Stack */
+.navigationCards {
   display: flex;
-  gap: 8px;
-  margin-bottom: 20px;
-  overflow-x: auto;
-  padding: 0 4px;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 24px;
 }
 
-.tab {
+.navCard {
+  width: 100%;
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 12px;
-  padding: 12px 16px;
-  color: white;
+  padding: 14px 16px;
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.navCard:active {
+  transform: scale(0.99);
+}
+
+.navCard.active {
+  background: rgba(255, 215, 0, 0.08);
+  border-color: rgba(255, 215, 0, 0.3);
+}
+
+.navCardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.navCardLeft {
   display: flex;
   align-items: center;
   gap: 8px;
-  white-space: nowrap;
-  transition: all 0.3s ease;
-  cursor: pointer;
-  min-width: fit-content;
+  flex: 1;
+  min-width: 0;
 }
 
-.tab:hover {
-  background: rgba(255, 255, 255, 0.1);
-  border-color: rgba(255, 255, 255, 0.2);
+.navCardIcon {
+  font-size: 18px;
+  flex-shrink: 0;
 }
 
-.tab.active {
-  background: rgba(255, 215, 0, 0.1);
-  border-color: rgba(255, 215, 0, 0.3);
-  color: #ffd700;
-}
-
-.tabIcon {
-  font-size: 16px;
-}
-
-.tabLabel {
-  font-size: 14px;
+.navCardTitle {
+  font-size: 15px;
   font-weight: 600;
+  color: white;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
 }
 
-.tabCount {
-  font-size: 12px;
-  background: rgba(255, 255, 255, 0.1);
-  padding: 2px 6px;
-  border-radius: 10px;
-  font-weight: 500;
+.navCardCount {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.5);
+  font-weight: 400;
+  white-space: nowrap;
+  margin-left: 4px;
 }
 
-.tab.active .tabCount {
+.navCardBadge {
+  font-size: 11px;
+  padding: 3px 7px;
   background: rgba(255, 215, 0, 0.2);
   color: #ffd700;
+  border-radius: 4px;
+  text-transform: uppercase;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 
-/* Stats Grid - Use same grid as Quick Actions in Protection Panel */
+.activeIndicator {
+  color: #ffd700;
+  font-size: 13px;
+  animation: pulse 2s ease-in-out infinite;
+  flex-shrink: 0;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+.navCardInfo {
+  padding-left: 26px; /* Align with title */
+}
+
+.navCardPrimary {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.9);
+  margin-bottom: 4px;
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.navCardSecondary {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.5);
+  font-weight: 400;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Hover effects */
+.navCard:hover:not(.active) {
+  background: rgba(255, 255, 255, 0.07);
+  border-color: rgba(255, 255, 255, 0.15);
+}
+
+/* Mobile adjustments */
+@media (min-width: 375px) {
+  .navCard {
+    padding: 16px 18px;
+  }
+
+  .navCardTitle {
+    font-size: 15px;
+  }
+
+  .navCardPrimary {
+    font-size: 14px;
+  }
+
+  .navCardSecondary {
+    font-size: 12px;
+  }
+}
+
+/* Tablet/Desktop - Could switch to horizontal layout */
+@media (min-width: 768px) {
+  .navigationCards {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+
+  .navCardPrimary,
+  .navCardSecondary {
+    white-space: normal;
+    overflow: visible;
+    text-overflow: clip;
+  }
+}
+
+/* Stats Grid - 2x2 Layout */
 .statsGrid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 12px;
+  gap: 10px;
   margin-bottom: 20px;
 }
 
@@ -98,37 +198,38 @@
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 12px;
-  padding: 16px;
+  padding: 12px;
   display: flex;
   align-items: center;
-  gap: 12px;
-  transition: all 0.3s ease;
-}
-
-.statCard:hover {
-  background: rgba(255, 255, 255, 0.08);
-  border-color: rgba(255, 255, 255, 0.2);
-  transform: translateY(-1px);
+  gap: 10px;
+  min-height: 60px;
 }
 
 .statIcon {
-  font-size: 20px;
+  font-size: 22px;
+  width: 28px;
+  flex-shrink: 0;
+  text-align: center;
 }
 
 .statContent {
   flex: 1;
+  min-width: 0;
 }
 
 .statValue {
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 700;
   color: white;
+  line-height: 1;
   margin-bottom: 2px;
 }
 
 .statLabel {
   font-size: 12px;
   color: rgba(255, 255, 255, 0.6);
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
   line-height: 1.2;
 }
 
@@ -168,8 +269,8 @@
 }
 
 .assignmentStatus {
-  font-size: 12px;
-  padding: 4px 8px;
+  font-size: 13px;
+  padding: 5px 9px;
   border-radius: 6px;
   font-weight: 600;
   text-transform: uppercase;
@@ -190,7 +291,7 @@
 }
 
 .detailLabel {
-  font-size: 12px;
+  font-size: 13px;
   color: rgba(255, 255, 255, 0.6);
   text-transform: uppercase;
   letter-spacing: 0.5px;
@@ -236,7 +337,7 @@
 }
 
 .locationLabel {
-  font-size: 11px;
+  font-size: 12px;
   color: rgba(255, 255, 255, 0.6);
   text-transform: uppercase;
   font-weight: 500;
@@ -244,7 +345,7 @@
 }
 
 .locationValue {
-  font-size: 13px;
+  font-size: 14px;
   color: white;
   font-weight: 500;
 }
@@ -270,31 +371,33 @@
 }
 
 .assignmentActions {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
   gap: 8px;
   margin-top: 12px;
 }
 
 .actionButton {
-  flex: 1;
   padding: 10px;
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 8px;
   color: white;
   font-size: 14px;
-  font-weight: 600;
-  transition: all 0.3s ease;
-  cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 6px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  white-space: nowrap;
+  min-height: 44px;
 }
 
 .actionButton:hover {
   background: rgba(255, 255, 255, 0.1);
-  border-color: rgba(255, 255, 255, 0.3);
+  border-color: rgba(255, 215, 0, 0.3);
+  transform: translateY(-1px);
 }
 
 .actionButton:active {
@@ -303,52 +406,61 @@
 
 .actionIcon {
   font-size: 16px;
+  color: #ffd700;
 }
 
 .actionText {
-  font-size: 13px;
+  font-size: 14px;
+  font-weight: 500;
 }
 
-/* Quick Actions - Same style as Protection Panel buttons */
+/* Quick Actions - 2 Per Row Grid Layout */
 .quickActions {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
   gap: 12px;
   margin-top: 20px;
+  padding-bottom: 20px;
 }
 
 .quickActions .actionButton {
-  flex: 1;
-  padding: 16px;
   background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.15);
   border-radius: 12px;
+  padding: 16px;
   color: white;
-  font-size: 16px;
-  font-weight: 600;
-  transition: all 0.3s ease;
-  cursor: pointer;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 8px;
-  min-height: 70px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  min-height: 80px;
   justify-content: center;
+}
+
+.quickActions .actionButton:active {
+  transform: scale(0.98);
+  background: rgba(255, 255, 255, 0.08);
 }
 
 .quickActions .actionButton:hover {
   background: rgba(255, 255, 255, 0.1);
   border-color: rgba(255, 215, 0, 0.3);
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(255, 215, 0, 0.2);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(255, 215, 0, 0.15);
 }
 
 .quickActions .actionIcon {
   font-size: 24px;
+  color: #ffd700;
 }
 
 .quickActions .actionText {
   font-size: 14px;
-  font-weight: 600;
+  font-weight: 500;
+  text-align: center;
+  line-height: 1.2;
 }
 
 /* Analytics Content */
@@ -537,6 +649,96 @@
   .actionButton {
     transition: none;
     animation: none;
+  }
+}
+
+/* Responsive Breakpoints */
+@media (min-width: 375px) {
+  .pageTitle {
+    font-size: 22px;
+  }
+  .subtitle {
+    font-size: 15px;
+  }
+}
+
+@media (min-width: 768px) {
+  .pageTitle {
+    font-size: 24px;
+  }
+  .subtitle {
+    font-size: 16px;
+  }
+
+  .quickActions {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .assignmentActions {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 320px) {
+  .pageTitle {
+    font-size: 20px;
+  }
+
+  .subtitle {
+    font-size: 14px;
+  }
+
+  .navigationCards {
+    gap: 8px;
+  }
+
+  .navCard {
+    padding: 12px 14px;
+  }
+
+  .navCardTitle {
+    font-size: 14px;
+  }
+
+  .navCardPrimary {
+    font-size: 13px;
+  }
+
+  .navCardSecondary {
+    font-size: 12px;
+  }
+
+  .navCardInfo {
+    padding-left: 24px;
+  }
+
+  .statCard {
+    padding: 12px 10px;
+  }
+
+  .statIcon {
+    font-size: 20px;
+    width: 28px;
+  }
+
+  .statValue {
+    font-size: 16px;
+  }
+
+  .statLabel {
+    font-size: 11px;
+  }
+
+  .actionButton {
+    font-size: 13px;
+  }
+
+  .actionText {
+    font-size: 13px;
+  }
+
+  .quickActions .actionText {
+    font-size: 13px;
   }
 }
 
