@@ -769,7 +769,7 @@
 /* Mobile responsive for unified recommendation card */
 @media (max-width: 768px) {
   .recommendationCard {
-    margin: 20px 8px; /* Use global container padding */
+    margin: 20px var(--content-padding-mobile); /* Use wider global container padding */
     padding: 20px;
   }
 
@@ -842,7 +842,7 @@
   /* Keep existing mobile styles for backward compatibility */
   .recommendationCard {
     padding: var(--space-lg);
-    margin: 20px 8px; /* Consistent with global container padding */
+    margin: 20px var(--content-padding-mobile); /* Consistent with global container padding */
   }
 
   .header {
@@ -913,7 +913,7 @@
 @media (max-width: 480px) {
   .recommendationCard {
     padding: 16px;
-    margin: 16px 8px; /* Consistent with global container padding */
+    margin: 16px var(--content-padding-mobile); /* Consistent with global container padding */
   }
 
   .matchHeader h3 {
@@ -1054,7 +1054,7 @@
   /* Keep existing mobile styles for backward compatibility */
   .recommendationCard {
     padding: var(--space-md);
-    margin: 16px 8px; /* Consistent with global container padding */
+    margin: 16px var(--content-padding-mobile); /* Consistent with global container padding */
   }
 
   .compactBadge {

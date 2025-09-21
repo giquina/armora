@@ -30,7 +30,7 @@
 ======================================== */
 .venueProtectionSection {
   margin: 0;
-  padding: 0 8px;
+  padding: 0 var(--content-padding-mobile);
   margin-top: var(--space-lg); /* Reduced extra space when positioned at bottom */
   margin-bottom: var(--space-xl); /* Reduced bottom spacing for more screen usage */
   min-height: auto; /* Allow content to determine height */
@@ -312,8 +312,8 @@
 .rewardBanner {
   background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
   color: var(--text-dark);
-  padding: 16px 8px; /* Better padding for reward banner */
-  margin: 16px 8px 24px 8px; /* Minimal margins for full width */
+  padding: 16px var(--content-padding-mobile); /* Better padding for reward banner */
+  margin: 16px var(--content-padding-mobile) 24px var(--content-padding-mobile); /* Minimal margins for full width */
   position: relative;
   animation:
     bounceEntrance 3s ease-out forwards,
@@ -594,8 +594,8 @@
 /* On small screens, match Get Started section width (8px gutters) */
 @media (max-width: 768px) {
   .recommendationSection {
-    margin-left: 8px;
-    margin-right: 8px;
+    margin-left: var(--content-padding-mobile);
+    margin-right: var(--content-padding-mobile);
     width: auto;
   }
 }
@@ -904,7 +904,7 @@
    GET STARTED SECTION - SIMPLIFIED
 ======================================== */
 .getStartedSection {
-  margin: var(--space-xl) 8px var(--space-xxl) 8px;
+  margin: var(--space-xl) var(--content-padding-mobile) var(--space-xxl) var(--content-padding-mobile);
   padding: var(--space-xl) 0;
   background: var(--bg-secondary);
   border-radius: var(--radius-lg);
@@ -1189,7 +1189,7 @@
 
 /* Need Help Section */
 .needHelpSection {
-  margin: var(--space-xxl) 8px 0 8px;
+  margin: var(--space-xxl) var(--content-padding-mobile) 0 var(--content-padding-mobile);
   padding-top: var(--space-xl);
   border-top: 1px solid rgba(255, 215, 0, 0.2);
   text-align: center;
@@ -1814,9 +1814,9 @@
   .recommendationSection,
   .upgradeSection,
   .contactSection {
-    padding: 0 8px; /* Safe minimum padding */
+    padding: 0 var(--content-padding-mobile); /* Safe minimum padding */
     margin-bottom: var(--space-sm);
-    max-width: calc(100vw - 16px); /* Ensure no overflow */
+    max-width: calc(100vw - (var(--content-padding-mobile) * 2)); /* Ensure no overflow */
     box-sizing: border-box;
   }
 
@@ -2264,7 +2264,7 @@
    EVENT SECURITY SECTION - REDESIGNED
 ======================================== */
 .eventSecuritySection {
-  margin: var(--space-xl) 8px;
+  margin: var(--space-xl) var(--content-padding-mobile);
   padding: var(--space-xxl) var(--space-lg);
   background: linear-gradient(135deg,
     rgba(255, 255, 255, 0.05) 0%,
@@ -2595,7 +2595,7 @@
   border: 2px solid rgba(255, 215, 0, 0.2);
   border-radius: 16px;
   padding: var(--space-xl);
-  margin: var(--space-lg) 8px;
+  margin: var(--space-lg) var(--content-padding-mobile);
   backdrop-filter: blur(10px);
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
 }
@@ -3457,9 +3457,9 @@
 /* Extra small screens - 320px protection */
 @media (max-width: 359px) {
   .howItWorksSection {
-    padding: var(--space-md) 8px; /* Minimal safe padding */
-    margin-left: 4px;
-    margin-right: 4px;
+    padding: var(--space-md) var(--content-padding-mobile); /* Minimal safe padding */
+    margin-left: var(--content-padding-mobile);
+    margin-right: var(--content-padding-mobile);
     max-width: calc(100vw - 8px);
   }
 

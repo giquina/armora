@@ -194,6 +194,23 @@
 
   .searchBar {
     padding: var(--space-sm) var(--space-md);
+    gap: var(--space-sm); /* Reduce spacing to fit text */
+  }
+
+  .searchPlaceholder {
+    font-size: var(--font-sm); /* Smaller to fit on one line */
+    line-height: 1.3; /* Tight line height */
+  }
+
+  .searchArrow {
+    font-size: 18px; /* Smaller arrow icon */
+  }
+}
+
+@media (max-width: 360px) {
+  .searchPlaceholder {
+    font-size: var(--font-xs); /* Even smaller for very small screens */
+    letter-spacing: -0.02em; /* Tighter letter spacing to save space */
   }
 }
 
