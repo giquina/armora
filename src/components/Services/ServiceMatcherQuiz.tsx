@@ -292,7 +292,7 @@ export function ServiceMatcherQuiz() {
 
             <div className={styles.resultActions}>
               <button className={styles.selectButton} onClick={handleBookService}>
-                Book {result.service.name} →
+                Request {result.service.name} →
               </button>
               <button className={styles.retakeButton} onClick={restartQuiz}>
                 Retake Quiz

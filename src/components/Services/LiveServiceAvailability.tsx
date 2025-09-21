@@ -141,7 +141,7 @@ export function LiveServiceAvailability({ serviceId }: LiveServiceAvailabilityPr
       <div className={styles.quickActions}>
         {availability.available > 0 ? (
           <button className={styles.bookNowButton} style={{ backgroundColor: getDemandColor() }}>
-            📞 Book Now
+            📞 Request Now
           </button>
         ) : (
           <button className={styles.waitlistButton}>

@@ -58,13 +58,12 @@ export const ArmoraBrandTitle: React.FC<{ size?: 'hero' | 'large' | 'medium' | '
 );
 
 export const ArmoraTagline: React.FC<{ size?: 'primary' | 'secondary', className?: string }> = (props) => (
-  <BrandTagline {...props}>Professional Close Protection Services</BrandTagline>
+  <BrandTagline {...props}>Discrete. Professional. Always Available.</BrandTagline>
 );
 
 // Welcome page specific component
 export const WelcomeTitle: React.FC<{ className?: string }> = ({ className = '' }) => (
   <h1 className={`${styles.welcomeTitle} ${className}`}>
-    <span className={styles.welcomePrefix}>Welcome to </span>
-    <BrandText size="large" animated={true}>ARMORA</BrandText>
+    <span className={styles.welcomeHeadline}>Protection That Matches Your Standards</span>
   </h1>
 );

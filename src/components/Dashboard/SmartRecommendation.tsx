@@ -108,7 +108,7 @@ export const SmartRecommendation: React.FC<SmartRecommendationProps> = ({
             className={styles.quickBookBtn}
             onClick={() => onServiceSelect('standard')}
           >
-            Book Now
+            Request Now
           </button>
         </div>
       </div>
@@ -156,9 +156,7 @@ export const SmartRecommendation: React.FC<SmartRecommendationProps> = ({
       <div className={styles.serviceSection}>
         <h2 className={styles.serviceName}>ESSENTIAL PROTECTION</h2>
         <div className="flex items-center justify-center gap-3 text-lg">
-          <span className="font-bold text-yellow-400">£50/hour</span>
-          <span className="text-gray-500">•</span>
-          <span className="text-green-400">From 2 hours minimum</span>
+          <span className="font-bold text-yellow-400">£50/hour • £2.50/mile • 2-hour minimum</span>
         </div>
       </div>
 
@@ -166,15 +164,37 @@ export const SmartRecommendation: React.FC<SmartRecommendationProps> = ({
       <div className={styles.benefits}>
         <div className={styles.benefitItem}>
           <span className={styles.check}>✓</span>
-          <span>Professional security officer</span>
+          <span>SIA-licensed protection officer</span>
         </div>
         <div className={styles.benefitItem}>
           <span className={styles.check}>✓</span>
-          <span>Secure travel included</span>
+          <span>Secure transport at £2.50/mile</span>
         </div>
         <div className={styles.benefitItem}>
           <span className={styles.check}>✓</span>
-          <span>Perfect for your needs</span>
+          <span>Threat assessment & route planning</span>
+        </div>
+      </div>
+
+      {/* Pricing transparency box */}
+      <div className={styles.pricingBreakdown}>
+        <div className={styles.pricingTitle}>💰 Total Cost Breakdown:</div>
+        <div className={styles.pricingLine}>━━━━━━━━━━━━━━━━━━━━</div>
+        <div className={styles.pricingRow}>
+          <span>Protection:</span>
+          <span>£50/hour</span>
+        </div>
+        <div className={styles.pricingRow}>
+          <span>Transport:</span>
+          <span>£2.50/mile</span>
+        </div>
+        <div className={styles.pricingRow}>
+          <span>Minimum:</span>
+          <span>2 hours (£100 base)</span>
+        </div>
+        <div className={styles.pricingLine}>━━━━━━━━━━━━━━━━━━━━</div>
+        <div className={styles.pricingExample}>
+          Example: 2 hrs + 20 miles = £150
         </div>
       </div>
 
@@ -187,7 +207,7 @@ export const SmartRecommendation: React.FC<SmartRecommendationProps> = ({
 
       {/* Single clear CTA */}
       <button className={styles.activateBtn} onClick={handleBeginProtection}>
-        BOOK PROTECTION NOW
+        REQUEST PROTECTION NOW
       </button>
 
       {/* Alternative actions */}

@@ -193,7 +193,7 @@ export function VenueProtectionSuccess() {
           onClick={handleBookAnotherEvent}
           className={styles.primaryAction}
         >
-          Book Another Event
+          Request Another Event
         </Button>
 
         <div className={styles.secondaryActions}>

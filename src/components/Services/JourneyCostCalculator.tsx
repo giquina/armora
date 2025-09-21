@@ -156,7 +156,7 @@ export function JourneyCostCalculator({ onCalculate }: JourneyCostCalculatorProp
 
           <div className={styles.actions}>
             <button className={styles.bookButton}>
-              Book This Journey
+              Request This Journey
             </button>
             <button className={styles.shareButton}>
               Share Quote

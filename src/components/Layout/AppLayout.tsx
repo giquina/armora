@@ -1,7 +1,8 @@
-import React, { ReactNode } from 'react';
+import React, { ReactNode, useState } from 'react';
 import { useApp } from '../../contexts/AppContext';
 import { ArmoraLogo } from '../UI/ArmoraLogo';
 import { Footer } from '../Footer';
+import { ActiveProtectionPanel } from '../ActiveProtection';
 import { getDisplayName } from '../../utils/nameUtils';
 import { getLogoProps } from '../../styles/brandConstants';
 import styles from './AppLayout.module.css';
@@ -25,6 +26,10 @@ export function AppLayout({
 }: AppLayoutProps) {
   const { state, navigateToView } = useApp();
   const { currentView, user } = state;
+
+  // Active Protection Panel state
+  const [isActiveProtectionOpen, setIsActiveProtectionOpen] = useState(false);
+  const [hasActiveProtection] = useState(false); // TODO: Connect to real protection state
 
   // Only show header (with logo) on welcome and splash pages
   const shouldShowHeader = showHeader && ['welcome', 'splash'].includes(currentView);
@@ -100,6 +105,7 @@ export function AppLayout({
 
   const layoutClasses = [
     styles.layout,
+    currentView === 'home' ? styles.hasFooter : '',
     className
   ].filter(Boolean).join(' ');
 
@@ -175,8 +181,8 @@ export function AppLayout({
                       <button
                         className={styles.quickActionButton}
                         onClick={() => navigateToView('booking')}
-                        aria-label="Quick book"
-                        title="Quick book"
+                        aria-label="Quick request"
+                        title="Quick request"
                       >
                         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                           <path d="M12 5v14"/>
@@ -216,7 +222,7 @@ export function AppLayout({
         </div>
       </main>
 
-      <Footer />
+      {currentView === 'home' && <Footer />}
 
       {shouldShowNav && (
         <nav className={styles.navigation}>
@@ -248,6 +254,29 @@ export function AppLayout({
             </button>
 
             <button
+              className={`${styles.navButton} ${isActiveProtectionOpen ? styles.navButtonActive : ''} ${styles.activeButton}`}
+              onClick={() => {
+                if (hasActiveProtection) {
+                  setIsActiveProtectionOpen(true);
+                } else {
+                  // For demo purposes, let's show the panel anyway
+                  setIsActiveProtectionOpen(true);
+                  console.log('No active protection - showing demo panel');
+                }
+              }}
+              aria-label="Active Protection"
+            >
+              <div className={styles.activeIconContainer}>
+                <div className={`${styles.activeIcon} ${hasActiveProtection ? styles.activePulsing : styles.activeDisabled}`}>
+                  {hasActiveProtection ? '🟢' : '🔴'}
+                </div>
+              </div>
+              <span className={styles.navLabel} style={{ color: hasActiveProtection ? '#22c55e' : '#ef4444' }}>
+                {hasActiveProtection ? 'Active' : 'Inactive'}
+              </span>
+            </button>
+
+            <button
               className={`${styles.navButton} ${currentView === 'assignments' || currentView === 'rides' ? styles.navButtonActive : ''}`}
               onClick={() => navigateToView('assignments')}
               aria-label="Assignments"
@@ -275,6 +304,13 @@ export function AppLayout({
           </div>
         </nav>
       )}
+
+      {/* Active Protection Panel */}
+      <ActiveProtectionPanel
+        isOpen={isActiveProtectionOpen}
+        onClose={() => setIsActiveProtectionOpen(false)}
+        isActive={hasActiveProtection}
+      />
     </div>
   );
 }

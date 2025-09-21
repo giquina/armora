@@ -1,31 +1,15 @@
-/* ARMORA SECURITY FOOTER COMPONENT */
+/* ARMORA SECURITY MODERN FOOTER COMPONENT */
 
 .footer {
   width: 100%;
   margin-top: auto;
-}
-
-/* WARNING SECTION - CRITICAL REGULATORY NOTICE */
-.warningSection {
-  background: #FFC107; /* Yellow background for high visibility */
-  color: #000000; /* Black text for maximum contrast */
-  padding: 12px 16px;
-  text-align: center;
-  border-bottom: 2px solid #FF8F00; /* Darker yellow border */
-}
-
-.warningContent {
-  max-width: 1200px;
-  margin: 0 auto;
-  font-size: 12px;
-  font-weight: 600;
-  line-height: 1.4;
-  letter-spacing: 0.025em;
+  border-top: 1px solid #d4af37; /* Gold accent border */
+  margin-bottom: 90px; /* Space for fixed navigation */
 }
 
 /* MAIN FOOTER SECTION */
 .mainFooter {
-  background: #0a0b1e; /* Dark background */
+  background: linear-gradient(135deg, #1a1a2e 0%, #0a0e27 100%);
   color: #e0e0e0;
   position: relative;
   overflow: hidden;
@@ -44,42 +28,187 @@
   pointer-events: none;
 }
 
-.footerContent {
+.footerContainer {
   position: relative;
   z-index: 1;
   max-width: 1200px;
   margin: 0 auto;
-  padding: 24px 16px;
+  padding: 40px 20px 24px;
+}
+
+/* 5-COLUMN LAYOUT */
+.footerColumns {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr 1fr; /* First column wider for contact */
+  gap: 40px;
+  margin-bottom: 32px;
+  text-align: left; /* Left-aligned */
+}
+
+.column {
   display: flex;
   flex-direction: column;
   gap: 16px;
 }
 
-/* Service Areas */
-.serviceAreas {
-  text-align: center;
-  padding-bottom: 12px;
-  border-bottom: 1px solid rgba(255, 215, 0, 0.2);
-}
-
-.areasList {
-  font-size: 10px;
-  margin: 0;
-  color: #b0b0b0;
+.columnTitle {
+  font-size: 14px;
+  font-weight: 600;
+  color: #d4af37; /* Gold headers */
+  margin: 0 0 8px 0;
   letter-spacing: 0.5px;
+  text-transform: uppercase;
 }
 
-/* Links Row */
-.linksRow {
+/* COLUMN 1 - ARMORA SECURITY */
+.contactBlock {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.hotline {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.phoneIcon {
+  font-size: 20px;
+  margin-top: 2px;
+}
+
+.hotlineLabel {
+  font-size: 12px;
+  color: #d4af37;
+  font-weight: 600;
+}
+
+.hotlineNumber {
+  font-size: 18px;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 2px 0;
+}
+
+.hotlineNote {
+  font-size: 11px;
+  color: #b0b0b0;
+  font-style: italic;
+}
+
+.emails {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.emailLink {
+  font-size: 12px;
+  color: #94a3b8;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.emailLink:hover {
+  color: #d4af37;
+  text-decoration: underline;
+}
+
+/* COLUMN 2, 3 - SERVICES & COMPANY */
+.linkList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
   gap: 8px;
-  padding: 8px 0;
+}
+
+.linkList li {
+  margin: 0;
 }
 
 .footerLink {
+  font-size: 12px;
+  color: #94a3b8;
+  text-decoration: none;
+  transition: color 0.2s ease;
+  display: block;
+  line-height: 1.4;
+}
+
+.footerLink:hover {
+  color: #d4af37;
+  text-decoration: none;
+}
+
+/* COLUMN 4 - COVERAGE */
+.locationList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 11px;
+  color: #b0b0b0;
+  line-height: 1.4;
+}
+
+.locationList li {
+  margin: 0;
+}
+
+.coverageNote {
+  color: #d4af37 !important;
+  font-weight: 600;
+  margin-top: 4px;
+}
+
+/* COLUMN 5 - SOCIAL MEDIA */
+.socialLinks {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.socialIcon {
+  width: 24px;
+  height: 24px;
+  color: #94a3b8;
+  transition: all 0.2s ease;
+  text-decoration: none;
+}
+
+.socialIcon svg {
+  width: 100%;
+  height: 100%;
+}
+
+.socialIcon:hover {
+  color: #d4af37;
+  transform: translateY(-2px);
+}
+
+/* FOOTER BOTTOM SECTION */
+.footerBottom {
+  border-top: 1px solid rgba(212, 175, 55, 0.2);
+  padding-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  text-align: left; /* Left-aligned */
+}
+
+.legalLinks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+
+.legalLink {
   font-size: 11px;
   color: #94a3b8;
   text-decoration: none;
@@ -87,206 +216,204 @@
   white-space: nowrap;
 }
 
-.footerLink:hover {
-  color: #00ffff; /* Cyan hover effect */
+.legalLink:hover {
+  color: #d4af37;
   text-decoration: underline;
 }
 
-.linkSeparator {
+.divider {
   font-size: 11px;
   color: #555;
   margin: 0 4px;
 }
 
-/* Company Information */
-.companyInfo {
-  text-align: center;
-  padding: 12px 0;
-  border-bottom: 1px solid rgba(255, 215, 0, 0.1);
+.companyDetails {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
 
-.companyRow,
-.licenseRow,
-.insuranceRow,
-.coverageRow {
-  font-size: 10px;
-  color: #b0b0b0;
-  margin: 4px 0;
-  line-height: 1.4;
-}
-
-.companyRow {
-  font-weight: 600;
-  color: #e0e0e0;
-}
-
-/* Contact Information */
-.contactInfo {
-  text-align: center;
-  padding: 12px 0;
-}
-
-.contactRow,
-.emailRow,
-.corporateRow {
-  font-size: 10px;
-  color: #b0b0b0;
-  margin: 4px 0;
-  line-height: 1.4;
-}
-
-.contactRow strong,
-.emailRow strong,
-.corporateRow strong {
-  color: #FFD700; /* Gold color for labels */
-}
-
-/* Copyright */
 .copyright {
-  text-align: center;
+  font-size: 12px;
+  color: #e0e0e0;
+  font-weight: 600;
+}
+
+.credentials {
   font-size: 10px;
-  color: #777;
-  padding-top: 12px;
-  border-top: 1px solid rgba(255, 215, 0, 0.1);
-  margin-top: 8px;
+  color: #b0b0b0;
+  line-height: 1.4;
+}
+
+/* REGULATORY NOTICE - Updated to gray styling */
+.regulatoryNotice {
+  background: #2a2a3e; /* Subtle gray instead of yellow */
+  color: #e0e0e0; /* Light text on dark background */
+  padding: 12px 20px;
+  text-align: left; /* Left-aligned */
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.regulatoryContent {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+.infoIcon {
+  font-size: 14px;
+  margin-top: 1px;
+  flex-shrink: 0;
+}
+
+.regulatoryText {
+  flex: 1;
 }
 
 /* RESPONSIVE DESIGN */
 
-/* Mobile (320px and up) */
-@media (max-width: 480px) {
-  .warningContent {
-    font-size: 11px;
-    padding: 0 8px;
+/* Tablet (768px and below) */
+@media (max-width: 768px) {
+  .footerColumns {
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
   }
 
-  .footerContent {
-    padding: 20px 12px;
-    gap: 14px;
+  .footerContainer {
+    padding: 32px 16px 20px;
   }
 
-  .linksRow {
-    flex-direction: column;
-    gap: 6px;
+  /* Stack services and company in second row */
+  .column:nth-child(2) {
+    grid-column: 1;
+    grid-row: 2;
   }
 
-  .linkSeparator {
-    display: none;
+  .column:nth-child(3) {
+    grid-column: 2;
+    grid-row: 2;
   }
 
-  .areasList {
-    font-size: 9px;
-    line-height: 1.3;
+  /* Coverage and connect in third row */
+  .column:nth-child(4) {
+    grid-column: 1;
+    grid-row: 3;
   }
 
-  .footerLink {
-    font-size: 10px;
-  }
-
-  .companyRow,
-  .licenseRow,
-  .insuranceRow,
-  .coverageRow,
-  .contactRow,
-  .emailRow,
-  .corporateRow {
-    font-size: 9px;
-  }
-
-  .copyright {
-    font-size: 9px;
+  .column:nth-child(5) {
+    grid-column: 2;
+    grid-row: 3;
   }
 }
 
-/* Tablet (481px - 768px) */
-@media (min-width: 481px) and (max-width: 768px) {
-  .linksRow {
+/* Mobile (480px and below) */
+@media (max-width: 480px) {
+  .footer {
+    margin-bottom: 85px; /* Adjusted for mobile navigation height */
+  }
+
+  .footerColumns {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .footerContainer {
+    padding: 24px 12px 16px;
+  }
+
+  .column {
+    grid-column: 1 !important;
+    grid-row: auto !important;
+  }
+
+  .hotline {
+    flex-direction: column;
+    gap: 8px;
+    align-items: flex-start;
+  }
+
+  .hotlineNumber {
+    font-size: 16px;
+  }
+
+  .footerBottom {
     gap: 12px;
   }
 
-  .footerContent {
-    padding: 22px 14px;
+  .legalLinks {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+  }
+
+  .divider {
+    display: none;
+  }
+
+  .regulatoryNotice {
+    padding: 10px 12px;
+  }
+
+  .regulatoryContent {
+    font-size: 11px;
+    gap: 6px;
   }
 }
 
-/* Desktop (769px and up) */
-@media (min-width: 769px) {
-  .footerContent {
-    padding: 28px 20px;
-    gap: 20px;
+/* Extra small mobile (320px) */
+@media (max-width: 320px) {
+  .footer {
+    margin-bottom: 70px; /* Adjusted for smallest mobile navigation */
   }
 
-  .warningContent {
-    font-size: 13px;
+  .footerContainer {
+    padding: 20px 8px 12px;
   }
 
-  .areasList {
-    font-size: 11px;
+  .socialLinks {
+    gap: 8px;
   }
 
-  .footerLink {
+  .socialIcon {
+    width: 20px;
+    height: 20px;
+  }
+
+  .columnTitle {
     font-size: 12px;
   }
 
-  .companyRow,
-  .licenseRow,
-  .insuranceRow,
-  .coverageRow,
-  .contactRow,
-  .emailRow,
-  .corporateRow {
+  .footerLink {
     font-size: 11px;
   }
 
-  .copyright {
-    font-size: 11px;
+  .locationList {
+    font-size: 10px;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .regulatoryNotice {
+    background: #000000;
+    color: #FFFFFF;
+    border: 2px solid #FFFFFF;
   }
 
-  /* Desktop grid layout for better organization */
-  .footerContent {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 20px;
-  }
-
-  /* On larger screens, organize contact and company info side by side */
-  @media (min-width: 1024px) {
-    .companyInfo,
-    .contactInfo {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 20px;
-      text-align: left;
-    }
-
-    .companyInfo > div:first-child,
-    .contactInfo > div:first-child {
-      grid-column: 1;
-    }
-
-    .companyInfo > div:last-child,
-    .contactInfo > div:last-child {
-      grid-column: 2;
-    }
+  .footerLink:hover,
+  .legalLink:hover,
+  .emailLink:hover {
+    color: #FFFFFF;
+    background: #000000;
+    padding: 2px 4px;
   }
 }
 
 /* Ensure footer doesn't interfere with navigation */
 .footer {
-  margin-bottom: env(safe-area-inset-bottom, 0);
-}
-
-/* High contrast mode support */
-@media (prefers-contrast: high) {
-  .warningSection {
-    background: #FFFF00;
-    color: #000000;
-    border: 2px solid #000000;
-  }
-
-  .footerLink:hover {
-    color: #FFFFFF;
-    background: #000000;
-    padding: 2px 4px;
-  }
+  padding-bottom: env(safe-area-inset-bottom, 0);
 }

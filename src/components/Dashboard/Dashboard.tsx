@@ -10,6 +10,7 @@ import { ProtectionStatus } from '../UI/ProtectionStatus';
 import { ServiceLevel } from '../../types';
 // import { getDisplayName } from '../../utils/nameUtils'; // Removed since header is no longer displayed
 import { getAllServices } from '../../data/standardizedServices';
+import { FAQ } from './FAQ';
 import styles from './Dashboard.module.css';
 
 // Convert standardized services to legacy ServiceLevel format for compatibility
@@ -89,7 +90,6 @@ export function Dashboard() {
       source: 'dashboard_card'
     });
   };
-
 
   // Carousel navigation utilities
   const carouselCards = 5; // Total number of cards
@@ -336,7 +336,15 @@ export function Dashboard() {
       {/* Booking Search Interface - Uber-style "Where to?" - Now below Achievement Banner */}
       <BookingSearchInterface />
 
-      {/* Get Started Section - 5 Card Carousel - MOVED HERE */}
+      {/* Smart Recommendation - Your Protection Match Section */}
+      <SmartRecommendation
+        services={ARMORA_SERVICES}
+        user={user}
+        questionnaireData={questionnaireData}
+        onServiceSelect={handleServiceSelection}
+      />
+
+      {/* Get Started Section - 5 Card Carousel - Now below Protection Match */}
       <div className={styles.getStartedSection}>
         <div className={styles.getStartedHeader}>
           <h2 className={styles.getStartedTitle}>GET STARTED</h2>
@@ -507,21 +515,6 @@ export function Dashboard() {
         </div>
       </div>
 
-
-
-      {/* Impact Widget for Essential Members */}
-      {/* <CreatorImpactWidget /> */}
-
-      {/* Smart Recommendation - Condensed Version */}
-      <SmartRecommendation
-        services={ARMORA_SERVICES}
-        user={user}
-        questionnaireData={questionnaireData}
-        onServiceSelect={handleServiceSelection}
-      />
-
-
-
       {/* Service Overview Section */}
       <div id="service-overview" className={styles.servicesSection}>
         <div className={styles.sectionHeader}>
@@ -553,7 +546,7 @@ export function Dashboard() {
           ))}
         </div>
 
-        {/* Main Book Now CTA */}
+        {/* Main Request Now CTA */}
         <div className={styles.mainCTA}>
           <button
             className={styles.bookNowMainButton}
@@ -563,73 +556,16 @@ export function Dashboard() {
               navigateToView('booking');
             }}
           >
-            🚀 Book Protection Services
+            🚀 Request Protection Services
           </button>
           <p className={styles.ctaSubtext}>
-            Complete your booking in just 3 simple steps
+            Complete your request in just 3 simple steps
           </p>
         </div>
       </div>
 
 
 
-      {/* Complete Event Protection Section - Cleaned */}
-      <div className={styles.eventSecuritySection}>
-        <div className={styles.eventBadge}>INTRODUCING VENUE PROTECTION SERVICES</div>
-
-        <h2 className={styles.eventMainHeadline}>Licensed Security Officers</h2>
-        <h3 className={styles.eventSubHeadline}>24/7 Personal Protection • Secure Travel</h3>
-
-        {/* Clean Service Cards Grid - 2x2 layout */}
-        <div className={styles.eventServicesGrid}>
-          <div className={styles.eventServiceCard}>
-            <div className={styles.eventServiceIcon}>🛡️</div>
-            <h4 className={styles.eventServiceTitle}>Personal Protection</h4>
-            <button className={styles.eventQuoteBtn}>Learn More</button>
-          </div>
-
-          <div className={styles.eventServiceCard}>
-            <div className={styles.eventServiceIcon}>✈️</div>
-            <h4 className={styles.eventServiceTitle}>Secure Travel</h4>
-            <button className={styles.eventQuoteBtn}>Learn More</button>
-          </div>
-
-          <div className={styles.eventServiceCard}>
-            <div className={styles.eventServiceIcon}>🕐</div>
-            <h4 className={styles.eventServiceTitle}>24/7 Service</h4>
-            <button className={styles.eventQuoteBtn}>Learn More</button>
-          </div>
-
-          <div className={styles.eventServiceCard}>
-            <div className={styles.eventServiceIcon}>⭐</div>
-            <h4 className={styles.eventServiceTitle}>SIA-Licensed</h4>
-            <button className={styles.eventQuoteBtn}>Learn More</button>
-          </div>
-        </div>
-
-        {/* SIA-Licensed Badge */}
-        <div className={styles.whatsIncludedSection}>
-          <div className={styles.siaLicensedBadge}>
-            <span className={styles.badgeIcon}>⭐</span>
-            <span className={styles.badgeText}>SIA-Licensed Professionals</span>
-          </div>
-        </div>
-
-
-        {/* Simple CTA */}
-        <div className={styles.eventCTAButtons}>
-          <button
-            className={styles.eventPrimaryCTA}
-            onClick={() => {
-              localStorage.setItem('armora_booking_context', 'event');
-              localStorage.setItem('armora_selected_service', 'executive');
-              navigateToView('booking');
-            }}
-          >
-            Book Security Service
-          </button>
-        </div>
-      </div>
 
       {/* Safe Ride Fund Modal */}
       {/* {showSafeRideModal && (
@@ -690,6 +626,224 @@ export function Dashboard() {
               Professional, confidential protection maintaining your privacy at all times
             </p>
           </div>
+        </div>
+      </div>
+
+      {/* How Armora Works Section */}
+      <div className={styles.howItWorksSection}>
+        <h2 className={styles.howItWorksTitle}>HOW ARMORA WORKS</h2>
+        <p className={styles.howItWorksSubtitle}>Professional Protection in 4 Simple Steps</p>
+
+        <div className={styles.stepsGrid}>
+          {/* Step 1 */}
+          <div className={styles.stepCard}>
+            <div className={styles.stepNumber}>1</div>
+            <div className={styles.stepContent}>
+              <h3 className={styles.stepTitle}>Submit Your Security Requirements</h3>
+              <ul className={styles.stepList}>
+                <li>Open the Armora app and select protection level</li>
+                <li>Specify your location and destination</li>
+                <li>Choose immediate or scheduled protection</li>
+                <li>Request instantly sent to verified officers</li>
+              </ul>
+            </div>
+          </div>
+
+          {/* Step 2 */}
+          <div className={styles.stepCard}>
+            <div className={styles.stepNumber}>2</div>
+            <div className={styles.stepContent}>
+              <h3 className={styles.stepTitle}>Receive Your Protection Details</h3>
+              <ul className={styles.stepList}>
+                <li>View officer profile with photo and SIA license</li>
+                <li>See vehicle details and registration</li>
+                <li>Get real-time tracking link</li>
+                <li>Receive estimated arrival time</li>
+              </ul>
+            </div>
+          </div>
+
+          {/* Step 3 - S.A.F.E. Protocol */}
+          <div className={`${styles.stepCard} ${styles.safeProtocolCard}`}>
+            <div className={styles.stepNumber}>3</div>
+            <div className={styles.stepContent}>
+              <h3 className={styles.stepTitle}>Your Safety is Paramount - Always Verify</h3>
+              <div className={styles.safeProtocol}>
+                <h4 className={styles.safeTitle}>S.A.F.E. Protocol:</h4>
+                <div className={styles.safeGrid}>
+                  <div className={styles.safeItem}>
+                    <span className={styles.safeLetter}>S</span>
+                    <span className={styles.safeText}>SEE the officer's SIA badge (worn visibly)</span>
+                  </div>
+                  <div className={styles.safeItem}>
+                    <span className={styles.safeLetter}>A</span>
+                    <span className={styles.safeText}>ASK for the unique 6-digit security code</span>
+                  </div>
+                  <div className={styles.safeItem}>
+                    <span className={styles.safeLetter}>F</span>
+                    <span className={styles.safeText}>FIND the code match in your app</span>
+                  </div>
+                  <div className={styles.safeItem}>
+                    <span className={styles.safeLetter}>E</span>
+                    <span className={styles.safeText}>ENSURE vehicle registration matches</span>
+                  </div>
+                </div>
+                <div className={styles.safeWarning}>
+                  <strong>⚠️ NEVER proceed without verification</strong>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Step 4 */}
+          <div className={styles.stepCard}>
+            <div className={styles.stepNumber}>4</div>
+            <div className={styles.stepContent}>
+              <h3 className={styles.stepTitle}>Professional Security Throughout</h3>
+              <ul className={styles.stepList}>
+                <li>Officer conducts threat assessment</li>
+                <li>Secure route planning</li>
+                <li>Real-time journey tracking</li>
+                <li>Professional protocols maintained</li>
+                <li>Post-journey security report</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        {/* Security Verification Features */}
+        <div className={styles.verificationSection}>
+          <h3 className={styles.verificationTitle}>Security Verification Features</h3>
+          <div className={styles.verificationGrid}>
+            <div className={styles.verificationCard}>
+              <h4 className={styles.verificationType}>Digital Verification</h4>
+              <ul className={styles.verificationList}>
+                <li>Unique codes</li>
+                <li>QR scanning</li>
+                <li>Live photo matching</li>
+              </ul>
+            </div>
+            <div className={styles.verificationCard}>
+              <h4 className={styles.verificationType}>Physical Verification</h4>
+              <ul className={styles.verificationList}>
+                <li>SIA badge</li>
+                <li>Vehicle match</li>
+                <li>Professional appearance</li>
+              </ul>
+            </div>
+            <div className={styles.verificationCard}>
+              <h4 className={styles.verificationType}>Behavioral Verification</h4>
+              <ul className={styles.verificationList}>
+                <li>Professional introduction</li>
+                <li>Confirms client name</li>
+                <li>Explains procedures</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        {/* Red Flags Warning */}
+        <div className={styles.redFlagsSection}>
+          <h3 className={styles.redFlagsTitle}>🚨 RED FLAGS - When NOT to Proceed</h3>
+          <div className={styles.redFlagsWarning}>
+            <div className={styles.redFlagsList}>
+              <ul>
+                <li>Security codes don't match</li>
+                <li>No SIA badge visible</li>
+                <li>Vehicle details differ from app</li>
+                <li>Officer cannot confirm your details</li>
+                <li>Any feeling of discomfort</li>
+              </ul>
+            </div>
+            <div className={styles.redFlagsActions}>
+              <h4>If concerned:</h4>
+              <ul>
+                <li>Press SOS in app</li>
+                <li>Call 24/7 security line</li>
+                <li>Move to safe location</li>
+                <li>Backup dispatch available</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        {/* What Happens During Protection */}
+        <div className={styles.protectionPhases}>
+          <h3 className={styles.phasesTitle}>What Happens During Your Protection Service</h3>
+          <div className={styles.phasesGrid}>
+            <div className={styles.phaseCard}>
+              <h4 className={styles.phaseTitle}>Pre-Departure</h4>
+              <p className={styles.phaseDescription}>Security check, route review, comfort settings</p>
+            </div>
+            <div className={styles.phaseCard}>
+              <h4 className={styles.phaseTitle}>During Journey</h4>
+              <p className={styles.phaseDescription}>Professional vigilance, secure routing, status updates</p>
+            </div>
+            <div className={styles.phaseCard}>
+              <h4 className={styles.phaseTitle}>At Destination</h4>
+              <p className={styles.phaseDescription}>Area survey, safe exit, entrance escort, secure confirmation</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* FAQ Section */}
+      <FAQ />
+
+      {/* Complete Event Protection Section - Moved after FAQ */}
+      <div className={styles.eventSecuritySection}>
+        <div className={styles.eventBadge}>INTRODUCING VENUE PROTECTION SERVICES</div>
+
+        <h2 className={styles.eventMainHeadline}>Licensed Security Officers</h2>
+        <h3 className={styles.eventSubHeadline}>24/7 Personal Protection • Secure Travel</h3>
+
+        {/* Clean Service Cards Grid - 2x2 layout */}
+        <div className={styles.eventServicesGrid}>
+          <div className={styles.eventServiceCard}>
+            <div className={styles.eventServiceIcon}>🛡️</div>
+            <h4 className={styles.eventServiceTitle}>Personal Protection</h4>
+            <button className={styles.eventQuoteBtn}>Learn More</button>
+          </div>
+
+          <div className={styles.eventServiceCard}>
+            <div className={styles.eventServiceIcon}>✈️</div>
+            <h4 className={styles.eventServiceTitle}>Secure Travel</h4>
+            <button className={styles.eventQuoteBtn}>Learn More</button>
+          </div>
+
+          <div className={styles.eventServiceCard}>
+            <div className={styles.eventServiceIcon}>🕐</div>
+            <h4 className={styles.eventServiceTitle}>24/7 Service</h4>
+            <button className={styles.eventQuoteBtn}>Learn More</button>
+          </div>
+
+          <div className={styles.eventServiceCard}>
+            <div className={styles.eventServiceIcon}>⭐</div>
+            <h4 className={styles.eventServiceTitle}>SIA-Licensed</h4>
+            <button className={styles.eventQuoteBtn}>Learn More</button>
+          </div>
+        </div>
+
+        {/* SIA-Licensed Badge */}
+        <div className={styles.whatsIncludedSection}>
+          <div className={styles.siaLicensedBadge}>
+            <span className={styles.badgeIcon}>⭐</span>
+            <span className={styles.badgeText}>SIA-Licensed Professionals</span>
+          </div>
+        </div>
+
+        {/* Simple CTA */}
+        <div className={styles.eventCTAButtons}>
+          <button
+            className={styles.eventPrimaryCTA}
+            onClick={() => {
+              localStorage.setItem('armora_booking_context', 'event');
+              localStorage.setItem('armora_selected_service', 'executive');
+              navigateToView('booking');
+            }}
+          >
+            Request Security Service
+          </button>
         </div>
       </div>
 

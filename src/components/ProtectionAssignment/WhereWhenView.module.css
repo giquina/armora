@@ -36,15 +36,16 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 44px;
-  height: 44px;
+  width: 48px;
+  height: 48px;
   background: rgba(255, 255, 255, 0.1);
   border: 2px solid #D4AF37;
   border-radius: 12px;
   color: #D4AF37;
   cursor: pointer;
   transition: all 0.3s ease;
-  margin-right: 16px;
+  margin-right: 20px;
+  touch-action: manipulation;
 }
 
 .backButton:hover {
@@ -110,14 +111,16 @@
   background: rgba(255, 255, 255, 0.05);
   border: 2px solid rgba(255, 255, 255, 0.1);
   border-radius: 16px;
-  padding: 20px;
+  padding: 24px;
   cursor: pointer;
   transition: all 0.3s ease;
   text-align: left;
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 20px;
   position: relative;
+  min-height: 80px;
+  touch-action: manipulation;
 }
 
 .serviceCard:hover {
@@ -230,12 +233,13 @@
 .locationRow {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 16px;
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 12px;
-  padding: 16px;
+  padding: 20px;
   transition: all 0.3s ease;
+  min-height: 64px;
 }
 
 .locationRow:focus-within {
@@ -266,6 +270,9 @@
   color: white;
   font-size: 16px;
   outline: none;
+  min-height: 48px;
+  padding: 8px 0;
+  touch-action: manipulation;
 }
 
 .locationInput::placeholder {
@@ -282,11 +289,14 @@
   background: transparent;
   border: 1px solid #D4AF37;
   color: #D4AF37;
-  padding: 6px 12px;
-  border-radius: 6px;
-  font-size: 14px;
+  padding: 12px 16px;
+  border-radius: 8px;
+  font-size: 16px;
   cursor: pointer;
   transition: all 0.3s ease;
+  min-height: 48px;
+  min-width: 64px;
+  touch-action: manipulation;
 }
 
 .editButton:hover {
@@ -340,13 +350,15 @@
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 12px;
-  padding: 16px;
+  padding: 20px;
   cursor: pointer;
   transition: all 0.3s ease;
   text-align: left;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  min-height: 64px;
+  touch-action: manipulation;
 }
 
 .airportButton:hover {
@@ -375,13 +387,15 @@
   background: rgba(255, 255, 255, 0.05);
   border: 2px solid rgba(255, 255, 255, 0.1);
   border-radius: 16px;
-  padding: 20px;
+  padding: 24px;
   cursor: pointer;
   transition: all 0.3s ease;
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 20px;
   text-align: left;
+  min-height: 80px;
+  touch-action: manipulation;
 }
 
 .timeOption:hover {
@@ -444,10 +458,12 @@
   background: rgba(255, 255, 255, 0.1);
   border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 8px;
-  padding: 12px;
+  padding: 16px;
   color: white;
   font-size: 16px;
   transition: all 0.3s ease;
+  min-height: 52px;
+  touch-action: manipulation;
 }
 
 .scheduleInput:focus {
@@ -531,7 +547,7 @@
   background: linear-gradient(135deg, #D4AF37 0%, #B8941F 100%);
   border: none;
   border-radius: 16px;
-  padding: 20px;
+  padding: 24px;
   color: #1a1f3a;
   font-size: 18px;
   font-weight: 700;
@@ -539,6 +555,8 @@
   transition: all 0.3s ease;
   text-transform: uppercase;
   letter-spacing: 0.5px;
+  min-height: 64px;
+  touch-action: manipulation;
 }
 
 .continueButton:hover:not(:disabled) {
@@ -554,61 +572,98 @@
 /* Mobile Responsive */
 @media (max-width: 768px) {
   .header {
-    padding: 16px;
+    padding: 20px;
+  }
+
+  .backButton {
+    width: 52px;
+    height: 52px;
+    margin-right: 16px;
   }
 
   .content {
-    padding: 0 16px 24px;
+    padding: 0 20px 32px;
   }
 
   .title {
-    font-size: 20px;
+    font-size: 22px;
   }
 
   .serviceGrid {
-    gap: 12px;
+    gap: 16px;
   }
 
   .serviceCard {
-    padding: 16px;
+    padding: 20px;
     flex-direction: column;
     text-align: center;
-    gap: 12px;
+    gap: 16px;
+    min-height: 120px;
   }
 
   .serviceIcon {
-    font-size: 28px;
+    font-size: 32px;
   }
 
   .serviceName {
-    font-size: 16px;
+    font-size: 18px;
+  }
+
+  .locationRow {
+    padding: 18px;
+    gap: 14px;
+    min-height: 68px;
+  }
+
+  .editButton {
+    padding: 10px 14px;
+    min-height: 44px;
+    font-size: 14px;
+  }
+
+  .airportButton {
+    padding: 18px;
+    min-height: 68px;
   }
 
   .timeOptions {
-    gap: 12px;
+    gap: 16px;
   }
 
   .timeOption {
-    padding: 16px;
+    padding: 20px;
+    gap: 16px;
+    min-height: 88px;
   }
 
   .scheduleRow {
     grid-template-columns: 1fr;
-    gap: 12px;
+    gap: 16px;
+  }
+
+  .scheduleInput {
+    padding: 14px;
+    min-height: 48px;
   }
 
   .priceCard {
-    padding: 20px;
+    padding: 24px;
   }
 
   .priceAmount {
-    font-size: 28px;
+    font-size: 32px;
+  }
+
+  .continueButton {
+    padding: 20px;
+    min-height: 60px;
+    font-size: 16px;
   }
 
   .buttonSection {
-    margin: 0 -16px -24px;
-    padding-left: 16px;
-    padding-right: 16px;
-    padding-bottom: 24px;
+    margin: 0 -20px -32px;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-bottom: 32px;
   }
 }

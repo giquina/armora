@@ -24,14 +24,14 @@
   left: 0;
   top: 50%;
   transform: translateY(-50%);
-  padding: var(--space-sm);
+  padding: var(--space-md);
   background: transparent;
   color: var(--accent);
   border: none;
   font-size: var(--font-base);
   cursor: pointer;
-  min-height: var(--touch-target);
-  min-width: var(--touch-target);
+  min-height: 48px;
+  min-width: 48px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -84,9 +84,9 @@
   background: var(--bg-card);
   border: 1px solid var(--bg-secondary);
   border-radius: var(--radius-lg);
-  padding: var(--space-lg);
+  padding: var(--space-xl);
   max-width: var(--content-max-width);
-  margin: 0 auto var(--space-md) auto;
+  margin: 0 auto var(--space-lg) auto;
   width: calc(100vw - 36px);
 }
 
@@ -357,16 +357,17 @@
 
 .requirementsTextarea {
   width: 100%;
-  min-height: 80px;
-  padding: 1rem;
+  min-height: 100px;
+  padding: var(--space-lg);
   background: var(--bg-primary);
   border: 1px solid var(--border-primary);
   border-radius: var(--radius-sm);
   color: var(--text-primary);
   font-family: inherit;
-  font-size: 0.9rem;
+  font-size: 16px;
   resize: vertical;
   transition: border-color 0.3s ease;
+  touch-action: manipulation;
 }
 
 .requirementsTextarea:focus {
@@ -392,16 +393,21 @@
 .checkboxLabel {
   display: flex;
   align-items: flex-start;
-  gap: 0.75rem;
+  gap: var(--space-md);
   cursor: pointer;
-  font-size: 0.9rem;
-  line-height: 1.4;
+  font-size: 16px;
+  line-height: 1.5;
+  padding: var(--space-sm);
+  min-height: 48px;
+  touch-action: manipulation;
 }
 
 .checkbox {
   margin: 0;
-  transform: scale(1.2);
+  transform: scale(1.4);
   accent-color: var(--armora-gold);
+  min-width: 20px;
+  min-height: 20px;
 }
 
 .checkboxText {
@@ -468,18 +474,18 @@
   background: var(--accent);
   color: var(--text-dark);
   border: none;
-  padding: var(--space-md);
+  padding: var(--space-lg);
   border-radius: var(--radius-lg);
   font-size: var(--font-base);
   font-weight: 700;
   cursor: pointer;
   transition: all var(--transition-fast);
-  min-height: var(--touch-target);
+  min-height: 56px;
   display: flex;
   touch-action: manipulation;
   align-items: center;
   justify-content: center;
-  gap: var(--space-sm);
+  gap: var(--space-md);
 }
 
 .confirmButton:hover:not(:disabled) {
@@ -563,26 +569,96 @@
   }
 }
 
-/* PREVENT HORIZONTAL SCROLLING */
-@media (max-width: 320px) {
-  .container {
-    padding: 0.75rem;
+/* MOBILE IMPROVEMENTS FOR TOUCH TARGETS */
+@media (max-width: 480px) {
+  .header {
+    padding: var(--space-lg) var(--space-md);
   }
-  
+
+  .backButton {
+    min-height: 52px;
+    min-width: 52px;
+    padding: var(--space-md);
+  }
+
+  .bookingSummary {
+    padding: 0 var(--space-md);
+    gap: var(--space-lg);
+  }
+
   .serviceSection,
   .routeSection,
   .estimateSection,
   .requirementsSection {
-    padding: 1rem;
+    padding: var(--space-lg);
+    margin-bottom: var(--space-md);
   }
-  
+
+  .requirementsTextarea {
+    min-height: 120px;
+    padding: var(--space-md);
+    font-size: 16px;
+  }
+
+  .checkboxLabel {
+    gap: var(--space-md);
+    padding: var(--space-md);
+    min-height: 52px;
+    font-size: 16px;
+  }
+
+  .checkbox {
+    transform: scale(1.5);
+    min-width: 24px;
+    min-height: 24px;
+  }
+
+  .confirmButton {
+    min-height: 56px;
+    padding: var(--space-lg);
+    font-size: 16px;
+    gap: var(--space-md);
+  }
+
+  .footer {
+    padding: var(--space-lg) var(--space-md);
+  }
+
+  .importantNotes {
+    padding: var(--space-lg);
+    margin-bottom: var(--space-lg);
+  }
+}
+
+/* PREVENT HORIZONTAL SCROLLING */
+@media (max-width: 320px) {
+  .container {
+    padding: var(--space-md);
+  }
+
+  .serviceSection,
+  .routeSection,
+  .estimateSection,
+  .requirementsSection {
+    padding: var(--space-md);
+  }
+
   .title {
-    font-size: 1.5rem;
+    font-size: var(--font-xl);
   }
-  
+
   .serviceCard {
     flex-direction: column;
-    gap: 1rem;
+    gap: var(--space-md);
     text-align: center;
+  }
+
+  .backButton {
+    min-height: 48px;
+    min-width: 48px;
+  }
+
+  .confirmButton {
+    min-height: 52px;
   }
 }

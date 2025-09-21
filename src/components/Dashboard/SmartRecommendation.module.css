@@ -147,11 +147,12 @@
   border: 2px solid rgba(255, 215, 0, 0.2);
   border-radius: 16px;
   padding: 28px;
-  max-width: 420px;
-  margin: 20px auto;
   position: relative;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
   display: block;
+  /* Full width on desktop, responsive margins on smaller screens */
+  margin: 0;
+  width: 100%;
 }
 
 .matchHeader {
@@ -318,6 +319,52 @@
   font-size: 18px;
 }
 
+/* Pricing breakdown box */
+.pricingBreakdown {
+  background: rgba(255, 215, 0, 0.05);
+  border: 2px solid rgba(255, 215, 0, 0.3);
+  border-radius: 8px;
+  padding: 16px;
+  margin: 20px 0;
+  font-family: 'Courier New', monospace;
+  color: #ffffff;
+  width: 100%;
+  box-sizing: border-box;
+  max-width: 100%;
+  overflow: hidden;
+}
+
+.pricingTitle {
+  font-weight: 700;
+  font-size: var(--font-base);
+  margin-bottom: 8px;
+  text-align: center;
+  color: #FFD700;
+}
+
+.pricingLine {
+  color: rgba(255, 255, 255, 0.4);
+  text-align: center;
+  margin: 8px 0;
+  font-size: var(--font-sm);
+}
+
+.pricingRow {
+  display: flex;
+  justify-content: space-between;
+  margin: 4px 0;
+  font-size: var(--font-sm);
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.pricingExample {
+  text-align: center;
+  font-weight: 700;
+  font-size: var(--font-base);
+  color: #10B981;
+  margin-top: 8px;
+}
+
 /* Trust indicators */
 .trustBar {
   display: flex;
@@ -373,6 +420,10 @@
 
 /* Tiny screens tuning to maintain balance */
 @media (max-width: 360px) {
+  .recommendationCard {
+    margin: 16px 6px; /* Extra small margins for tiny screens */
+    padding: 14px;
+  }
   .serviceName { font-size: var(--font-base); }
   .scoreText { font-size: var(--font-sm); }
   .benefitItem, .trustBar { font-size: var(--font-xs); }
@@ -695,8 +746,7 @@
 /* Mobile responsive for unified recommendation card */
 @media (max-width: 768px) {
   .recommendationCard {
-    margin: 0 16px 20px 16px;
-    max-width: none;
+    margin: 20px 8px; /* Use global container padding */
     padding: 20px;
   }
 
@@ -769,6 +819,7 @@
   /* Keep existing mobile styles for backward compatibility */
   .recommendationCard {
     padding: var(--space-lg);
+    margin: 20px 8px; /* Consistent with global container padding */
   }
 
   .header {
@@ -839,8 +890,7 @@
 @media (max-width: 480px) {
   .recommendationCard {
     padding: 16px;
-    margin: 0 12px 16px 12px;
-    max-width: calc(100vw - 24px);
+    margin: 16px 8px; /* Consistent with global container padding */
   }
 
   .matchHeader h3 {
@@ -931,6 +981,24 @@
     font-size: 11px;
   }
 
+  /* Pricing breakdown mobile adjustments */
+  .pricingBreakdown {
+    padding: 12px;
+    margin: 16px 0;
+  }
+
+  .pricingTitle {
+    font-size: 13px;
+  }
+
+  .pricingRow {
+    font-size: 12px;
+  }
+
+  .pricingExample {
+    font-size: 13px;
+  }
+
   .shieldCard {
     padding: 20px 16px 16px;
     margin: 0 12px var(--space-lg) 12px;
@@ -963,6 +1031,7 @@
   /* Keep existing mobile styles for backward compatibility */
   .recommendationCard {
     padding: var(--space-md);
+    margin: 16px 8px; /* Consistent with global container padding */
   }
 
   .compactBadge {
@@ -1029,6 +1098,8 @@
     max-height: none; /* Allow expansion for new content */
     min-height: auto;
     padding: var(--space-lg);
+    margin: 0; /* Ensure full width on desktop */
+    width: 100%;
   }
 
   .compactContent {
@@ -1136,6 +1207,8 @@
 @media (min-width: 1440px) {
   .recommendationCard {
     max-height: 45vh;
+    margin: 0; /* Ensure full width on wide desktop */
+    width: 100%;
   }
 
   .compactContent {

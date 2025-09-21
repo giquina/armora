@@ -94,40 +94,50 @@ export function WelcomePage() {
       {/* <SafeRideFundBanner variant="compact" className={styles.topBanner} onBannerClick={() => setShowSafeRideModal(true)} /> */}
       {/* Removed legacy impactCounterTop bar */}
       <div className={`${styles.welcomeContainer}`}>
-        {/* Improved Header Section */}
+        {/* Premium Header Section */}
         <header className={styles.welcomeHeader}>
           <div className={styles.headerSection}>
-            {/* Centered Logo Section */}
-            <div className={styles.logoSection}>
+            {/* Small Logo at Top Center */}
+            <div className={styles.logoTop}>
               <div className={styles.logoContainer}>
-                <ArmoraLogo 
-                  size="medium"
+                <ArmoraLogo
+                  size="small"
                   variant="full"
                   showOrbits={true}
                   interactive={true}
                 />
               </div>
             </div>
-            
-            {/* Stacked Text Section */}
-            <div className={styles.textSection}>
-              <div className={styles.textContainer}>
-                <WelcomeTitle className={styles.welcomeTitle} />
-                <div className={styles.taglineStack}>
-                  <p className={styles.tagline}>
-                    <ArmoraTagline />
-                  </p>
-                  <p className={styles.taglineSubtext}>
-                    Your Security. Our Priority.
-                  </p>
-                </div>
-              </div>
+
+            {/* Full Width Text Section */}
+            <div className={styles.fullWidthText}>
+              <h1 className={styles.heroHeadline}>Protection That Matches Your Standards</h1>
+              <div className={styles.dividerLine}></div>
+              <p className={styles.heroSubheading}>Discrete. Professional. Always Available.</p>
+              <p className={styles.heroBody}>
+                Experience executive-level security tailored to your lifestyle. Our SIA-licensed protection officers provide discrete, professional service that adapts to your needs.
+              </p>
             </div>
           </div>
         </header>
 
-
-
+        {/* Trust Indicators Section */}
+        <section className={`${styles.trustIndicatorsSection} ${showContent ? styles.trustVisible : ''}`}>
+          <div className={styles.trustBadges}>
+            <div className={styles.trustBadge}>
+              <div className={styles.trustIcon}>✓</div>
+              <div className={styles.trustText}>Ex-Military & Police Officers</div>
+            </div>
+            <div className={styles.trustBadge}>
+              <div className={styles.trustIcon}>✓</div>
+              <div className={styles.trustText}>Average Response: 12 Minutes</div>
+            </div>
+            <div className={styles.trustBadge}>
+              <div className={styles.trustIcon}>✓</div>
+              <div className={styles.trustText}>5-Star Principal Rating</div>
+            </div>
+          </div>
+        </section>
 
         {/* Action Section */}
         <section className={`${styles.welcomeActions} ${showContent ? styles.actionsVisible : ''}`}>
@@ -244,12 +254,12 @@ export function WelcomePage() {
 
         {/* Footer - Single Government Licensed Text */}
         <footer className={`${styles.welcomeFooter} ${showContent ? styles.footerVisible : ''}`}>
-          <button 
+          <button
             className={styles.governmentLicensedButton}
             onClick={() => setShowCredentialsModal(true)}
             aria-label="View all Government Licensed & Certified Operations credentials"
           >
-            Government-Licensed & Certified Operations
+            Trusted by 1,247 London executives
           </button>
         </footer>
       </div>

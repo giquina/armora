@@ -290,7 +290,7 @@ export function ServicePricingCalculator() {
           </div>
 
           <button className={styles.bookButton} onClick={handleBookNow}>
-            Book {SERVICES_DATA.find(s => s.id === inputs.serviceLevel)?.name} Now →
+            Request {SERVICES_DATA.find(s => s.id === inputs.serviceLevel)?.name} Now →
           </button>
         </div>
       </div>

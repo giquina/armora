@@ -6,10 +6,13 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: radial-gradient(ellipse at center, 
-    rgba(26, 26, 46, 0.95) 0%, 
-    rgba(26, 26, 46, 1) 70%,
-    #000000 100%);
+  /* Premium deep gradient background - matching welcome page */
+  background: radial-gradient(ellipse at center top, #0a0e27 0%, #000000 70%),
+              linear-gradient(135deg, #0a0e27 0%, #000000 25%, #0a0e27 50%, #000000 75%, #0a0e27 100%);
+  background-size: 100% 100%, 400% 400%;
+  background-position: center;
+  background-attachment: fixed;
+  animation: gradientMesh 20s ease-in-out infinite;
   color: var(--text-primary, #e0e0e0);
   display: flex;
   align-items: center;
@@ -17,6 +20,80 @@
   padding: var(--content-padding-mobile);
   overflow: hidden;
   z-index: 1000;
+}
+
+/* Premium geometric pattern overlay */
+.container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image:
+    radial-gradient(circle at 15% 25%, rgba(212, 175, 55, 0.08) 0%, transparent 50%),
+    radial-gradient(circle at 85% 75%, rgba(212, 175, 55, 0.06) 0%, transparent 50%),
+    repeating-linear-gradient(45deg, transparent, transparent 40px, rgba(212, 175, 55, 0.02) 40px, rgba(212, 175, 55, 0.02) 42px),
+    repeating-linear-gradient(-45deg, transparent, transparent 60px, rgba(212, 175, 55, 0.01) 60px, rgba(212, 175, 55, 0.01) 62px);
+  pointer-events: none;
+  z-index: 0;
+  animation: patternFloat 25s ease-in-out infinite;
+}
+
+/* Additional floating orb */
+.container::after {
+  content: '';
+  position: absolute;
+  top: 10%;
+  right: 10%;
+  width: 200px;
+  height: 200px;
+  background: radial-gradient(circle, rgba(212, 175, 55, 0.05) 0%, transparent 70%);
+  border-radius: 50%;
+  animation: floatingOrb 15s ease-in-out infinite alternate;
+  pointer-events: none;
+  z-index: 0;
+}
+
+@keyframes gradientMesh {
+  0%, 100% {
+    background-position: 0% 50%, 0% 50%;
+    filter: hue-rotate(0deg) brightness(1);
+  }
+  25% {
+    background-position: 0% 50%, 50% 0%;
+    filter: hue-rotate(1deg) brightness(1.02);
+  }
+  50% {
+    background-position: 0% 50%, 100% 50%;
+    filter: hue-rotate(0deg) brightness(1);
+  }
+  75% {
+    background-position: 0% 50%, 50% 100%;
+    filter: hue-rotate(-1deg) brightness(0.98);
+  }
+}
+
+@keyframes patternFloat {
+  0%, 100% {
+    transform: translateY(0) rotate(0deg);
+    opacity: 1;
+  }
+  50% {
+    transform: translateY(-10px) rotate(2deg);
+    opacity: 0.8;
+  }
+}
+
+@keyframes floatingOrb {
+  0% {
+    transform: translate(0, 0) scale(1);
+    opacity: 0.3;
+  }
+  100% {
+    transform: translate(-20px, -30px) scale(1.1);
+    opacity: 0.5;
+  }
 }
 
 /* Particle Background Effects */
@@ -107,6 +184,53 @@
   text-align: center;
   position: relative;
   z-index: 10;
+  /* Premium glassmorphism container */
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(20px) saturate(1.2);
+  border: 1px solid rgba(212, 175, 55, 0.2);
+  border-radius: 24px;
+  padding: clamp(1.5rem, 4vh, 2.5rem);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.37),
+              inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  margin: 1rem;
+}
+
+/* Premium corner accents */
+.content::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  width: 40px;
+  height: 40px;
+  border-top: 2px solid rgba(212, 175, 55, 0.4);
+  border-left: 2px solid rgba(212, 175, 55, 0.4);
+  border-radius: 20px 0 0 0;
+  animation: cornerPulse 4s ease-in-out infinite;
+}
+
+.content::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  right: -2px;
+  width: 40px;
+  height: 40px;
+  border-bottom: 2px solid rgba(212, 175, 55, 0.4);
+  border-right: 2px solid rgba(212, 175, 55, 0.4);
+  border-radius: 0 0 20px 0;
+  animation: cornerPulse 4s ease-in-out infinite 2s;
+}
+
+@keyframes cornerPulse {
+  0%, 100% {
+    opacity: 0.4;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scale(1.05);
+  }
 }
 
 .content.step-entry {
@@ -306,11 +430,15 @@
 }
 
 .rewardDetails {
-  background: rgba(255, 215, 0, 0.1);
-  border: 1px solid rgba(255, 215, 0, 0.3);
-  border-radius: var(--radius-md, 8px);
+  /* Premium glassmorphism effect */
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(212, 175, 55, 0.3);
+  border-radius: 16px;
   padding: var(--space-md, 16px);
   margin-bottom: var(--space-md, 16px);
+  backdrop-filter: blur(20px) saturate(1.1);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2),
+              inset 0 1px 0 rgba(255, 255, 255, 0.1);
 }
 
 .detailsTitle {
@@ -438,13 +566,17 @@
 }
 
 .driverCard {
-  background: rgba(255, 215, 0, 0.05);
-  border: 1px solid rgba(255, 215, 0, 0.2);
-  border-radius: var(--radius-md, 8px);
+  /* Premium glassmorphism card */
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(212, 175, 55, 0.2);
+  border-radius: 16px;
   padding: var(--space-sm, 8px);
   text-align: center;
-  transition: all 0.3s ease;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   animation: driverCardEntry 0.6s ease-out forwards;
+  backdrop-filter: blur(20px) saturate(1.1);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2),
+              inset 0 1px 0 rgba(255, 255, 255, 0.1);
 }
 
 .driverCard:hover {
@@ -536,14 +668,18 @@
 }
 
 .priceCard {
-  background: rgba(255, 215, 0, 0.05);
-  border: 1px solid rgba(255, 215, 0, 0.2);
-  border-radius: var(--radius-md, 8px);
+  /* Premium glassmorphism pricing card */
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(212, 175, 55, 0.2);
+  border-radius: 16px;
   padding: var(--space-sm, 8px);
   text-align: center;
   position: relative;
-  transition: all 0.3s ease;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   animation: priceCardEntry 0.6s ease-out forwards;
+  backdrop-filter: blur(20px) saturate(1.1);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2),
+              inset 0 1px 0 rgba(255, 255, 255, 0.1);
 }
 
 @keyframes priceCardEntry {
@@ -558,9 +694,12 @@
 }
 
 .priceCard.popular {
-  border-color: var(--accent-gold, #FFD700);
-  background: rgba(255, 215, 0, 0.1);
+  border-color: rgba(212, 175, 55, 0.6);
+  background: rgba(255, 255, 255, 0.08);
   transform: scale(1.02);
+  box-shadow: 0 12px 40px rgba(212, 175, 55, 0.3),
+              inset 0 1px 0 rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(25px) saturate(1.4);
 }
 
 .popularBadge {
@@ -697,13 +836,15 @@
 }
 
 .primaryButton {
-  background: linear-gradient(135deg, 
-    var(--accent-gold, #FFD700) 0%,
-    #FFA500 100%);
+  /* Premium gold gradient with enhanced glassmorphism */
+  background: linear-gradient(135deg, #d4af37 0%, #e6c548 30%, #d4af37 60%, #b8941f 100%);
   color: var(--primary-dark, #1a1a2e);
-  box-shadow: 
-    0 4px 12px rgba(255, 215, 0, 0.3),
+  border: 2px solid rgba(212, 175, 55, 0.8);
+  box-shadow:
+    0 8px 32px rgba(212, 175, 55, 0.4),
     inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(15px) saturate(1.2);
+  border-radius: 16px;
 }
 
 .primaryButton:hover {
@@ -810,29 +951,41 @@
   .container {
     padding: var(--space-sm, 8px);
   }
-  
+
+  .content {
+    margin: 0.5rem;
+    padding: clamp(1rem, 3vh, 1.5rem);
+    border-radius: 16px;
+  }
+
+  .content::before,
+  .content::after {
+    width: 25px;
+    height: 25px;
+  }
+
   .achievementContainer {
     height: 100px;
   }
-  
+
   .trophyBase {
     width: 60px;
     height: 60px;
   }
-  
+
   .congratsTitle {
     font-size: 1.5rem;
   }
-  
+
   .button {
     min-width: 160px;
     font-size: 0.9rem;
   }
-  
+
   .rewardBadge {
     padding: var(--space-xs, 4px) var(--space-sm, 8px);
   }
-  
+
   .discountText {
     font-size: 1rem;
   }
