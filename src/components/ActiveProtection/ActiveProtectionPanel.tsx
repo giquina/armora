@@ -57,26 +57,34 @@ export function ActiveProtectionPanel({ isOpen, onClose, isActive }: ActiveProte
     return () => clearInterval(interval);
   }, [isActive, protectionData.startTime]);
 
-  const handleSwipeDown = (e: React.TouchEvent) => {
-    // Simple swipe detection - in production would use proper gesture library
-    const startY = e.touches[0].clientY;
+  // Handle scroll indicator updates
+  useEffect(() => {
+    if (!isOpen) return;
 
-    const handleTouchMove = (moveEvent: TouchEvent) => {
-      const currentY = moveEvent.touches[0].clientY;
-      const diff = currentY - startY;
+    const scrollContainer = document.querySelector(`.${styles.scrollContainer}`);
+    const scrollDots = document.querySelectorAll(`.${styles.scrollDot}`);
 
-      if (diff > 100) { // Swiped down 100px
-        setIsMinimized(true);
-        document.removeEventListener('touchmove', handleTouchMove);
-      }
+    if (!scrollContainer || !scrollDots.length) return;
+
+    const handleScroll = () => {
+      const scrollTop = scrollContainer.scrollTop;
+      const scrollHeight = scrollContainer.scrollHeight - scrollContainer.clientHeight;
+      const scrollPercentage = scrollTop / scrollHeight;
+
+      // Update active dot based on scroll position
+      const sectionIndex = Math.floor(scrollPercentage * 4);
+      scrollDots.forEach((dot, index) => {
+        if (index === Math.min(sectionIndex, 3)) {
+          dot.classList.add(styles.active);
+        } else {
+          dot.classList.remove(styles.active);
+        }
+      });
     };
 
-    document.addEventListener('touchmove', handleTouchMove);
-
-    setTimeout(() => {
-      document.removeEventListener('touchmove', handleTouchMove);
-    }, 1000);
-  };
+    scrollContainer.addEventListener('scroll', handleScroll);
+    return () => scrollContainer.removeEventListener('scroll', handleScroll);
+  }, [isOpen]);
 
   const extendTime = (minutes: number) => {
     console.log(`Extending protection by ${minutes} minutes`);
@@ -105,34 +113,27 @@ export function ActiveProtectionPanel({ isOpen, onClose, isActive }: ActiveProte
   }
 
   return (
-    <div className={`${styles.overlay} ${isOpen ? styles.open : ''}`}>
-      <div
-        className={`${styles.panel} ${isOpen ? styles.slideUp : ''}`}
-        onTouchStart={handleSwipeDown}
-      >
-        {/* Handle bar for swipe indication */}
-        <div className={styles.handleBar}></div>
-
-        {/* Header Section */}
-        <div className={styles.header}>
-          <div className={styles.headerTop}>
-            <h2 className={styles.title}>ACTIVE PROTECTION</h2>
-            <button className={styles.closeButton} onClick={onClose}>
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                <path d="M18 6L6 18M6 6l12 12"/>
-              </svg>
-            </button>
-          </div>
-          <div className={styles.headerInfo}>
-            <div className={styles.officerInfo}>
-              <span className={styles.officerName}>{protectionData.officerName}</span>
-              <span className={styles.elapsedTime}>{elapsedTime}</span>
-            </div>
-          </div>
+    <div className={`${styles.activeProtectionPanel} ${isOpen ? styles.open : ''}`}>
+      {/* Fixed Header */}
+      <div className={styles.fixedHeader}>
+        <div className={styles.headerLeft}>
+          <h2 className={styles.title}>ACTIVE PROTECTION</h2>
+          <span className={styles.officerName}>{protectionData.officerName}</span>
         </div>
+        <div className={styles.headerRight}>
+          <span className={styles.elapsedTime}>{elapsedTime}</span>
+          <button className={styles.closeButton} onClick={onClose}>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+              <path d="M18 6L6 18M6 6l12 12"/>
+            </svg>
+          </button>
+        </div>
+      </div>
 
-        {/* Map Section */}
-        <div className={styles.mapSection}>
+      {/* Scroll Container */}
+      <div className={styles.scrollContainer}>
+        {/* Section 1: Map View */}
+        <div className={`${styles.scrollSection} ${styles.mapSection}`}>
           <div className={styles.mapPlaceholder}>
             <div className={styles.mapIcon}>🗺️</div>
             <p>Live tracking map would appear here</p>
@@ -140,9 +141,9 @@ export function ActiveProtectionPanel({ isOpen, onClose, isActive }: ActiveProte
           </div>
         </div>
 
-        {/* Protection Details */}
-        <div className={styles.detailsSection}>
-          <div className={styles.detailsHeader}>
+        {/* Section 2: Protection Details */}
+        <div className={`${styles.scrollSection} ${styles.detailsSection}`}>
+          <div className={styles.sectionHeader}>
             <h3>Protection Details</h3>
             <div className={`${styles.statusBadge} ${styles[protectionData.status.toLowerCase().replace(' ', '')]}`}>
               {protectionData.status}
@@ -167,16 +168,25 @@ export function ActiveProtectionPanel({ isOpen, onClose, isActive }: ActiveProte
               <span className={styles.detailValue}>{protectionData.vehicleRegistration}</span>
             </div>
           </div>
+        </div>
 
+        {/* Section 3: Security Code */}
+        <div className={`${styles.scrollSection} ${styles.securitySection}`}>
+          <div className={styles.sectionHeader}>
+            <h3>Security Verification</h3>
+          </div>
           <div className={styles.securityCode}>
             <span className={styles.securityLabel}>SECURITY CODE</span>
             <span className={styles.securityValue}>{protectionData.securityCode}</span>
+            <p className={styles.securityNote}>Present this code to your CPO for verification</p>
           </div>
         </div>
 
-        {/* Quick Actions */}
-        <div className={styles.actionsSection}>
-          <h3>Quick Actions</h3>
+        {/* Section 4: Security Commands */}
+        <div className={`${styles.scrollSection} ${styles.actionsSection}`}>
+          <div className={styles.sectionHeader}>
+            <h3>Security Commands</h3>
+          </div>
           <div className={styles.actionsGrid}>
             <button className={styles.actionButton} onClick={() => handleEmergencyAction('call')}>
               <span className={styles.actionIcon}>📞</span>
@@ -203,36 +213,44 @@ export function ActiveProtectionPanel({ isOpen, onClose, isActive }: ActiveProte
               <span>SOS</span>
             </button>
           </div>
-        </div>
 
-        {/* Billing Tracker */}
-        <div className={styles.billingSection}>
-          <h3>Billing Tracker</h3>
-          <div className={styles.billingDetails}>
-            <div className={styles.billingRow}>
-              <span>Protection Rate:</span>
-              <span>£{protectionData.currentRate}/hour</span>
-            </div>
-            <div className={styles.billingRow}>
-              <span>Transport Rate:</span>
-              <span>£{protectionData.mileageRate}/mile</span>
-            </div>
-            <div className={styles.billingRow}>
-              <span>Time Elapsed:</span>
-              <span>{elapsedTime}</span>
-            </div>
-            <div className={`${styles.billingRow} ${styles.total}`}>
-              <span>Current Total:</span>
-              <span>£{protectionData.currentCharges.toFixed(2)}</span>
+          {/* Billing Tracker */}
+          <div className={styles.billingTracker}>
+            <h4>Current Billing</h4>
+            <div className={styles.billingDetails}>
+              <div className={styles.billingRow}>
+                <span>Protection Rate:</span>
+                <span>£{protectionData.currentRate}/hour</span>
+              </div>
+              <div className={styles.billingRow}>
+                <span>Transport Rate:</span>
+                <span>£{protectionData.mileageRate}/mile</span>
+              </div>
+              <div className={styles.billingRow}>
+                <span>Time Elapsed:</span>
+                <span>{elapsedTime}</span>
+              </div>
+              <div className={`${styles.billingRow} ${styles.total}`}>
+                <span>Current Total:</span>
+                <span>£{protectionData.currentCharges.toFixed(2)}</span>
+              </div>
             </div>
           </div>
-        </div>
 
-        {/* Bottom Actions */}
-        <div className={styles.bottomActions}>
-          <button className={styles.reportButton}>Report Issue</button>
-          <button className={styles.endButton}>End Protection</button>
+          {/* Bottom Actions */}
+          <div className={styles.bottomActions}>
+            <button className={styles.reportButton}>Report Issue</button>
+            <button className={styles.endButton}>End Protection</button>
+          </div>
         </div>
+      </div>
+
+      {/* Scroll Progress Indicator */}
+      <div className={styles.scrollIndicator}>
+        <div className={styles.scrollDot}></div>
+        <div className={styles.scrollDot}></div>
+        <div className={styles.scrollDot}></div>
+        <div className={styles.scrollDot}></div>
       </div>
     </div>
   );

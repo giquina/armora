@@ -3,11 +3,11 @@
 
 :root {
   /* MASTER WIDTH CONTROL - FULL-WIDTH EDGE-TO-EDGE EXPERIENCE */
-  --content-max-width: calc(100% - 16px); /* Nearly full width with small safety margin */
+  --content-max-width: calc(100% - 8px); /* Ultra-narrow gutters (4px per side) */
   --content-max-width-tablet: calc(100% - 24px);
   --content-max-width-desktop: calc(100% - 32px);
   --content-max-width-large: calc(100% - 40px);
-  --content-padding-mobile: 8px; /* Minimal safe gutters */
+  --content-padding-mobile: 4px; /* Minimal safe gutters for widest mobile layout */
   --content-padding-tablet: 12px; /* Minimal safe padding */
   --content-padding-desktop: 16px; /* Minimal safe padding */
 

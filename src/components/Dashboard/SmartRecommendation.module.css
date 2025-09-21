@@ -146,13 +146,12 @@
   background: linear-gradient(145deg, #1a1a2e, #252542);
   border: 2px solid rgba(255, 215, 0, 0.2);
   border-radius: 16px;
-  padding: 28px;
+  padding: 24px;
   position: relative;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
   display: block;
-  margin: 0 auto; /* Center within section */
+  margin: 0; /* Remove auto margins */
   width: 100%;
-  max-width: var(--content-max-width); /* Mobile/tablet safe width */
   box-sizing: border-box; /* Include padding in width calc */
 }
 
@@ -166,8 +165,11 @@
 
 @media (max-width: 768px) {
   .recommendationCard {
-    max-width: none; /* follow the section width (8px gutters) */
-    width: 100%;
+    width: 100% !important;
+    max-width: none !important;
+    margin: 0 !important; /* Remove all margins on mobile */
+    padding: 20px 16px !important; /* Consistent internal padding */
+    border-radius: 12px; /* Slightly smaller radius for mobile */
   }
 }
 
@@ -444,7 +446,7 @@
 /* Tiny screens tuning to maintain balance */
 @media (max-width: 360px) {
   .recommendationCard {
-    margin: 16px 6px; /* Extra small margins for tiny screens */
+    margin: 0 !important; /* Remove side margins even on tiny screens */
     padding: 14px;
   }
   .serviceName { font-size: var(--font-base); }
@@ -769,8 +771,8 @@
 /* Mobile responsive for unified recommendation card */
 @media (max-width: 768px) {
   .recommendationCard {
-    margin: 20px 8px; /* Use global container padding */
-    padding: 20px;
+    margin: 0 !important; /* Remove side margins completely */
+    padding: 20px 16px;
   }
 
   .matchHeader h3 {
@@ -842,7 +844,7 @@
   /* Keep existing mobile styles for backward compatibility */
   .recommendationCard {
     padding: var(--space-lg);
-    margin: 20px 8px; /* Consistent with global container padding */
+    margin: 0 !important; /* Remove side margins */
   }
 
   .header {
@@ -913,7 +915,7 @@
 @media (max-width: 480px) {
   .recommendationCard {
     padding: 16px;
-    margin: 16px 8px; /* Consistent with global container padding */
+    margin: 0 !important; /* Remove side margins for full width */
   }
 
   .matchHeader h3 {
@@ -1054,7 +1056,7 @@
   /* Keep existing mobile styles for backward compatibility */
   .recommendationCard {
     padding: var(--space-md);
-    margin: 16px 8px; /* Consistent with global container padding */
+    margin: 0 !important; /* Remove side margins */
   }
 
   .compactBadge {

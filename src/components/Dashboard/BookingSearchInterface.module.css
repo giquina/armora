@@ -171,6 +171,7 @@
 
   .searchBar {
     padding: var(--space-md);
+    gap: var(--space-sm);
   }
 
   .searchPlaceholder {
@@ -194,7 +195,19 @@
 
   .searchBar {
     padding: var(--space-sm) var(--space-md);
+    gap: var(--space-xs);
   }
+
+  .searchPlaceholder {
+    font-size: var(--font-sm); /* ensure one line on small phones */
+    line-height: 1.1;
+  }
+
+  .searchArrow svg { width: 12px; height: 12px; }
+}
+
+@media (max-width: 360px) {
+  .searchPlaceholder { font-size: var(--font-xs); }
 }
 
 /* Enhanced dark theme support - consistent with main theme */

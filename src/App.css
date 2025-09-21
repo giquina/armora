@@ -158,6 +158,8 @@ button svg {
   box-sizing: border-box !important;
 }
 
+/* (Removed) global dashboard child margins to avoid double gutters */
+
 /* Global content wrappers used by questionnaire content */
 .content-container,
 .questionnaire-content {

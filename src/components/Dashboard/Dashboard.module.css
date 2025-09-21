@@ -572,7 +572,7 @@
 .upgradeSection,
 .contactSection {
   margin: 0 0 24px 0; /* Better spacing between major sections */
-  padding: 0 var(--space-md); /* Proper horizontal padding to prevent cutoff */
+  padding: 0 var(--space-md); /* Desktop padding */
   max-width: 100vw;
   box-sizing: border-box;
 }
@@ -582,21 +582,38 @@
   margin-bottom: calc(var(--space-xxl) + var(--space-xl)); /* 48px + 32px = 80px spacing for breathing room */
 }
 
-/* Full-bleed (edge-to-edge) recommendation section */
+/* Recommendation section - full width but with proper mobile padding */
 .recommendationSection {
   padding-left: 0;
   padding-right: 0;
-  margin-left: calc(50% - 50vw);
-  margin-right: calc(50% - 50vw);
-  width: 100vw; /* ensure spans entire viewport width */
+  margin-left: 0;
+  margin-right: 0;
+  width: 100%;
+  box-sizing: border-box;
 }
 
-/* On small screens, match Get Started section width (8px gutters) */
+/* On small screens, use full width with proper container padding */
 @media (max-width: 768px) {
   .recommendationSection {
-    margin-left: 8px;
-    margin-right: 8px;
-    width: auto;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    padding-left: var(--content-padding-mobile) !important;
+    padding-right: var(--content-padding-mobile) !important;
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  .quickBookingSection,
+  .servicesSection,
+  .actionSection,
+  .upgradeSection,
+  .contactSection {
+    padding-left: var(--content-padding-mobile) !important;
+    padding-right: var(--content-padding-mobile) !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
   }
 }
 
@@ -904,13 +921,15 @@
    GET STARTED SECTION - SIMPLIFIED
 ======================================== */
 .getStartedSection {
-  margin: var(--space-xl) 8px var(--space-xxl) 8px;
-  padding: var(--space-xl) 0;
+  margin: var(--space-xl) 0 var(--space-xxl) 0;
+  padding: var(--space-xl) var(--content-padding-mobile);
   background: var(--bg-secondary);
   border-radius: var(--radius-lg);
   border: 1px solid var(--border-subtle);
   position: relative;
   overflow: hidden;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .getStartedHeader {
@@ -963,7 +982,7 @@
   scrollbar-width: none; /* Firefox */
   -ms-overflow-style: none; /* IE/Edge */
   /* Constrain width to show partial next card */
-  max-width: calc(100vw - 40px);
+  max-width: calc(100vw - 24px);
 }
 
 .carouselContainer::-webkit-scrollbar {
@@ -1814,9 +1833,10 @@
   .recommendationSection,
   .upgradeSection,
   .contactSection {
-    padding: 0 8px; /* Safe minimum padding */
-    margin-bottom: var(--space-sm);
-    max-width: calc(100vw - 16px); /* Ensure no overflow */
+    padding: 0 var(--content-padding-mobile) !important;
+    margin: 0 0 var(--space-sm) 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
     box-sizing: border-box;
   }
 
@@ -3409,7 +3429,7 @@
 
   .verificationSection,
   .redFlagsSection {
-    padding: var(--space-lg);
+    padding: calc(var(--space-md) + 2px);
   }
 
   .verificationTitle,

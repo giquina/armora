@@ -231,5 +231,5 @@ Member Price: (£537.50 × 0.8) = £430.00
 
 ---
 
-*Last updated: 2025-09-20T16:50:52.146Z
+*Last updated: 2025-09-21T17:56:37.166Z
 *Document Status: FINAL - Ready for Implementation*
