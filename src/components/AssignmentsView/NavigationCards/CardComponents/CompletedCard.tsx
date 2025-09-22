@@ -3,14 +3,14 @@ import { RatingStars } from './MicroVisualizations/RatingStars';
 import styles from '../NavigationCards.module.css';
 
 interface CompletedCardData {
-  monthProgress: number;
+  monthLabel: string;
   totalCompleted: number;
   averageRating: number;
   lastAssignment: string;
   pendingRatings: number;
   loyaltyPoints: number;
   pointsToNextTier: number;
-  savedThisMonth: string;
+  spentThisMonth: string;
   count: number;
 }
 
@@ -31,8 +31,7 @@ export const CompletedCard: React.FC<CompletedCardProps> = ({
   const showFullData = true;
   const showVisuals = screenWidth >= 320;
 
-  // Calculate month progress percentage
-  const monthProgressPercent = (data.monthProgress / 31) * 100;
+  // Calculate loyalty progress percentage
   const loyaltyProgressPercent = ((data.loyaltyPoints % 1000) / 1000) * 100;
 
   const quickActions = [
@@ -61,28 +60,12 @@ export const CompletedCard: React.FC<CompletedCardProps> = ({
       {/* Enhanced Content */}
       {data.count > 0 && (
         <div className={styles.cardContent}>
-          {/* Month Progress */}
-          <div className={styles.monthProgress}>
-            <div className={styles.progressHeader}>
-              <span className={styles.progressLabel}>This month</span>
-              <span className={styles.progressValue}>{data.monthProgress}/31 days</span>
-            </div>
-            <div className={styles.progressBar}>
-              <div
-                className={styles.progressFill}
-                style={{
-                  width: `${monthProgressPercent}%`,
-                  backgroundColor: '#00FF88'
-                }}
-              />
-            </div>
-          </div>
-
-          {/* Total & Rating */}
+          {/* Main Stats */}
           <div className={styles.statsRow}>
-            <div className={styles.totalCompleted}>
-              <span className={styles.statNumber}>{data.totalCompleted}</span>
-              <span className={styles.statLabel}>total</span>
+            <div className={styles.monthSummary}>
+              <span className={styles.statLabel}>{data.monthLabel}</span>
+              <span className={styles.statNumber}>{data.totalCompleted} assignments</span>
+              <span className={styles.spentAmount}>{data.spentThisMonth} spent</span>
             </div>
             {showVisuals && (
               <div className={styles.ratingSection}>
@@ -95,14 +78,6 @@ export const CompletedCard: React.FC<CompletedCardProps> = ({
               </div>
             )}
           </div>
-
-          {/* Last Assignment & Savings */}
-          {showFullData && (
-            <div className={styles.recentInfo}>
-              <div className={styles.lastAssignment}>Last: {data.lastAssignment}</div>
-              <div className={styles.monthlySavings}>Saved: {data.savedThisMonth}</div>
-            </div>
-          )}
 
           {/* Loyalty Points Progress */}
           {showVisuals && (

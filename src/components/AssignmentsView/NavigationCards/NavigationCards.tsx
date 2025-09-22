@@ -50,23 +50,23 @@ export const NavigationCards: React.FC<NavigationCardsProps> = ({
     nextAssignment: "Tomorrow 9:00 AM",
     countdown: "18h 45m",
     officerAssigned: "Sarah Chen",
-    weather: "☀️",
     dayOfWeek: "Thursday",
     totalScheduled: 3,
+    duration: "4 hour assignment",
     favoriteTimeSlot: true,
     miniCalendar: [2, 4, 5], // Booked days in next 7 days
     count: assignmentCounts.upcoming
   };
 
   const completedData = {
-    monthProgress: 23, // out of 31 days
-    totalCompleted: 47,
+    monthLabel: "This Month",
+    totalCompleted: 3,
     averageRating: 4.9,
     lastAssignment: "2 hours ago",
     pendingRatings: 3,
     loyaltyPoints: 850,
     pointsToNextTier: 150,
-    savedThisMonth: "£890",
+    spentThisMonth: "£890",
     count: assignmentCounts.completed
   };
 
@@ -75,7 +75,7 @@ export const NavigationCards: React.FC<NavigationCardsProps> = ({
     spendTrend: -18, // percentage vs last month
     sparklineData: [2200, 2100, 2300, 2250, 2400, 2300, 2450], // last 7 data points
     topStat: "127 hours protected",
-    savingsAchieved: 890,
+    spendingLabel: "£2,450 monthly spending",
     reportStatus: "Ready" as const,
     lastUpdated: "2 hours ago",
     hasNewReport: true

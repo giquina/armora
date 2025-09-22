@@ -109,12 +109,15 @@ const mockAssignments: Assignment[] = [
   }
 ];
 
+type PanelState = 'collapsed' | 'half' | 'full';
+
 export function AssignmentsView() {
   const { navigateToView } = useApp();
   const [activeSection, setActiveSection] = useState<AssignmentStatus>('current');
   const [showTemplates, setShowTemplates] = useState(false);
   const [showFinancialTracker, setShowFinancialTracker] = useState(false);
   const [isLocationSharing, setIsLocationSharing] = useState(false);
+  const [panelState, setPanelState] = useState<PanelState>('collapsed');
   const assignments = mockAssignments;
 
   // Mock officer data for the control panel
@@ -186,6 +189,39 @@ export function AssignmentsView() {
     // In real app: process points claim
   }, []);
 
+  // Panel state transition handler
+  const handlePanelClick = useCallback(() => {
+    setPanelState(currentState => {
+      switch (currentState) {
+        case 'collapsed':
+          return 'half';
+        case 'half':
+          return 'full';
+        case 'full':
+          return 'collapsed';
+        default:
+          return 'collapsed';
+      }
+    });
+  }, []);
+
+  // Swipe gesture handlers for mobile
+  const handleSwipeUp = useCallback(() => {
+    setPanelState(currentState => {
+      if (currentState === 'collapsed') return 'half';
+      if (currentState === 'half') return 'full';
+      return currentState;
+    });
+  }, []);
+
+  const handleSwipeDown = useCallback(() => {
+    setPanelState(currentState => {
+      if (currentState === 'full') return 'half';
+      if (currentState === 'half') return 'collapsed';
+      return currentState;
+    });
+  }, []);
+
 
   const renderAssignmentCard = useCallback((assignment: Assignment) => {
     const tierBadge = getServiceTierBadge(assignment.serviceTier);
@@ -247,16 +283,6 @@ export function AssignmentsView() {
             </span>
           </div>
 
-          {assignment.status === 'current' && (
-            <div className={styles.assignmentActions}>
-              <button className={styles.actionButton}>
-                <span className={styles.actionIcon}>📞</span>
-              </button>
-              <button className={styles.actionButton}>
-                <span className={styles.actionIcon}>📍</span>
-              </button>
-            </div>
-          )}
 
           {assignment.rating && assignment.status === 'completed' && (
             <div className={styles.rating}>
@@ -468,6 +494,10 @@ export function AssignmentsView() {
         onOfficerCall={handleDirectCall}
         assignmentId={currentAssignments[0]?.id || 'ASG-001'}
         currentRate={95} // Executive Shield rate
+        panelState={panelState}
+        onPanelClick={handlePanelClick}
+        onSwipeUp={handleSwipeUp}
+        onSwipeDown={handleSwipeDown}
       />
     </div>
   );

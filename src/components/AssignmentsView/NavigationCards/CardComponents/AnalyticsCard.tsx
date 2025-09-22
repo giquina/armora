@@ -7,7 +7,7 @@ interface AnalyticsCardData {
   spendTrend: number;
   sparklineData: number[];
   topStat: string;
-  savingsAchieved: number;
+  spendingLabel: string;
   reportStatus: 'Ready' | 'Generate';
   lastUpdated: string;
   hasNewReport: boolean;
@@ -66,16 +66,16 @@ export const AnalyticsCard: React.FC<AnalyticsCardProps> = ({
         {/* Monthly Spend & Trend */}
         <div className={styles.spendSection}>
           <div className={styles.monthlySpend}>
-            <span className={styles.spendAmount}>£{data.monthlySpend.toLocaleString()}</span>
+            <span className={styles.spendAmount}>{data.spendingLabel}</span>
             <div
               className={styles.spendTrend}
               style={{ color: getTrendColor(data.spendTrend) }}
             >
               <span className={styles.trendIcon}>{getTrendIcon(data.spendTrend)}</span>
-              <span className={styles.trendPercent}>{Math.abs(data.spendTrend)}%</span>
+              <span className={styles.trendPercent}>{Math.abs(data.spendTrend)}% vs last month</span>
             </div>
           </div>
-          <div className={styles.spendLabel}>vs last month</div>
+          <div className={styles.spendLabel}>{data.topStat}</div>
         </div>
 
         {/* Sparkline Chart */}
@@ -92,18 +92,7 @@ export const AnalyticsCard: React.FC<AnalyticsCardProps> = ({
           </div>
         )}
 
-        {/* Top Stat */}
-        <div className={styles.topStat}>
-          <span className={styles.statHighlight}>{data.topStat}</span>
-        </div>
 
-        {/* Savings Achieved */}
-        {showFullData && (
-          <div className={styles.savingsSection}>
-            <div className={styles.savingsAmount}>£{data.savingsAchieved} saved</div>
-            <div className={styles.savingsLabel}>this month</div>
-          </div>
-        )}
 
         {/* Report Status */}
         <div className={styles.reportSection}>

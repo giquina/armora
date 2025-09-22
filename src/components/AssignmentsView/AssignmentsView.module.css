@@ -5,9 +5,12 @@
   background: #1a1a2e;
   min-height: calc(100vh - 120px);
   padding: 20px 16px;
-  /* Reserve space for the fixed EnhancedProtectionPanel when collapsed */
-  padding-bottom: calc(180px + env(safe-area-inset-bottom)); /* Increased for better footer clearance */
+  /* Reserve space for the fixed EnhancedProtectionPanel - now touches navigation exactly */
+  /* 60px collapsed panel + 60px navigation + safe area + buffer */
+  padding-bottom: calc(140px + env(safe-area-inset-bottom) + 20px);
   color: white;
+  /* Ensure smooth scrolling on mobile */
+  -webkit-overflow-scrolling: touch;
 }
 
 /* Header Section - Match Protection Panel header style */
@@ -240,15 +243,16 @@
   display: flex;
   flex-direction: column;
   gap: 12px;
-  margin-bottom: 40px; /* Increased spacing to prevent overlap */
+  margin-bottom: 24px; /* Optimal spacing to prevent overlap */
 }
 
 .assignmentCard {
   background: #FFFFFF;
   border: 1px solid rgba(0, 0, 0, 0.1);
   border-radius: 8px;
-  padding: 12px;
-  height: 100px;
+  padding: 14px 16px;
+  min-height: 100px;
+  height: auto;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -306,23 +310,24 @@
 }
 
 .detailLabel {
-  font-size: 9px;
+  font-size: 12px;
   color: rgba(26, 26, 46, 0.5);
   text-transform: uppercase;
   letter-spacing: 0.3px;
   font-weight: 500;
-  min-width: 28px;
+  min-width: 32px;
   flex-shrink: 0;
 }
 
 .detailValue {
-  font-size: 12px;
+  font-size: 15px;
   color: #1A1A2E;
   font-weight: 500;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  overflow: visible;
+  text-overflow: unset;
+  white-space: normal;
   flex: 1;
+  line-height: 1.4;
 }
 
 /* New compact card styles */
@@ -432,8 +437,8 @@
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 12px;
-  margin-top: 32px; /* Increased top margin for clear separation */
-  padding-bottom: 32px; /* Increased bottom padding for footer clearance */
+  margin-top: 32px; /* Clear separation from content above */
+  padding-bottom: 20px; /* Adequate clearance from panel */
   /* Ensure buttons are in normal document flow */
   position: relative;
   z-index: 1;
@@ -560,8 +565,8 @@
 @media (max-width: 768px) {
   .assignmentsContainer {
     padding: 16px 12px;
-    /* Keep reserved space for the fixed panel on small screens */
-    padding-bottom: calc(180px + env(safe-area-inset-bottom)); /* Increased for better spacing */
+    /* Optimized spacing for mobile panel - panel now touches navigation */
+    padding-bottom: calc(140px + env(safe-area-inset-bottom) + 16px);
   }
 
   .tabNavigation {
@@ -592,16 +597,16 @@
   .quickActions {
     grid-template-columns: repeat(2, 1fr); /* Keep 2x2 grid on mobile */
     gap: 10px;
-    margin-top: 24px; /* Reduced but still adequate spacing on mobile */
-    padding-bottom: 24px; /* Adequate bottom padding */
+    margin-top: 20px; /* Optimized spacing on mobile */
+    padding-bottom: 16px; /* Streamlined bottom padding */
   }
 }
 
 @media (max-width: 480px) {
   .assignmentsContainer {
     padding: 12px 8px;
-    /* Keep reserved space for the fixed panel on very small screens */
-    padding-bottom: calc(180px + env(safe-area-inset-bottom)); /* Increased for better spacing */
+    /* Compact spacing for small screens */
+    padding-bottom: calc(128px + env(safe-area-inset-bottom) + 12px);
   }
 
   .pageTitle {
@@ -742,6 +747,12 @@
 }
 
 @media (max-width: 320px) {
+  .assignmentsContainer {
+    padding: 10px 6px;
+    /* Minimal but adequate spacing for 320px screens - panel touches navigation */
+    padding-bottom: calc(140px + env(safe-area-inset-bottom) + 10px);
+  }
+
   .pageTitle {
     font-size: 20px;
   }
@@ -848,6 +859,12 @@
 
   .rating {
     font-size: 9px;
+  }
+
+  .quickActions {
+    margin-top: 16px;
+    padding-bottom: 12px;
+    gap: 8px;
   }
 
   .quickActions .actionText {

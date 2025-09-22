@@ -8,7 +8,7 @@
   margin-bottom: 24px;
 }
 
-/* Base card design with enhanced glassmorphism */
+/* Base card design with enhanced glassmorphism - 50% REDUCED HEIGHT */
 .navCard {
   width: 100%;
   background: linear-gradient(135deg,
@@ -20,13 +20,14 @@
     inset 0 1px 0 rgba(255, 255, 255, 0.1);
   border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: 16px;
-  padding: 12px;
+  padding: 8px 12px; /* Reduced vertical padding */
   text-align: left;
   cursor: pointer;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   position: relative;
   overflow: hidden;
-  min-height: 120px;
+  min-height: 60px; /* REDUCED FROM 120px - 50% SHORTER */
+  max-height: 75px; /* Enforce height limit for compact design */
 }
 
 /* Enhanced left accent bars */
@@ -102,12 +103,12 @@
   border-color: #FF6B6B;
 }
 
-/* Header Section */
+/* Header Section - COMPACT */
 .navCardHeader {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 10px;
+  margin-bottom: 4px; /* REDUCED from 10px for compactness */
 }
 
 .navCardLeft {
@@ -180,21 +181,22 @@
   50% { opacity: 0.5; }
 }
 
-/* Card Content - Optimized for horizontal layout */
+/* Card Content - COMPACT 50% HEIGHT REDUCTION */
 .cardContent {
   display: flex;
   flex-direction: column;
-  gap: 8px;
-  font-size: 14px;
+  gap: 3px; /* REDUCED from 8px for compactness */
+  font-size: 13px; /* REDUCED font size */
+  line-height: 1.2; /* Tighter line height */
 }
 
-/* For larger screens, use horizontal layout within cards */
+/* For larger screens, use horizontal layout within cards - COMPACT */
 @media (min-width: 414px) {
   .cardContent {
     display: grid;
     grid-template-columns: 1fr auto;
-    grid-template-rows: auto auto auto;
-    gap: 8px 16px;
+    grid-template-rows: auto auto;
+    gap: 4px 12px; /* REDUCED gaps for compactness */
     align-items: start;
   }
 
@@ -642,11 +644,11 @@
   color: rgba(255, 255, 255, 0.4);
 }
 
-/* Quick Actions */
+/* Quick Actions - COMPACT */
 .quickActions {
   display: flex;
-  gap: 4px;
-  margin-top: 4px;
+  gap: 2px; /* REDUCED gap */
+  margin-top: 2px; /* REDUCED margin */
   opacity: 0;
   transition: opacity 0.3s ease;
 }
@@ -678,16 +680,9 @@
   font-size: 14px;
 }
 
-/* Smart Insights */
+/* Smart Insights - HIDDEN FOR COMPACTNESS */
 .smartInsight {
-  font-size: 13px;
-  color: rgba(255, 255, 255, 0.5);
-  font-style: italic;
-  margin-top: 4px;
-  padding: 5px 8px;
-  background: rgba(255, 255, 255, 0.05);
-  border-radius: 4px;
-  border-left: 2px solid rgba(255, 215, 0, 0.3);
+  display: none !important; /* Hide non-essential insight messages for 50% height reduction */
 }
 
 /* Empty States */
@@ -712,20 +707,22 @@
   color: rgba(255, 255, 255, 0.4);
 }
 
-/* Mobile Responsive Adjustments - Enhanced for readability on small screens */
+/* Mobile Responsive Adjustments - COMPACT 50% HEIGHT */
 @media (max-width: 374px) {
   .navCard {
-    padding: 14px;
-    min-height: 130px;
+    padding: 6px 12px; /* REDUCED padding */
+    min-height: 65px; /* REDUCED from 130px - 50% shorter */
+    max-height: 80px; /* Enforce compact height */
   }
 
   .navCardTitle {
-    font-size: 16px; /* Increased for better readability */
+    font-size: 14px; /* REDUCED for compactness */
   }
 
   .cardContent {
-    gap: 10px;
-    font-size: 15px; /* Increased base font size */
+    gap: 2px; /* REDUCED spacing */
+    font-size: 12px; /* REDUCED font size for compactness */
+    line-height: 1.1; /* Even tighter line height */
   }
 
   .quickActions {
@@ -775,17 +772,19 @@
 
 @media (min-width: 375px) {
   .navCard {
-    padding: 16px;
-    min-height: 135px;
+    padding: 8px 14px; /* REDUCED padding */
+    min-height: 68px; /* REDUCED from 135px - 50% shorter */
+    max-height: 85px; /* Enforce compact height */
   }
 
   .navCardTitle {
-    font-size: 16px; /* Increased for better readability */
+    font-size: 14px; /* REDUCED for compactness */
   }
 
   .cardContent {
-    font-size: 15px; /* Increased base font size */
-    gap: 12px;
+    font-size: 13px; /* REDUCED font size */
+    gap: 3px; /* REDUCED spacing */
+    line-height: 1.1; /* Tighter line height */
   }
 
   .quickActions {
@@ -827,17 +826,19 @@
 
 @media (min-width: 414px) {
   .navCard {
-    padding: 16px;
-    min-height: 140px;
+    padding: 10px 16px; /* REDUCED padding */
+    min-height: 70px; /* REDUCED from 140px - 50% shorter */
+    max-height: 90px; /* Enforce compact height */
   }
 
   .navCardTitle {
-    font-size: 15px;
+    font-size: 14px; /* REDUCED for compactness */
   }
 
   .cardContent {
-    font-size: 14px;
-    gap: 12px;
+    font-size: 13px; /* REDUCED font size */
+    gap: 4px; /* REDUCED spacing */
+    line-height: 1.2; /* Compact line height */
   }
 
   .quickActions {
@@ -871,12 +872,14 @@
 
 @media (min-width: 768px) {
   .navCard {
-    padding: 18px;
-    min-height: 150px;
+    padding: 12px 18px; /* REDUCED padding */
+    min-height: 75px; /* REDUCED from 150px - 50% shorter */
+    max-height: 95px; /* Enforce compact height */
   }
 
   .cardContent {
-    gap: 14px;
+    gap: 5px; /* REDUCED spacing */
+    line-height: 1.2; /* Compact line height */
   }
 
   .quickActions {

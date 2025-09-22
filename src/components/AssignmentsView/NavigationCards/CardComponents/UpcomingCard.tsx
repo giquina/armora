@@ -6,8 +6,8 @@ interface UpcomingCardData {
   nextAssignment: string;
   countdown: string;
   officerAssigned: string;
-  weather: string;
   dayOfWeek: string;
+  duration: string;
   totalScheduled: number;
   favoriteTimeSlot: boolean;
   miniCalendar: number[];
@@ -70,10 +70,10 @@ export const UpcomingCard: React.FC<UpcomingCardProps> = ({
           {/* Next Assignment Info */}
           <div className={styles.nextAssignment}>
             <div className={styles.assignmentTime}>
-              {data.nextAssignment}
-              <span className={styles.weatherIcon}>{data.weather}</span>
+              {data.nextAssignment} - {data.dayOfWeek}
             </div>
-            <div className={styles.dayOfWeek}>{data.dayOfWeek}</div>
+            <div className={styles.assignmentDuration}>CPO: {data.officerAssigned}</div>
+            <div className={styles.assignmentDuration}>{data.duration}</div>
           </div>
 
           {/* Countdown Timer */}
