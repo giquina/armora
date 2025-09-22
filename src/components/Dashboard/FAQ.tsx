@@ -127,7 +127,7 @@ export function FAQ() {
               Contact Support
             </button>
             <button className={styles.bookButton} onClick={handleBookProtection}>
-              Book Protection Now
+              Request Protection Now
             </button>
           </div>
         </div>

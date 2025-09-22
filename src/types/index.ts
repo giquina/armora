@@ -798,3 +798,143 @@ export interface AssignmentState {
     timestamp: string;
   } | null;
 }
+
+// Enhanced Booking Management Types
+export interface IBookingTemplate {
+  id: string;
+  name: string;
+  route: {
+    from: string;
+    to: string;
+    estimatedDistance?: number;
+    estimatedDuration?: number;
+  };
+  serviceLevel: 'essential' | 'executive' | 'shadow';
+  preferredOfficer?: string;
+  recurringPattern?: string;
+  usageCount: number;
+  lastUsed: Date;
+  isDefault: boolean;
+}
+
+export interface IProtectionPackage {
+  id: string;
+  type: 'hours' | 'unlimited';
+  hoursTotal?: number;
+  hoursUsed?: number;
+  hoursRemaining?: number;
+  expiresAt: Date;
+  autoRenew: boolean;
+  discount: number;
+  monthlyContribution: number;
+  packageValue: number;
+  status: 'active' | 'paused' | 'expired';
+}
+
+export interface IBookingFlexibility {
+  tier: 'flex_plus' | 'standard' | 'fixed';
+  cancellationHours: number;
+  modificationAllowed: boolean;
+  transferable: boolean;
+  priceAdjustment: number;
+  freeChanges: number;
+  description: string;
+}
+
+export interface IJourneyStage {
+  id: string;
+  from: {
+    address: string;
+    coordinates?: [number, number];
+  };
+  to: {
+    address: string;
+    coordinates?: [number, number];
+  };
+  scheduledTime: Date;
+  waitTime?: number;
+  notes?: string;
+  estimatedDuration: number;
+  estimatedCost: number;
+}
+
+export interface IMultiStageJourney {
+  id: string;
+  name: string;
+  stages: IJourneyStage[];
+  totalDuration: number;
+  totalCost: number;
+  preferredOfficer?: string;
+  serviceLevel: 'essential' | 'executive' | 'shadow';
+  flexibility: IBookingFlexibility;
+  createdAt: Date;
+  isTemplate: boolean;
+}
+
+export interface IQuickAction {
+  id: string;
+  title: string;
+  subtitle: string;
+  icon: string;
+  type: 'panic' | 'call' | 'chat' | 'location' | 'reschedule' | 'cancel' | 'rate' | 'receipt' | 'rebook';
+  isEmergency: boolean;
+  requiresConfirmation: boolean;
+  action: () => void;
+}
+
+export interface IPredictiveSuggestion {
+  id: string;
+  type: 'calendar' | 'weather' | 'pattern' | 'traffic';
+  title: string;
+  description: string;
+  confidence: number;
+  suggestedAction: {
+    type: 'book' | 'reschedule' | 'upgrade' | 'alert';
+    data: any;
+  };
+  priority: 'low' | 'medium' | 'high';
+  expiresAt: Date;
+}
+
+export interface IFinancialTracker {
+  monthlyBudget: number;
+  monthlySpent: number;
+  remainingBudget: number;
+  savingsVsStandard: number;
+  loyaltyPoints: number;
+  pointsValue: number;
+  nextTierProgress: {
+    current: string;
+    next: string;
+    pointsNeeded: number;
+    benefits: string[];
+  };
+  currentMonth: {
+    assignmentCount: number;
+    averageValue: number;
+    topRoute: string;
+    peakHours: string;
+  };
+}
+
+export interface IBookingManagementState {
+  templates: IBookingTemplate[];
+  packages: IProtectionPackage[];
+  activeJourney: IMultiStageJourney | null;
+  quickActions: IQuickAction[];
+  predictiveSuggestions: IPredictiveSuggestion[];
+  financialTracker: IFinancialTracker;
+  notifications: INotificationItem[];
+}
+
+export interface INotificationItem {
+  id: string;
+  type: 'info' | 'warning' | 'success' | 'emergency';
+  title: string;
+  message: string;
+  timestamp: Date;
+  isRead: boolean;
+  requiresAction: boolean;
+  actionText?: string;
+  actionHandler?: () => void;
+}

@@ -1,6 +1,9 @@
 import React, { useState, useMemo, useCallback } from 'react';
 import { useApp } from '../../contexts/AppContext';
 import { NavigationCards } from './NavigationCards/NavigationCards';
+import { EnhancedProtectionPanel } from './EnhancedProtectionPanel/EnhancedProtectionPanel';
+import { FinancialTracker } from './FinancialTracker/FinancialTracker';
+import { IFinancialTracker } from '../../types';
 import styles from './AssignmentsView.module.css';
 
 type AssignmentStatus = 'current' | 'upcoming' | 'completed' | 'analytics';
@@ -23,6 +26,34 @@ interface Assignment {
   rating?: number;
   vehicleType: string;
 }
+
+// Mock data for enhanced assignment management
+
+const mockFinancialData: IFinancialTracker = {
+  monthlyBudget: 3000,
+  monthlySpent: 2450,
+  remainingBudget: 550,
+  savingsVsStandard: 890,
+  loyaltyPoints: 850,
+  pointsValue: 85,
+  nextTierProgress: {
+    current: 'Gold',
+    next: 'Platinum',
+    pointsNeeded: 150,
+    benefits: [
+      '20% discount on all services',
+      'Priority officer assignment',
+      'Free flight protection',
+      'Dedicated account manager'
+    ]
+  },
+  currentMonth: {
+    assignmentCount: 23,
+    averageValue: 106,
+    topRoute: 'Home ↔ Office',
+    peakHours: '9-11 AM'
+  }
+};
 
 // Mock assignment data for the new management interface
 const mockAssignments: Assignment[] = [
@@ -81,12 +112,28 @@ const mockAssignments: Assignment[] = [
 export function AssignmentsView() {
   const { navigateToView } = useApp();
   const [activeSection, setActiveSection] = useState<AssignmentStatus>('current');
+  const [showTemplates, setShowTemplates] = useState(false);
+  const [showFinancialTracker, setShowFinancialTracker] = useState(false);
+  const [isLocationSharing, setIsLocationSharing] = useState(false);
   const assignments = mockAssignments;
+
+  // Mock officer data for the control panel
+  const mockOfficer = {
+    name: 'John Davis',
+    designation: 'Executive Protection Specialist',
+    initials: 'JD'
+  };
 
   // Memoize filtered assignments
   const currentAssignments = useMemo(() => assignments.filter(a => a.status === 'current'), [assignments]);
   const upcomingAssignments = useMemo(() => assignments.filter(a => a.status === 'upcoming'), [assignments]);
   const completedAssignments = useMemo(() => assignments.filter(a => a.status === 'completed'), [assignments]);
+
+  // Check if there's an active assignment for the quick actions bar
+  const hasActiveAssignment = currentAssignments.length > 0;
+
+  // Debug: Log assignment status
+  console.log('🔍 Debug - Current assignments:', currentAssignments.length, hasActiveAssignment);
 
   const getServiceTierBadge = useCallback((tier: ProtectionTier) => {
     switch (tier) {
@@ -97,79 +144,126 @@ export function AssignmentsView() {
     }
   }, []);
 
+  // Enhanced feature handlers
+  const handlePanicAlert = useCallback(() => {
+    console.log('🚨 PANIC ALERT TRIGGERED - Emergency dispatch initiated');
+    // In real app: trigger emergency protocol, notify all parties
+  }, []);
+
+  const handleDirectCall = useCallback(() => {
+    console.log('📞 Calling protection officer...');
+    // In real app: initiate call to assigned officer
+  }, []);
+
+  const handleLiveChat = useCallback(() => {
+    console.log('💬 Opening live chat...');
+    // In real app: open chat interface
+  }, []);
+
+  const handleShareLocation = useCallback(() => {
+    console.log('📍 Sharing current location...');
+    // In real app: share GPS coordinates with officer
+  }, []);
+
+  const handleLocationToggle = useCallback(() => {
+    setIsLocationSharing(!isLocationSharing);
+    console.log(`📍 Location sharing ${!isLocationSharing ? 'enabled' : 'disabled'}`);
+  }, [isLocationSharing]);
+
+
+  const handleViewFinancialDetails = useCallback(() => {
+    console.log('📊 Opening detailed financial breakdown...');
+    setShowFinancialTracker(!showFinancialTracker);
+  }, [showFinancialTracker]);
+
+  const handleAdjustBudget = useCallback(() => {
+    console.log('⚙️ Opening budget adjustment...');
+    // In real app: open budget settings modal
+  }, []);
+
+  const handleClaimPoints = useCallback(() => {
+    console.log('🎁 Claiming loyalty points...');
+    // In real app: process points claim
+  }, []);
+
 
   const renderAssignmentCard = useCallback((assignment: Assignment) => {
     const tierBadge = getServiceTierBadge(assignment.serviceTier);
+    const statusColor = assignment.status === 'current' ? '#10B981' :
+                       assignment.status === 'upcoming' ? '#FFD700' : '#6B7280';
 
     return (
       <div key={assignment.id} className={styles.assignmentCard}>
+        {/* Status badge in top-right corner */}
+        <div
+          className={styles.assignmentStatus}
+          style={{ backgroundColor: tierBadge.bg, color: tierBadge.color }}
+        >
+          {assignment.serviceTier}
+        </div>
+
+        {/* Line 1: Officer name with status indicator */}
         <div className={styles.assignmentHeader}>
-          <div className={styles.assignmentDate}>{assignment.date}</div>
-          <div
-            className={styles.assignmentStatus}
-            style={{ backgroundColor: tierBadge.bg, color: tierBadge.color }}
-          >
-            {assignment.serviceTier}
+          <div className={styles.detailItem}>
+            <div
+              className={styles.statusDot}
+              style={{ backgroundColor: statusColor }}
+            />
+            <span className={styles.detailValue} style={{ fontWeight: 600, fontSize: '14px' }}>
+              {assignment.officerName} • {assignment.serviceTier}
+            </span>
           </div>
         </div>
 
+        {/* Line 2: Route information */}
         <div className={styles.assignmentDetails}>
           <div className={styles.detailItem}>
+            <span className={styles.detailLabel}>Route</span>
+            <span className={styles.detailValue}>
+              {assignment.location.start.split(',')[0]} → {assignment.location.end.split(',')[0]}
+            </span>
+          </div>
+
+          {/* Line 3: Time and cost details */}
+          <div className={styles.detailItem}>
             <span className={styles.detailLabel}>Time</span>
-            <span className={styles.detailValue}>{assignment.time}</span>
-          </div>
-          <div className={styles.detailItem}>
-            <span className={styles.detailLabel}>Duration</span>
-            <span className={styles.detailValue}>{assignment.duration}</span>
-          </div>
-          <div className={styles.detailItem}>
-            <span className={styles.detailLabel}>Officer</span>
-            <span className={styles.detailValue}>{assignment.officerName}</span>
-          </div>
-          <div className={styles.detailItem}>
-            <span className={styles.detailLabel}>Vehicle</span>
-            <span className={styles.detailValue}>{assignment.vehicleType}</span>
+            <span className={styles.detailValue}>
+              {assignment.time} ({assignment.duration}) • £{assignment.totalCost}
+            </span>
           </div>
         </div>
 
-        <div className={styles.locationInfo}>
-          <div className={styles.locationItem}>
-            <span className={styles.locationIcon}>📍</span>
-            <div className={styles.locationDetails}>
-              <span className={styles.locationLabel}>From</span>
-              <span className={styles.locationValue}>{assignment.location.start}</span>
-            </div>
-          </div>
-          <div className={styles.locationItem}>
-            <span className={styles.locationIcon}>🎯</span>
-            <div className={styles.locationDetails}>
-              <span className={styles.locationLabel}>To</span>
-              <span className={styles.locationValue}>{assignment.location.end}</span>
-            </div>
-          </div>
-        </div>
-
+        {/* Bottom section: Progress and actions */}
         <div className={styles.assignmentFooter}>
-          <div className={styles.totalCost}>£{assignment.totalCost}</div>
-          {assignment.rating && (
+          <div className={styles.progressSection}>
+            <div className={styles.progressBar}>
+              <div
+                className={styles.progressFill}
+                style={{ width: assignment.status === 'current' ? '75%' : '0%' }}
+              />
+            </div>
+            <span className={styles.progressText}>
+              {assignment.status === 'current' ? '75%' : assignment.status === 'upcoming' ? 'Scheduled' : 'Complete'}
+            </span>
+          </div>
+
+          {assignment.status === 'current' && (
+            <div className={styles.assignmentActions}>
+              <button className={styles.actionButton}>
+                <span className={styles.actionIcon}>📞</span>
+              </button>
+              <button className={styles.actionButton}>
+                <span className={styles.actionIcon}>📍</span>
+              </button>
+            </div>
+          )}
+
+          {assignment.rating && assignment.status === 'completed' && (
             <div className={styles.rating}>
               {'★'.repeat(assignment.rating)}
             </div>
           )}
         </div>
-
-        {assignment.status === 'current' && (
-          <div className={styles.assignmentActions}>
-            <button className={styles.actionButton}>
-              <span className={styles.actionIcon}>📞</span>
-              <span className={styles.actionText}>Call Officer</span>
-            </button>
-            <button className={styles.actionButton}>
-              <span className={styles.actionIcon}>📍</span>
-              <span className={styles.actionText}>Live Track</span>
-            </button>
-          </div>
-        )}
       </div>
     );
   }, [getServiceTierBadge]);
@@ -180,19 +274,19 @@ export function AssignmentsView() {
         icon: '🛡️',
         title: 'No Active Protection',
         description: 'Request protection now for immediate service',
-        buttonText: 'Book Protection'
+        buttonText: 'Request Protection'
       },
       upcoming: {
         icon: '📅',
         title: 'No Upcoming Assignments',
         description: 'Schedule your next protection service',
-        buttonText: 'Book Protection'
+        buttonText: 'Request Protection'
       },
       completed: {
         icon: '✅',
         title: 'No Completed Assignments',
         description: 'Your completed assignments will appear here',
-        buttonText: 'Book Protection'
+        buttonText: 'Request Protection'
       },
       analytics: {
         icon: '📊',
@@ -270,11 +364,23 @@ export function AssignmentsView() {
 
   return (
     <div className={styles.assignmentsContainer}>
+
       {/* Header Section */}
       <div className={styles.headerSection}>
-        <h1 className={styles.pageTitle}>ASSIGNMENT MANAGEMENT</h1>
-        <p className={styles.subtitle}>Protection History & Scheduling</p>
+        <h1 className={styles.pageTitle}>PROTECTION COMMAND CENTER</h1>
+        <p className={styles.subtitle}>Advanced Assignment Management & Intelligence</p>
       </div>
+
+      {/* Financial Tracker */}
+      {showFinancialTracker && (
+        <FinancialTracker
+          financialData={mockFinancialData}
+          onViewDetails={handleViewFinancialDetails}
+          onAdjustBudget={handleAdjustBudget}
+          onClaimPoints={handleClaimPoints}
+        />
+      )}
+
 
       {/* Enhanced Navigation Cards */}
       <NavigationCards
@@ -324,17 +430,45 @@ export function AssignmentsView() {
         {renderSectionContent()}
       </div>
 
-      {/* Quick Actions */}
+      {/* Enhanced Quick Actions */}
       <div className={styles.quickActions}>
         <button className={styles.actionButton} onClick={() => navigateToView('booking')}>
-          <span className={styles.actionIcon}>➕</span>
-          <span className={styles.actionText}>Book Protection</span>
+          <span className={styles.actionIcon}>🛡️</span>
+          <span className={styles.actionText}>Request Protection</span>
+        </button>
+        <button className={styles.actionButton} onClick={handleViewFinancialDetails}>
+          <span className={styles.actionIcon}>💷</span>
+          <span className={styles.actionText}>{showFinancialTracker ? 'Hide' : 'Show'} Finances</span>
+        </button>
+        <button className={styles.actionButton} onClick={() => setShowTemplates(!showTemplates)}>
+          <span className={styles.actionIcon}>📍</span>
+          <span className={styles.actionText}>{showTemplates ? 'Hide' : 'Show'} Saved Routes</span>
         </button>
         <button className={styles.actionButton}>
-          <span className={styles.actionIcon}>📥</span>
-          <span className={styles.actionText}>Download Reports</span>
+          <span className={styles.actionIcon}>📊</span>
+          <span className={styles.actionText}>Analytics Report</span>
         </button>
       </div>
+
+      {/* Enhanced Protection Panel - Always show for testing */}
+      <EnhancedProtectionPanel
+        officer={mockOfficer}
+        assignment={currentAssignments[0] || {
+          id: 'ASG-001',
+          status: 'current',
+          progress: 75,
+          timeRemaining: '1h 23m',
+          eta: '16:45',
+          cost: '£245.50',
+          serviceLevel: 'Executive Shield',
+          currentLocation: 'Near Mayfair'
+        }}
+        isLocationSharing={isLocationSharing}
+        onLocationToggle={handleLocationToggle}
+        onOfficerCall={handleDirectCall}
+        assignmentId={currentAssignments[0]?.id || 'ASG-001'}
+        currentRate={95} // Executive Shield rate
+      />
     </div>
   );
 }

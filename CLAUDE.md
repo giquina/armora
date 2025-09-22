@@ -351,4 +351,4 @@ The app uses React Context for state management with two main contexts:
 - `useProtectionAssignment()` - Access protection assignment state (new system)
 - `useBooking()` - Legacy hook for backward compatibility (being phased out)
 
-Last updated: 2025-09-21T18:12:45.123Z
+Last updated: 2025-09-22T03:15:22.364Z

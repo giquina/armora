@@ -217,21 +217,22 @@ export function ServiceCard({
             e.stopPropagation();
             handleBookNow();
           }}
-          className={styles.bookButton}
+          className={styles.requestNewButton}
           disabled={isBookingLoading}
         >
-          {isBookingLoading ? 'Processing...' : 'Request Protection'}
+          {isBookingLoading ? 'Processing...' : 'Request New'}
         </Button>
 
         <Button
           variant="outline"
           onClick={(e) => {
             e.stopPropagation();
-            handleMoreInfo();
+            // TODO: Implement template selection logic
+            console.log('🛠️ Use Template clicked for service:', service.name);
           }}
-          className={styles.moreInfoButton}
+          className={styles.useTemplateButton}
         >
-          More Info {showExpandedInfo ? '▲' : '▼'}
+          Use Template
         </Button>
       </div>
     </div>

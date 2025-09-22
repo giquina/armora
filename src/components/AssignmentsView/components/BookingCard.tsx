@@ -72,65 +72,78 @@ export function BookingCard({
         <span className={styles.liveText}>LIVE</span>
       </div>
 
-      <div className={styles.cardHeader}>
-        <div className={styles.serviceInfo}>
-          <span className={styles.serviceIcon}>{getServiceIcon()}</span>
-          <div className={styles.serviceDetails}>
-            <h3 className={styles.serviceName}>{booking.serviceName}</h3>
-            <span className={styles.bookingId}>{booking.id}</span>
-          </div>
+      {/* ROW 1: BALANCED HEADER */}
+      <div className={styles.assignmentHeader}>
+        <div className={styles.dateInfo}>
+          {formatDate(booking.scheduledTime)}
         </div>
-        <div className={styles.eta}>
-          <span className={styles.etaLabel}>ETA</span>
-          <span className={styles.etaTime}>{getTimeUntilPickup()}</span>
-        </div>
-      </div>
-
-      <div className={styles.driverInfo}>
-        <div className={styles.driverAvatar}>
-          <div className={styles.avatarPlaceholder}>
-            {booking.driver.name.charAt(0)}
+        <div className={styles.servicePriceSection}>
+          <div className={styles.serviceLevelBadge}>
+            {getServiceIcon()} {booking.serviceType.toUpperCase()}
           </div>
-        </div>
-        <div className={styles.driverDetails}>
-          <div className={styles.driverName}>{booking.driver.name}</div>
-          <div className={styles.vehicleInfo}>
-            {booking.driver.vehicle} • {booking.driver.plate}
-          </div>
-          <div className={styles.driverRating}>
-            <span className={styles.stars}>{'⭐'.repeat(Math.floor(booking.driver.rating))}</span>
-            <span className={styles.ratingNumber}>{booking.driver.rating}</span>
+          <div className={styles.priceDisplay}>£{booking.pricing.total}</div>
+          <div className={styles.ratingDisplay}>
+            {'⭐'.repeat(Math.floor(booking.driver.rating))}
           </div>
         </div>
       </div>
 
-      <div className={styles.routeInfo}>
-        <div className={styles.location}>
-          <div className={styles.locationIcon}>📍</div>
-          <div className={styles.locationText}>
-            <div className={styles.locationLabel}>Pickup</div>
-            <div className={styles.locationAddress}>{booking.pickupLocation.address}</div>
+      {/* ROW 2: STATS GRID */}
+      <div className={styles.statsGrid}>
+        <div className={styles.statItem}>
+          <div className={styles.statIcon}>🕐</div>
+          <div className={styles.statContent}>
+            <div className={styles.statLabel}>TIME</div>
+            <div className={styles.statValue}>{formatTime(booking.scheduledTime)}</div>
           </div>
         </div>
-        <div className={styles.routeLine}></div>
-        <div className={styles.location}>
-          <div className={styles.locationIcon}>🏁</div>
-          <div className={styles.locationText}>
-            <div className={styles.locationLabel}>Destination</div>
-            <div className={styles.locationAddress}>{booking.destination.address}</div>
+
+        <div className={styles.statItem}>
+          <div className={styles.statIcon}>⏱️</div>
+          <div className={styles.statContent}>
+            <div className={styles.statLabel}>DURATION</div>
+            <div className={styles.statValue}>{booking.route.duration} min</div>
+          </div>
+        </div>
+
+        <div className={styles.statItem}>
+          <div className={styles.statIcon}>👤</div>
+          <div className={styles.statContent}>
+            <div className={styles.statLabel}>OFFICER</div>
+            <div className={styles.statValue}>{booking.driver.name}</div>
+          </div>
+        </div>
+
+        <div className={styles.statItem}>
+          <div className={styles.statIcon}>🚗</div>
+          <div className={styles.statContent}>
+            <div className={styles.statLabel}>VEHICLE</div>
+            <div className={styles.statValue}>{booking.driver.vehicle}</div>
           </div>
         </div>
       </div>
 
-      <div className={styles.cardActions}>
-        <button className={styles.primaryAction} onClick={onTrackDriver}>
-          📍 Track Driver
+      {/* ROW 3: ROUTE INFORMATION */}
+      <div className={styles.routeSection}>
+        <div className={styles.routeItem}>
+          <div className={styles.routeIcon}>📍</div>
+          <div className={styles.routeLabel}>FROM</div>
+          <div className={styles.routeText}>{booking.pickupLocation.address}</div>
+        </div>
+        <div className={styles.routeItem}>
+          <div className={styles.routeIcon}>🎯</div>
+          <div className={styles.routeLabel}>TO</div>
+          <div className={styles.routeText}>{booking.destination.address}</div>
+        </div>
+      </div>
+
+      {/* ROW 4: ACTION BUTTONS */}
+      <div className={styles.actionButtons}>
+        <button className={`${styles.actionBtn} ${styles.btnTrack}`} onClick={onTrackDriver}>
+          📍 Live Track
         </button>
-        <button className={styles.secondaryAction} onClick={onContactDriver}>
-          📞 Contact
-        </button>
-        <button className={styles.dangerAction} onClick={onCancel}>
-          ❌ Cancel
+        <button className={`${styles.actionBtn} ${styles.btnCall}`} onClick={onContactDriver}>
+          📞 Call Officer
         </button>
       </div>
     </div>

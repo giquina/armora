@@ -1,0 +1,530 @@
+/* SMART TEMPLATES - PROTECTION ROUTE TEMPLATES SYSTEM */
+
+.smartTemplates {
+  margin-bottom: 24px;
+}
+
+.templatesHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+  padding: 0 4px;
+}
+
+.templatesTitle {
+  font-size: 18px;
+  font-weight: 700;
+  color: white;
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.createButton {
+  background: linear-gradient(135deg, #FFD700, #FFA500);
+  border: none;
+  border-radius: 10px;
+  color: #1a1a2e;
+  font-weight: 700;
+  font-size: 13px;
+  padding: 10px 14px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  min-height: 44px;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+.createButton:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(255, 215, 0, 0.3);
+}
+
+.createButton:active {
+  transform: scale(0.98);
+}
+
+.createIcon {
+  font-size: 14px;
+}
+
+.createText {
+  font-size: 12px;
+  font-weight: 700;
+}
+
+/* Empty State */
+.emptyState {
+  text-align: center;
+  padding: 32px 16px;
+  background: linear-gradient(135deg,
+    rgba(255, 255, 255, 0.05) 0%,
+    rgba(255, 255, 255, 0.02) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.emptyIcon {
+  font-size: 48px;
+  margin-bottom: 16px;
+  opacity: 0.6;
+}
+
+.emptyTitle {
+  font-size: 18px;
+  font-weight: 600;
+  color: white;
+  margin: 0 0 8px 0;
+}
+
+.emptyDescription {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.6);
+  margin: 0 0 20px 0;
+  line-height: 1.4;
+}
+
+.emptyAction {
+  background: linear-gradient(135deg, #00D4FF, #0099CC);
+  border: none;
+  border-radius: 10px;
+  color: white;
+  font-weight: 600;
+  font-size: 14px;
+  padding: 12px 20px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  min-height: 44px;
+}
+
+.emptyAction:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(0, 212, 255, 0.3);
+}
+
+/* Templates List */
+.templatesList {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.templateCard {
+  background: linear-gradient(135deg,
+    rgba(255, 255, 255, 0.08) 0%,
+    rgba(255, 255, 255, 0.02) 100%);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 16px;
+  padding: 16px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.templateCard::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  background: #00D4FF;
+  transition: width 0.3s ease;
+}
+
+.templateCard.defaultTemplate::before {
+  background: #FFD700;
+}
+
+.templateCard:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.16);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.templateCard:hover::before {
+  width: 6px;
+}
+
+/* Template Header */
+.templateHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 12px;
+}
+
+.templateInfo {
+  flex: 1;
+  min-width: 0;
+}
+
+.templateName {
+  font-size: 16px;
+  font-weight: 700;
+  color: white;
+  margin: 0 0 6px 0;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+.templateRoute {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.routeLocation {
+  flex: 1;
+  min-width: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.routeArrow {
+  color: #FFD700;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.templateMeta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.serviceBadge {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  padding: 4px 8px;
+  border-radius: 6px;
+  white-space: nowrap;
+}
+
+.defaultBadge {
+  background: rgba(255, 215, 0, 0.2);
+  color: #FFD700;
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  padding: 3px 6px;
+  border-radius: 4px;
+  border: 1px solid rgba(255, 215, 0, 0.3);
+}
+
+/* Template Statistics */
+.templateStats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 12px;
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.statItem {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.statIcon {
+  font-size: 14px;
+  flex-shrink: 0;
+}
+
+.statText {
+  font-size: 12px;
+  font-weight: 500;
+}
+
+/* Template Details (Expandable) */
+.templateDetails {
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 8px;
+  padding: 12px;
+  margin-bottom: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.detailsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 12px;
+}
+
+.detailItem {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.detailLabel {
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.5);
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  font-weight: 600;
+}
+
+.detailValue {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.8);
+  font-weight: 600;
+}
+
+/* Template Actions */
+.templateActions {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.primaryAction {
+  background: linear-gradient(135deg, #00FF88, #00CC66);
+  border: none;
+  border-radius: 8px;
+  color: #1a1a2e;
+  font-weight: 700;
+  font-size: 12px;
+  padding: 8px 12px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  flex: 1;
+  justify-content: center;
+  min-height: 40px;
+}
+
+.primaryAction:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 16px rgba(0, 255, 136, 0.3);
+}
+
+.secondaryAction {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 8px;
+  color: rgba(255, 255, 255, 0.8);
+  font-weight: 600;
+  font-size: 11px;
+  padding: 8px 10px;
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  min-height: 40px;
+  text-transform: uppercase;
+  letter-spacing: 0.2px;
+}
+
+.secondaryAction:hover {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 215, 0, 0.3);
+}
+
+.deleteAction {
+  background: rgba(255, 107, 107, 0.1);
+  border: 1px solid rgba(255, 107, 107, 0.2);
+  border-radius: 8px;
+  color: #FF6B6B;
+  font-weight: 600;
+  padding: 8px 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  min-height: 40px;
+  min-width: 40px;
+}
+
+.deleteAction:hover {
+  background: rgba(255, 107, 107, 0.2);
+  border-color: rgba(255, 107, 107, 0.4);
+  transform: scale(1.05);
+}
+
+.actionIcon {
+  font-size: 12px;
+  flex-shrink: 0;
+}
+
+.actionText {
+  font-size: 11px;
+  font-weight: 600;
+}
+
+/* Mobile Responsive Design */
+@media (max-width: 374px) {
+  .templatesTitle {
+    font-size: 16px;
+  }
+
+  .createButton {
+    padding: 8px 10px;
+    font-size: 12px;
+  }
+
+  .createText {
+    display: none; /* Icon only on very small screens */
+  }
+
+  .templateCard {
+    padding: 12px;
+  }
+
+  .templateName {
+    font-size: 14px;
+  }
+
+  .templateRoute {
+    font-size: 13px;
+  }
+
+  .templateStats {
+    gap: 8px;
+  }
+
+  .statText {
+    font-size: 11px;
+  }
+
+  .templateActions {
+    gap: 6px;
+  }
+
+  .primaryAction {
+    padding: 8px 10px;
+    font-size: 11px;
+  }
+
+  .secondaryAction {
+    padding: 8px;
+    min-width: 36px;
+  }
+
+  .actionText {
+    display: none; /* Icons only on small screens */
+  }
+
+  .detailsGrid {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+}
+
+@media (min-width: 375px) {
+  .createText {
+    display: block;
+  }
+
+  .actionText {
+    display: block;
+  }
+
+  .templateActions {
+    gap: 8px;
+  }
+
+  .secondaryAction {
+    padding: 8px 10px;
+  }
+}
+
+@media (min-width: 414px) {
+  .templatesTitle {
+    font-size: 18px;
+  }
+
+  .createButton {
+    padding: 10px 14px;
+    font-size: 13px;
+  }
+
+  .templateCard {
+    padding: 16px;
+  }
+
+  .templateName {
+    font-size: 16px;
+  }
+
+  .templateRoute {
+    font-size: 14px;
+  }
+
+  .primaryAction {
+    padding: 8px 12px;
+    font-size: 12px;
+  }
+
+  .detailsGrid {
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  }
+}
+
+@media (min-width: 768px) {
+  .templatesHeader {
+    margin-bottom: 20px;
+  }
+
+  .templateCard {
+    padding: 20px;
+  }
+
+  .templateActions {
+    gap: 10px;
+  }
+
+  .primaryAction {
+    padding: 10px 16px;
+    font-size: 13px;
+  }
+
+  .secondaryAction {
+    padding: 10px 12px;
+    font-size: 12px;
+  }
+}
+
+/* Focus States for Accessibility */
+.createButton:focus,
+.primaryAction:focus,
+.secondaryAction:focus,
+.deleteAction:focus,
+.emptyAction:focus {
+  outline: 2px solid #FFD700;
+  outline-offset: 2px;
+}
+
+/* Reduced Motion Support */
+@media (prefers-reduced-motion: reduce) {
+  .templateCard,
+  .createButton,
+  .primaryAction,
+  .secondaryAction,
+  .deleteAction,
+  .emptyAction {
+    transition: none;
+  }
+}

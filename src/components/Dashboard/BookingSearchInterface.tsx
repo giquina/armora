@@ -7,7 +7,9 @@ interface BookingSearchInterfaceProps {
   onDestinationSelect?: (destination: string) => void;
 }
 
-export function BookingSearchInterface({ onDestinationSelect }: BookingSearchInterfaceProps) {
+export function BookingSearchInterface({
+  onDestinationSelect
+}: BookingSearchInterfaceProps) {
   const { navigateToView } = useApp();
   const [savedAddresses, setSavedAddresses] = useState({
     home: '',
@@ -144,6 +146,7 @@ export function BookingSearchInterface({ onDestinationSelect }: BookingSearchInt
           </button>
         )}
       </div>
+
 
       {/* Location Picker Overlay */}
       <LocationPicker

@@ -8,13 +8,16 @@
   margin-bottom: 24px;
 }
 
-/* Base card design with glassmorphism */
+/* Base card design with enhanced glassmorphism */
 .navCard {
   width: 100%;
   background: linear-gradient(135deg,
     rgba(255, 255, 255, 0.08) 0%,
     rgba(255, 255, 255, 0.02) 100%);
   backdrop-filter: blur(10px);
+  box-shadow:
+    0 4px 24px rgba(0, 0, 0, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
   border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: 16px;
   padding: 12px;
@@ -26,14 +29,14 @@
   min-height: 120px;
 }
 
-/* Unique left accent bars */
+/* Enhanced left accent bars */
 .navCard::before {
   content: '';
   position: absolute;
   left: 0;
   top: 0;
   bottom: 0;
-  width: 3px;
+  width: 4px;
   transition: width 0.3s ease;
 }
 
@@ -42,26 +45,61 @@
 .navCard.completed::before { background: #00FF88; }
 .navCard.analytics::before { background: #FF6B6B; }
 
-/* Active state */
+/* Enhanced hover effects */
+.navCard:hover::before {
+  width: 6px;
+}
+
+.navCard:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.16),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+.navCard:active {
+  transform: scale(0.98);
+}
+
+/* Enhanced active state with full border glow */
 .navCard.active {
-  transform: scale(1.02);
-  box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
-  border-color: rgba(255, 215, 0, 0.5);
+  border-color: currentColor;
+  box-shadow:
+    0 8px 32px rgba(255, 215, 0, 0.2),
+    inset 0 1px 0 rgba(255, 215, 0, 0.1);
 }
 
 .navCard.active::before {
   width: 5px;
 }
 
-/* Hover state */
-.navCard:hover:not(.active) {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
-  border-color: rgba(255, 255, 255, 0.2);
+/* Color-specific active states */
+.navCard.active.current {
+  box-shadow:
+    0 8px 32px rgba(255, 215, 0, 0.2),
+    inset 0 1px 0 rgba(255, 215, 0, 0.1);
+  border-color: #FFD700;
 }
 
-.navCard:active {
-  transform: scale(0.99);
+.navCard.active.upcoming {
+  box-shadow:
+    0 8px 32px rgba(0, 212, 255, 0.2),
+    inset 0 1px 0 rgba(0, 212, 255, 0.1);
+  border-color: #00D4FF;
+}
+
+.navCard.active.completed {
+  box-shadow:
+    0 8px 32px rgba(0, 255, 136, 0.2),
+    inset 0 1px 0 rgba(0, 255, 136, 0.1);
+  border-color: #00FF88;
+}
+
+.navCard.active.analytics {
+  box-shadow:
+    0 8px 32px rgba(255, 107, 107, 0.2),
+    inset 0 1px 0 rgba(255, 107, 107, 0.1);
+  border-color: #FF6B6B;
 }
 
 /* Header Section */
@@ -674,68 +712,80 @@
   color: rgba(255, 255, 255, 0.4);
 }
 
-/* Mobile Responsive Adjustments - Enhanced for 1 per row layout */
+/* Mobile Responsive Adjustments - Enhanced for readability on small screens */
 @media (max-width: 374px) {
-  .navCard {
-    padding: 12px;
-    min-height: 110px;
-  }
-
-  .navCardTitle {
-    font-size: 15px;
-  }
-
-  .cardContent {
-    gap: 8px;
-    font-size: 14px;
-  }
-
-  .quickActions {
-    opacity: 0.5; /* Show but subdued on small screens */
-  }
-
-  .smartInsight {
-    font-size: 12px; /* Keep but smaller */
-  }
-
-  .statusText {
-    font-size: 12px;
-  }
-
-  .timeRemaining {
-    font-size: 13px;
-  }
-
-  .officerName {
-    font-size: 11px;
-  }
-
-  .runningFare {
-    font-size: 13px;
-  }
-
-  .assignmentTime {
-    font-size: 12px;
-  }
-
-  .countdownTime {
-    font-size: 13px;
-  }
-}
-
-@media (min-width: 375px) {
   .navCard {
     padding: 14px;
     min-height: 130px;
   }
 
   .navCardTitle {
-    font-size: 14px;
+    font-size: 16px; /* Increased for better readability */
   }
 
   .cardContent {
-    font-size: 13px;
     gap: 10px;
+    font-size: 15px; /* Increased base font size */
+  }
+
+  .quickActions {
+    opacity: 0.6; /* Show but subdued on small screens */
+  }
+
+  .smartInsight {
+    font-size: 14px; /* Increased for readability */
+  }
+
+  .statusText {
+    font-size: 15px; /* Increased for better visibility */
+  }
+
+  .timeRemaining {
+    font-size: 16px; /* Increased - important information */
+  }
+
+  .officerName {
+    font-size: 14px; /* Increased for readability */
+  }
+
+  .runningFare {
+    font-size: 17px; /* Increased - important cost information */
+  }
+
+  .assignmentTime {
+    font-size: 15px; /* Increased for better visibility */
+  }
+
+  .countdownTime {
+    font-size: 17px; /* Increased - critical timing information */
+  }
+
+  .statNumber {
+    font-size: 20px; /* Increased for better visibility */
+  }
+
+  .spendAmount {
+    font-size: 18px; /* Increased for financial clarity */
+  }
+
+  .loyaltyPoints {
+    font-size: 16px; /* Increased for better readability */
+  }
+}
+
+@media (min-width: 375px) {
+  .navCard {
+    padding: 16px;
+    min-height: 135px;
+  }
+
+  .navCardTitle {
+    font-size: 16px; /* Increased for better readability */
+  }
+
+  .cardContent {
+    font-size: 15px; /* Increased base font size */
+    gap: 12px;
   }
 
   .quickActions {
@@ -743,27 +793,35 @@
   }
 
   .statusText {
-    font-size: 13px;
+    font-size: 15px; /* Increased for better visibility */
   }
 
   .timeRemaining {
-    font-size: 14px;
+    font-size: 17px; /* Increased - important timing info */
   }
 
   .officerName {
-    font-size: 12px;
+    font-size: 14px; /* Increased for readability */
   }
 
   .runningFare {
-    font-size: 14px;
+    font-size: 18px; /* Increased - important cost info */
   }
 
   .assignmentTime {
-    font-size: 13px;
+    font-size: 16px; /* Increased for better visibility */
   }
 
   .countdownTime {
-    font-size: 14px;
+    font-size: 17px; /* Increased - critical timing */
+  }
+
+  .statNumber {
+    font-size: 20px; /* Increased for clarity */
+  }
+
+  .spendAmount {
+    font-size: 18px; /* Increased for financial clarity */
   }
 }
 

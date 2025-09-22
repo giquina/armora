@@ -1,0 +1,623 @@
+/* FINANCIAL TRACKER - PROTECTION SPENDING & BUDGET MANAGEMENT */
+
+.financialTracker {
+  background: linear-gradient(135deg,
+    rgba(255, 255, 255, 0.08) 0%,
+    rgba(255, 255, 255, 0.02) 100%);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 16px;
+  padding: 20px;
+  margin-bottom: 24px;
+  position: relative;
+  overflow: hidden;
+}
+
+.financialTracker::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  background: linear-gradient(to bottom, #FFD700, #FFA500);
+}
+
+/* Header */
+.trackerHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.trackerTitle {
+  font-size: 18px;
+  font-weight: 700;
+  color: white;
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.detailsButton {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 8px;
+  color: rgba(255, 255, 255, 0.8);
+  font-weight: 600;
+  font-size: 12px;
+  padding: 8px 12px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  min-height: 36px;
+}
+
+.detailsButton:hover {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 215, 0, 0.3);
+  transform: translateY(-1px);
+}
+
+.detailsIcon {
+  font-size: 14px;
+}
+
+.detailsText {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+/* Budget Section */
+.budgetSection {
+  margin-bottom: 20px;
+  padding: 16px;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.budgetHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 12px;
+}
+
+.budgetInfo {
+  flex: 1;
+}
+
+.budgetTitle {
+  font-size: 14px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.8);
+  margin: 0 0 6px 0;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+.budgetValues {
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+}
+
+.spentAmount {
+  font-size: 22px;
+  font-weight: 700;
+  color: white;
+}
+
+.budgetSeparator {
+  font-size: 18px;
+  color: rgba(255, 255, 255, 0.4);
+  margin: 0 2px;
+}
+
+.totalBudget {
+  font-size: 16px;
+  color: rgba(255, 255, 255, 0.6);
+  font-weight: 600;
+}
+
+.budgetStatus {
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  padding: 4px 8px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 6px;
+  white-space: nowrap;
+}
+
+.budgetProgress {
+  margin-bottom: 12px;
+}
+
+.progressBar {
+  height: 8px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+  overflow: hidden;
+  margin-bottom: 6px;
+}
+
+.progressFill {
+  height: 100%;
+  border-radius: 4px;
+  transition: width 1s ease-out;
+}
+
+.progressLabel {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.6);
+  text-align: center;
+}
+
+.remainingBudget {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 14px;
+}
+
+.remainingLabel {
+  color: rgba(255, 255, 255, 0.6);
+  font-weight: 500;
+}
+
+.remainingAmount {
+  color: #00FF88;
+  font-weight: 700;
+  font-size: 16px;
+}
+
+/* Savings Section */
+.savingsSection {
+  margin-bottom: 20px;
+  padding: 14px;
+  background: linear-gradient(135deg,
+    rgba(0, 255, 136, 0.08) 0%,
+    rgba(0, 255, 136, 0.02) 100%);
+  border: 1px solid rgba(0, 255, 136, 0.2);
+  border-radius: 12px;
+}
+
+.savingsHeader {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.savingsIcon {
+  font-size: 24px;
+  flex-shrink: 0;
+}
+
+.savingsInfo {
+  flex: 1;
+}
+
+.savingsTitle {
+  font-size: 14px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.8);
+  margin: 0 0 4px 0;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+.savingsAmount {
+  font-size: 20px;
+  font-weight: 700;
+  color: #00FF88;
+  line-height: 1;
+}
+
+.savingsDescription {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.6);
+  margin-top: 2px;
+}
+
+/* Loyalty Section */
+.loyaltySection {
+  margin-bottom: 20px;
+  padding: 16px;
+  background: rgba(255, 215, 0, 0.05);
+  border: 1px solid rgba(255, 215, 0, 0.2);
+  border-radius: 12px;
+}
+
+.loyaltyHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 16px;
+}
+
+.loyaltyInfo {
+  flex: 1;
+}
+
+.loyaltyTitle {
+  font-size: 14px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.8);
+  margin: 0 0 6px 0;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+.pointsDisplay {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+}
+
+.pointsAmount {
+  font-size: 18px;
+  font-weight: 700;
+  color: #FFD700;
+}
+
+.pointsValue {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.claimButton {
+  background: linear-gradient(135deg, #FFD700, #FFA500);
+  border: none;
+  border-radius: 8px;
+  color: #1a1a2e;
+  font-weight: 700;
+  font-size: 11px;
+  padding: 8px 12px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  min-height: 36px;
+}
+
+.claimButton:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 16px rgba(255, 215, 0, 0.3);
+}
+
+.claimIcon {
+  font-size: 12px;
+}
+
+.claimText {
+  font-size: 10px;
+  font-weight: 700;
+}
+
+/* Tier Progress */
+.tierProgress {
+  margin-bottom: 12px;
+}
+
+.tierHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+  font-size: 12px;
+}
+
+.currentTier {
+  color: #FFD700;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+.nextTier {
+  color: rgba(255, 255, 255, 0.6);
+  font-weight: 600;
+}
+
+.tierProgressBar {
+  height: 6px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 3px;
+  overflow: hidden;
+  margin-bottom: 6px;
+}
+
+.tierProgressFill {
+  height: 100%;
+  background: linear-gradient(to right, #FFD700, #FFA500);
+  border-radius: 3px;
+  transition: width 1s ease-out;
+}
+
+.tierLabel {
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.6);
+  text-align: center;
+}
+
+/* Tier Benefits */
+.tierBenefits {
+  margin-top: 12px;
+}
+
+.benefitsTitle {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.7);
+  font-weight: 600;
+  margin-bottom: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+.benefitsList {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.benefitItem {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.benefitIcon {
+  font-size: 12px;
+  color: #FFD700;
+  flex-shrink: 0;
+}
+
+.benefitText {
+  flex: 1;
+  font-weight: 500;
+}
+
+/* Monthly Insights */
+.insightsSection {
+  margin-bottom: 20px;
+}
+
+.insightsTitle {
+  font-size: 14px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.8);
+  margin: 0 0 12px 0;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+.insightsGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+
+.insightItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 12px 8px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+}
+
+.insightIcon {
+  font-size: 18px;
+  margin-bottom: 6px;
+  opacity: 0.8;
+}
+
+.insightValue {
+  font-size: 14px;
+  font-weight: 700;
+  color: white;
+  margin-bottom: 2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+
+.insightLabel {
+  font-size: 10px;
+  color: rgba(255, 255, 255, 0.6);
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  font-weight: 600;
+}
+
+/* Quick Actions */
+.quickActions {
+  display: flex;
+  justify-content: center;
+}
+
+.adjustBudgetButton {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 10px;
+  color: rgba(255, 255, 255, 0.8);
+  font-weight: 600;
+  font-size: 12px;
+  padding: 10px 16px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  min-height: 44px;
+}
+
+.adjustBudgetButton:hover {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 215, 0, 0.3);
+  transform: translateY(-1px);
+}
+
+.actionIcon {
+  font-size: 14px;
+}
+
+.actionText {
+  font-size: 11px;
+  font-weight: 700;
+}
+
+/* Mobile Responsive Design */
+@media (max-width: 374px) {
+  .financialTracker {
+    padding: 16px;
+  }
+
+  .trackerTitle {
+    font-size: 16px;
+  }
+
+  .budgetSection {
+    padding: 12px;
+  }
+
+  .spentAmount {
+    font-size: 20px;
+  }
+
+  .totalBudget {
+    font-size: 14px;
+  }
+
+  .savingsAmount {
+    font-size: 18px;
+  }
+
+  .pointsAmount {
+    font-size: 16px;
+  }
+
+  .insightsGrid {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+
+  .insightItem {
+    padding: 10px;
+  }
+
+  .insightValue {
+    font-size: 13px;
+  }
+
+  .detailsText,
+  .claimText,
+  .actionText {
+    display: none; /* Icons only on very small screens */
+  }
+
+  .detailsButton,
+  .claimButton,
+  .adjustBudgetButton {
+    min-width: 40px;
+    justify-content: center;
+  }
+}
+
+@media (min-width: 375px) {
+  .detailsText,
+  .claimText,
+  .actionText {
+    display: block;
+  }
+
+  .insightsGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 414px) {
+  .financialTracker {
+    padding: 20px;
+  }
+
+  .trackerTitle {
+    font-size: 18px;
+  }
+
+  .budgetSection {
+    padding: 16px;
+  }
+
+  .spentAmount {
+    font-size: 22px;
+  }
+
+  .savingsAmount {
+    font-size: 20px;
+  }
+
+  .pointsAmount {
+    font-size: 18px;
+  }
+
+  .insightValue {
+    font-size: 14px;
+  }
+}
+
+@media (min-width: 768px) {
+  .financialTracker {
+    padding: 24px;
+  }
+
+  .insightsGrid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .budgetHeader {
+    align-items: center;
+  }
+
+  .loyaltyHeader {
+    align-items: center;
+  }
+}
+
+/* Focus States for Accessibility */
+.detailsButton:focus,
+.claimButton:focus,
+.adjustBudgetButton:focus {
+  outline: 2px solid #FFD700;
+  outline-offset: 2px;
+}
+
+/* Reduced Motion Support */
+@media (prefers-reduced-motion: reduce) {
+  .progressFill,
+  .tierProgressFill,
+  .detailsButton,
+  .claimButton,
+  .adjustBudgetButton {
+    transition: none;
+  }
+}

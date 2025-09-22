@@ -1,0 +1,491 @@
+/* TIME EXTENSION MODAL - SMART CATEGORIZATION INTERFACE */
+
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+  padding: 20px;
+}
+
+.modal {
+  background: linear-gradient(180deg,
+    rgba(26, 26, 46, 0.98) 0%,
+    rgba(26, 26, 46, 0.95) 100%);
+  border-radius: 24px;
+  max-width: 480px;
+  width: 100%;
+  max-height: 90vh;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+}
+
+.modalHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 24px 16px 24px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.stepIndicator {
+  display: flex;
+  gap: 8px;
+}
+
+.stepDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  transition: background 0.3s ease;
+}
+
+.stepDot.active {
+  background: #FFD700;
+}
+
+.stepDot.completed {
+  background: #00FF88;
+}
+
+.closeButton {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  border: none;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.closeButton:hover {
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+}
+
+/* Step Content */
+.stepContent {
+  padding: 0 24px 24px 24px;
+  overflow-y: auto;
+  max-height: calc(90vh - 100px);
+}
+
+.stepHeader {
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.stepTitle {
+  font-size: 20px;
+  font-weight: 700;
+  color: white;
+  margin: 0 0 8px 0;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.stepDescription {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.7);
+  margin: 0;
+  line-height: 1.4;
+}
+
+/* Type Selection */
+.optionsGrid {
+  display: grid;
+  gap: 16px;
+  grid-template-columns: 1fr;
+}
+
+.optionCard {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  padding: 20px;
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+}
+
+.optionCard:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 215, 0, 0.3);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+}
+
+.optionIcon {
+  font-size: 32px;
+  flex-shrink: 0;
+  line-height: 1;
+}
+
+.optionContent {
+  flex: 1;
+  min-width: 0;
+}
+
+.optionTitle {
+  font-size: 16px;
+  font-weight: 700;
+  color: white;
+  margin: 0 0 8px 0;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+.optionDescription {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.7);
+  margin: 0 0 12px 0;
+  line-height: 1.4;
+}
+
+.optionRate {
+  font-size: 14px;
+  color: #FFD700;
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+
+.optionExamples {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.exampleTag {
+  font-size: 11px;
+  background: rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.8);
+  padding: 4px 8px;
+  border-radius: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  font-weight: 500;
+}
+
+/* Duration Selection */
+.durationGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.durationCard {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  padding: 20px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-height: 80px;
+  justify-content: center;
+}
+
+.durationCard:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 215, 0, 0.3);
+  transform: translateY(-2px);
+}
+
+.durationCard.selected {
+  background: rgba(255, 215, 0, 0.1);
+  border-color: #FFD700;
+  box-shadow: 0 0 20px rgba(255, 215, 0, 0.2);
+}
+
+.durationLabel {
+  font-size: 14px;
+  font-weight: 600;
+  color: white;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+.durationCost {
+  font-size: 18px;
+  font-weight: 700;
+  color: #FFD700;
+}
+
+/* Reason Section */
+.reasonSection {
+  margin-bottom: 24px;
+}
+
+.reasonLabel {
+  display: block;
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.8);
+  font-weight: 600;
+  margin-bottom: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+.reasonInput {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 16px;
+  color: white;
+  font-size: 14px;
+  font-family: inherit;
+  transition: all 0.3s ease;
+}
+
+.reasonInput:focus {
+  outline: none;
+  border-color: #FFD700;
+  background: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 0 0 2px rgba(255, 215, 0, 0.2);
+}
+
+.reasonInput::placeholder {
+  color: rgba(255, 255, 255, 0.4);
+}
+
+/* Step Actions */
+.stepActions {
+  display: flex;
+  gap: 12px;
+  justify-content: space-between;
+}
+
+.backButton,
+.continueButton,
+.confirmButton {
+  flex: 1;
+  height: 48px;
+  border-radius: 12px;
+  border: none;
+  font-size: 14px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.backButton {
+  background: rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.backButton:hover {
+  background: rgba(255, 255, 255, 0.15);
+  color: white;
+}
+
+.continueButton {
+  background: linear-gradient(135deg, #2196f3, #42a5f5);
+  color: white;
+  box-shadow: 0 4px 12px rgba(33, 150, 243, 0.3);
+}
+
+.continueButton:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(33, 150, 243, 0.4);
+}
+
+.confirmButton {
+  background: linear-gradient(135deg, #00c853, #00e676);
+  color: white;
+  box-shadow: 0 4px 12px rgba(0, 200, 83, 0.3);
+}
+
+.confirmButton:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(0, 200, 83, 0.4);
+}
+
+/* Confirmation */
+.confirmationCard {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.confirmationRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.confirmationRow:last-child {
+  border-bottom: none;
+}
+
+.confirmationRow.totalCost {
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding-top: 16px;
+  margin-top: 8px;
+}
+
+.confirmationLabel {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.7);
+  font-weight: 500;
+}
+
+.confirmationValue {
+  font-size: 14px;
+  color: white;
+  font-weight: 600;
+}
+
+.totalCost .confirmationValue {
+  font-size: 18px;
+  color: #FFD700;
+  font-weight: 700;
+}
+
+.confirmationNote {
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.confirmationNote p {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.6);
+  margin: 0;
+  line-height: 1.4;
+}
+
+/* Mobile Responsive */
+@media (max-width: 374px) {
+  .modalOverlay {
+    padding: 16px;
+  }
+
+  .modal {
+    border-radius: 20px;
+  }
+
+  .modalHeader {
+    padding: 16px 20px;
+  }
+
+  .stepContent {
+    padding: 0 20px 20px 20px;
+  }
+
+  .optionCard {
+    padding: 16px;
+    gap: 12px;
+  }
+
+  .optionIcon {
+    font-size: 28px;
+  }
+
+  .optionTitle {
+    font-size: 15px;
+  }
+
+  .optionDescription {
+    font-size: 13px;
+  }
+
+  .durationGrid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .durationCard {
+    padding: 16px;
+    min-height: 70px;
+  }
+
+  .stepActions {
+    gap: 10px;
+  }
+
+  .backButton,
+  .continueButton,
+  .confirmButton {
+    height: 44px;
+    font-size: 13px;
+  }
+}
+
+@media (min-width: 414px) {
+  .durationGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .optionsGrid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+
+  .optionCard {
+    flex-direction: column;
+    text-align: center;
+    gap: 12px;
+  }
+
+  .optionContent {
+    text-align: center;
+  }
+}
+
+/* Focus styles for accessibility */
+.optionCard:focus,
+.durationCard:focus,
+.backButton:focus,
+.continueButton:focus,
+.confirmButton:focus,
+.closeButton:focus,
+.reasonInput:focus {
+  outline: 2px solid #FFD700;
+  outline-offset: 2px;
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .optionCard,
+  .durationCard,
+  .backButton,
+  .continueButton,
+  .confirmButton,
+  .closeButton,
+  .reasonInput,
+  .stepDot {
+    transition: none;
+  }
+}

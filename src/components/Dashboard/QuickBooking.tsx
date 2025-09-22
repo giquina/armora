@@ -192,7 +192,7 @@ export function QuickBooking({ onBookNow, selectedService, isLoading = false, us
     <div className={styles.quickBooking}>
       {/* Header */}
       <div className={styles.header}>
-        <h2 className={styles.title}>Quick Book</h2>
+        <h2 className={styles.title}>Quick Request</h2>
         <p className={styles.subtitle}>Set your pickup and destination</p>
         <p className={styles.mapNote}>Map and all options available below</p>
       </div>
@@ -402,7 +402,7 @@ export function QuickBooking({ onBookNow, selectedService, isLoading = false, us
             <div className={styles.bookingOptionIcon}>🚗</div>
             <div className={styles.bookingOptionText}>
               <h3 className={styles.bookingOptionTitle}>
-                {isScheduled ? 'Schedule Service' : 'Book Now'}
+                {isScheduled ? 'Schedule Service' : 'Request Now'}
               </h3>
               <p className={styles.bookingOptionDescription}>
                 {isScheduled
@@ -432,9 +432,9 @@ export function QuickBooking({ onBookNow, selectedService, isLoading = false, us
             ) : isScheduled ? (
               `Schedule ${selectedService.charAt(0).toUpperCase() + selectedService.slice(1)}`
             ) : multiStops.length > 0 ? (
-              `Book Multi-Stop (${multiStops.length + 1} locations)`
+              `Request Multi-Stop (${multiStops.length + 1} locations)`
             ) : (
-              'Book Now'
+              'Request Now'
             )}
           </Button>
         </div>

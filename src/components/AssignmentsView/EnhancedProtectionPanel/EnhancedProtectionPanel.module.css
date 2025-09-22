@@ -1,0 +1,1206 @@
+/* ENHANCED PROTECTION PANEL - MOBILE COMMAND CENTER */
+
+.panel {
+  position: fixed;
+  /* Sit directly above the bottom navigation bar */
+  bottom: calc(60px + env(safe-area-inset-bottom));
+  left: 0;
+  right: 0;
+  /* Enhanced glassmorphism background */
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(40px) saturate(180%);
+  -webkit-backdrop-filter: blur(40px) saturate(180%);
+  border-radius: 24px 24px 0 0;
+  /* Premium shadow system */
+  box-shadow:
+    0 -8px 32px rgba(0, 0, 0, 0.12),
+    0 -16px 64px rgba(0, 0, 0, 0.08),
+    0 -2px 8px rgba(0, 0, 0, 0.04),
+    inset 0 1px 0 rgba(255, 255, 255, 0.5),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.05);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  /* Below bottom navigation (var(--z-fixed) ≈ 1030), above page content */
+  z-index: 1025;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-bottom: none;
+  overflow: hidden;
+  /* Ensure panel is always visible */
+  display: block !important;
+  /* Enhanced glass edge effect */
+  position: relative;
+}
+
+.panel::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg,
+    transparent 0%,
+    rgba(255, 215, 0, 0.3) 25%,
+    rgba(255, 215, 0, 0.6) 50%,
+    rgba(255, 215, 0, 0.3) 75%,
+    transparent 100%);
+  pointer-events: none;
+}
+
+/* Panel States */
+.panel.collapsed {
+  transform: translateY(0);
+  height: 112px; /* Enough room for collapsed preview lines */
+  /* Only show the status bar in collapsed state */
+}
+
+.panel.dragging {
+  transition: none !important;
+  box-shadow:
+    0 -6px 32px rgba(0, 0, 0, 0.15),
+    0 -2px 0 rgba(255, 215, 0, 0.3);
+}
+
+/* Silent Panic Mode - Subtle golden pulsing border */
+.panel.panicMode {
+  border: 2px solid rgba(255, 215, 0, 0.8);
+  animation: panicPulse 2s ease-in-out infinite;
+}
+
+@keyframes panicPulse {
+  0%, 100% {
+    box-shadow:
+      0 -4px 20px rgba(0, 0, 0, 0.1),
+      0 -8px 40px rgba(0, 0, 0, 0.08),
+      0 -1px 0 rgba(0, 0, 0, 0.05),
+      0 0 0 0 rgba(255, 215, 0, 0.7);
+  }
+  50% {
+    box-shadow:
+      0 -4px 20px rgba(0, 0, 0, 0.1),
+      0 -8px 40px rgba(0, 0, 0, 0.08),
+      0 -1px 0 rgba(0, 0, 0, 0.05),
+      0 0 0 10px rgba(255, 215, 0, 0);
+  }
+}
+
+.panel.half {
+  transform: translateY(0);
+  height: 50vh;
+  /* Panel takes up half the screen */
+}
+
+.panel.full {
+  transform: translateY(0);
+  height: 75vh;
+  /* Panel takes up 3/4 of the screen for enhanced features */
+}
+
+/* Drag Handle - Perfectly Centered */
+.dragHandle {
+  position: absolute;
+  top: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 40px;
+  height: 4px;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 2px;
+  cursor: grab;
+  transition: background 0.2s ease;
+  z-index: 10;
+}
+
+.dragHandle:hover {
+  background: rgba(0, 0, 0, 0.4);
+}
+
+.dragHandle:active {
+  cursor: grabbing;
+  background: rgba(255, 215, 0, 0.8);
+  transform: scaleY(1.2);
+}
+
+/* Collapsed Preview Content */
+.collapsedPreview {
+  padding: 12px 16px;
+  background: rgba(0, 0, 0, 0.02);
+  border-radius: 8px;
+  margin: 16px 20px 0 20px;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  min-height: 80px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.topRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.statusSection {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.statusDot {
+  color: #10B981;
+  font-size: 10px;
+  line-height: 1;
+}
+
+.statusText {
+  font-size: 12px;
+  font-weight: 600;
+  color: #10B981;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.etaSection {
+  font-size: 13px;
+  color: #6B7280;
+  text-align: right;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  flex-shrink: 0;
+}
+
+.bottomRow {
+  padding-left: 16px;
+}
+
+.officerInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.officerName {
+  font-size: 15px;
+  font-weight: 600;
+  color: #1A1A2E;
+  line-height: 1.2;
+}
+
+.serviceName {
+  font-size: 14px;
+  color: #4B5563;
+  line-height: 1.2;
+}
+
+/* Status Bar - Visible when expanded */
+.statusBar {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: 20px 20px 16px 20px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  min-height: 64px;
+  margin-top: 8px;
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+/* Fixed CPO Profile Section - Required layout structure */
+.expandedOfficerSection {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  flex: 1;
+}
+
+.officerProfile {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.officerNameInline {
+  font-size: 17px;
+  font-weight: 700;
+  color: #1A1A2E;
+  line-height: 1.3;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  text-align: left;
+}
+
+.locationTimeSection {
+  padding-left: 76px; /* 60px avatar + 16px gap */
+  font-size: 14px;
+  color: #374151;
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+/* Tighter status bar in half state to gain vertical space */
+.panel.half .statusBar {
+  padding: 16px 16px 10px 16px;
+  min-height: 54px;
+}
+.panel.half .officerAvatar {
+  width: 42px;
+  height: 42px;
+}
+.panel.half .officerInfo {
+  gap: 12px;
+}
+.panel.half .quickCall {
+  width: 40px;
+  height: 40px;
+  font-size: 16px;
+}
+
+.officerInfo {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  flex: 1;
+  margin-top: 2px;
+}
+
+/* Removed duplicate - enhanced version below */
+
+.initials {
+  font-size: 14px;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+}
+
+.onlineIndicator {
+  position: absolute;
+  bottom: -2px;
+  right: -2px;
+  width: 12px;
+  height: 12px;
+  background: #00FF88;
+  border-radius: 50%;
+  border: 2px solid #FFFFFF;
+  animation: statusPulse 2s ease-in-out infinite;
+  z-index: 10;
+}
+
+/* Enhanced status ring around avatar for different states */
+.officerAvatar {
+  position: relative;
+  width: 46px;
+  height: 46px;
+  background: linear-gradient(135deg, #FFD700, #FFA500);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  color: #1a1a2e;
+  font-size: 15px;
+  box-shadow: 0 3px 12px rgba(255, 215, 0, 0.25);
+  flex-shrink: 0;
+  /* Enhanced status ring */
+  border: 3px solid transparent;
+  background-clip: padding-box;
+  animation: statusRing 3s ease-in-out infinite;
+}
+
+@keyframes statusRing {
+  0%, 100% {
+    border-color: rgba(16, 185, 129, 0.8); /* Green: On schedule */
+    box-shadow:
+      0 3px 12px rgba(255, 215, 0, 0.25),
+      0 0 0 2px rgba(16, 185, 129, 0.3);
+  }
+  33% {
+    border-color: rgba(255, 193, 7, 0.8); /* Yellow: Minor delay */
+    box-shadow:
+      0 3px 12px rgba(255, 215, 0, 0.25),
+      0 0 0 2px rgba(255, 193, 7, 0.3);
+  }
+  66% {
+    border-color: rgba(59, 130, 246, 0.8); /* Blue: Messaging */
+    box-shadow:
+      0 3px 12px rgba(255, 215, 0, 0.25),
+      0 0 0 2px rgba(59, 130, 246, 0.3);
+  }
+}
+
+@keyframes statusPulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 1;
+    box-shadow: 0 0 0 0 rgba(0, 255, 136, 0.7);
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 0.8;
+    box-shadow: 0 0 0 6px rgba(0, 255, 136, 0);
+  }
+}
+
+.officerDetails {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+  margin-top: 2px;
+}
+
+.officerName {
+  font-size: 17px;
+  font-weight: 700;
+  color: #1A1A2E;
+  line-height: 1.3;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin: 0;
+  text-align: left;
+}
+
+.officerRole {
+  font-size: 11px;
+  color: #6B7280;
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  text-align: left;
+  line-height: 1.2;
+}
+
+.statusInfo {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 2px;
+}
+
+.location {
+  font-size: 14px;
+  color: #374151;
+  font-weight: 600;
+}
+
+.timeRemaining {
+  font-size: 16px;
+  color: #059669;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.quickCall {
+  width: 44px;
+  height: 44px;
+  background: linear-gradient(135deg, #00c853, #00e676);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 8px rgba(0, 200, 83, 0.3);
+  flex-shrink: 0;
+}
+
+.quickCall:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(0, 200, 83, 0.4);
+}
+
+.quickCall:active {
+  transform: scale(0.95);
+}
+
+/* Panel Content */
+.panelContent {
+  padding: 0 16px 16px 16px;
+  overflow-y: auto;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  /* Ensure content fits within the panel height */
+  max-height: calc(100% - 70px); /* Account for status bar height */
+  box-sizing: border-box;
+}
+
+/* Progress Section */
+.progressSection {
+  margin-top: 8px; /* Breathing space below status bar */
+  margin-bottom: 16px;
+  padding: 12px;
+  background: rgba(0, 0, 0, 0.02);
+  border-radius: 12px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.progressHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.protectionLevel {
+  font-size: 14px;
+  color: #FFC107;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  background: #1A1A2E;
+  padding: 6px 14px;
+  border-radius: 6px;
+  display: inline-block;
+}
+
+.currentCost {
+  font-size: 18px;
+  color: #1A1A2E;
+  font-weight: 700;
+}
+
+.progressBar {
+  height: 6px;
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: 3px;
+  overflow: hidden;
+  margin-bottom: 8px;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.progressFill {
+  height: 100%;
+  background: linear-gradient(90deg, #FFD700, #00FF88);
+  border-radius: 3px;
+  transition: width 1s ease-out;
+}
+
+.progressDetails {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 12px;
+}
+
+.eta {
+  color: #374151;
+  font-weight: 600;
+}
+
+.progress {
+  color: #059669;
+  font-weight: 600;
+}
+
+/* Action Buttons Grid - 3x2 layout with prominent URGENT HELP */
+.actionGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: 8px;
+  margin-bottom: 8px;
+  flex: 1;
+  width: 100%;
+  /* Ensure grid fits within available space */
+  overflow: hidden;
+  align-content: start;
+}
+
+/* URGENT HELP button spans full width for prominence */
+.actionButton.panic {
+  grid-column: 1 / -1; /* Span all columns */
+  background: linear-gradient(135deg, #ff4458, #ff1744);
+  box-shadow: 0 6px 20px rgba(255, 23, 68, 0.5);
+  font-size: 16px;
+  height: 75px;
+  position: relative;
+  animation: urgentPulse 3s ease-in-out infinite;
+}
+
+@keyframes urgentPulse {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 6px 20px rgba(255, 23, 68, 0.5);
+  }
+  50% {
+    transform: scale(1.02);
+    box-shadow: 0 8px 28px rgba(255, 23, 68, 0.7);
+  }
+}
+
+/* Reorganize grid to accommodate full-width panic button */
+.actionGrid {
+  grid-template-areas:
+    "panic panic panic"
+    "call extend route"
+    "message location extra";
+  grid-template-rows: auto auto auto;
+}
+
+.actionButton.panic { grid-area: panic; }
+.actionButton.call { grid-area: call; }
+.actionButton.extend { grid-area: extend; }
+.actionButton.route { grid-area: route; }
+.actionButton.message { grid-area: message; }
+.actionButton.location { grid-area: location; }
+
+/* 3x2 grid in half state for optimal space usage */
+.panel.half .panelContent .actionGrid {
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(2, minmax(65px, 1fr));
+  gap: 8px;
+  /* Ensure all 2 rows of buttons (6 total) are visible */
+  max-height: calc(100% - 20px);
+  overflow: visible;
+}
+
+.actionButton {
+  min-height: 65px;
+  height: 65px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  font-weight: 600;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  border: none;
+  color: white;
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  min-width: 0;
+  padding: 12px 8px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+  aspect-ratio: 1.2 / 1;
+}
+
+/* Optimize CTA buttons for 3x2 grid in half state */
+.panel.half .panelContent .actionButton {
+  min-height: 65px;
+  height: 65px;
+  padding: 12px 8px;
+  /* Maintain touch targets while fitting 3 columns */
+}
+
+.panel.half .panelContent .buttonIcon {
+  font-size: 20px;
+}
+
+.panel.half .panelContent .buttonLabel {
+  font-size: 13px;
+  line-height: 1.2;
+  word-break: break-word;
+}
+
+/* Optimized content padding for bigger buttons in half state */
+.panel.half .panelContent {
+  padding: 0 12px 8px 12px;
+  /* Ensure content can scroll if needed while keeping bigger buttons visible */
+  max-height: calc(50vh - 65px); /* 50vh panel height minus status bar, optimized for bigger buttons */
+}
+
+/* Optimize spacing around progress for bigger buttons in half state */
+.panel.half .panelContent .progressSection {
+  margin-top: 4px;
+  margin-bottom: 6px;
+  padding: 6px;
+}
+
+.actionButton:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+}
+
+.actionButton:active {
+  transform: scale(0.95);
+}
+
+.buttonIcon {
+  font-size: 20px;
+  line-height: 1;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+  margin-bottom: 2px;
+}
+
+.buttonLabel {
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.2px;
+  line-height: 1.2;
+  margin: 0;
+  text-align: center;
+  word-break: break-word;
+}
+
+.buttonSubtext {
+  display: none;
+}
+
+/* Button Color Themes */
+/* Panic button styling moved to above grid section for prominence */
+
+.actionButton.call {
+  background: linear-gradient(135deg, #00c853, #00e676);
+  box-shadow: 0 4px 16px rgba(0, 230, 118, 0.4);
+}
+
+.actionButton.call:hover {
+  box-shadow: 0 8px 24px rgba(0, 230, 118, 0.5);
+}
+
+.actionButton.extend {
+  background: linear-gradient(135deg, #ffb300, #ffc107);
+  box-shadow: 0 4px 16px rgba(255, 193, 7, 0.4);
+  color: #1a1a2e;
+}
+
+.actionButton.extend:hover {
+  box-shadow: 0 8px 24px rgba(255, 193, 7, 0.5);
+}
+
+.actionButton.route {
+  background: linear-gradient(135deg, #2196f3, #42a5f5);
+  box-shadow: 0 4px 16px rgba(33, 150, 243, 0.4);
+}
+
+.actionButton.route:hover {
+  box-shadow: 0 8px 24px rgba(33, 150, 243, 0.5);
+}
+
+.actionButton.message {
+  background: linear-gradient(135deg, #9c27b0, #ba68c8);
+  box-shadow: 0 4px 16px rgba(156, 39, 176, 0.4);
+}
+
+.actionButton.message:hover {
+  box-shadow: 0 8px 24px rgba(156, 39, 176, 0.5);
+}
+
+.actionButton.location {
+  background: linear-gradient(135deg, #607d8b, #78909c);
+  box-shadow: 0 4px 16px rgba(96, 125, 139, 0.4);
+}
+
+.actionButton.location.active {
+  background: linear-gradient(135deg, #4caf50, #66bb6a);
+  box-shadow: 0 4px 16px rgba(76, 175, 80, 0.4);
+}
+
+.actionButton.location:hover {
+  box-shadow: 0 8px 24px rgba(96, 125, 139, 0.5);
+}
+
+.actionButton.location.active:hover {
+  box-shadow: 0 8px 24px rgba(76, 175, 80, 0.5);
+}
+
+.actionButton.share {
+  background: linear-gradient(135deg, #ff5722, #ff7043);
+  box-shadow: 0 4px 16px rgba(255, 87, 34, 0.4);
+}
+
+.actionButton.reports {
+  background: linear-gradient(135deg, #795548, #8d6e63);
+  box-shadow: 0 4px 16px rgba(121, 85, 72, 0.4);
+}
+
+/* Full Mode Enhanced Features */
+.fullModeContent {
+  margin-top: 16px;
+  padding: 0 4px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  overflow-y: auto;
+  max-height: calc(75vh - 140px); /* Account for status bar and progress section */
+}
+
+.sectionTitle {
+  font-size: 14px;
+  font-weight: 700;
+  color: #1A1A2E;
+  margin-bottom: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* CPO Verification Badges */
+.verificationSection {
+  background: rgba(0, 0, 0, 0.02);
+  border-radius: 12px;
+  padding: 12px;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.badgeGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+}
+
+.verificationBadge {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 10px;
+  background: rgba(16, 185, 129, 0.1);
+  border-radius: 8px;
+  border: 1px solid rgba(16, 185, 129, 0.2);
+}
+
+.badgeIcon {
+  color: #10B981;
+  font-weight: 700;
+  font-size: 12px;
+}
+
+.badgeText {
+  font-size: 12px;
+  font-weight: 600;
+  color: #1A1A2E;
+}
+
+/* Vehicle & Protection Details */
+.vehicleSection {
+  background: rgba(255, 215, 0, 0.05);
+  border-radius: 12px;
+  padding: 12px;
+  border: 1px solid rgba(255, 215, 0, 0.2);
+}
+
+.detailsList {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.detailItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.detailItem:last-child {
+  border-bottom: none;
+}
+
+.detailLabel {
+  font-size: 12px;
+  color: #6B7280;
+  font-weight: 600;
+}
+
+.detailValue {
+  font-size: 12px;
+  color: #1A1A2E;
+  font-weight: 600;
+  text-align: right;
+}
+
+/* Activity Feed */
+.activitySection {
+  background: rgba(0, 0, 0, 0.02);
+  border-radius: 12px;
+  padding: 12px;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.activityFeed {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  max-height: 140px;
+  overflow-y: auto;
+}
+
+.activityItem {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 6px 8px;
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 6px;
+}
+
+.activityTime {
+  font-size: 11px;
+  color: #6B7280;
+  font-weight: 600;
+  flex-shrink: 0;
+  width: 32px;
+}
+
+.activityText {
+  font-size: 12px;
+  color: #374151;
+  line-height: 1.3;
+}
+
+/* Mini-Map Placeholder */
+.miniMapSection {
+  background: rgba(33, 150, 243, 0.05);
+  border-radius: 12px;
+  padding: 12px;
+  border: 1px solid rgba(33, 150, 243, 0.2);
+}
+
+.miniMapPlaceholder {
+  height: 120px;
+  background: linear-gradient(135deg, #f0f9ff, #e0f2fe);
+  border-radius: 8px;
+  border: 2px dashed rgba(33, 150, 243, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mapContent {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.mapIcon {
+  font-size: 24px;
+  margin-bottom: 4px;
+}
+
+.mapText {
+  font-size: 14px;
+  font-weight: 600;
+  color: #1A1A2E;
+}
+
+.mapSubtext {
+  font-size: 11px;
+  color: #6B7280;
+}
+
+/* Mobile Responsive */
+@media (max-width: 374px) {
+  .statusBar {
+    padding: 18px 16px 12px 16px;
+  }
+
+  .officerInfo {
+    gap: 10px;
+    margin-top: 1px;
+  }
+
+  .officerAvatar {
+    width: 40px;
+    height: 40px;
+    font-size: 14px;
+  }
+
+  .officerName {
+    font-size: 15px;
+    letter-spacing: 0.3px;
+  }
+
+  .officerRole {
+    font-size: 10px;
+    letter-spacing: 0.3px;
+  }
+
+  .collapsedPreview {
+    margin: 12px 16px 0 16px;
+    padding: 10px 12px;
+    min-height: 70px;
+  }
+
+  .statusText {
+    font-size: 11px;
+  }
+
+  .etaSection {
+    font-size: 12px;
+  }
+
+  .serviceName {
+    font-size: 13px;
+  }
+
+  .bottomRow {
+    padding-left: 14px;
+  }
+
+  .officerRole {
+    font-size: 11px;
+  }
+
+  .timeRemaining {
+    font-size: 14px;
+  }
+
+  .actionButton {
+    min-height: 63px;
+    height: 63px;
+    padding: 10px 12px;
+  }
+
+  .buttonIcon {
+    font-size: 20px;
+  }
+
+  .buttonLabel {
+    font-size: 12px;
+  }
+
+  .panelContent {
+    padding: 0 12px 12px 12px;
+  }
+
+  .actionGrid {
+    gap: 6px;
+  }
+}
+
+@media (max-width: 320px) {
+  .officerInfo {
+    gap: 8px;
+  }
+
+  .officerAvatar {
+    width: 36px;
+    height: 36px;
+    font-size: 12px;
+  }
+
+  .collapsedPreview {
+    margin: 12px 12px 0 12px;
+    padding: 10px;
+    min-height: 65px;
+  }
+
+  .statusText {
+    font-size: 10px;
+  }
+
+  .etaSection {
+    font-size: 11px;
+  }
+
+  .officerName {
+    font-size: 13px;
+  }
+
+  .serviceName {
+    font-size: 12px;
+  }
+
+  .bottomRow {
+    padding-left: 12px;
+  }
+
+  .actionButton {
+    min-height: 40px;
+    height: 40px;
+    padding: 6px 4px;
+  }
+
+  .buttonIcon {
+    font-size: 14px;
+  }
+
+  .buttonLabel {
+    font-size: 9px;
+  }
+
+  /* Optimized spacing for bigger buttons on 320px screens */
+  .panel.half .panelContent {
+    padding: 0 8px 6px 8px;
+    max-height: calc(50vh - 55px); /* Adjusted for bigger buttons on small screens */
+  }
+
+  .panel.half .panelContent .actionGrid {
+    grid-template-columns: repeat(2, 1fr); /* Fall back to 2 columns on small screens */
+    grid-template-rows: repeat(3, minmax(68px, 1fr));
+    gap: 4px;
+  }
+
+  .panel.half .panelContent .actionButton {
+    min-height: 68px;
+    height: 68px;
+    padding: 14px 12px;
+    aspect-ratio: auto; /* Remove aspect ratio constraint on small screens */
+  }
+
+  .panel.half .panelContent .progressSection {
+    margin-top: 4px;
+    margin-bottom: 6px;
+    padding: 6px;
+  }
+}
+
+@media (min-width: 414px) {
+  .actionGrid {
+    grid-template-columns: repeat(3, 1fr); /* Keep 3 columns on larger screens */
+    grid-template-rows: repeat(2, 1fr);
+  }
+
+  .actionButton {
+    min-height: 70px;
+    height: 70px;
+    padding: 14px 12px;
+  }
+
+  .buttonIcon {
+    font-size: 22px;
+  }
+
+  .buttonLabel {
+    font-size: 14px;
+  }
+}
+
+/* Tablet optimizations */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .statusBar {
+    padding: 22px 24px 16px 24px;
+  }
+
+  .officerInfo {
+    gap: 16px;
+  }
+
+  .officerAvatar {
+    width: 48px;
+    height: 48px;
+    font-size: 16px;
+  }
+
+  .officerName {
+    font-size: 18px;
+  }
+
+  .officerRole {
+    font-size: 12px;
+  }
+}
+
+/* Desktop: maintain 3x2 grid with optimized sizing */
+@media (min-width: 1024px) {
+  .statusBar {
+    padding: 24px 28px 18px 28px;
+  }
+
+  .officerInfo {
+    gap: 18px;
+  }
+
+  .officerAvatar {
+    width: 50px;
+    height: 50px;
+    font-size: 17px;
+  }
+
+  .officerName {
+    font-size: 19px;
+  }
+
+  .officerRole {
+    font-size: 12px;
+  }
+
+  .panel.half .statusBar {
+    padding: 12px 14px 8px 14px;
+    min-height: 48px;
+  }
+
+  .panel.half .panelContent {
+    padding: 0 12px 8px 12px;
+  }
+
+  .panel.half .panelContent .progressSection {
+    margin-top: 4px;
+    margin-bottom: 6px;
+    padding: 6px;
+  }
+
+  .panel.half .panelContent .actionGrid {
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(2, minmax(50px, 1fr));
+    gap: 8px;
+  }
+
+  .panel.half .panelContent .actionButton {
+    min-height: 50px;
+    height: 50px;
+    padding: 8px 6px;
+  }
+
+  .panel.half .panelContent .buttonIcon {
+    font-size: 16px;
+  }
+
+  .panel.half .panelContent .buttonLabel {
+    font-size: 11px;
+  }
+}
+
+/* Responsive adjustment for very small screens */
+@media (max-width: 360px) {
+  .actionGrid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    grid-template-rows: repeat(3, 1fr) !important;
+    gap: 6px;
+  }
+
+  .actionButton {
+    min-height: 60px;
+    height: 60px;
+    padding: 10px 6px;
+    aspect-ratio: auto;
+  }
+
+  .buttonIcon {
+    font-size: 18px;
+  }
+
+  .buttonLabel {
+    font-size: 11px;
+  }
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .panel,
+  .actionButton,
+  .quickCall,
+  .onlineIndicator,
+  .progressFill {
+    transition: none;
+    animation: none;
+  }
+}
+
+/* Focus styles */
+.actionButton:focus,
+.quickCall:focus,
+.dragHandle:focus {
+  outline: 2px solid #FFD700;
+  outline-offset: 2px;
+}
+
+/* White theme for all color schemes */
+@media (prefers-color-scheme: dark) {
+  .panel {
+    background: #FFFFFF;
+  }
+}

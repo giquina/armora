@@ -5,6 +5,8 @@
   background: #1a1a2e;
   min-height: calc(100vh - 120px);
   padding: 20px 16px;
+  /* Reserve space for the fixed EnhancedProtectionPanel when collapsed */
+  padding-bottom: calc(180px + env(safe-area-inset-bottom)); /* Increased for better footer clearance */
   color: white;
 }
 
@@ -15,7 +17,7 @@
 }
 
 .pageTitle {
-  font-size: 24px;
+  font-size: 28px; /* Increased for better visibility */
   font-weight: 700;
   color: #ffd700;
   letter-spacing: 1px;
@@ -24,7 +26,7 @@
 }
 
 .subtitle {
-  font-size: 16px;
+  font-size: 18px; /* Increased for better readability */
   color: rgba(255, 255, 255, 0.7);
   font-weight: 400;
   letter-spacing: 0.3px;
@@ -233,169 +235,180 @@
   line-height: 1.2;
 }
 
-/* Assignment Cards - Match Protection Panel card style */
+/* Assignment Cards - Compact Design with proper spacing */
 .assignmentsList {
   display: flex;
   flex-direction: column;
   gap: 12px;
-  margin-bottom: 20px;
+  margin-bottom: 40px; /* Increased spacing to prevent overlap */
 }
 
 .assignmentCard {
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 12px;
-  padding: 16px;
+  background: #FFFFFF;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  padding: 12px;
+  height: 100px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  position: relative;
 }
 
 .assignmentCard:hover {
-  background: rgba(255, 255, 255, 0.08);
-  border-color: rgba(255, 255, 255, 0.2);
+  background: #FFFFFF;
+  border-color: rgba(255, 215, 0, 0.4);
   transform: translateY(-1px);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
 }
 
 .assignmentHeader {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 12px;
+  margin-bottom: 4px;
 }
 
 .assignmentDate {
-  font-size: 16px;
-  color: #ffd700;
-  font-weight: 600;
+  font-size: 12px;
+  color: #6B7280;
+  font-weight: 500;
+  display: none;
 }
 
 .assignmentStatus {
-  font-size: 14px;
-  padding: 5px 9px;
-  border-radius: 6px;
+  font-size: 10px;
+  padding: 2px 6px;
+  border-radius: 4px;
   font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.3px;
+  position: absolute;
+  top: 8px;
+  right: 8px;
 }
 
 .assignmentDetails {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 8px;
-  margin-bottom: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  margin-bottom: 6px;
+  flex: 1;
 }
 
 .detailItem {
   display: flex;
-  flex-direction: column;
+  align-items: center;
   gap: 4px;
+  min-height: 16px;
 }
 
 .detailLabel {
-  font-size: 13px;
-  color: rgba(255, 255, 255, 0.6);
+  font-size: 9px;
+  color: rgba(26, 26, 46, 0.5);
   text-transform: uppercase;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.3px;
   font-weight: 500;
+  min-width: 28px;
+  flex-shrink: 0;
 }
 
 .detailValue {
-  font-size: 14px;
-  color: white;
-  font-weight: 600;
+  font-size: 12px;
+  color: #1A1A2E;
+  font-weight: 500;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  flex: 1;
 }
 
-.locationInfo {
-  margin: 12px 0;
-  padding: 12px;
-  background: rgba(255, 255, 255, 0.03);
-  border-radius: 8px;
-  border: 1px solid rgba(255, 255, 255, 0.05);
+/* New compact card styles */
+.statusDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
 }
 
-.locationItem {
+.progressSection {
   display: flex;
   align-items: center;
-  gap: 8px;
-  margin-bottom: 8px;
-}
-
-.locationItem:last-child {
-  margin-bottom: 0;
-}
-
-.locationIcon {
-  font-size: 14px;
-  width: 20px;
-  text-align: center;
-}
-
-.locationDetails {
+  gap: 6px;
   flex: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
 }
 
-.locationLabel {
-  font-size: 13px;
-  color: rgba(255, 255, 255, 0.6);
-  text-transform: uppercase;
-  font-weight: 500;
-  letter-spacing: 0.5px;
+.progressBar {
+  flex: 1;
+  height: 4px;
+  background: #E5E7EB;
+  border-radius: 2px;
+  overflow: hidden;
 }
 
-.locationValue {
-  font-size: 14px;
-  color: white;
-  font-weight: 500;
+.progressFill {
+  height: 100%;
+  background: linear-gradient(90deg, #10B981, #34D399);
+  border-radius: 2px;
+  transition: width 0.3s ease;
 }
+
+.progressText {
+  font-size: 10px;
+  color: #6B7280;
+  font-weight: 500;
+  min-width: 40px;
+  text-align: right;
+}
+
+/* Location info removed for compact design - locations shown in footer */
 
 .assignmentFooter {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-top: 12px;
-  padding-top: 12px;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  margin-top: auto;
+  padding-top: 6px;
+  border-top: 1px solid rgba(0, 0, 0, 0.05);
 }
 
 .totalCost {
-  font-size: 18px;
-  font-weight: 700;
-  color: #ffd700;
+  font-size: 14px;
+  font-weight: 600;
+  color: #10B981;
 }
 
 .rating {
   color: #ffd700;
-  font-size: 14px;
+  font-size: 10px;
 }
 
 .assignmentActions {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 8px;
-  margin-top: 12px;
+  display: flex;
+  gap: 4px;
+  margin-left: 8px;
 }
 
 .actionButton {
-  padding: 10px;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 8px;
-  color: white;
-  font-size: 14px;
+  padding: 4px;
+  background: #F3F4F6;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+  color: #374151;
+  font-size: 11px;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 6px;
   transition: all 0.3s ease;
   cursor: pointer;
-  white-space: nowrap;
-  min-height: 44px;
+  min-height: 20px;
+  width: 20px;
 }
 
 .actionButton:hover {
-  background: rgba(255, 255, 255, 0.1);
+  background: #E5E7EB;
   border-color: rgba(255, 215, 0, 0.3);
   transform: translateY(-1px);
 }
@@ -405,22 +418,25 @@
 }
 
 .actionIcon {
-  font-size: 16px;
-  color: #ffd700;
+  font-size: 12px;
+  color: #6B7280;
 }
 
 .actionText {
-  font-size: 15px;
+  font-size: 10px;
   font-weight: 500;
 }
 
-/* Quick Actions - 2 Per Row Grid Layout */
+/* Quick Actions - 2 Per Row Grid Layout with proper spacing */
 .quickActions {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 12px;
-  margin-top: 20px;
-  padding-bottom: 20px;
+  margin-top: 32px; /* Increased top margin for clear separation */
+  padding-bottom: 32px; /* Increased bottom padding for footer clearance */
+  /* Ensure buttons are in normal document flow */
+  position: relative;
+  z-index: 1;
 }
 
 .quickActions .actionButton {
@@ -544,6 +560,8 @@
 @media (max-width: 768px) {
   .assignmentsContainer {
     padding: 16px 12px;
+    /* Keep reserved space for the fixed panel on small screens */
+    padding-bottom: calc(180px + env(safe-area-inset-bottom)); /* Increased for better spacing */
   }
 
   .tabNavigation {
@@ -561,8 +579,8 @@
   }
 
   .statsGrid {
-    grid-template-columns: 1fr;
-    gap: 10px;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
     margin-bottom: 16px;
   }
 
@@ -572,14 +590,18 @@
   }
 
   .quickActions {
-    flex-direction: column;
+    grid-template-columns: repeat(2, 1fr); /* Keep 2x2 grid on mobile */
     gap: 10px;
+    margin-top: 24px; /* Reduced but still adequate spacing on mobile */
+    padding-bottom: 24px; /* Adequate bottom padding */
   }
 }
 
 @media (max-width: 480px) {
   .assignmentsContainer {
     padding: 12px 8px;
+    /* Keep reserved space for the fixed panel on very small screens */
+    padding-bottom: calc(180px + env(safe-area-inset-bottom)); /* Increased for better spacing */
   }
 
   .pageTitle {
@@ -652,22 +674,55 @@
   }
 }
 
-/* Responsive Breakpoints */
-@media (min-width: 375px) {
+/* Responsive Breakpoints - Enhanced for readability */
+@media (max-width: 374px) {
   .pageTitle {
-    font-size: 22px;
+    font-size: 24px; /* Larger for small screens */
   }
   .subtitle {
-    font-size: 15px;
+    font-size: 16px; /* Larger for small screens */
+  }
+
+  .statValue {
+    font-size: 20px; /* Increased for visibility */
+  }
+
+  .statLabel {
+    font-size: 14px; /* Increased for readability */
+  }
+
+  .actionText {
+    font-size: 15px; /* Increased for touch targets */
+  }
+
+  .navCardTitle {
+    font-size: 16px; /* Increased for navigation */
+  }
+
+  .navCardPrimary {
+    font-size: 15px; /* Increased for content */
+  }
+
+  .navCardSecondary {
+    font-size: 14px; /* Increased for details */
+  }
+}
+
+@media (min-width: 375px) {
+  .pageTitle {
+    font-size: 26px; /* Progressive increase */
+  }
+  .subtitle {
+    font-size: 17px; /* Progressive increase */
   }
 }
 
 @media (min-width: 768px) {
   .pageTitle {
-    font-size: 24px;
+    font-size: 28px; /* Maintain large size on desktop */
   }
   .subtitle {
-    font-size: 16px;
+    font-size: 18px; /* Maintain large size on desktop */
   }
 
   .quickActions {
@@ -676,6 +731,13 @@
 
   .assignmentActions {
     grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .statsGrid {
+    grid-template-columns: 1fr;
+    gap: 8px;
   }
 }
 
@@ -712,6 +774,11 @@
     padding-left: 24px;
   }
 
+  .statsGrid {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+
   .statCard {
     padding: 12px 10px;
   }
@@ -729,12 +796,58 @@
     font-size: 12px;
   }
 
-  .actionButton {
-    font-size: 14px;
+  /* Compact assignment cards for small screens */
+  .assignmentCard {
+    height: 90px;
+    padding: 10px;
   }
 
-  .actionText {
-    font-size: 14px;
+  .assignmentStatus {
+    font-size: 8px;
+    padding: 1px 4px;
+    top: 6px;
+    right: 6px;
+  }
+
+  .detailValue {
+    font-size: 11px;
+  }
+
+  .detailLabel {
+    font-size: 8px;
+    min-width: 24px;
+  }
+
+  .statusDot {
+    width: 6px;
+    height: 6px;
+  }
+
+  .progressBar {
+    height: 3px;
+  }
+
+  .progressText {
+    font-size: 9px;
+    min-width: 35px;
+  }
+
+  .actionButton {
+    min-height: 18px;
+    width: 18px;
+    padding: 3px;
+  }
+
+  .actionIcon {
+    font-size: 10px;
+  }
+
+  .totalCost {
+    font-size: 12px;
+  }
+
+  .rating {
+    font-size: 9px;
   }
 
   .quickActions .actionText {
