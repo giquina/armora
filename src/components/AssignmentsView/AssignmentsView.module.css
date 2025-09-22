@@ -15,7 +15,7 @@
 }
 
 .pageTitle {
-  font-size: 22px;
+  font-size: 24px;
   font-weight: 700;
   color: #ffd700;
   letter-spacing: 1px;
@@ -24,7 +24,7 @@
 }
 
 .subtitle {
-  font-size: 15px;
+  font-size: 16px;
   color: rgba(255, 255, 255, 0.7);
   font-weight: 400;
   letter-spacing: 0.3px;
@@ -76,12 +76,12 @@
 }
 
 .navCardIcon {
-  font-size: 18px;
+  font-size: 20px;
   flex-shrink: 0;
 }
 
 .navCardTitle {
-  font-size: 15px;
+  font-size: 16px;
   font-weight: 600;
   color: white;
   text-transform: uppercase;
@@ -90,7 +90,7 @@
 }
 
 .navCardCount {
-  font-size: 13px;
+  font-size: 15px;
   color: rgba(255, 255, 255, 0.5);
   font-weight: 400;
   white-space: nowrap;
@@ -98,7 +98,7 @@
 }
 
 .navCardBadge {
-  font-size: 11px;
+  font-size: 13px;
   padding: 3px 7px;
   background: rgba(255, 215, 0, 0.2);
   color: #ffd700;
@@ -112,7 +112,7 @@
 
 .activeIndicator {
   color: #ffd700;
-  font-size: 13px;
+  font-size: 14px;
   animation: pulse 2s ease-in-out infinite;
   flex-shrink: 0;
 }
@@ -137,7 +137,7 @@
 }
 
 .navCardSecondary {
-  font-size: 12px;
+  font-size: 13px;
   color: rgba(255, 255, 255, 0.5);
   font-weight: 400;
   white-space: nowrap;
@@ -162,11 +162,11 @@
   }
 
   .navCardPrimary {
-    font-size: 14px;
+    font-size: 15px;
   }
 
   .navCardSecondary {
-    font-size: 12px;
+    font-size: 14px;
   }
 }
 
@@ -206,7 +206,7 @@
 }
 
 .statIcon {
-  font-size: 22px;
+  font-size: 24px;
   width: 28px;
   flex-shrink: 0;
   text-align: center;
@@ -218,7 +218,7 @@
 }
 
 .statValue {
-  font-size: 16px;
+  font-size: 18px;
   font-weight: 700;
   color: white;
   line-height: 1;
@@ -226,7 +226,7 @@
 }
 
 .statLabel {
-  font-size: 12px;
+  font-size: 14px;
   color: rgba(255, 255, 255, 0.6);
   text-transform: uppercase;
   letter-spacing: 0.3px;
@@ -263,13 +263,13 @@
 }
 
 .assignmentDate {
-  font-size: 14px;
+  font-size: 16px;
   color: #ffd700;
   font-weight: 600;
 }
 
 .assignmentStatus {
-  font-size: 13px;
+  font-size: 14px;
   padding: 5px 9px;
   border-radius: 6px;
   font-weight: 600;
@@ -337,7 +337,7 @@
 }
 
 .locationLabel {
-  font-size: 12px;
+  font-size: 13px;
   color: rgba(255, 255, 255, 0.6);
   text-transform: uppercase;
   font-weight: 500;
@@ -410,7 +410,7 @@
 }
 
 .actionText {
-  font-size: 14px;
+  font-size: 15px;
   font-weight: 500;
 }
 
@@ -457,7 +457,7 @@
 }
 
 .quickActions .actionText {
-  font-size: 14px;
+  font-size: 15px;
   font-weight: 500;
   text-align: center;
   line-height: 1.2;
@@ -600,7 +600,7 @@
   }
 
   .tabLabel {
-    font-size: 12px;
+    font-size: 13px;
   }
 
   .statCard {
@@ -701,11 +701,11 @@
   }
 
   .navCardPrimary {
-    font-size: 13px;
+    font-size: 15px;
   }
 
   .navCardSecondary {
-    font-size: 12px;
+    font-size: 14px;
   }
 
   .navCardInfo {
@@ -726,19 +726,19 @@
   }
 
   .statLabel {
-    font-size: 11px;
+    font-size: 12px;
   }
 
   .actionButton {
-    font-size: 13px;
+    font-size: 14px;
   }
 
   .actionText {
-    font-size: 13px;
+    font-size: 14px;
   }
 
   .quickActions .actionText {
-    font-size: 13px;
+    font-size: 14px;
   }
 }
 
