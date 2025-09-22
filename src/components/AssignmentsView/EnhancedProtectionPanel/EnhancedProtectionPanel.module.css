@@ -2,11 +2,11 @@
 
 .panel {
   position: fixed;
-  /* Position so bottom edge touches navigation top border */
-  bottom: 60px;
+  /* Position panel to sit directly on navigation */
+  bottom: 0;
   left: 0;
   right: 0;
-  /* Remove padding-bottom - panel should touch navigation exactly */
+  /* No padding-bottom needed */
   padding-bottom: 0;
   /* Remove other spacing */
   margin: 0;
@@ -76,10 +76,10 @@
 /* Panel States with enhanced animations */
 .panel.collapsed {
   transform: translateY(0);
-  /* Height for collapsed state content */
-  height: 60px;
+  /* Height for two-line collapsed layout */
+  height: 70px;
   position: fixed;
-  bottom: 60px;
+  bottom: 0px;
   background: rgba(255, 255, 255, 0.85);
   backdrop-filter: blur(20px) saturate(120%);
   -webkit-backdrop-filter: blur(20px) saturate(120%);
@@ -134,7 +134,7 @@
   /* Height for half-open state content */
   height: 180px;
   position: fixed;
-  bottom: 60px;
+  bottom: 0px;
   background: rgba(255, 255, 255, 0.92);
   backdrop-filter: blur(30px) saturate(150%);
   -webkit-backdrop-filter: blur(30px) saturate(150%);
@@ -160,10 +160,10 @@
 .panel.full {
   transform: translateY(0);
   height: auto;
-  /* Max height extends to navigation border */
-  max-height: calc(100vh - 140px); /* Account for header and navigation */
+  /* Max height extends to header only */
+  max-height: calc(100vh - 80px); /* Account for header only */
   position: fixed;
-  bottom: 60px;
+  bottom: 0px;
   overflow-y: auto;
   background: rgba(255, 255, 255, 0.98);
   backdrop-filter: blur(40px) saturate(180%);
@@ -187,204 +187,123 @@
   }
 }
 
-/* Drag Handle - Enhanced with visual state indicators */
+/* Drag Handle - Subtle gray indicator */
 .dragHandle {
   position: absolute;
   top: 8px;
   left: 50%;
   transform: translateX(-50%);
-  width: 60px;
-  height: 6px;
-  /* Much more visible golden handle */
-  background: linear-gradient(90deg, #FFD700, #FFA500, #FFD700);
-  border-radius: 3px;
+  width: 40px;
+  height: 4px;
+  /* Subtle gray handle from theme */
+  background: rgba(0, 0, 0, 0.15);
+  border-radius: 2px;
   cursor: pointer;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  z-index: 100; /* Higher z-index to ensure visibility */
-  /* Enhanced touch target for mobile */
-  padding: 16px;
-  margin: -16px;
-  /* Add stronger shadow to make it pop */
-  box-shadow: 0 4px 16px rgba(255, 215, 0, 0.5),
-              inset 0 2px 0 rgba(255, 255, 255, 0.6),
-              0 0 0 1px rgba(255, 215, 0, 0.8);
-  /* Ensure it's always visible */
-  opacity: 1;
-  display: block;
+  transition: all 0.2s ease;
+  z-index: 100;
+  /* Small touch target padding */
+  padding: 12px;
+  margin: -12px;
+  /* Subtle shadow */
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
 }
 
-/* Enhanced drag handle states */
+/* Simple drag handle states */
 .dragHandle:hover {
-  background: linear-gradient(90deg, #FFC107, #FF8F00, #FFC107);
-  transform: translateX(-50%) scale(1.1);
-  box-shadow: 0 4px 16px rgba(255, 215, 0, 0.5),
-              inset 0 1px 0 rgba(255, 255, 255, 0.6);
+  background: rgba(0, 0, 0, 0.25);
 }
 
 .dragHandle:active {
   cursor: grabbing;
-  background: linear-gradient(90deg, #FFEB3B, #FFC107, #FFEB3B);
-  transform: translateX(-50%) scaleY(1.3) scaleX(1.05);
-  box-shadow: 0 2px 12px rgba(255, 215, 0, 0.7),
-              inset 0 1px 0 rgba(255, 255, 255, 0.7);
+  background: rgba(0, 0, 0, 0.3);
 }
 
-.dragHandle::before {
-  content: '⌃';
-  position: absolute;
-  top: -24px;
-  left: 50%;
-  transform: translateX(-50%);
-  font-size: 20px;
-  color: #FFD700;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  /* Better visibility hint */
-  font-weight: bold;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5), 0 0 8px rgba(255, 215, 0, 0.6);
-  /* Ensure visibility */
-  z-index: 101;
-  display: block;
-  opacity: 1;
-}
 
-/* Animated chevron rotation */
-.panel.collapsed .dragHandle::before {
-  transform: translateX(-50%) rotate(0deg);
-  animation: chevronPulse 2.5s ease-in-out infinite;
-  color: rgba(255, 215, 0, 0.9);
-}
-
-.panel.half .dragHandle::before {
-  transform: translateX(-50%) rotate(0deg);
-  color: rgba(255, 215, 0, 0.7);
-}
-
-.panel.full .dragHandle::before {
-  transform: translateX(-50%) rotate(180deg);
-  color: rgba(255, 215, 0, 0.7);
-}
-
-@keyframes chevronPulse {
-  0%, 100% {
-    opacity: 0.6;
-    transform: translateX(-50%) rotate(0deg) scale(1);
-    color: rgba(255, 215, 0, 0.8);
-  }
-  50% {
-    opacity: 1;
-    transform: translateX(-50%) rotate(0deg) scale(1.2);
-    color: rgba(255, 215, 0, 1);
-  }
-}
-
-/* State-specific drag handle indicators */
-.panel.collapsed .dragHandle::before {
-  content: '⌃';
-  color: rgba(0, 0, 0, 0.5);
-}
-
-.panel.half .dragHandle::before {
-  content: '⌃';
-  color: rgba(0, 0, 0, 0.6);
-}
-
-.panel.full .dragHandle::before {
-  content: '⌄';
-  color: rgba(0, 0, 0, 0.7);
-}
-
-.dragHandle:hover {
-  background: rgba(0, 0, 0, 0.4);
-  transform: translateX(-50%) scale(1.1);
-}
-
-.dragHandle:hover::before {
-  color: rgba(255, 215, 0, 0.8);
-  transform: translateX(-50%) scale(1.2);
-}
-
-.dragHandle:active {
-  cursor: grabbing;
-  background: rgba(255, 215, 0, 0.8);
-  transform: translateX(-50%) scaleY(1.2);
-}
-
-/* Collapsed Preview Content */
+/* Collapsed Preview Content - Two-line layout */
 .collapsedPreview {
-  padding: 12px 16px;
   background: #ffffff;
   border-radius: 8px;
-  margin: 20px 20px 0 20px; /* More space from drag handle */
+  margin: 24px 20px 0 20px; /* More space from drag handle */
   border: 1px solid rgba(0, 0, 0, 0.08);
-  min-height: 30px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-between;
   /* Enhanced touch interaction */
   cursor: pointer;
   transition: all 0.2s ease;
-  /* Subtle hint that it's expandable */
-  position: relative;
+  /* Proper padding for two-line layout */
+  padding: 10px 16px 10px 16px;
+  height: 50px; /* Total height minus margins should fit in 70px panel */
 }
 
-/* Single line status for collapsed state */
-.singleLineStatus {
+/* Top Line: [● ACTIVE] [Executive] */
+.topLine {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.statusSection {
   display: flex;
   align-items: center;
   gap: 8px;
-  font-size: 14px;
-  line-height: 1;
-  position: relative;
 }
 
-.singleLineStatus .statusDot {
+.statusDot {
   color: #10B981;
-  font-size: 10px;
-  flex-shrink: 0;
+  font-size: 12px;
+  font-weight: bold;
 }
 
-.singleLineStatus .statusText {
+.statusText {
   font-weight: 700;
   color: #10B981;
   text-transform: uppercase;
   letter-spacing: 0.5px;
-  flex-shrink: 0;
+  font-size: 14px;
 }
 
-.singleLineStatus .divider {
-  color: rgba(26, 26, 46, 0.3);
-  font-weight: 400;
-  flex-shrink: 0;
-}
-
-.singleLineStatus .officerName {
-  font-weight: 600;
-  color: #1A1A2E;
-  flex-shrink: 0;
-}
-
-.singleLineStatus .etaText {
-  font-weight: 500;
-  color: #6B7280;
-  flex-shrink: 0;
-}
-
-.singleLineStatus .serviceTier {
+.serviceBadge {
   font-weight: 600;
   color: #FFD700;
   background: #1A1A2E;
-  padding: 2px 6px;
+  padding: 4px 8px;
   border-radius: 4px;
   font-size: 12px;
-  flex-shrink: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
 }
 
-.expandIndicator {
-  margin-left: auto;
-  color: #FFD700;
-  font-size: 16px;
-  font-weight: 700;
-  flex-shrink: 0;
+/* Bottom Line: John Davis | ETA 16:45 | 1h 23m left */
+.bottomLine {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+}
+
+.cpoName {
+  font-weight: 600;
+  color: #1A1A2E;
+  white-space: nowrap;
+}
+
+.divider {
+  color: rgba(26, 26, 46, 0.4);
+  font-weight: 400;
+}
+
+.etaText {
+  font-weight: 500;
+  color: #6B7280;
+  white-space: nowrap;
+}
+
+.timeLeft {
+  font-weight: 500;
+  color: #6B7280;
+  white-space: nowrap;
 }
 
 .collapsedPreview:hover {

@@ -307,18 +307,26 @@ export function EnhancedProtectionPanel({
             className={styles.collapsedPreview}
             onClick={handleTripleTap} // Enable triple-tap panic mode
           >
-            <div className={styles.singleLineStatus}>
-              <span className={styles.statusDot}>●</span>
-              <span className={styles.statusText}>
-                {panicModeActive ? 'URGENT' : 'ACTIVE'}
-              </span>
-              <span className={styles.divider}>|</span>
-              <span className={styles.officerName}>{officer.name}</span>
+            {/* Top Line: [● ACTIVE] [Executive] */}
+            <div className={styles.topLine}>
+              <div className={styles.statusSection}>
+                <span className={styles.statusDot}>●</span>
+                <span className={styles.statusText}>
+                  {panicModeActive ? 'URGENT' : 'ACTIVE'}
+                </span>
+              </div>
+              <div className={styles.serviceBadge}>
+                {statusInfo.protectionLevel.split(' ')[0]}
+              </div>
+            </div>
+
+            {/* Bottom Line: John Davis | ETA 16:45 | 1h 23m left */}
+            <div className={styles.bottomLine}>
+              <span className={styles.cpoName}>CPO {officer.name}</span>
               <span className={styles.divider}>|</span>
               <span className={styles.etaText}>ETA {statusInfo.eta}</span>
               <span className={styles.divider}>|</span>
-              <span className={styles.serviceTier}>{statusInfo.protectionLevel.split(' ')[0]}</span>
-              <div className={styles.expandIndicator}>↑</div>
+              <span className={styles.timeLeft}>{statusInfo.timeRemaining} left</span>
             </div>
           </div>
         )}
