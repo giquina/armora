@@ -1,4 +1,5 @@
 # React Development Standards - Armora Security Transport
+Last updated: 2025-09-23T18:47:06.793Z
 
 ## Mobile-First Component Architecture
 
@@ -22,7 +23,7 @@ interface User {
 }
 
 interface UserPreferences {
-  servicePreference: 'standard' | 'executive' | 'shadow';
+  servicePreference: 'essential' | 'executive' | 'shadow' | 'client-vehicle';
   paymentMethod: 'card' | 'cash' | 'corporate';
   specialRequirements: string[];
   accessibilityNeeds: string[];
@@ -43,7 +44,7 @@ interface RewardStatus {
 interface BookingRequest {
   id: string;
   userId: string;
-  serviceType: 'standard' | 'executive' | 'shadow';
+  serviceType: 'essential' | 'executive' | 'shadow' | 'client-vehicle';
   pickupLocation: Location;
   dropoffLocation: Location;
   scheduledTime: Date;
@@ -861,7 +862,7 @@ const GuestDisclaimer: React.FC<GuestFlowProps> = ({
   
   const guestCapabilities = [
     'Complete 9-step security assessment questionnaire',
-    'Browse all service levels (Standard, Executive, Shadow)',
+    'Browse all service levels (Essential, Executive, Shadow, Client Vehicle)',
     'Use quote calculator for route pricing estimates',
     'Access direct contact information for bookings',
     'Preview the booking interface and app features'
