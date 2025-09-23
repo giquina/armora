@@ -15,7 +15,7 @@ interface PriceEstimate {
   estimatedDistance: number;
   protectionFee: number;
   total: number;
-  destination: string;
+  secureDestination: string;
 }
 
 const SERVICE_OPTIONS: ServiceOption[] = [
@@ -28,7 +28,7 @@ export function QuickProtectionEstimate() {
   const { navigateToView } = useApp();
 
   // State management
-  const [destination, setDestination] = useState('');
+  const [secureDestination, setDestination] = useState('');
   const [selectedService, setSelectedService] = useState<ServiceOption>(SERVICE_OPTIONS[2]); // Default to Shadow
   const [showServiceDropdown, setShowServiceDropdown] = useState(false);
   const [userLocation, setUserLocation] = useState('📍 Current location');
@@ -44,17 +44,17 @@ export function QuickProtectionEstimate() {
           setUserLocation('📍 Current location');
         },
         (error) => {
-          setUserLocation('📍 Enter pickup location');
+          setUserLocation('📍 Enter Commencement Point location');
         }
       );
     } else {
-      setUserLocation('📍 Enter pickup location');
+      setUserLocation('📍 Enter Commencement Point location');
     }
   }, []);
 
   // Calculate protection fee
   const calculatePrice = async () => {
-    if (!destination.trim()) return;
+    if (!secureDestination.trim()) return;
 
     setIsCalculating(true);
     setShowEstimate(false);
@@ -77,7 +77,7 @@ export function QuickProtectionEstimate() {
         estimatedDistance: Math.round(estimatedDistance * 10) / 10,
         protectionFee: Math.round(protectionFee),
         total: Math.round(total),
-        destination
+        secureDestination
       };
 
       setEstimate(priceEstimate);
@@ -85,7 +85,7 @@ export function QuickProtectionEstimate() {
 
       // Analytics
       console.log('[Analytics] Quick protection price calculated', {
-        destination,
+        secureDestination,
         serviceLevel: selectedService.id,
         estimate: priceEstimate,
         timestamp: Date.now()
@@ -113,11 +113,11 @@ export function QuickProtectionEstimate() {
     if (estimate) {
       // Store the estimate data for the full booking flow
       localStorage.setItem('armora_quick_estimate', JSON.stringify({
-        destination,
+        secureDestination,
         serviceLevel: selectedService.id,
         estimate
       }));
-      localStorage.setItem('armora_destination', destination);
+      localStorage.setItem('armora_destination', secureDestination);
       navigateToView('booking');
     }
   };
@@ -130,17 +130,17 @@ export function QuickProtectionEstimate() {
         <p className={styles.subtitle}>Professional officers nearby • 2 min away</p>
       </div>
 
-      {/* Auto-detected pickup location */}
-      <div className={styles.pickupLocation}>
+      {/* Auto-detected Commencement Point location */}
+      <div className={styles.commencementPointLocation}>
         <span className={styles.locationText}>{userLocation}</span>
       </div>
 
       {/* Destination Input */}
-      <div className={styles.destinationInput}>
+      <div className={styles.secureDestinationInput}>
         <input
           type="text"
           placeholder="Enter location"
-          value={destination}
+          value={secureDestination}
           onChange={(e) => setDestination(e.target.value)}
           className={styles.input}
           aria-label="Where to?"
@@ -185,7 +185,7 @@ export function QuickProtectionEstimate() {
       <button
         className={`${styles.priceButton} ${isCalculating ? styles.calculating : ''}`}
         onClick={calculatePrice}
-        disabled={!destination.trim() || isCalculating}
+        disabled={!secureDestination.trim() || isCalculating}
       >
         {isCalculating ? (
           <>
@@ -198,10 +198,10 @@ export function QuickProtectionEstimate() {
       </button>
 
       {/* Enhanced Pricing Calculator */}
-      {destination && (
+      {secureDestination && (
         <div className={styles.pricingContainer}>
           <PricingCalculator
-            destination={destination}
+            secureDestination={secureDestination}
             serviceLevel={selectedService.id as 'essential' | 'executive' | 'shadow' | 'client-vehicle'}
             autoCalculate={true}
             showMembershipCTA={true}

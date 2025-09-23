@@ -62,12 +62,12 @@ export function UnifiedProtectionBooking() {
   });
   const [isUpdating, setIsUpdating] = useState(false);
 
-  // Load saved addresses for quick secure destination buttons
+  // Load saved addresses for quick secure secureDestination buttons
   useEffect(() => {
     const homeAddress = localStorage.getItem('armora_home_address');
     const workAddress = localStorage.getItem('armora_work_address');
 
-    // Pre-populate if user has saved addresses and no secure destination set
+    // Pre-populate if user has saved addresses and no secure secureDestination set
     if (homeAddress && !secureDestination) {
       // Don't auto-populate, let user choose
     }
@@ -153,7 +153,7 @@ export function UnifiedProtectionBooking() {
 
       // Analytics
       console.log('[Analytics] Unified quote calculated', {
-        destination: secureDestination,
+        secureDestination: secureDestination,
         serviceLevel,
         venueProtection,
         estimate: priceEstimate,
@@ -167,7 +167,7 @@ export function UnifiedProtectionBooking() {
     }
   }, [secureDestination, serviceLevel, venueProtection, venueTime, user?.userType]);
 
-  // Handle quick secure destination selection
+  // Handle quick secure secureDestination selection
   const handleQuickDestination = (type: 'home' | 'office' | 'airport') => {
     const secureDestinations = {
       home: localStorage.getItem('armora_home_address') || 'Home Address',
@@ -189,7 +189,7 @@ export function UnifiedProtectionBooking() {
     if (estimate) {
       // Store protection service data
       localStorage.setItem('armora_booking_data', JSON.stringify({
-        destination: secureDestination,
+        secureDestination: secureDestination,
         serviceLevel,
         venueProtection,
         venueTime,
@@ -221,15 +221,15 @@ export function UnifiedProtectionBooking() {
       </div>
 
       {/* Secure Destination Input */}
-      <div className={styles.destinationSection}>
+      <div className={styles.secureDestinationSection}>
         <label className={styles.sectionLabel}>
           WHERE DO YOU NEED PROTECTION?
         </label>
-        <div className={styles.destinationInput}>
+        <div className={styles.secureDestinationInput}>
           <span className={styles.inputIcon}>📍</span>
           <input
             type="text"
-            placeholder="Enter secure destination or select below"
+            placeholder="Enter secure secureDestination or select below"
             value={secureDestination}
             onChange={(e) => setSecureDestination(e.target.value)}
             className={styles.textInput}

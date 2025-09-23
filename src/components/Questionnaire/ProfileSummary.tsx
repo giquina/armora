@@ -49,7 +49,7 @@ export default function ProfileSummaryComponent({ userResponses, userName }: Pro
     const frequencies: Record<string, { package: string; description: string }> = {
       'daily': { 
         package: 'Executive Priority Package', 
-        description: 'daily commuting usage with same-day booking capabilities and priority driver assignment'
+        description: 'daily commuting usage with same-day booking capabilities and priority Protection Officer assignment'
       },
       'weekly': { 
         package: 'Professional Regular Package', 
@@ -187,7 +187,7 @@ export default function ProfileSummaryComponent({ userResponses, userName }: Pro
     return {
       name: 'Armora Standard',
       tier: 'Professional Security Transport',
-      features: 'professional SIA-licensed drivers, premium vehicles, and standard security protocols',
+      features: 'professional SIA-licensed Protection Officers, premium vehicles, and standard security protocols',
       price: '£50/hour',
       confidence: 'suitable'
     };

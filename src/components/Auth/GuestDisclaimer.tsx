@@ -125,7 +125,7 @@ export function GuestDisclaimer() {
                   <span className={styles.benefitTitle}>Direct In-App Booking</span>
                 </div>
                 <p className={styles.benefitDescription}>
-                  Book rides instantly without phone calls or waiting
+                  Book Assignments instantly without phone calls or waiting
                 </p>
               </li>
               <li className={styles.benefitItem}>
@@ -146,10 +146,10 @@ export function GuestDisclaimer() {
                     <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" fill="none" stroke="currentColor" strokeWidth="2"/>
                     <polyline points="9,22 9,12 15,12 15,22" stroke="currentColor" strokeWidth="2"/>
                   </svg>
-                  <span className={styles.benefitTitle}>Ride History & Profiles</span>
+                  <span className={styles.benefitTitle}>Assignment History & Profiles</span>
                 </div>
                 <p className={styles.benefitDescription}>
-                  Access all previous trips and saved destination profiles
+                  Access all previous Protection Details and saved secureDestination profiles
                 </p>
               </li>
               <li className={styles.benefitItem}>
@@ -157,7 +157,7 @@ export function GuestDisclaimer() {
                   <svg className={styles.benefitIcon} viewBox="0 0 24 24" width="16" height="16">
                     <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" fill="currentColor"/>
                   </svg>
-                  <span className={styles.benefitTitle}>50% Off First Ride Reward</span>
+                  <span className={styles.benefitTitle}>50% Off First Assignment Reward</span>
                 </div>
                 <p className={styles.benefitDescription}>
                   Unlock exclusive savings on your first premium journey

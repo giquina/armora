@@ -104,10 +104,10 @@ export function InlineQuickScheduling({
 
     let displayText = '';
     if (preset.value === 'immediate') {
-      displayText = 'Immediate pickup';
+      displayText = 'Immediate Commencement Point';
     } else {
       const date = new Date(preset.value);
-      displayText = `Pickup at ${date.toLocaleTimeString('en-GB', {
+      displayText = `Commencement Point at ${date.toLocaleTimeString('en-GB', {
         hour: '2-digit',
         minute: '2-digit',
         hour12: true
@@ -128,7 +128,7 @@ export function InlineQuickScheduling({
     <div className={styles.inlineScheduling}>
       {/* Header */}
       <div className={styles.header}>
-        <h4 className={styles.title}>When do you need pickup?</h4>
+        <h4 className={styles.title}>When do you need Commencement Point?</h4>
         <button
           className={styles.closeButton}
           onClick={onCancel}

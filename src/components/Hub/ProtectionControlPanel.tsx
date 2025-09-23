@@ -117,7 +117,7 @@ export function ProtectionControlPanel({
         return [
           { id: 'track', icon: '📍', title: 'TRACK OFFICER', subtitle: 'See real-time location', helper: 'Live GPS tracking' },
           { id: 'call', icon: '📞', title: 'CALL OFFICER', subtitle: `Direct line to ${officer.name}`, helper: 'Tap to connect' },
-          { id: 'update', icon: '📌', title: 'UPDATE PICKUP', subtitle: 'Change your location', helper: 'Modify pickup point' },
+          { id: 'update', icon: '📌', title: 'UPDATE PICKUP', subtitle: 'Change your location', helper: 'Modify Commencement Point point' },
           { id: 'cancel', icon: '❌', title: 'CANCEL SERVICE', subtitle: 'Cancel protection', helper: 'Full refund available' }
         ];
       case 'active':

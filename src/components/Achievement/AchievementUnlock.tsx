@@ -27,7 +27,7 @@ const AchievementUnlock: React.FC<AchievementUnlockProps> = ({
 
   const terms = [
     'Valid for 30 days from profile completion',
-    'Applicable to first ride booking only',
+    'Applicable to first Assignment booking only',
     'Cannot be combined with other offers',
     'Maximum discount value: £15',
     'Valid for all service tiers: Standard, Executive, Shadow'
@@ -158,13 +158,13 @@ const AchievementUnlock: React.FC<AchievementUnlockProps> = ({
           </h1>
           
           <p className={styles.rewardMessage}>
-            You've unlocked 50% off your first ride!
+            You've unlocked 50% off your first Assignment!
           </p>
           
           <div className={styles.safeRideFundSection}>
             <div className={styles.safeRideFundIcon}>🛡️</div>
             <p className={styles.safeRideFundMessage}>
-              Want to make every ride count? Join Essential to save money 
+              Want to make every Assignment count? Join Essential to save money 
               <span className={styles.highlight}> AND </span>
               help others stay safe too.
             </p>
@@ -205,7 +205,7 @@ const AchievementUnlock: React.FC<AchievementUnlockProps> = ({
             <h3 className={styles.previewTitle}>Your VIP Security Team Is Ready</h3>
             <div className={styles.availabilityIndicator}>
               <div className={styles.statusDot}></div>
-              <span>12 certified drivers available now</span>
+              <span>12 certified Protection Officers available now</span>
             </div>
           </div>
 
@@ -323,7 +323,7 @@ const AchievementUnlock: React.FC<AchievementUnlockProps> = ({
               className={`${styles.button} ${styles.primaryButton} ${styles.pulsing}`}
             >
               <span className={styles.buttonText}>Start Your VIP Experience</span>
-              <span className={styles.urgencyText}>Your drivers are waiting</span>
+              <span className={styles.urgencyText}>Your Protection Officers are waiting</span>
             </button>
           )}
         </div>

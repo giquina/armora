@@ -73,8 +73,8 @@ const mockUsers = {
 
 const mockBookingData: BookingData = {
   service: mockServices[0],
-  pickup: '123 Test Street, London',
-  destination: '456 Demo Avenue, London',
+  Commencement Point: '123 Test Street, London',
+  secureDestination: '456 Demo Avenue, London',
   estimatedDistance: 15,
   estimatedDuration: 35,
   estimatedCost: 26.25,
@@ -212,22 +212,22 @@ describe('Booking Components Coverage Tests', () => {
         />
       );
 
-      const pickupInput = screen.getByLabelText(/pickup location/i);
+      const commencementPointInput = screen.getByLabelText(/Commencement Point location/i);
       const destinationInput = screen.getByLabelText(/destination/i);
       const confirmButton = screen.getByRole('button', { name: /confirm location/i });
 
       // Test empty form validation
       await userEvent.click(confirmButton);
-      expect(screen.getByText(/pickup location is required/i)).toBeInTheDocument();
-      expect(screen.getByText(/destination is required/i)).toBeInTheDocument();
+      expect(screen.getByText(/Commencement Point location is required/i)).toBeInTheDocument();
+      expect(screen.getByText(/secureDestination is required/i)).toBeInTheDocument();
 
       // Test partial form validation
-      await userEvent.type(pickupInput, 'Test pickup');
+      await userEvent.type(commencementPointInput, 'Test Commencement Point');
       await userEvent.click(confirmButton);
-      expect(screen.getByText(/destination is required/i)).toBeInTheDocument();
+      expect(screen.getByText(/secureDestination is required/i)).toBeInTheDocument();
 
       // Test complete form
-      await userEvent.type(destinationInput, 'Test destination');
+      await userEvent.type(secureDestinationInput, 'Test destination');
       
       // Wait for estimate calculation
       await waitFor(() => {
@@ -239,8 +239,8 @@ describe('Booking Components Coverage Tests', () => {
       await waitFor(() => {
         expect(onLocationConfirmed).toHaveBeenCalledWith(
           expect.objectContaining({
-            pickup: 'Test pickup',
-            destination: 'Test destination',
+            Commencement Point: 'Test Commencement Point',
+            secureDestination: 'Test destination',
             estimatedCost: expect.any(Number)
           })
         );
@@ -293,13 +293,13 @@ describe('Booking Components Coverage Tests', () => {
         />
       );
 
-      const pickupInput = screen.getByLabelText(/pickup location/i);
-      await userEvent.type(pickupInput, 'Test location');
+      const commencementPointInput = screen.getByLabelText(/Commencement Point location/i);
+      await userEvent.type(commencementPointInput, 'Test location');
       
-      const clearButton = screen.getByRole('button', { name: /clear pickup/i });
+      const clearButton = screen.getByRole('button', { name: /clear Commencement Point/i });
       await userEvent.click(clearButton);
       
-      expect(pickupInput).toHaveValue('');
+      expect(commencementPointInput).toHaveValue('');
     });
 
     test('should handle different service levels for cost calculation', async () => {
@@ -312,11 +312,11 @@ describe('Booking Components Coverage Tests', () => {
         />
       );
 
-      const pickupInput = screen.getByLabelText(/pickup location/i);
+      const commencementPointInput = screen.getByLabelText(/Commencement Point location/i);
       const destinationInput = screen.getByLabelText(/destination/i);
 
-      await userEvent.type(pickupInput, 'Test pickup');
-      await userEvent.type(destinationInput, 'Test destination');
+      await userEvent.type(commencementPointInput, 'Test Commencement Point');
+      await userEvent.type(secureDestinationInput, 'Test destination');
 
       await waitFor(() => {
         expect(screen.getByText(/estimated cost/i)).toBeInTheDocument();
@@ -335,10 +335,10 @@ describe('Booking Components Coverage Tests', () => {
       );
 
       // Clear and re-enter to trigger calculation
-      await userEvent.clear(pickupInput);
-      await userEvent.clear(destinationInput);
-      await userEvent.type(pickupInput, 'Test pickup');
-      await userEvent.type(destinationInput, 'Test destination');
+      await userEvent.clear(commencementPointInput);
+      await userEvent.clear(secureDestinationInput);
+      await userEvent.type(commencementPointInput, 'Test Commencement Point');
+      await userEvent.type(secureDestinationInput, 'Test destination');
 
       await waitFor(() => {
         expect(screen.getByText(/estimated cost/i)).toBeInTheDocument();
@@ -500,7 +500,7 @@ describe('Booking Components Coverage Tests', () => {
       renderWithProvider(<BookingSuccess bookingId="NAV123" />);
 
       const trackButton = screen.getByRole('button', { name: /track booking/i });
-      const bookAnotherButton = screen.getByRole('button', { name: /book another trip/i });
+      const bookAnotherButton = screen.getByRole('button', { name: /book another Protection Detail/i });
       const dashboardButton = screen.getByRole('button', { name: /view dashboard/i });
 
       expect(trackButton).toBeInTheDocument();
@@ -544,8 +544,8 @@ describe('Booking Components Coverage Tests', () => {
     test('should handle missing data gracefully', () => {
       const incompleteBookingData = {
         ...mockBookingData,
-        pickup: '',
-        destination: '',
+        Commencement Point: '',
+        secureDestination: '',
         service: undefined as any
       };
 

@@ -21,7 +21,7 @@ export function BookingSuccess({ bookingId }: BookingSuccessProps) {
         const protectionAssignmentData: ProtectionAssignmentData = state.protectionAssignmentData;
 
         if (protectionAssignmentData) {
-          // Generate a random driver name for the demo
+          // Generate a random Protection Officer name for the demo
           const driverNames = ['John S.', 'Sarah M.', 'David L.', 'Emma R.', 'Michael T.', 'Lisa K.'];
           const randomDriver = driverNames[Math.floor(Math.random() * driverNames.length)];
 
@@ -85,7 +85,7 @@ export function BookingSuccess({ bookingId }: BookingSuccessProps) {
               <span className={styles.stepNumber}>2</span>
               <div className={styles.stepContent}>
                 <h4>Pre-Arrival Contact</h4>
-                <p>Your officer will contact you 10 minutes before pickup</p>
+                <p>Your officer will contact you 10 minutes before Commencement Point</p>
               </div>
             </div>
             

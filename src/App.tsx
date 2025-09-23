@@ -15,6 +15,7 @@ import { ServicesPage } from './components/Services/ServicesPage';
 import { Hub } from './components/Hub';
 import { SubscriptionOffer } from './components/Subscription/SubscriptionOffer';
 import { VehicleSelection, LocationPicker } from './components/Booking';
+import LegacyBookingPage from './components/Booking/LegacyBookingPage';
 import { ProtectionAssignmentSuccess, WhereWhenView } from './components/ProtectionAssignment';
 import { PaymentIntegration } from './components/Booking/PaymentIntegration';
 import { ProtectionAssignmentErrorBoundary } from './components/ProtectionAssignment/ProtectionAssignmentErrorBoundary';
@@ -35,10 +36,7 @@ import './styles/globals.css';
 import './styles/disable-infinite-animations.css'; /* CRITICAL FIX: Stop infinite animations causing flashing */
 import './styles/booking-white-theme.css'; /* BOOKING WHITE THEME: Apply white background to booking pages only */
 
-// Development tools for testing user scenarios
-if (process.env.NODE_ENV === 'development') {
-  import('./utils/testUserScenarios');
-}
+// Development tools for testing user scenarios removed due to chunk loading issues
 
 // Convert standardized services to legacy ServiceLevel format for compatibility
 const convertToServiceLevel = (): ServiceLevel[] => {
@@ -52,7 +50,7 @@ const convertToServiceLevel = (): ServiceLevel[] => {
     vehicle: service.id === 'standard' ? 'Nissan Leaf EV' :
              service.id === 'executive' ? 'BMW 5 Series' :
              service.id === 'client-vehicle' ? 'Your Personal Vehicle' : 'Protected BMW X5',
-    capacity: service.id === 'client-vehicle' ? 'Any vehicle size' : '4 passengers',
+    capacity: service.id === 'client-vehicle' ? 'Any vehicle size' : '4 Principals',
     driverQualification: service.id === 'standard' || service.id === 'client-vehicle' ? 'SIA Level 2 Security Certified' :
                         service.id === 'executive' ? 'SIA Level 3 Security Certified' : 'Special Forces Trained',
     description: service.description,
@@ -103,8 +101,8 @@ function BookingFlow() {
   }) => {
     const protectionAssignmentInfo: ProtectionAssignmentData = {
       service: data.selectedService,
-      pickup: data.location.pickup,
-      destination: data.location.destination,
+      commencementPoint: data.location.commencementPoint,
+      secureDestination: data.location.secureDestination,
       estimatedDistance: data.location.estimatedDistance || 10,
       estimatedDuration: data.location.estimatedDuration || 30,
       estimatedCost: 130, // This would be calculated properly
@@ -493,8 +491,8 @@ function AppRouter() {
   const { state, navigateToView } = useApp();
   const { currentView, user, questionnaireData, assignmentState } = state;
 
-  // Determine if current view should use white theme for booking
-  const isBookingTheme = currentView === 'booking';
+  // Disable white theme; booking uses legacy dark UI now
+  const isBookingTheme = false;
 
   // Achievement banner state
   const [showAchievementBanner, setShowAchievementBanner] = useState(false);
@@ -610,11 +608,14 @@ function AppRouter() {
         const servicePrice = selectedServiceId === 'standard' ? 45 : selectedServiceId === 'executive' ? 75 : selectedServiceId === 'shadow' ? 65 : 45;
         return <SubscriptionOffer selectedService={selectedServiceId || undefined} servicePrice={servicePrice} />;
       case 'booking':
-        return <BookingFlow />;
+        return <LegacyBookingPage />;
+      case 'legacy-booking-view':
+        // Internal viewer to display the old dark booking overlay as a full page
+        return <LegacyBookingPage />;
       case 'service-selection':
         return <ServiceSelection />;
       case 'hub':
-      case 'rides':
+      case 'Assignments':
         return <Hub />;
       case 'account':
         return <AccountView />;

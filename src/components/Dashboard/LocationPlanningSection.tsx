@@ -10,17 +10,17 @@ interface LocationPlanningSectionProps {
 }
 
 export function LocationPlanningSection({ onLocationSet, isDisabled = false, onCompletionScroll }: LocationPlanningSectionProps) {
-  const [pickupAddress, setPickupAddress] = useState('');
-  const [dropoffAddress, setDropoffAddress] = useState('');
+  const [commencementAddress, setCommencementAddress] = useState('');
+  const [secureDestinationAddress, setDropoffAddress] = useState('');
   const [useCurrentLocation, setUseCurrentLocation] = useState(false);
   const [isLoadingLocation, setIsLoadingLocation] = useState(false);
   const [isCalculatingJourney, setIsCalculatingJourney] = useState(false);
   const [journeyEstimate, setJourneyEstimate] = useState<LocationSection['journeyEstimate'] | null>(null);
-  const [errors, setErrors] = useState<{ pickup?: string; dropoff?: string; geolocation?: string }>({});
+  const [errors, setErrors] = useState<{ commencementPoint?: string; dropoff?: string; geolocation?: string }>({});
   const [showProceedButton, setShowProceedButton] = useState(false);
 
   // Refs for auto-focus and scroll functionality
-  const pickupInputRef = useRef<HTMLInputElement>(null);
+  const commencementPointInputRef = useRef<HTMLInputElement>(null);
   const dropoffInputRef = useRef<HTMLInputElement>(null);
 
   // Handle current location request
@@ -46,10 +46,10 @@ export function LocationPlanningSection({ onLocationSet, isDisabled = false, onC
 
       // Mock reverse geocoding - in real implementation, use Google Maps Geocoding API
       const mockAddress = await reverseGeocode(latitude, longitude);
-      setPickupAddress(mockAddress);
+      setCommencementAddress(mockAddress);
       setUseCurrentLocation(true);
 
-      // Auto-focus to destination field after pickup is set
+      // Auto-focus to secureDestination field after commencementPoint is set
       setTimeout(() => {
         dropoffInputRef.current?.focus();
       }, 500);
@@ -115,13 +115,13 @@ export function LocationPlanningSection({ onLocationSet, isDisabled = false, onC
 
       // Notify parent component with location data
       const locationData: LocationSection = {
-        pickupLocation: {
+        commencementLocation: {
           current: useCurrentLocation,
-          address: pickupAddress.trim(),
+          address: commencementAddress.trim(),
           coordinates: useCurrentLocation ? [51.5074, -0.1278] : undefined // Mock London coords
         },
-        dropoffLocation: {
-          address: dropoffAddress.trim()
+        secureDestinationLocation: {
+          address: secureDestinationAddress.trim()
         },
         journeyEstimate: estimate
       };
@@ -136,16 +136,16 @@ export function LocationPlanningSection({ onLocationSet, isDisabled = false, onC
     } finally {
       setIsCalculatingJourney(false);
     }
-  }, [pickupAddress, dropoffAddress, useCurrentLocation, onLocationSet]);
+  }, [commencementAddress, secureDestinationAddress, useCurrentLocation, onLocationSet]);
 
   // Calculate journey when both locations are set - FIXED: Include calculateJourney in dependencies
   useEffect(() => {
-    if (pickupAddress.trim() && dropoffAddress.trim()) {
+    if (commencementAddress.trim() && secureDestinationAddress.trim()) {
       calculateJourney();
     } else {
       setJourneyEstimate(null);
     }
-  }, [pickupAddress, dropoffAddress, calculateJourney]);
+  }, [commencementAddress, secureDestinationAddress, calculateJourney]);
 
   const formatDuration = (minutes: number): string => {
     if (minutes < 60) return `${minutes} min`;
@@ -154,29 +154,29 @@ export function LocationPlanningSection({ onLocationSet, isDisabled = false, onC
     return remainingMinutes > 0 ? `${hours}h ${remainingMinutes}m` : `${hours}h`;
   };
 
-  // Handle pickup input changes with auto-focus
-  const handlePickupChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  // Handle commencementPoint input changes with auto-focus
+  const handleCommencementChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
-    setPickupAddress(value);
+    setCommencementAddress(value);
     setUseCurrentLocation(false);
     setShowProceedButton(false);
 
-    // Auto-focus to destination when pickup is filled
-    if (value.trim().length > 10 && !dropoffAddress.trim()) {
+    // Auto-focus to secureDestination when commencementPoint is filled
+    if (value.trim().length > 10 && !secureDestinationAddress.trim()) {
       setTimeout(() => {
         dropoffInputRef.current?.focus();
       }, 100);
     }
   };
 
-  // Handle destination input changes with auto-scroll
+  // Handle secureDestination input changes with auto-scroll
   const handleDropoffChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     setDropoffAddress(value);
     setShowProceedButton(false);
 
-    // Auto-scroll to services when destination is entered and we have both locations
-    if (value.trim().length > 10 && pickupAddress.trim()) {
+    // Auto-scroll to services when secureDestination is entered and we have both locations
+    if (value.trim().length > 10 && commencementAddress.trim()) {
       setTimeout(() => {
         // Scroll to service selection section
         const serviceSection = document.getElementById('service-selection');
@@ -191,12 +191,12 @@ export function LocationPlanningSection({ onLocationSet, isDisabled = false, onC
   };
 
   // Handle Enter key navigation
-  const handleKeyPress = (e: React.KeyboardEvent, field: 'pickup' | 'dropoff') => {
+  const handleKeyPress = (e: React.KeyboardEvent, field: 'commencementPoint' | 'secureDestination') => {
     if (e.key === 'Enter') {
       e.preventDefault();
-      if (field === 'pickup' && pickupAddress.trim()) {
+      if (field === 'commencementPoint' && commencementAddress.trim()) {
         dropoffInputRef.current?.focus();
-      } else if (field === 'dropoff' && dropoffAddress.trim() && pickupAddress.trim()) {
+      } else if (field === 'secureDestination' && secureDestinationAddress.trim() && commencementAddress.trim()) {
         handleProceedToServices();
       }
     }
@@ -219,22 +219,22 @@ export function LocationPlanningSection({ onLocationSet, isDisabled = false, onC
       </div>
 
       <div className={styles.locationForm}>
-        {/* Pickup Location */}
+        {/* commencementPoint Location */}
         <div className={styles.inputGroup}>
-          <label htmlFor="pickup-location" className={styles.label}>
+          <label htmlFor="commencement-point-location" className={styles.label}>
             <span className={styles.icon}>📍</span>
-            Pickup Location
+            commencementPoint Location
           </label>
           <div className={styles.inputContainer}>
             <input
-              ref={pickupInputRef}
-              id="pickup-location"
+              ref={commencementPointInputRef}
+              id="commencement-point-location"
               type="text"
-              value={pickupAddress}
-              onChange={handlePickupChange}
-              onKeyPress={(e) => handleKeyPress(e, 'pickup')}
-              placeholder="Enter pickup address or use current location"
-              className={`${styles.input} ${errors.pickup ? styles.inputError : ''} ${pickupAddress.trim() ? styles.inputCompleted : ''}`}
+              value={commencementAddress}
+              onChange={handleCommencementChange}
+              onKeyPress={(e) => handleKeyPress(e, 'commencementPoint')}
+              placeholder="Enter commencementPoint address or use current location"
+              className={`${styles.input} ${errors.commencementPoint ? styles.inputError : ''} ${commencementAddress.trim() ? styles.inputCompleted : ''}`}
               disabled={isDisabled || isLoadingLocation}
             />
             <button
@@ -251,8 +251,8 @@ export function LocationPlanningSection({ onLocationSet, isDisabled = false, onC
               )}
             </button>
           </div>
-          {errors.pickup && (
-            <div className={styles.errorMessage}>{errors.pickup}</div>
+          {errors.commencementPoint && (
+            <div className={styles.errorMessage}>{errors.commencementPoint}</div>
           )}
           {errors.geolocation && (
             <div className={styles.errorMessage}>{errors.geolocation}</div>
@@ -261,23 +261,23 @@ export function LocationPlanningSection({ onLocationSet, isDisabled = false, onC
 
         {/* Drop-off Location */}
         <div className={styles.inputGroup}>
-          <label htmlFor="dropoff-location" className={styles.label}>
+          <label htmlFor="Secure Destination-location" className={styles.label}>
             <span className={styles.icon}>🏁</span>
             Destination
           </label>
           <input
             ref={dropoffInputRef}
-            id="dropoff-location"
+            id="secure-destination-location"
             type="text"
-            value={dropoffAddress}
+            value={secureDestinationAddress}
             onChange={handleDropoffChange}
-            onKeyPress={(e) => handleKeyPress(e, 'dropoff')}
-            placeholder="Enter destination address"
-            className={`${styles.input} ${errors.dropoff ? styles.inputError : ''} ${dropoffAddress.trim() ? styles.inputCompleted : ''}`}
+            onKeyPress={(e) => handleKeyPress(e, 'secureDestination')}
+            placeholder="Enter secureDestination address"
+            className={`${styles.input} ${errors.secureDestination ? styles.inputError : ''} ${secureDestinationAddress.trim() ? styles.inputCompleted : ''}`}
             disabled={isDisabled}
           />
-          {errors.dropoff && (
-            <div className={styles.errorMessage}>{errors.dropoff}</div>
+          {errors.secureDestination && (
+            <div className={styles.errorMessage}>{errors.secureDestination}</div>
           )}
         </div>
 

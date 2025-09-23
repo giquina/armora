@@ -57,7 +57,7 @@ export function QuickActions() {
     {
       id: 'evening',
       icon: '🌙',
-      title: 'Evening Pickup',
+      title: 'Evening Commencement Point',
       subtitle: 'Discrete late-night security',
       badge: 'Late Night',
       onClick: handleEveningPickup

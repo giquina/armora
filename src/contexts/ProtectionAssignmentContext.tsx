@@ -29,9 +29,9 @@ export interface ServiceOption {
 }
 
 export interface ProtectionAssignmentData {
-  pickupLocation?: Location;
-  pickup?: Location; // Alias for compatibility
-  destination?: Location;
+  commencementLocation?: Location;
+  commencementPoint?: Location; // Alias for compatibility
+  secureDestination?: Location;
   selectedService?: ServiceOption;
   paymentMethod?: {
     id: string;
@@ -81,9 +81,9 @@ const initialState: ProtectionAssignmentData = {
 function protectionAssignmentReducer(state: ProtectionAssignmentData, action: ProtectionAssignmentAction | BookingAction): ProtectionAssignmentData {
   switch (action.type) {
     case 'SET_PICKUP_LOCATION':
-      return { ...state, pickupLocation: action.payload };
+      return { ...state, commencementLocation: action.payload };
     case 'SET_DESTINATION':
-      return { ...state, destination: action.payload };
+      return { ...state, secureDestination: action.payload };
     case 'SET_SELECTED_SERVICE':
       return { ...state, selectedService: action.payload };
     case 'SET_PAYMENT_METHOD':
@@ -182,10 +182,10 @@ export function ProtectionAssignmentProvider({ children }: { children: ReactNode
     }
 
     // Also load from legacy storage keys
-    const destination = localStorage.getItem('armora_destination');
+    const secureDestination = localStorage.getItem('armora_destination');
     const destinationCoords = localStorage.getItem('armora_destination_coords');
 
-    if (destination) {
+    if (secureDestination) {
       let coordinates;
       try {
         coordinates = destinationCoords ? JSON.parse(destinationCoords) : undefined;
@@ -193,7 +193,7 @@ export function ProtectionAssignmentProvider({ children }: { children: ReactNode
         coordinates = undefined;
       }
 
-      setDestination({ address: destination, coordinates });
+      setDestination({ address: secureDestination, coordinates });
     }
   };
 
@@ -257,10 +257,10 @@ export const SERVICE_OPTIONS: ServiceOption[] = [
   {
     id: 'standard',
     name: 'Standard Protection',
-    description: 'SIA Level 2, Professional drivers',
+    description: 'SIA Level 2, Professional Protection Officers',
     price: 32.50,
     originalPrice: 65.00,
-    discount: '50% off first ride',
+    discount: '50% off first Assignment',
     eta: '4 min',
     features: ['SIA Level 2 Certified', 'GPS Tracking', 'Professional Service'],
     vehicleType: 'BMW 5 Series',

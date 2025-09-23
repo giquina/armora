@@ -6,6 +6,11 @@ interface LocationPickerProps {
   isOpen: boolean;
   onClose: () => void;
   onLocationSelect: (location: { address: string; coordinates?: { lat: number; lng: number } }) => void;
+  /**
+   * When true, the picker will not auto-navigate to 'booking' or auto-close after selection.
+   * Useful for embedding in a page-driven booking flow.
+   */
+  suppressNavigate?: boolean;
 }
 
 interface SavedPlace {
@@ -54,7 +59,7 @@ const LOCATION_DATA = {
 // Commented out as we now use Recent locations instead of Suggested
 // const ALL_SUGGESTED = Object.values(LOCATION_DATA).flat();
 
-export function LocationPicker({ isOpen, onClose, onLocationSelect }: LocationPickerProps) {
+export function LocationPicker({ isOpen, onClose, onLocationSelect, suppressNavigate = false }: LocationPickerProps) {
   const { navigateToView } = useApp();
   const [searchQuery, setSearchQuery] = useState('');
   const [savedPlaces, setSavedPlaces] = useState<SavedPlace[]>([]);
@@ -150,14 +155,23 @@ export function LocationPicker({ isOpen, onClose, onLocationSelect }: LocationPi
     setRecentPlaces(updatedRecents);
     localStorage.setItem('armora_recent_places', JSON.stringify(updatedRecents));
 
+    // Persist secureDestination for downstream flows
+    try {
+      localStorage.setItem('armora_destination', address);
+      if (coordinates) {
+        localStorage.setItem('armora_destination_coords', JSON.stringify(coordinates));
+      }
+    } catch {}
+
     // Call the selection handler
     onLocationSelect({ address, coordinates });
 
-    // Navigate to service selection
-    navigateToView('booking');
-
-    // Close the overlay
-    onClose();
+    if (!suppressNavigate) {
+      // Navigate to service selection
+      navigateToView('booking');
+      // Close the overlay
+      onClose();
+    }
   };
 
   const handleAddSavedPlace = (type: 'home' | 'work') => {
@@ -265,7 +279,7 @@ export function LocationPicker({ isOpen, onClose, onLocationSelect }: LocationPi
                 <input
                   className={styles.fromLocationInput}
                   type="text"
-                  placeholder="Enter pickup location"
+                  placeholder="Enter Commencement Point location"
                   defaultValue={currentLocation}
                   onBlur={() => setIsEditingFromLocation(false)}
                   onKeyDown={(e) => {

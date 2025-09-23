@@ -237,7 +237,7 @@ export function SchedulingPicker({
                 selectedTime={selectedTime}
                 onTimeSelect={handleTimeSelect}
                 disabled={disabled}
-                placeholder="Select your pickup time"
+                placeholder="Select your Commencement Point time"
                 inline={true}
               />
             </div>
@@ -254,7 +254,7 @@ export function SchedulingPicker({
           <div className={styles.confirmation + ' ' + styles.condensedConfirmation}>
             <div className={styles.confirmationIcon}>✅</div>
             <div className={styles.confirmationText}>
-              <strong>Pickup scheduled:</strong><br />{formatFinalDisplay()}
+              <strong>Commencement Point scheduled:</strong><br />{formatFinalDisplay()}
             </div>
           </div>
         )}
@@ -318,7 +318,7 @@ export function SchedulingPicker({
             selectedTime={selectedTime}
             onTimeSelect={handleTimeSelect}
             disabled={disabled}
-            placeholder="Select your pickup time"
+            placeholder="Select your Commencement Point time"
               inline={alwaysExpanded}
           />
         </div>
@@ -328,7 +328,7 @@ export function SchedulingPicker({
         <div className={styles.confirmation}>
           <div className={styles.confirmationIcon}>✅</div>
           <div className={styles.confirmationText}>
-            <strong>Pickup scheduled for:</strong>
+            <strong>Commencement Point scheduled for:</strong>
             <br />
             {formatFinalDisplay()}
           </div>

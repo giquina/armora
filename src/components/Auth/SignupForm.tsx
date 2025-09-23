@@ -234,7 +234,7 @@ export function SignupForm() {
       step8_contactPreferences: {
         email: 'dev@armora.test',
         phone: '+44 7700 900000',
-        notifications: ['booking-updates', 'driver-arrival']
+        notifications: ['booking-updates', 'Protection Officer-arrival']
       },
       step9_profileReview: true,
       completedAt: new Date(),
@@ -284,7 +284,7 @@ export function SignupForm() {
       step8_contactPreferences: {
         email: 'dashboard@armora.test',
         phone: '+44 7700 900000',
-        notifications: ['booking-updates', 'driver-arrival']
+        notifications: ['booking-updates', 'Protection Officer-arrival']
       },
       step9_profileReview: true,
       completedAt: new Date(),

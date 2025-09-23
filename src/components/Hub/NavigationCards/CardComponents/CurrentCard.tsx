@@ -151,7 +151,7 @@ export const CurrentCard: React.FC<CurrentCardProps> = ({
             </div>
           )}
 
-          {/* Service Tier & Fare - Keep for visual emphasis */}
+          {/* Service Tier & Service Fee - Keep for visual emphasis */}
           <div className={styles.bottomRow}>
             <div
               className={styles.serviceTier}

@@ -3,7 +3,7 @@ import { ProtectionLevel } from './ProtectionLevelSelector';
 import styles from './VenueTimeEstimator.module.css';
 
 interface VenueTimeEstimatorProps {
-  destination: string;
+  secureDestination: string;
   protectionLevel: ProtectionLevel;
   onTimeEstimateComplete: (timeData: VenueTimeData) => void;
   onBack?: () => void;
@@ -28,7 +28,7 @@ const TIME_OPTIONS = [
 ];
 
 export function VenueTimeEstimator({
-  destination,
+  secureDestination,
   protectionLevel,
   onTimeEstimateComplete,
   onBack
@@ -81,7 +81,7 @@ export function VenueTimeEstimator({
         )}
         <div className={styles.headerContent}>
           <h2 className={styles.title}>
-            How long will you be at {formatDestination(destination)}?
+            How long will you be at {formatDestination(secureDestination)}?
           </h2>
           <p className={styles.subtitle}>
             Your Protection Officer will accompany you for the duration

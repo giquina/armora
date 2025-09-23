@@ -18,7 +18,7 @@ interface PriceBreakdown {
 }
 
 interface PricingCalculatorProps {
-  destination: string;
+  secureDestination: string;
   serviceLevel?: 'essential' | 'executive' | 'shadow' | 'client-vehicle';
   onPriceCalculated?: (breakdown: PriceBreakdown) => void;
   autoCalculate?: boolean;
@@ -41,7 +41,7 @@ const VEHICLE_RATES = {
 };
 
 export function PricingCalculator({
-  destination,
+  secureDestination,
   serviceLevel = 'shadow',
   onPriceCalculated,
   autoCalculate = true,
@@ -56,7 +56,7 @@ export function PricingCalculator({
   const [calculationStage, setCalculationStage] = useState<string>('');
 
   const calculatePricing = useCallback(async () => {
-    if (!destination.trim()) return;
+    if (!secureDestination.trim()) return;
 
     setIsLoading(true);
     setCalculationStage('Analyzing route...');
@@ -72,8 +72,8 @@ export function PricingCalculator({
 
     try {
       // Get estimates based on destination
-      const distance = estimateDistance(destination);
-      const timeNeeded = estimateJourneyTime(destination);
+      const distance = estimateDistance(secureDestination);
+      const timeNeeded = estimateJourneyTime(secureDestination);
 
       // Calculate protection hours (minimum 2 hours)
       const journeyHours = (timeNeeded * 2) / 60; // Both ways
@@ -112,7 +112,7 @@ export function PricingCalculator({
 
       // Analytics
       console.log('[Analytics] Pricing calculated', {
-        destination,
+        secureDestination,
         serviceLevel,
         breakdown: priceBreakdown,
         timestamp: Date.now()
@@ -124,14 +124,14 @@ export function PricingCalculator({
       setIsLoading(false);
       setCalculationStage('');
     }
-  }, [destination, serviceLevel, user?.userType, onPriceCalculated]);
+  }, [secureDestination, serviceLevel, user?.userType, onPriceCalculated]);
 
-  // Auto-calculate when destination or service level changes
+  // Auto-calculate when secureDestination or service level changes
   useEffect(() => {
-    if (autoCalculate && destination.trim()) {
+    if (autoCalculate && secureDestination.trim()) {
       calculatePricing();
     }
-  }, [destination, serviceLevel, autoCalculate, calculatePricing]);
+  }, [secureDestination, serviceLevel, autoCalculate, calculatePricing]);
 
   const isMember = user?.userType === 'registered' || user?.userType === 'google';
 
@@ -162,12 +162,12 @@ export function PricingCalculator({
     return (
       <div className={styles.calculatorContainer}>
         <div className={styles.noCalculation}>
-          <p>Enter a destination to see pricing</p>
+          <p>Enter a secureDestination to see pricing</p>
           {!autoCalculate && (
             <button
               className={styles.calculateButton}
               onClick={calculatePricing}
-              disabled={!destination.trim()}
+              disabled={!secureDestination.trim()}
             >
               Calculate Protection Investment
             </button>

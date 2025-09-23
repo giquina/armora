@@ -1,4 +1,4 @@
-// Armora Security Transport - Safe Ride Fund Explainer Component
+// Armora Security Transport - Safe Assignment Fund Explainer Component
 
 import React, { useState, useEffect } from 'react';
 import styles from './SafeRideFundExplainer.module.css';
@@ -9,7 +9,7 @@ interface SafeRideFundExplainerProps {
   className?: string;
 }
 
-// Mock data for Safe Ride Fund
+// Mock data for Safe Assignment Fund
 const safeRideFundData = {
   charityPartners: [
     {
@@ -30,7 +30,7 @@ const safeRideFundData = {
     {
       id: 1,
       title: "Safe Late Night Transport",
-      story: "Thanks to the Safe Ride Fund, Sarah was able to reach a women's refuge at 2 AM when she had no money for transport.",
+      story: "Thanks to the Safe Assignment Fund, Sarah was able to reach a women's refuge at 2 AM when she had no money for transport.",
       date: "3 days ago",
       isAnonymous: true
     },
@@ -88,7 +88,7 @@ export function SafeRideFundExplainer({
         <div className={styles.compactContent}>
           <div className={styles.impactIcon}>🛡️</div>
           <div className={styles.compactText}>
-            <span className={styles.impactAmount}>£4</span> of your £14.99 funds safe rides & charities
+            <span className={styles.impactAmount}>£4</span> of your £14.99 funds safe Assignments & charities
           </div>
         </div>
       </div>
@@ -134,7 +134,7 @@ export function SafeRideFundExplainer({
       <div className={styles.header}>
         <div className={styles.icon}>🛡️</div>
         <div className={styles.headerText}>
-          <h3 className={styles.title}>Safe Ride Fund</h3>
+          <h3 className={styles.title}>Safe Assignment Fund</h3>
           <p className={styles.subtitle}>
             Part of your Essential membership helps keep others safe
           </p>
@@ -150,7 +150,7 @@ export function SafeRideFundExplainer({
               <span>{safeRideFundData.monthlyStats.ridesProvided}</span>
             )}
           </div>
-          <div className={styles.statLabel}>safe rides funded this month</div>
+          <div className={styles.statLabel}>safe Assignments funded this month</div>
         </div>
 
         <div className={styles.subStats}>

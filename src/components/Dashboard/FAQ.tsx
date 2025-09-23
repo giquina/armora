@@ -12,22 +12,22 @@ const FAQ_DATA: FAQItem[] = [
   {
     id: 1,
     question: "How can Armora provide protection in just 15-20 minutes?",
-    answer: "We have SIA-licensed Close Protection Officers strategically positioned across major UK cities. When your booking arrives, our Operations Center immediately receives your location and destination, runs a location assessment for your specific route, conducts basic threat assessment for your journey areas, assigns the nearest qualified officer, and sends them your profile preferences. It's organized, efficient, and professional - like having your own security team always nearby."
+    answer: "We have SIA-licensed Close Protection Officers strategically positioned across major UK cities. When your booking arrives, our Operations Center immediately receives your location and secureDestination, runs a location assessment for your specific route, conducts basic threat assessment for your journey areas, assigns the nearest qualified officer, and sends them your profile preferences. It's organized, efficient, and professional - like having your own security team always nearby."
   },
   {
     id: 2,
-    question: "What's the difference between Armora and just getting a regular driver?",
-    answer: "Many successful professionals want more than someone who can drive - they want genuine peace of mind. Regular drivers provide transportation only with no security training. Armora Close Protection Officers are SIA-licensed by the UK government, have military or police backgrounds (minimum 5 years), are trained in threat assessment and defensive driving, and can handle security situations professionally. As one client puts it: \"I don't need theatrical bodyguards, but knowing my officer is government-licensed and thinking about my security - not just the route - changes everything.\""
+    question: "What's the difference between Armora and just getting a regular Protection Officer?",
+    answer: "Many successful professionals want more than someone who can drive - they want genuine peace of mind. Regular Protection Officers provide transportation only with no security training. Armora Close Protection Officers are SIA-licensed by the UK government, have military or police backgrounds (minimum 5 years), are trained in threat assessment and defensive driving, and can handle security situations professionally. As one client puts it: \"I don't need theatrical bodyguards, but knowing my officer is government-licensed and thinking about my security - not just the route - changes everything.\""
   },
   {
     id: 3,
     question: "What app features enhance my protection experience?",
-    answer: "Our app is your complete protection platform. Features include secure messaging with your Close Protection Officer, live tracking of arrival and journey, saved profile preferences (protection style, regular routes, special requirements), ability to request favorite officers, complete journey history for expenses, panic button for emergencies, and multi-passenger booking options. Once you create your profile with preferences, every officer arrives fully briefed - no repeated explanations needed."
+    answer: "Our app is your complete protection platform. Features include secure messaging with your Close Protection Officer, live tracking of arrival and journey, saved profile preferences (protection style, regular routes, special requirements), ability to request favorite officers, complete journey history for expenses, panic button for emergencies, and multi-Principal booking options. Once you create your profile with preferences, every officer arrives fully briefed - no repeated explanations needed."
   },
   {
     id: 4,
     question: "Who typically uses Armora and why?",
-    answer: "Our diverse client base includes content creators and streamers (\"Fan meetups can get overwhelming\"), international business visitors (\"Need UK security without hiring a firm\"), nightlife groups (\"Birthday party with 8 friends, booked 3 officers\"), nightlife club performers and dancers who prioritize safe transport after late performances, female executives (\"Late night office departures\"), crypto entrepreneurs (\"After my gains went public\"), medical tourists (\"Vulnerable after Harley Street procedures\"), and anyone who simply wants more than just a driver. The common thread? They all want genuine, government-licensed protection that's easy to arrange."
+    answer: "Our diverse client base includes content creators and streamers (\"Fan meetups can get overwhelming\"), international business visitors (\"Need UK security without hiring a firm\"), nightlife groups (\"Birthday party with 8 friends, booked 3 officers\"), nightlife club performers and dancers who prioritize safe transport after late performances, female executives (\"Late night office departures\"), crypto entrepreneurs (\"After my gains went public\"), medical tourists (\"Vulnerable after Harley Street procedures\"), and anyone who simply wants more than just a Protection Officer. The common thread? They all want genuine, government-licensed protection that's easy to arrange."
   },
   {
     id: 5,
@@ -42,7 +42,7 @@ const FAQ_DATA: FAQItem[] = [
   {
     id: 7,
     question: "What happens with location and threat assessment?",
-    answer: "When your booking arrives, we specifically assess YOUR journey - not monitor all of London. Our Operations Center evaluates your pickup and destination areas, checks for current events or disruptions, identifies secure alternatives if needed, considers time-specific factors (late night, rush hour), and briefs your officer on any relevant considerations. It's focused, practical intelligence for your specific journey, delivered in minutes not hours."
+    answer: "When your booking arrives, we specifically assess YOUR journey - not monitor all of London. Our Operations Center evaluates your Commencement Point and secureDestination areas, checks for current events or disruptions, identifies secure alternatives if needed, considers time-specific factors (late night, rush hour), and briefs your officer on any relevant considerations. It's focused, practical intelligence for your specific journey, delivered in minutes not hours."
   },
   {
     id: 8,
@@ -62,12 +62,12 @@ const FAQ_DATA: FAQItem[] = [
   {
     id: 11,
     question: "What makes Armora special for those who just want peace of mind?",
-    answer: "Not everyone faces specific threats - many clients simply want confidence and peace of mind. This means knowing your driver is government-licensed for protection, having someone trained to notice unusual situations, professional handling if incidents occur, discrete service that doesn't embarrass you, and reliable presence when feeling vulnerable. You're not just paying for transport - you're investing in professional security that happens to include transportation. Sometimes the value isn't in preventing specific threats, but in the confidence that comes from genuine protection."
+    answer: "Not everyone faces specific threats - many clients simply want confidence and peace of mind. This means knowing your Protection Officer is government-licensed for protection, having someone trained to notice unusual situations, professional handling if incidents occur, discrete service that doesn't embarrass you, and reliable presence when feeling vulnerable. You're not just paying for transport - you're investing in professional security that happens to include transportation. Sometimes the value isn't in preventing specific threats, but in the confidence that comes from genuine protection."
   },
   {
     id: 12,
     question: "How easy is it really to book protection?",
-    answer: "Booking takes literally 30 seconds. Open the app, select number of officers needed (1-10+), choose your protection level, confirm location and destination, and track your officer's arrival. No phone calls, no quotes, no waiting for callbacks. Your saved profile means no repeated explanations. In-app messaging lets you communicate specifics without awkward calls. Whether you need one officer for an airport run or five for a private party, it's the same simple process. Professional security has never been this accessible."
+    answer: "Booking takes literally 30 seconds. Open the app, select number of officers needed (1-10+), choose your protection level, confirm location and secureDestination, and track your officer's arrival. No phone calls, no quotes, no waiting for callbacks. Your saved profile means no repeated explanations. In-app messaging lets you communicate specifics without awkward calls. Whether you need one officer for an airport run or five for a private party, it's the same simple process. Professional security has never been this accessible."
   }
 ];
 

@@ -25,8 +25,8 @@ export class BookingHistoryManager {
         id: bookingId,
         service: protectionAssignmentData.service.id,
         serviceName: protectionAssignmentData.service.name,
-        from: protectionAssignmentData.pickup,
-        to: protectionAssignmentData.destination,
+        from: protectionAssignmentData.commencementPoint,
+        to: protectionAssignmentData.secureDestination,
         price: `£${protectionAssignmentData.estimatedCost}`,
         estimatedCost: protectionAssignmentData.estimatedCost,
         date: new Date().toISOString().split('T')[0], // YYYY-MM-DD format
@@ -36,7 +36,7 @@ export class BookingHistoryManager {
           hour12: false
         }),
         protectionOfficer: protectionOfficerName,
-        frequency: this.calculateRouteFrequency(history, protectionAssignmentData.pickup, protectionAssignmentData.destination),
+        frequency: this.calculateRouteFrequency(history, protectionAssignmentData.commencementPoint, protectionAssignmentData.secureDestination),
         status: 'completed',
         additionalRequirements: protectionAssignmentData.additionalRequirements,
         estimatedDistance: protectionAssignmentData.estimatedDistance,
@@ -273,7 +273,7 @@ export class BookingHistoryManager {
       if (timeCommon && !suggestions.find(s => s.data?.to === timeCommon.to)) {
         suggestions.push({
           id: 'suggestion-time',
-          title: `${timeCategory.charAt(0).toUpperCase() + timeCategory.slice(1)} Pickup?`,
+          title: `${timeCategory.charAt(0).toUpperCase() + timeCategory.slice(1)} pickup?`,
           subtitle: `Your usual ${timeCategory} destination`,
           icon: timeCategory === 'morning' ? '🌅' : timeCategory === 'afternoon' ? '☀️' : '🌙',
           type: 'suggestion',
@@ -309,7 +309,7 @@ export class BookingHistoryManager {
       },
       {
         id: 'default-evening',
-        title: 'Evening Pickup',
+        title: 'Evening pickup',
         subtitle: 'Safe evening transport',
         icon: '🌙',
         type: 'default',

@@ -85,7 +85,7 @@ export const questionnaireSteps: QuestionnaireStep[] = [
         id: "student",
         label: "📚 Are you a student?",
         value: "student",
-        description: "Are you studying at university or college? Need safe protection for late library sessions, social events, or trips home? We understand student life has unique security needs.",
+        description: "Are you studying at university or college? Need safe protection for late library sessions, social events, or Protection Details home? We understand student life has unique security needs.",
         examples: "*Choose this if you're currently in full-time education."
       },
       {
@@ -220,7 +220,7 @@ export const questionnaireSteps: QuestionnaireStep[] = [
         id: "biweekly",
         label: "🗓️ Do you travel every other week?",
         value: "biweekly",
-        description: "Is your schedule more spread out? Perhaps alternating between offices or bi-weekly business trips?",
+        description: "Is your schedule more spread out? Perhaps alternating between offices or bi-weekly business Protection Details?",
         examples: "*Choose this if you need transport every other week."
       },
       {
@@ -247,7 +247,7 @@ export const questionnaireSteps: QuestionnaireStep[] = [
     ],
     validation: { required: true, errorMessage: "Please select your travel frequency requirements" },
     helpText: "Knowing your rhythm helps us be ready when you need us. Whether daily or occasionally, we adapt to your life.",
-    stepDescription: "How often you travel helps us serve you better. Daily commuters get familiar drivers who learn your favorite routes and coffee order. Occasional riders get our most flexible drivers who are great with new destinations. It's like having a regular barista versus a helpful concierge."
+    stepDescription: "How often you travel helps us serve you better. Daily commuters get familiar Protection Officers who learn your favorite routes and coffee order. Occasional riders get our most flexible Protection Officers who are great with new destinations. It's like having a regular barista versus a helpful concierge."
   },
   {
     id: 3,
@@ -279,10 +279,10 @@ export const questionnaireSteps: QuestionnaireStep[] = [
       },
       {
         id: "professional_service",
-        label: "👤 Is your driver's presentation crucial for your image?",
+        label: "👤 Is your Protection Officer's presentation crucial for your image?",
         value: "professional_service",
-        description: "Do your drivers need to match your professional standards when meeting clients or arriving at important events?",
-        examples: "*Select this if your driver's appearance reflects on your reputation."
+        description: "Do your Protection Officers need to match your professional standards when meeting clients or arriving at important events?",
+        examples: "*Select this if your Protection Officer's appearance reflects on your reputation."
       },
       {
         id: "reliability_tracking",
@@ -303,14 +303,14 @@ export const questionnaireSteps: QuestionnaireStep[] = [
         label: "👥 Do you need group or family transport?",
         value: "specialized_needs",
         description: "Are you booking for multiple people? Need vehicles that accommodate your entire family or team?",
-        examples: "*Select this if you regularly need multi-passenger transport."
+        examples: "*Select this if you regularly need multi-Principal transport."
       },
       {
         id: "communication_skills",
         label: "💬 Do you value excellent communication?",
         value: "communication_skills",
-        description: "Do you need drivers who can engage professionally when needed but also respect when you need quiet time?",
-        examples: "*Select this if driver communication skills matter to you."
+        description: "Do you need Protection Officers who can engage professionally when needed but also respect when you need quiet time?",
+        examples: "*Select this if Protection Officer communication skills matter to you."
       },
       {
         id: "route_knowledge",
@@ -328,10 +328,10 @@ export const questionnaireSteps: QuestionnaireStep[] = [
       },
       {
         id: "trained_professionals",
-        label: "🛡️ Do you prefer highly trained professional drivers?",
+        label: "🛡️ Do you prefer highly trained professional Protection Officers?",
         value: "trained_professionals",
-        description: "Would you feel more confident with drivers who have advanced professional training and situational awareness?",
-        examples: "*Select this if you want drivers with enhanced professional qualifications."
+        description: "Would you feel more confident with Protection Officers who have advanced professional training and situational awareness?",
+        examples: "*Select this if you want Protection Officers with enhanced professional qualifications."
       },
       {
         id: "payment_flexibility",
@@ -357,7 +357,7 @@ export const questionnaireSteps: QuestionnaireStep[] = [
     ],
     validation: { required: true, minSelections: 1, maxSelections: 5, errorMessage: "Please select 1-5 requirements" },
     helpText: "Pick what matters most to you (select 1-5 options). Every detail helps us create your perfect transport experience.",
-    stepDescription: "What matters most to you? Some prefer chatty drivers, others want quiet rides. Some need help with luggage, others value privacy. Your preferences help us pick drivers who naturally match your style - no awkward rides."
+    stepDescription: "What matters most to you? Some prefer chatty Protection Officers, others want quiet Assignments. Some need help with luggage, others value privacy. Your preferences help us pick Protection Officers who naturally match your style - no awkward Assignments."
   },
   {
     id: 4,
@@ -419,7 +419,7 @@ export const questionnaireSteps: QuestionnaireStep[] = [
         id: "entertainment_events",
         label: "🏨 Do you stay at premium hotels?",
         value: "entertainment_events",
-        description: "Are five-star hotels your second home? Do you need drivers who understand premium hospitality standards?",
+        description: "Are five-star hotels your second home? Do you need Protection Officers who understand premium hospitality standards?",
         examples: "*Select this if you regularly use high-end hotels."
       },
       {
@@ -467,7 +467,7 @@ export const questionnaireSteps: QuestionnaireStep[] = [
     ],
     validation: { required: true, minSelections: 1, maxSelections: 8, errorMessage: "Please select 1-8 coverage areas" },
     helpText: "Choose your regular haunts. We'll make sure we're always ready where you need us most.",
-    stepDescription: "Where you travel helps us assign drivers who really know those areas. They'll know the quickest routes, best pickup spots, and even which areas to avoid during rush hour. Local knowledge makes every journey smoother."
+    stepDescription: "Where you travel helps us assign Protection Officers who really know those areas. They'll know the quickest routes, best Commencement Point spots, and even which areas to avoid during rush hour. Local knowledge makes every journey smoother."
   },
   {
     id: 5,
@@ -501,7 +501,7 @@ export const questionnaireSteps: QuestionnaireStep[] = [
         id: "private_aviation",
         label: "🏨 Do you stay at premium hotels?",
         value: "private_aviation",
-        description: "Are five-star hotels your second home? Do you need drivers who understand premium hospitality standards?",
+        description: "Are five-star hotels your second home? Do you need Protection Officers who understand premium hospitality standards?",
         examples: "*Select this if you regularly use high-end hotels."
       },
       {
@@ -542,7 +542,7 @@ export const questionnaireSteps: QuestionnaireStep[] = [
     ],
     validation: { required: false },
     helpText: "These are optional extras. Pick any that matter to your travel needs.",
-    stepDescription: "Airports, hotels, event venues - these places have their own rules and tricks. Drivers familiar with these spots know exactly where to pick you up, which entrances to use, and how to skip the chaos. No more confusion at Terminal 3."
+    stepDescription: "Airports, hotels, event venues - these places have their own rules and tricks. Protection Officers familiar with these spots know exactly where to pick you up, which entrances to use, and how to skip the chaos. No more confusion at Terminal 3."
   },
   {
     id: 6,
@@ -624,7 +624,7 @@ export const questionnaireSteps: QuestionnaireStep[] = [
         label: "♿ Accessibility Needs",
         value: "accessibility_needs",
         description: "Mobility, visual, hearing, and cognitive assistance",
-        examples: "*Wheelchair Accessible Vehicle Required, Walking Aid Accommodation (canes, walkers, mobility scooters), Transfer Assistance Needed, Extended Time for Boarding/Alighting, Ground Floor Pickup Preferred, Accessible Pickup/Dropoff Points Only"
+        examples: "*Wheelchair Accessible Vehicle Required, Walking Aid Accommodation (canes, walkers, mobility scooters), Transfer Assistance Needed, Extended Time for Boarding/Alighting, Ground Floor Commencement Point Preferred, Accessible Commencement Point/Secure Destination Points Only"
       },
       {
         id: "visual_hearing_support",
@@ -651,7 +651,7 @@ export const questionnaireSteps: QuestionnaireStep[] = [
         id: "group_family_transport",
         label: "👥 Group & Family Transport",
         value: "group_family_transport",
-        description: "Multiple passengers and family needs",
+        description: "Multiple Principals and family needs",
         examples: "*Child Safety Seats Required (specify ages/weights), Family Group Transport (specify ages), Business Team Coordination, Multiple Vehicle Coordination, Security Detail Coordination, Group Communication Requirements"
       },
       {
@@ -673,7 +673,7 @@ export const questionnaireSteps: QuestionnaireStep[] = [
         label: "🔒 Security Preferences",
         value: "security_preferences",
         description: "Privacy and security accommodations",
-        examples: "*Discrete/Unmarked Vehicles Only, Female Driver/Security Preferred, Male Driver/Security Preferred, Same Driver Assignment Preferred, Route Confidentiality Required, Counter-Surveillance Awareness"
+        examples: "*Discrete/Unmarked Vehicles Only, Female Protection Officer/Security Preferred, Male Protection Officer/Security Preferred, Same Protection Officer Assignment Preferred, Route Confidentiality Required, Counter-Surveillance Awareness"
       },
       {
         id: "business_facilities",
@@ -713,7 +713,7 @@ export const questionnaireSteps: QuestionnaireStep[] = [
     ],
     validation: { required: false, minSelections: 0, maxSelections: 12, errorMessage: "Please select your special requirements" },
     helpText: "Tell us about anything that would make your journey more comfortable. We're here to help.",
-    stepDescription: "Everyone's different. Maybe you travel with a wheelchair, maybe you have a service dog, or maybe you just need extra time getting in and out. Whatever you need, we'll make sure your driver is prepared and comfortable helping."
+    stepDescription: "Everyone's different. Maybe you travel with a wheelchair, maybe you have a service dog, or maybe you just need extra time getting in and out. Whatever you need, we'll make sure your Protection Officer is prepared and comfortable helping."
   },
   {
     id: 8,
@@ -726,8 +726,8 @@ export const questionnaireSteps: QuestionnaireStep[] = [
         id: "sms_updates",
         label: "📱 SMS Updates",
         value: "sms_updates",
-        description: "Text messages for booking confirmations and driver updates",
-        examples: "*Real-time booking confirmations, driver arrival notifications, journey progress updates, and immediate security alerts delivered via SMS. Best for busy professionals who check messages frequently."
+        description: "Text messages for booking confirmations and Protection Officer updates",
+        examples: "*Real-time booking confirmations, Protection Officer arrival notifications, journey progress updates, and immediate security alerts delivered via SMS. Best for busy professionals who check messages frequently."
       },
       {
         id: "email_communication",
@@ -741,7 +741,7 @@ export const questionnaireSteps: QuestionnaireStep[] = [
         label: "🔔 App Notifications",
         value: "app_notifications",
         description: "Push notifications through Armora Transport app",
-        examples: "*Modern push notifications through our secure mobile app, including real-time tracking, driver updates, and booking management. Best for tech-savvy users seeking streamlined experience."
+        examples: "*Modern push notifications through our secure mobile app, including real-time tracking, Protection Officer updates, and booking management. Best for tech-savvy users seeking streamlined experience."
       },
       {
         id: "phone_calls",
@@ -783,21 +783,21 @@ export const questionnaireSteps: QuestionnaireStep[] = [
         label: "⚡ Priority Alert Communications",
         value: "priority_alerts",
         description: "How to handle urgent transport coordination",
-        examples: "*Important transport situations may override preferences for immediate contact via available methods. Driver safety updates, schedule changes, and urgent coordination delivered immediately for service continuity."
+        examples: "*Important transport situations may override preferences for immediate contact via available methods. Protection Officer safety updates, schedule changes, and urgent coordination delivered immediately for service continuity."
       },
       {
         id: "privacy_minimal",
         label: "🔕 Privacy & Minimal Contact",
         value: "privacy_minimal",
         description: "Essential communications only with maximum privacy",
-        examples: "*Driver arrival notifications and priority communications only. Discrete, minimal interruption approach with strong privacy protection. Best for privacy-focused users and confidential transport needs."
+        examples: "*Protection Officer arrival notifications and priority communications only. Discrete, minimal interruption approach with strong privacy protection. Best for privacy-focused users and confidential transport needs."
       },
       {
         id: "no_communications",
         label: "❌ No Non-Essential Communications",
         value: "no_communications",
-        description: "Driver coordination only, no booking communications",
-        examples: "*Direct driver coordination only. No booking confirmations, updates, or administrative communications. Priority alerts still delivered for safety and security purposes."
+        description: "Protection Officer coordination only, no booking communications",
+        examples: "*Direct Protection Officer coordination only. No booking confirmations, updates, or administrative communications. Priority alerts still delivered for safety and security purposes."
       },
       {
         id: "prefer_not_to_say",
@@ -842,7 +842,7 @@ export const questionnaireSteps: QuestionnaireStep[] = [
     ],
     validation: { required: true, errorMessage: "Please confirm your profile to complete assessment" },
     helpText: "Almost there! Take a quick look to make sure everything's right before we get started.",
-    stepDescription: "Take a quick look to make sure we've got everything right. This helps your drivers prepare properly and ensures you get exactly the service you're expecting. Think of it as your personal travel preferences saved for every ride.",
+    stepDescription: "Take a quick look to make sure we've got everything right. This helps your Protection Officers prepare properly and ensures you get exactly the service you're expecting. Think of it as your personal travel preferences saved for every Assignment.",
     isLastStep: true,
     profileSummary: {
       showSummary: true,
@@ -970,7 +970,7 @@ export const serviceData = {
     name: "Armora Secure",
     description: "Professional security transport service",
     features: [
-      "SIA Level 2 security-certified drivers",
+      "SIA Level 2 security-certified Protection Officers",
       "Eco-friendly Nissan Leaf EV fleet (discreet)",
       "Professional security protocols",
       "24/7 booking availability",
@@ -991,9 +991,9 @@ export const serviceData = {
       "Premium vehicles (S-Class, 7-Series, A8)",
       "Enhanced security protocols",
       "Business facilities (WiFi, charging, privacy glass)",
-      "Preferred driver assignment",
+      "Preferred Protection Officer assignment",
       "Airport meet & greet",
-      "First aid trained drivers",
+      "First aid trained Protection Officers",
       "SIA Close Protection Officers"
     ],
     price: "£75/hour",
@@ -1011,7 +1011,7 @@ export const serviceData = {
       "Route security planning",
       "Counter-surveillance awareness",
       "Safety coordination protocols",
-      "First aid trained drivers"
+      "First aid trained Protection Officers"
     ],
     price: "£65/hour",
     confidence: 89,

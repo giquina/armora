@@ -13,7 +13,7 @@ interface BookingConfirmationProps {
   protectionAssignmentData: ProtectionAssignmentData & { pricingBreakdown?: NationwidePricingBreakdown };
   protectionLevel: ProtectionLevel;
   venueTimeData?: VenueTimeData;
-  destination: string;
+  secureDestination: string;
   onConfirmBooking: (bookingId: string) => void;
   onBack: () => void;
 }
@@ -22,7 +22,7 @@ export function BookingConfirmation({
   protectionAssignmentData,
   protectionLevel,
   venueTimeData,
-  destination,
+  secureDestination,
   onConfirmBooking,
   onBack
 }: BookingConfirmationProps) {
@@ -75,7 +75,7 @@ export function BookingConfirmation({
   } else {
     // Legacy pricing calculation
     const protectionRequest: ProtectionServiceRequest = {
-      destination,
+      secureDestination,
       protectionLevel,
       venueTimeData,
       userType: user?.userType || 'guest',
@@ -101,7 +101,7 @@ export function BookingConfirmation({
       id: bookingId,
       userId: user?.id,
       service: protectionLevel.name,
-      destination,
+      secureDestination,
       totalCost: pricingBreakdown.total,
       additionalRequirements,
       createdAt: new Date(),
@@ -155,7 +155,7 @@ export function BookingConfirmation({
               <span className={styles.routeIcon}>🏁</span>
               <div>
                 <div className={styles.routeLabel}>Secure destination</div>
-                <div className={styles.routeLocation}>{destination}</div>
+                <div className={styles.routeLocation}>{secureDestination}</div>
               </div>
             </div>
             {protectionAssignmentData.pricingBreakdown && (

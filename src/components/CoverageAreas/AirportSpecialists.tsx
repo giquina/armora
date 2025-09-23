@@ -12,7 +12,7 @@ export function AirportSpecialists() {
       coverage: '24/7 coverage',
       responseTime: '10-15 minutes',
       specialties: ['Terminal specialists', 'VIP meet & greet', 'Diplomatic protection'],
-      features: ['All 5 terminals', 'Fast track security', 'Aircraft side pickup', 'Private lounges']
+      features: ['All 5 terminals', 'Fast track security', 'Aircraft side Commencement Point', 'Private lounges']
     },
     {
       id: 'gatwick',
@@ -193,7 +193,7 @@ export function AirportSpecialists() {
               <span className={styles.serviceIcon}>🎖️</span>
               <h4 className={styles.serviceTitle}>VIP Meet & Greet</h4>
               <p className={styles.serviceDescription}>
-                Aircraft-side pickup with fast-track clearance and lounge access
+                Aircraft-side Commencement Point with fast-track clearance and lounge access
               </p>
             </div>
             <div className={styles.serviceItem}>
@@ -214,7 +214,7 @@ export function AirportSpecialists() {
               <span className={styles.serviceIcon}>🏢</span>
               <h4 className={styles.serviceTitle}>Corporate Groups</h4>
               <p className={styles.serviceDescription}>
-                Multi-passenger protection for executive teams and delegations
+                Multi-Principal protection for executive teams and delegations
               </p>
             </div>
           </div>

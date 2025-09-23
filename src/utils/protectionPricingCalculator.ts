@@ -20,7 +20,7 @@ export interface PricingBreakdown {
 }
 
 export interface ProtectionServiceRequest {
-  destination: string;
+  secureDestination: string;
   protectionLevel: ProtectionLevel;
   venueTimeData?: VenueTimeData;
   userType: 'registered' | 'google' | 'guest';
@@ -131,7 +131,7 @@ export function calculateProtectionPricing(request: ProtectionServiceRequest): P
   if (hasUnlockedReward && (userType === 'registered' || userType === 'google')) {
     const rewardDiscount = subtotal * DISCOUNTS.REWARD_DISCOUNT;
     discounts.push({
-      label: 'First Ride Reward (50%)',
+      label: 'First Assignment Reward (50%)',
       amount: rewardDiscount,
       percentage: 50
     });
@@ -167,7 +167,7 @@ function convertNationwideToPricingBreakdown(request: ProtectionServiceRequest):
 
   const nationwidePricing = calculateNationwideProtection(
     request.origin!,
-    request.destination,
+    request.secureDestination,
     serviceLevel,
     {
       userType: request.userType,
@@ -268,7 +268,7 @@ function createFormattedBreakdown(
 
   // Add journey info
   const journeyTime = request.journeyTimeMinutes || 25;
-  breakdown.push(`Journey: Current location to ${request.destination} (${journeyTime} mins)`);
+  breakdown.push(`Journey: Current location to ${request.secureDestination} (${journeyTime} mins)`);
   breakdown.push(`Service Type: ${request.protectionLevel.name}`);
 
   if (request.protectionLevel.type === 'personal' && request.venueTimeData) {
@@ -311,7 +311,7 @@ function createFormattedBreakdown(
 /**
  * Get estimated journey time based on destination
  */
-export function estimateJourneyTime(destination: string): number {
+export function estimateJourneyTime(secureDestination: string): number {
   const dest = destination.toLowerCase();
 
   // Airport destinations typically take longer
@@ -336,7 +336,7 @@ export function estimateJourneyTime(destination: string): number {
 /**
  * Get estimated distance based on destination
  */
-export function estimateDistance(destination: string): number {
+export function estimateDistance(secureDestination: string): number {
   const dest = destination.toLowerCase();
 
   if (dest.includes('airport') || dest.includes('heathrow') || dest.includes('gatwick')) {
@@ -353,7 +353,7 @@ export function estimateDistance(destination: string): number {
 /**
  * Check if parking is likely required for destination
  */
-export function requiresParking(destination: string): boolean {
+export function requiresParking(secureDestination: string): boolean {
   const dest = destination.toLowerCase();
 
   // Venues that typically require paid parking
@@ -369,7 +369,7 @@ export function requiresParking(destination: string): boolean {
 /**
  * Get protection level recommendation based on destination
  */
-export function getRecommendedProtectionLevel(destination: string): 'transport' | 'personal' {
+export function getRecommendedProtectionLevel(secureDestination: string): 'transport' | 'personal' {
   const dest = destination.toLowerCase();
 
   // Destinations that typically benefit from personal protection

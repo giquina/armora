@@ -4,7 +4,7 @@
 export type NavigationViews = 'home' | 'services' | 'hub' | 'account';
 
 // Complete view state including navigation and flow states
-export type ViewState = 'splash' | 'welcome' | 'login' | 'signup' | 'guest-disclaimer' | 'questionnaire' | 'achievement' | 'home' | 'subscription-offer' | 'trial-setup' | 'member-dashboard' | 'services' | 'service-selection' | 'booking' | 'hub' | 'rides' | 'account' | 'venue-protection-welcome' | 'venue-security-questionnaire' | 'venue-protection-success' | 'about' | 'coverage-areas';
+export type ViewState = 'splash' | 'welcome' | 'login' | 'signup' | 'guest-disclaimer' | 'questionnaire' | 'achievement' | 'home' | 'subscription-offer' | 'trial-setup' | 'member-dashboard' | 'services' | 'service-selection' | 'booking' | 'hub' | 'Assignments' | 'account' | 'venue-protection-welcome' | 'venue-security-questionnaire' | 'venue-protection-success' | 'about' | 'coverage-areas' | 'legacy-booking-view';
 
 export type UserType = 'registered' | 'google' | 'guest' | null;
 
@@ -248,8 +248,8 @@ export interface ProtectionAssignmentStep {
 }
 
 export interface LocationData {
-  pickup: string;
-  destination: string;
+  commencementPoint: string;
+  secureDestination: string;
   estimatedDistance?: number;
   estimatedDuration?: number;
   scheduledDateTime?: string;
@@ -257,12 +257,12 @@ export interface LocationData {
 }
 
 export interface LocationSection {
-  pickupLocation: {
+  commencementLocation: {
     current: boolean;
     address: string;
     coordinates?: [number, number];
   };
-  dropoffLocation: {
+  secureDestinationLocation: {
     address: string;
     coordinates?: [number, number];
   };
@@ -275,8 +275,8 @@ export interface LocationSection {
 
 export interface ProtectionAssignmentData {
   service: ServiceLevel;
-  pickup: string;
-  destination: string;
+  commencementPoint: string;
+  secureDestination: string;
   estimatedDistance: number;
   estimatedDuration: number;
   estimatedCost: number;
@@ -290,8 +290,8 @@ export interface ProtectionAssignmentRecord {
   id: string;
   userId?: string;
   service: string;
-  pickup: string;
-  destination: string;
+  commencementPoint: string;
+  secureDestination: string;
   estimatedCost: number;
   additionalRequirements?: string;
   createdAt: Date;
@@ -422,7 +422,7 @@ export interface UserSubscription {
   trialEndDate?: Date;
   subscriptionStartDate?: Date;
   subscriptionEndDate?: Date;
-  startDate?: Date; // For Safe Ride Fund metrics calculation
+  startDate?: Date; // For Safe Assignment Fund metrics calculation
   isTrialActive: boolean;
   daysRemainingInTrial?: number;
   memberBenefits: {
@@ -453,7 +453,7 @@ export interface NotificationData {
   totalInterestCount?: number;
 }
 
-// Safe Ride Fund Types
+// Safe Assignment Fund Types
 export interface SafeRideFundMetrics {
   personalRidesFunded: number;
   totalContributed: number;
@@ -724,12 +724,12 @@ export interface Assignment {
   startTime: string;
   estimatedEndTime: string;
   actualEndTime?: string;
-  pickupLocation: {
+  commencementLocation: {
     address: string;
     lat: number;
     lng: number;
   };
-  destination: {
+  secureDestination: {
     address: string;
     lat: number;
     lng: number;

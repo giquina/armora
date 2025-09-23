@@ -48,7 +48,7 @@ export function LiveTrackingDashboard({
     return (
       <div className={styles.emptyTracker}>
         <div className={styles.emptyIcon}>🚗</div>
-        <h3 className={styles.emptyTitle}>No Active Rides</h3>
+        <h3 className={styles.emptyTitle}>No Active Assignments</h3>
         <p className={styles.emptyText}>Your live tracking will appear here when you have active bookings</p>
       </div>
     );
@@ -87,18 +87,18 @@ export function LiveTrackingDashboard({
               <div className={styles.driverSection}>
                 <div className={styles.driverAvatar}>
                   <div className={styles.avatarPlaceholder}>
-                    {booking.driver.name.charAt(0)}
+                    {booking.Protection Officer.name.charAt(0)}
                   </div>
                   <div className={styles.onlineIndicator}></div>
                 </div>
                 <div className={styles.driverInfo}>
-                  <div className={styles.driverName}>{booking.driver.name}</div>
+                  <div className={styles.driverName}>{booking.Protection Officer.name}</div>
                   <div className={styles.vehicleInfo}>
-                    {booking.driver.vehicle} • {booking.driver.plate}
+                    {booking.Protection Officer.vehicle} • {booking.Protection Officer.plate}
                   </div>
                   <div className={styles.driverRating}>
-                    <span className={styles.stars}>{'⭐'.repeat(Math.floor(booking.driver.rating))}</span>
-                    <span className={styles.ratingNumber}>{booking.driver.rating}</span>
+                    <span className={styles.stars}>{'⭐'.repeat(Math.floor(booking.Protection Officer.rating))}</span>
+                    <span className={styles.ratingNumber}>{booking.Protection Officer.rating}</span>
                   </div>
                 </div>
               </div>
@@ -108,13 +108,13 @@ export function LiveTrackingDashboard({
                   <div className={styles.routePoint}>
                     <span className={styles.routeIcon}>📍</span>
                     <span className={styles.routeText}>
-                      {booking.pickupLocation.address.split(',')[0]}
+                      {booking.commencementPointLocation.address.split(',')[0]}
                     </span>
                   </div>
                   <div className={styles.routePoint}>
                     <span className={styles.routeIcon}>🏁</span>
                     <span className={styles.routeText}>
-                      {booking.destination.address.split(',')[0]}
+                      {booking.secureDestination.address.split(',')[0]}
                     </span>
                   </div>
                 </div>
@@ -155,7 +155,7 @@ export function LiveTrackingDashboard({
                   className={styles.secondaryAction}
                   onClick={() => onContactDriver(booking.id)}
                 >
-                  📞 Contact Driver
+                  📞 Contact Protection Officer
                 </button>
               </div>
             </div>

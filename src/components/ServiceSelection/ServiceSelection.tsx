@@ -49,7 +49,7 @@ export function ServiceSelection() {
     navigateToView('home');
   };
 
-  if (!protectionAssignmentData.pickupLocation && !protectionAssignmentData.pickup || !protectionAssignmentData.destination) {
+  if (!protectionAssignmentData.commencementPointLocation && !protectionAssignmentData.commencementPoint || !protectionAssignmentData.secureDestination) {
     return (
       <div className={styles.container}>
         <div className={styles.loading}>
@@ -75,7 +75,7 @@ export function ServiceSelection() {
           fontSize: '18px',
           fontWeight: '600'
         }}>
-          Route: {(protectionAssignmentData.pickupLocation || protectionAssignmentData.pickup)?.address} → {protectionAssignmentData.destination?.address}
+          Route: {(protectionAssignmentData.commencementPointLocation || protectionAssignmentData.commencementPoint)?.address} → {protectionAssignmentData.secureDestination?.address}
         </div>
       </div>
 

@@ -211,9 +211,9 @@ export function detectServiceRegion(address: string): ServiceRegion {
  * Calculate mileage between two locations
  * This is a simplified version - in production, would use Google Maps/Mapbox API
  */
-export function calculateMileage(origin: string, destination: string): DistanceCalculation {
+export function calculateMileage(origin: string, secureDestination: string): DistanceCalculation {
   const originRegion = detectServiceRegion(origin);
-  const destRegion = detectServiceRegion(destination);
+  const destRegion = detectServiceRegion(secureDestination);
 
   // Simplified distance calculation based on regions
   let baseMiles = 12; // Default London-area journey
@@ -253,7 +253,7 @@ export function calculateMileage(origin: string, destination: string): DistanceC
  */
 export function calculateNationwideProtection(
   origin: string,
-  destination: string,
+  secureDestination: string,
   serviceLevel: 'Essential' | 'Executive',
   options: {
     userType?: 'registered' | 'google' | 'guest';
@@ -269,7 +269,7 @@ export function calculateNationwideProtection(
   } = options;
 
   // Calculate distance and journey details
-  const distance = calculateMileage(origin, destination);
+  const distance = calculateMileage(origin, secureDestination);
   const region = distance.deploymentRegion;
   const regionData = REGIONS[region];
 

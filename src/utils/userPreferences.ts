@@ -23,8 +23,8 @@ interface UserPreferences {
   // Booking Patterns
   typicalBookingTimes: string[]; // ISO times when user usually books
   frequentRoutes: Array<{
-    pickup: Location;
-    destination: Location;
+    commencementPoint: Location;
+    secureDestination: Location;
     frequency: number;
     lastUsed: string;
   }>;
@@ -41,8 +41,8 @@ interface UserPreferences {
     serviceTier: string;
     pickupTime: string;
     route: {
-      pickup: Location;
-      destination: Location;
+      commencementPoint: Location;
+      secureDestination: Location;
     };
     cost: number;
   }>;
@@ -116,7 +116,7 @@ class UserPreferencesService {
   // Learn from user's booking behavior
   static learnFromBooking(bookingData: {
     serviceTier: string;
-    pickupLocation: Location;
+    commencementLocation: Location;
     destinationLocation: Location;
     scheduledTime: string;
     cost: number;
@@ -129,8 +129,8 @@ class UserPreferencesService {
       serviceTier: bookingData.serviceTier,
       pickupTime: bookingData.scheduledTime,
       route: {
-        pickup: bookingData.pickupLocation,
-        destination: bookingData.destinationLocation
+        commencementPoint: bookingData.commencementLocation,
+        secureDestination: bookingData.destinationLocation
       },
       cost: bookingData.cost
     });
@@ -139,7 +139,7 @@ class UserPreferencesService {
     preferences.bookingHistory = preferences.bookingHistory.slice(0, 50);
 
     // Update recent locations
-    this.updateRecentLocation(preferences.recentPickupLocations, bookingData.pickupLocation);
+    this.updateRecentLocation(preferences.recentPickupLocations, bookingData.commencementLocation);
     this.updateRecentLocation(preferences.recentDestinations, bookingData.destinationLocation);
 
     // Learn preferred service tier
@@ -149,7 +149,7 @@ class UserPreferencesService {
     this.learnBookingTimePatterns(preferences, bookingData.scheduledTime);
 
     // Update frequent routes
-    this.updateFrequentRoutes(preferences, bookingData.pickupLocation, bookingData.destinationLocation);
+    this.updateFrequentRoutes(preferences, bookingData.commencementLocation, bookingData.destinationLocation);
 
     // Update user profile insights
     this.updateUserProfile(preferences);
@@ -208,14 +208,14 @@ class UserPreferencesService {
   }
 
   // Update frequent routes based on usage
-  private static updateFrequentRoutes(preferences: UserPreferences, pickup: Location, destination: Location): void {
-    const routeKey = `${pickup.lat.toFixed(4)},${pickup.lng.toFixed(4)}-${destination.lat.toFixed(4)},${destination.lng.toFixed(4)}`;
+  private static updateFrequentRoutes(preferences: UserPreferences, commencementPoint: Location, secureDestination: Location): void {
+    const routeKey = `${commencementPoint.lat.toFixed(4)},${commencementPoint.lng.toFixed(4)}-${secureDestination.lat.toFixed(4)},${secureDestination.lng.toFixed(4)}`;
 
     const existingRoute = preferences.frequentRoutes.find(route =>
-      Math.abs(route.pickup.lat - pickup.lat) < 0.001 &&
-      Math.abs(route.pickup.lng - pickup.lng) < 0.001 &&
-      Math.abs(route.destination.lat - destination.lat) < 0.001 &&
-      Math.abs(route.destination.lng - destination.lng) < 0.001
+      Math.abs(route.commencementPoint.lat - commencementPoint.lat) < 0.001 &&
+      Math.abs(route.commencementPoint.lng - commencementPoint.lng) < 0.001 &&
+      Math.abs(route.secureDestination.lat - secureDestination.lat) < 0.001 &&
+      Math.abs(route.secureDestination.lng - secureDestination.lng) < 0.001
     );
 
     if (existingRoute) {
@@ -223,8 +223,8 @@ class UserPreferencesService {
       existingRoute.lastUsed = new Date().toISOString();
     } else {
       preferences.frequentRoutes.push({
-        pickup,
-        destination,
+        commencementPoint,
+        secureDestination,
         frequency: 1,
         lastUsed: new Date().toISOString()
       });
@@ -315,10 +315,10 @@ class UserPreferencesService {
   }
 
   // Get suggested locations for autocomplete
-  static getSuggestedLocations(type: 'pickup' | 'destination'): Location[] {
+  static getSuggestedLocations(type: 'commencementPoint' | 'destination'): Location[] {
     const preferences = this.getPreferences();
 
-    const recent = type === 'pickup'
+    const recent = type === 'commencementPoint'
       ? preferences.recentPickupLocations
       : preferences.recentDestinations;
 
@@ -328,7 +328,7 @@ class UserPreferencesService {
     suggestions.push(...recent.slice(0, 3));
 
     // Add home/work for pickup
-    if (type === 'pickup') {
+    if (type === 'commencementPoint') {
       if (preferences.homeLocation) suggestions.push(preferences.homeLocation);
       if (preferences.workLocation) suggestions.push(preferences.workLocation);
     }
@@ -337,10 +337,10 @@ class UserPreferencesService {
     if (type === 'destination') {
       preferences.frequentRoutes.slice(0, 3).forEach(route => {
         if (!suggestions.some(s =>
-          Math.abs(s.lat - route.destination.lat) < 0.001 &&
-          Math.abs(s.lng - route.destination.lng) < 0.001
+          Math.abs(s.lat - route.secureDestination.lat) < 0.001 &&
+          Math.abs(s.lng - route.secureDestination.lng) < 0.001
         )) {
-          suggestions.push(route.destination);
+          suggestions.push(route.secureDestination);
         }
       });
     }

@@ -63,7 +63,7 @@ export const SERVICES_DATA: ServiceData[] = [
       {
         title: 'Healthcare Professional',
         situation: 'Doctor working late shifts at hospital',
-        solution: 'Same trusted driver for every shift',
+        solution: 'Same trusted Protection Officer for every shift',
         result: 'My family loves knowing I have professional protection',
         userType: 'healthcare'
       },
@@ -77,7 +77,7 @@ export const SERVICES_DATA: ServiceData[] = [
       {
         title: 'International Student',
         situation: 'Studying in London, parents concerned',
-        solution: 'Professional driver for evening classes',
+        solution: 'Professional Protection Officer for evening classes',
         result: 'Parents thrilled I have my own security team',
         userType: 'student'
       }
@@ -132,19 +132,19 @@ export const SERVICES_DATA: ServiceData[] = [
     reviews: [
       {
         rating: 5,
-        text: 'The difference is noticeable immediately. My driver (ex-military) has this calm professionalism that just works in corporate settings. Knows when to chat, when to be silent. Car is always immaculate. Pulled up to a client meeting last week and they assumed I had a full-time chauffeur - that\'s the standard',
+        text: 'The difference is noticeable immediately. My Protection Officer (ex-military) has this calm professionalism that just works in corporate settings. Knows when to chat, when to be silent. Car is always immaculate. Pulled up to a client meeting last week and they assumed I had a full-time chauffeur - that\'s the standard',
         author: 'Richard',
         role: 'Investment Director'
       },
       {
         rating: 5,
-        text: 'Switched from standard to executive 3 months ago - game changer. The drivers just \'get it\' if that makes sense? Conference calls in the car, sensitive documents, weird hours... never an issue. Also the BMW is SO much better for client impressions ngl',
+        text: 'Switched from standard to executive 3 months ago - game changer. The Protection Officers just \'get it\' if that makes sense? Conference calls in the car, sensitive documents, weird hours... never an issue. Also the BMW is SO much better for client impressions ngl',
         author: 'Amanda',
         role: 'Law Firm Partner'
       },
       {
         rating: 5,
-        text: 'It\'s the attention to detail tbh. My driver keeps bottled water in the car, has phone chargers for every type, even keeps an umbrella ready. Last month he coordinated with my PA to adjust pickup times without me asking. This is what executive service should be',
+        text: 'It\'s the attention to detail tbh. My Protection Officer keeps bottled water in the car, has phone chargers for every type, even keeps an umbrella ready. Last month he coordinated with my PA to adjust Commencement Point times without me asking. This is what executive service should be',
         author: 'Michael',
         role: 'Tech CEO'
       }
@@ -160,7 +160,7 @@ export const SERVICES_DATA: ServiceData[] = [
       {
         title: 'Law Firm Partner',
         situation: 'Needed appropriate transport for client meetings',
-        solution: 'BMW with ex-military driver',
+        solution: 'BMW with ex-military Protection Officer',
         result: 'Enhanced my professional image significantly',
         userType: 'legal'
       },
@@ -222,13 +222,13 @@ export const SERVICES_DATA: ServiceData[] = [
     reviews: [
       {
         rating: 5,
-        text: 'Can\'t say much for obvious reasons but if you need to move around without anyone knowing you have security, this is it. Different cars, different routes, but same elite level of protection. My driver spots things I\'d never notice and handles them before they become issues',
+        text: 'Can\'t say much for obvious reasons but if you need to move around without anyone knowing you have security, this is it. Different cars, different routes, but same elite level of protection. My Protection Officer spots things I\'d never notice and handles them before they become issues',
         author: 'Public Figure',
         role: 'Entertainment Industry'
       },
       {
         rating: 5,
-        text: 'After needing more discrete protection, Shadow Protocol was perfect. Looks like a normal car service but the driver is anything but normal (in the best way). Complete peace of mind without the obvious security presence',
+        text: 'After needing more discrete protection, Shadow Protocol was perfect. Looks like a normal car service but the Protection Officer is anything but normal (in the best way). Complete peace of mind without the obvious security presence',
         author: 'Finance Executive',
         role: 'Banking'
       },
@@ -258,7 +258,7 @@ export const SERVICES_DATA: ServiceData[] = [
         title: 'International VIP',
         situation: 'Visiting London, needed invisible protection',
         solution: 'Full counter-surveillance protocols',
-        result: 'Perfect trip, felt completely relaxed',
+        result: 'Perfect Protection Detail, felt completely relaxed',
         userType: 'international'
       }
     ],
@@ -312,19 +312,19 @@ export const SERVICES_DATA: ServiceData[] = [
     reviews: [
       {
         rating: 5,
-        text: 'When you need to make an impression AND stay safe, nothing touches this. Pulled up to the Savoy in the Bentley, driver in full uniform, handled everything flawlessly. It\'s not just transport, it\'s an experience. My clients are always impressed',
+        text: 'When you need to make an impression AND stay safe, nothing touches this. Pulled up to the Savoy in the Bentley, Protection Officer in full uniform, handled everything flawlessly. It\'s not just transport, it\'s an experience. My clients are always impressed',
         author: 'International Investor',
         role: 'Private Equity'
       },
       {
         rating: 5,
-        text: 'Used for my wedding and wow... just wow. 3 cars, perfectly coordinated, drivers who knew exactly how to handle guests, media, everything. They even had champagne and tissues ready for the emotional moments 🥺 Made the day even more special',
+        text: 'Used for my wedding and wow... just wow. 3 cars, perfectly coordinated, Protection Officers who knew exactly how to handle guests, media, everything. They even had champagne and tissues ready for the emotional moments 🥺 Made the day even more special',
         author: 'Celebrity',
         role: 'Entertainment'
       },
       {
         rating: 5,
-        text: 'The only service I trust for palace events. Drivers understand protocol, cars are beyond pristine, and the security is subtle but absolute. Simply the best',
+        text: 'The only service I trust for palace events. Protection Officers understand protocol, cars are beyond pristine, and the security is subtle but absolute. Simply the best',
         author: 'Royal Family Friend',
         role: 'Aristocracy'
       }
@@ -367,7 +367,7 @@ export const SERVICES_DATA: ServiceData[] = [
     id: 'personal-vehicle',
     icon: '🔑',
     name: 'Personal Vehicle Service',
-    tagline: 'Personal Security Drivers for your vehicle',
+    tagline: 'Personal Security Protection Officers for your vehicle',
     vehicle: 'Your own vehicle (any make/model)',
     price: 'From £55/hour',
     rating: '⭐⭐⭐⭐⭐ 4.7',
@@ -378,22 +378,22 @@ export const SERVICES_DATA: ServiceData[] = [
       'Discrete protection trained'
     ],
     collapsedReview: {
-      snippet: 'Spent 80k on my Tesla - why ride in something else?',
+      snippet: 'Spent 80k on my Tesla - why Assignment in something else?',
       author: 'Thomas, Tesla Owner'
     },
     personalizedMessage: 'Perfect for someone who values their personal vehicle - keep your comfort and privacy with our protection',
     whatYouGet: [
-      'Professional driver for YOUR car',
+      'Professional Protection Officer for YOUR car',
       'Fully insured to drive any vehicle',
       'Complete privacy - no company branding',
       'Returns your car exactly as received',
       'You relax while they handle everything'
     ],
     officerDescription: {
-      general: 'Our Personal Security Drivers are fully licensed and insured to operate any vehicle. They arrive via their own transport, take exceptional care of your vehicle, and provide the same Close Protection standards while maintaining your personal comfort and privacy.',
+      general: 'Our Personal Security Protection Officers are fully licensed and insured to operate any vehicle. They arrive via their own transport, take exceptional care of your vehicle, and provide the same Close Protection standards while maintaining your personal comfort and privacy.',
       qualifications: [
         'Multi-vehicle licensed',
-        'Personal Security Driver certified',
+        'Personal Security Protection Officer certified',
         'Comprehensive insurance coverage',
         'Vehicle care specialist',
         'Privacy protection trained'
@@ -402,19 +402,19 @@ export const SERVICES_DATA: ServiceData[] = [
     reviews: [
       {
         rating: 5,
-        text: 'Spent 80k on my Model S - why would I want to ride in something else?? This service is genius. Driver arrives, takes my keys, drives me in MY car with all my settings, my music, my everything. Then either waits or comes back later. Perfect solution',
+        text: 'Spent 80k on my Model S - why would I want to Assignment in something else?? This service is genius. Protection Officer arrives, takes my keys, drives me in MY car with all my settings, my music, my everything. Then either waits or comes back later. Perfect solution',
         author: 'Thomas',
         role: 'Tesla Owner'
       },
       {
         rating: 5,
-        text: 'Love love LOVE this option!! I have specific seat settings for my back and having someone else drive while I relax in my own space? Amazing. Also means I can leave stuff in the car without worrying. My driver Sarah is so careful with it too',
+        text: 'Love love LOVE this option!! I have specific seat settings for my back and having someone else drive while I relax in my own space? Amazing. Also means I can leave stuff in the car without worrying. My Protection Officer Sarah is so careful with it too',
         author: 'Rebecca',
         role: 'Range Rover Sport Owner'
       },
       {
         rating: 5,
-        text: 'Thought I\'d never trust anyone with my vintage Jag but these drivers are something else. Used it for a wedding - driver treated it better than I do 😅 He even knew about classic cars and we chatted about it after. Now use regularly when I want to enjoy events',
+        text: 'Thought I\'d never trust anyone with my vintage Jag but these Protection Officers are something else. Used it for a wedding - Protection Officer treated it better than I do 😅 He even knew about classic cars and we chatted about it after. Now use regularly when I want to enjoy events',
         author: 'William',
         role: 'Classic Car Collector'
       }
@@ -423,21 +423,21 @@ export const SERVICES_DATA: ServiceData[] = [
       {
         title: 'Supercar Owner',
         situation: 'Ferrari owner wanting to enjoy events',
-        solution: 'Security driver for their own vehicle',
+        solution: 'Security Protection Officer for their own vehicle',
         result: 'Can finally enjoy dinners without worrying about driving',
         userType: 'luxury'
       },
       {
         title: 'Family Car',
-        situation: 'Parents needing driver for school runs',
-        solution: 'Regular driver for family SUV',
-        result: 'Kids love our driver, car stays familiar',
+        situation: 'Parents needing Protection Officer for school runs',
+        solution: 'Regular Protection Officer for family SUV',
+        result: 'Kids love our Protection Officer, car stays familiar',
         userType: 'family'
       },
       {
         title: 'Modified Vehicle',
         situation: 'Customized car with special features',
-        solution: 'Trained driver who respects modifications',
+        solution: 'Trained Protection Officer who respects modifications',
         result: 'They understand my car is special to me',
         userType: 'enthusiast'
       }
@@ -448,7 +448,7 @@ export const SERVICES_DATA: ServiceData[] = [
       '✅ Maximum privacy guaranteed'
     ],
     stats: {
-      special: '✅ Fully insured drivers',
+      special: '✅ Fully insured Protection Officers',
       clients: 'Any vehicle covered',
       rating: 'Maximum privacy guaranteed'
     }

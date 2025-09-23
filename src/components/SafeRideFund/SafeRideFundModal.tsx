@@ -15,29 +15,29 @@ const organizationTestimonials = [
   {
     id: 1,
     organization: "Women's Aid Federation",
-    testimonial: "The Safe Ride Fund has become an essential lifeline, providing immediate transport solutions when traditional funding isn't available. Their 24/7 availability has directly supported over 200 individuals this year.",
+    testimonial: "The Safe Assignment Fund has become an essential lifeline, providing immediate transport solutions when traditional funding isn't available. Their 24/7 availability has directly supported over 200 individuals this year.",
     impact: "Domestic Violence Support",
     verified: true,
     stats: "200+ individuals supported",
-    story: "The Safe Ride Fund has become an essential lifeline, providing immediate transport solutions when traditional funding isn't available. Their 24/7 availability has directly supported over 200 individuals this year."
+    story: "The Safe Assignment Fund has become an essential lifeline, providing immediate transport solutions when traditional funding isn't available. Their 24/7 availability has directly supported over 200 individuals this year."
   },
   {
     id: 2,
     organization: "Crisis UK",
-    testimonial: "Armora's Safe Ride Fund eliminates transport barriers that often prevent our service users from accessing vital support. Their rapid response has been instrumental in crisis intervention.",
+    testimonial: "Armora's Safe Assignment Fund eliminates transport barriers that often prevent our service users from accessing vital support. Their rapid response has been instrumental in crisis intervention.",
     impact: "Homelessness Prevention", 
     verified: true,
     stats: "Average 12min response time",
-    story: "Armora's Safe Ride Fund eliminates transport barriers that often prevent our service users from accessing vital support. Their rapid response has been instrumental in crisis intervention."
+    story: "Armora's Safe Assignment Fund eliminates transport barriers that often prevent our service users from accessing vital support. Their rapid response has been instrumental in crisis intervention."
   },
   {
     id: 3,
     organization: "Mind Mental Health",
-    testimonial: "Transport accessibility is crucial for mental health support. The Safe Ride Fund has enabled 150+ individuals to attend critical appointments and reach support services.",
+    testimonial: "Transport accessibility is crucial for mental health support. The Safe Assignment Fund has enabled 150+ individuals to attend critical appointments and reach support services.",
     impact: "Mental Health Access",
     verified: true,
     stats: "98% appointment attendance rate",
-    story: "Transport accessibility is crucial for mental health support. The Safe Ride Fund has enabled 150+ individuals to attend critical appointments and reach support services."
+    story: "Transport accessibility is crucial for mental health support. The Safe Assignment Fund has enabled 150+ individuals to attend critical appointments and reach support services."
   }
 ];
 
@@ -147,7 +147,7 @@ const SafeRideFundModal: React.FC<SafeRideFundModalProps> = ({ onClose }) => {
             <div className={`${styles.icon} ${isModalVisible ? styles.iconBounce : ''}`}>🛡️</div>
             <div className={styles.headerText}>
               <h2 className={`${styles.title} ${isModalVisible ? styles.titleSlideIn : ''}`}>
-                Safe Ride Fund
+                Safe Assignment Fund
               </h2>
               <p className={`${styles.tagline} ${isModalVisible ? styles.taglineSlideIn : ''}`}>
                 Transport for those who need it most
@@ -167,7 +167,7 @@ const SafeRideFundModal: React.FC<SafeRideFundModalProps> = ({ onClose }) => {
                 <span className={`${styles.statNumber} ${styles.primaryNumber}`}>
                   {formatCounterValue(ridesAnimation.currentValue, 'default')}
                 </span>
-                <span className={styles.statLabel}>Safe Rides Delivered</span>
+                <span className={styles.statLabel}>Safe Assignments Delivered</span>
               </div>
               <div 
                 className={`${styles.statCard} ${styles.statCard2} ${hasAnimationStarted ? styles.cardAnimateIn : ''}`}
@@ -210,7 +210,7 @@ const SafeRideFundModal: React.FC<SafeRideFundModalProps> = ({ onClose }) => {
 
           <section className={styles.mission}>
             <h3>Our Mission</h3>
-            <p>Every Armora membership contributes £4 to our Safe Ride Fund, providing priority transport for vulnerable individuals when they need it most. Working with Crisis UK, Women's Aid, Mind Mental Health, and other vital organizations, we ensure transport is never a barrier to safety and support.</p>
+            <p>Every Armora membership contributes £4 to our Safe Assignment Fund, providing priority transport for vulnerable individuals when they need it most. Working with Crisis UK, Women's Aid, Mind Mental Health, and other vital organizations, we ensure transport is never a barrier to safety and support.</p>
           </section>
 
           <section 
@@ -270,8 +270,8 @@ const SafeRideFundModal: React.FC<SafeRideFundModalProps> = ({ onClose }) => {
             <div className={`${styles.processSteps} ${processIntersected ? styles.stepsAnimate : ''}`}>
               {[
                 "Partner organizations identify urgent transport needs",
-                "Safe Ride Fund coordinates immediate response", 
-                "Security-trained drivers provide safe transport",
+                "Safe Assignment Fund coordinates immediate response", 
+                "Security-trained Protection Officers provide safe transport",
                 "Individual reaches safety and support"
               ].map((stepText, index) => (
                 <div 

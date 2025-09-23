@@ -3,18 +3,18 @@ export interface Booking {
   status: 'active' | 'scheduled' | 'completed' | 'cancelled';
   serviceType: 'standard' | 'executive' | 'shadow';
   serviceName: string;
-  pickupLocation: {
+  commencementLocation: {
     address: string;
     coordinates: [number, number];
   };
-  destination: {
+  secureDestination: {
     address: string;
     coordinates: [number, number];
   };
   scheduledTime: Date;
   actualPickupTime?: Date;
   completedTime?: Date;
-  driver: {
+  Protection Officer: {
     name: string;
     photo: string;
     rating: number;
@@ -65,16 +65,16 @@ export const mockBookings: Booking[] = [
     status: 'active',
     serviceType: 'executive',
     serviceName: 'Executive Security',
-    pickupLocation: {
+    commencementLocation: {
       address: '1 Knightsbridge, London SW1X 7XL',
       coordinates: [-0.1611, 51.5020]
     },
-    destination: {
+    secureDestination: {
       address: 'London Heathrow Airport, Terminal 5',
       coordinates: [-0.4877, 51.4700]
     },
     scheduledTime: new Date(Date.now() + 15 * 60 * 1000), // 15 minutes from now
-    driver: {
+    Protection Officer: {
       name: 'Marcus Thompson',
       photo: '/avatars/marcus.jpg',
       rating: 4.9,
@@ -104,16 +104,16 @@ export const mockBookings: Booking[] = [
     status: 'scheduled',
     serviceType: 'standard',
     serviceName: 'Standard Protection',
-    pickupLocation: {
+    commencementLocation: {
       address: 'The Shard, 32 London Bridge St',
       coordinates: [-0.0865, 51.5045]
     },
-    destination: {
+    secureDestination: {
       address: 'Canary Wharf Station, London E14 5AB',
       coordinates: [-0.0189, 51.5054]
     },
     scheduledTime: new Date(Date.now() + 2 * 60 * 60 * 1000), // 2 hours from now
-    driver: {
+    Protection Officer: {
       name: 'Sarah Collins',
       photo: '/avatars/sarah.jpg',
       rating: 4.8,
@@ -143,18 +143,18 @@ export const mockBookings: Booking[] = [
     status: 'completed',
     serviceType: 'shadow',
     serviceName: 'Shadow Protection',
-    pickupLocation: {
+    commencementLocation: {
       address: 'Mayfair, London W1K 6DJ',
       coordinates: [-0.1419, 51.5074]
     },
-    destination: {
+    secureDestination: {
       address: 'Westminster, London SW1A 0AA',
       coordinates: [-0.1276, 51.4994]
     },
     scheduledTime: new Date(Date.now() - 24 * 60 * 60 * 1000), // Yesterday
     actualPickupTime: new Date(Date.now() - 24 * 60 * 60 * 1000 + 5 * 60 * 1000),
     completedTime: new Date(Date.now() - 24 * 60 * 60 * 1000 + 35 * 60 * 1000),
-    driver: {
+    Protection Officer: {
       name: 'David Kumar',
       photo: '/avatars/david.jpg',
       rating: 4.7,
@@ -241,7 +241,7 @@ export const getTimeBasedSuggestion = (): { icon: string; title: string; subtitl
   } else if (hour >= 17 && hour < 21) {
     return {
       icon: '🌆',
-      title: 'Book your safe ride home',
+      title: 'Book your safe Assignment home',
       subtitle: 'Secure evening transport'
     };
   } else if (day === 0 || day === 6) {

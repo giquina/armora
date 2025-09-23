@@ -617,7 +617,7 @@ export const venueSecuritySteps: QuestionnaireStep[] = [
         label: "🚗 VIP Transport and Escort Services",
         value: "vip_escort",
         description: "Secure transport coordination and arrival/departure protection.",
-        examples: "*Airport pickups, secure vehicle escorts, and safe transport coordination."
+        examples: "*Airport Commencement Points, secure vehicle escorts, and safe transport coordination."
       },
       {
         id: "perimeter_security",

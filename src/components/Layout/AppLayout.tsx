@@ -56,7 +56,7 @@ export function AppLayout({
       case 'services': return { title: 'Services', subtitle: 'Choose your protection', showServices: false };
       case 'booking': return { title: '', subtitle: 'Secure Transport', showServices: false };
       case 'hub':
-      case 'rides': return { title: 'Your Hub', subtitle: 'Transport & Security', showServices: false };
+      case 'Assignments': return { title: 'Your Hub', subtitle: 'Transport & Security', showServices: false };
       case 'account': return { title: 'Your Account', subtitle: 'Settings & Preferences', showServices: false };
       case 'venue-protection-welcome': return { title: 'Venue Protection', subtitle: 'Professional Security Services', showServices: false };
       case 'venue-security-questionnaire': return { title: 'Security Assessment', subtitle: 'Venue Protection Planning', showServices: false };
@@ -110,6 +110,7 @@ export function AppLayout({
   const layoutClasses = [
     styles.layout,
     currentView === 'home' ? styles.hasFooter : '',
+    currentView === 'booking' ? styles.noTopbar : '',
     className
   ].filter(Boolean).join(' ');
 
@@ -117,8 +118,10 @@ export function AppLayout({
 
   return (
     <div className={layoutClasses}>
-  {/* New compact top toolbar visible on Home, Services, Hub, Account */}
-  <TopToolbar onOpenNotifications={() => setIsNotificationsOpen(true)} />
+  {/* Top toolbar should NOT appear on booking flow to allow full-screen focus */}
+  {currentView !== 'booking' && (
+    <TopToolbar onOpenNotifications={() => setIsNotificationsOpen(true)} />
+  )}
       {shouldShowHeader && (
         <header className={styles.header}>
           <div className={styles.headerContent}>
@@ -283,7 +286,7 @@ export function AppLayout({
             </button>
 
             <button
-              className={`${styles.navButton} ${currentView === 'hub' || currentView === 'rides' ? styles.navButtonActive : ''}`}
+              className={`${styles.navButton} ${currentView === 'hub' || currentView === 'Assignments' ? styles.navButtonActive : ''}`}
               onClick={() => navigateToView('hub')}
               aria-label="Hub"
             >

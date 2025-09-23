@@ -222,7 +222,7 @@ export function ProfileHeader({ userData }: ProfileHeaderProps) {
           <div className={styles.statGrid}>
             <div className={styles.statCard}>
               <div className={styles.statNumber}>{analytics.totalRides}</div>
-              <div className={styles.statLabel}>Total Rides</div>
+              <div className={styles.statLabel}>Total Assignments</div>
               <div className={styles.statIcon}>🚗</div>
             </div>
             <div className={styles.statCard}>

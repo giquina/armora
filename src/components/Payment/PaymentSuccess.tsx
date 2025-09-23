@@ -96,8 +96,8 @@ export function PaymentSuccess({
             <div className={styles.routePoint}>
               <span className={styles.routeIcon}>📍</span>
               <div className={styles.routeInfo}>
-                <div className={styles.routeLabel}>Pickup</div>
-                <div className={styles.routeAddress}>{protectionAssignmentData.pickup}</div>
+                <div className={styles.routeLabel}>pickup</div>
+                <div className={styles.routeAddress}>{protectionAssignmentData.commencementPoint}</div>
               </div>
             </div>
 
@@ -107,7 +107,7 @@ export function PaymentSuccess({
               <span className={styles.routeIcon}>🏁</span>
               <div className={styles.routeInfo}>
                 <div className={styles.routeLabel}>Destination</div>
-                <div className={styles.routeAddress}>{protectionAssignmentData.destination}</div>
+                <div className={styles.routeAddress}>{protectionAssignmentData.secureDestination}</div>
               </div>
             </div>
           </div>
@@ -136,8 +136,8 @@ export function PaymentSuccess({
           <div className={styles.statusItem}>
             <div className={styles.statusIcon}>🔍</div>
             <div className={styles.statusText}>
-              <div className={styles.statusStep}>Driver Assignment</div>
-              <div className={styles.statusDesc}>Our security team is matching you with a qualified driver</div>
+              <div className={styles.statusStep}>Protection Officer Assignment</div>
+              <div className={styles.statusDesc}>Our security team is matching you with a qualified Protection Officer</div>
             </div>
           </div>
 
@@ -145,7 +145,7 @@ export function PaymentSuccess({
             <div className={styles.statusIcon}>📱</div>
             <div className={styles.statusText}>
               <div className={styles.statusStep}>SMS Confirmation</div>
-              <div className={styles.statusDesc}>You'll receive driver details and vehicle information</div>
+              <div className={styles.statusDesc}>You'll receive Protection Officer details and vehicle information</div>
             </div>
           </div>
 

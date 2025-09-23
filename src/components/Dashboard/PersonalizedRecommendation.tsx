@@ -132,7 +132,7 @@ export function PersonalizedRecommendation({
             <div className={styles.urgencyAlert}>
               <span className={styles.urgencyIcon}>⚡</span>
               <span className={styles.urgencyText}>
-                High demand period - book now to secure your professional driver
+                High demand period - book now to secure your professional Protection Officer
               </span>
             </div>
           )}

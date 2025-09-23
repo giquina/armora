@@ -39,7 +39,7 @@ const clientTestimonials = [
     location: "Canary Wharf"
   },
   {
-    text: "The peace of mind knowing your driver is a trained CP officer, not just a driver, is invaluable. Professional, discrete, and highly skilled.",
+    text: "The peace of mind knowing your Protection Officer is a trained CP officer, not just a Protection Officer, is invaluable. Professional, discrete, and highly skilled.",
     client: "VIP Client",
     location: "Confidential"
   }

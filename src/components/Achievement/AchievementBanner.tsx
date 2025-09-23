@@ -207,7 +207,7 @@ const AchievementBanner: React.FC<AchievementBannerProps> = ({
             {discountValue}% OFF
           </div>
           <div className={styles.discountDescription}>
-            Your first ride (up to £15)
+            Your first Assignment (up to £15)
           </div>
         </div>
 

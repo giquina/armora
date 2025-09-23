@@ -16,7 +16,7 @@ export function CompactSchedulingPicker({
   selectedDateTime,
   onDateTimeChange,
   disabled = false,
-  label = 'Schedule pickup time',
+  label = 'Schedule Commencement Point time',
   autoOpen = false,
   onSchedulingToggle
 }: CompactSchedulingPickerProps) {

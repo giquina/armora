@@ -88,7 +88,7 @@ class BookingUrgencyService {
     isWeekend: boolean,
     isBusinessHours: boolean
   ): AvailabilityInfo {
-    // Base driver availability with random variation
+    // Base Protection Officer availability with random variation
     let driversNearby = service.baseDrivers;
 
     // Apply time-based modifiers
@@ -103,12 +103,12 @@ class BookingUrgencyService {
     // Add random variation (±20%)
     const variation = 0.2;
     driversNearby = Math.floor(driversNearby * (1 + (Math.random() - 0.5) * variation));
-    driversNearby = Math.max(driversNearby, 1); // Minimum 1 driver
+    driversNearby = Math.max(driversNearby, 1); // Minimum 1 Protection Officer
 
     return this.determineAvailabilityStatus(driversNearby, service.id, isPeakTime);
   }
 
-  // Determine status and messages based on driver count
+  // Determine status and messages based on Protection Officer count
   private static determineAvailabilityStatus(
     driversNearby: number,
     serviceId: string,
@@ -126,34 +126,34 @@ class BookingUrgencyService {
       estimatedWaitTime = '3-5 minutes';
       nextAvailable = 'Now';
       demandLevel = 'low';
-      socialProofMessage = `${driversNearby} drivers nearby`;
+      socialProofMessage = `${driversNearby} Protection Officers nearby`;
     } else if (driversNearby >= 8) {
       status = 'available';
       estimatedWaitTime = '5-8 minutes';
       nextAvailable = 'Now';
       demandLevel = 'medium';
-      socialProofMessage = `${driversNearby} drivers available`;
+      socialProofMessage = `${driversNearby} Protection Officers available`;
     } else if (driversNearby >= 4) {
       status = 'limited';
       estimatedWaitTime = '8-12 minutes';
       nextAvailable = 'Now';
       demandLevel = 'medium';
       urgencyMessage = 'Limited availability';
-      socialProofMessage = `${driversNearby} drivers remaining`;
+      socialProofMessage = `${driversNearby} Protection Officers remaining`;
     } else if (driversNearby >= 2) {
       status = 'high-demand';
       estimatedWaitTime = '12-20 minutes';
       nextAvailable = 'Now';
       demandLevel = 'high';
       urgencyMessage = 'High demand area';
-      socialProofMessage = `Only ${driversNearby} drivers available`;
+      socialProofMessage = `Only ${driversNearby} Protection Officers available`;
     } else {
       status = 'very-busy';
       estimatedWaitTime = '20-35 minutes';
       nextAvailable = this.generateNextAvailableTime();
       demandLevel = 'surge';
       urgencyMessage = 'Very high demand';
-      socialProofMessage = 'Last driver booked 8 minutes ago';
+      socialProofMessage = 'Last Protection Officer booked 8 minutes ago';
     }
 
     // Add peak time urgency

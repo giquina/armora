@@ -78,7 +78,7 @@ export const DashboardIntegration: React.FC = () => {
       {/* Compact banner in dashboard */}
       <SafeRideFundBanner 
         variant="compact"
-        onBannerClick={() => console.log('Navigate to Safe Ride Fund details')}
+        onBannerClick={() => console.log('Navigate to Safe Assignment Fund details')}
       />
       
       {/* Other dashboard content */}

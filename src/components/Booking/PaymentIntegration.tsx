@@ -57,7 +57,7 @@ export function PaymentIntegration({
   const [creditsToApply, setCreditsToApply] = useState<number>(0);
   const [applyCredits, setApplyCredits] = useState<boolean>(true);
 
-  const { service, pickup, destination, estimatedDistance, estimatedDuration, estimatedCost, user } = protectionAssignmentData;
+  const { service, commencementPoint, secureDestination, estimatedDistance, estimatedDuration, estimatedCost, user } = protectionAssignmentData;
   const hasReward = user?.hasUnlockedReward && user?.userType !== 'guest';
 
   // Calculate cost with both rewards and credits
@@ -94,17 +94,17 @@ export function PaymentIntegration({
       paymentMethod: 'card',
       amount: finalCost * 100, // Convert to pence for Stripe
       currency: 'GBP',
-      description: `${service.name}: ${pickup} to ${destination}`,
+      description: `${service.name}: ${commencementPoint} to ${secureDestination}`,
       metadata: {
         serviceType: service.id,
-        route: `${pickup} → ${destination}`,
+        route: `${commencementPoint} → ${secureDestination}`,
         scheduledTime: protectionAssignmentData.scheduledDateTime,
         corporateAssignment: isCorporateBooking
       }
     };
 
     setPaymentFlow(flow);
-  }, [protectionAssignmentData, finalCost, isCorporateBooking, service, pickup, destination]);
+  }, [protectionAssignmentData, finalCost, isCorporateBooking, service, commencementPoint, secureDestination]);
 
   const formatDuration = (minutes: number): string => {
     if (minutes < 60) return `${minutes}m`;
@@ -155,8 +155,8 @@ export function PaymentIntegration({
         id: generatedBookingId,
         userId: user?.id,
         service: service.id,
-        pickup,
-        destination,
+        commencementPoint,
+        secureDestination,
         estimatedCost,
         additionalRequirements,
         createdAt: new Date(),
@@ -210,7 +210,7 @@ export function PaymentIntegration({
     const receiptData = {
       bookingId,
       service: service.name,
-      route: `${pickup} → ${destination}`,
+      route: `${commencementPoint} → ${secureDestination}`,
       amount: paymentIntent?.amount || finalCost * 100,
       timestamp: new Date().toISOString(),
       paymentMethod: paymentIntent?.paymentMethod?.type || 'card'
@@ -242,7 +242,7 @@ export function PaymentIntegration({
             <h2 className={styles.serviceName}>{service.name}</h2>
             <div className={styles.priceBreakdown}>
               <div className={styles.priceRow}>
-                <span className={styles.priceLabel}>Ride Total:</span>
+                <span className={styles.priceLabel}>Assignment Total:</span>
                 <span className={styles.priceValue}>£{estimatedCost}</span>
               </div>
 
@@ -273,8 +273,8 @@ export function PaymentIntegration({
               <div className={styles.routePoint}>
                 <span className={styles.routeIcon}>📍</span>
                 <div className={styles.routeText}>
-                  <div className={styles.routeLabel}>Pickup</div>
-                  <div className={styles.routeAddress}>{pickup}</div>
+                  <div className={styles.routeLabel}>Commencement Point</div>
+                  <div className={styles.routeAddress}>{commencementPoint}</div>
                 </div>
               </div>
 
@@ -284,7 +284,7 @@ export function PaymentIntegration({
                 <span className={styles.routeIcon}>🏁</span>
                 <div className={styles.routeText}>
                   <div className={styles.routeLabel}>Destination</div>
-                  <div className={styles.routeAddress}>{destination}</div>
+                  <div className={styles.routeAddress}>{secureDestination}</div>
                 </div>
               </div>
             </div>
@@ -319,7 +319,7 @@ export function PaymentIntegration({
             <div className={styles.creditSummary}>
               <p className={styles.creditInfo}>
                 You have <strong>£{userCredits}</strong> in credits available.
-                Maximum £{maxCreditsAllowed} can be applied to this ride (50% limit).
+                Maximum £{maxCreditsAllowed} can be applied to this Assignment (50% limit).
               </p>
             </div>
 

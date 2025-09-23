@@ -115,7 +115,7 @@ describe('VehicleSelection Component', () => {
       );
 
       // Check for reward banner
-      expect(screen.getByText(/50% off your first ride - reward applied!/i)).toBeInTheDocument();
+      expect(screen.getByText(/50% off your first Assignment - reward applied!/i)).toBeInTheDocument();
 
       // Select a service to see the Book Now button
       const standardCard = screen.getByTestId('service-standard');

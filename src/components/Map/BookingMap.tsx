@@ -30,7 +30,7 @@ const createCustomIcon = (color: string, symbol?: string) => {
   });
 };
 
-const pickupIcon = createCustomIcon('pickup', '📍');
+const commencementPointIcon = createCustomIcon('commencementPoint', '📍');
 const destinationIcon = createCustomIcon('destination', '🏁');
 const currentLocationIcon = createCustomIcon('current', '🔵');
 
@@ -41,11 +41,11 @@ interface Location {
 }
 
 interface BookingMapProps {
-  pickup?: Location;
-  destination?: Location;
+  commencementPoint?: Location;
+  secureDestination?: Location;
   onPickupChange: (location: Location) => void;
   onDestinationChange: (location: Location) => void;
-  editMode: 'pickup' | 'destination' | null;
+  editMode: 'commencementPoint' | 'destination' | null;
   height?: number;
 }
 
@@ -55,7 +55,7 @@ function MapClickHandler({
   onPickupChange,
   onDestinationChange
 }: {
-  editMode: 'pickup' | 'destination' | null;
+  editMode: 'commencementPoint' | 'destination' | null;
   onPickupChange: (location: Location) => void;
   onDestinationChange: (location: Location) => void;
 }) {
@@ -70,7 +70,7 @@ function MapClickHandler({
       const address = await reverseGeocode(lat, lng);
       const locationWithAddress = { ...location, address };
 
-      if (editMode === 'pickup') {
+      if (editMode === 'commencementPoint') {
         onPickupChange(locationWithAddress);
       } else if (editMode === 'destination') {
         onDestinationChange(locationWithAddress);
@@ -97,19 +97,19 @@ const reverseGeocode = async (lat: number, lng: number): Promise<string> => {
 };
 
 // Generate route path (simplified)
-const generateRoute = (pickup?: Location, destination?: Location): [number, number][] => {
-  if (!pickup || !destination) return [];
+const generateRoute = (commencementPoint?: Location, secureDestination?: Location): [number, number][] => {
+  if (!commencementPoint || !secureDestination) return [];
 
   // Simple straight line - in real app, use routing API
   return [
-    [pickup.lat, pickup.lng],
-    [destination.lat, destination.lng]
+    [commencementPoint.lat, commencementPoint.lng],
+    [secureDestination.lat, secureDestination.lng]
   ];
 };
 
 export const BookingMap: React.FC<BookingMapProps> = ({
-  pickup,
-  destination,
+  commencementPoint,
+  secureDestination,
   onPickupChange,
   onDestinationChange,
   editMode,
@@ -159,8 +159,8 @@ export const BookingMap: React.FC<BookingMapProps> = ({
 
         console.log(`✅ Accurate GPS location found: ${accuracy}m accuracy`);
 
-        // Set as pickup if no pickup is set
-        if (!pickup) {
+        // Set as commencementPoint if no commencementPoint is set
+        if (!commencementPoint) {
           onPickupChange(location);
         }
       },
@@ -189,22 +189,22 @@ export const BookingMap: React.FC<BookingMapProps> = ({
         maximumAge: 0              // Always get fresh location, no cache
       }
     );
-  }, [pickup, onPickupChange]);
+  }, [commencementPoint, onPickupChange]);
 
-  // Update route when pickup or destination changes
+  // Update route when commencementPoint or secureDestination changes
   useEffect(() => {
-    const route = generateRoute(pickup, destination);
+    const route = generateRoute(commencementPoint, secureDestination);
     setRoutePath(route);
 
     // Fit map to show both points
-    if (pickup && destination && mapRef.current) {
+    if (commencementPoint && secureDestination && mapRef.current) {
       const group = new L.FeatureGroup([
-        L.marker([pickup.lat, pickup.lng]),
-        L.marker([destination.lat, destination.lng])
+        L.marker([commencementPoint.lat, commencementPoint.lng]),
+        L.marker([secureDestination.lat, secureDestination.lng])
       ]);
       mapRef.current.fitBounds(group.getBounds().pad(0.1));
     }
-  }, [pickup, destination]);
+  }, [commencementPoint, destination]);
 
   const handleMapReady = useCallback(() => {
     // MapContainer passes the map instance internally
@@ -250,7 +250,7 @@ export const BookingMap: React.FC<BookingMapProps> = ({
           setIsLoadingLocation(false);
           setLocationError(null);
 
-          if (!pickup) {
+          if (!commencementPoint) {
             onPickupChange(location);
           }
         },
@@ -285,15 +285,15 @@ export const BookingMap: React.FC<BookingMapProps> = ({
     );
   }
 
-  // Use pickup location as fallback if no current location
-  const centerLocation = mapCenter || (pickup ? [pickup.lat, pickup.lng] : null);
+  // Use commencementPoint location as fallback if no current location
+  const centerLocation = mapCenter || (commencementPoint ? [commencementPoint.lat, commencementPoint.lng] : null);
 
   if (!centerLocation) {
     return (
       <div className={styles.mapContainer} style={{ height }}>
         <div className={styles.mapPlaceholder}>
           <div className={styles.placeholderIcon}>🗺️</div>
-          <p className={styles.placeholderText}>Set a pickup location to view map</p>
+          <p className={styles.placeholderText}>Set a commencementPoint location to view map</p>
         </div>
       </div>
     );
@@ -339,12 +339,12 @@ export const BookingMap: React.FC<BookingMapProps> = ({
           </Marker>
         )}
 
-        {/* Pickup marker */}
-        {pickup && (
+        {/* commencementPoint marker */}
+        {commencementPoint && (
           <Marker
-            position={[pickup.lat, pickup.lng]}
-            icon={pickupIcon}
-            draggable={editMode === 'pickup'}
+            position={[commencementPoint.lat, commencementPoint.lng]}
+            icon={commencementPointIcon}
+            draggable={editMode === 'commencementPoint'}
             eventHandlers={{
               dragend: async (e) => {
                 const marker = e.target;
@@ -360,9 +360,9 @@ export const BookingMap: React.FC<BookingMapProps> = ({
           >
             <Popup>
               <div className={styles.popupContent}>
-                <strong>📍 Pickup Location</strong>
-                <p>{pickup.address || 'Pickup Point'}</p>
-                {editMode === 'pickup' && (
+                <strong>📍 commencementPoint Location</strong>
+                <p>{commencementPoint.address || 'Commencement Point'}</p>
+                {editMode === 'commencementPoint' && (
                   <small>Drag to adjust position</small>
                 )}
               </div>
@@ -371,9 +371,9 @@ export const BookingMap: React.FC<BookingMapProps> = ({
         )}
 
         {/* Destination marker */}
-        {destination && (
+        {secureDestination && (
           <Marker
-            position={[destination.lat, destination.lng]}
+            position={[secureDestination.lat, secureDestination.lng]}
             icon={destinationIcon}
             draggable={editMode === 'destination'}
             eventHandlers={{
@@ -438,7 +438,7 @@ export const BookingMap: React.FC<BookingMapProps> = ({
           <div className={styles.editModeIndicator}>
             <span className={styles.editIcon}>✏️</span>
             <span>
-              Tap map to set {editMode === 'pickup' ? 'pickup' : 'destination'}
+              Tap map to set {editMode === 'commencementPoint' ? 'commencementPoint' : 'destination'}
             </span>
           </div>
         )}

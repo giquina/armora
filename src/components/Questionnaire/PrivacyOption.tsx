@@ -13,9 +13,9 @@ const privacyMessages = {
   2: "We'll provide flexible scheduling options for all service frequencies without storing specific usage data", 
   3: "All service features will be available with premium privacy protocols maintained throughout",
   4: "We offer comprehensive UK coverage regardless of specific area preferences disclosed",
-  5: "Our drivers are trained to adapt to any service requirements discretely on demand",
+  5: "Our Protection Officers are trained to adapt to any service requirements discretely on demand",
   6: "All routes and destinations handled with maximum confidentiality and minimal data retention",
-  7: "Special requirements can be communicated directly to your assigned driver without prior disclosure",
+  7: "Special requirements can be communicated directly to your assigned Protection Officer without prior disclosure",
   8: "Priority protocols available without personal information storage in our systems",
   9: "Service selection available with anonymous booking capabilities and minimal profile requirements"
 };

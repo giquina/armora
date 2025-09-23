@@ -11,7 +11,7 @@ interface DatePickerProps {
   /**
    * Optional number of days from now to use as the minimum selectable offset.
    * Ignored if explicit minDate prop is provided. Defaults to 1 (tomorrow) to
-   * encourage scheduling ahead, but some flows (e.g. quick scheduled ride) may
+   * encourage scheduling ahead, but some flows (e.g. quick scheduled Assignment) may
    * allow same‑day selection with offset 0.
    */
   minOffsetDays?: number;

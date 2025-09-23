@@ -200,7 +200,7 @@ export function FavoriteRoutes({ onBookRoute, maxItems = 5, showHeader = true }:
       {favorites.length === maxItems && (
         <button
           className={styles.viewAllButton}
-          onClick={() => navigateToView('rides')}
+          onClick={() => navigateToView('Assignments')}
         >
           View All Favorites →
         </button>

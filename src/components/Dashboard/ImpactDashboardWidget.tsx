@@ -36,7 +36,7 @@ const impactStories = [
   {
     id: 1,
     title: "Late Night Assistance",
-    story: "Sarah was able to leave a dangerous situation at 2 AM thanks to the Safe Ride Fund.",
+    story: "Sarah was able to leave a dangerous situation at 2 AM thanks to the Safe Assignment Fund.",
     impact: "Urgent transport when she had no money",
     timeframe: "3 days ago"
   },
@@ -89,7 +89,7 @@ export function ImpactDashboardWidget({ className = '' }: ImpactDashboardWidgetP
         </div>
         <div className={styles.headerText}>
           <h3 className={styles.title}>Your Impact</h3>
-          <p className={styles.subtitle}>Making every ride count</p>
+          <p className={styles.subtitle}>Making every Assignment count</p>
         </div>
         <button 
           className={styles.expandButton}
@@ -106,7 +106,7 @@ export function ImpactDashboardWidget({ className = '' }: ImpactDashboardWidgetP
           <div className={styles.statsGrid}>
             <div className={styles.primaryStat}>
               <div className={styles.statNumber}>{userImpact.personalRidesFunded}</div>
-              <div className={styles.statLabel}>safe rides funded</div>
+              <div className={styles.statLabel}>safe Assignments funded</div>
               <div className={styles.statSubtext}>by you</div>
             </div>
             
@@ -119,7 +119,7 @@ export function ImpactDashboardWidget({ className = '' }: ImpactDashboardWidgetP
           <div className={styles.progressSection}>
             <div className={styles.progressHeader}>
               <span className={styles.progressLabel}>
-                Progress to next milestone: {userImpact.nextMilestone} rides
+                Progress to next milestone: {userImpact.nextMilestone} Assignments
               </span>
               <span className={styles.progressPercentage}>
                 {Math.round(userImpact.progressToNextMilestone)}%
@@ -139,7 +139,7 @@ export function ImpactDashboardWidget({ className = '' }: ImpactDashboardWidgetP
               <div className={styles.communityStatsGrid}>
                 <div className={styles.communityStat}>
                   <span className={styles.communityNumber}>{communityImpactData.monthlyRidesFunded}</span>
-                  <span className={styles.communityLabel}>rides this month</span>
+                  <span className={styles.communityLabel}>Assignments this month</span>
                 </div>
                 <div className={styles.communityStat}>
                   <span className={styles.communityNumber}>{communityImpactData.totalMembers.toLocaleString()}</span>

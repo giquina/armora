@@ -22,7 +22,7 @@ import styles from './PricingCalculatorDemo.module.css';
  * [Become a member]
  */
 export function PricingCalculatorDemo() {
-  const [destination, setDestination] = useState('Heathrow Airport Terminal 5');
+  const [secureDestination, setDestination] = useState('Heathrow Airport Terminal 5');
   const [serviceLevel, setServiceLevel] = useState<'essential' | 'executive' | 'shadow' | 'client-vehicle'>('shadow');
   const [userType, setUserType] = useState<'guest' | 'registered'>('guest');
 
@@ -42,7 +42,7 @@ export function PricingCalculatorDemo() {
           <label>Destination:</label>
           <input
             type="text"
-            value={destination}
+            value={secureDestination}
             onChange={(e) => setDestination(e.target.value)}
             className={styles.demoInput}
           />
@@ -78,7 +78,7 @@ export function PricingCalculatorDemo() {
       <div className={styles.calculatorDemo}>
         <h3>Live Pricing Calculator:</h3>
         <PricingCalculator
-          destination={destination}
+          secureDestination={secureDestination}
           serviceLevel={serviceLevel}
           onPriceCalculated={handlePriceCalculated}
           autoCalculate={true}

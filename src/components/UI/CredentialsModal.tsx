@@ -33,7 +33,7 @@ const ALL_CREDENTIALS: CredentialInfo[] = [
       'Ongoing compliance monitoring with government oversight standards',
       'BS 7858 security screening standards with rigorous background checks'
     ],
-    significance: 'SIA certified close protection operatives, not just drivers',
+    significance: 'SIA certified close protection operatives, not just Protection Officers',
     category: 'Government Licensing'
   },
   {
@@ -86,9 +86,9 @@ const ALL_CREDENTIALS: CredentialInfo[] = [
     title: 'Private Hire Vehicle',
     subtitle: 'PHV Licensed',
     fullTitle: 'Private Hire Vehicle (PHV) Licensed Fleet',
-    description: 'Commercial passenger vehicle licensing with comprehensive insurance coverage and professional maintenance standards for all fleet vehicles.',
+    description: 'Commercial Principal vehicle licensing with comprehensive insurance coverage and professional maintenance standards for all fleet vehicles.',
     benefits: [
-      'Commercial passenger vehicle licensing with comprehensive insurance coverage',
+      'Commercial Principal vehicle licensing with comprehensive insurance coverage',
       'Professional maintenance standards for reliability and operational safety',
       'Regular safety inspections ensuring roadworthiness and regulatory compliance',
       'Advanced fleet management with professional service standards'

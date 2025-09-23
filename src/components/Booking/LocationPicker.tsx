@@ -97,13 +97,13 @@ const getMockSavedLocations = (user: any) => {
 };
 
 export function LocationPicker({ selectedService, onLocationConfirmed, onBack, onClose, user }: LocationPickerProps) {
-  const [pickup, setPickup] = useState('📍 Current Location');
-  const [destination, setDestination] = useState('');
+  const [commencementPoint, setPickup] = useState('📍 Current Location');
+  const [secureDestination, setDestination] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [estimatedDistance, setEstimatedDistance] = useState<number>(0);
   const [estimatedDuration, setEstimatedDuration] = useState<number>(0);
   const [protectionHours, setProtectionHours] = useState<number>(2);
-  const [errors, setErrors] = useState<{ destination?: string }>({});
+  const [errors, setErrors] = useState<{ secureDestination?: string }>({});
   const [pricingBreakdown, setPricingBreakdown] = useState<NationwidePricingBreakdown | null>(null);
   const [serviceRegion, setServiceRegion] = useState<string>('');
   const [coverageStatus, setCoverageStatus] = useState<{covered: boolean; message: string} | null>(null);
@@ -129,7 +129,7 @@ export function LocationPicker({ selectedService, onLocationConfirmed, onBack, o
 
   // Handle close with confirmation if data would be lost
   const handleClose = () => {
-    if (destination.trim() && onClose) {
+    if (secureDestination.trim() && onClose) {
       const shouldClose = window.confirm('Exit booking? Your progress will be lost.');
       if (shouldClose) {
         onClose();
@@ -202,10 +202,10 @@ export function LocationPicker({ selectedService, onLocationConfirmed, onBack, o
 
   // Real-time calculation with nationwide pricing
   useEffect(() => {
-    if (pickup && destination && destination.length > 3) {
+    if (commencementPoint && secureDestination && secureDestination.length > 3) {
       try {
         // Check service coverage
-        const coverage = isWithinServiceCoverage(destination);
+        const coverage = isWithinServiceCoverage(secureDestination);
         setCoverageStatus(coverage);
 
         if (coverage.covered) {
@@ -214,8 +214,8 @@ export function LocationPicker({ selectedService, onLocationConfirmed, onBack, o
           const isMember = user?.userType === 'registered' || user?.userType === 'google';
 
           const pricing = calculateNationwideProtection(
-            pickup,
-            destination,
+            commencementPoint,
+            secureDestination,
             serviceLevel,
             {
               userType: user?.userType || 'guest',
@@ -256,17 +256,17 @@ export function LocationPicker({ selectedService, onLocationConfirmed, onBack, o
       setCoverageStatus(null);
       setServiceRegion('');
     }
-  }, [pickup, destination, selectedService, user]);
+  }, [commencementPoint, secureDestination, selectedService, user]);
 
   const validateInputs = () => {
-    const newErrors: { destination?: string } = {};
+    const newErrors: { secureDestination?: string } = {};
 
-    if (!destination.trim()) {
-      newErrors.destination = 'Destination is required for your protection detail';
+    if (!secureDestination.trim()) {
+      newErrors.secureDestination = 'Destination is required for your protection detail';
     }
 
-    if (pickup.trim() && destination.trim() && pickup.toLowerCase() === destination.toLowerCase()) {
-      newErrors.destination = 'Destination must be different from pickup location';
+    if (commencementPoint.trim() && secureDestination.trim() && commencementPoint.toLowerCase() === secureDestination.toLowerCase()) {
+      newErrors.secureDestination = 'Destination must be different from commencement point location';
     }
 
     setErrors(newErrors);
@@ -294,8 +294,8 @@ export function LocationPicker({ selectedService, onLocationConfirmed, onBack, o
       const historyKey = 'armora_protection_history';
       const existingHistory = JSON.parse(localStorage.getItem(historyKey) || '[]');
       const newLocation = {
-        address: destination.trim(),
-        name: destination.split(',')[0],
+        address: secureDestination.trim(),
+        name: secureDestination.split(',')[0],
         lastUsed: new Date().toISOString(),
         timesUsed: 1
       };
@@ -309,8 +309,8 @@ export function LocationPicker({ selectedService, onLocationConfirmed, onBack, o
     await new Promise(resolve => setTimeout(resolve, 800));
 
     const locationData: LocationData = {
-      pickup: pickup.trim(),
-      destination: destination.trim(),
+      commencementPoint: commencementPoint.trim(),
+      secureDestination: secureDestination.trim(),
       estimatedDistance,
       estimatedDuration
     };
@@ -375,30 +375,30 @@ export function LocationPicker({ selectedService, onLocationConfirmed, onBack, o
             </div>
           </div>
 
-          {/* Protection destination */}
+          {/* Protection secureDestination */}
           <div className={styles.toSection}>
-            <label className={styles.inputLabel}>Protection destination:</label>
+            <label className={styles.inputLabel}>Protection secureDestination:</label>
             <div className={styles.searchContainer}>
               <input
                 type="text"
-                value={destination}
+                value={secureDestination}
                 onChange={(e) => setDestination(e.target.value)}
                 placeholder={placeholderText}
-                className={`${styles.searchInput} ${errors.destination ? styles.inputError : ''}`}
+                className={`${styles.searchInput} ${errors.secureDestination ? styles.inputError : ''}`}
                 autoComplete="off"
               />
               <span className={styles.searchIcon}>🔍</span>
             </div>
 
-            {errors.destination && (
+            {errors.secureDestination && (
               <div className={styles.errorMessage}>
                 <span className={styles.errorIcon}>⚠️</span>
-                {errors.destination}
+                {errors.secureDestination}
               </div>
             )}
 
             {/* Service coverage status */}
-            {destination && destination.length > 3 && coverageStatus && (
+            {secureDestination && secureDestination.length > 3 && coverageStatus && (
               <div className={`${styles.coverageStatus} ${coverageStatus.covered ? styles.covered : styles.notCovered}`}>
                 {coverageStatus.message}
               </div>
@@ -479,13 +479,13 @@ export function LocationPicker({ selectedService, onLocationConfirmed, onBack, o
         {/* Popular Destinations Section */}
         <div className={styles.popularSection}>
           <h3 className={styles.sectionTitle}>POPULAR DESTINATIONS</h3>
-          <div className={styles.destinationTabs}>
+          <div className={styles.secureDestinationTabs}>
             <div className={styles.tabContent}>
-              <div className={styles.destinationGrid}>
+              <div className={styles.secureDestinationGrid}>
                 {POPULAR_DESTINATIONS.filter(dest => dest.category === 'Airports').slice(0, 3).map((dest, index) => (
                   <button
                     key={index}
-                    className={styles.destinationButton}
+                    className={styles.secureDestinationButton}
                     onClick={() => setDestination(dest.address)}
                   >
                     <div className={styles.destName}>{dest.name}</div>
@@ -493,11 +493,11 @@ export function LocationPicker({ selectedService, onLocationConfirmed, onBack, o
                   </button>
                 ))}
               </div>
-              <div className={styles.destinationGrid}>
+              <div className={styles.secureDestinationGrid}>
                 {POPULAR_DESTINATIONS.filter(dest => dest.category === 'Cities').slice(0, 4).map((dest, index) => (
                   <button
                     key={index}
-                    className={styles.destinationButton}
+                    className={styles.secureDestinationButton}
                     onClick={() => setDestination(dest.address)}
                   >
                     <div className={styles.destName}>{dest.name}</div>
@@ -555,7 +555,7 @@ export function LocationPicker({ selectedService, onLocationConfirmed, onBack, o
         )}
 
         {/* Nationwide pricing breakdown */}
-        {pickup && destination && pricingBreakdown && coverageStatus?.covered && (
+        {commencementPoint && secureDestination && pricingBreakdown && coverageStatus?.covered && (
           <div className={styles.estimateCard}>
             <div className={styles.cardHeader}>
               <h4>YOUR PROTECTION SERVICE</h4>
@@ -570,7 +570,7 @@ export function LocationPicker({ selectedService, onLocationConfirmed, onBack, o
                 </div>
                 <div className={styles.routePoint}>
                   <span className={styles.routeIcon}>📍</span>
-                  <span>To: {destination.split(',')[0]}</span>
+                  <span>To: {secureDestination.split(',')[0]}</span>
                 </div>
               </div>
 
@@ -634,7 +634,7 @@ export function LocationPicker({ selectedService, onLocationConfirmed, onBack, o
         <button
           className={styles.continueButton}
           onClick={handleContinue}
-          disabled={!destination || isLoading || (coverageStatus ? !coverageStatus.covered : false)}
+          disabled={!secureDestination || isLoading || (coverageStatus ? !coverageStatus.covered : false)}
         >
           {isLoading ? (
             <LoadingSpinner size="small" variant="light" text="Processing..." inline />

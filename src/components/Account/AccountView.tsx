@@ -36,11 +36,11 @@ interface UserAccountData {
     averagePerRide: number;
     thisMonth: {
       amount: number;
-      rides: number;
+      Assignments: number;
     };
     lastMonth: {
       amount: number;
-      rides: number;
+      Assignments: number;
     };
   };
   financial: {
@@ -106,11 +106,11 @@ const generateMockUserData = (user: any): UserAccountData => {
       averagePerRide: 60.58,
       thisMonth: {
         amount: 487.00,
-        rides: 8
+        Assignments: 8
       },
       lastMonth: {
         amount: 623.50,
-        rides: 11
+        Assignments: 11
       }
     },
     financial: {
@@ -264,11 +264,11 @@ export function AccountView() {
         <div className={styles.monthlyGrid}>
           <div className={styles.monthlyCard}>
             <span className={styles.monthlyLabel}>This Month:</span>
-            <span className={styles.monthlyValue}>£{userData.stats.thisMonth.amount.toFixed(2)} ({userData.stats.thisMonth.rides} services)</span>
+            <span className={styles.monthlyValue}>£{userData.stats.thisMonth.amount.toFixed(2)} ({userData.stats.thisMonth.Assignments} services)</span>
           </div>
           <div className={styles.monthlyCard}>
             <span className={styles.monthlyLabel}>Last Month:</span>
-            <span className={styles.monthlyValue}>£{userData.stats.lastMonth.amount.toFixed(2)} ({userData.stats.lastMonth.rides} services)</span>
+            <span className={styles.monthlyValue}>£{userData.stats.lastMonth.amount.toFixed(2)} ({userData.stats.lastMonth.Assignments} services)</span>
           </div>
         </div>
       </div>

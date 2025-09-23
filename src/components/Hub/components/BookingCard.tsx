@@ -83,7 +83,7 @@ export function BookingCard({
           </div>
           <div className={styles.priceDisplay}>£{booking.pricing.total}</div>
           <div className={styles.ratingDisplay}>
-            {'⭐'.repeat(Math.floor(booking.driver.rating))}
+            {'⭐'.repeat(Math.floor(booking.Protection Officer.rating))}
           </div>
         </div>
       </div>
@@ -110,7 +110,7 @@ export function BookingCard({
           <div className={styles.statIcon}>👤</div>
           <div className={styles.statContent}>
             <div className={styles.statLabel}>OFFICER</div>
-            <div className={styles.statValue}>{booking.driver.name}</div>
+            <div className={styles.statValue}>{booking.Protection Officer.name}</div>
           </div>
         </div>
 
@@ -118,7 +118,7 @@ export function BookingCard({
           <div className={styles.statIcon}>🚗</div>
           <div className={styles.statContent}>
             <div className={styles.statLabel}>VEHICLE</div>
-            <div className={styles.statValue}>{booking.driver.vehicle}</div>
+            <div className={styles.statValue}>{booking.Protection Officer.vehicle}</div>
           </div>
         </div>
       </div>
@@ -128,12 +128,12 @@ export function BookingCard({
         <div className={styles.routeItem}>
           <div className={styles.routeIcon}>📍</div>
           <div className={styles.routeLabel}>FROM</div>
-          <div className={styles.routeText}>{booking.pickupLocation.address}</div>
+          <div className={styles.routeText}>{booking.commencementPointLocation.address}</div>
         </div>
         <div className={styles.routeItem}>
           <div className={styles.routeIcon}>🎯</div>
           <div className={styles.routeLabel}>TO</div>
-          <div className={styles.routeText}>{booking.destination.address}</div>
+          <div className={styles.routeText}>{booking.secureDestination.address}</div>
         </div>
       </div>
 
@@ -171,14 +171,14 @@ export function BookingCard({
         <div className={styles.location}>
           <div className={styles.locationIcon}>📍</div>
           <div className={styles.locationText}>
-            <div className={styles.locationAddress}>{booking.pickupLocation.address}</div>
+            <div className={styles.locationAddress}>{booking.commencementPointLocation.address}</div>
           </div>
         </div>
         <div className={styles.routeLine}></div>
         <div className={styles.location}>
           <div className={styles.locationIcon}>🏁</div>
           <div className={styles.locationText}>
-            <div className={styles.locationAddress}>{booking.destination.address}</div>
+            <div className={styles.locationAddress}>{booking.secureDestination.address}</div>
           </div>
         </div>
       </div>
@@ -228,7 +228,7 @@ export function BookingCard({
 
       <div className={styles.routeSummary}>
         <span className={styles.routeText}>
-          {booking.pickupLocation.address.split(',')[0]} → {booking.destination.address.split(',')[0]}
+          {booking.commencementPointLocation.address.split(',')[0]} → {booking.secureDestination.address.split(',')[0]}
         </span>
         <span className={styles.routeStats}>
           {booking.route.distance}km • {booking.route.duration}min
@@ -241,13 +241,13 @@ export function BookingCard({
           <span className={styles.metaValue}>£{booking.pricing.total}</span>
         </div>
         <div className={styles.metaItem}>
-          <span className={styles.metaLabel}>Driver:</span>
-          <span className={styles.metaValue}>{booking.driver.name}</span>
+          <span className={styles.metaLabel}>Protection Officer:</span>
+          <span className={styles.metaValue}>{booking.Protection Officer.name}</span>
         </div>
       </div>
 
       <div className={styles.driverRatingSection}>
-        <div className={styles.ratingPrompt}>Rate your driver:</div>
+        <div className={styles.ratingPrompt}>Rate your Protection Officer:</div>
         <div className={styles.ratingStars}>
           {[1, 2, 3, 4, 5].map((star) => (
             <button

@@ -188,8 +188,8 @@ export function analyzeUserProfile(questionnaireData: PersonalizationData | null
         'Child safety systems and car seat expertise',
         'School run and family activity coordination',
         'Family safety response protocols',
-        'Multiple passenger configuration options',
-        'Family-friendly driver training and background checks'
+        'Multiple Principal configuration options',
+        'Family-friendly Protection Officer training and background checks'
       ],
       certifications: ['Child Safety Certified', 'Family Transport Specialist', 'Enhanced Background Checks'],
       trustIndicators: ['Trusted by 300+ families', 'Child safety record: Perfect', 'School run reliability: 99%'],
@@ -227,13 +227,13 @@ function getDefaultProfile(): UserProfile {
     subtitle: 'Quality Security Transport',
     description: 'Professional security transport designed for discerning clients who value safety, reliability, and peace of mind.',
     benefits: [
-      'SIA Level 2 security-certified professional drivers',
+      'SIA Level 2 security-certified professional Protection Officers',
       'Real-time GPS tracking and journey monitoring',
       '24/7 response and support systems',
       'Background-checked and vetted security professionals',
       'Eco-friendly Nissan Leaf EV fleet with full safety systems'
     ],
-    certifications: ['Advanced Security Training (situational awareness & protective protocols)', 'Professional Driver Certified', 'Safety Response Trained'],
+    certifications: ['Advanced Security Training (situational awareness & protective protocols)', 'Professional Protection Officer Certified', 'Safety Response Trained'],
     trustIndicators: ['Trusted by 1,000+ clients', 'Safety record: 100%', 'Reliability rating: 4.8/5'],
     personalizedMessage: 'Professional security transport that prioritizes your safety and peace of mind.',
     socialProof: '82% of clients choose security-aware transport for peace of mind',

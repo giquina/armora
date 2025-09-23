@@ -15,7 +15,7 @@ interface ChartData {
 
 interface TrendData {
   month: string;
-  trips: number;
+  Protection Details: number;
   spending: number;
 }
 
@@ -46,7 +46,7 @@ export function AnalyticsDashboard({ bookings, userStats }: AnalyticsDashboardPr
     const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'];
     return months.map((month, index) => ({
       month,
-      trips: Math.floor(Math.random() * 10) + 3,
+      Protection Details: Math.floor(Math.random() * 10) + 3,
       spending: Math.floor(Math.random() * 500) + 200
     }));
   };
@@ -94,7 +94,7 @@ export function AnalyticsDashboard({ bookings, userStats }: AnalyticsDashboardPr
               <span className={styles.metricIcon}>🎯</span>
               <div className={styles.metricContent}>
                 <span className={styles.metricLabel}>Favorite Service</span>
-                <span className={styles.metricValue}>{topService.label} ({topService.value} trips)</span>
+                <span className={styles.metricValue}>{topService.label} ({topService.value} Protection Details)</span>
               </div>
             </div>
             <div className={styles.metricItem}>
@@ -166,7 +166,7 @@ export function AnalyticsDashboard({ bookings, userStats }: AnalyticsDashboardPr
                     <div
                       className={styles.tripsBar}
                       style={{
-                        height: `${(item.trips / 15) * 100}%`,
+                        height: `${(item.Protection Details / 15) * 100}%`,
                         animationDelay: `${index * 0.1}s`
                       }}
                     ></div>
@@ -234,7 +234,7 @@ export function AnalyticsDashboard({ bookings, userStats }: AnalyticsDashboardPr
             <div className={styles.scoreDetails}>
               <div className={styles.scoreItem}>
                 <span className={styles.scoreIcon}>✅</span>
-                <span className={styles.scoreText}>All trips completed safely</span>
+                <span className={styles.scoreText}>All Protection Details completed safely</span>
               </div>
               <div className={styles.scoreItem}>
                 <span className={styles.scoreIcon}>🚫</span>
@@ -242,7 +242,7 @@ export function AnalyticsDashboard({ bookings, userStats }: AnalyticsDashboardPr
               </div>
               <div className={styles.scoreItem}>
                 <span className={styles.scoreIcon}>⭐</span>
-                <span className={styles.scoreText}>High driver ratings</span>
+                <span className={styles.scoreText}>High Protection Officer ratings</span>
               </div>
             </div>
           </div>

@@ -21,7 +21,7 @@ export const ARMORA_BRAND = {
       fontWeight: 300,
       letterSpacing: '0.1em', // From splash: letter-spacing: 0.1em
       fontSize: {
-        primary: '1.1rem',   // "Your Personal Security Driver Team"
+        primary: '1.1rem',   // "Your Personal Security Protection Officer Team"
         secondary: '0.9rem'  // Secondary taglines
       }
     }

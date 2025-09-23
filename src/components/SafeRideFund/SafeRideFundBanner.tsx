@@ -18,7 +18,7 @@ const SafeRideFundBanner: React.FC<SafeRideFundBannerProps> = ({
   // Rotating announcement messages for dynamic content
   const announcementMessages = [
     "🛡️ Every membership supports safe transport for vulnerable communities",
-    "📊 3,741+ safe rides funded • 834 people reached safety this month",
+    "📊 3,741+ safe Assignments funded • 834 people reached safety this month",
     "🤝 Partnering with Crisis UK, Women's Aid, Mind Mental Health & more",
     "🚗 £4 from each membership directly funds priority transport assistance",
     "⚡ 24/7 availability • Average 12min response time • 98% success rate"
@@ -110,7 +110,7 @@ const SafeRideFundBanner: React.FC<SafeRideFundBannerProps> = ({
       onKeyDown={handleKeyDown}
       role="button"
       tabIndex={onBannerClick ? 0 : -1}
-      aria-label="Safe Ride Fund information - click to learn more"
+      aria-label="Safe Assignment Fund information - click to learn more"
       aria-live="polite"
     >
       <div className={styles.content}>

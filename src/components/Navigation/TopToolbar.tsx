@@ -16,7 +16,16 @@ export const TopToolbar: React.FC<TopToolbarProps> = ({ onOpenNotifications }) =
   // Use exact splash/welcome brand style via BrandText
 
   const openBooking = () => {
-    navigateToView('booking');
+    try {
+      // Signal the home page to open the LocationPicker overlay (legacy/old booking entry)
+      localStorage.setItem('armora_open_location_picker', 'true');
+    } catch {}
+    // Navigate to home where the BookingSearchInterface listens for this flag/event
+    navigateToView('home');
+    // Also emit a lightweight event in case we're already on home
+    try {
+      window.dispatchEvent(new Event('armora:open-location-picker'));
+    } catch {}
   };
 
   return (

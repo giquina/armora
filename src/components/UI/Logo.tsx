@@ -62,9 +62,9 @@ export function Logo({
   const handleLogoClick = () => {
     if (!clickable) return;
     
-    const destination = getLogoDestination();
-    console.log(`🏛️ [LOGO NAVIGATION] Routing to: ${destination} (User: ${state.user?.userType || 'unauthenticated'})`);
-    navigateToView(destination as any);
+    const secureDestination = getLogoDestination();
+    console.log(`🏛️ [LOGO NAVIGATION] Routing to: ${secureDestination} (User: ${state.user?.userType || 'unauthenticated'})`);
+    navigateToView(secureDestination as any);
   };
 
   const sizeMap = {

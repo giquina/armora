@@ -166,7 +166,7 @@ export function BookingProgress({
       {/* Help Text */}
       <div className={styles.helpText}>
         {currentStep === 'service' && 'Choose your preferred security transport service'}
-        {currentStep === 'location' && 'Set your pickup and destination locations'}
+        {currentStep === 'location' && 'Set your Commencement Point and secureDestination locations'}
         {currentStep === 'schedule' && 'Select when you need the transport'}
         {currentStep === 'payment' && 'Confirm payment method and complete booking'}
         {currentStep === 'confirmation' && 'Your booking is confirmed and protection officer assigned'}

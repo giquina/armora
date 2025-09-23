@@ -75,10 +75,10 @@ export function updateProtectionPreferences(updates: Partial<ProtectionPreferenc
 }
 
 /**
- * Record a destination usage for learning user preferences
+ * Record a secureDestination usage for learning user preferences
  */
 export function recordDestinationUsage(
-  destination: string,
+  secureDestination: string,
   protectionLevel: ProtectionLevel,
   venueTimeData?: VenueTimeData
 ): void {
@@ -104,7 +104,7 @@ export function recordDestinationUsage(
   } else {
     // Add new destination
     preferences.commonDestinations.push({
-      address: destination,
+      address: secureDestination,
       protectionType: protectionLevel.type,
       averageDuration: duration,
       usageCount: 1,
@@ -126,14 +126,14 @@ export function recordDestinationUsage(
 }
 
 /**
- * Get recommended protection type for a destination based on user history
+ * Get recommended protection type for a secureDestination based on user history
  */
-export function getRecommendedProtectionType(destination: string): 'transport' | 'personal' | null {
+export function getRecommendedProtectionType(secureDestination: string): 'transport' | 'personal' | null {
   const preferences = getProtectionPreferences();
 
-  // Check if user has been to this destination before
+  // Check if user has been to this secureDestination before
   const commonDestination = preferences.commonDestinations.find(
-    d => d.address.toLowerCase().includes(destination.toLowerCase()) ||
+    d => d.address.toLowerCase().includes(secureDestination.toLowerCase()) ||
          destination.toLowerCase().includes(d.address.toLowerCase())
   );
 
@@ -146,14 +146,14 @@ export function getRecommendedProtectionType(destination: string): 'transport' |
 }
 
 /**
- * Get pre-filled venue time data based on user preferences and destination history
+ * Get pre-filled venue time data based on user preferences and secureDestination history
  */
-export function getPrefilledVenueTimeData(destination: string): Partial<VenueTimeData> {
+export function getPrefilledVenueTimeData(secureDestination: string): Partial<VenueTimeData> {
   const preferences = getProtectionPreferences();
 
-  // Find similar destination in history
+  // Find similar secureDestination in history
   const commonDestination = preferences.commonDestinations.find(
-    d => d.address.toLowerCase().includes(destination.toLowerCase()) ||
+    d => d.address.toLowerCase().includes(secureDestination.toLowerCase()) ||
          destination.toLowerCase().includes(d.address.toLowerCase())
   );
 

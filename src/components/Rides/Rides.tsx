@@ -5,7 +5,7 @@ import { BookingHistoryManager } from '../../utils/bookingHistory';
 import { RecentServices } from './RecentTrips';
 import { FavoriteRoutes } from './FavoriteRoutes';
 import { PersonalizedQuickActions } from './PersonalizedQuickActions';
-import styles from './Rides.module.css';
+import styles from './Assignments.module.css';
 
 export function Bookings() {
   const { state, navigateToView } = useApp();
@@ -13,7 +13,7 @@ export function Bookings() {
   const [bookingHistory, setBookingHistory] = React.useState(() =>
     BookingHistoryManager.getBookingHistory()
   );
-  const [hasActiveRides] = React.useState(false); // Active rides data placeholder
+  const [hasActiveRides] = React.useState(false); // Active Assignments data placeholder
   const [hasVenueBookings] = React.useState(false); // Venue bookings data placeholder
   const [activeTab, setActiveTab] = React.useState<'transport' | 'venues'>('transport');
 
@@ -83,11 +83,11 @@ export function Bookings() {
             <PersonalizedQuickActions maxActions={3} />
           </div>
 
-          {/* Active Rides Section */}
+          {/* Active Assignments Section */}
           {hasActiveRides ? (
             <div className={styles.section}>
               <h2 className={styles.sectionTitle}>🚗 Active Transport</h2>
-              {/* Active rides component placeholder */}
+              {/* Active Assignments component placeholder */}
             </div>
           ) : (
             <div className={styles.section}>
@@ -209,7 +209,7 @@ export function Bookings() {
               <div className={styles.recommendationContent}>
                 <h3 className={styles.recommendationTitle}>Travel Pattern Detected</h3>
                 <p className={styles.recommendationText}>
-                  You frequently book rides on {getCurrentDayName()}. Would you like to set up a recurring booking?
+                  You frequently book Assignments on {getCurrentDayName()}. Would you like to set up a recurring booking?
                 </p>
                 <button className={styles.recommendationButton}>
                   Set Up Recurring Booking

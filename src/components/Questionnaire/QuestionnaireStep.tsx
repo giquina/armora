@@ -660,7 +660,7 @@ Your privacy is important to us. All questions are optional and you can use "Pre
       4: "Choose the areas where you most frequently need transport. This helps us pre-position resources and establish secure routes.",
       5: "Select any specialized locations you might need. Airport transfers and event venues require enhanced security protocols.",
       6: "Provide a priority contact following security industry best practices. This ensures rapid response in any situation.",
-      7: "Select any accommodations or special requirements. We ensure all passengers receive appropriate support for comfortable transport.",
+      7: "Select any accommodations or special requirements. We ensure all Principals receive appropriate support for comfortable transport.",
       8: "Choose how you'd like to receive updates. Clear communication is essential for effective security operations.",
       9: "Review your complete security profile. This comprehensive assessment ensures we deliver the most appropriate protection service."
     };
@@ -788,7 +788,7 @@ Your privacy is important to us. All questions are optional and you can use "Pre
                 
                 {/* Value Proposition */}
                 <p className={styles.valueProposition}>
-                  Unlock personalized VIP transport with security-trained drivers tailored to your professional requirements. Our comprehensive assessment ensures the right protection level and service features for your specific needs.
+                  Unlock personalized VIP transport with security-trained Protection Officers tailored to your professional requirements. Our comprehensive assessment ensures the right protection level and service features for your specific needs.
                 </p>
                 
                 {/* Benefits List */}
@@ -804,7 +804,7 @@ Your privacy is important to us. All questions are optional and you can use "Pre
                     </li>
                     <li className={spacingStyles.tightBenefitItem}>
                       <span className={styles.checkmark}>✓</span>
-                      <span>Protection level assessment with appropriate driver assignment</span>
+                      <span>Protection level assessment with appropriate Protection Officer assignment</span>
                     </li>
                     <li className={spacingStyles.tightBenefitItem}>
                       <span className={styles.checkmark}>✓</span>

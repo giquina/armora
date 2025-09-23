@@ -54,9 +54,9 @@ export function DynamicRecommendation({
     else setTimeOfDay('night');
 
     // Simulate dynamic availability and demand
-    const drivers = Math.floor(Math.random() * 5) + 2; // 2-6 drivers
-    setAvailableDrivers(drivers);
-    setIsHighDemand(drivers <= 3);
+    const protectionOfficers = Math.floor(Math.random() * 5) + 2; // 2-6 Protection Officers
+    setAvailableDrivers(protectionOfficers);
+    setIsHighDemand(protectionOfficers <= 3);
   }, []);
 
   // Rotate headlines every 4 seconds
@@ -91,7 +91,7 @@ export function DynamicRecommendation({
   // Service-specific value propositions with updated vehicle specs
   const getValuePropositions = () => {
     const baseProps = [
-      'SIA Level 2 security-certified drivers',
+      'SIA Level 2 security-certified Protection Officers',
       'Eco-friendly Nissan Leaf EV fleet (discreet)',
       'Real-time safety monitoring & GPS tracking',
       '24/7 response protocols',
@@ -100,7 +100,7 @@ export function DynamicRecommendation({
 
     if (service.id === 'executive') {
       return [
-        'SIA Level 3 certified security drivers',
+        'SIA Level 3 certified security Protection Officers',
         'BMW 5 Series with security modifications',
         'Advanced threat assessment training',
         'Priority safety response team',
@@ -125,7 +125,7 @@ export function DynamicRecommendation({
   const getPricingMessage = () => {
     const hourlyRate = service.hourlyRate;
     if (hourlyRate <= 45) {
-      return `£${hourlyRate}/hour - Professional security at taxi prices`;
+      return `£${hourlyRate}/hour - Professional security at Protection Service prices`;
     }
     if (hourlyRate <= 65) {
       return `£${hourlyRate}/hour - Premium protection worth every penny`;
@@ -165,7 +165,7 @@ export function DynamicRecommendation({
           </div>
           <p className={styles.recommendationText}>
             Professional security transport designed for peace of mind.
-            Our <strong>SIA Level 2 certified drivers</strong> provide discreet protection
+            Our <strong>SIA Level 2 certified Protection Officers</strong> provide discreet protection
             in eco-friendly <strong>Nissan Leaf EVs</strong>, combining safety with
             environmental responsibility at accessible <strong>£50/hour</strong> pricing.
           </p>
@@ -186,7 +186,7 @@ export function DynamicRecommendation({
           <div className={styles.trustIndicator}>
             <span className={styles.rating}>⭐ {trustMetrics.rating}/5 stars</span>
             <span className={styles.divider}>•</span>
-            <span className={styles.trips}>🛡️ {trustMetrics.totalTrips.toLocaleString()}+ safe trips</span>
+            <span className={styles.Protection Details}>🛡️ {trustMetrics.totalTrips.toLocaleString()}+ safe Protection Details</span>
           </div>
           <div className={styles.trustIndicator}>
             <span className={styles.clients}>👥 Trusted by {trustMetrics.activeClients.toLocaleString()}+ clients</span>
@@ -206,7 +206,7 @@ export function DynamicRecommendation({
           <div className={styles.availability}>
             <span className={styles.availabilityIcon}>⚡</span>
             <span className={styles.availabilityText}>
-              {availableDrivers} professional drivers nearby
+              {availableDrivers} professional Protection Officers nearby
             </span>
           </div>
           {isHighDemand && (

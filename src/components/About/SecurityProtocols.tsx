@@ -91,7 +91,7 @@ const securityProtocols: Protocol[] = [
   {
     id: 'venue-liaison',
     title: 'Venue Security Liaison',
-    description: 'Coordination with destination security teams',
+    description: 'Coordination with secureDestination security teams',
     icon: '🏢',
     details: [
       'Pre-arrival security coordination',

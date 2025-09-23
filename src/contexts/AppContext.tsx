@@ -1,5 +1,14 @@
 import React, { createContext, useContext, useReducer, useEffect, useCallback, ReactNode } from 'react';
 import { AppState, ViewState, User, PersonalizationData, DeviceCapabilities, UserSubscription, SubscriptionTier, PremiumInterest, NotificationData, SafeRideFundMetrics, CommunityImpactData, AssignmentState, Assignment, PanicAlert, INotificationItem } from '../types';
+import {
+  createProtectionAssignment,
+  getProtectionAssignment,
+  updateProtectionAssignment,
+  subscribeToAssignmentUpdates,
+  activateEmergency,
+  deactivateEmergency,
+  getSafeRideFundStats,
+} from '../utils/supabaseClient';
 
 // Initial state
 const initialState: AppState = {
@@ -177,7 +186,7 @@ interface AppContextType {
   startFreeTrial: (tier: SubscriptionTier) => Promise<void>;
   recordPremiumInterest: (data: PremiumInterest) => Promise<void>;
   sendOwnerNotification: (data: NotificationData) => Promise<boolean>;
-  // Safe Ride Fund actions
+  // Safe Assignment Fund actions
   updateSafeRideFundMetrics: (metrics: SafeRideFundMetrics | null) => void;
   updateCommunityImpactData: (data: CommunityImpactData | null) => void;
   initializeSafeRideFundData: () => void;
@@ -185,6 +194,12 @@ interface AppContextType {
   addNotification: (n: Omit<INotificationItem, 'id' | 'timestamp'> & Partial<Pick<INotificationItem, 'id' | 'timestamp'>>) => void;
   markNotificationRead: (id: string) => void;
   markAllNotificationsRead: () => void;
+  // Assignment actions
+  createAssignment: (assignmentData: any) => Promise<Assignment>;
+  updateAssignmentStatus: (assignmentId: string, status: string) => Promise<void>;
+  activatePanicAlert: (location?: any) => Promise<void>;
+  deactivatePanicAlert: () => Promise<void>;
+  updateLastKnownLocation: (location: { lat: number; lng: number; address: string }) => void;
 }
 
 // Create context
@@ -216,6 +231,14 @@ export function AppProvider({ children }: { children: ReactNode }) {
     
     console.log('✅ Navigating to:', view);
     dispatch({ type: 'SET_VIEW', payload: view });
+    // Keep URL hash in sync for simple deep linking (e.g., #booking)
+    try {
+      if (typeof window !== 'undefined' && window.location.hash !== `#${view}`) {
+        window.location.hash = view as string;
+      }
+    } catch (e) {
+      // no-op if hash cannot be set (e.g., SSR or restricted env)
+    }
   };
 
   const setUser = (user: User | null) => {
@@ -258,6 +281,31 @@ export function AppProvider({ children }: { children: ReactNode }) {
   const resetApp = () => {
     dispatch({ type: 'RESET_APP' });
   };
+
+  // Initialize view from URL hash for simple deep linking support
+  useEffect(() => {
+    const applyHashView = () => {
+      try {
+        if (typeof window === 'undefined') return;
+        const raw = window.location.hash || '';
+        const hash = raw.startsWith('#') ? raw.slice(1) : raw;
+        if (!hash) return;
+        // Best-effort cast; invalid values will be handled by AppRouter's default case
+        const nextView = hash as ViewState;
+        // Avoid redundant dispatches
+        if (state.currentView !== nextView) {
+          dispatch({ type: 'SET_VIEW', payload: nextView });
+        }
+      } catch (e) {
+        // Ignore malformed hashes
+      }
+    };
+
+    applyHashView();
+    window.addEventListener('hashchange', applyHashView);
+    return () => window.removeEventListener('hashchange', applyHashView);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   // Subscription actions
   const setSubscription = (subscription: UserSubscription | null) => {
@@ -372,7 +420,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
     }
   };
 
-  // Safe Ride Fund actions
+  // Safe Assignment Fund actions
   const updateSafeRideFundMetrics = (metrics: SafeRideFundMetrics | null) => {
     dispatch({ type: 'SET_SAFE_RIDE_FUND_METRICS', payload: metrics });
   };
@@ -381,12 +429,12 @@ export function AppProvider({ children }: { children: ReactNode }) {
     dispatch({ type: 'SET_COMMUNITY_IMPACT_DATA', payload: data });
   };
 
-  const initializeSafeRideFundData = useCallback(() => {
+  const initializeSafeRideFundData = useCallback(async () => {
     // Only initialize for Essential subscribers
     if (state.subscription?.tier === 'essential') {
       const joinDate = state.subscription.startDate || new Date();
       const monthsSinceJoined = Math.max(1, Math.floor((new Date().getTime() - joinDate.getTime()) / (1000 * 60 * 60 * 24 * 30)));
-      
+
       const metrics: SafeRideFundMetrics = {
         personalRidesFunded: monthsSinceJoined,
         totalContributed: monthsSinceJoined * 4, // £4 per month
@@ -400,18 +448,195 @@ export function AppProvider({ children }: { children: ReactNode }) {
       updateSafeRideFundMetrics(metrics);
     }
 
-    // Community impact data (mock data)
-    const communityData: CommunityImpactData = {
-      totalMembers: 1247,
-      monthlyRidesFunded: 278,
-      totalRidesFunded: 3741,
-      lastUpdated: new Date()
-    };
+    // Load community impact data from Supabase
+    try {
+      const { data: fundStats, error } = await getSafeRideFundStats();
 
-    updateCommunityImpactData(communityData);
+      if (!error && fundStats) {
+        const communityData: CommunityImpactData = {
+          totalMembers: 1247, // Could be calculated from profiles count
+          monthlyRidesFunded: 278, // Could be calculated from recent assignments
+          totalRidesFunded: fundStats.total_rides_provided || 3741,
+          lastUpdated: new Date(fundStats.last_updated || new Date())
+        };
+
+        updateCommunityImpactData(communityData);
+      } else {
+        // Fallback to default data
+        const communityData: CommunityImpactData = {
+          totalMembers: 1247,
+          monthlyRidesFunded: 278,
+          totalRidesFunded: 3741,
+          lastUpdated: new Date()
+        };
+
+        updateCommunityImpactData(communityData);
+      }
+    } catch (error) {
+      console.error('Error loading Safe Assignment Fund stats:', error);
+      // Use fallback data
+      const communityData: CommunityImpactData = {
+        totalMembers: 1247,
+        monthlyRidesFunded: 278,
+        totalRidesFunded: 3741,
+        lastUpdated: new Date()
+      };
+
+      updateCommunityImpactData(communityData);
+    }
   }, [state.subscription]);
 
-  // Initialize Safe Ride Fund data when subscription changes
+  // Assignment management functions
+  const createAssignment = useCallback(async (assignmentData: any): Promise<Assignment> => {
+    setLoading(true);
+    setError(null);
+
+    try {
+      const { data, error } = await createProtectionAssignment(assignmentData);
+      if (error) throw error;
+
+      // Update local state
+      dispatch({ type: 'SET_ASSIGNMENT', payload: data });
+
+      // Subscribe to real-time updates
+      if (data.id) {
+        subscribeToAssignmentUpdates(data.id, (payload) => {
+          if (payload.eventType === 'UPDATE') {
+            dispatch({
+              type: 'UPDATE_ASSIGNMENT_STATUS',
+              payload: {
+                assignmentId: payload.new.id,
+                status: payload.new.assignment_status
+              }
+            });
+          }
+        });
+      }
+
+      return data;
+    } catch (error: any) {
+      console.error('Error creating assignment:', error);
+      setError(error.message);
+      throw error;
+    } finally {
+      setLoading(false);
+    }
+  }, []);
+
+  const updateAssignmentStatus = useCallback(async (assignmentId: string, status: string): Promise<void> => {
+    try {
+      const { error } = await updateProtectionAssignment(assignmentId, { assignment_status: status });
+      if (error) throw error;
+
+      // Update local state
+      dispatch({
+        type: 'UPDATE_ASSIGNMENT_STATUS',
+        payload: { assignmentId, status }
+      });
+    } catch (error: any) {
+      console.error('Error updating assignment status:', error);
+      setError(error.message);
+      throw error;
+    }
+  }, []);
+
+  const activatePanicAlert = useCallback(async (location?: any): Promise<void> => {
+    if (!state.user?.id) {
+      throw new Error('User must be logged in to activate panic alert');
+    }
+
+    setLoading(true);
+    setError(null);
+
+    try {
+      const currentLocation = location || state.assignmentState.lastKnownLocation;
+
+      const { data, error } = await activateEmergency(
+        state.user.id,
+        currentLocation,
+        state.assignmentState.activeAssignmentId || undefined
+      );
+
+      if (error) throw error;
+
+      // Update local state
+      dispatch({
+        type: 'SET_PANIC_ALERT_SENT',
+        payload: { sent: true, timestamp: new Date() }
+      });
+
+      // Add notification
+      dispatch({
+        type: 'ADD_NOTIFICATION',
+        payload: {
+          id: `emergency-${Date.now()}`,
+          type: 'emergency',
+          title: 'Emergency Alert Activated',
+          message: 'Your panic alert has been sent. Emergency services are being contacted.',
+          timestamp: new Date(),
+          isRead: false,
+          requiresAction: false,
+        }
+      });
+
+      // Navigate to hub for real-time updates
+      navigateToView('hub');
+
+    } catch (error: any) {
+      console.error('Error activating panic alert:', error);
+      setError(error.message);
+      throw error;
+    } finally {
+      setLoading(false);
+    }
+  }, [state.user?.id, state.assignmentState, navigateToView]);
+
+  const deactivatePanicAlert = useCallback(async (): Promise<void> => {
+    setLoading(true);
+    setError(null);
+
+    try {
+      // Find the latest emergency activation to deactivate
+      // Note: This would need to be implemented with proper tracking
+      // For now, just update local state
+      dispatch({
+        type: 'SET_PANIC_ALERT_SENT',
+        payload: { sent: false }
+      });
+
+      dispatch({
+        type: 'ADD_NOTIFICATION',
+        payload: {
+          id: `emergency-deactivated-${Date.now()}`,
+          type: 'success',
+          title: 'Emergency Alert Deactivated',
+          message: 'Your panic alert has been successfully deactivated.',
+          timestamp: new Date(),
+          isRead: false,
+          requiresAction: false,
+        }
+      });
+
+    } catch (error: any) {
+      console.error('Error deactivating panic alert:', error);
+      setError(error.message);
+      throw error;
+    } finally {
+      setLoading(false);
+    }
+  }, []);
+
+  const updateLastKnownLocation = useCallback((location: { lat: number; lng: number; address: string }) => {
+    dispatch({
+      type: 'UPDATE_LAST_KNOWN_LOCATION',
+      payload: {
+        ...location,
+        timestamp: new Date().toISOString()
+      }
+    });
+  }, []);
+
+  // Initialize Safe Assignment Fund data when subscription changes
   useEffect(() => {
     if (state.subscription?.tier === 'essential') {
       initializeSafeRideFundData();
@@ -570,6 +795,12 @@ export function AppProvider({ children }: { children: ReactNode }) {
         localStorage.setItem('armora_notifications', JSON.stringify(updated));
       } catch {}
     },
+    // Assignment functions
+    createAssignment,
+    updateAssignmentStatus,
+    activatePanicAlert,
+    deactivatePanicAlert,
+    updateLastKnownLocation,
   };
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;

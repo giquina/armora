@@ -38,7 +38,7 @@ export function StreamlinedBookingModal({
   onBookingConfirm,
   userProfile
 }: StreamlinedBookingModalProps) {
-  const [pickupLocation, setPickupLocation] = useState<Location | null>(null);
+  const [commencementLocation, setPickupLocation] = useState<Location | null>(null);
   const [destinationLocation, setDestinationLocation] = useState<Location | null>(null);
   const [currentLocation, setCurrentLocation] = useState<Location | null>(null);
   const [isLoadingLocation, setIsLoadingLocation] = useState(false);
@@ -50,8 +50,8 @@ export function StreamlinedBookingModal({
     cost: number;
   } | null>(null);
   const [errors, setErrors] = useState<{
-    pickup?: string;
-    destination?: string;
+    Commencement Point?: string;
+    secureDestination?: string;
     general?: string;
   }>({});
 
@@ -59,7 +59,7 @@ export function StreamlinedBookingModal({
     if (!navigator.geolocation) {
       setErrors(prev => ({
         ...prev,
-        general: 'Location services not available. Please enter pickup address manually.'
+        general: 'Location services not available. Please enter Commencement Point address manually.'
       }));
       return;
     }
@@ -85,7 +85,7 @@ export function StreamlinedBookingModal({
       if (accuracy > 100) {
         setErrors(prev => ({
           ...prev,
-          general: `Location accuracy is ${accuracy}m. For precise pickup, please enter address manually or enable GPS.`
+          general: `Location accuracy is ${accuracy}m. For precise Commencement Point, please enter address manually or enable GPS.`
         }));
       }
 
@@ -110,13 +110,13 @@ export function StreamlinedBookingModal({
           errorMessage += 'Location access denied. Please enable location services and refresh.';
           break;
         case 2:
-          errorMessage += 'Location unavailable. Please enter pickup address manually.';
+          errorMessage += 'Location unavailable. Please enter Commencement Point address manually.';
           break;
         case 3:
           errorMessage += 'Location timeout. Please try again or enter address manually.';
           break;
         default:
-          errorMessage += 'Please enter pickup address manually.';
+          errorMessage += 'Please enter Commencement Point address manually.';
       }
 
       setErrors(prev => ({ ...prev, general: errorMessage }));
@@ -127,7 +127,7 @@ export function StreamlinedBookingModal({
   }, [selectedService.id]);
 
   const calculateRouteEstimate = useCallback(async () => {
-    if (!pickupLocation || !destinationLocation) return;
+    if (!commencementLocation || !destinationLocation) return;
 
     setIsCalculatingRoute(true);
     setErrors(prev => ({ ...prev, general: undefined }));
@@ -172,7 +172,7 @@ export function StreamlinedBookingModal({
     } finally {
       setIsCalculatingRoute(false);
     }
-  }, [pickupLocation, destinationLocation, selectedService, userProfile]);
+  }, [commencementLocation, destinationLocation, selectedService, userProfile]);
 
   // Get current location on modal open
   useEffect(() => {
@@ -183,15 +183,15 @@ export function StreamlinedBookingModal({
 
   // Calculate route estimate when both locations are set
   useEffect(() => {
-    if (pickupLocation && destinationLocation) {
+    if (commencementPointLocation && destinationLocation) {
       calculateRouteEstimate();
     }
-  }, [pickupLocation, destinationLocation, calculateRouteEstimate]);
+  }, [commencementLocation, destinationLocation, calculateRouteEstimate]);
 
   const handlePickupLocationSelect = useCallback((location: Location) => {
     setPickupLocation(location);
-    setErrors(prev => ({ ...prev, pickup: undefined }));
-    console.log('[Analytics] Pickup location selected', {
+    setErrors(prev => ({ ...prev, Commencement Point: undefined }));
+    console.log('[Analytics] Commencement Point location selected', {
       address: location.address,
       method: location.address.includes('Current Location') ? 'gps' : 'manual',
       timestamp: Date.now()
@@ -200,7 +200,7 @@ export function StreamlinedBookingModal({
 
   const handleDestinationLocationSelect = useCallback((location: Location) => {
     setDestinationLocation(location);
-    setErrors(prev => ({ ...prev, destination: undefined }));
+    setErrors(prev => ({ ...prev, secureDestination: undefined }));
     console.log('[Analytics] Destination location selected', {
       address: location.address,
       timestamp: Date.now()
@@ -218,17 +218,17 @@ export function StreamlinedBookingModal({
   const validateBooking = (): boolean => {
     const newErrors: typeof errors = {};
 
-    if (!pickupLocation) {
-      newErrors.pickup = 'Please select a pickup location';
+    if (!commencementLocation) {
+      newErrors.Commencement Point = 'Please select a Commencement Point location';
     }
 
     if (!destinationLocation) {
-      newErrors.destination = 'Please select a destination';
+      newErrors.secureDestination = 'Please select a destination';
     }
 
-    if (pickupLocation && destinationLocation &&
-        pickupLocation.address === destinationLocation.address) {
-      newErrors.destination = 'Destination must be different from pickup location';
+    if (commencementPointLocation && destinationLocation &&
+        commencementLocation.address === destinationLocation.address) {
+      newErrors.secureDestination = 'Destination must be different from Commencement Point location';
     }
 
     setErrors(newErrors);
@@ -243,7 +243,7 @@ export function StreamlinedBookingModal({
     try {
       const bookingData = {
         service: selectedService,
-        pickupLocation,
+        commencementLocation,
         destinationLocation,
         routeEstimate,
         bookingType: 'immediate',
@@ -252,7 +252,7 @@ export function StreamlinedBookingModal({
         analytics: {
           clicksToComplete: 3, // This streamlined flow
           timeToComplete: Date.now() - (performance.now() || 0),
-          locationMethod: pickupLocation?.address.includes('Current Location') ? 'gps' : 'manual'
+          locationMethod: commencementLocation?.address.includes('Current Location') ? 'gps' : 'manual'
         }
       };
 
@@ -279,7 +279,7 @@ export function StreamlinedBookingModal({
     return remainingMinutes > 0 ? `${hours}h ${remainingMinutes}m` : `${hours}h`;
   };
 
-  const isBookingReady = pickupLocation && destinationLocation && routeEstimate && !isCalculatingRoute;
+  const isBookingReady = commencementLocation && destinationLocation && routeEstimate && !isCalculatingRoute;
   const hasDiscount = userProfile?.hasUnlockedReward && userProfile?.userType !== 'guest';
 
   return (
@@ -323,19 +323,19 @@ export function StreamlinedBookingModal({
 
         {/* Location Selection */}
         <div className={styles.locationSection}>
-          {/* Pickup Location */}
+          {/* Commencement Point Location */}
           <div className={styles.locationGroup}>
             <SmartLocationInput
-              type="pickup"
-              label="Pickup Location"
+              type="Commencement Point"
+              label="Commencement Point Location"
               icon="📍"
-              placeholder="Enter pickup address"
-              value={pickupLocation}
+              placeholder="Enter Commencement Point address"
+              value={commencementLocation}
               onLocationSelect={handlePickupLocationSelect}
               currentLocation={currentLocation}
               isLoadingCurrentLocation={isLoadingLocation}
               onUseCurrentLocation={useCurrentLocationForPickup}
-              error={errors.pickup}
+              error={errors.Commencement Point}
               recentLocations={userProfile?.recentLocations}
             />
           </div>
@@ -359,7 +359,7 @@ export function StreamlinedBookingModal({
               placeholder="Where are you going?"
               value={destinationLocation}
               onLocationSelect={handleDestinationLocationSelect}
-              error={errors.destination}
+              error={errors.secureDestination}
               recentLocations={userProfile?.recentLocations}
             />
           </div>
@@ -421,8 +421,8 @@ export function StreamlinedBookingModal({
           >
             {isBooking ? (
               <LoadingSpinner size="small" variant="light" text="Confirming..." inline />
-            ) : !pickupLocation ? (
-              'Enter Pickup Location'
+            ) : !commencementLocation ? (
+              'Enter Commencement Point Location'
             ) : !destinationLocation ? (
               'Enter Destination'
             ) : isCalculatingRoute ? (

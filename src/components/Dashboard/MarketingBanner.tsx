@@ -26,7 +26,7 @@ const marketingData = {
   currentRidesFunded: 3742,
   currentMembers: 1247,
   averageSavings: 32,
-  testimonial: "I save enough to cover my subscription in just 3 rides! - Sarah M.",
+  testimonial: "I save enough to cover my subscription in just 3 Assignments! - Sarah M.",
   urgencyMessage: "753 spots remaining at founding member price",
   impactStats: {
     monthly: 278,
@@ -102,7 +102,7 @@ export function MarketingBanner({
     }, 3000);
   }, []);
 
-  // Animate the rides counter with smooth easing
+  // Animate the Assignments counter with smooth easing
   const animateCounter = useCallback(() => {
     const start = 3700;
     const target = marketingData.currentRidesFunded;

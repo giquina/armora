@@ -74,7 +74,7 @@ export function JourneyCostCalculator({ onCalculate }: JourneyCostCalculatorProp
           <input
             type="text"
             className={styles.input}
-            placeholder="Enter pickup address or postcode"
+            placeholder="Enter Commencement Point address or postcode"
             value={fromAddress}
             onChange={(e) => setFromAddress(e.target.value)}
           />
@@ -85,7 +85,7 @@ export function JourneyCostCalculator({ onCalculate }: JourneyCostCalculatorProp
           <input
             type="text"
             className={styles.input}
-            placeholder="Enter destination address or postcode"
+            placeholder="Enter secureDestination address or postcode"
             value={toAddress}
             onChange={(e) => setToAddress(e.target.value)}
           />

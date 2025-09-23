@@ -53,7 +53,7 @@ const SERVICE_OPTIONS: ServiceOption[] = [
     id: 'client-vehicle',
     name: 'Client Vehicle Service',
     price: '£55/hour',
-    description: 'Security-trained driver for your vehicle',
+    description: 'Security-trained Protection Officer for your vehicle',
     icon: '🔑',
     features: ['Your vehicle', 'No mileage charges', 'Enhanced privacy']
   }
@@ -131,8 +131,8 @@ export function WhereWhenView({ onContinueToPayment, preSelectedServiceId, preSe
     }
 
     const locationData: LocationData = {
-      pickup: fromLocation,
-      destination: toLocation.trim(),
+      commencementPoint: fromLocation,
+      secureDestination: toLocation.trim(),
       estimatedDistance: 10,
       estimatedDuration: 30
     };
@@ -242,7 +242,7 @@ export function WhereWhenView({ onContinueToPayment, preSelectedServiceId, preSe
               <input
                 ref={toLocationRef}
                 className={styles.locationInput}
-                placeholder="Enter destination address"
+                placeholder="Enter secureDestination address"
                 value={toLocation}
                 onChange={(e) => setToLocation(e.target.value)}
               />

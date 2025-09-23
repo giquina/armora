@@ -21,10 +21,10 @@ export interface AchievementBanner {
 export const achievements: Achievement[] = [
   {
     id: '1',
-    name: 'First Ride Discount',
+    name: 'First Assignment Discount',
     status: 'unlocked',
     reward: '50% off',
-    description: 'Your first ride (up to £15)',
+    description: 'Your first Assignment (up to £15)',
   },
   {
     id: '2',
@@ -41,7 +41,7 @@ export const achievements: Achievement[] = [
     status: 'locked',
     reward: 'VIP trial',
     description: 'Unlock VIP status',
-    requirement: '5 rides',
+    requirement: '5 Assignments',
   },
 ];
 

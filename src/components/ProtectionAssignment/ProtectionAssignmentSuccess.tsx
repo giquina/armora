@@ -84,7 +84,7 @@ export function ProtectionAssignmentSuccess({ assignmentId }: ProtectionAssignme
               <span className={styles.stepNumber}>2</span>
               <div className={styles.stepContent}>
                 <h4>Pre-Arrival Contact</h4>
-                <p>Your officer will contact you 10 minutes before pickup</p>
+                <p>Your officer will contact you 10 minutes before Commencement Point</p>
               </div>
             </div>
             

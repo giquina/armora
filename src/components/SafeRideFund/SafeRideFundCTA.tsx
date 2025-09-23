@@ -26,7 +26,7 @@ const SafeRideFundCTA: React.FC<SafeRideFundCTAProps> = ({ onClick }) => {
       <button
         className={styles.ctaButton}
         onClick={handleClick}
-        aria-label="Learn about Safe Ride Fund impact"
+        aria-label="Learn about Safe Assignment Fund impact"
       >
         <span className={styles.ctaText}>
           🛡️ Learn About Our Impact

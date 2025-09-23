@@ -148,7 +148,7 @@ export function ServiceCard({
           <div className={styles.rateMinimum}>(2-hour minimum)</div>
         </div>
 
-        {/* Rating and Rides */}
+        {/* Rating and Assignments */}
         <div className={styles.ratingSection}>
           <span className={styles.rating}>{service.rating}</span>
           <span className={styles.totalRides}>{service.totalRides}</span>

@@ -18,7 +18,7 @@ interface LocationSuggestion {
 }
 
 interface SmartLocationInputProps {
-  type: 'pickup' | 'destination';
+  type: 'Commencement Point' | 'destination';
   label: string;
   icon: string;
   placeholder: string;
@@ -64,12 +64,12 @@ export function SmartLocationInput({
   const generateSmartSuggestions = useCallback((): LocationSuggestion[] => {
     const suggestions: LocationSuggestion[] = [];
 
-    // Current Location (for pickup only)
-    if (type === 'pickup' && currentLocation) {
+    // Current Location (for Commencement Point only)
+    if (type === 'Commencement Point' && currentLocation) {
       suggestions.push({
         id: 'current',
         address: 'Current Location',
-        description: 'Use GPS location for pickup',
+        description: 'Use GPS location for Commencement Point',
         type: 'current',
         location: currentLocation
       });
@@ -364,8 +364,8 @@ export function SmartLocationInput({
           autoComplete="off"
         />
 
-        {/* Current Location Button (pickup only) */}
-        {type === 'pickup' && onUseCurrentLocation && (
+        {/* Current Location Button (Commencement Point only) */}
+        {type === 'Commencement Point' && onUseCurrentLocation && (
           <button
             type="button"
             className={styles.currentLocationButton}

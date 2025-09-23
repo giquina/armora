@@ -14,7 +14,7 @@ export function CompactTimePicker({
   onTimeSelect,
   disabled = false,
   autoFocus = false,
-  label = 'Pickup Time:'
+  label = 'Commencement Point Time:'
 }: CompactTimePickerProps) {
   const [hour, setHour] = useState(1);
   const [minute, setMinute] = useState(0);

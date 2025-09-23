@@ -19,7 +19,7 @@ export function PricingDisplay({
   showActions = true
 }: PricingDisplayProps) {
   const { components, discounts, subtotal, total } = pricingBreakdown;
-  const { protectionLevel, destination, venueTimeData } = protectionRequest;
+  const { protectionLevel, secureDestination, venueTimeData } = protectionRequest;
 
   const formatDestination = (dest: string) => {
     return dest.length > 40 ? `${dest.substring(0, 40)}...` : dest;
@@ -51,7 +51,7 @@ export function PricingDisplay({
         <div className={styles.headerContent}>
           <h2 className={styles.title}>Service Pricing</h2>
           <p className={styles.subtitle}>
-            {protectionLevel.name} to {formatDestination(destination)}
+            {protectionLevel.name} to {formatDestination(secureDestination)}
           </p>
         </div>
       </div>
@@ -201,7 +201,7 @@ export function PricingDisplay({
       <div className={styles.legalFooter}>
         <p className={styles.legalText}>
           Armora provides SIA-licensed close protection services including secure transport.
-          This is not a taxi or private hire vehicle service. All pricing is inclusive of VAT where applicable.
+          This is not a Protection Service or private hire vehicle service. All pricing is inclusive of VAT where applicable.
         </p>
       </div>
     </div>

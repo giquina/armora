@@ -208,13 +208,13 @@ Thank you,
                   <div className={styles.preservedItem}>
                     <span className={styles.preservedLabel}>Starting Point:</span>
                     <span className={styles.preservedValue}>
-                      {preservedState.protectionAssignmentData.pickup}
+                      {preservedState.protectionAssignmentData.commencementPoint}
                     </span>
                   </div>
                   <div className={styles.preservedItem}>
                     <span className={styles.preservedLabel}>Secure Destination:</span>
                     <span className={styles.preservedValue}>
-                      {preservedState.protectionAssignmentData.destination}
+                      {preservedState.protectionAssignmentData.secureDestination}
                     </span>
                   </div>
                   <div className={styles.preservedItem}>

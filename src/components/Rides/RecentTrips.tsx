@@ -104,7 +104,7 @@ export function RecentServices({ onRebook, onAddToFavorites, maxItems = 5 }: Rec
         <div className={styles.emptyIcon}>🎯</div>
         <h3 className={styles.emptyTitle}>No Recent Services</h3>
         <p className={styles.emptyText}>
-          Your completed journeys will appear here after your first ride with Armora.
+          Your completed journeys will appear here after your first Assignment with Armora.
         </p>
         <button
           className={styles.emptyAction}
@@ -121,15 +121,15 @@ export function RecentServices({ onRebook, onAddToFavorites, maxItems = 5 }: Rec
       <h2 className={styles.sectionTitle}>🚗 Recent Journeys</h2>
 
       <div className={styles.tripsList}>
-        {history.map((trip) => (
-          <div key={trip.id} className={styles.tripCard}>
+        {history.map((Protection Detail) => (
+          <div key={Protection Detail.id} className={styles.tripCard}>
             <div className={styles.tripHeader}>
               <div className={styles.dateTimeInfo}>
-                <span className={styles.date}>{formatDate(trip.date)}</span>
-                <span className={styles.time}>{formatTime(trip.time)}</span>
+                <span className={styles.date}>{formatDate(Protection Detail.date)}</span>
+                <span className={styles.time}>{formatTime(Protection Detail.time)}</span>
               </div>
-              <div className={`${styles.serviceBadge} ${getServiceBadgeClass(trip.service)}`}>
-                {trip.serviceName}
+              <div className={`${styles.serviceBadge} ${getServiceBadgeClass(Protection Detail.service)}`}>
+                {Protection Detail.serviceName}
               </div>
             </div>
 
@@ -137,12 +137,12 @@ export function RecentServices({ onRebook, onAddToFavorites, maxItems = 5 }: Rec
               <div className={styles.route}>
                 <div className={styles.location}>
                   <span className={styles.locationIcon}>📍</span>
-                  <span className={styles.locationText}>{shortenAddress(trip.from)}</span>
+                  <span className={styles.locationText}>{shortenAddress(Protection Detail.from)}</span>
                 </div>
                 <div className={styles.routeArrow}>→</div>
                 <div className={styles.location}>
                   <span className={styles.locationIcon}>🎯</span>
-                  <span className={styles.locationText}>{shortenAddress(trip.to)}</span>
+                  <span className={styles.locationText}>{shortenAddress(Protection Detail.to)}</span>
                 </div>
               </div>
             </div>
@@ -150,18 +150,18 @@ export function RecentServices({ onRebook, onAddToFavorites, maxItems = 5 }: Rec
             <div className={styles.tripDetails}>
               <div className={styles.detailItem}>
                 <span className={styles.detailIcon}>💰</span>
-                <span className={styles.detailText}>{trip.price}</span>
+                <span className={styles.detailText}>{Protection Detail.price}</span>
               </div>
-              {trip.protectionOfficer && (
+              {Protection Detail.protectionOfficer && (
                 <div className={styles.detailItem}>
                   <span className={styles.detailIcon}>👨‍💼</span>
-                  <span className={styles.detailText}>{trip.protectionOfficer}</span>
+                  <span className={styles.detailText}>{Protection Detail.protectionOfficer}</span>
                 </div>
               )}
-              {trip.frequency > 1 && (
+              {Protection Detail.frequency > 1 && (
                 <div className={styles.detailItem}>
                   <span className={styles.detailIcon}>🔄</span>
-                  <span className={styles.detailText}>{trip.frequency}x booked</span>
+                  <span className={styles.detailText}>{Protection Detail.frequency}x booked</span>
                 </div>
               )}
             </div>
@@ -169,21 +169,21 @@ export function RecentServices({ onRebook, onAddToFavorites, maxItems = 5 }: Rec
             <div className={styles.tripActions}>
               <button
                 className={styles.rebookButton}
-                onClick={() => handleRebook(trip)}
+                onClick={() => handleRebook(Protection Detail)}
               >
                 🔄 Book Again
               </button>
 
-              {!isRouteInFavorites(trip) && (
+              {!isRouteInFavorites(Protection Detail) && (
                 <button
                   className={styles.favoriteButton}
-                  onClick={() => handleAddToFavorites(trip)}
+                  onClick={() => handleAddToFavorites(Protection Detail)}
                 >
                   ⭐ Add Favorite
                 </button>
               )}
 
-              {isRouteInFavorites(trip) && (
+              {isRouteInFavorites(Protection Detail) && (
                 <div className={styles.favoriteIndicator}>
                   <span className={styles.favoriteIcon}>⭐</span>
                   <span className={styles.favoriteText}>Favorite</span>
@@ -197,7 +197,7 @@ export function RecentServices({ onRebook, onAddToFavorites, maxItems = 5 }: Rec
       {history.length === maxItems && (
         <button
           className={styles.viewAllButton}
-          onClick={() => navigateToView('rides')}
+          onClick={() => navigateToView('Assignments')}
         >
           View All Services →
         </button>

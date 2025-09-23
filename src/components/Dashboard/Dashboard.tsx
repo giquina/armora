@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useApp } from '../../contexts/AppContext';
+import { useAuth } from '../../contexts/AuthContext';
+import { useProtectionAssignments, useSafeRideFundStats, useUserProfile, useNotifications } from '../../hooks/useSupabaseData';
 import { Button } from '../UI/Button';
 import { ServiceCard } from './ServiceCard';
 // import { CreatorImpactWidget } from './CreatorImpactWidget';
@@ -25,7 +27,7 @@ const convertToServiceLevel = (): ServiceLevel[] => {
     vehicle: service.id === 'standard' ? 'Nissan Leaf EV' :
              service.id === 'executive' ? 'BMW 5 Series' :
              service.id === 'client-vehicle' ? 'Your Personal Vehicle' : 'Protected BMW X5',
-    capacity: service.id === 'client-vehicle' ? 'Any vehicle size' : '4 passengers',
+    capacity: service.id === 'client-vehicle' ? 'Any vehicle size' : '4 Principals',
     driverQualification: service.id === 'standard' || service.id === 'client-vehicle' ? 'SIA Level 2 Security Certified' :
                         service.id === 'executive' ? 'SIA Level 3 Security Certified' : 'Special Forces Trained',
     description: service.description,
@@ -37,7 +39,12 @@ const ARMORA_SERVICES: ServiceLevel[] = convertToServiceLevel();
 
 export function Dashboard() {
   const { state, navigateToView } = useApp();
-  const { user, questionnaireData, deviceCapabilities } = state;
+  const { user: legacyUser, questionnaireData, deviceCapabilities } = state;
+  const { user, profile } = useAuth();
+  const { assignments, loading: assignmentsLoading } = useProtectionAssignments();
+  const { stats: safeRideFundStats } = useSafeRideFundStats();
+  const { profile: extendedProfile } = useUserProfile();
+  const { notifications } = useNotifications();
   const [showRewardBanner, setShowRewardBanner] = useState(false);
   const [currentCarouselIndex, setCurrentCarouselIndex] = useState(0);
 
@@ -45,10 +52,12 @@ export function Dashboard() {
   // Check if user has unlocked reward and hasn't dismissed banner
   useEffect(() => {
     // ALWAYS show reward banner for eligible users (non-guests)
-    const isEligible = user?.userType !== 'guest';
+    // Use legacy user for backward compatibility, fallback to Supabase user
+    const currentUser = legacyUser || user;
+    const isEligible = currentUser && (legacyUser?.userType !== 'guest' || user?.email);
     const hasSeenBanner = localStorage.getItem('armora_reward_banner_dismissed');
     setShowRewardBanner(Boolean(isEligible && !hasSeenBanner));
-  }, [user]);
+  }, [user, legacyUser]);
 
 
   const handleUpgradeAccount = () => {
@@ -71,7 +80,7 @@ export function Dashboard() {
     console.log('[Analytics] Service selected from recommendation', {
       serviceId,
       timestamp: Date.now(),
-      userType: user?.userType
+      userType: legacyUser?.userType || (user ? 'registered' : 'guest')
     });
   };
 
@@ -86,7 +95,7 @@ export function Dashboard() {
     console.log('[Analytics] Direct booking from dashboard card', {
       serviceId: service.id,
       timestamp: Date.now(),
-      userType: user?.userType,
+      userType: legacyUser?.userType || (user ? 'registered' : 'guest'),
       source: 'dashboard_card'
     });
   };
@@ -215,7 +224,7 @@ export function Dashboard() {
   const recommendedService = getPersonalizedRecommendation();
 
   // For guest users - show limited interface
-  if (user?.userType === 'guest') {
+  if (legacyUser?.userType === 'guest') {
     return (
       <div className={styles.dashboard}>
         {/* Booking Search Interface for Guests */}
@@ -267,7 +276,7 @@ export function Dashboard() {
                 onSelect={() => {}} // No selection for guests
                 mode="preview"
                 isRecommended={false}
-                userType={user?.userType}
+                userType={legacyUser?.userType || (user ? 'registered' : 'guest')}
                 onDirectBook={handleDirectBooking}
               />
             ))}
@@ -340,7 +349,7 @@ export function Dashboard() {
       <div className={styles.recommendationSection}>
         <SmartRecommendation
           services={ARMORA_SERVICES}
-          user={user}
+          user={legacyUser}
           questionnaireData={questionnaireData}
           onServiceSelect={handleServiceSelection}
         />
@@ -541,7 +550,7 @@ export function Dashboard() {
                 onSelect={() => {}} // No selection - just display
                 mode="preview" // Info display only
                 isRecommended={recommendedService === service.id}
-                userType={user?.userType}
+                userType={legacyUser?.userType || (user ? 'registered' : 'guest')}
                 onDirectBook={handleDirectBooking}
               />
             </div>
@@ -569,7 +578,7 @@ export function Dashboard() {
 
 
 
-      {/* Safe Ride Fund Modal */}
+      {/* Safe Assignment Fund Modal */}
       {/* {showSafeRideModal && (
         <ArmoraFoundationModal onClose={() => setShowSafeRideModal(false)} />
       )} */}

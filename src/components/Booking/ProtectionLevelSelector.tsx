@@ -11,7 +11,7 @@ export interface ProtectionLevel {
 }
 
 interface ProtectionLevelSelectorProps {
-  destination: string;
+  secureDestination: string;
   onProtectionLevelSelect: (level: ProtectionLevel) => void;
   onBack?: () => void;
 }
@@ -46,7 +46,7 @@ const PROTECTION_LEVELS: ProtectionLevel[] = [
 ];
 
 export function ProtectionLevelSelector({
-  destination,
+  secureDestination,
   onProtectionLevelSelect,
   onBack
 }: ProtectionLevelSelectorProps) {
@@ -55,26 +55,26 @@ export function ProtectionLevelSelector({
 
   useEffect(() => {
     // Generate smart suggestions based on destination
-    const suggestion = generateSmartSuggestion(destination);
+    const suggestion = generateSmartSuggestion(secureDestination);
     setSmartRecommendation(suggestion);
-  }, [destination]);
+  }, [secureDestination]);
 
   const generateSmartSuggestion = (dest: string): string | null => {
-    const destination = dest.toLowerCase();
+    const secureDestination = dest.toLowerCase();
 
-    if (destination.includes('harrods') || destination.includes('selfridges') || destination.includes('shopping') || destination.includes('mall')) {
+    if (secureDestination.includes('harrods') || secureDestination.includes('selfridges') || secureDestination.includes('shopping') || secureDestination.includes('mall')) {
       return '💡 Recommended: Personal Protection for shopping assistance';
     }
 
-    if (destination.includes('airport') || destination.includes('heathrow') || destination.includes('gatwick')) {
+    if (secureDestination.includes('airport') || secureDestination.includes('heathrow') || secureDestination.includes('gatwick')) {
       return '💡 Recommended: Personal Protection for check-in assistance';
     }
 
-    if (destination.includes('restaurant') || destination.includes('bar') || destination.includes('club') || destination.includes('pub')) {
+    if (secureDestination.includes('restaurant') || secureDestination.includes('bar') || secureDestination.includes('club') || secureDestination.includes('pub')) {
       return '💡 Popular choice: Personal Protection for evening safety';
     }
 
-    if (destination.includes('office') || destination.includes('business') || destination.includes('meeting')) {
+    if (secureDestination.includes('office') || secureDestination.includes('business') || secureDestination.includes('meeting')) {
       return '💡 Most choose: Transport Protection for privacy';
     }
 
@@ -103,7 +103,7 @@ export function ProtectionLevelSelector({
         )}
         <div className={styles.headerContent}>
           <h2 className={styles.title}>
-            How would you like to be protected at {formatDestination(destination)}?
+            How would you like to be protected at {formatDestination(secureDestination)}?
           </h2>
           <p className={styles.subtitle}>Choose your level of protection</p>
         </div>
@@ -163,7 +163,7 @@ export function ProtectionLevelSelector({
       <div className={styles.legalFooter}>
         <p className={styles.legalText}>
           Armora provides SIA-licensed close protection services including secure transport.
-          This is not a taxi or private hire vehicle service. Protection officers may accompany
+          This is not a Protection Service or private hire vehicle service. Protection officers may accompany
           clients at venues as part of comprehensive security services.
         </p>
       </div>

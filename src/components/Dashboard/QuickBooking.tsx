@@ -19,11 +19,11 @@ interface QuickBookingProps {
 }
 
 export function QuickBooking({ onBookNow, selectedService, isLoading = false, userType = 'guest' }: QuickBookingProps) {
-  const [pickupLocation, setPickupLocation] = useState<Location | undefined>();
+  const [commencementLocation, setPickupLocation] = useState<Location | undefined>();
   const [destinationLocation, setDestinationLocation] = useState<Location | undefined>();
   const [currentLocation, setCurrentLocation] = useState<Location | null>(null);
   const [isLoadingLocation, setIsLoadingLocation] = useState(false);
-  const [editMode, setEditMode] = useState<'pickup' | 'destination' | null>(null);
+  const [editMode, setEditMode] = useState<'Commencement Point' | 'destination' | null>(null);
   const [scheduledTime, setScheduledTime] = useState('');
   const [isScheduled, setIsScheduled] = useState(false);
   const [multiStops, setMultiStops] = useState<Location[]>([]);
@@ -51,11 +51,11 @@ export function QuickBooking({ onBookNow, selectedService, isLoading = false, us
 
       // Reject inaccurate locations (over 50m)
       if (accuracy > 50) {
-        console.warn(`Location too inaccurate: ${accuracy}m. GPS required for precise pickup.`);
+        console.warn(`Location too inaccurate: ${accuracy}m. GPS required for precise Commencement Point.`);
         setCurrentLocation(null);
 
         // You could show a toast notification here
-        alert(`Location accuracy is ${accuracy}m. Please enable precise location/GPS for accurate pickup, or enter your address manually.`);
+        alert(`Location accuracy is ${accuracy}m. Please enable precise location/GPS for accurate Commencement Point, or enter your address manually.`);
         return;
       }
 
@@ -67,7 +67,7 @@ export function QuickBooking({ onBookNow, selectedService, isLoading = false, us
 
       console.log(`✅ Accurate GPS location: ${accuracy}m accuracy`);
       setCurrentLocation(location);
-      if (!pickupLocation) {
+      if (!commencementLocation) {
         setPickupLocation(location);
       }
 
@@ -118,7 +118,7 @@ export function QuickBooking({ onBookNow, selectedService, isLoading = false, us
     setEditMode(null);
   }, []);
 
-  const toggleMapEdit = (mode: 'pickup' | 'destination') => {
+  const toggleMapEdit = (mode: 'Commencement Point' | 'destination') => {
     if (editMode === mode) {
       setEditMode(null);
     } else {
@@ -163,7 +163,7 @@ export function QuickBooking({ onBookNow, selectedService, isLoading = false, us
   const handleQuickBook = () => {
     // Store comprehensive booking details for the booking flow
     const bookingData = {
-      pickupLocation,
+      commencementLocation,
       destinationLocation,
       multiStops: multiStops.filter(stop => stop.address?.trim()),
       selectedService,
@@ -183,7 +183,7 @@ export function QuickBooking({ onBookNow, selectedService, isLoading = false, us
     onBookNow();
   };
 
-  const isReadyToBook = pickupLocation?.address && selectedService && (!isScheduled || scheduledTime);
+  const isReadyToBook = commencementLocation?.address && selectedService && (!isScheduled || scheduledTime);
 
   // Check if Shadow service should be available (premium vehicle owners only)
   const shouldShowShadow = userType === 'registered' || userType === 'google';
@@ -193,14 +193,14 @@ export function QuickBooking({ onBookNow, selectedService, isLoading = false, us
       {/* Header */}
       <div className={styles.header}>
         <h2 className={styles.title}>Quick Request</h2>
-        <p className={styles.subtitle}>Set your pickup and destination</p>
+        <p className={styles.subtitle}>Set your Commencement Point and destination</p>
         <p className={styles.mapNote}>Map and all options available below</p>
       </div>
 
       {/* Interactive Map - Always Visible */}
       <div className={styles.mapSection}>
         <BookingMap
-          pickup={pickupLocation}
+          Commencement Point={commencementLocation}
           destination={destinationLocation}
           onPickupChange={handlePickupChange}
           onDestinationChange={handleDestinationChange}
@@ -211,23 +211,23 @@ export function QuickBooking({ onBookNow, selectedService, isLoading = false, us
 
       {/* Location Inputs */}
       <div className={styles.locationInputs}>
-        {/* Pickup Location */}
+        {/* Commencement Point Location */}
         <div className={styles.inputGroup}>
-          <label className={styles.inputLabel} htmlFor="pickup-location">
+          <label className={styles.inputLabel} htmlFor="Commencement Point-location">
             <span className={styles.locationIcon}>📍</span>
-            Pickup Location
-            {editMode === 'pickup' && <span className={styles.editingIndicator}>✏️ Editing</span>}
+            Commencement Point Location
+            {editMode === 'Commencement Point' && <span className={styles.editingIndicator}>✏️ Editing</span>}
           </label>
           <div className={styles.inputWrapper}>
             <input
-              id="pickup-location"
+              id="Commencement Point-location"
               type="text"
-              className={`${styles.locationInput} ${editMode === 'pickup' ? styles.editing : ''}`}
-              placeholder="Enter pickup address or use current location"
-              value={pickupLocation?.address || ''}
+              className={`${styles.locationInput} ${editMode === 'Commencement Point' ? styles.editing : ''}`}
+              placeholder="Enter Commencement Point address or use current location"
+              value={commencementLocation?.address || ''}
               onChange={(e) => {
-                if (pickupLocation) {
-                  setPickupLocation({ ...pickupLocation, address: e.target.value });
+                if (commencementPointLocation) {
+                  setPickupLocation({ ...commencementPointLocation, address: e.target.value });
                 }
               }}
               onFocus={() => {}} // Map is always visible
@@ -251,8 +251,8 @@ export function QuickBooking({ onBookNow, selectedService, isLoading = false, us
               </button>
               <button
                 type="button"
-                className={`${styles.mapEditButton} ${editMode === 'pickup' ? styles.active : ''}`}
-                onClick={() => toggleMapEdit('pickup')}
+                className={`${styles.mapEditButton} ${editMode === 'Commencement Point' ? styles.active : ''}`}
+                onClick={() => toggleMapEdit('Commencement Point')}
                 title="Edit on map"
               >
                 🗺️
@@ -283,11 +283,11 @@ export function QuickBooking({ onBookNow, selectedService, isLoading = false, us
               id="destination-location"
               type="text"
               className={`${styles.locationInput} ${editMode === 'destination' ? styles.editing : ''}`}
-              placeholder="Enter destination address"
+              placeholder="Enter secureDestination address"
               value={destinationLocation?.address || ''}
               onChange={(e) => {
-                if (destinationLocation) {
-                  setDestinationLocation({ ...destinationLocation, address: e.target.value });
+                if (secureDestinationLocation) {
+                  setDestinationLocation({ ...secureDestinationLocation, address: e.target.value });
                 } else {
                   setDestinationLocation({ lat: 0, lng: 0, address: e.target.value });
                 }
@@ -369,7 +369,7 @@ export function QuickBooking({ onBookNow, selectedService, isLoading = false, us
                   <SchedulingPicker
                     selectedDateTime={scheduledTime}
                     onDateTimeChange={setScheduledTime}
-                    label="Choose your pickup date and time"
+                    label="Choose your Commencement Point date and time"
                   />
                 </div>
               )}
@@ -406,8 +406,8 @@ export function QuickBooking({ onBookNow, selectedService, isLoading = false, us
               </h3>
               <p className={styles.bookingOptionDescription}>
                 {isScheduled
-                  ? `Pickup at ${formatScheduledTime() || 'your chosen time'}`
-                  : 'Immediate pickup (5-15 minutes)'
+                  ? `Commencement Point at ${formatScheduledTime() || 'your chosen time'}`
+                  : 'Immediate Commencement Point (5-15 minutes)'
                 }
               </p>
             </div>
@@ -425,8 +425,8 @@ export function QuickBooking({ onBookNow, selectedService, isLoading = false, us
               <LoadingSpinner size="small" variant="light" text="Preparing..." inline />
             ) : !selectedService ? (
               'Select Service First'
-            ) : !pickupLocation?.address ? (
-              'Enter Pickup Location'
+            ) : !commencementLocation?.address ? (
+              'Enter Commencement Point Location'
             ) : isScheduled && !scheduledTime ? (
               'Set Schedule Time'
             ) : isScheduled ? (
@@ -444,7 +444,7 @@ export function QuickBooking({ onBookNow, selectedService, isLoading = false, us
           {isScheduled && scheduledTime && (
             <div className={styles.scheduledInfo}>
               <span className={styles.scheduledIcon}>⏰</span>
-              <span>Pickup at {formatScheduledTime()}</span>
+              <span>Commencement Point at {formatScheduledTime()}</span>
             </div>
           )}
           {multiStops.length > 0 && (
@@ -464,7 +464,7 @@ export function QuickBooking({ onBookNow, selectedService, isLoading = false, us
         </div>
         <div className={styles.statItem}>
           <span className={styles.statNumber}>{isScheduled ? 'Custom' : '5-15'}</span>
-          <span className={styles.statLabel}>{isScheduled ? 'Time' : 'Min pickup'}</span>
+          <span className={styles.statLabel}>{isScheduled ? 'Time' : 'Min Commencement Point'}</span>
         </div>
         <div className={styles.statItem}>
           <span className={styles.statNumber}>{calculateEstimatedDuration()}</span>
@@ -472,7 +472,7 @@ export function QuickBooking({ onBookNow, selectedService, isLoading = false, us
         </div>
         <div className={styles.statItem}>
           <span className={styles.statNumber}>15k+</span>
-          <span className={styles.statLabel}>Secure trips</span>
+          <span className={styles.statLabel}>Secure Protection Details</span>
         </div>
       </div>
 

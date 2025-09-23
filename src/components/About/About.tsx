@@ -35,7 +35,7 @@ export function About({ onBack }: AboutProps) {
           <div className={styles.heroBadge}>
             <span className={styles.badgeIcon}>🛡️</span>
             <span className={styles.badgeText}>
-              Every Driver is a SIA-Licensed Close Protection Officer
+              Every Protection Officer is a SIA-Licensed Close Protection Officer
             </span>
           </div>
         </div>
@@ -76,7 +76,7 @@ export function About({ onBack }: AboutProps) {
             </div>
             <div className={styles.differenceItem}>
               <span className={styles.differenceIcon}>🎖️</span>
-              <h3 className={styles.differenceTitle}>No "Basic" Drivers</h3>
+              <h3 className={styles.differenceTitle}>No "Basic" Protection Officers</h3>
               <p className={styles.differenceText}>
                 All are Close Protection trained specialists
               </p>

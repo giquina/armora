@@ -268,7 +268,7 @@ export const personalizedContent: PersonalizedContentMap = {
   healthcare: {
     step2: {
       title: "Medical Professional Benefits",
-      example: "Senior consultants get drivers who understand on-call schedules and hospital protocols. One neurosurgeon's team manages urgent callouts, knows every London hospital's staff entrance, and handles equipment transport.",
+      example: "Senior consultants get Protection Officers who understand on-call schedules and hospital protocols. One neurosurgeon's team manages urgent callouts, knows every London hospital's staff entrance, and handles equipment transport.",
       withName: "[Name], as a healthcare professional, your team will adapt to on-call schedules, know hospital protocols, and manage urgent medical callouts.",
       benefits: ["Hospital access knowledge", "On-call flexibility", "Medical priority understanding"]
     },
@@ -292,7 +292,7 @@ export const personalizedContent: PersonalizedContentMap = {
     },
     step6: {
       title: "Healthcare Priority Protocols",
-      example: "Immediate response for medical priorities, with drivers trained in priority blue-light cooperation.",
+      example: "Immediate response for medical priorities, with Protection Officers trained in priority blue-light cooperation.",
       withName: "[Name], your priority protocols include priority response for medical callouts and patient emergencies.",
       benefits: ["Medical priority response", "Blue-light cooperation", "Priority dispatch"]
     },
@@ -370,7 +370,7 @@ export const personalizedContent: PersonalizedContentMap = {
   entertainment: {
     step2: {
       title: "Entertainment Industry Benefits",
-      example: "Performers get teams trained in venue protocols and crowd management. One West End star's regular drivers know every stage door, handle paparazzi situations, and coordinate with venue security teams.",
+      example: "Performers get teams trained in venue protocols and crowd management. One West End star's regular Protection Officers know every stage door, handle paparazzi situations, and coordinate with venue security teams.",
       withName: "[Name], as an entertainer, your security team will be trained in discrete crowd management, venue protocols, and media interaction handling.",
       benefits: ["Venue expertise", "Paparazzi management", "Fan interaction protocols"]
     },
@@ -593,7 +593,7 @@ export const personalizedContent: PersonalizedContentMap = {
     step5: {
       title: "Family Special Services",
       example: "School run management, activity coordination, and safe transport for children's friends.",
-      withName: "[Name], we'll manage complex school runs, coordinate activities, and safely transport young passengers.",
+      withName: "[Name], we'll manage complex school runs, coordinate activities, and safely transport young Principals.",
       benefits: ["School runs", "Activity transport", "Friend inclusion"]
     },
     step6: {
@@ -631,7 +631,7 @@ export const personalizedContent: PersonalizedContentMap = {
     },
     step3: {
       title: "Visitor Service Features",
-      example: "Teams providing local expertise, cultural awareness, and tourist destination knowledge.",
+      example: "Teams providing local expertise, cultural awareness, and tourist secureDestination knowledge.",
       withName: "[Name], your officers offer local insights, tourist guidance, and cultural bridge-building.",
       benefits: ["Local expertise", "Tourist guidance", "Cultural bridging"]
     },
@@ -676,7 +676,7 @@ export const personalizedContent: PersonalizedContentMap = {
   student: {
     step2: {
       title: "Student Safety Benefits",
-      example: "University students get affordable protection for late study sessions and social events. One LSE student's regular driver knows all campus buildings and provides safe late-night library returns.",
+      example: "University students get affordable protection for late study sessions and social events. One LSE student's regular Protection Officer knows all campus buildings and provides safe late-night library returns.",
       withName: "[Name], as a student, you'll have officers who understand university life, exam pressures, and the need for safe, affordable transport.",
       benefits: ["Campus expertise", "Student budget consideration", "Late-night availability"]
     },
@@ -778,7 +778,7 @@ export const personalizedContent: PersonalizedContentMap = {
   household: {
     step2: {
       title: "Household Staff Benefits",
-      example: "Estate staff get reliable transport between properties and for employer errands. One Belgravia butler's regular driver manages household logistics, supplier runs, and maintains employer confidentiality.",
+      example: "Estate staff get reliable transport between properties and for employer errands. One Belgravia butler's regular Protection Officer manages household logistics, supplier runs, and maintains employer confidentiality.",
       withName: "[Name], in household service, your transport will support estate logistics, maintain employer confidentiality, and adapt to household schedules.",
       benefits: ["Estate navigation", "Employer confidentiality", "Flexible scheduling"]
     },

@@ -133,7 +133,7 @@ export const selectionFeedbackData: SelectionFeedbackData = {
       description: 'Budget-conscious protection for university students with late study sessions and social safety needs.',
       benefits: [
         'Campus security coordination',
-        'Late library pickup service',
+        'Late library Commencement Point service',
         'Student area coverage',
         'Budget-friendly pricing'
       ],
@@ -143,10 +143,10 @@ export const selectionFeedbackData: SelectionFeedbackData = {
       title: 'International Visitor Service',
       description: 'Tourist-focused protection with local knowledge and cultural sensitivity for UK visitors.',
       benefits: [
-        'Tourist destination expertise',
+        'Tourist secureDestination expertise',
         'Airport transfer coordination',
         'Embassy liaison capabilities',
-        'Multi-lingual driver options'
+        'Multi-lingual Protection Officer options'
       ],
       icon: '✈️'
     },
@@ -179,7 +179,7 @@ export const selectionFeedbackData: SelectionFeedbackData = {
         'Child safety protocols',
         'School run optimization',
         'Family activity coordination',
-        'Multi-passenger accommodation'
+        'Multi-Principal accommodation'
       ],
       icon: '👨‍👩‍👧‍👦'
     },
@@ -190,7 +190,7 @@ export const selectionFeedbackData: SelectionFeedbackData = {
         'Personalized service approach',
         'Flexible scheduling options',
         'Complete London coverage',
-        'Professional driver standards'
+        'Professional Protection Officer standards'
       ],
       icon: '🚗'
     },
@@ -223,7 +223,7 @@ export const selectionFeedbackData: SelectionFeedbackData = {
       title: 'Weekly Service Selected',
       description: 'Regular weekly patterns allow for consistent team assignment and route planning.',
       benefits: [
-        'Familiar driver team rotation',
+        'Familiar Protection Officer team rotation',
         'Weekly schedule coordination',
         'Preferred route establishment',
         'Regular security assessment'
@@ -309,7 +309,7 @@ export const selectionFeedbackData: SelectionFeedbackData = {
         'City and Westminster expertise',
         'Cultural venue knowledge',
         'Business district optimization',
-        'Tourist destination access'
+        'Tourist secureDestination access'
       ],
       icon: '🏙️'
     },
@@ -491,7 +491,7 @@ export const selectionFeedbackData: SelectionFeedbackData = {
       title: 'Medical Assistance Ready',
       description: 'Medical support capabilities with trained staff and emergency response procedures.',
       benefits: [
-        'First aid trained drivers',
+        'First aid trained Protection Officers',
         'Medical equipment transport',
         'Hospital coordination',
         'Emergency response procedures'
@@ -500,9 +500,9 @@ export const selectionFeedbackData: SelectionFeedbackData = {
     },
     'language_interpretation': {
       title: 'Language Support Services',
-      description: 'Multi-lingual drivers and interpretation services for international clients.',
+      description: 'Multi-lingual Protection Officers and interpretation services for international clients.',
       benefits: [
-        'Multi-lingual driver options',
+        'Multi-lingual Protection Officer options',
         'Cultural sensitivity training',
         'International protocol understanding',
         'Communication assistance'
@@ -511,10 +511,10 @@ export const selectionFeedbackData: SelectionFeedbackData = {
     },
     'child_safety': {
       title: 'Child Safety Specialist',
-      description: 'Child safety protocols with appropriate safety equipment and family-trained drivers.',
+      description: 'Child safety protocols with appropriate safety equipment and family-trained Protection Officers.',
       benefits: [
         'Child safety seat provision',
-        'Family-friendly drivers',
+        'Family-friendly Protection Officers',
         'Child protection protocols',
         'School coordination services'
       ],

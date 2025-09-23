@@ -30,8 +30,8 @@ const mockRegisteredUser: User = {
 
 const mockBookingData: BookingData = {
   service: mockEssentialService,
-  pickup: '123 Test Street, London',
-  destination: '456 Demo Avenue, London',
+  Commencement Point: '123 Test Street, London',
+  secureDestination: '456 Demo Avenue, London',
   estimatedDistance: 15,
   estimatedDuration: 35,
   estimatedCost: 26.25,
@@ -86,7 +86,7 @@ describe('Booking Components Basic Tests', () => {
         />
       );
 
-      expect(screen.getByLabelText(/pickup location/i)).toBeInTheDocument();
+      expect(screen.getByLabelText(/Commencement Point location/i)).toBeInTheDocument();
       expect(screen.getByLabelText(/destination/i)).toBeInTheDocument();
     });
 
@@ -212,8 +212,8 @@ describe('Booking Components Basic Tests', () => {
     test('should handle missing data gracefully', () => {
       const incompleteBookingData = {
         ...mockBookingData,
-        pickup: '',
-        destination: ''
+        Commencement Point: '',
+        secureDestination: ''
       };
 
       renderWithProvider(
@@ -276,11 +276,11 @@ describe('Booking Components Basic Tests', () => {
         />
       );
 
-      const pickupInput = screen.getByLabelText(/pickup location/i);
+      const commencementPointInput = screen.getByLabelText(/Commencement Point location/i);
       const destinationInput = screen.getByLabelText(/destination/i);
 
-      expect(pickupInput).toHaveAttribute('aria-required', 'true');
-      expect(destinationInput).toHaveAttribute('aria-required', 'true');
+      expect(commencementPointInput).toHaveAttribute('aria-required', 'true');
+      expect(secureDestinationInput).toHaveAttribute('aria-required', 'true');
     });
   });
 });

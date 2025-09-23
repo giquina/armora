@@ -37,8 +37,8 @@ export function WelcomePage() {
   }, []);
 
   // Helper function for navigation
-  const handleNavigate = (destination: string) => {
-    navigateToView(destination as any);
+  const handleNavigate = (secureDestination: string) => {
+    navigateToView(secureDestination as any);
   };
 
   // Development-only function to skip to dashboard with mock data
@@ -74,7 +74,7 @@ export function WelcomePage() {
       step8_contactPreferences: {
         email: 'test@armora.dev',
         phone: '+44 7700 900000',
-        notifications: ['booking-updates', 'driver-arrival']
+        notifications: ['booking-updates', 'Protection Officer-arrival']
       },
       step9_profileReview: true,
       completedAt: new Date(),
@@ -89,7 +89,7 @@ export function WelcomePage() {
 
   return (
     <SeasonalTheme className={styles.welcomePage}>
-      {/* New unified Safe Ride Fund Banner at top */}
+      {/* New unified Safe Assignment Fund Banner at top */}
       {/* Temporarily commented out due to TS errors - to be fixed in next session */}
       {/* <SafeRideFundBanner variant="compact" className={styles.topBanner} onBannerClick={() => setShowSafeRideModal(true)} /> */}
       {/* Removed legacy impactCounterTop bar */}
@@ -264,7 +264,7 @@ export function WelcomePage() {
         </footer>
       </div>
 
-      {/* Safe Ride Fund CTA */}
+      {/* Safe Assignment Fund CTA */}
       <SafeRideFundCTA onClick={() => {
         console.log('🛡️ WelcomePage: SafeRideFundCTA onClick handler called!');
         setShowSafeRideModal(true);
@@ -276,7 +276,7 @@ export function WelcomePage() {
         onClose={() => setShowCredentialsModal(false)}
       />
 
-      {/* Safe Ride Fund Modal */}
+      {/* Safe Assignment Fund Modal */}
       {showSafeRideModal && (
         <SafeRideFundModal onClose={() => setShowSafeRideModal(false)} />
       )}
