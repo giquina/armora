@@ -204,7 +204,7 @@ export const BookingMap: React.FC<BookingMapProps> = ({
       ]);
       mapRef.current.fitBounds(group.getBounds().pad(0.1));
     }
-  }, [commencementPoint, destination]);
+  }, [commencementPoint, secureDestination]);
 
   const handleMapReady = useCallback(() => {
     // MapContainer passes the map instance internally
@@ -392,7 +392,7 @@ export const BookingMap: React.FC<BookingMapProps> = ({
             <Popup>
               <div className={styles.popupContent}>
                 <strong>🏁 Destination</strong>
-                <p>{destination.address || 'Destination Point'}</p>
+                <p>{secureDestination.address || 'Destination Point'}</p>
                 {editMode === 'destination' && (
                   <small>Drag to adjust position</small>
                 )}

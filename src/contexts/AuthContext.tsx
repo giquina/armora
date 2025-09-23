@@ -10,7 +10,7 @@ import {
   getUserProfile,
   updateUserProfile,
   saveQuestionnaireResponse,
-} from '../utils/supabaseClient';
+} from "../lib/supabase"
 
 interface Profile {
   id: string;

@@ -16,7 +16,7 @@ import {
   activateEmergency,
   getUserAssignments,
   getSafeRideFundStats,
-} from './supabaseClient';
+} from "../lib/supabase"
 
 import { populateDatabase, clearSampleData, getSampleDataStats } from './populateDatabase';
 import { TEST_CREDENTIALS } from './sampleData';

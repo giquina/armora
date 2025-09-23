@@ -252,7 +252,7 @@ export function BookingCalendar({ bookings, onDateSelect, onBookingClick }: Book
                       </span>
                     </div>
                     <div className={styles.route}>
-                      {booking.commencementPointLocation.address.split(',')[0]} → {booking.secureDestination.address.split(',')[0]}
+                      {booking.commencementLocation.address.split(',')[0]} → {booking.secureDestination.address.split(',')[0]}
                     </div>
                     <div className={styles.price}>£{booking.pricing.total}</div>
                   </div>

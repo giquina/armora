@@ -312,7 +312,7 @@ function createFormattedBreakdown(
  * Get estimated journey time based on destination
  */
 export function estimateJourneyTime(secureDestination: string): number {
-  const dest = destination.toLowerCase();
+  const dest = secureDestination.toLowerCase();
 
   // Airport destinations typically take longer
   if (dest.includes('airport') || dest.includes('heathrow') || dest.includes('gatwick')) {
@@ -337,7 +337,7 @@ export function estimateJourneyTime(secureDestination: string): number {
  * Get estimated distance based on destination
  */
 export function estimateDistance(secureDestination: string): number {
-  const dest = destination.toLowerCase();
+  const dest = secureDestination.toLowerCase();
 
   if (dest.includes('airport') || dest.includes('heathrow') || dest.includes('gatwick')) {
     return 25; // 25 miles total
@@ -354,7 +354,7 @@ export function estimateDistance(secureDestination: string): number {
  * Check if parking is likely required for destination
  */
 export function requiresParking(secureDestination: string): boolean {
-  const dest = destination.toLowerCase();
+  const dest = secureDestination.toLowerCase();
 
   // Venues that typically require paid parking
   return dest.includes('shopping') ||
@@ -370,7 +370,7 @@ export function requiresParking(secureDestination: string): boolean {
  * Get protection level recommendation based on destination
  */
 export function getRecommendedProtectionLevel(secureDestination: string): 'transport' | 'personal' {
-  const dest = destination.toLowerCase();
+  const dest = secureDestination.toLowerCase();
 
   // Destinations that typically benefit from personal protection
   if (dest.includes('shopping') ||

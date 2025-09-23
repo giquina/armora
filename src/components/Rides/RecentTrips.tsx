@@ -121,15 +121,15 @@ export function RecentServices({ onRebook, onAddToFavorites, maxItems = 5 }: Rec
       <h2 className={styles.sectionTitle}>🚗 Recent Journeys</h2>
 
       <div className={styles.tripsList}>
-        {history.map((Protection Detail) => (
-          <div key={Protection Detail.id} className={styles.tripCard}>
+        {history.map((protectionDetail) => (
+          <div key={protectionDetail.id} className={styles.tripCard}>
             <div className={styles.tripHeader}>
               <div className={styles.dateTimeInfo}>
-                <span className={styles.date}>{formatDate(Protection Detail.date)}</span>
-                <span className={styles.time}>{formatTime(Protection Detail.time)}</span>
+                <span className={styles.date}>{formatDate(protectionDetail.date)}</span>
+                <span className={styles.time}>{formatTime(protectionDetail.time)}</span>
               </div>
-              <div className={`${styles.serviceBadge} ${getServiceBadgeClass(Protection Detail.service)}`}>
-                {Protection Detail.serviceName}
+              <div className={`${styles.serviceBadge} ${getServiceBadgeClass(protectionDetail.service)}`}>
+                {protectionDetail.serviceName}
               </div>
             </div>
 
@@ -137,12 +137,12 @@ export function RecentServices({ onRebook, onAddToFavorites, maxItems = 5 }: Rec
               <div className={styles.route}>
                 <div className={styles.location}>
                   <span className={styles.locationIcon}>📍</span>
-                  <span className={styles.locationText}>{shortenAddress(Protection Detail.from)}</span>
+                  <span className={styles.locationText}>{shortenAddress(protectionDetail.from)}</span>
                 </div>
                 <div className={styles.routeArrow}>→</div>
                 <div className={styles.location}>
                   <span className={styles.locationIcon}>🎯</span>
-                  <span className={styles.locationText}>{shortenAddress(Protection Detail.to)}</span>
+                  <span className={styles.locationText}>{shortenAddress(protectionDetail.to)}</span>
                 </div>
               </div>
             </div>
@@ -150,18 +150,18 @@ export function RecentServices({ onRebook, onAddToFavorites, maxItems = 5 }: Rec
             <div className={styles.tripDetails}>
               <div className={styles.detailItem}>
                 <span className={styles.detailIcon}>💰</span>
-                <span className={styles.detailText}>{Protection Detail.price}</span>
+                <span className={styles.detailText}>{protectionDetail.price}</span>
               </div>
-              {Protection Detail.protectionOfficer && (
+              {protectionDetail.protectionOfficer && (
                 <div className={styles.detailItem}>
                   <span className={styles.detailIcon}>👨‍💼</span>
-                  <span className={styles.detailText}>{Protection Detail.protectionOfficer}</span>
+                  <span className={styles.detailText}>{protectionDetail.protectionOfficer}</span>
                 </div>
               )}
-              {Protection Detail.frequency > 1 && (
+              {protectionDetail.frequency > 1 && (
                 <div className={styles.detailItem}>
                   <span className={styles.detailIcon}>🔄</span>
-                  <span className={styles.detailText}>{Protection Detail.frequency}x booked</span>
+                  <span className={styles.detailText}>{protectionDetail.frequency}x booked</span>
                 </div>
               )}
             </div>
@@ -169,21 +169,21 @@ export function RecentServices({ onRebook, onAddToFavorites, maxItems = 5 }: Rec
             <div className={styles.tripActions}>
               <button
                 className={styles.rebookButton}
-                onClick={() => handleRebook(Protection Detail)}
+                onClick={() => handleRebook(protectionDetail)}
               >
                 🔄 Book Again
               </button>
 
-              {!isRouteInFavorites(Protection Detail) && (
+              {!isRouteInFavorites(protectionDetail) && (
                 <button
                   className={styles.favoriteButton}
-                  onClick={() => handleAddToFavorites(Protection Detail)}
+                  onClick={() => handleAddToFavorites(protectionDetail)}
                 >
                   ⭐ Add Favorite
                 </button>
               )}
 
-              {isRouteInFavorites(Protection Detail) && (
+              {isRouteInFavorites(protectionDetail) && (
                 <div className={styles.favoriteIndicator}>
                   <span className={styles.favoriteIcon}>⭐</span>
                   <span className={styles.favoriteText}>Favorite</span>

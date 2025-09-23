@@ -84,7 +84,7 @@ export function recordDestinationUsage(
 ): void {
   const preferences = getProtectionPreferences();
   const existingIndex = preferences.commonDestinations.findIndex(
-    d => d.address.toLowerCase() === destination.toLowerCase()
+    d => d.address.toLowerCase() === secureDestination.toLowerCase()
   );
 
   const duration = protectionLevel.type === 'personal' && venueTimeData
@@ -134,7 +134,7 @@ export function getRecommendedProtectionType(secureDestination: string): 'transp
   // Check if user has been to this secureDestination before
   const commonDestination = preferences.commonDestinations.find(
     d => d.address.toLowerCase().includes(secureDestination.toLowerCase()) ||
-         destination.toLowerCase().includes(d.address.toLowerCase())
+         secureDestination.toLowerCase().includes(d.address.toLowerCase())
   );
 
   if (commonDestination) {
@@ -154,7 +154,7 @@ export function getPrefilledVenueTimeData(secureDestination: string): Partial<Ve
   // Find similar secureDestination in history
   const commonDestination = preferences.commonDestinations.find(
     d => d.address.toLowerCase().includes(secureDestination.toLowerCase()) ||
-         destination.toLowerCase().includes(d.address.toLowerCase())
+         secureDestination.toLowerCase().includes(d.address.toLowerCase())
   );
 
   return {

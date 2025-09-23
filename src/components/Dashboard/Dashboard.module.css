@@ -3,7 +3,7 @@
 .dashboard {
   min-height: 100vh;
   background: var(--bg-primary);
-  padding: 0;
+  /* REMOVED: padding: 0; - This was overriding AppLayout's toolbar offset padding */
   padding-bottom: calc(80px + var(--space-xl)); /* Bottom nav height + extra space */
   margin: 0;
   width: 100%;
@@ -3499,5 +3499,104 @@
   .redFlagsSection {
     padding: var(--space-sm);
     margin: var(--space-md) 0;
+  }
+}
+
+/* ========================================
+   CPO SECTION STYLES
+======================================== */
+
+.cpoSection {
+  margin: 0 0 24px 0;
+  padding: var(--space-lg) 8px;
+  background: var(--bg-primary);
+}
+
+.topCPOsGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-md);
+  margin-bottom: var(--space-lg);
+}
+
+.cpoCardWrapper {
+  animation: fadeInUp 0.6s ease-out forwards;
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.cpoCardWrapper:nth-child(1) { animation-delay: 0.1s; }
+.cpoCardWrapper:nth-child(2) { animation-delay: 0.2s; }
+.cpoCardWrapper:nth-child(3) { animation-delay: 0.3s; }
+
+.cpoCTA {
+  text-align: center;
+  margin-top: var(--space-xl);
+}
+
+.viewAllCPOsButton {
+  background: linear-gradient(135deg, var(--primary-gold), #ffed4a);
+  color: var(--text-dark);
+  border: none;
+  border-radius: 12px;
+  padding: var(--space-md) var(--space-xl);
+  font-size: var(--font-md);
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+  box-shadow: 0 4px 20px rgba(255, 215, 0, 0.3);
+  min-height: var(--touch-target);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.viewAllCPOsButton:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(255, 215, 0, 0.4);
+  background: linear-gradient(135deg, #ffed4a, var(--primary-gold));
+}
+
+.viewAllCPOsButton:active {
+  transform: translateY(0);
+}
+
+.cpoCtaSubtext {
+  color: var(--text-secondary);
+  font-size: var(--font-sm);
+  margin-top: var(--space-sm);
+  font-weight: 400;
+}
+
+/* Tablet styles */
+@media (min-width: 768px) {
+  .cpoSection {
+    padding: var(--space-lg);
+    margin-bottom: var(--space-lg);
+  }
+
+  .topCPOsGrid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-lg);
+  }
+}
+
+/* Desktop styles */
+@media (min-width: 1024px) {
+  .topCPOsGrid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-lg);
+  }
+
+  .cpoSection {
+    max-width: var(--content-max-width);
+    margin: 0 auto var(--space-lg) auto;
+  }
+}
+
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }

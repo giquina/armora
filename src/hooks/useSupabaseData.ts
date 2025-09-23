@@ -14,7 +14,7 @@ import {
   getSafeRideFundStats,
   getOfficerReviews,
   findNearbyOfficers,
-} from '../utils/supabaseClient';
+} from "../lib/supabase"
 import { useAuth } from '../contexts/AuthContext';
 
 /**

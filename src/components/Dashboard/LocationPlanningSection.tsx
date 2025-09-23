@@ -273,11 +273,11 @@ export function LocationPlanningSection({ onLocationSet, isDisabled = false, onC
             onChange={handleDropoffChange}
             onKeyPress={(e) => handleKeyPress(e, 'secureDestination')}
             placeholder="Enter secureDestination address"
-            className={`${styles.input} ${errors.secureDestination ? styles.inputError : ''} ${secureDestinationAddress.trim() ? styles.inputCompleted : ''}`}
+            className={`${styles.input} ${errors.dropoff ? styles.inputError : ''} ${secureDestinationAddress.trim() ? styles.inputCompleted : ''}`}
             disabled={isDisabled}
           />
-          {errors.secureDestination && (
-            <div className={styles.errorMessage}>{errors.secureDestination}</div>
+          {errors.dropoff && (
+            <div className={styles.errorMessage}>{errors.dropoff}</div>
           )}
         </div>
 

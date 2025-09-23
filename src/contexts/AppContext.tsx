@@ -8,7 +8,7 @@ import {
   activateEmergency,
   deactivateEmergency,
   getSafeRideFundStats,
-} from '../utils/supabaseClient';
+} from "../lib/supabase"
 
 // Initial state
 const initialState: AppState = {

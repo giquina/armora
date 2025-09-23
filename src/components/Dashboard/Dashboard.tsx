@@ -13,6 +13,10 @@ import { ServiceLevel } from '../../types';
 // import { getDisplayName } from '../../utils/nameUtils'; // Removed since header is no longer displayed
 import { getAllServices } from '../../data/standardizedServices';
 import { FAQ } from './FAQ';
+import { CPOCard } from '../CPOProfile/CPOCard';
+import { CPODetailModal } from '../CPOProfile/CPODetailModal';
+import { getRecommendedCPOs } from '../../utils/cpoMatchingAlgorithm';
+import { mockCPOs } from '../../data/mockCPOs';
 import styles from './Dashboard.module.css';
 
 // Convert standardized services to legacy ServiceLevel format for compatibility
@@ -47,6 +51,8 @@ export function Dashboard() {
   const { notifications } = useNotifications();
   const [showRewardBanner, setShowRewardBanner] = useState(false);
   const [currentCarouselIndex, setCurrentCarouselIndex] = useState(0);
+  const [showCPOModal, setShowCPOModal] = useState(false);
+  const [selectedCPOId, setSelectedCPOId] = useState<string | null>(null);
 
 
   // Check if user has unlocked reward and hasn't dismissed banner
@@ -98,6 +104,33 @@ export function Dashboard() {
       userType: legacyUser?.userType || (user ? 'registered' : 'guest'),
       source: 'dashboard_card'
     });
+  };
+
+  // CPO-related handlers
+  const handleRequestOfficer = (cpoId: string) => {
+    // Store selected CPO and navigate to booking with pre-selected officer
+    localStorage.setItem('armora_selected_cpo', cpoId);
+    localStorage.setItem('armora_booking_context', 'cpo_selected');
+    navigateToView('booking');
+  };
+
+  const handleViewCPODetails = (cpoId: string) => {
+    setSelectedCPOId(cpoId);
+    setShowCPOModal(true);
+  };
+
+  const handleAddToFavorites = (cpoId: string) => {
+    // Store in localStorage for now - would be backend API in production
+    const favorites = JSON.parse(localStorage.getItem('armora_favorite_cpos') || '[]');
+    if (!favorites.includes(cpoId)) {
+      favorites.push(cpoId);
+      localStorage.setItem('armora_favorite_cpos', JSON.stringify(favorites));
+    }
+  };
+
+  // Get top 3 recommended CPOs for display
+  const getTopCPOs = () => {
+    return getRecommendedCPOs([], mockCPOs, 3);
   };
 
   // Carousel navigation utilities
@@ -575,8 +608,48 @@ export function Dashboard() {
         </div>
       </div>
 
+      {/* Available Protection Officers Section */}
+      <div className={styles.cpoSection}>
+        <div className={styles.sectionHeader}>
+          <h2 className={styles.sectionTitle}>
+            Available Protection Officers
+          </h2>
+          <p className={styles.sectionDescription}>
+            Professional SIA-licensed officers ready to provide immediate protection
+          </p>
+        </div>
 
+        <div className={styles.topCPOsGrid}>
+          {getTopCPOs().map((cpo) => (
+            <div key={cpo.id} className={styles.cpoCardWrapper}>
+              <CPOCard
+                cpo={cpo}
+                onRequestOfficer={handleRequestOfficer}
+                onViewDetails={handleViewCPODetails}
+                onAddToFavorites={handleAddToFavorites}
+                isFavorite={false}
+                showMatchScore={false}
+                compact={false}
+              />
+            </div>
+          ))}
+        </div>
 
+        <div className={styles.cpoCTA}>
+          <button
+            className={styles.viewAllCPOsButton}
+            onClick={() => {
+              // For now, navigate to services until CPO list view is added to app routing
+              navigateToView('services');
+            }}
+          >
+            View All Protection Officers
+          </button>
+          <p className={styles.cpoCtaSubtext}>
+            Browse {mockCPOs.length} verified officers • Filter by specialization
+          </p>
+        </div>
+      </div>
 
       {/* Safe Assignment Fund Modal */}
       {/* {showSafeRideModal && (
@@ -857,6 +930,21 @@ export function Dashboard() {
           </button>
         </div>
       </div>
+
+      {/* CPO Detail Modal */}
+      {showCPOModal && selectedCPOId && (
+        <CPODetailModal
+          cpo={mockCPOs.find(cpo => cpo.id === selectedCPOId)!}
+          isOpen={showCPOModal}
+          onClose={() => {
+            setShowCPOModal(false);
+            setSelectedCPOId(null);
+          }}
+          onRequestOfficer={handleRequestOfficer}
+          onAddToFavorites={handleAddToFavorites}
+          isFavorite={false}
+        />
+      )}
 
     </div>
   );

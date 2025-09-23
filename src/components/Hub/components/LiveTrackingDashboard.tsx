@@ -87,18 +87,18 @@ export function LiveTrackingDashboard({
               <div className={styles.driverSection}>
                 <div className={styles.driverAvatar}>
                   <div className={styles.avatarPlaceholder}>
-                    {booking.Protection Officer.name.charAt(0)}
+                    {booking.protectionOfficer.name.charAt(0)}
                   </div>
                   <div className={styles.onlineIndicator}></div>
                 </div>
                 <div className={styles.driverInfo}>
-                  <div className={styles.driverName}>{booking.Protection Officer.name}</div>
+                  <div className={styles.driverName}>{booking.protectionOfficer.name}</div>
                   <div className={styles.vehicleInfo}>
-                    {booking.Protection Officer.vehicle} • {booking.Protection Officer.plate}
+                    {booking.protectionOfficer.vehicle} • {booking.protectionOfficer.plate}
                   </div>
                   <div className={styles.driverRating}>
-                    <span className={styles.stars}>{'⭐'.repeat(Math.floor(booking.Protection Officer.rating))}</span>
-                    <span className={styles.ratingNumber}>{booking.Protection Officer.rating}</span>
+                    <span className={styles.stars}>{'⭐'.repeat(Math.floor(booking.protectionOfficer.rating))}</span>
+                    <span className={styles.ratingNumber}>{booking.protectionOfficer.rating}</span>
                   </div>
                 </div>
               </div>
@@ -108,7 +108,7 @@ export function LiveTrackingDashboard({
                   <div className={styles.routePoint}>
                     <span className={styles.routeIcon}>📍</span>
                     <span className={styles.routeText}>
-                      {booking.commencementPointLocation.address.split(',')[0]}
+                      {booking.commencementLocation.address.split(',')[0]}
                     </span>
                   </div>
                   <div className={styles.routePoint}>

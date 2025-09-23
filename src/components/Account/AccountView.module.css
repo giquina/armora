@@ -3,7 +3,7 @@
 .accountContainer {
   max-width: var(--content-max-width);
   margin: 0 auto;
-  padding: 0;
+  /* REMOVED: padding: 0; - This was overriding AppLayout's toolbar offset padding */
   padding-bottom: calc(80px + var(--space-xl));
   background: var(--bg-primary);
   min-height: 100vh;

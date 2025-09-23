@@ -50,7 +50,7 @@ export function StreamlinedBookingModal({
     cost: number;
   } | null>(null);
   const [errors, setErrors] = useState<{
-    Commencement Point?: string;
+    commencementPoint?: string;
     secureDestination?: string;
     general?: string;
   }>({});
@@ -183,14 +183,14 @@ export function StreamlinedBookingModal({
 
   // Calculate route estimate when both locations are set
   useEffect(() => {
-    if (commencementPointLocation && destinationLocation) {
+    if (commencementLocation && destinationLocation) {
       calculateRouteEstimate();
     }
   }, [commencementLocation, destinationLocation, calculateRouteEstimate]);
 
   const handlePickupLocationSelect = useCallback((location: Location) => {
     setPickupLocation(location);
-    setErrors(prev => ({ ...prev, Commencement Point: undefined }));
+    setErrors(prev => ({ ...prev, commencementPoint: undefined }));
     console.log('[Analytics] Commencement Point location selected', {
       address: location.address,
       method: location.address.includes('Current Location') ? 'gps' : 'manual',
@@ -219,16 +219,16 @@ export function StreamlinedBookingModal({
     const newErrors: typeof errors = {};
 
     if (!commencementLocation) {
-      newErrors.Commencement Point = 'Please select a Commencement Point location';
+      newErrors.commencementPoint = 'Please select a Commencement Point location';
     }
 
     if (!destinationLocation) {
       newErrors.secureDestination = 'Please select a destination';
     }
 
-    if (commencementPointLocation && destinationLocation &&
+    if (commencementLocation && destinationLocation &&
         commencementLocation.address === destinationLocation.address) {
-      newErrors.secureDestination = 'Destination must be different from Commencement Point location';
+      newErrors.secureDestination = 'Destination must be different from commencement point location';
     }
 
     setErrors(newErrors);
@@ -335,7 +335,7 @@ export function StreamlinedBookingModal({
               currentLocation={currentLocation}
               isLoadingCurrentLocation={isLoadingLocation}
               onUseCurrentLocation={useCurrentLocationForPickup}
-              error={errors.Commencement Point}
+              error={errors.commencementPoint}
               recentLocations={userProfile?.recentLocations}
             />
           </div>

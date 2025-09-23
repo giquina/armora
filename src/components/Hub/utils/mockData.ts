@@ -14,7 +14,7 @@ export interface Booking {
   scheduledTime: Date;
   actualPickupTime?: Date;
   completedTime?: Date;
-  Protection Officer: {
+  protectionOfficer: {
     name: string;
     photo: string;
     rating: number;
@@ -74,7 +74,7 @@ export const mockBookings: Booking[] = [
       coordinates: [-0.4877, 51.4700]
     },
     scheduledTime: new Date(Date.now() + 15 * 60 * 1000), // 15 minutes from now
-    Protection Officer: {
+    protectionOfficer: {
       name: 'Marcus Thompson',
       photo: '/avatars/marcus.jpg',
       rating: 4.9,
@@ -113,7 +113,7 @@ export const mockBookings: Booking[] = [
       coordinates: [-0.0189, 51.5054]
     },
     scheduledTime: new Date(Date.now() + 2 * 60 * 60 * 1000), // 2 hours from now
-    Protection Officer: {
+    protectionOfficer: {
       name: 'Sarah Collins',
       photo: '/avatars/sarah.jpg',
       rating: 4.8,
@@ -154,7 +154,7 @@ export const mockBookings: Booking[] = [
     scheduledTime: new Date(Date.now() - 24 * 60 * 60 * 1000), // Yesterday
     actualPickupTime: new Date(Date.now() - 24 * 60 * 60 * 1000 + 5 * 60 * 1000),
     completedTime: new Date(Date.now() - 24 * 60 * 60 * 1000 + 35 * 60 * 1000),
-    Protection Officer: {
+    protectionOfficer: {
       name: 'David Kumar',
       photo: '/avatars/david.jpg',
       rating: 4.7,
