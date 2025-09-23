@@ -4,7 +4,7 @@
   /* Edge-to-edge within page with minimal safe gutters */
   max-width: 100%;
   margin: 0 auto;
-  padding: var(--space-lg) var(--content-padding-mobile) var(--space-xl) var(--content-padding-mobile);
+  padding: calc(var(--space-xl) + 4px) var(--content-padding-mobile) var(--space-xl) var(--content-padding-mobile);
   background: var(--bg-primary);
   box-sizing: border-box;
 }

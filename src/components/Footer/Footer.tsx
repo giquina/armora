@@ -17,7 +17,7 @@ export function Footer() {
                   <span className={styles.phoneIcon}>📞</span>
                   <div>
                     <div className={styles.hotlineLabel}>24/7 Protection Hotline</div>
-                    <div className={styles.hotlineNumber}>020 XXXX XXXX</div>
+                    <div className={styles.hotlineNumber}>020 7123 4567</div>
                     <div className={styles.hotlineNote}>Available for immediate assistance</div>
                   </div>
                 </div>

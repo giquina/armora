@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useReducer, useEffect, useCallback, ReactNode } from 'react';
-import { AppState, ViewState, User, PersonalizationData, DeviceCapabilities, UserSubscription, SubscriptionTier, PremiumInterest, NotificationData, SafeRideFundMetrics, CommunityImpactData, AssignmentState, Assignment, PanicAlert } from '../types';
+import { AppState, ViewState, User, PersonalizationData, DeviceCapabilities, UserSubscription, SubscriptionTier, PremiumInterest, NotificationData, SafeRideFundMetrics, CommunityImpactData, AssignmentState, Assignment, PanicAlert, INotificationItem } from '../types';
 
 // Initial state
 const initialState: AppState = {
@@ -30,6 +30,7 @@ const initialState: AppState = {
   },
   isLoading: false,
   error: null,
+  notifications: [],
 };
 
 // Action types
@@ -51,7 +52,11 @@ type AppAction =
   | { type: 'SET_LOADING'; payload: boolean }
   | { type: 'SET_ERROR'; payload: string | null }
   | { type: 'CLEAR_ERROR' }
-  | { type: 'RESET_APP' };
+  | { type: 'RESET_APP' }
+  | { type: 'ADD_NOTIFICATION'; payload: INotificationItem }
+  | { type: 'MARK_NOTIFICATION_READ'; payload: { id: string } }
+  | { type: 'MARK_ALL_NOTIFICATIONS_READ' }
+  | { type: 'SET_NOTIFICATIONS'; payload: INotificationItem[] };
 
 // Reducer
 function appReducer(state: AppState, action: AppAction): AppState {
@@ -137,6 +142,17 @@ function appReducer(state: AppState, action: AppAction): AppState {
       return { ...state, error: null };
     case 'RESET_APP':
       return { ...initialState, deviceCapabilities: state.deviceCapabilities };
+    case 'ADD_NOTIFICATION':
+      return { ...state, notifications: [action.payload, ...(state.notifications || [])] };
+    case 'MARK_NOTIFICATION_READ':
+      return {
+        ...state,
+        notifications: (state.notifications || []).map(n => n.id === action.payload.id ? { ...n, isRead: true } : n)
+      };
+    case 'MARK_ALL_NOTIFICATIONS_READ':
+      return { ...state, notifications: (state.notifications || []).map(n => ({ ...n, isRead: true })) };
+    case 'SET_NOTIFICATIONS':
+      return { ...state, notifications: action.payload };
     default:
       return state;
   }
@@ -165,6 +181,10 @@ interface AppContextType {
   updateSafeRideFundMetrics: (metrics: SafeRideFundMetrics | null) => void;
   updateCommunityImpactData: (data: CommunityImpactData | null) => void;
   initializeSafeRideFundData: () => void;
+  // Notifications
+  addNotification: (n: Omit<INotificationItem, 'id' | 'timestamp'> & Partial<Pick<INotificationItem, 'id' | 'timestamp'>>) => void;
+  markNotificationRead: (id: string) => void;
+  markAllNotificationsRead: () => void;
 }
 
 // Create context
@@ -435,6 +455,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     const savedUser = localStorage.getItem('armora_user');
     const savedQuestionnaireData = localStorage.getItem('armora_questionnaire');
+    const savedNotifications = localStorage.getItem('armora_notifications');
 
     if (savedUser) {
       try {
@@ -453,6 +474,25 @@ export function AppProvider({ children }: { children: ReactNode }) {
       } catch (error) {
         console.error('Failed to parse saved questionnaire data:', error);
         localStorage.removeItem('armora_questionnaire');
+      }
+    }
+
+    if (savedNotifications) {
+      try {
+        const parsed = JSON.parse(savedNotifications) as any[];
+        const normalized: INotificationItem[] = parsed.map((n) => ({
+          id: n.id,
+          type: n.type || 'info',
+          title: n.title || 'Update',
+          message: n.message || '',
+          timestamp: n.timestamp ? new Date(n.timestamp) : new Date(),
+          isRead: !!n.isRead,
+          requiresAction: !!n.requiresAction,
+          actionText: n.actionText,
+        }));
+        dispatch({ type: 'SET_NOTIFICATIONS', payload: normalized });
+      } catch (e) {
+        console.warn('Failed to parse saved notifications');
       }
     }
   }, [updateQuestionnaireData]);
@@ -491,6 +531,45 @@ export function AppProvider({ children }: { children: ReactNode }) {
     updateSafeRideFundMetrics,
     updateCommunityImpactData,
     initializeSafeRideFundData,
+    addNotification: (n) => {
+      const id = n.id || `${Date.now()}_${Math.random().toString(36).slice(2, 8)}`;
+      const item: INotificationItem = {
+        id,
+        type: n.type || 'info',
+        title: n.title || 'Update',
+        message: n.message || '',
+        timestamp: n.timestamp || new Date(),
+        isRead: !!n.isRead,
+        requiresAction: !!n.requiresAction,
+        actionText: n.actionText,
+        actionHandler: n.actionHandler,
+      };
+      dispatch({ type: 'ADD_NOTIFICATION', payload: item });
+      try {
+        const raw = localStorage.getItem('armora_notifications') || '[]';
+        const parsed: any[] = JSON.parse(raw);
+        parsed.unshift({ ...item, timestamp: item.timestamp.toISOString() });
+        localStorage.setItem('armora_notifications', JSON.stringify(parsed));
+      } catch {}
+    },
+    markNotificationRead: (id: string) => {
+      dispatch({ type: 'MARK_NOTIFICATION_READ', payload: { id } });
+      try {
+        const raw = localStorage.getItem('armora_notifications') || '[]';
+        const parsed: any[] = JSON.parse(raw);
+        const updated = parsed.map(n => n.id === id ? { ...n, isRead: true } : n);
+        localStorage.setItem('armora_notifications', JSON.stringify(updated));
+      } catch {}
+    },
+    markAllNotificationsRead: () => {
+      dispatch({ type: 'MARK_ALL_NOTIFICATIONS_READ' });
+      try {
+        const raw = localStorage.getItem('armora_notifications') || '[]';
+        const parsed: any[] = JSON.parse(raw);
+        const updated = parsed.map(n => ({ ...n, isRead: true }));
+        localStorage.setItem('armora_notifications', JSON.stringify(updated));
+      } catch {}
+    },
   };
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;

@@ -9,6 +9,7 @@ interface ActiveProtectionPanelProps {
 
 interface ProtectionData {
   officerName: string;
+  officerTitle: string;
   siaLicense: string;
   vehicleModel: string;
   vehicleRegistration: string;
@@ -16,6 +17,8 @@ interface ProtectionData {
   status: 'En Route' | 'On Location' | 'Protection Active' | 'Awaiting Assignment';
   eta?: string;
   startTime: Date;
+  expectedEndTime: Date;
+  serviceName: 'Executive' | 'Standard' | 'Shadow' | string;
   currentRate: number;
   mileageRate: number;
   currentCharges: number;
@@ -24,16 +27,20 @@ interface ProtectionData {
 export function ActiveProtectionPanel({ isOpen, onClose, isActive }: ActiveProtectionPanelProps) {
   const [isMinimized, setIsMinimized] = useState(false);
   const [elapsedTime, setElapsedTime] = useState('0:00:00');
+  const [remainingTime, setRemainingTime] = useState<string>('0m');
 
   // Mock protection data - in real app, this would come from context/API
   const protectionData: ProtectionData = {
     officerName: 'James Mitchell',
+    officerTitle: 'Close Protection Officer',
     siaLicense: 'SIA-1234567',
     vehicleModel: 'BMW X5 Executive',
     vehicleRegistration: 'AR23 ORA',
     securityCode: 'SEC-789',
     status: 'Protection Active',
     startTime: new Date(Date.now() - 2 * 60 * 60 * 1000), // Started 2 hours ago
+    expectedEndTime: new Date(Date.now() + 1.5 * 60 * 60 * 1000), // 1.5 hours remaining (demo)
+    serviceName: 'Executive',
     currentRate: 75,
     mileageRate: 2.50,
     currentCharges: 165.50
@@ -50,6 +57,14 @@ export function ActiveProtectionPanel({ isOpen, onClose, isActive }: ActiveProte
       const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
       const seconds = Math.floor((diff % (1000 * 60)) / 1000);
       setElapsedTime(`${hours}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`);
+
+      // Remaining time (until expected end)
+      const remainingMs = Math.max(0, protectionData.expectedEndTime.getTime() - now.getTime());
+      const rHours = Math.floor(remainingMs / (1000 * 60 * 60));
+      const rMinutes = Math.floor((remainingMs % (1000 * 60 * 60)) / (1000 * 60));
+      setRemainingTime(
+        rHours > 0 ? `${rHours}h ${rMinutes}m` : `${rMinutes}m`
+      );
     };
 
     updateTime();
@@ -88,12 +103,12 @@ export function ActiveProtectionPanel({ isOpen, onClose, isActive }: ActiveProte
 
   const extendTime = (minutes: number) => {
     console.log(`Extending protection by ${minutes} minutes`);
-    // TODO: Implement time extension logic
+    // Time extension implementation placeholder
   };
 
   const handleEmergencyAction = (action: string) => {
     console.log(`Emergency action: ${action}`);
-    // TODO: Implement emergency actions
+    // Emergency actions implementation placeholder
   };
 
   if (!isOpen && !isMinimized) return null;
@@ -102,11 +117,21 @@ export function ActiveProtectionPanel({ isOpen, onClose, isActive }: ActiveProte
     return (
       <div className={styles.miniBar} onClick={() => setIsMinimized(false)}>
         <div className={styles.miniContent}>
-          <div className={styles.miniStatus}>
-            <div className={styles.miniIndicator}></div>
-            <span>Protection Active - {protectionData.officerName}</span>
+          <div className={styles.miniLeft}>
+            <div className={styles.miniTags}>
+              <span className={`${styles.badge} ${styles.badgeActive}`}>Active</span>
+              <span className={`${styles.badge} ${styles.badgeService}`}>{protectionData.serviceName}</span>
+            </div>
+            <div className={styles.miniOfficerLine}>
+              <span className={styles.miniIndicator}></span>
+              <span className={styles.miniOfficerName}>{protectionData.officerName}</span>
+              <span className={styles.bullet}>•</span>
+              <span className={styles.miniOfficerTitle}>{protectionData.officerTitle}</span>
+            </div>
           </div>
-          <div className={styles.miniTime}>{elapsedTime}</div>
+          <div className={styles.miniRight}>
+            <div className={styles.miniRemaining}>{remainingTime} left</div>
+          </div>
         </div>
       </div>
     );
@@ -125,8 +150,8 @@ export function ActiveProtectionPanel({ isOpen, onClose, isActive }: ActiveProte
             <span className={styles.timer}>{elapsedTime}</span>
             <button
               className={styles.closeButton}
-              onClick={onClose}
-              aria-label="Close protection panel"
+              onClick={() => setIsMinimized(true)}
+              aria-label="Minimize protection panel"
             >
               ✕
             </button>

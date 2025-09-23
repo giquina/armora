@@ -27,7 +27,7 @@
   border-bottom: 1px solid rgba(255, 215, 0, 0.2);
   padding: 10px 12px 8px 12px;
   position: fixed;
-  top: 0;
+  top: 56px; /* Sit below top toolbar */
   left: 0;
   right: 0;
   z-index: 10001;
@@ -151,7 +151,7 @@
   -webkit-overflow-scrolling: touch; /* iOS momentum scrolling */
   scrollbar-width: none; /* Hide scrollbar Firefox */
   -ms-overflow-style: none; /* Hide scrollbar IE/Edge */
-  padding-top: 50px; /* Account for compact header */
+  padding-top: 110px; /* Toolbar(56) + panel header(54) */
   padding-bottom: max(88px, env(safe-area-inset-bottom)); /* Ensure content not hidden by nav */
 }
 
@@ -507,18 +507,34 @@
 /* Mini bar (collapsed state) */
 .miniBar {
   position: fixed;
-  bottom: max(70px, calc(60px + env(safe-area-inset-bottom))); /* Sit just above nav */
-  left: var(--space-md);
-  right: var(--space-md);
-  background: linear-gradient(135deg, rgba(26, 26, 46, 0.95) 0%, rgba(30, 30, 58, 0.95) 100%);
-  border: 1px solid var(--armora-gold);
-  border-radius: var(--radius-md);
+  /* Flush to top edge of the bottom navigation; no gap visible */
+  bottom: calc(56px + env(safe-area-inset-bottom));
+  left: var(--space-sm);
+  right: var(--space-sm);
+  background: linear-gradient(135deg, rgba(26, 26, 46, 0.98) 0%, rgba(30, 30, 58, 0.98) 100%);
+  border: 1px solid rgba(255, 215, 0, 0.6);
+  border-radius: var(--radius-lg);
   padding: var(--space-sm) var(--space-md);
-  backdrop-filter: blur(12px);
-  z-index: 1001;
+  backdrop-filter: blur(10px);
+  z-index: 1200; /* Above nav items but below modals */
   cursor: pointer;
   transition: all var(--transition-base);
-  box-shadow: 0 2px 12px rgba(255, 215, 0, 0.3);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.45), 0 0 0 1px rgba(255, 215, 0, 0.15) inset;
+}
+
+.miniBar::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -6px; /* Soft overlap to avoid any visible gap */
+  height: 8px;
+  background: linear-gradient(135deg, rgba(26, 26, 46, 0.98) 0%, rgba(30, 30, 58, 0.98) 100%);
+  border-left: 1px solid rgba(255, 215, 0, 0.3);
+  border-right: 1px solid rgba(255, 215, 0, 0.3);
+  border-bottom-left-radius: var(--radius-lg);
+  border-bottom-right-radius: var(--radius-lg);
+  pointer-events: none; /* Do not block nav interactions */
 }
 
 .miniBar:hover {
@@ -532,13 +548,46 @@
   align-items: center;
 }
 
-.miniStatus {
+.miniLeft {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+
+.miniTags {
   display: flex;
   align-items: center;
-  gap: var(--space-sm);
-  font-size: var(--font-sm);
-  color: var(--text-primary);
-  font-weight: 500;
+  gap: 6px;
+}
+
+.badge {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+  padding: 2px 8px;
+  border-radius: 999px;
+  line-height: 1.3;
+}
+
+.badgeActive {
+  background: rgba(34, 197, 94, 0.18);
+  color: #22c55e;
+  border: 1px solid rgba(34, 197, 94, 0.35);
+}
+
+.badgeService {
+  background: rgba(255, 215, 0, 0.15);
+  color: var(--armora-gold);
+  border: 1px solid rgba(255, 215, 0, 0.35);
+}
+
+.miniOfficerLine {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
 }
 
 .miniIndicator {
@@ -549,11 +598,35 @@
   animation: protectionPulse 2s ease-in-out infinite;
 }
 
-.miniTime {
-  font-size: var(--font-sm);
+.miniOfficerName {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.95);
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.bullet {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.miniOfficerTitle {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.miniRight {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.miniRemaining {
+  font-size: 13px;
   color: var(--armora-gold);
-  font-weight: 700;
-  font-family: 'Courier New', monospace;
+  font-weight: 800;
+  letter-spacing: 0.3px;
 }
 
 /* Animations */

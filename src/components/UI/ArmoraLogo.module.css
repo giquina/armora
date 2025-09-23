@@ -340,8 +340,8 @@
 
 /* SIZE VARIANTS */
 .small {
-  --logo-scale: 0.7;
-  --orbit-scale: 0.8;
+  --logo-scale: 0.70; /* restore normal small size for general use (e.g., Welcome) */
+  --orbit-scale: 0.80;
 }
 
 .medium {
@@ -413,8 +413,8 @@
 /* MOBILE OPTIMIZATIONS */
 @media (max-width: 480px) {
   .armoraLogo4d {
-    --logo-scale: 0.8;
-    --orbit-scale: 0.9;
+    --logo-scale: 0.7;
+    --orbit-scale: 0.8;
   }
   
   .orbitRing1, .orbitRing2, .orbitRing3 {

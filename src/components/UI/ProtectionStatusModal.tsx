@@ -73,7 +73,7 @@ export function ProtectionStatusModal({ isOpen, onClose, protectionStatus }: Pro
 
   const handleViewHistory = () => {
     onClose();
-    navigateToView('assignments');
+    navigateToView('hub');
   };
 
   const handleSecuritySettings = () => {

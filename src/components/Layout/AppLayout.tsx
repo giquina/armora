@@ -2,7 +2,9 @@ import React, { ReactNode, useState } from 'react';
 import { useApp } from '../../contexts/AppContext';
 import { ArmoraLogo } from '../UI/ArmoraLogo';
 import { Footer } from '../Footer';
+import { TopToolbar } from '../Navigation/TopToolbar';
 import { ActiveProtectionPanel } from '../ActiveProtection';
+import { NotificationsPanel } from '../Notifications/NotificationsPanel';
 import { getDisplayName } from '../../utils/nameUtils';
 import { getLogoProps } from '../../styles/brandConstants';
 import styles from './AppLayout.module.css';
@@ -29,11 +31,13 @@ export function AppLayout({
 
   // Active Protection Panel state
   const [isActiveProtectionOpen, setIsActiveProtectionOpen] = useState(false);
-  const [hasActiveProtection] = useState(false); // TODO: Connect to real protection state
+  const [hasActiveProtection] = useState(false); // Active protection state placeholder
+  const [isNotificationsOpen, setIsNotificationsOpen] = useState(false);
 
-  // Only show header (with logo) on welcome and splash pages
-  const shouldShowHeader = showHeader && ['welcome', 'splash'].includes(currentView);
-  const shouldShowNav = showNavigation && user && currentView !== 'splash';
+  // Disable header completely - user requested removal
+  const shouldShowHeader = false;
+  // Show bottom navigation on all pages (including guests) per request
+  const shouldShowNav = showNavigation && currentView !== 'splash';
 
   const getHeaderInfo = () => {
     if (headerTitle) return { title: headerTitle, subtitle: '', showServices: false };
@@ -51,8 +55,8 @@ export function AppLayout({
       };
       case 'services': return { title: 'Services', subtitle: 'Choose your protection', showServices: false };
       case 'booking': return { title: '', subtitle: 'Secure Transport', showServices: false };
-      case 'assignments':
-      case 'rides': return { title: 'Your Assignments', subtitle: 'Transport & Security', showServices: false };
+      case 'hub':
+      case 'rides': return { title: 'Your Hub', subtitle: 'Transport & Security', showServices: false };
       case 'account': return { title: 'Your Account', subtitle: 'Settings & Preferences', showServices: false };
       case 'venue-protection-welcome': return { title: 'Venue Protection', subtitle: 'Professional Security Services', showServices: false };
       case 'venue-security-questionnaire': return { title: 'Security Assessment', subtitle: 'Venue Protection Planning', showServices: false };
@@ -83,7 +87,7 @@ export function AppLayout({
       case 'booking':
         navigateToView('services');
         break;
-      case 'assignments':
+      case 'hub':
         navigateToView('home');
         break;
       case 'account':
@@ -113,6 +117,8 @@ export function AppLayout({
 
   return (
     <div className={layoutClasses}>
+  {/* New compact top toolbar visible on Home, Services, Hub, Account */}
+  <TopToolbar onOpenNotifications={() => setIsNotificationsOpen(true)} />
       {shouldShowHeader && (
         <header className={styles.header}>
           <div className={styles.headerContent}>
@@ -222,7 +228,7 @@ export function AppLayout({
         </div>
       </main>
 
-      {currentView === 'home' && <Footer />}
+  {currentView === 'home' && <Footer />}
 
       {shouldShowNav && (
         <nav className={styles.navigation}>
@@ -277,17 +283,19 @@ export function AppLayout({
             </button>
 
             <button
-              className={`${styles.navButton} ${currentView === 'assignments' || currentView === 'rides' ? styles.navButtonActive : ''}`}
-              onClick={() => navigateToView('assignments')}
-              aria-label="Assignments"
+              className={`${styles.navButton} ${currentView === 'hub' || currentView === 'rides' ? styles.navButtonActive : ''}`}
+              onClick={() => navigateToView('hub')}
+              aria-label="Hub"
             >
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
-                <line x1="16" y1="2" x2="16" y2="6"/>
-                <line x1="8" y1="2" x2="8" y2="6"/>
-                <line x1="3" y1="10" x2="21" y2="10"/>
+                <circle cx="12" cy="12" r="3"/>
+                <path d="M12 1v6m0 6v6"/>
+                <path d="m21 12-6-3 6-3"/>
+                <path d="m21 12-6 3 6 3"/>
+                <path d="m3 12 6 3-6 3"/>
+                <path d="m3 12 6-3-6-3"/>
               </svg>
-              <span className={styles.navLabel}>Assignments</span>
+              <span className={styles.navLabel}>Hub</span>
             </button>
 
             <button
@@ -311,6 +319,9 @@ export function AppLayout({
         onClose={() => setIsActiveProtectionOpen(false)}
         isActive={hasActiveProtection}
       />
+
+      {/* Notifications Drawer */}
+      <NotificationsPanel isOpen={isNotificationsOpen} onClose={() => setIsNotificationsOpen(false)} />
     </div>
   );
 }

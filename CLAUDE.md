@@ -19,7 +19,8 @@ Armora is a React 19.1.1 TypeScript application for premium close protection and
 ### Additional Key Dependencies
 - **Stripe**: Payment processing (@stripe/react-stripe-js, @stripe/stripe-js)
 - **Leaflet**: Maps and location services (react-leaflet)
-- **QR Code**: QR code generation for bookings
+- **QR Code**: QR code generation for bookings (qrcode)
+- **Canvas Confetti**: Achievement animations (canvas-confetti)
 - **Playwright**: End-to-end testing framework
 
 ## Core Development Commands
@@ -59,18 +60,19 @@ Includes automated hooks system and AI task management:
 - JSX: react-jsx (React 19 transform)
 - Module: ESNext with Node resolution
 - All strict checks enabled
+- Special Jest module mapping for CSS imports and assets
 
 ## Architecture
 
 ### Core Stack
 - **React 19.1.1** + **TypeScript 4.9.5** (strict mode)
 - **CSS Modules** for component styling
-- **React Context** for state (no Redux)
+- **React Context** for state management (no Redux)
 - **Create React App 5.0.1** build system
 
 ### State Management Pattern
 **View-based routing** (NO React Router - uses AppContext `currentView` state):
-- Views: `splash` → `welcome` → `login`/`signup`/`guest-disclaimer` → `questionnaire` → `achievement` → `dashboard` → `booking` → `profile`
+- Views: `splash` → `welcome` → `login`/`signup`/`guest-disclaimer` → `questionnaire` → `achievement` → `home` → `booking` → `hub` → `account`
 - User types: `registered` | `google` | `guest`
 - Navigation: `navigateToView(viewName)` function from AppContext
 - Persistence: localStorage keys: `armoraUser`, `armoraQuestionnaireResponses`, `armoraBookingData`
@@ -79,25 +81,26 @@ Includes automated hooks system and AI task management:
 - `useReducer` for state management (no Redux)
 - Device capabilities detection (mobile, touch, orientation)
 - Subscription management with tier system
+- Assignment state tracking with panic alert system
 - Error handling and loading states
 
 ### Component Architecture
 **Full-screen views** (bypass AppLayout): splash, welcome, auth, questionnaire, achievement
-**App-wrapped views** (include header): dashboard, booking, profile
+**App-wrapped views** (include header): dashboard, booking, profile, hub
 
 ### Key File Structure
 ```
 src/
-├── App.tsx                               - Main router with view switching
+├── App.tsx                               - Main router with view switching and BookingFlow component
 ├── contexts/
-│   ├── AppContext.tsx                    - Global state management
+│   ├── AppContext.tsx                    - Global state management with assignment tracking
 │   └── ProtectionAssignmentContext.tsx  - Protection assignment booking state
-├── types/index.ts                        - TypeScript interfaces
+├── types/index.ts                        - Comprehensive TypeScript interfaces (940+ lines)
 ├── components/
 │   ├── Auth/                            - Authentication flow
 │   ├── Questionnaire/                   - 9-step onboarding system
 │   ├── Dashboard/                       - Protection tier selection
-│   ├── AssignmentsView/                 - Professional protection assignments command centre
+│   ├── Hub/                             - Professional protection hub command centre
 │   │   ├── NavigationCards/             - Interactive assignment status navigation cards
 │   │   └── ActiveProtectionPanel/       - Real-time protection detail monitoring
 │   ├── Booking/                         - Complete protection booking flow
@@ -106,7 +109,9 @@ src/
 │   ├── WeddingEventSecurity/            - Specialized event protection
 │   ├── UI/ArmoraLogo.tsx                - Premium 4D logo system
 │   └── Layout/AppLayout.tsx             - Header with navigation
-└── data/questionnaireData.ts            - Dynamic questionnaire logic
+├── data/questionnaireData.ts            - Dynamic questionnaire logic
+├── utils/                               - Utility functions for pricing, compliance, verification
+└── styles/                              - Global CSS variables and themes
 ```
 
 ## Business Context
@@ -120,7 +125,7 @@ src/
 
 **Venue Protection Services**: Day (£450), Weekend (£850), Monthly (£12,500), Annual (£135,000) contracts with 1-10 officer scaling.
 
-**User Journey**: splash → welcome → auth → questionnaire → achievement → dashboard → assignments
+**User Journey**: splash → welcome → auth → questionnaire → achievement → home → hub
 **User Capabilities**: Registered/Google users get direct protection booking + 50% reward; guests get quotes only
 **Professional Standards**: All officers are SIA licensed with specializations in Executive Protection, Threat Assessment, and Medical Response
 
@@ -143,6 +148,7 @@ src/
 - **Card standardization** via `/src/styles/card-standards.css` for consistent UI
 - **Global container** system via `/src/styles/global-container.css`
 - **Master width control**: `--content-max-width: 680px` across all views
+- **Special booking theme**: White background applied via `booking-white-theme.css`
 
 ### Mobile-First Design (CRITICAL: No horizontal scrolling 320px+)
 - **Colors**: #1a1a2e (navy), #FFD700 (gold), #e0e0e0 (text)
@@ -178,15 +184,17 @@ src/
 - **PWA files** (manifest.json, sw.js) → `pwa-optimizer` activates for app store readiness
 
 ## Testing Strategy
-- `npm test` - Interactive watch mode
+- `npm test` - Interactive watch mode (Jest + React Testing Library)
 - `npm test -- --coverage` - Generate coverage report
 - `npm test -- --watchAll=false` - Single run for CI
+- `npm run test:e2e` - Playwright end-to-end tests (./tests/e2e directory)
 - **Test files location**: `src/components/[Component]/__tests__/[Component].test.tsx`
-- **Current coverage**: Limited - focus on critical booking flow components first
+- **Current coverage**: Limited - has App.test.tsx and some booking tests
+- **Jest configuration**: Custom module mapping for CSS and assets in package.json
 
 ## Current Status
-✅ **Complete**: Auth, Questionnaire (9-step + privacy), Dashboard, Professional Assignments View with NavigationCards, Mobile-optimized Active Protection Panel, Booking flow, Achievement, 4D logo system, Safe Ride Fund integration
-⚠️ **Critical Needs**: Test coverage (only App.test.tsx exists), PWA service worker, payment integration, location search page improvements
+✅ **Complete**: Auth, Questionnaire (9-step + privacy), Dashboard, Professional Assignments View with NavigationCards, Mobile-optimized Active Protection Panel, Booking flow, Achievement, 4D logo system, Safe Ride Fund integration, Assignment state tracking with panic alerts
+⚠️ **Critical Needs**: Test coverage expansion, PWA service worker, payment integration completion, location search improvements
 🔜 **Planned**: Real-time tracking, push notifications, offline mode
 
 ## Key Utility Functions
@@ -201,30 +209,31 @@ src/
 
 ## Critical Implementation Notes
 
+### Booking Flow Architecture
+The app uses a **dual booking system** transitioning from legacy to new:
+
+**New Protection Assignment System** (Primary):
+- Flow: `WhereWhenView` → `PaymentIntegration` → `ProtectionAssignmentSuccess`
+- State: Managed in `ProtectionAssignmentContext.tsx`
+- Error handling: `ProtectionAssignmentErrorBoundary` with state recovery
+- Location: `src/contexts/ProtectionAssignmentContext.tsx`
+
+**Legacy Booking Flow** (Being phased out):
+- Embedded `BookingFlow` component in `App.tsx` (lines 62-227)
+- State preservation for error recovery via localStorage
+- Error boundary wrapper with retry mechanisms
+
+### Assignment State Management
+**Real-time Assignment Tracking** (`AppContext.tsx`):
+- `assignmentState` tracks current protection details
+- Panic alert system with location tracking
+- Auto-navigation to hub when active assignment detected
+- Assignment status: `scheduled` | `active` | `in_progress` | `completed` | `cancelled`
+
 ### Questionnaire System (`/src/data/questionnaireData.ts`)
 Dynamic 9-step system with privacy options. Enhanced mobile typography (1.4-1.5rem) and `calc(100vw - 8px)` width utilization.
 
-### Protection Assignment System
-**New Unified System** (`src/contexts/ProtectionAssignmentContext.tsx`):
-- Replaces legacy booking system with professional protection terminology
-- Complete flow: WhereWhenView → UnifiedProtectionBooking → ProtectionAssignmentConfirmation → ProtectionAssignmentSuccess
-- State management with `useProtectionAssignment` hook and `ProtectionAssignmentProvider`
-- Backward compatibility maintained with legacy `useBooking` hook
-
-**Legacy Booking Flow** (being phased out):
-- Original flow: VehicleSelection → LocationPicker → BookingConfirmation → BookingSuccess
-- State managed in App.tsx BookingFlow component (`src/App.tsx:17-95`)
-- Error boundary wrapper: `BookingErrorBoundary` component
-
-**Geographic Integration**:
-- Coverage area validation for England & Wales boundaries
-- Regional pricing calculation based on service location
-- Airport specialist availability checking for major airports
-- Automatic routing between major cities with time estimates
-
-**Test Data**: Available in `src/utils/testUserScenarios.ts` for development testing
-
-### Professional Assignments View (`src/components/AssignmentsView/`)
+### Professional Hub View (`src/components/Hub/`)
 Premium close protection command centre with professional terminology:
 - **NavigationCards System** (`NavigationCards/`): Interactive card-based navigation for current/upcoming/completed/analytics views with real-time data visualization
 - **Active Protection Panel** (`ActiveProtectionPanel/`): Mobile-optimized full-screen scroll snap UX for real-time protection monitoring
@@ -275,7 +284,7 @@ Three distinct user types with different capabilities:
 ### Achievement System
 - Triggers after questionnaire completion
 - Components: `AchievementUnlock`, `AchievementBanner`, `MiniAchievement`
-- Confetti animation library included
+- Confetti animation library included (`canvas-confetti`)
 - Achievement data in `src/components/Achievement/achievementData.ts`
 
 ### Loading States
@@ -294,10 +303,16 @@ Three distinct user types with different capabilities:
 Check: `global-container.css` and `card-standards.css` for viewport calculations. Cards use `calc(100vw - 36px)` to prevent overflow.
 
 ### Component Not Rendering
-Verify view state in `AppContext` and check if component is included in App.tsx view switching logic.
+Verify view state in `AppContext` and check if component is included in App.tsx view switching logic (`renderCurrentView()` function).
 
 ### Styling Not Applied
 Ensure CSS Module imports use correct syntax: `import styles from './Component.module.css'`
+
+### Test Failures
+- Run `npm test` in watch mode for development
+- Use `npm test -- --watchAll=false` for CI
+- CSS imports are mocked via `identity-obj-proxy`
+- Asset imports use `jest-transform-stub`
 
 ### Professional Terminology Requirements
 When updating any UI text, ensure professional close protection language:
@@ -323,12 +338,14 @@ When updating any UI text, ensure professional close protection language:
 2. **Styling issues**: Verify CSS Module imports and check responsive breakpoints
 3. **Build failures**: Run `npm run build` to catch type errors before committing
 4. **Mobile issues**: Use `npm run hooks:start` to enable mobile viewport testing
+5. **Test issues**: Check Jest configuration in package.json for module mapping
 
 ### File Conventions
 - Components: PascalCase with matching .module.css files
 - Utilities: camelCase in `/src/utils/`
-- Types: Centralized in `/src/types/index.ts`
+- Types: Centralized in `/src/types/index.ts` (comprehensive 940+ line type definitions)
 - Data: Static data in `/src/data/`
+- Tests: `__tests__` directories with `.test.tsx` files
 
 ## State Management Architecture
 
@@ -339,6 +356,8 @@ The app uses React Context for state management with two main contexts:
    - Global application state (user, currentView, device capabilities)
    - View-based routing without React Router
    - Subscription and authentication management
+   - Assignment state with panic alert system
+   - Safe Ride Fund metrics tracking
 
 2. **ProtectionAssignmentContext** (`src/contexts/ProtectionAssignmentContext.tsx`):
    - Protection booking/assignment state management
@@ -350,5 +369,23 @@ The app uses React Context for state management with two main contexts:
 - `useAppContext()` - Access global app state and navigation
 - `useProtectionAssignment()` - Access protection assignment state (new system)
 - `useBooking()` - Legacy hook for backward compatibility (being phased out)
+
+### Error Handling
+- `ProtectionAssignmentErrorBoundary` for booking flow protection
+- State recovery from localStorage after errors
+- Retry mechanisms with user-friendly fallbacks
+
+## Payment Integration
+- **Stripe Integration**: Uses @stripe/react-stripe-js and @stripe/stripe-js
+- **Payment Methods**: Card, Apple Pay, Google Pay, PayPal, Bank Transfer
+- **Corporate Billing**: VAT handling and corporate account support
+- **Payment Status Tracking**: Comprehensive status management
+
+## Performance Considerations
+- **React 19.1.1**: Uses new JSX transform for better performance
+- **CSS Modules**: Scoped styles prevent global CSS pollution
+- **Lazy Loading**: Components loaded on demand
+- **Mobile Optimization**: Aggressive mobile-first approach with touch targets
+- **Asset Optimization**: Proper handling of images and static assets
 
 Last updated: 2025-09-22T03:15:22.364Z

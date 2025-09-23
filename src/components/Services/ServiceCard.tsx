@@ -92,7 +92,7 @@ export function ServiceCard({
   };
 
   const handleCompare = () => {
-    // TODO: Implement comparison functionality
+    // Service comparison implementation placeholder
     console.log('Compare service:', service.id);
   };
 

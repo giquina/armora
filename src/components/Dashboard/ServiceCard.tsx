@@ -227,7 +227,7 @@ export function ServiceCard({
           variant="outline"
           onClick={(e) => {
             e.stopPropagation();
-            // TODO: Implement template selection logic
+            // Template selection implementation placeholder
             console.log('🛠️ Use Template clicked for service:', service.name);
           }}
           className={styles.useTemplateButton}

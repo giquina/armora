@@ -20,7 +20,7 @@
   background: #FFFFFF;
   border-bottom: 1px solid #E5E7EB;
   position: sticky;
-  top: 0;
+  top: var(--toolbar-height);
   z-index: 50;
 }
 

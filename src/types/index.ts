@@ -1,10 +1,10 @@
 // Armora Security Transport - TypeScript Interfaces
 
 // Navigation views aligned with UI terminology
-export type NavigationViews = 'home' | 'services' | 'assignments' | 'account';
+export type NavigationViews = 'home' | 'services' | 'hub' | 'account';
 
 // Complete view state including navigation and flow states
-export type ViewState = 'splash' | 'welcome' | 'login' | 'signup' | 'guest-disclaimer' | 'questionnaire' | 'achievement' | 'home' | 'subscription-offer' | 'trial-setup' | 'member-dashboard' | 'services' | 'service-selection' | 'booking' | 'assignments' | 'rides' | 'account' | 'venue-protection-welcome' | 'venue-security-questionnaire' | 'venue-protection-success' | 'about' | 'coverage-areas';
+export type ViewState = 'splash' | 'welcome' | 'login' | 'signup' | 'guest-disclaimer' | 'questionnaire' | 'achievement' | 'home' | 'subscription-offer' | 'trial-setup' | 'member-dashboard' | 'services' | 'service-selection' | 'booking' | 'hub' | 'rides' | 'account' | 'venue-protection-welcome' | 'venue-security-questionnaire' | 'venue-protection-success' | 'about' | 'coverage-areas';
 
 export type UserType = 'registered' | 'google' | 'guest' | null;
 
@@ -239,6 +239,7 @@ export interface AppState {
   assignmentState: AssignmentState;
   isLoading: boolean;
   error: string | null;
+  notifications?: INotificationItem[];
 }
 
 export interface ProtectionAssignmentStep {

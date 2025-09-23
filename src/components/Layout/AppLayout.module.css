@@ -8,13 +8,13 @@
   overflow-x: hidden; /* CRITICAL: Prevent horizontal scroll */
   max-width: 100vw;
   box-sizing: border-box;
-  padding-top: 40px; /* Account for fixed recruitment banner */
+  /* REMOVED: padding-top: 40px - no recruitment banner */
 }
 
 /* HEADER STYLES */
 .header {
   position: sticky;
-  top: 40px; /* Account for recruitment banner */
+  top: 0; /* No recruitment banner space needed */
   z-index: var(--z-sticky);
   background: linear-gradient(135deg, rgba(26, 26, 46, 0.95) 0%, rgba(30, 30, 58, 0.95) 100%);
   border-bottom: 1px solid var(--gold);
@@ -277,7 +277,8 @@
 
 .content {
   flex: 1;
-  padding: var(--space-lg);
+  /* Top padding includes fixed toolbar height (56px) and its border */
+  padding: calc(var(--toolbar-offset) + var(--space-lg)) var(--space-lg) var(--space-lg);
   padding-bottom: calc(90px + var(--space-lg)); /* Space for navigation when no footer */
   min-height: calc(100vh - 200px); /* Account for header and navigation */
 }
@@ -290,7 +291,7 @@
 /* DESKTOP CONTENT OPTIMIZATION - NO NESTED SCROLL */
 @media (min-width: 1024px) {
   .content {
-    padding: var(--space-md) var(--space-lg);
+  padding: calc(var(--toolbar-offset) + var(--space-xl)) var(--space-lg) var(--space-xl);
     padding-bottom: calc(80px + var(--space-xl)); /* Space for navigation when no footer */
     /* REMOVED: max-height and overflow-y to fix double scrollbar */
   }

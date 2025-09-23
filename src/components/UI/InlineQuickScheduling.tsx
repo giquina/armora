@@ -91,14 +91,12 @@ export function InlineQuickScheduling({
   }, [userProfile]);
 
   const handleTimeSelect = (preset: TimePreset) => {
-    console.log('[DEBUG] Time option clicked:', preset.id, preset.label);
 
     if (preset.id === 'custom') {
       // Handle custom time selection - for now, show placeholder
       setSelectedTime('custom');
       setSelectedDisplayText('Custom time selection (Coming Soon)');
       onTimeSelected('custom', 'Custom time selection');
-      console.log('[DEBUG] Custom time picker activated');
       return;
     }
 
@@ -118,7 +116,6 @@ export function InlineQuickScheduling({
 
     setSelectedDisplayText(displayText);
     onTimeSelected(preset.value, displayText);
-    console.log('[DEBUG] Time selected:', preset.id, displayText);
   };
 
   const handleBooking = () => {

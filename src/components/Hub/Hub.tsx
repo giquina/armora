@@ -4,7 +4,7 @@ import { NavigationCards } from './NavigationCards/NavigationCards';
 import { EnhancedProtectionPanel } from './EnhancedProtectionPanel/EnhancedProtectionPanel';
 import { FinancialTracker } from './FinancialTracker/FinancialTracker';
 import { IFinancialTracker } from '../../types';
-import styles from './AssignmentsView.module.css';
+import styles from './Hub.module.css';
 
 type AssignmentStatus = 'current' | 'upcoming' | 'completed' | 'analytics';
 type ProtectionTier = 'Essential' | 'Executive' | 'Shadow';
@@ -111,13 +111,19 @@ const mockAssignments: Assignment[] = [
 
 type PanelState = 'collapsed' | 'half' | 'full';
 
-export function AssignmentsView() {
+export function Hub() {
   const { navigateToView } = useApp();
   const [activeSection, setActiveSection] = useState<AssignmentStatus>('current');
   const [showTemplates, setShowTemplates] = useState(false);
   const [showFinancialTracker, setShowFinancialTracker] = useState(false);
   const [isLocationSharing, setIsLocationSharing] = useState(false);
   const [panelState, setPanelState] = useState<PanelState>('collapsed');
+  const [sortBy, setSortBy] = useState<'time' | 'cost' | 'tier'>('time');
+  const [filters, setFilters] = useState<{ratedOnly: boolean; execOnly: boolean}>({ ratedOnly: false, execOnly: false });
+  const [search, setSearch] = useState('');
+  const [dateFrom, setDateFrom] = useState(''); // YYYY-MM-DD
+  const [dateTo, setDateTo] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
   const assignments = mockAssignments;
 
   // Mock officer data for the control panel
@@ -128,9 +134,46 @@ export function AssignmentsView() {
   };
 
   // Memoize filtered assignments
-  const currentAssignments = useMemo(() => assignments.filter(a => a.status === 'current'), [assignments]);
-  const upcomingAssignments = useMemo(() => assignments.filter(a => a.status === 'upcoming'), [assignments]);
-  const completedAssignments = useMemo(() => assignments.filter(a => a.status === 'completed'), [assignments]);
+  const sortFn = useCallback((a: Assignment, b: Assignment) => {
+    if (sortBy === 'cost') return b.totalCost - a.totalCost;
+    if (sortBy === 'tier') return a.serviceTier.localeCompare(b.serviceTier);
+    // default by date/time
+    return (a.date + a.time).localeCompare(b.date + b.time);
+  }, [sortBy]);
+
+  const matchesSearch = useCallback((a: Assignment) => {
+    if (!search.trim()) return true;
+    const q = search.toLowerCase();
+    return (
+      a.officerName.toLowerCase().includes(q) ||
+      a.id.toLowerCase().includes(q) ||
+      a.location.start.toLowerCase().includes(q) ||
+      a.location.end.toLowerCase().includes(q) ||
+      a.serviceTier.toLowerCase().includes(q)
+    );
+  }, [search]);
+
+  const inDateRange = useCallback((a: Assignment) => {
+    const d = a.date; // YYYY-MM-DD
+    if (dateFrom && d < dateFrom) return false;
+    if (dateTo && d > dateTo) return false;
+    return true;
+  }, [dateFrom, dateTo]);
+
+  const currentAssignments = useMemo(() =>
+    assignments.filter(a => a.status === 'current' && matchesSearch(a) && inDateRange(a)).sort(sortFn)
+  , [assignments, sortFn, matchesSearch, inDateRange]);
+
+  const upcomingAssignments = useMemo(() =>
+    assignments.filter(a => a.status === 'upcoming' && matchesSearch(a) && inDateRange(a)).sort(sortFn)
+  , [assignments, sortFn, matchesSearch, inDateRange]);
+
+  const completedAssignments = useMemo(() => {
+    let list = assignments.filter(a => a.status === 'completed' && matchesSearch(a) && inDateRange(a));
+    if (filters.ratedOnly) list = list.filter(a => !!a.rating);
+    if (filters.execOnly) list = list.filter(a => a.serviceTier === 'Executive');
+    return list.sort(sortFn);
+  }, [assignments, filters, sortFn, matchesSearch, inDateRange]);
 
   // Check if there's an active assignment for the quick actions bar
   const hasActiveAssignment = currentAssignments.length > 0;
@@ -283,11 +326,16 @@ export function AssignmentsView() {
             </span>
           </div>
 
-
           {assignment.rating && assignment.status === 'completed' && (
             <div className={styles.rating}>
               {'★'.repeat(assignment.rating)}
             </div>
+          )}
+
+          {!assignment.rating && assignment.status === 'completed' && (
+            <button className={styles.inlineRateBtn} onClick={() => console.log('Open rating for', assignment.id)}>
+              Rate Now
+            </button>
           )}
         </div>
       </div>
@@ -323,12 +371,28 @@ export function AssignmentsView() {
     };
 
     const state = emptyStates[type];
+    const hasFilters = filters.ratedOnly || filters.execOnly || search || dateFrom || dateTo;
 
     return (
       <div className={styles.emptyState}>
         <div className={styles.emptyIcon}>{state.icon}</div>
         <h3 className={styles.emptyTitle}>{state.title}</h3>
-        <p className={styles.emptyDescription}>{state.description}</p>
+        <p className={styles.emptyDescription}>
+          {hasFilters ? 'No results match your filters.' : state.description}
+        </p>
+        {hasFilters && (
+          <button
+            className={styles.emptyAction}
+            onClick={() => {
+              setFilters({ ratedOnly: false, execOnly: false });
+              setSearch('');
+              setDateFrom('');
+              setDateTo('');
+            }}
+          >
+            Clear filters
+          </button>
+        )}
         <button
           className={styles.emptyAction}
           onClick={() => {
@@ -347,13 +411,15 @@ export function AssignmentsView() {
   };
 
   const renderAnalytics = () => (
-    <div className={styles.analyticsContent}>
-      <div className={styles.analyticsCard}>
-        <h3 className={styles.analyticsTitle}>Protection Analytics</h3>
-        <p className={styles.analyticsDescription}>
-          Detailed analytics and insights coming soon. View your protection usage patterns,
-          officer ratings, and spending analytics.
-        </p>
+    <div className={styles.assignmentsSection}>
+      <div className={styles.analyticsContent} role="tabpanel" id="panel-analytics" aria-labelledby="tab-analytics">
+        <div className={styles.analyticsCard}>
+          <h3 className={styles.analyticsTitle}>Protection Analytics</h3>
+          <p className={styles.analyticsDescription}>
+            Detailed analytics and insights coming soon. View your protection usage patterns,
+            officer ratings, and spending analytics.
+          </p>
+        </div>
       </div>
     </div>
   );
@@ -382,19 +448,34 @@ export function AssignmentsView() {
     }
 
     return (
-      <div className={styles.assignmentsList}>
-        {assignmentsToShow.map(assignment => renderAssignmentCard(assignment))}
+      <div className={styles.assignmentsSection}>
+        <div className={styles.sectionHeader}>{activeSection.toUpperCase()}</div>
+        {isLoading ? (
+          <div className={styles.assignmentsList} role="tabpanel" aria-busy>
+            <div className={styles.skeletonCard} />
+            <div className={styles.skeletonCard} />
+          </div>
+        ) : (
+          <div className={styles.assignmentsList} role="tabpanel" id={`panel-${activeSection}`} aria-labelledby={`tab-${activeSection}`}>
+            {assignmentsToShow.map(assignment => renderAssignmentCard(assignment))}
+          </div>
+        )}
       </div>
     );
   };
 
   return (
-    <div className={styles.assignmentsContainer}>
+    <div className={styles.hubContainer}>
 
       {/* Header Section */}
       <div className={styles.headerSection}>
-        <h1 className={styles.pageTitle}>PROTECTION COMMAND CENTER</h1>
-        <p className={styles.subtitle}>Advanced Assignment Management & Intelligence</p>
+        <h1 className={styles.pageTitle}>PROTECTION HUB</h1>
+        <p className={styles.subtitle}>Your Protection Management Hub</p>
+        <div className={styles.quickStatus}>
+          {currentAssignments.length > 0 && <span className={styles.statusItem}>{currentAssignments.length} Active</span>}
+          {upcomingAssignments.length > 0 && <span className={styles.statusItem}>{upcomingAssignments.length} Scheduled</span>}
+          {currentAssignments.length === 0 && upcomingAssignments.length === 0 && <span className={styles.statusItem}>No Active Protection</span>}
+        </div>
       </div>
 
       {/* Financial Tracker */}
@@ -409,71 +490,80 @@ export function AssignmentsView() {
 
 
       {/* Enhanced Navigation Cards */}
-      <NavigationCards
-        activeSection={activeSection}
-        setActiveSection={setActiveSection}
-        assignmentCounts={{
-          current: currentAssignments.length,
-          upcoming: upcomingAssignments.length,
-          completed: completedAssignments.length
-        }}
-      />
+      <div className={styles.stickyNav}>
+        <NavigationCards
+          activeSection={activeSection}
+          setActiveSection={setActiveSection}
+          assignmentCounts={{
+            current: currentAssignments.length,
+            upcoming: upcomingAssignments.length,
+            completed: completedAssignments.length
+          }}
+          currentAssignments={currentAssignments}
+          upcomingAssignments={upcomingAssignments}
+          completedAssignments={completedAssignments}
+        />
+
+      </div>
 
       {/* Quick Stats Cards */}
-      <div className={styles.statsGrid}>
-        <div className={styles.statCard}>
-          <div className={styles.statIcon}>🛡️</div>
-          <div className={styles.statContent}>
-            <div className={styles.statValue}>127</div>
-            <div className={styles.statLabel}>Total Hours Protected</div>
+      <div className={styles.statsSection}>
+        <div className={styles.statsGrid}>
+          <div className={styles.statCard}>
+            <div className={styles.statIcon}>🛡️</div>
+            <div className={styles.statContent}>
+              <div className={styles.statValue}>127</div>
+              <div className={styles.statLabel}>Total Hours Protected</div>
+            </div>
           </div>
-        </div>
-        <div className={styles.statCard}>
-          <div className={styles.statIcon}>💷</div>
-          <div className={styles.statContent}>
-            <div className={styles.statValue}>£8,450</div>
-            <div className={styles.statLabel}>Total Invested</div>
+          <div className={styles.statCard}>
+            <div className={styles.statIcon}>💷</div>
+            <div className={styles.statContent}>
+              <div className={styles.statValue}>£8,450</div>
+              <div className={styles.statLabel}>Total Invested</div>
+            </div>
           </div>
-        </div>
-        <div className={styles.statCard}>
-          <div className={styles.statIcon}>⭐</div>
-          <div className={styles.statContent}>
-            <div className={styles.statValue}>4.9</div>
-            <div className={styles.statLabel}>Average Rating Given</div>
+          <div className={styles.statCard}>
+            <div className={styles.statIcon}>⭐</div>
+            <div className={styles.statContent}>
+              <div className={styles.statValue}>4.9</div>
+              <div className={styles.statLabel}>Average Rating Given</div>
+            </div>
           </div>
-        </div>
-        <div className={styles.statCard}>
-          <div className={styles.statIcon}>🏆</div>
-          <div className={styles.statContent}>
-            <div className={styles.statValue}>Gold</div>
-            <div className={styles.statLabel}>Member Status</div>
+          <div className={styles.statCard}>
+            <div className={styles.statIcon}>🏆</div>
+            <div className={styles.statContent}>
+              <div className={styles.statValue}>Gold</div>
+              <div className={styles.statLabel}>Member Status</div>
+            </div>
           </div>
         </div>
       </div>
 
       {/* Assignment List */}
-      <div className={styles.assignmentsList}>
-        {renderSectionContent()}
-      </div>
+      {renderSectionContent()}
 
       {/* Enhanced Quick Actions */}
-      <div className={styles.quickActions}>
-        <button className={styles.actionButton} onClick={() => navigateToView('booking')}>
-          <span className={styles.actionIcon}>🛡️</span>
-          <span className={styles.actionText}>Request Protection</span>
-        </button>
-        <button className={styles.actionButton} onClick={handleViewFinancialDetails}>
-          <span className={styles.actionIcon}>💷</span>
-          <span className={styles.actionText}>{showFinancialTracker ? 'Hide' : 'Show'} Finances</span>
-        </button>
-        <button className={styles.actionButton} onClick={() => setShowTemplates(!showTemplates)}>
-          <span className={styles.actionIcon}>📍</span>
-          <span className={styles.actionText}>{showTemplates ? 'Hide' : 'Show'} Saved Routes</span>
-        </button>
-        <button className={styles.actionButton}>
-          <span className={styles.actionIcon}>📊</span>
-          <span className={styles.actionText}>Analytics Report</span>
-        </button>
+      <div className={styles.quickActionsSection}>
+        <div className={styles.quickActions}>
+          <button className={styles.actionButton} onClick={() => navigateToView('booking')}>
+            <span className={styles.actionIcon}>🛡️</span>
+            <span className={styles.actionText}>Request Protection</span>
+          </button>
+          <button className={styles.actionButton} onClick={handleViewFinancialDetails}>
+            <span className={styles.actionIcon}>💷</span>
+            <span className={styles.actionText}>{showFinancialTracker ? 'Hide' : 'Show'} Finances</span>
+          </button>
+          <button className={styles.actionButton} onClick={() => setShowTemplates(!showTemplates)}>
+            <span className={styles.actionIcon}>📍</span>
+            <span className={styles.actionText}>{showTemplates ? 'Hide' : 'Show'} Saved Routes</span>
+            <span className={styles.badge}>3</span>
+          </button>
+          <button className={styles.actionButton}>
+            <span className={styles.actionIcon}>📊</span>
+            <span className={styles.actionText}>Analytics Report</span>
+          </button>
+        </div>
       </div>
 
       {/* Enhanced Protection Panel - Always show for testing */}
@@ -494,10 +584,6 @@ export function AssignmentsView() {
         onOfficerCall={handleDirectCall}
         assignmentId={currentAssignments[0]?.id || 'ASG-001'}
         currentRate={95} // Executive Shield rate
-        panelState={panelState}
-        onPanelClick={handlePanelClick}
-        onSwipeUp={handleSwipeUp}
-        onSwipeDown={handleSwipeDown}
       />
     </div>
   );

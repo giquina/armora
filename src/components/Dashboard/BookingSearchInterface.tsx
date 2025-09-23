@@ -28,6 +28,20 @@ export function BookingSearchInterface({
     setRecentDestination(recent);
   }, []);
 
+  // Open overlay when triggered from top toolbar
+  useEffect(() => {
+    const maybeOpenFromFlag = () => {
+      if (localStorage.getItem('armora_open_location_picker') === 'true') {
+        localStorage.removeItem('armora_open_location_picker');
+        setShowLocationPicker(true);
+      }
+    };
+    maybeOpenFromFlag();
+    const handler = () => setShowLocationPicker(true);
+    window.addEventListener('armora:open-location-picker' as any, handler);
+    return () => window.removeEventListener('armora:open-location-picker' as any, handler);
+  }, []);
+
   const handleSearchClick = () => {
     // Show location picker overlay instead of navigating
     setShowLocationPicker(true);

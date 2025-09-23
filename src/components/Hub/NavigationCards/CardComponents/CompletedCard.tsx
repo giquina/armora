@@ -19,13 +19,17 @@ interface CompletedCardProps {
   isActive: boolean;
   onClick: () => void;
   screenWidth?: number;
+  tabId?: string;
+  ariaControls?: string;
 }
 
 export const CompletedCard: React.FC<CompletedCardProps> = ({
   data,
   isActive,
   onClick,
-  screenWidth = 375
+  screenWidth = 375,
+  tabId,
+  ariaControls
 }) => {
   // With 1-per-row layout, we have full width to show all data
   const showFullData = true;
@@ -43,6 +47,10 @@ export const CompletedCard: React.FC<CompletedCardProps> = ({
     <button
       className={`${styles.navCard} ${styles.completed} ${isActive ? styles.active : ''}`}
       onClick={onClick}
+      role="tab"
+      aria-selected={isActive}
+      aria-controls={ariaControls}
+      id={tabId}
     >
       {/* Header */}
       <div className={styles.navCardHeader}>
@@ -102,7 +110,7 @@ export const CompletedCard: React.FC<CompletedCardProps> = ({
           {showVisuals && (
             <div className={styles.quickActions}>
               {quickActions.map((action, index) => (
-                <button
+                <div
                   key={index}
                   className={styles.quickAction}
                   onClick={(e) => {
@@ -110,9 +118,18 @@ export const CompletedCard: React.FC<CompletedCardProps> = ({
                     action.handler();
                   }}
                   title={action.label}
+                  role="button"
+                  tabIndex={0}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                      e.preventDefault();
+                      e.stopPropagation();
+                      action.handler();
+                    }
+                  }}
                 >
                   <span className={styles.actionIcon}>{action.icon}</span>
-                </button>
+                </div>
               ))}
             </div>
           )}

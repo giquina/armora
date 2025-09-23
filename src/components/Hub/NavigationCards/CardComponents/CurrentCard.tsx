@@ -2,6 +2,24 @@ import React from 'react';
 import { ProgressRing } from './MicroVisualizations/ProgressRing';
 import styles from '../NavigationCards.module.css';
 
+interface Assignment {
+  id: string;
+  date: string;
+  time: string;
+  duration: string;
+  officerName: string;
+  officerSIA: string;
+  serviceTier: 'Essential' | 'Executive' | 'Shadow';
+  totalCost: number;
+  status: string;
+  location: {
+    start: string;
+    end: string;
+  };
+  rating?: number;
+  vehicleType: string;
+}
+
 interface CurrentCardData {
   status: string;
   timeRemaining: string;
@@ -13,6 +31,7 @@ interface CurrentCardData {
   progressPercent: number;
   eta: string;
   count: number;
+  assignmentData?: Assignment | null;
 }
 
 interface CurrentCardProps {
@@ -20,13 +39,17 @@ interface CurrentCardProps {
   isActive: boolean;
   onClick: () => void;
   screenWidth?: number;
+  tabId?: string;
+  ariaControls?: string;
 }
 
 export const CurrentCard: React.FC<CurrentCardProps> = ({
   data,
   isActive,
   onClick,
-  screenWidth = 375
+  screenWidth = 375,
+  tabId,
+  ariaControls
 }) => {
   // With 1-per-row layout, we have full width to show all data
   const showFullData = true;
@@ -50,6 +73,10 @@ export const CurrentCard: React.FC<CurrentCardProps> = ({
     <button
       className={`${styles.navCard} ${styles.current} ${isActive ? styles.active : ''}`}
       onClick={onClick}
+      role="tab"
+      aria-selected={isActive}
+      aria-controls={ariaControls}
+      id={tabId}
     >
       {/* Left accent bar applied via CSS */}
 
@@ -92,15 +119,39 @@ export const CurrentCard: React.FC<CurrentCardProps> = ({
             )}
           </div>
 
-          {/* Officer & Location */}
-          {showFullData && (
-            <div className={styles.officerInfo}>
-              <div className={styles.officerName}>{data.officerName}</div>
-              <div className={styles.currentLocation}>{data.currentLocation}</div>
+          {/* Essential Assignment Details Only */}
+          {data.assignmentData && (
+            <div className={styles.assignmentDetails}>
+              <div className={styles.assignmentRow}>
+                <span className={styles.assignmentLabel}>Officer</span>
+                <span className={styles.assignmentValue}>{data.assignmentData.officerName}</span>
+              </div>
+              <div className={styles.assignmentRow}>
+                <span className={styles.assignmentLabel}>Route</span>
+                <div className={styles.routeInfo}>
+                  <span className={styles.routeText}>
+                    {data.assignmentData.location.start.split(',')[0]}
+                    <span className={styles.routeArrow}>→</span>
+                    {data.assignmentData.location.end.split(',')[0]}
+                  </span>
+                </div>
+              </div>
+              <div className={styles.assignmentRow}>
+                <span className={styles.assignmentLabel}>Time</span>
+                <span className={styles.assignmentValue}>
+                  {data.assignmentData.time} ({data.assignmentData.duration})
+                </span>
+              </div>
+              <div className={styles.assignmentRow}>
+                <span className={styles.assignmentLabel}>Cost</span>
+                <span className={`${styles.assignmentValue} ${styles.highlight}`}>
+                  £{data.assignmentData.totalCost}
+                </span>
+              </div>
             </div>
           )}
 
-          {/* Service Tier & Fare */}
+          {/* Service Tier & Fare - Keep for visual emphasis */}
           <div className={styles.bottomRow}>
             <div
               className={styles.serviceTier}
@@ -121,7 +172,7 @@ export const CurrentCard: React.FC<CurrentCardProps> = ({
           {showVisuals && (
             <div className={styles.quickActions}>
               {quickActions.map((action, index) => (
-                <button
+                <div
                   key={index}
                   className={styles.quickAction}
                   onClick={(e) => {
@@ -129,9 +180,18 @@ export const CurrentCard: React.FC<CurrentCardProps> = ({
                     action.handler();
                   }}
                   title={action.label}
+                  role="button"
+                  tabIndex={0}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                      e.preventDefault();
+                      e.stopPropagation();
+                      action.handler();
+                    }
+                  }}
                 >
                   <span className={styles.actionIcon}>{action.icon}</span>
-                </button>
+                </div>
               ))}
             </div>
           )}

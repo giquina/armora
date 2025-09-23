@@ -32,11 +32,12 @@ export function EnhancedProtectionPanel({
   onOfficerCall,
   assignmentId,
   currentRate,
-  panelState = 'collapsed',
+  panelState: externalPanelState,
   onPanelClick,
   onSwipeUp,
   onSwipeDown
 }: EnhancedProtectionPanelProps) {
+  const [panelState, setPanelState] = useState<PanelState>('collapsed');
   const [showExtensionModal, setShowExtensionModal] = useState(false);
   const [isLocationEnabled, setIsLocationEnabled] = useState(isLocationSharing);
   const [isDraggingState, setIsDraggingState] = useState(false);
@@ -82,28 +83,22 @@ export function EnhancedProtectionPanel({
       if (deltaY > 0) {
         // Swipe down
         console.log('⬇️ Swipe down detected');
-        if (onSwipeDown) {
-          onSwipeDown();
-        } else {
-          // Fallback internal logic for backward compatibility
-          if (panelState === 'full') {
-            console.log('🔄 Transitioning from full to half');
-          } else if (panelState === 'half') {
-            console.log('🔄 Transitioning from half to collapsed');
-          }
+        if (panelState === 'full') {
+          console.log('🔄 Transitioning from full to half');
+          setPanelState('half');
+        } else if (panelState === 'half') {
+          console.log('🔄 Transitioning from half to collapsed');
+          setPanelState('collapsed');
         }
       } else {
         // Swipe up
         console.log('⬆️ Swipe up detected');
-        if (onSwipeUp) {
-          onSwipeUp();
-        } else {
-          // Fallback internal logic for backward compatibility
-          if (panelState === 'collapsed') {
-            console.log('🔄 Transitioning from collapsed to half');
-          } else if (panelState === 'half') {
-            console.log('🔄 Transitioning from half to full');
-          }
+        if (panelState === 'collapsed') {
+          console.log('🔄 Transitioning from collapsed to half');
+          setPanelState('half');
+        } else if (panelState === 'half') {
+          console.log('🔄 Transitioning from half to full');
+          setPanelState('full');
         }
       }
     } else {
@@ -122,33 +117,13 @@ export function EnhancedProtectionPanel({
 
     console.log('🔍 Panel toggle clicked, current state:', panelState);
 
-    // Use external click handler if provided
-    if (onPanelClick) {
-      onPanelClick();
-    }
-  };
-
-  // Unified panel click handler for cycling through states
-  const handlePanelClick = (e: React.MouseEvent) => {
-    // Only respond to clicks on the panel container or drag handle, not action buttons
-    const target = e.target as HTMLElement;
-    const isActionButton = target.closest('.actionButton') || target.closest('button');
-
-    if (isActionButton) {
-      return; // Don't cycle states when clicking action buttons
-    }
-
-    e.stopPropagation();
-    console.log('🔄 Panel click - cycling from:', panelState);
-
-    // Add visual feedback
-    if ('vibrate' in navigator) {
-      navigator.vibrate(5); // Subtle haptic feedback
-    }
-
-    // Cycle through states: collapsed → half → full → collapsed
-    if (onPanelClick) {
-      onPanelClick();
+    // Cycle through: collapsed -> half -> full -> collapsed
+    if (panelState === 'collapsed') {
+      setPanelState('half');
+    } else if (panelState === 'half') {
+      setPanelState('full');
+    } else {
+      setPanelState('collapsed');
     }
   };
 
@@ -273,60 +248,33 @@ export function EnhancedProtectionPanel({
         onTouchStart={handleTouchStart}
         onTouchMove={handleTouchMove}
         onTouchEnd={handleTouchEnd}
-        onClick={handlePanelClick}
-        onMouseDown={(e) => {
-          // Add visual feedback for mouse interactions
-          const panel = e.currentTarget;
-          panel.style.transform = 'scale(0.998)';
-          panel.style.transition = 'transform 0.1s ease';
-        }}
-        onMouseUp={(e) => {
-          // Reset visual feedback
-          const panel = e.currentTarget;
-          panel.style.transform = '';
-          panel.style.transition = '';
-        }}
-        onMouseLeave={(e) => {
-          // Reset visual feedback if mouse leaves
-          const panel = e.currentTarget;
-          panel.style.transform = '';
-          panel.style.transition = '';
-        }}
-        title="Tap to expand/collapse • Triple-tap for emergency"
+        onClick={handleTripleTap}
       >
         {/* Drag Handle */}
         <div
           className={styles.dragHandle}
           onClick={handlePanelToggle}
-          title={`Tap to ${panelState === 'collapsed' ? 'expand' : panelState === 'half' ? 'show all' : 'collapse'}`}
         />
 
         {/* Collapsed Preview - Only when collapsed */}
         {panelState === 'collapsed' && (
-          <div
-            className={styles.collapsedPreview}
-            onClick={handleTripleTap} // Enable triple-tap panic mode
-          >
-            {/* Top Line: [● ACTIVE] [Executive] */}
-            <div className={styles.topLine}>
+          <div className={styles.collapsedPreview}>
+            <div className={styles.topRow}>
               <div className={styles.statusSection}>
                 <span className={styles.statusDot}>●</span>
                 <span className={styles.statusText}>
-                  {panicModeActive ? 'URGENT' : 'ACTIVE'}
+                  {panicModeActive ? 'URGENT RESPONDING' : 'ACTIVE'}
                 </span>
               </div>
-              <div className={styles.serviceBadge}>
-                {statusInfo.protectionLevel.split(' ')[0]}
+              <div className={styles.etaSection}>
+                ETA {statusInfo.eta} • {statusInfo.progress}% Complete
               </div>
             </div>
-
-            {/* Bottom Line: John Davis | ETA 16:45 | 1h 23m left */}
-            <div className={styles.bottomLine}>
-              <span className={styles.cpoName}>CPO {officer.name}</span>
-              <span className={styles.divider}>|</span>
-              <span className={styles.etaText}>ETA {statusInfo.eta}</span>
-              <span className={styles.divider}>|</span>
-              <span className={styles.timeLeft}>{statusInfo.timeRemaining} left</span>
+            <div className={styles.bottomRow}>
+              <div className={styles.officerInfo}>
+                <div className={styles.officerName}>{officer.name}</div>
+                <div className={styles.serviceName}>{statusInfo.protectionLevel} Detail</div>
+              </div>
             </div>
           </div>
         )}
@@ -334,23 +282,30 @@ export function EnhancedProtectionPanel({
         {/* Status Bar - Visible when expanded */}
         {(panelState === 'half' || panelState === 'full') && (
           <div className={styles.statusBar}>
-            {/* Center-aligned CPO Profile Section for half-open state */}
+            {/* Fixed CPO Profile Section - Inline layout as required */}
             <div className={styles.expandedOfficerSection}>
-              <div className={styles.officerProfileCentered}>
+              <div className={styles.officerProfile}>
                 <div className={styles.officerAvatar}>
                   <span className={styles.initials}>{officer.initials}</span>
                   <div className={styles.onlineIndicator} />
                 </div>
-                <div className={styles.officerNameCentered}>
-                  {officer.name.toUpperCase()}
-                </div>
-                <div className={styles.officerCredentials}>
-                  SIA Licensed CPO
-                </div>
-                <div className={styles.locationTimeSection}>
-                  {statusInfo.location} • {statusInfo.timeRemaining} remaining
+                <div className={styles.officerNameInline}>
+                  CPO {officer.name} • SIA CLOSE PROTECTION OFFICER
                 </div>
               </div>
+              <div className={styles.locationTimeSection}>
+                {statusInfo.location} • {statusInfo.timeRemaining} remaining
+              </div>
+            </div>
+
+            <div
+              className={styles.quickCall}
+              onClick={(e) => {
+                e.stopPropagation();
+                onOfficerCall();
+              }}
+            >
+              📞
             </div>
           </div>
         )}
@@ -376,14 +331,20 @@ export function EnhancedProtectionPanel({
               </div>
             </div>
 
-            {/* Service/Price Row */}
-            <div className={styles.servicePriceRow}>
-              <span className={styles.serviceLevel}>{statusInfo.protectionLevel}</span>
-              <span className={styles.currentPrice}>{statusInfo.cost}</span>
-            </div>
+            {/* Action Buttons Grid */}
+            <div className={styles.actionGrid}>
+              <button
+                className={`${styles.actionButton} ${styles.panic}`}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handlePanicAlert();
+                }}
+              >
+                <span className={styles.buttonIcon}>🚨</span>
+                <span className={styles.buttonLabel}>URGENT HELP</span>
+                <span className={styles.buttonSubtext}>Immediate Response</span>
+              </button>
 
-            {/* Action Buttons Row - 3 buttons evenly spaced */}
-            <div className={styles.actionButtonsRow}>
               <button
                 className={`${styles.actionButton} ${styles.call}`}
                 onClick={(e) => {
@@ -392,7 +353,8 @@ export function EnhancedProtectionPanel({
                 }}
               >
                 <span className={styles.buttonIcon}>📞</span>
-                <span className={styles.buttonLabel}>Call CPO</span>
+                <span className={styles.buttonLabel}>CALL OFFICER</span>
+                <span className={styles.buttonSubtext}>Direct Line</span>
               </button>
 
               <button
@@ -403,61 +365,50 @@ export function EnhancedProtectionPanel({
                 }}
               >
                 <span className={styles.buttonIcon}>⏰</span>
-                <span className={styles.buttonLabel}>Extend Service</span>
+                <span className={styles.buttonLabel}>EXTEND SERVICE</span>
+                <span className={styles.buttonSubtext}>Extend Protection Time</span>
               </button>
 
               <button
-                className={`${styles.actionButton} ${styles.location}`}
+                className={`${styles.actionButton} ${styles.route}`}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handleModifyRoute();
+                }}
+              >
+                <span className={styles.buttonIcon}>📍</span>
+                <span className={styles.buttonLabel}>CHANGE ROUTE</span>
+                <span className={styles.buttonSubtext}>Change Destination</span>
+              </button>
+
+              <button
+                className={`${styles.actionButton} ${styles.message}`}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handleMessageOfficer();
+                }}
+              >
+                <span className={styles.buttonIcon}>💬</span>
+                <span className={styles.buttonLabel}>MESSAGE OFFICER</span>
+                <span className={styles.buttonSubtext}>Secure Chat</span>
+              </button>
+
+              <button
+                className={`${styles.actionButton} ${styles.location} ${isLocationEnabled ? styles.active : ''}`}
                 onClick={(e) => {
                   e.stopPropagation();
                   handleLocationToggle();
                 }}
               >
-                <span className={styles.buttonIcon}>📍</span>
-                <span className={styles.buttonLabel}>Track Location</span>
+                <span className={styles.buttonIcon}>📡</span>
+                <span className={styles.buttonLabel}>
+                  {isLocationEnabled ? 'LOCATION ON' : 'SHARE LOCATION'}
+                </span>
+                <span className={styles.buttonSubtext}>
+                  {isLocationEnabled ? 'Sharing Live GPS' : 'Enable GPS Sharing'}
+                </span>
               </button>
             </div>
-
-            {/* Full Action Grid - Only in full mode */}
-            {panelState === 'full' && (
-              <div className={styles.fullActionGrid}>
-                <button
-                  className={`${styles.actionButton} ${styles.panic}`}
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    handlePanicAlert();
-                  }}
-                >
-                  <span className={styles.buttonIcon}>🚨</span>
-                  <span className={styles.buttonLabel}>URGENT HELP</span>
-                  <span className={styles.buttonSubtext}>Immediate Response</span>
-                </button>
-
-                <button
-                  className={`${styles.actionButton} ${styles.route}`}
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    handleModifyRoute();
-                  }}
-                >
-                  <span className={styles.buttonIcon}>📍</span>
-                  <span className={styles.buttonLabel}>CHANGE ROUTE</span>
-                  <span className={styles.buttonSubtext}>Change Destination</span>
-                </button>
-
-                <button
-                  className={`${styles.actionButton} ${styles.message}`}
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    handleMessageOfficer();
-                  }}
-                >
-                  <span className={styles.buttonIcon}>💬</span>
-                  <span className={styles.buttonLabel}>MESSAGE OFFICER</span>
-                  <span className={styles.buttonSubtext}>Secure Chat</span>
-                </button>
-              </div>
-            )}
 
             {/* Enhanced Features - Only visible in full mode */}
             {panelState === 'full' && (

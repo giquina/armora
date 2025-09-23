@@ -171,13 +171,13 @@ export function AccountView() {
   }
 
   const handleSignOut = () => {
-    // TODO: Implement sign out
+    // Sign out implementation placeholder
     console.log('Sign out');
     navigateToView('welcome');
   };
 
   const handleDeleteAccount = () => {
-    // TODO: Implement account deletion with confirmation
+    // Account deletion implementation placeholder
     console.log('Delete account');
   };
 

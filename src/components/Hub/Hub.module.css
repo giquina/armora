@@ -1,22 +1,26 @@
 /* ASSIGNMENTS PAGE - PROTECTION PANEL DESIGN SYSTEM */
 
-/* Main Container - Exact match to Protection Panel background */
-.assignmentsContainer {
+/* Main Container - Improved spacing and section organization */
+.hubContainer {
   background: #1a1a2e;
   min-height: calc(100vh - 120px);
   padding: 20px 16px;
-  /* Reserve space for the fixed EnhancedProtectionPanel - panel sits directly on navigation */
-  /* 70px collapsed panel + safe area + buffer */
-  padding-bottom: calc(70px + env(safe-area-inset-bottom) + 20px);
+  /* Reserve space for the fixed EnhancedProtectionPanel when collapsed */
+  padding-bottom: calc(180px + env(safe-area-inset-bottom));
   color: white;
-  /* Ensure smooth scrolling on mobile */
-  -webkit-overflow-scrolling: touch;
+  display: flex;
+  flex-direction: column;
+  gap: 24px; /* Consistent spacing between all major sections */
 }
 
-/* Header Section - Match Protection Panel header style */
+/* Header Section - Improved section wrapper */
 .headerSection {
   text-align: center;
-  margin-bottom: 24px;
+  margin-bottom: 0; /* Remove margin since we're using gap */
+  padding: 16px;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .pageTitle {
@@ -34,6 +38,24 @@
   font-weight: 400;
   letter-spacing: 0.3px;
   margin: 0;
+}
+
+.quickStatus {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 8px;
+  flex-wrap: wrap;
+}
+
+.statusItem {
+  color: #FFD700;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 4px 12px;
+  background: rgba(255, 215, 0, 0.1);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 215, 0, 0.2);
 }
 
 /* Navigation Cards - Vertical Stack */
@@ -191,12 +213,262 @@
   }
 }
 
+/* Stats Section - Improved wrapper */
+.statsSection {
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 12px;
+  padding: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
 /* Stats Grid - 2x2 Layout */
 .statsGrid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 10px;
-  margin-bottom: 20px;
+  gap: 12px;
+  margin: 0; /* Remove margin since we're using section wrapper */
+}
+
+/* Sticky navigation wrapper */
+.stickyNav {
+  position: sticky;
+  top: 0;
+  z-index: 3;
+  background: linear-gradient(180deg, rgba(26,26,46,0.98) 70%, rgba(26,26,46,0));
+  padding-top: 6px;
+  margin: -6px -16px 8px -16px; /* stretch background edge-to-edge */
+  padding-left: 16px;
+  padding-right: 16px;
+}
+
+/* Filters Section - Clean organized layout */
+.filtersSection {
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 12px;
+  padding: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  margin-bottom: 8px;
+}
+
+.filtersHeader {
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 16px;
+  text-align: center;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding-bottom: 8px;
+}
+
+/* Clean organized layout in 3 distinct sections */
+.filtersContent {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* Section 1: Filter chips and sort */
+.filtersTopRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* Section 2: Search */
+.filtersSearchSection {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.searchLabel {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 11px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+/* Section 3: Date range */
+.filtersDateSection {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.filterChips {
+  display: flex;
+  gap: 8px;
+}
+
+.chip {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  color: rgba(255, 255, 255, 0.9);
+  border-radius: 999px;
+  padding: 6px 10px;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.chipActive {
+  background: rgba(255, 215, 0, 0.15);
+  border-color: rgba(255, 215, 0, 0.4);
+  color: #ffd700;
+}
+
+.sortSelectLabel {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.7);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.sortSelect {
+  appearance: none;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  color: white;
+  border-radius: 8px;
+  padding: 6px 8px;
+  font-size: 12px;
+}
+
+/* Search and date range controls - Fixed layout */
+.controlsRow {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 0;
+}
+
+.searchRow {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.dateRow {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.searchInput {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  color: white;
+  border-radius: 10px;
+  padding: 8px 10px;
+  font-size: 13px;
+}
+
+.dateRangeControls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.dateRangeLabel {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 11px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  white-space: nowrap;
+  min-width: 75px;
+}
+
+.dateInputsWrapper {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+}
+
+.dateInput {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  color: white;
+  border-radius: 8px;
+  padding: 10px 12px;
+  font-size: 12px;
+  flex: 1;
+  min-width: 120px;
+  transition: border-color 0.2s ease;
+}
+
+.dateInput:focus {
+  outline: none;
+  border-color: rgba(255, 215, 0, 0.5);
+}
+
+.dateDivider {
+  color: rgba(255, 255, 255, 0.6);
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.clearFiltersBtn {
+  background: rgba(255, 215, 0, 0.1);
+  border: 1px solid rgba(255, 215, 0, 0.3);
+  color: #ffd700;
+  border-radius: 8px;
+  padding: 10px 16px;
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  min-width: 80px;
+}
+
+.clearFiltersBtn:hover {
+  background: rgba(255, 215, 0, 0.2);
+  border-color: rgba(255, 215, 0, 0.5);
+  transform: translateY(-1px);
+}
+
+/* Section header to separate lists */
+.sectionHeader {
+  color: rgba(255, 255, 255, 0.7);
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  margin: 8px 0 6px 2px;
+  text-transform: uppercase;
+}
+
+/* Loading skeletons for cards */
+.skeletonCard {
+  height: 100px;
+  border-radius: 8px;
+  background: linear-gradient(90deg, rgba(255,255,255,0.06) 25%, rgba(255,255,255,0.12) 37%, rgba(255,255,255,0.06) 63%);
+  background-size: 400% 100%;
+  animation: shimmer 1.2s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+  0% { background-position: 100% 0; }
+  100% { background-position: 0 0; }
+}
+
+/* Inline rate action */
+.inlineRateBtn {
+  background: #F3F4F6;
+  color: #374151;
+  border: 1px solid rgba(0,0,0,0.1);
+  border-radius: 6px;
+  font-size: 12px;
+  padding: 6px 8px;
 }
 
 .statCard {
@@ -207,7 +479,23 @@
   display: flex;
   align-items: center;
   gap: 10px;
-  min-height: 60px;
+  min-height: 80px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  -webkit-tap-highlight-color: rgba(255, 215, 0, 0.2);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.statCard:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 215, 0, 0.3);
+}
+
+.statCard:active {
+  transform: scale(0.98);
+  background: rgba(255, 215, 0, 0.05);
 }
 
 .statIcon {
@@ -238,21 +526,28 @@
   line-height: 1.2;
 }
 
+/* Assignments Section Wrapper */
+.assignmentsSection {
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 12px;
+  padding: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
 /* Assignment Cards - Compact Design with proper spacing */
 .assignmentsList {
   display: flex;
   flex-direction: column;
   gap: 12px;
-  margin-bottom: 24px; /* Optimal spacing to prevent overlap */
+  margin: 0; /* Remove margin since we're using section wrapper */
 }
 
 .assignmentCard {
   background: #FFFFFF;
   border: 1px solid rgba(0, 0, 0, 0.1);
-  border-radius: 8px;
-  padding: 14px 16px;
-  min-height: 100px;
-  height: auto;
+  border-radius: 12px; /* Slightly larger radius */
+  padding: 16px; /* Increased padding for more breathing room */
+  height: 130px; /* Increased height from 100px to 130px */
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -297,8 +592,8 @@
 .assignmentDetails {
   display: flex;
   flex-direction: column;
-  gap: 3px;
-  margin-bottom: 6px;
+  gap: 6px; /* Increased gap from 3px to 6px */
+  margin-bottom: 8px; /* Increased bottom margin */
   flex: 1;
 }
 
@@ -310,24 +605,23 @@
 }
 
 .detailLabel {
-  font-size: 12px;
+  font-size: 9px;
   color: rgba(26, 26, 46, 0.5);
   text-transform: uppercase;
   letter-spacing: 0.3px;
   font-weight: 500;
-  min-width: 32px;
+  min-width: 28px;
   flex-shrink: 0;
 }
 
 .detailValue {
-  font-size: 15px;
+  font-size: 12px;
   color: #1A1A2E;
   font-weight: 500;
-  overflow: visible;
-  text-overflow: unset;
-  white-space: normal;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
   flex: 1;
-  line-height: 1.4;
 }
 
 /* New compact card styles */
@@ -341,23 +635,36 @@
 .progressSection {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 10px; /* Increased gap from 6px to 10px */
   flex: 1;
+  padding: 2px 0; /* Add vertical padding */
 }
 
 .progressBar {
   flex: 1;
-  height: 4px;
-  background: #E5E7EB;
-  border-radius: 2px;
+  height: 10px; /* Slightly taller progress bar */
+  background: rgba(0, 0, 0, 0.1); /* Darker background for better contrast on white */
+  border-radius: 5px; /* Proportional border radius */
   overflow: hidden;
 }
 
 .progressFill {
   height: 100%;
-  background: linear-gradient(90deg, #10B981, #34D399);
-  border-radius: 2px;
+  background: linear-gradient(90deg, #00FF88, #FFD700);
+  border-radius: 4px;
   transition: width 0.3s ease;
+}
+
+.progressFill.onTime {
+  background: linear-gradient(90deg, #00FF88, #10B981);
+}
+
+.progressFill.delayed {
+  background: linear-gradient(90deg, #FFD700, #FFA000);
+}
+
+.progressFill.issue {
+  background: linear-gradient(90deg, #FF4444, #FF6B6B);
 }
 
 .progressText {
@@ -375,8 +682,9 @@
   justify-content: space-between;
   align-items: center;
   margin-top: auto;
-  padding-top: 6px;
+  padding-top: 10px; /* Increased from 6px to 10px */
   border-top: 1px solid rgba(0, 0, 0, 0.05);
+  min-height: 24px; /* Ensure consistent footer height */
 }
 
 .totalCost {
@@ -432,13 +740,20 @@
   font-weight: 500;
 }
 
-/* Quick Actions - 2 Per Row Grid Layout with proper spacing */
+/* Quick Actions Section - Improved wrapper with minimal spacing */
+.quickActionsSection {
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 12px;
+  padding: 8px; /* Reduced padding for tighter layout */
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* Quick Actions - 2 Per Row Grid Layout with minimal spacing */
 .quickActions {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 12px;
-  margin-top: 32px; /* Clear separation from content above */
-  padding-bottom: 20px; /* Adequate clearance from panel */
+  gap: 4px; /* Reduced from 12px to minimal spacing */
+  margin: 0; /* Remove margin since we're using section wrapper */
   /* Ensure buttons are in normal document flow */
   position: relative;
   z-index: 1;
@@ -446,18 +761,42 @@
 
 .quickActions .actionButton {
   background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  border-radius: 12px;
-  padding: 16px;
+  border: 3px solid rgba(255, 255, 255, 0.3); /* Much thicker border */
+  border-radius: 16px; /* Larger border radius for thicker outline */
+  padding: 16px 12px; /* Increased padding for wider buttons */
   color: white;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 8px;
+  gap: 8px; /* Slightly increased gap */
   transition: all 0.3s ease;
   cursor: pointer;
-  min-height: 80px;
+  min-height: 90px; /* Increased height for wider appearance */
+  width: 100%; /* Force full width within grid */
   justify-content: center;
+  position: relative;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  box-sizing: border-box;
+  font-weight: 600; /* Bolder text */
+}
+
+.badge {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: #FFD700;
+  color: #1a1a2e;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 2px 6px;
+  border-radius: 10px;
+  min-width: 18px;
+  height: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 .quickActions .actionButton:active {
@@ -467,21 +806,27 @@
 
 .quickActions .actionButton:hover {
   background: rgba(255, 255, 255, 0.1);
-  border-color: rgba(255, 215, 0, 0.3);
-  transform: translateY(-1px);
-  box-shadow: 0 2px 8px rgba(255, 215, 0, 0.15);
+  border-color: rgba(255, 215, 0, 0.6); /* Stronger gold border on hover */
+  transform: translateY(-2px); /* More lift on hover */
+  box-shadow: 0 4px 16px rgba(255, 215, 0, 0.25); /* Stronger glow */
 }
 
 .quickActions .actionIcon {
-  font-size: 24px;
+  font-size: 28px; /* Larger icons for wider buttons */
   color: #ffd700;
 }
 
 .quickActions .actionText {
-  font-size: 15px;
-  font-weight: 500;
+  font-size: 14px; /* Larger text */
+  font-weight: 600; /* Bolder text */
   text-align: center;
   line-height: 1.2;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  hyphens: auto;
+  max-width: 100%;
+  white-space: normal;
+  letter-spacing: 0.3px; /* Better letter spacing */
 }
 
 /* Analytics Content */
@@ -563,10 +908,22 @@
 
 /* Mobile Responsiveness */
 @media (max-width: 768px) {
-  .assignmentsContainer {
+  .hubContainer {
     padding: 16px 12px;
-    /* Optimized spacing for mobile panel - panel sits directly on navigation */
-    padding-bottom: calc(70px + env(safe-area-inset-bottom) + 16px);
+    gap: 16px; /* Reduce gap on mobile */
+    /* Keep reserved space for the fixed panel on small screens */
+    padding-bottom: calc(180px + env(safe-area-inset-bottom));
+  }
+
+  .statsSection,
+  .assignmentsSection,
+  .headerSection,
+  .filtersSection {
+    padding: 12px;
+  }
+
+  .quickActionsSection {
+    padding: 6px; /* Even tighter on mobile */
   }
 
   .tabNavigation {
@@ -596,17 +953,54 @@
 
   .quickActions {
     grid-template-columns: repeat(2, 1fr); /* Keep 2x2 grid on mobile */
-    gap: 10px;
-    margin-top: 20px; /* Optimized spacing on mobile */
-    padding-bottom: 16px; /* Streamlined bottom padding */
+    gap: 3px; /* Even smaller gap on mobile */
+    margin-top: 0; /* Remove margin since we're using section wrapper */
+    padding-bottom: 0; /* Remove padding since we're using section wrapper */
+  }
+
+  .quickActions .actionButton {
+    padding: 14px 8px; /* Increased mobile padding */
+    min-height: 85px; /* Taller on mobile too */
+    border: 2px solid rgba(255, 255, 255, 0.3); /* Slightly thinner border on mobile */
+    border-radius: 14px;
+  }
+
+  .quickActions .actionIcon {
+    font-size: 24px; /* Maintain large icons on mobile */
+  }
+
+  .quickActions .actionText {
+    font-size: 12px; /* Larger mobile text */
+    font-weight: 600;
+    line-height: 1.2;
+    letter-spacing: 0.2px;
+  }
+  .controlsRow {
+    grid-template-columns: 1fr auto auto;
+    gap: 6px;
+  }
+
+  .dateRange {
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .dateInput {
+    width: 100%;
+    min-height: 44px;
+  }
+
+  .clearFiltersBtn {
+    width: 100%;
+    margin-top: 8px;
   }
 }
 
 @media (max-width: 480px) {
-  .assignmentsContainer {
+  .hubContainer {
     padding: 12px 8px;
-    /* Compact spacing for small screens */
-    padding-bottom: calc(70px + env(safe-area-inset-bottom) + 12px);
+    /* Keep reserved space for the fixed panel on very small screens */
+    padding-bottom: calc(180px + env(safe-area-inset-bottom)); /* Increased for better spacing */
   }
 
   .pageTitle {
@@ -747,12 +1141,6 @@
 }
 
 @media (max-width: 320px) {
-  .assignmentsContainer {
-    padding: 10px 6px;
-    /* Minimal but adequate spacing for 320px screens - panel sits on navigation */
-    padding-bottom: calc(70px + env(safe-area-inset-bottom) + 10px);
-  }
-
   .pageTitle {
     font-size: 20px;
   }
@@ -807,10 +1195,37 @@
     font-size: 12px;
   }
 
-  /* Compact assignment cards for small screens */
+  /* Improved assignment cards for small screens */
   .assignmentCard {
-    height: 90px;
-    padding: 10px;
+    height: 115px; /* Taller than original but smaller than desktop */
+    padding: 14px; /* Good padding for mobile */
+  }
+  .controlsRow {
+    grid-template-columns: 1fr;
+    grid-auto-rows: auto;
+    gap: 8px;
+  }
+
+  .searchInput {
+    font-size: 16px; /* Prevent zoom on iOS */
+    min-height: 44px;
+  }
+
+  .dateRange {
+    grid-column: 1;
+    margin-top: 8px;
+  }
+
+  .dateInput {
+    min-height: 44px;
+    font-size: 16px; /* Prevent zoom on iOS */
+  }
+
+  .clearFiltersBtn {
+    grid-column: 1;
+    width: 100%;
+    min-height: 44px;
+    margin-top: 8px;
   }
 
   .assignmentStatus {
@@ -861,14 +1276,9 @@
     font-size: 9px;
   }
 
-  .quickActions {
-    margin-top: 16px;
-    padding-bottom: 12px;
-    gap: 8px;
-  }
-
   .quickActions .actionText {
-    font-size: 14px;
+    font-size: 12px;
+    line-height: 1.2;
   }
 }
 
@@ -878,4 +1288,39 @@
 .emptyAction:focus {
   outline: 2px solid #ffd700;
   outline-offset: 2px;
+}
+
+/* Visual Polish Enhancements */
+/* Status Badge Pulse Animation */
+@keyframes pulseBadge {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+
+.statusBadge.active {
+  animation: pulseBadge 2s infinite;
+}
+
+/* Remove bottom status bar on mobile */
+@media (max-width: 414px) {
+  .bottomStatusBar {
+    display: none;
+  }
+}
+
+/* Better touch feedback */
+.tapTarget {
+  min-width: 44px;
+  min-height: 44px;
+  -webkit-tap-highlight-color: rgba(255, 215, 0, 0.2);
+  position: relative;
+}
+
+/* Enhanced card shadows */
+.assignmentCard {
+  transition: box-shadow 0.2s ease;
+}
+
+.assignmentCard:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
 }

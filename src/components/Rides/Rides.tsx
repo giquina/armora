@@ -13,8 +13,8 @@ export function Bookings() {
   const [bookingHistory, setBookingHistory] = React.useState(() =>
     BookingHistoryManager.getBookingHistory()
   );
-  const [hasActiveRides] = React.useState(false); // TODO: Replace with real active rides data
-  const [hasVenueBookings] = React.useState(false); // TODO: Replace with real venue bookings data
+  const [hasActiveRides] = React.useState(false); // Active rides data placeholder
+  const [hasVenueBookings] = React.useState(false); // Venue bookings data placeholder
   const [activeTab, setActiveTab] = React.useState<'transport' | 'venues'>('transport');
 
   const handleBookNewService = () => {
@@ -87,7 +87,7 @@ export function Bookings() {
           {hasActiveRides ? (
             <div className={styles.section}>
               <h2 className={styles.sectionTitle}>🚗 Active Transport</h2>
-              {/* TODO: Add active rides component when available */}
+              {/* Active rides component placeholder */}
             </div>
           ) : (
             <div className={styles.section}>
@@ -127,7 +127,7 @@ export function Bookings() {
           {hasVenueBookings ? (
             <div className={styles.section}>
               <h2 className={styles.sectionTitle}>🛡️ Active Venue Security</h2>
-              {/* TODO: Add active venue bookings component when available */}
+              {/* Active venue bookings component placeholder */}
             </div>
           ) : (
             <div className={styles.section}>

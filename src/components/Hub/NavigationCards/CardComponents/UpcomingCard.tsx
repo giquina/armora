@@ -2,6 +2,24 @@ import React, { useState, useEffect } from 'react';
 import { MiniCalendar } from './MicroVisualizations/MiniCalendar';
 import styles from '../NavigationCards.module.css';
 
+interface Assignment {
+  id: string;
+  date: string;
+  time: string;
+  duration: string;
+  officerName: string;
+  officerSIA: string;
+  serviceTier: 'Essential' | 'Executive' | 'Shadow';
+  totalCost: number;
+  status: string;
+  location: {
+    start: string;
+    end: string;
+  };
+  rating?: number;
+  vehicleType: string;
+}
+
 interface UpcomingCardData {
   nextAssignment: string;
   countdown: string;
@@ -12,6 +30,7 @@ interface UpcomingCardData {
   favoriteTimeSlot: boolean;
   miniCalendar: number[];
   count: number;
+  assignmentData?: Assignment | null;
 }
 
 interface UpcomingCardProps {
@@ -19,13 +38,17 @@ interface UpcomingCardProps {
   isActive: boolean;
   onClick: () => void;
   screenWidth?: number;
+  tabId?: string;
+  ariaControls?: string;
 }
 
 export const UpcomingCard: React.FC<UpcomingCardProps> = ({
   data,
   isActive,
   onClick,
-  screenWidth = 375
+  screenWidth = 375,
+  tabId,
+  ariaControls
 }) => {
   // With 1-per-row layout, we have full width to show all data
   const showFullData = true;
@@ -53,6 +76,10 @@ export const UpcomingCard: React.FC<UpcomingCardProps> = ({
     <button
       className={`${styles.navCard} ${styles.upcoming} ${isActive ? styles.active : ''}`}
       onClick={onClick}
+      role="tab"
+      aria-selected={isActive}
+      aria-controls={ariaControls}
+      id={tabId}
     >
       {/* Header */}
       <div className={styles.navCardHeader}>
@@ -89,6 +116,38 @@ export const UpcomingCard: React.FC<UpcomingCardProps> = ({
             )}
           </div>
 
+          {/* Essential Assignment Details Only */}
+          {data.assignmentData && (
+            <div className={styles.assignmentDetails}>
+              <div className={styles.assignmentRow}>
+                <span className={styles.assignmentLabel}>Officer</span>
+                <span className={styles.assignmentValue}>{data.assignmentData.officerName}</span>
+              </div>
+              <div className={styles.assignmentRow}>
+                <span className={styles.assignmentLabel}>Route</span>
+                <div className={styles.routeInfo}>
+                  <span className={styles.routeText}>
+                    {data.assignmentData.location.start.split(',')[0]}
+                    <span className={styles.routeArrow}>→</span>
+                    {data.assignmentData.location.end.split(',')[0]}
+                  </span>
+                </div>
+              </div>
+              <div className={styles.assignmentRow}>
+                <span className={styles.assignmentLabel}>Time</span>
+                <span className={styles.assignmentValue}>
+                  {data.assignmentData.time} ({data.assignmentData.duration})
+                </span>
+              </div>
+              <div className={styles.assignmentRow}>
+                <span className={styles.assignmentLabel}>Cost</span>
+                <span className={`${styles.assignmentValue} ${styles.highlight}`}>
+                  £{data.assignmentData.totalCost}
+                </span>
+              </div>
+            </div>
+          )}
+
           {/* Officer & Schedule Info */}
           {showFullData && (
             <div className={styles.officerSchedule}>
@@ -114,7 +173,7 @@ export const UpcomingCard: React.FC<UpcomingCardProps> = ({
           {showVisuals && (
             <div className={styles.quickActions}>
               {quickActions.map((action, index) => (
-                <button
+                <div
                   key={index}
                   className={styles.quickAction}
                   onClick={(e) => {
@@ -122,9 +181,18 @@ export const UpcomingCard: React.FC<UpcomingCardProps> = ({
                     action.handler();
                   }}
                   title={action.label}
+                  role="button"
+                  tabIndex={0}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                      e.preventDefault();
+                      e.stopPropagation();
+                      action.handler();
+                    }
+                  }}
                 >
                   <span className={styles.actionIcon}>{action.icon}</span>
-                </button>
+                </div>
               ))}
             </div>
           )}

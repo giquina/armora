@@ -12,7 +12,7 @@ import AchievementUnlock from './components/Achievement/AchievementUnlock';
 import AchievementBanner from './components/Achievement/AchievementBanner';
 import { Dashboard } from './components/Dashboard';
 import { ServicesPage } from './components/Services/ServicesPage';
-import { AssignmentsView } from './components/AssignmentsView';
+import { Hub } from './components/Hub';
 import { SubscriptionOffer } from './components/Subscription/SubscriptionOffer';
 import { VehicleSelection, LocationPicker } from './components/Booking';
 import { ProtectionAssignmentSuccess, WhereWhenView } from './components/ProtectionAssignment';
@@ -22,7 +22,8 @@ import { ServiceSelection } from './components/ServiceSelection/ServiceSelection
 import { ReferralSection } from './components/Account/ReferralSection';
 import { PPOVenueBooking } from './components/Account/PPOVenueBooking';
 import { AccountView } from './components/Account/AccountView';
-import { RecruitmentTopBanner } from './components/Global/RecruitmentTopBanner';
+// Removed top banner; recruitment is now a side widget on Account page
+import { RecruitmentWidget } from './components/Global/RecruitmentWidget';
 import { VenueProtectionWelcome } from './components/VenueProtection/VenueProtectionWelcome';
 import { VenueSecurityQuestionnaire } from './components/VenueProtection/VenueSecurityQuestionnaire';
 import { VenueProtectionSuccess } from './components/VenueProtection/VenueProtectionSuccess';
@@ -290,7 +291,7 @@ function Profile() {
           gap: 'var(--space-sm)'
         }}>
           <button
-            onClick={() => navigateToView('assignments')}
+            onClick={() => navigateToView('hub')}
             style={{
               display: 'flex',
               alignItems: 'center',
@@ -502,8 +503,8 @@ function AppRouter() {
   useEffect(() => {
     // Only auto-navigate if user is logged in and has completed onboarding
     if (assignmentState?.hasActiveAssignment && user && currentView === 'home') {
-      console.log('Active assignment detected, navigating to assignments page');
-      navigateToView('assignments');
+      console.log('Active assignment detected, navigating to hub page');
+      navigateToView('hub');
     }
   }, [assignmentState?.hasActiveAssignment, user, currentView, navigateToView]);
 
@@ -612,9 +613,9 @@ function AppRouter() {
         return <BookingFlow />;
       case 'service-selection':
         return <ServiceSelection />;
-      case 'assignments':
+      case 'hub':
       case 'rides':
-        return <AssignmentsView />;
+        return <Hub />;
       case 'account':
         return <AccountView />;
       case 'about':
@@ -636,7 +637,6 @@ function AppRouter() {
   if (['splash', 'welcome', 'login', 'signup', 'guest-disclaimer', 'questionnaire', 'achievement'].includes(currentView)) {
     return (
       <div className={isBookingTheme ? 'booking-white-theme' : ''}>
-        <RecruitmentTopBanner />
         {renderCurrentView()}
         {showAchievementBanner && (
           <AchievementBanner
@@ -652,9 +652,10 @@ function AppRouter() {
 
   return (
     <div className={isBookingTheme ? 'booking-white-theme' : ''}>
-      <RecruitmentTopBanner />
       <AppLayout>
         {renderCurrentView()}
+        {/* Show recruitment widget only on Account page */}
+        {currentView === 'account' && <RecruitmentWidget />}
       </AppLayout>
       {showAchievementBanner && (
         <AchievementBanner

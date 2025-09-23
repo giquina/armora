@@ -87,11 +87,17 @@
   --z-dropdown: 1000;
   --z-sticky: 100010; /* Higher than SafeRideFund modals and all content */
   --z-fixed: 1030;
+  /* Ensure toolbar stays above all banners/content */
+  --z-toolbar: 1055;
   --z-modal-backdrop: 1040;
   --z-modal: 1050;
   --z-popover: 1060;
   --z-tooltip: 1070;
   --z-toast: 1080;
+
+  /* TOP TOOLBAR LAYOUT VARS */
+  --toolbar-height: 56px;
+  --toolbar-offset: calc(var(--toolbar-height) + env(safe-area-inset-top));
 
   /* BOTTOM UI COMPONENTS SPACING SYSTEM */
   /* Desktop spacing */
@@ -127,4 +133,11 @@
   --bg-primary: #ffffff;
   --bg-secondary: #f5f5f5;
   --bg-card: #ffffff;
+}
+
+@media (min-width: 768px) {
+  :root {
+    --toolbar-height: 60px;
+    --toolbar-offset: calc(var(--toolbar-height) + env(safe-area-inset-top));
+  }
 }

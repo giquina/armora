@@ -24,7 +24,7 @@ export function ProtectionStatus() {
   };
 
   const handleStatusClick = () => {
-    navigateToView('assignments');
+    navigateToView('hub');
   };
 
   // Hidden when no protection

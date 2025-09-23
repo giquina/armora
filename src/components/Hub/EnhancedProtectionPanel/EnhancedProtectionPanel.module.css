@@ -2,59 +2,32 @@
 
 .panel {
   position: fixed;
-  /* Position panel to sit directly on navigation */
-  bottom: 0;
+  /* Sit above the bottom navigation (keep nav visible and clickable) */
+  bottom: calc(60px + env(safe-area-inset-bottom));
   left: 0;
   right: 0;
-  /* No padding-bottom needed */
-  padding-bottom: 0;
-  /* Remove other spacing */
-  margin: 0;
-  /* Luxury white background with subtle elegance */
-  background: #ffffff;
-  backdrop-filter: blur(40px) saturate(120%);
-  -webkit-backdrop-filter: blur(40px) saturate(120%);
+  /* Enhanced glassmorphism background */
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(40px) saturate(180%);
+  -webkit-backdrop-filter: blur(40px) saturate(180%);
   border-radius: 24px 24px 0 0;
-  /* Premium shadow system - no bottom shadow to eliminate gap */
+  /* Premium shadow system */
   box-shadow:
     0 -8px 32px rgba(0, 0, 0, 0.12),
     0 -16px 64px rgba(0, 0, 0, 0.08),
     0 -2px 8px rgba(0, 0, 0, 0.04),
-    inset 0 1px 0 rgba(255, 255, 255, 0.5);
-  transition: height 0.3s cubic-bezier(0.4, 0, 0.2, 1),
-              transform 0.1s ease,
-              box-shadow 0.2s ease,
-              background-color 0.2s ease;
-  cursor: pointer;
-  /* ABOVE bottom navigation but below modals */
-  z-index: 999;
+    inset 0 1px 0 rgba(255, 255, 255, 0.5),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.05);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  /* Below bottom navigation (var(--z-fixed) = 1030) so nav stays on top */
+  z-index: 1020;
   border: 1px solid rgba(255, 255, 255, 0.3);
   border-bottom: none;
   overflow: hidden;
   /* Ensure panel is always visible and sticky */
   display: block !important;
-  /* Ensure no gap with navigation */
-  margin-bottom: 0;
-  /* Touch-friendly interaction */
-  touch-action: manipulation;
-  user-select: none;
-  -webkit-user-select: none;
-}
-
-/* Interactive states */
-.panel:hover {
-  box-shadow:
-    0 -10px 40px rgba(0, 0, 0, 0.15),
-    0 -20px 80px rgba(0, 0, 0, 0.10),
-    0 -4px 16px rgba(0, 0, 0, 0.06),
-    inset 0 1px 0 rgba(255, 255, 255, 0.6),
-    inset 0 -1px 0 rgba(0, 0, 0, 0.05);
-  background: rgba(255, 255, 255, 0.97);
-}
-
-.panel:active {
-  transform: translateY(0) scale(0.998);
-  background: rgba(255, 255, 255, 0.99);
+  /* Internal padding only; nav sits outside */
+  padding-bottom: 8px;
 }
 
 .panel::before {
@@ -73,30 +46,11 @@
   pointer-events: none;
 }
 
-/* Panel States with enhanced animations */
+/* Panel States */
 .panel.collapsed {
   transform: translateY(0);
-  /* Height for two-line collapsed layout */
-  height: 70px;
-  position: fixed;
-  bottom: 0px;
-  background: rgba(255, 255, 255, 0.85);
-  backdrop-filter: blur(20px) saturate(120%);
-  -webkit-backdrop-filter: blur(20px) saturate(120%);
+  height: 112px; /* Compact collapsed preview */
   /* Only show the status bar in collapsed state */
-  animation: bounceToCollapsed 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-}
-
-@keyframes bounceToCollapsed {
-  0% {
-    transform: translateY(0) scale(1);
-  }
-  50% {
-    transform: translateY(-4px) scale(1.01);
-  }
-  100% {
-    transform: translateY(0) scale(1);
-  }
 }
 
 .panel.dragging {
@@ -131,63 +85,17 @@
 
 .panel.half {
   transform: translateY(0);
-  /* Height for half-open state content */
-  height: 180px;
-  position: fixed;
-  bottom: 0px;
-  background: rgba(255, 255, 255, 0.92);
-  backdrop-filter: blur(30px) saturate(150%);
-  -webkit-backdrop-filter: blur(30px) saturate(150%);
-  /* Panel shows essential info + progress */
-  animation: bounceToHalf 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-}
-
-@keyframes bounceToHalf {
-  0% {
-    transform: translateY(0) scale(1);
-    height: 60px;
-  }
-  70% {
-    transform: translateY(-6px) scale(1.005);
-    height: 210px;
-  }
-  100% {
-    transform: translateY(0) scale(1);
-    height: 200px;
-  }
+  height: 50vh;
+  /* Panel takes up half the screen */
 }
 
 .panel.full {
   transform: translateY(0);
-  height: auto;
-  /* Max height extends to header only */
-  max-height: calc(100vh - 80px); /* Account for header only */
-  position: fixed;
-  bottom: 0px;
-  overflow-y: auto;
-  background: rgba(255, 255, 255, 0.98);
-  backdrop-filter: blur(40px) saturate(180%);
-  -webkit-backdrop-filter: blur(40px) saturate(180%);
-  /* Panel shows all assignment details with scroll if needed */
-  animation: bounceToFull 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  height: 75vh;
+  /* Panel takes up 3/4 of the screen */
 }
 
-@keyframes bounceToFull {
-  0% {
-    transform: translateY(0) scale(1);
-    max-height: 200px;
-  }
-  70% {
-    transform: translateY(-8px) scale(1.002);
-    max-height: calc(100vh - 110px);
-  }
-  100% {
-    transform: translateY(0) scale(1);
-    max-height: calc(100vh - 120px);
-  }
-}
-
-/* Drag Handle - Subtle gray indicator */
+/* Drag Handle - Perfectly Centered */
 .dragHandle {
   position: absolute;
   top: 8px;
@@ -195,147 +103,34 @@
   transform: translateX(-50%);
   width: 40px;
   height: 4px;
-  /* Subtle gray handle from theme */
-  background: rgba(0, 0, 0, 0.15);
+  background: rgba(0, 0, 0, 0.2);
   border-radius: 2px;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  z-index: 100;
-  /* Small touch target padding */
-  padding: 12px;
-  margin: -12px;
-  /* Subtle shadow */
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  cursor: grab;
+  transition: background 0.2s ease;
+  z-index: 10;
 }
 
-/* Simple drag handle states */
 .dragHandle:hover {
-  background: rgba(0, 0, 0, 0.25);
+  background: rgba(0, 0, 0, 0.4);
 }
 
 .dragHandle:active {
   cursor: grabbing;
-  background: rgba(0, 0, 0, 0.3);
+  background: rgba(255, 215, 0, 0.8);
+  transform: scaleY(1.2);
 }
 
-
-/* Collapsed Preview Content - Two-line layout */
+/* Collapsed Preview Content */
 .collapsedPreview {
-  background: #ffffff;
+  padding: 12px 16px;
+  background: rgba(0, 0, 0, 0.02);
   border-radius: 8px;
-  margin: 24px 20px 0 20px; /* More space from drag handle */
+  margin: 16px 20px 0 20px;
   border: 1px solid rgba(0, 0, 0, 0.08);
+  min-height: 80px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  /* Enhanced touch interaction */
-  cursor: pointer;
-  transition: all 0.2s ease;
-  /* Proper padding for two-line layout */
-  padding: 10px 16px 10px 16px;
-  height: 50px; /* Total height minus margins should fit in 70px panel */
-}
-
-/* Top Line: [● ACTIVE] [Executive] */
-.topLine {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 8px;
-}
-
-.statusSection {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.statusDot {
-  color: #10B981;
-  font-size: 12px;
-  font-weight: bold;
-}
-
-.statusText {
-  font-weight: 700;
-  color: #10B981;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  font-size: 14px;
-}
-
-.serviceBadge {
-  font-weight: 600;
-  color: #FFD700;
-  background: #1A1A2E;
-  padding: 4px 8px;
-  border-radius: 4px;
-  font-size: 12px;
-  text-transform: uppercase;
-  letter-spacing: 0.3px;
-}
-
-/* Bottom Line: John Davis | ETA 16:45 | 1h 23m left */
-.bottomLine {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 13px;
-}
-
-.cpoName {
-  font-weight: 600;
-  color: #1A1A2E;
-  white-space: nowrap;
-}
-
-.divider {
-  color: rgba(26, 26, 46, 0.4);
-  font-weight: 400;
-}
-
-.etaText {
-  font-weight: 500;
-  color: #6B7280;
-  white-space: nowrap;
-}
-
-.timeLeft {
-  font-weight: 500;
-  color: #6B7280;
-  white-space: nowrap;
-}
-
-.collapsedPreview:hover {
-  background: #ffffff;
-  border-color: rgba(0, 0, 0, 0.12);
-  transform: translateY(-1px);
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
-}
-
-.collapsedPreview:active {
-  background: #f9f9f9;
-  transform: translateY(0) scale(0.998);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-}
-
-/* Add expand hint to collapsed preview */
-.collapsedPreview::after {
-  content: 'Tap to expand';
-  position: absolute;
-  bottom: 4px;
-  right: 8px;
-  font-size: 10px;
-  color: rgba(255, 215, 0, 0.6);
-  font-weight: 500;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-}
-
-.collapsedPreview:hover::after {
-  opacity: 1;
 }
 
 .topRow {
@@ -359,12 +154,11 @@
 }
 
 .statusText {
-  font-size: 14px; /* Bigger as requested */
-  font-weight: 700;
+  font-size: 12px;
+  font-weight: 600;
   color: #10B981;
   text-transform: uppercase;
-  letter-spacing: 0.8px;
-  text-shadow: 0 1px 2px rgba(16, 185, 129, 0.3);
+  letter-spacing: 0.5px;
 }
 
 .etaSection {
@@ -388,58 +182,16 @@
 }
 
 .officerName {
-  font-size: 13px;
-  font-weight: 700;
+  font-size: 15px;
+  font-weight: 600;
   color: #1A1A2E;
-  line-height: 1.1;
-  margin: 0;
-  /* Ensure visibility in collapsed state */
-  display: block;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  overflow: hidden;
+  line-height: 1.2;
 }
 
 .serviceName {
-  font-size: 11px;
+  font-size: 14px;
   color: #4B5563;
-  line-height: 1.1;
-  margin: 0;
-}
-
-/* New styles for enhanced collapsed info */
-.officerTitle {
-  font-size: 10px;
-  color: #6B7280;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  font-weight: 500;
-  margin: 0;
-  line-height: 1;
-}
-
-.serviceInfo {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  gap: 2px;
-  flex-shrink: 0;
-}
-
-.servicePrice {
-  font-size: 16px;
-  font-weight: 700;
-  color: #10B981;
-  line-height: 1;
-  margin: 0;
-}
-
-.serviceType {
-  font-size: 11px;
-  color: #1A1A2E;
-  font-weight: 600;
-  line-height: 1;
-  margin: 0;
+  line-height: 1.2;
 }
 
 /* Status Bar - Visible when expanded */
@@ -460,10 +212,8 @@
 .expandedOfficerSection {
   display: flex;
   flex-direction: column;
-  align-items: center;
   gap: 1rem;
   flex: 1;
-  text-align: center;
 }
 
 .officerProfile {
@@ -472,39 +222,22 @@
   gap: 14px;
 }
 
-.officerProfileCentered {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 8px;
-  text-align: center;
-  width: 100%;
-}
-
-.officerNameCentered {
-  font-size: 16px;
+.officerNameInline {
+  font-size: 17px;
   font-weight: 700;
   color: #1A1A2E;
   line-height: 1.3;
   text-transform: uppercase;
   letter-spacing: 0.5px;
-  text-align: center;
-  margin-top: 4px;
-}
-
-.officerCredentials {
-  font-size: 12px;
-  color: #6B7280;
-  font-weight: 500;
-  text-align: center;
+  text-align: left;
 }
 
 .locationTimeSection {
+  padding-left: 76px; /* 60px avatar + 16px gap */
   font-size: 14px;
   color: #374151;
   font-weight: 600;
   line-height: 1.2;
-  text-align: center;
 }
 
 /* Tighter status bar in half state to gain vertical space */
@@ -557,8 +290,8 @@
 /* Enhanced status ring around avatar for different states */
 .officerAvatar {
   position: relative;
-  width: 60px;
-  height: 60px;
+  width: 46px;
+  height: 46px;
   background: linear-gradient(135deg, #FFD700, #FFA500);
   border-radius: 50%;
   display: flex;
@@ -566,14 +299,13 @@
   justify-content: center;
   font-weight: 700;
   color: #1a1a2e;
-  font-size: 18px;
+  font-size: 15px;
   box-shadow: 0 3px 12px rgba(255, 215, 0, 0.25);
   flex-shrink: 0;
   /* Enhanced status ring */
   border: 3px solid transparent;
   background-clip: padding-box;
   animation: statusRing 3s ease-in-out infinite;
-  margin-bottom: 8px;
 }
 
 @keyframes statusRing {
@@ -687,17 +419,15 @@
 
 /* Panel Content */
 .panelContent {
-  padding: 0 16px 0 16px; /* Remove bottom padding since panel now extends to nav */
+  padding: 0 16px 0 16px; /* Remove bottom padding to prevent cutoff */
   overflow-y: auto;
   flex: 1;
   display: flex;
   flex-direction: column;
   height: 100%;
-  /* Content area excludes the bottom padding used to extend to navigation */
-  max-height: calc(100% - 140px); /* Account for status bar + navigation extension */
+  /* Ensure content fits within the panel height and accounts for navigation */
+  max-height: calc(100% - 70px - 68px); /* Account for status bar + navigation padding */
   box-sizing: border-box;
-  /* Smooth scrolling on mobile */
-  -webkit-overflow-scrolling: touch;
 }
 
 /* Progress Section */
@@ -768,99 +498,29 @@
   font-weight: 600;
 }
 
-/* Service/Price Row */
-.servicePriceRow {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin: 12px 0;
-  padding: 0 8px;
-}
-
-.serviceLevel {
-  font-size: 14px;
-  color: #FFD700;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  background: #1A1A2E;
-  padding: 6px 12px;
-  border-radius: 6px;
-}
-
-.currentPrice {
-  font-size: 18px;
-  color: #1A1A2E;
-  font-weight: 700;
-}
-
-/* Action Buttons Row - 3 buttons evenly spaced */
-.actionButtonsRow {
-  display: flex;
-  justify-content: space-evenly;
-  gap: 12px;
-  margin: 16px 0;
-  padding: 0 8px;
-}
-
-.actionButtonsRow .actionButton {
-  flex: 1;
-  max-width: 120px;
-  min-height: 44px;
-  height: 44px;
-  border-radius: 8px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 2px;
-  font-weight: 600;
-  text-align: center;
-  cursor: pointer;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  border: none;
-  color: white;
-  position: relative;
-  overflow: hidden;
-  padding: 8px 6px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-  touch-action: manipulation;
-  -webkit-tap-highlight-color: transparent;
-}
-
-.actionButtonsRow .buttonIcon {
-  font-size: 16px;
-  line-height: 1;
-  margin-bottom: 2px;
-}
-
-.actionButtonsRow .buttonLabel {
-  font-size: 10px;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.2px;
-  line-height: 1;
-  text-align: center;
-}
-
-/* Full Action Grid - Only in full mode */
-.fullActionGrid {
+/* Action Buttons Grid - 3x2 layout with prominent URGENT HELP */
+.actionGrid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(2, 1fr);
-  gap: 8px;
-  margin-top: 16px;
+  gap: 6px; /* Reduced gap */
+  margin-bottom: 0; /* Remove bottom margin to prevent cutoff */
+  flex: 1;
   width: 100%;
-  touch-action: manipulation;
+  /* Ensure grid fits within available space and is visible */
+  overflow: visible;
+  align-content: start;
+  /* Add margin-top to ensure spacing from progress */
+  margin-top: 4px;
 }
 
-/* URGENT HELP button spans full width for prominence */
+/* URGENT HELP button - same size as others but prominent styling */
 .actionButton.panic {
-  grid-column: 1 / -1; /* Span all columns */
   background: linear-gradient(135deg, #ff4458, #ff1744);
   box-shadow: 0 6px 20px rgba(255, 23, 68, 0.5);
-  font-size: 16px;
-  height: 75px;
+  font-size: 14px;
+  font-weight: 700;
+  border: 2px solid rgba(255, 255, 255, 0.2);
   position: relative;
   animation: urgentPulse 3s ease-in-out infinite;
 }
@@ -876,13 +536,12 @@
   }
 }
 
-/* Reorganize grid to accommodate full-width panic button */
+/* Reorganize grid to accommodate panic button at BOTTOM (same size) */
 .actionGrid {
   grid-template-areas:
-    "panic panic panic"
     "call extend route"
-    "message location extra";
-  grid-template-rows: auto auto auto;
+    "message location panic";
+  grid-template-rows: auto auto;
 }
 
 .actionButton.panic { grid-area: panic; }
@@ -892,43 +551,15 @@
 .actionButton.message { grid-area: message; }
 .actionButton.location { grid-area: location; }
 
-/* Half state optimizations */
-.panel.half .panelContent {
-  padding: 0 12px 0 12px;
-  max-height: calc(180px - 70px);
-}
-
-.panel.half .statusBar {
-  padding: 12px 16px 8px 16px;
-  min-height: 120px;
-}
-
-.panel.half .officerAvatar {
-  width: 60px;
-  height: 60px;
-  margin: 10px 0;
-}
-
-.panel.half .servicePriceRow {
-  margin: 8px 0;
-}
-
-.panel.half .actionButtonsRow {
-  margin: 12px 0 8px 0;
-}
-
-.panel.half .actionButtonsRow .actionButton {
-  min-height: 44px;
-  height: 44px;
-  padding: 6px 4px;
-}
-
-.panel.half .actionButtonsRow .buttonIcon {
-  font-size: 14px;
-}
-
-.panel.half .actionButtonsRow .buttonLabel {
-  font-size: 9px;
+/* 3x2 grid in half state for optimal space usage */
+.panel.half .panelContent .actionGrid {
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(2, minmax(60px, 1fr)); /* Slightly smaller buttons */
+  gap: 6px; /* Reduced gap */
+  /* Ensure all buttons are visible above navigation */
+  max-height: calc(100% - 40px); /* More space from navigation */
+  overflow: visible;
+  margin-bottom: 10px; /* Add some buffer from navigation */
 }
 
 .actionButton {
@@ -943,7 +574,7 @@
   font-weight: 600;
   text-align: center;
   cursor: pointer;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   border: none;
   color: white;
   position: relative;
@@ -953,37 +584,6 @@
   padding: 12px 8px;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
   aspect-ratio: 1.2 / 1;
-  /* Enhanced touch interaction */
-  touch-action: manipulation;
-  -webkit-tap-highlight-color: transparent;
-}
-
-/* Enhanced button hover and active states */
-.actionButton:hover {
-  transform: translateY(-2px) scale(1.02);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
-}
-
-.actionButton:active {
-  transform: translateY(0) scale(0.98);
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.2);
-}
-
-/* Add ripple effect for touch feedback */
-.actionButton::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  background: radial-gradient(circle, rgba(255, 255, 255, 0.3) 0%, transparent 70%);
-  transform: scale(0);
-  transition: transform 0.3s ease;
-  pointer-events: none;
-}
-
-.actionButton:active::after {
-  transform: scale(1);
-  transition: transform 0.1s ease;
 }
 
 /* Optimize CTA buttons for 3x2 grid in half state */
@@ -1006,9 +606,9 @@
 
 /* Optimized content padding for buttons in half state */
 .panel.half .panelContent {
-  padding: 0 12px 0 12px; /* Remove bottom padding since panel extends to nav */
-  /* Content area excludes the extension to navigation */
-  max-height: calc(200px - 70px); /* Based on half panel content height */
+  padding: 0 12px 20px 12px; /* Add bottom padding for navigation clearance */
+  /* Ensure content fits without being cut off by navigation */
+  max-height: calc(50vh - 50px); /* Reduced to fit within visible area */
 }
 
 /* Optimize spacing around progress for bigger buttons in half state */
@@ -1293,23 +893,8 @@
   color: #6B7280;
 }
 
-/* Mobile Responsive - Enhanced for touch */
+/* Mobile Responsive */
 @media (max-width: 374px) {
-  .panel {
-    /* Panel extends to navigation border */
-    bottom: 0;
-    padding-bottom: 68px;
-    border-radius: 22px 22px 0 0;
-  }
-
-  .panel.collapsed {
-    height: calc(60px + 68px);
-  }
-
-  .panel.half {
-    height: calc(200px + 68px);
-  }
-
   .statusBar {
     padding: 18px 16px 12px 16px;
   }
@@ -1357,67 +942,38 @@
     padding-left: 14px;
   }
 
+  .officerRole {
+    font-size: 11px;
+  }
+
   .timeRemaining {
     font-size: 14px;
   }
 
   .actionButton {
-    min-height: 58px; /* Good touch target size */
-    height: 58px;
-    padding: 10px 8px;
-    border-radius: 8px;
+    min-height: 63px;
+    height: 63px;
+    padding: 10px 12px;
   }
 
   .buttonIcon {
-    font-size: 18px;
+    font-size: 20px;
   }
 
   .buttonLabel {
-    font-size: 11px;
-    line-height: 1.1;
+    font-size: 12px;
   }
 
   .panelContent {
-    padding: 0 12px 16px 12px;
+    padding: 0 12px 12px 12px;
   }
 
   .actionGrid {
     gap: 6px;
   }
-
-  /* Touch-friendly drag handle */
-  .dragHandle {
-    width: 55px;
-    height: 6px;
-    padding: 12px;
-    margin: -12px;
-    background: linear-gradient(90deg, #FFD700, #FF8F00, #FFD700);
-    box-shadow: 0 3px 12px rgba(255, 215, 0, 0.4);
-  }
-
-  .dragHandle::before {
-    font-size: 17px;
-    top: -21px;
-    color: rgba(255, 215, 0, 0.9);
-  }
 }
 
 @media (max-width: 320px) {
-  .panel {
-    /* Panel extends to navigation border on smallest screens */
-    bottom: 0;
-    padding-bottom: 65px;
-    border-radius: 20px 20px 0 0; /* Slightly reduced radius for small screens */
-  }
-
-  .panel.collapsed {
-    height: calc(60px + 65px);
-  }
-
-  .panel.half {
-    height: calc(220px + 65px);
-  }
-
   .officerInfo {
     gap: 8px;
   }
@@ -1455,40 +1011,35 @@
   }
 
   .actionButton {
-    min-height: 50px; /* Increased for better touch targets */
-    height: 50px;
-    padding: 8px 6px;
-    border-radius: 8px; /* Consistent rounded corners */
+    min-height: 40px;
+    height: 40px;
+    padding: 6px 4px;
   }
 
   .buttonIcon {
-    font-size: 16px; /* Larger for visibility */
+    font-size: 14px;
   }
 
   .buttonLabel {
-    font-size: 10px; /* Readable size */
+    font-size: 9px;
   }
 
-  /* Optimized spacing for better UX on 320px screens */
-  .panel.half {
-    height: 220px; /* Slightly taller for better content fit */
-  }
-
+  /* Optimized spacing for bigger buttons on 320px screens */
   .panel.half .panelContent {
-    padding: 0 8px 16px 8px;
-    max-height: calc(220px - 70px); /* Based on adjusted height */
+    padding: 0 8px 6px 8px;
+    max-height: calc(50vh - 55px); /* Adjusted for bigger buttons on small screens */
   }
 
   .panel.half .panelContent .actionGrid {
     grid-template-columns: repeat(2, 1fr); /* Fall back to 2 columns on small screens */
-    grid-template-rows: repeat(3, minmax(50px, 1fr));
-    gap: 6px; /* Adequate spacing */
+    grid-template-rows: repeat(3, minmax(68px, 1fr));
+    gap: 4px;
   }
 
   .panel.half .panelContent .actionButton {
-    min-height: 50px;
-    height: 50px;
-    padding: 8px 6px;
+    min-height: 68px;
+    height: 68px;
+    padding: 14px 12px;
     aspect-ratio: auto; /* Remove aspect ratio constraint on small screens */
   }
 
@@ -1496,23 +1047,6 @@
     margin-top: 4px;
     margin-bottom: 6px;
     padding: 6px;
-  }
-
-  /* Touch-friendly drag handle */
-  .dragHandle {
-    width: 60px; /* Wider for easier touch */
-    height: 6px; /* Taller for visibility */
-    padding: 14px;
-    margin: -14px;
-    background: linear-gradient(90deg, #FFD700, #FF8F00, #FFD700);
-    box-shadow: 0 3px 12px rgba(255, 215, 0, 0.4),
-                inset 0 1px 0 rgba(255, 255, 255, 0.5);
-  }
-
-  .dragHandle::before {
-    font-size: 18px; /* Larger chevron */
-    top: -22px;
-    color: rgba(255, 215, 0, 1);
   }
 }
 
@@ -1624,58 +1158,25 @@
 
 /* Responsive adjustment for very small screens */
 @media (max-width: 360px) {
-  .panel {
-    /* Panel extends to navigation border on small screens */
-    bottom: 0;
-    padding-bottom: 66px;
-    border-radius: 20px 20px 0 0;
-  }
-
-  .panel.collapsed {
-    height: calc(60px + 66px);
-  }
-
-  .panel.half {
-    height: calc(200px + 66px);
-  }
-
   .actionGrid {
     grid-template-columns: repeat(2, 1fr) !important;
     grid-template-rows: repeat(3, 1fr) !important;
-    gap: 8px; /* Slightly more breathing room */
+    gap: 6px;
   }
 
   .actionButton {
-    min-height: 56px; /* Optimized touch target */
-    height: 56px;
-    padding: 8px 6px;
+    min-height: 60px;
+    height: 60px;
+    padding: 10px 6px;
     aspect-ratio: auto;
-    border-radius: 8px;
   }
 
   .buttonIcon {
-    font-size: 17px;
+    font-size: 18px;
   }
 
   .buttonLabel {
-    font-size: 10px;
-    line-height: 1.1;
-  }
-
-  /* Enhanced drag handle for small screens */
-  .dragHandle {
-    width: 55px;
-    height: 6px;
-    padding: 14px;
-    margin: -14px;
-    background: linear-gradient(90deg, #FFD700, #FF8F00, #FFD700);
-    box-shadow: 0 3px 12px rgba(255, 215, 0, 0.4);
-  }
-
-  .dragHandle::before {
-    font-size: 16px;
-    top: -20px;
-    color: rgba(255, 215, 0, 0.95);
+    font-size: 11px;
   }
 }
 
