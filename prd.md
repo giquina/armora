@@ -19,8 +19,8 @@ Armora is a premium security transport and personal protection service operating
 #### A. Security Transport Services
 **Professional protection during transit with SIA-certified officers**
 
-**Service Tiers:**
-- **Standard Protection** (£65/hour): SIA Level 2, personal protection trained drivers
+**Protection Tiers:**
+- **Essential Protection** (£65/hour): SIA Level 2, personal protection trained drivers
 - **Executive Shield** (£95/hour): SIA Level 3, corporate bodyguard services
 - **Shadow Protocol** (£125/hour): Special Forces trained, covert protection specialists
 - **Client Vehicle Service** (£55/hour): Security-trained driver for customer's vehicle
@@ -87,7 +87,7 @@ Armora is a premium security transport and personal protection service operating
 ### 2.2 Customer Journey Flow
 
 ```
-Welcome → Security Questionnaire → Background Verification → Service Selection → Booking → Protection Detail → Completion
+splash → welcome → login/signup/guest-disclaimer → questionnaire → achievement → home → booking → hub → account
 ```
 
 **Step 1: Welcome & Initial Assessment**
@@ -137,9 +137,12 @@ Welcome → Security Questionnaire → Background Verification → Service Selec
 
 #### Core Technology Stack
 - **Frontend**: React 19.1.1 with TypeScript 4.9.5 (strict mode)
-- **Build System**: Create React App 5.0.1 with CSS Modules
+- **Build System**: Create React App 5.0.1 (react-scripts) with CSS Modules
 - **State Management**: React Context with useReducer (no Redux)
-- **Styling**: CSS Modules with mobile-first responsive design
+- **Styling**: CSS Modules with mobile-first responsive design (no CSS-in-JS libraries)
+- **Maps**: Leaflet + react-leaflet for location services
+- **Payments**: Stripe (@stripe/react-stripe-js)
+- **Testing**: Jest + React Testing Library + Playwright (E2E)
 - **PWA Features**: Service worker, offline capabilities, app store distribution
 
 #### Mobile-First Requirements
@@ -294,18 +297,21 @@ Welcome → Security Questionnaire → Background Verification → Service Selec
 ## 6. DEVELOPMENT PRIORITIES & ROADMAP
 
 ### 6.1 Phase 1: Core Platform (Completed)
-- ✅ **Authentication System**: Multi-modal user verification
-- ✅ **Booking Flow**: Complete service selection and booking process
-- ✅ **Dashboard Interface**: Service management and user control panel
-- ✅ **Mobile Optimization**: Touch-optimized interface with PWA capabilities
-- ✅ **Security Framework**: Professional terminology and service positioning
+- ✅ **Authentication System**: Multi-modal user verification (registered/Google/guest)
+- ✅ **Booking Flow**: Complete protection assignment booking flow (dual system)
+- ✅ **Dashboard Interface**: Professional Hub View with NavigationCards and Active Protection Panel
+- ✅ **Mobile Optimization**: Touch-optimized interface with PWA capabilities, no horizontal scrolling
+- ✅ **Security Framework**: Professional close protection terminology throughout
+- ✅ **Questionnaire System**: 9-step onboarding with privacy options
+- ✅ **Achievement System**: Confetti celebrations with Safe Ride Fund integration
+- ✅ **Assignment Tracking**: State management with panic alert system
 
 ### 6.2 Phase 2: Service Integration (Current Priority)
-- 🔄 **Payment System**: Stripe integration for live transaction processing
+- 🔄 **Payment System**: Stripe integration with multiple payment methods
 - 🔄 **Real-Time Tracking**: GPS monitoring and live status updates
-- 🔄 **Officer Management**: Credential verification and assignment system
-- 🔄 **Communication Hub**: Secure messaging and emergency response
-- 🔄 **Compliance Tools**: SIA verification and regulatory documentation
+- 🔄 **PWA Service Worker**: App store distribution readiness
+- 🔄 **Location Services**: Enhanced search and mapping functionality
+- 🔄 **Test Coverage**: Comprehensive test suite expansion
 
 ### 6.3 Phase 3: Advanced Features (Future Development)
 - ⏳ **Venue Protection**: Contract management for location-based services
@@ -373,10 +379,10 @@ Welcome → Security Questionnaire → Background Verification → Service Selec
 
 ---
 
-**Document Version**: 1.0
-**Last Updated**: September 20, 2025
-**Status**: APPROVED - Ready for Implementation
-**Next Review**: October 20, 2025
+**Document Version**: 1.1
+**Last Updated**: September 23, 2025
+**Status**: APPROVED - Implementation In Progress
+**Next Review**: October 23, 2025
 
 ---
 
