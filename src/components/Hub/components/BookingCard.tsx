@@ -128,7 +128,7 @@ export function BookingCard({
         <div className={styles.routeItem}>
           <div className={styles.routeIcon}>📍</div>
           <div className={styles.routeLabel}>FROM</div>
-          <div className={styles.routeText}>{booking.commencementPointLocation.address}</div>
+          <div className={styles.routeText}>{booking.commencementLocation.address}</div>
         </div>
         <div className={styles.routeItem}>
           <div className={styles.routeIcon}>🎯</div>
@@ -171,7 +171,7 @@ export function BookingCard({
         <div className={styles.location}>
           <div className={styles.locationIcon}>📍</div>
           <div className={styles.locationText}>
-            <div className={styles.locationAddress}>{booking.commencementPointLocation.address}</div>
+            <div className={styles.locationAddress}>{booking.commencementLocation.address}</div>
           </div>
         </div>
         <div className={styles.routeLine}></div>
@@ -228,7 +228,7 @@ export function BookingCard({
 
       <div className={styles.routeSummary}>
         <span className={styles.routeText}>
-          {booking.commencementPointLocation.address.split(',')[0]} → {booking.secureDestination.address.split(',')[0]}
+          {booking.commencementLocation.address.split(',')[0]} → {booking.secureDestination.address.split(',')[0]}
         </span>
         <span className={styles.routeStats}>
           {booking.route.distance}km • {booking.route.duration}min

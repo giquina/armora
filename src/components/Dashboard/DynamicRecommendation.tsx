@@ -186,7 +186,7 @@ export function DynamicRecommendation({
           <div className={styles.trustIndicator}>
             <span className={styles.rating}>⭐ {trustMetrics.rating}/5 stars</span>
             <span className={styles.divider}>•</span>
-            <span className={styles.Protection Details}>🛡️ {trustMetrics.totalTrips.toLocaleString()}+ safe Protection Details</span>
+            <span className={styles.protectionDetails}>🛡️ {trustMetrics.totalTrips.toLocaleString()}+ safe Protection Details</span>
           </div>
           <div className={styles.trustIndicator}>
             <span className={styles.clients}>👥 Trusted by {trustMetrics.activeClients.toLocaleString()}+ clients</span>
