@@ -44,11 +44,25 @@ const ARMORA_SERVICES: ServiceLevel[] = convertToServiceLevel();
 export function Dashboard() {
   const { state, navigateToView } = useApp();
   const { user: legacyUser, questionnaireData, deviceCapabilities } = state;
-  const { user, profile } = useAuth();
-  const { assignments, loading: assignmentsLoading } = useProtectionAssignments();
-  const { stats: safeRideFundStats } = useSafeRideFundStats();
-  const { profile: extendedProfile } = useUserProfile();
-  const { notifications } = useNotifications();
+
+  // Auth hooks - now work in both dev and production mode
+  const auth = useAuth();
+  const user = auth.user;
+  const profile = auth.profile;
+
+  // Supabase data hooks - now work in both dev and production
+  const assignmentData = useProtectionAssignments();
+  const assignments = assignmentData.assignments;
+  const assignmentsLoading = assignmentData.loading;
+
+  const safeRideFundData = useSafeRideFundStats();
+  const safeRideFundStats = safeRideFundData.stats;
+
+  const userProfileData = useUserProfile();
+  const extendedProfile = userProfileData.profile;
+
+  const notificationData = useNotifications();
+  const notifications = notificationData.notifications;
   const [showRewardBanner, setShowRewardBanner] = useState(false);
   const [currentCarouselIndex, setCurrentCarouselIndex] = useState(0);
   const [showCPOModal, setShowCPOModal] = useState(false);
@@ -79,7 +93,7 @@ export function Dashboard() {
     // Store selected service for future booking
     localStorage.setItem('armora_selected_service', serviceId);
 
-    // Navigate directly to booking page
+    // Navigate to legacy dark booking UI
     navigateToView('booking');
 
     // Analytics
@@ -94,7 +108,7 @@ export function Dashboard() {
     // Store selected service and skip service selection step
     localStorage.setItem('armora_selected_service', service.id);
 
-    // Navigate directly to booking page - this will skip the service selection step
+    // Navigate to legacy dark booking UI
     navigateToView('booking');
 
     // Analytics for direct booking from dashboard cards

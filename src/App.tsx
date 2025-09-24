@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { AppProvider, useApp } from './contexts/AppContext';
+import { AuthProvider } from './contexts/AuthContext';
+import { DevAuthProvider } from './contexts/DevAuthContext';
 import { ProtectionAssignmentProvider } from './contexts/ProtectionAssignmentContext';
 import { AppLayout } from './components/Layout/AppLayout';
 import { SplashScreen } from './components/SplashScreen/SplashScreen';
@@ -14,12 +16,10 @@ import { Dashboard } from './components/Dashboard';
 import { ServicesPage } from './components/Services/ServicesPage';
 import { Hub } from './components/Hub';
 import { SubscriptionOffer } from './components/Subscription/SubscriptionOffer';
-import { VehicleSelection, LocationPicker } from './components/Booking';
-import LegacyBookingPage from './components/Booking/LegacyBookingPage';
-import { ProtectionAssignmentSuccess, WhereWhenView } from './components/ProtectionAssignment';
+import { ProtectionAssignmentSuccess } from './components/ProtectionAssignment';
+import { WhereWhenView } from './components/Booking';
 import { PaymentIntegration } from './components/Booking/PaymentIntegration';
 import { ProtectionAssignmentErrorBoundary } from './components/ProtectionAssignment/ProtectionAssignmentErrorBoundary';
-import { ServiceSelection } from './components/ServiceSelection/ServiceSelection';
 import { ReferralSection } from './components/Account/ReferralSection';
 import { PPOVenueBooking } from './components/Account/PPOVenueBooking';
 import { AccountView } from './components/Account/AccountView';
@@ -30,6 +30,11 @@ import { VenueSecurityQuestionnaire } from './components/VenueProtection/VenueSe
 import { VenueProtectionSuccess } from './components/VenueProtection/VenueProtectionSuccess';
 import { About } from './components/About/About';
 import { CoverageAreas } from './components/CoverageAreas/CoverageAreas';
+import { PanicButton } from './components/PanicButton/PanicButton';
+import { SecurityAssessment } from './components/BookingFlow/SecurityAssessment';
+import { TrackingMap, StatusUpdates } from './components/RealTimeTracking';
+import { SubscriptionManager } from './components/Subscription';
+import { TierComparison } from './components/ServiceTiers/TierComparison';
 import { ServiceLevel, ProtectionAssignmentData, LocationData } from './types';
 import { getAllServices } from './data/standardizedServices';
 import './styles/globals.css';
@@ -491,8 +496,8 @@ function AppRouter() {
   const { state, navigateToView } = useApp();
   const { currentView, user, questionnaireData, assignmentState } = state;
 
-  // Disable white theme; booking uses legacy dark UI now
-  const isBookingTheme = false;
+  // Enable white theme for booking page only
+  const isBookingTheme = currentView === 'booking';
 
   // Achievement banner state
   const [showAchievementBanner, setShowAchievementBanner] = useState(false);
@@ -558,7 +563,7 @@ function AppRouter() {
       localStorage.setItem('armora_user_reward_unlocked', 'true');
     }
     
-    // Navigate to booking or show success
+    // Navigate to booking UI
     navigateToView('booking');
     setShowAchievementBanner(false);
     
@@ -608,12 +613,7 @@ function AppRouter() {
         const servicePrice = selectedServiceId === 'standard' ? 45 : selectedServiceId === 'executive' ? 75 : selectedServiceId === 'shadow' ? 65 : 45;
         return <SubscriptionOffer selectedService={selectedServiceId || undefined} servicePrice={servicePrice} />;
       case 'booking':
-        return <LegacyBookingPage />;
-      case 'legacy-booking-view':
-        // Internal viewer to display the old dark booking overlay as a full page
-        return <LegacyBookingPage />;
-      case 'service-selection':
-        return <ServiceSelection />;
+        return <BookingFlow />;
       case 'hub':
       case 'Assignments':
         return <Hub />;
@@ -629,13 +629,29 @@ function AppRouter() {
         return <VenueSecurityQuestionnaire />;
       case 'venue-protection-success':
         return <VenueProtectionSuccess />;
+      case 'security-assessment':
+        return <SecurityAssessment
+          onComplete={(data) => console.log('Assessment complete', data)}
+          onBack={() => navigateToView('home')}
+        />;
+      case 'tracking':
+        return (
+          <div style={{ padding: '20px' }}>
+            <TrackingMap />
+            <StatusUpdates />
+          </div>
+        );
+      case 'subscription':
+        return <SubscriptionManager />;
+      case 'service-tiers':
+        return <TierComparison onTierSelect={(tier) => console.log('Tier selected:', tier)} />;
       default:
         return <SplashScreen />;
     }
   };
 
-  // Don't wrap authentication screens, questionnaire, and achievement in AppLayout (they're full-screen)
-  if (['splash', 'welcome', 'login', 'signup', 'guest-disclaimer', 'questionnaire', 'achievement'].includes(currentView)) {
+  // Don't wrap authentication screens, questionnaire, achievement, and booking in AppLayout (they're full-screen)
+  if (['splash', 'welcome', 'login', 'signup', 'guest-disclaimer', 'questionnaire', 'achievement', 'booking'].includes(currentView)) {
     return (
       <div className={isBookingTheme ? 'booking-white-theme' : ''}>
         {renderCurrentView()}
@@ -647,6 +663,8 @@ function AppRouter() {
             userName={user?.name || 'Member'}
           />
         )}
+        {/* Global Panic Button - Always Available */}
+        <PanicButton />
       </div>
     );
   }
@@ -666,17 +684,35 @@ function AppRouter() {
           userName={user?.name || 'Member'}
         />
       )}
+      {/* Global Panic Button - Always Available */}
+      <PanicButton />
     </div>
   );
 }
 
 function App() {
+  const isDev = process.env.NODE_ENV === 'development';
+
+  if (isDev) {
+    return (
+      <DevAuthProvider>
+        <AppProvider>
+          <ProtectionAssignmentProvider>
+            <AppRouter />
+          </ProtectionAssignmentProvider>
+        </AppProvider>
+      </DevAuthProvider>
+    );
+  }
+
   return (
-    <AppProvider>
-      <ProtectionAssignmentProvider>
-        <AppRouter />
-      </ProtectionAssignmentProvider>
-    </AppProvider>
+    <AuthProvider>
+      <AppProvider>
+        <ProtectionAssignmentProvider>
+          <AppRouter />
+        </ProtectionAssignmentProvider>
+      </AppProvider>
+    </AuthProvider>
   );
 }
 

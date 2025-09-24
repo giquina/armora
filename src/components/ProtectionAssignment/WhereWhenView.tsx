@@ -69,6 +69,30 @@ const AIRPORT_LOCATIONS = [
 export function WhereWhenView({ onContinueToPayment, preSelectedServiceId, preSelectedContext }: WhereWhenViewProps) {
   const { navigateToView } = useApp();
 
+  // Full-screen booking experience - hide navigation and prevent body scroll
+  useEffect(() => {
+    // Apply booking-active to both html and body for complete coverage
+    document.documentElement.classList.add('booking-active');
+    document.body.classList.add('booking-active');
+    document.body.style.overflow = 'hidden';
+    document.documentElement.style.overflow = 'hidden';
+
+    // Force white background on root elements
+    document.documentElement.style.backgroundColor = '#FFFFFF';
+    document.body.style.backgroundColor = '#FFFFFF';
+
+    return () => {
+      document.documentElement.classList.remove('booking-active');
+      document.body.classList.remove('booking-active');
+      document.body.style.overflow = 'auto';
+      document.documentElement.style.overflow = 'auto';
+
+      // Restore original background
+      document.documentElement.style.backgroundColor = '';
+      document.body.style.backgroundColor = '';
+    };
+  }, []);
+
   // Smart pre-selection based on context
   const getInitialService = (): 'standard' | 'executive' | 'shadow' | 'client-vehicle' => {
     if (preSelectedServiceId) return preSelectedServiceId as 'standard' | 'executive' | 'shadow' | 'client-vehicle';
@@ -100,6 +124,7 @@ export function WhereWhenView({ onContinueToPayment, preSelectedServiceId, preSe
   const [toLocation, setToLocation] = useState<string>('');
   const [isEditingFrom, setIsEditingFrom] = useState(false);
   const [estimatedPrice, setEstimatedPrice] = useState<number>(130);
+  const [isDetectingLocation, setIsDetectingLocation] = useState(false);
 
   const toLocationRef = useRef<HTMLInputElement>(null);
 
@@ -112,6 +137,37 @@ export function WhereWhenView({ onContinueToPayment, preSelectedServiceId, preSe
 
   // Show airports for airport context
   const shouldShowAirports = preSelectedContext === 'airport';
+
+  // Auto-detect current location function
+  const detectCurrentLocation = () => {
+    if (!navigator.geolocation) {
+      alert('Geolocation is not supported by this browser.');
+      return;
+    }
+
+    setIsDetectingLocation(true);
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        const { latitude, longitude } = position.coords;
+        // Use reverse geocoding service or fallback
+        setFromLocation(`Location detected (${latitude.toFixed(4)}, ${longitude.toFixed(4)})`);
+        setIsDetectingLocation(false);
+      },
+      (error) => {
+        console.error('Error detecting location:', error);
+        setFromLocation('Current location (detection failed)');
+        setIsDetectingLocation(false);
+      },
+      { enableHighAccuracy: true, timeout: 10000, maximumAge: 60000 }
+    );
+  };
+
+  // Auto-detect location on component mount
+  useEffect(() => {
+    if (fromLocation === 'Current location') {
+      detectCurrentLocation();
+    }
+  }, []);
 
   // Calculate price estimate
   useEffect(() => {
@@ -164,19 +220,7 @@ export function WhereWhenView({ onContinueToPayment, preSelectedServiceId, preSe
 
   return (
     <div className={styles.container}>
-      {/* Header */}
-      <div className={styles.header}>
-        <button
-          className={styles.backButton}
-          onClick={() => navigateToView('home')}
-          aria-label="Back to home"
-        >
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-            <path d="m15 18-6-6 6-6" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
-          </svg>
-        </button>
-        <h1 className={styles.title}>Arrange Protection Service</h1>
-      </div>
+      {/* Header removed for full-screen mobile experience */}
 
       <div className={styles.content}>
         {/* Service Selection */}
@@ -205,11 +249,11 @@ export function WhereWhenView({ onContinueToPayment, preSelectedServiceId, preSe
 
         {/* Location Selection */}
         <div className={styles.section}>
-          <h2 className={styles.sectionTitle}>Where do you need protection?</h2>
+          <h2 className={styles.sectionTitle}>Protection Service Locations</h2>
 
           {/* FROM Location */}
           <div className={styles.locationGroup}>
-            <label className={styles.locationLabel}>FROM</label>
+            <label className={styles.locationLabel}>PROTECTION COMMENCEMENT</label>
             <div className={styles.locationRow}>
               <div className={styles.locationIcon}>📍</div>
               {isEditingFrom ? (
@@ -222,30 +266,63 @@ export function WhereWhenView({ onContinueToPayment, preSelectedServiceId, preSe
                   autoFocus
                 />
               ) : (
-                <span className={styles.locationText}>{fromLocation}</span>
+                <span className={styles.locationText}>
+                  {isDetectingLocation ? 'Detecting your location...' : fromLocation}
+                </span>
               )}
               <button
                 className={styles.editButton}
                 onClick={() => setIsEditingFrom(true)}
+                disabled={isDetectingLocation}
               >
                 Edit
+              </button>
+              <button
+                className={styles.detectButton}
+                onClick={detectCurrentLocation}
+                disabled={isDetectingLocation}
+                title="Detect current location"
+              >
+                {isDetectingLocation ? '⟳' : '📍'}
               </button>
             </div>
           </div>
 
           {/* TO Location */}
           <div className={styles.locationGroup}>
-            <label className={styles.locationLabel}>TO</label>
+            <label className={styles.locationLabel}>SECURE DESTINATION</label>
             <div className={styles.locationRow}>
               <div className={styles.locationIcon}>🎯</div>
               <input
                 ref={toLocationRef}
                 className={styles.locationInput}
-                placeholder="Enter secureDestination address"
+                placeholder="Enter secure destination address"
                 value={toLocation}
                 onChange={(e) => setToLocation(e.target.value)}
+                autoComplete="street-address"
+                list="location-suggestions"
               />
+              {toLocation && (
+                <button
+                  className={styles.clearButton}
+                  onClick={() => setToLocation('')}
+                  title="Clear destination"
+                  type="button"
+                >
+                  ✕
+                </button>
+              )}
             </div>
+            <datalist id="location-suggestions">
+              <option value="London Heathrow Airport" />
+              <option value="London Gatwick Airport" />
+              <option value="London City Airport" />
+              <option value="Canary Wharf, London" />
+              <option value="The Shard, London" />
+              <option value="Westminster, London" />
+              <option value="King's Cross Station, London" />
+              <option value="Liverpool Street Station, London" />
+            </datalist>
           </div>
 
           {/* Airport Quick Select */}
@@ -270,7 +347,7 @@ export function WhereWhenView({ onContinueToPayment, preSelectedServiceId, preSe
 
         {/* Time Selection */}
         <div className={styles.section}>
-          <h2 className={styles.sectionTitle}>When do you need protection?</h2>
+          <h2 className={styles.sectionTitle}>Protection Service Schedule</h2>
 
           <div className={styles.timeOptions}>
             <button
@@ -279,8 +356,8 @@ export function WhereWhenView({ onContinueToPayment, preSelectedServiceId, preSe
             >
               <div className={styles.timeIcon}>⚡</div>
               <div>
-                <h3 className={styles.timeTitle}>Now</h3>
-                <p className={styles.timeDescription}>Officer arrives in 15-20 minutes</p>
+                <h3 className={styles.timeTitle}>Immediate</h3>
+                <p className={styles.timeDescription}>CPO arrives in 15-20 minutes</p>
               </div>
             </button>
 
@@ -345,14 +422,30 @@ export function WhereWhenView({ onContinueToPayment, preSelectedServiceId, preSe
           </div>
         </div>
 
-        {/* Continue Button */}
+        {/* Action Buttons */}
         <div className={styles.buttonSection}>
           <button
             className={styles.continueButton}
             onClick={handleContinue}
             disabled={!toLocation.trim() || (timeOption === 'schedule' && (!scheduledDate || !scheduledTime))}
           >
-            Continue to Payment
+            Request Protection →
+          </button>
+          <button
+            className={styles.quickBookButton}
+            onClick={() => {
+              if (toLocation.trim()) {
+                // Quick book with Essential Protection
+                setSelectedService('standard');
+                setTimeOption('now');
+                setTimeout(handleContinue, 100);
+              } else {
+                toLocationRef.current?.focus();
+              }
+            }}
+            disabled={!toLocation.trim()}
+          >
+            Quick Request - Essential Protection
           </button>
         </div>
       </div>

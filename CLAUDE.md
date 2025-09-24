@@ -17,6 +17,7 @@ Armora is a React 19.1.1 TypeScript application for premium close protection and
 - **No external UI libraries** - custom components only
 
 ### Additional Key Dependencies
+- **Supabase**: Backend-as-a-Service (@supabase/supabase-js, @supabase/auth-helpers-react)
 - **Stripe**: Payment processing (@stripe/react-stripe-js, @stripe/stripe-js)
 - **Leaflet**: Maps and location services (react-leaflet)
 - **QR Code**: QR code generation for bookings (qrcode)
@@ -33,6 +34,13 @@ Armora is a React 19.1.1 TypeScript application for premium close protection and
 - `npm run test:e2e` - Run Playwright end-to-end tests
 
 **CRITICAL**: No separate lint/typecheck commands - always run `npm run build` to verify TypeScript correctness before committing.
+
+### Development Mode Authentication Bypass
+In development mode, the app automatically bypasses authentication requirements:
+- Uses `DevAuthProvider` instead of `AuthProvider` when `NODE_ENV === 'development'`
+- All auth hooks return mock data, allowing full navigation without login
+- Supabase hooks gracefully handle missing authentication
+- This enables rapid development and testing of all UI flows
 
 ## Development Infrastructure
 Includes automated hooks system and AI task management:
@@ -54,6 +62,14 @@ Includes automated hooks system and AI task management:
 
 **Task Management**: Integrated AI-powered suggestion system tracks development tasks, priorities, and completion status through `.claude/` directory.
 
+## Environment Configuration
+**Required Environment Variables** (`.env.local`):
+- **Supabase**: `REACT_APP_SUPABASE_URL`, `REACT_APP_SUPABASE_ANON_KEY` (or `NEXT_PUBLIC_*` variants)
+- **Stripe**: `REACT_APP_STRIPE_PUBLISHABLE_KEY`, `STRIPE_SECRET_KEY`
+- **Google Maps**: `REACT_APP_GOOGLE_MAPS_API_KEY`
+- **Service Configuration**: Base rates, subscription pricing, compliance toggles
+- **Feature Flags**: Martyn's Law, SIA verification, panic button enablement
+
 ## TypeScript Configuration
 **Strict mode enabled** (`tsconfig.json`):
 - Target: ES2018
@@ -66,6 +82,7 @@ Includes automated hooks system and AI task management:
 
 ### Core Stack
 - **React 19.1.1** + **TypeScript 4.9.5** (strict mode)
+- **Supabase** for backend services, authentication, and real-time data
 - **CSS Modules** for component styling
 - **React Context** for state management (no Redux)
 - **Create React App 5.0.1** build system
@@ -85,8 +102,15 @@ Includes automated hooks system and AI task management:
 - Error handling and loading states
 
 ### Component Architecture
-**Full-screen views** (bypass AppLayout): splash, welcome, auth, questionnaire, achievement
-**App-wrapped views** (include header): dashboard, booking, profile, hub
+**Full-screen views** (bypass AppLayout): splash, welcome, auth, questionnaire, achievement, booking
+**App-wrapped views** (include header): dashboard, hub, account, services
+
+### Development Mode Context System
+The app uses conditional context providers based on environment:
+- **Production**: `AuthProvider` → `AppProvider` → `ProtectionAssignmentProvider`
+- **Development**: `DevAuthProvider` → `AppProvider` → `ProtectionAssignmentProvider`
+
+This allows seamless development without authentication barriers while maintaining the same component structure.
 
 ### Key File Structure
 ```
@@ -94,7 +118,11 @@ src/
 ├── App.tsx                               - Main router with view switching and BookingFlow component
 ├── contexts/
 │   ├── AppContext.tsx                    - Global state management with assignment tracking
+│   ├── AuthContext.tsx                   - Supabase authentication state management
+│   ├── DevAuthContext.tsx                - Development-only auth bypass context
 │   └── ProtectionAssignmentContext.tsx  - Protection assignment booking state
+├── lib/
+│   └── supabase.ts                       - Supabase client configuration and API functions
 ├── types/index.ts                        - Comprehensive TypeScript interfaces (940+ lines)
 ├── components/
 │   ├── Auth/                            - Authentication flow
@@ -255,6 +283,8 @@ Three distinct user types with different capabilities:
 - **Google**: Same as registered
 - **Guest**: Quote-only mode, no direct protection booking
 
+**Development Mode**: Authentication is automatically bypassed using `DevAuthProvider`, allowing full access to all features without login requirements. This is controlled by checking `process.env.NODE_ENV === 'development'` in `App.tsx`.
+
 ### Venue Protection & Event Security
 **Venue Protection Services** (`src/components/VenueProtection/`):
 - Professional venue security management
@@ -339,6 +369,8 @@ When updating any UI text, ensure professional close protection language:
 3. **Build failures**: Run `npm run build` to catch type errors before committing
 4. **Mobile issues**: Use `npm run hooks:start` to enable mobile viewport testing
 5. **Test issues**: Check Jest configuration in package.json for module mapping
+6. **Authentication issues**: In development mode, auth is automatically bypassed via `DevAuthProvider`
+7. **Hook errors**: Supabase data hooks handle dev mode gracefully with fallback mock data
 
 ### File Conventions
 - Components: PascalCase with matching .module.css files
@@ -381,11 +413,58 @@ The app uses React Context for state management with two main contexts:
 - **Corporate Billing**: VAT handling and corporate account support
 - **Payment Status Tracking**: Comprehensive status management
 
+## Data Layer & Backend Integration
+
+### Supabase Integration (`src/lib/supabase.ts`)
+**Complete backend-as-a-service integration** providing:
+- **Authentication**: Email/password, Google OAuth, session persistence
+- **Database Operations**: Protection assignments, officer management, user profiles
+- **Real-time Subscriptions**: Live assignment updates, officer location tracking
+- **Emergency Services**: Panic button activation, emergency response coordination
+- **Payment Integration**: Transaction logging, payment status tracking
+- **Analytics**: Assignment history, performance metrics, Safe Ride Fund tracking
+
+**Key Database Tables**:
+- `protection_officers` - CPO profiles, availability, locations, credentials
+- `protection_assignments` - Booking details, status tracking, principal information
+- `profiles` - User accounts, emergency contacts, preferences
+- `emergency_activations` - Panic button events, response coordination
+- `payment_transactions` - Financial records, Stripe integration
+- `questionnaire_responses` - Onboarding data, risk assessments
+- `venue_protection_contracts` - Commercial venue security agreements
+
+**Real-time Features**:
+- Assignment status updates via PostgreSQL change streams
+- Live officer location tracking for active protection details
+- Emergency alert broadcasting to response teams
+- Payment confirmation real-time updates
+
 ## Performance Considerations
 - **React 19.1.1**: Uses new JSX transform for better performance
 - **CSS Modules**: Scoped styles prevent global CSS pollution
+- **Supabase Edge Functions**: Serverless backend processing with global CDN
+- **Real-time Optimizations**: Efficient WebSocket connections for live data
 - **Lazy Loading**: Components loaded on demand
 - **Mobile Optimization**: Aggressive mobile-first approach with touch targets
 - **Asset Optimization**: Proper handling of images and static assets
 
-Last updated: 2025-09-23T18:47:06.779Z
+## Development Mode Configuration
+
+### Authentication Bypass System
+The application includes a sophisticated development mode that automatically bypasses all authentication requirements:
+
+**Implementation**:
+- `DevAuthContext.tsx` provides mock authentication data in development
+- Conditional provider logic in `App.tsx` switches between production and development auth
+- All authentication hooks gracefully handle mock data
+- Supabase data hooks include fallback logic for development mode
+
+**Benefits**:
+- Immediate access to all application features without login
+- Faster development iteration cycles
+- Complete UI flow testing without authentication barriers
+- Maintains identical component structure between development and production
+
+**Usage**: Simply run `npm start` - authentication bypass is automatic when `NODE_ENV === 'development'`.
+
+Last updated: 2025-09-24T09:36:17.245Z

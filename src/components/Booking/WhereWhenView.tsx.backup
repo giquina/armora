@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { useApp } from '../../contexts/AppContext';
 import { ServiceLevel, LocationData } from '../../types';
 import styles from './WhereWhenView.module.css';
 import '../../styles/booking-white-theme.css';
@@ -67,29 +68,16 @@ const AIRPORT_LOCATIONS = [
 ];
 
 export function WhereWhenView({ onContinueToPayment, preSelectedServiceId, preSelectedContext }: WhereWhenViewProps) {
+  const { navigateToView } = useApp();
 
   // Full-screen booking experience - hide navigation and prevent body scroll
   useEffect(() => {
-    // Apply booking-active to both html and body for complete coverage (BOOKING PAGES ONLY)
-    document.documentElement.classList.add('booking-active');
     document.body.classList.add('booking-active');
     document.body.style.overflow = 'hidden';
-    document.documentElement.style.overflow = 'hidden';
-
-    // Force white background on root elements (BOOKING PAGES ONLY)
-    document.documentElement.style.backgroundColor = '#FFFFFF';
-    document.body.style.backgroundColor = '#FFFFFF';
 
     return () => {
-      // Restore original state when leaving booking flow
-      document.documentElement.classList.remove('booking-active');
       document.body.classList.remove('booking-active');
       document.body.style.overflow = 'auto';
-      document.documentElement.style.overflow = 'auto';
-
-      // Restore original background
-      document.documentElement.style.backgroundColor = '';
-      document.body.style.backgroundColor = '';
     };
   }, []);
 
@@ -188,7 +176,7 @@ export function WhereWhenView({ onContinueToPayment, preSelectedServiceId, preSe
 
   return (
     <div className={`${styles.container} booking-white-theme`}>
-      {/* Header removed for full-screen mobile experience */}
+      {/* Header removed for full-screen mobile experience */
 
       <div className={styles.content}>
         {/* Service Selection */}
@@ -357,7 +345,7 @@ export function WhereWhenView({ onContinueToPayment, preSelectedServiceId, preSe
           </div>
         </div>
 
-        {/* Protection Service Banner */}
+        {/* Protection Service Banner - Improved with How It Works */}
         <div className={styles.protectionBanner}>
           <div className={styles.bannerIcon}>🛡️</div>
           <h3 className={styles.bannerTitle}>How It Works - Simple & Secure</h3>

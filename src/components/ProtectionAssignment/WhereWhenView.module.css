@@ -1,38 +1,45 @@
-/* WhereWhenView - Unified Booking Interface */
+/* WhereWhenView - Full Screen Mobile-Optimized Booking Interface */
 .container {
-  min-height: 100vh;
-  background: linear-gradient(135deg, #1a1f3a 0%, #0d111f 100%);
-  color: white;
-  overflow-y: auto;
-}
-
-/* White theme for booking pages */
-:global(.booking-white-theme) .container {
-  background: #ffffff;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100vw;
+  height: 100vh;
+  /* Fallback to dynamic viewport units for better mobile support */
+  width: 100dvw; /* Dynamic viewport width for mobile */
+  height: 100dvh; /* Dynamic viewport height for mobile */
+  background: #FFFFFF; /* Pure white background */
   color: #1a202c;
-}
-
-/* Header */
-.header {
+  overflow: hidden;
+  z-index: 99999; /* Higher z-index to ensure overlay */
   display: flex;
-  align-items: center;
-  padding: 24px 20px;
-  border-bottom: 1px solid rgba(212, 175, 55, 0.2);
-  position: sticky;
-  top: var(--toolbar-height);
-  background: rgba(26, 31, 58, 0.95);
-  backdrop-filter: blur(10px);
-  z-index: 10;
+  flex-direction: column;
+  /* Force full coverage */
+  margin: 0;
+  padding: 0;
+  border: none;
+  outline: none;
+  /* Handle mobile safe areas */
+  padding-top: env(safe-area-inset-top);
+  padding-bottom: env(safe-area-inset-bottom);
+  padding-left: env(safe-area-inset-left);
+  padding-right: env(safe-area-inset-right);
+  /* Ensure it covers everything */
+  box-sizing: border-box;
 }
 
-/* White theme header */
-:global(.booking-white-theme) .header {
-  background: rgba(255, 255, 255, 0.95);
-  border-bottom: 1px solid #e2e8f0;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+/* Light theme is now default - no overrides needed */
+
+/* Header removed for full-screen experience */
+.header {
+  display: none;
 }
 
-.backButton {
+
+.backButton,
+.closeButton {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -44,45 +51,38 @@
   color: #D4AF37;
   cursor: pointer;
   transition: all 0.3s ease;
-  margin-right: 20px;
   touch-action: manipulation;
 }
 
-.backButton:hover {
+.backButton:hover,
+.closeButton:hover {
   background: #D4AF37;
   color: #1a1f3a;
   transform: translateY(-1px);
 }
 
-/* White theme back button */
-:global(.booking-white-theme) .backButton {
-  background: rgba(212, 175, 55, 0.1);
-  border: 2px solid #D4AF37;
-  color: #D4AF37;
-}
-
-:global(.booking-white-theme) .backButton:hover {
-  background: #D4AF37;
-  color: white;
-}
 
 .title {
   font-size: 24px;
   font-weight: 700;
   margin: 0;
   color: white;
+  flex: 1;
+  text-align: center;
 }
 
-/* White theme title */
-:global(.booking-white-theme) .title {
-  color: #1a202c;
-}
 
-/* Content */
+/* Content - Full screen with bottom padding for sticky button */
 .content {
-  padding: 0 20px 32px;
-  max-width: 600px;
-  margin: 0 auto;
+  flex: 1;
+  padding: 20px 16px 140px 16px;
+  overflow-y: auto;
+  width: 100%;
+  -webkit-overflow-scrolling: touch;
+  box-sizing: border-box;
+  /* Account for safe areas already handled by container */
+  margin: 0;
+  background: #FFFFFF; /* Ensure white background for content area */
 }
 
 .section {
@@ -93,34 +93,32 @@
   font-size: 20px;
   font-weight: 600;
   margin-bottom: 20px;
-  color: white;
-}
-
-/* White theme section title */
-:global(.booking-white-theme) .sectionTitle {
   color: #1a202c;
 }
 
-/* Service Selection */
+
+/* Service Selection - Compact mobile design */
 .serviceGrid {
   display: grid;
-  gap: 16px;
+  gap: 12px;
 }
 
 .serviceCard {
-  background: rgba(255, 255, 255, 0.05);
-  border: 2px solid rgba(255, 255, 255, 0.1);
-  border-radius: 16px;
-  padding: 24px;
+  background: #FFFFFF;
+  border: 1px solid #E5E5E5;
+  border-radius: 0; /* Remove rounded corners for full-screen feel */
+  padding: 16px;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.2s ease;
   text-align: left;
   display: flex;
   align-items: center;
-  gap: 20px;
+  gap: 16px;
   position: relative;
-  min-height: 80px;
+  min-height: 70px;
   touch-action: manipulation;
+  margin-bottom: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
 .serviceCard:hover {
@@ -130,29 +128,11 @@
 }
 
 .serviceCardActive {
-  border-color: #D4AF37;
-  background: rgba(212, 175, 55, 0.15);
-  box-shadow: 0 4px 20px rgba(212, 175, 55, 0.3);
+  border: 2px solid #FFD700;
+  background: #FFFEF5;
+  box-shadow: 0 2px 8px rgba(255, 215, 0, 0.2);
 }
 
-/* White theme service cards */
-:global(.booking-white-theme) .serviceCard {
-  background: #ffffff;
-  border: 2px solid #e2e8f0;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-}
-
-:global(.booking-white-theme) .serviceCard:hover {
-  border-color: #D4AF37;
-  background: rgba(212, 175, 55, 0.05);
-  box-shadow: 0 4px 16px rgba(212, 175, 55, 0.2);
-}
-
-:global(.booking-white-theme) .serviceCardActive {
-  border-color: #D4AF37;
-  background: rgba(212, 175, 55, 0.1);
-  box-shadow: 0 4px 16px rgba(212, 175, 55, 0.2);
-}
 
 .serviceIcon {
   font-size: 32px;
@@ -164,56 +144,43 @@
 }
 
 .serviceName {
-  font-size: 18px;
-  font-weight: 600;
-  margin: 0 0 4px 0;
-  color: white;
-}
-
-.servicePrice {
   font-size: 16px;
   font-weight: 600;
-  color: #D4AF37;
-  margin: 0 0 8px 0;
-}
-
-.serviceDescription {
-  font-size: 14px;
-  color: rgba(255, 255, 255, 0.7);
-  margin: 0;
-  line-height: 1.4;
-}
-
-/* White theme service text */
-:global(.booking-white-theme) .serviceName {
+  margin: 0 0 2px 0;
   color: #1a202c;
 }
 
-:global(.booking-white-theme) .serviceDescription {
-  color: #4a5568;
+.servicePrice {
+  font-size: 14px;
+  font-weight: 600;
+  color: #FFA500;
+  margin: 0 0 4px 0;
 }
+
+.serviceDescription {
+  font-size: 12px;
+  color: #666;
+  margin: 0;
+  line-height: 1.3;
+}
+
 
 .selectedIndicator {
   position: absolute;
-  top: 16px;
-  right: 16px;
-  background: #D4AF37;
-  color: #1a1f3a;
+  top: 12px;
+  right: 12px;
+  background: #FFD700;
+  color: #1a1a2e;
   border-radius: 50%;
-  width: 24px;
-  height: 24px;
+  width: 20px;
+  height: 20px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 14px;
+  font-size: 12px;
   font-weight: bold;
 }
 
-/* White theme selected indicator */
-:global(.booking-white-theme) .selectedIndicator {
-  background: #D4AF37;
-  color: white;
-}
 
 /* Location Selection */
 .locationGroup {
@@ -224,7 +191,7 @@
   display: block;
   font-size: 14px;
   font-weight: 600;
-  color: #D4AF37;
+  color: #6B7280;
   margin-bottom: 8px;
   text-transform: uppercase;
   letter-spacing: 0.5px;
@@ -233,30 +200,22 @@
 .locationRow {
   display: flex;
   align-items: center;
-  gap: 16px;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 12px;
-  padding: 20px;
-  transition: all 0.3s ease;
-  min-height: 64px;
+  gap: 12px;
+  background: #FFFFFF;
+  border: 1px solid #E5E5E5;
+  border-radius: 0;
+  padding: 16px;
+  transition: all 0.2s ease;
+  min-height: 56px;
+  margin-bottom: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
 .locationRow:focus-within {
-  border-color: #D4AF37;
-  box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.2);
+  border-color: #FFD700;
+  box-shadow: 0 0 0 2px rgba(255, 215, 0, 0.2);
 }
 
-/* White theme location row */
-:global(.booking-white-theme) .locationRow {
-  background: #f8fafc;
-  border: 1px solid #e2e8f0;
-}
-
-:global(.booking-white-theme) .locationRow:focus-within {
-  border-color: #D4AF37;
-  box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.1);
-}
 
 .locationIcon {
   font-size: 20px;
@@ -267,65 +226,81 @@
   flex: 1;
   background: transparent;
   border: none;
-  color: white;
+  color: #1a202c;
   font-size: 16px;
   outline: none;
-  min-height: 48px;
+  min-height: 44px;
   padding: 8px 0;
   touch-action: manipulation;
 }
 
 .locationInput::placeholder {
-  color: rgba(255, 255, 255, 0.5);
+  color: #9CA3AF;
 }
 
 .locationText {
   flex: 1;
   font-size: 16px;
-  color: white;
+  color: #1a202c;
 }
 
-.editButton {
+.editButton,
+.detectButton {
   background: transparent;
-  border: 1px solid #D4AF37;
-  color: #D4AF37;
-  padding: 12px 16px;
-  border-radius: 8px;
-  font-size: 16px;
+  border: 1px solid #FFD700;
+  color: #D97706;
+  padding: 10px 12px;
+  border-radius: 4px;
+  font-size: 14px;
   cursor: pointer;
-  transition: all 0.3s ease;
-  min-height: 48px;
-  min-width: 64px;
+  transition: all 0.2s ease;
+  min-height: 40px;
+  min-width: 40px;
   touch-action: manipulation;
 }
 
-.editButton:hover {
-  background: #D4AF37;
-  color: #1a1f3a;
+.detectButton {
+  margin-left: 8px;
+  padding: 12px;
 }
 
-/* White theme location inputs */
-:global(.booking-white-theme) .locationInput {
-  color: #1a202c;
+.clearButton {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: rgba(255, 255, 255, 0.7);
+  padding: 8px;
+  border-radius: 6px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  min-height: 36px;
+  min-width: 36px;
+  touch-action: manipulation;
+  margin-left: 8px;
 }
 
-:global(.booking-white-theme) .locationInput::placeholder {
-  color: #718096;
-}
-
-:global(.booking-white-theme) .locationText {
-  color: #1a202c;
-}
-
-:global(.booking-white-theme) .editButton {
-  border: 1px solid #D4AF37;
-  color: #D4AF37;
-}
-
-:global(.booking-white-theme) .editButton:hover {
-  background: #D4AF37;
+.clearButton:hover {
+  background: rgba(255, 255, 255, 0.2);
   color: white;
 }
+
+.editButton:hover,
+.detectButton:hover {
+  background: #FFD700;
+  color: #1a1a2e;
+}
+
+.detectButton:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
 
 /* Airport Quick Select */
 .airportQuickSelect {
@@ -384,29 +359,31 @@
 }
 
 .timeOption {
-  background: rgba(255, 255, 255, 0.05);
-  border: 2px solid rgba(255, 255, 255, 0.1);
-  border-radius: 16px;
-  padding: 24px;
+  background: #FFFFFF;
+  border: 1px solid #E5E5E5;
+  border-radius: 0;
+  padding: 16px;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.2s ease;
   display: flex;
   align-items: center;
-  gap: 20px;
+  gap: 16px;
   text-align: left;
-  min-height: 80px;
+  min-height: 64px;
   touch-action: manipulation;
+  margin-bottom: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
 .timeOption:hover {
-  border-color: rgba(212, 175, 55, 0.5);
-  background: rgba(212, 175, 55, 0.1);
+  border-color: #FFD700;
+  background: #FFFEF5;
 }
 
 .timeOptionActive {
-  border-color: #D4AF37;
-  background: rgba(212, 175, 55, 0.15);
-  box-shadow: 0 4px 20px rgba(212, 175, 55, 0.3);
+  border: 2px solid #FFD700;
+  background: #FFFEF5;
+  box-shadow: 0 2px 8px rgba(255, 215, 0, 0.2);
 }
 
 .timeIcon {
@@ -415,25 +392,25 @@
 }
 
 .timeTitle {
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 600;
   margin: 0 0 4px 0;
-  color: white;
+  color: #1a202c;
 }
 
 .timeDescription {
   font-size: 14px;
-  color: rgba(255, 255, 255, 0.7);
+  color: #6B7280;
   margin: 0;
 }
 
 /* Schedule Inputs */
 .scheduleInputs {
-  margin-top: 20px;
-  padding: 20px;
-  background: rgba(255, 255, 255, 0.05);
-  border-radius: 12px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  margin-top: 16px;
+  padding: 16px;
+  background: #F9FAFB;
+  border-radius: 0;
+  border: 1px solid #E5E5E5;
 }
 
 .scheduleRow {
@@ -450,26 +427,27 @@
 .scheduleLabel {
   font-size: 14px;
   font-weight: 600;
-  color: #D4AF37;
+  color: #6B7280;
   margin-bottom: 8px;
 }
 
 .scheduleInput {
-  background: rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 8px;
-  padding: 16px;
-  color: white;
+  background: #FFFFFF;
+  border: 1px solid #D1D5DB;
+  border-radius: 4px;
+  padding: 12px;
+  color: #1a202c;
   font-size: 16px;
-  transition: all 0.3s ease;
-  min-height: 52px;
+  transition: all 0.2s ease;
+  min-height: 44px;
   touch-action: manipulation;
+  box-sizing: border-box;
 }
 
 .scheduleInput:focus {
   outline: none;
-  border-color: #D4AF37;
-  box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.2);
+  border-color: #FFD700;
+  box-shadow: 0 0 0 2px rgba(255, 215, 0, 0.2);
 }
 
 /* Price Section */
@@ -478,10 +456,12 @@
 }
 
 .priceCard {
-  background: linear-gradient(135deg, rgba(212, 175, 55, 0.2) 0%, rgba(212, 175, 55, 0.1) 100%);
-  border: 2px solid #D4AF37;
-  border-radius: 16px;
-  padding: 24px;
+  background: #FFFFFF;
+  border: 1px solid #E5E5E5;
+  border-radius: 0;
+  padding: 20px;
+  margin-bottom: 16px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .priceHeader {
@@ -495,7 +475,7 @@
   font-size: 18px;
   font-weight: 600;
   margin: 0;
-  color: white;
+  color: #1a202c;
 }
 
 .rushBadge {
@@ -509,9 +489,9 @@
 }
 
 .priceAmount {
-  font-size: 36px;
+  font-size: 32px;
   font-weight: 700;
-  color: #D4AF37;
+  color: #D97706;
   margin-bottom: 12px;
 }
 
@@ -519,44 +499,66 @@
   display: flex;
   justify-content: space-between;
   font-size: 14px;
-  color: rgba(255, 255, 255, 0.8);
+  color: #4B5563;
   margin-bottom: 8px;
 }
 
 .priceNote {
   font-size: 12px;
-  color: rgba(255, 255, 255, 0.6);
+  color: #6B7280;
   margin: 0;
   font-style: italic;
 }
 
-/* Continue Button */
+/* Sticky Request Protection Button */
 .buttonSection {
-  position: sticky;
+  position: fixed;
   bottom: 0;
-  background: linear-gradient(to top, #1a1f3a 0%, transparent 100%);
-  padding-top: 20px;
-  margin: 0 -20px -32px;
-  padding-left: 20px;
-  padding-right: 20px;
-  padding-bottom: 32px;
+  left: 0;
+  right: 0;
+  background: #FFFFFF;
+  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.1);
+  border-top: 1px solid #E5E5E5;
+  padding: 16px;
+  /* Add safe area padding to bottom */
+  padding-bottom: calc(16px + env(safe-area-inset-bottom));
+  z-index: 10000;
+  box-sizing: border-box;
 }
 
 .continueButton {
   width: 100%;
-  background: linear-gradient(135deg, #D4AF37 0%, #B8941F 100%);
+  background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
   border: none;
-  border-radius: 16px;
-  padding: 24px;
-  color: #1a1f3a;
+  border-radius: 0;
+  padding: 18px 24px;
+  color: #1B1B1B;
   font-size: 18px;
-  font-weight: 700;
+  font-weight: 600;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.2s ease;
   text-transform: uppercase;
   letter-spacing: 0.5px;
-  min-height: 64px;
+  min-height: 56px;
   touch-action: manipulation;
+  margin-bottom: 8px;
+  box-sizing: border-box;
+}
+
+.quickBookButton {
+  width: 100%;
+  background: #F8F9FA;
+  border: 1px solid #D1D5DB;
+  border-radius: 0;
+  padding: 14px 24px;
+  color: #374151;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  min-height: 48px;
+  touch-action: manipulation;
+  box-sizing: border-box;
 }
 
 .continueButton:hover:not(:disabled) {
@@ -564,25 +566,56 @@
   box-shadow: 0 8px 25px rgba(212, 175, 55, 0.4);
 }
 
-.continueButton:disabled {
-  opacity: 0.5;
+.quickBookButton:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.5);
+  transform: translateY(-1px);
+}
+
+.continueButton:active:not(:disabled) {
+  transform: scale(0.98);
+}
+
+.continueButton:disabled,
+.quickBookButton:disabled {
+  opacity: 0.6;
   cursor: not-allowed;
 }
 
-/* Mobile Responsive */
+/* BOOKING-SPECIFIC OVERRIDES: Only apply during booking flow */
+/* These styles are scoped to booking pages only via the booking-active class */
+:global(html.booking-active),
+:global(body.booking-active) {
+  background-color: #FFFFFF !important;
+  background: #FFFFFF !important;
+  overflow: hidden !important;
+}
+
+/* Hide all navigation elements during booking flow */
+:global(body.booking-active) :global(.bottomNavigation),
+:global(body.booking-active) :global([class*="navigation"]),
+:global(body.booking-active) :global(nav),
+:global(body.booking-active) :global(.app-layout),
+:global(body.booking-active) :global(.header) {
+  display: none !important;
+}
+
+/* Ensure root app containers don't interfere with booking overlay */
+:global(body.booking-active) :global(#root) {
+  background: transparent !important;
+}
+
+/* Only target specific elements that might show dark background */
+:global(body.booking-active) :global(.app-container),
+:global(body.booking-active) :global([class*="app-"]),
+:global(body.booking-active) :global([class*="layout-"]) {
+  background: transparent !important;
+}
+
+/* Mobile Responsive - Always mobile-first */
 @media (max-width: 768px) {
-  .header {
-    padding: 20px;
-  }
-
-  .backButton {
-    width: 52px;
-    height: 52px;
-    margin-right: 16px;
-  }
-
   .content {
-    padding: 0 20px 32px;
+    padding: 16px 16px 140px 16px;
   }
 
   .title {
@@ -594,11 +627,11 @@
   }
 
   .serviceCard {
-    padding: 20px;
-    flex-direction: column;
-    text-align: center;
-    gap: 16px;
-    min-height: 120px;
+    padding: 16px;
+    flex-direction: row;
+    text-align: left;
+    gap: 12px;
+    min-height: 64px;
   }
 
   .serviceIcon {
@@ -610,9 +643,9 @@
   }
 
   .locationRow {
-    padding: 18px;
-    gap: 14px;
-    min-height: 68px;
+    padding: 12px;
+    gap: 12px;
+    min-height: 52px;
   }
 
   .editButton {
@@ -631,9 +664,9 @@
   }
 
   .timeOption {
-    padding: 20px;
-    gap: 16px;
-    min-height: 88px;
+    padding: 14px;
+    gap: 12px;
+    min-height: 56px;
   }
 
   .scheduleRow {
@@ -647,7 +680,7 @@
   }
 
   .priceCard {
-    padding: 24px;
+    padding: 16px;
   }
 
   .priceAmount {
@@ -655,15 +688,32 @@
   }
 
   .continueButton {
-    padding: 20px;
-    min-height: 60px;
+    padding: 18px 20px;
+    min-height: 56px;
     font-size: 16px;
+    margin-bottom: 10px;
+  }
+
+  .quickBookButton {
+    padding: 14px 20px;
+    min-height: 50px;
+    font-size: 15px;
   }
 
   .buttonSection {
-    margin: 0 -20px -32px;
-    padding-left: 20px;
-    padding-right: 20px;
-    padding-bottom: 32px;
+    padding: 12px 16px 16px;
+  }
+
+  .clearButton {
+    min-height: 32px;
+    min-width: 32px;
+    padding: 6px;
+    font-size: 12px;
+  }
+
+  .detectButton {
+    min-height: 44px;
+    min-width: 44px;
+    padding: 10px;
   }
 }

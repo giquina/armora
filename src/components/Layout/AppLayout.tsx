@@ -36,8 +36,8 @@ export function AppLayout({
 
   // Disable header completely - user requested removal
   const shouldShowHeader = false;
-  // Show bottom navigation on all pages (including guests) per request
-  const shouldShowNav = showNavigation && currentView !== 'splash';
+  // Hide navigation on booking page for full-screen experience
+  const shouldShowNav = showNavigation && currentView !== 'splash' && currentView !== 'booking';
 
   const getHeaderInfo = () => {
     if (headerTitle) return { title: headerTitle, subtitle: '', showServices: false };
@@ -249,7 +249,7 @@ export function AppLayout({
             </button>
 
             <button
-              className={`${styles.navButton} ${currentView === 'services' || currentView.startsWith('venue-protection') || currentView === 'booking' ? styles.navButtonActive : ''}`}
+              className={`${styles.navButton} ${currentView === 'services' || (currentView as string).startsWith('venue-protection') ? styles.navButtonActive : ''}`}
               onClick={() => navigateToView('services')}
               aria-label="Services"
             >

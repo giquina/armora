@@ -10,7 +10,7 @@ export function DevNavigationPanel({ className }: DevNavigationPanelProps) {
   const { navigateToView } = useApp();
   const [isCollapsed, setIsCollapsed] = useState(false);
 
-  // Available views for quick navigation
+  // Available views for quick navigation - matched to ViewState types
   const navigationOptions = [
     { id: 'welcome', label: 'Welcome', icon: '🏠' },
     { id: 'login', label: 'Login', icon: '🔐' },
@@ -20,10 +20,14 @@ export function DevNavigationPanel({ className }: DevNavigationPanelProps) {
     { id: 'achievement', label: 'Achievement', icon: '🏆' },
     { id: 'home', label: 'Dashboard', icon: '📊' },
     { id: 'services', label: 'Services', icon: '🛡️' },
-    { id: 'booking', label: 'Booking', icon: '📅' },
-    { id: 'assignments', label: 'Assignments', icon: '📋' },
+    { id: 'booking', label: 'Request Protection', icon: '🛡️' },
+    { id: 'hub', label: 'Assignments', icon: '🎯' },
     { id: 'account', label: 'Account', icon: '👥' },
+    { id: 'subscription', label: 'Subscription', icon: '💎' },
+    { id: 'service-tiers', label: 'Tiers', icon: '🏅' },
+    { id: 'tracking', label: 'Tracking', icon: '📍' },
     { id: 'about', label: 'About', icon: 'ℹ️' },
+    { id: 'coverage-areas', label: 'Coverage', icon: '🗺️' },
   ];
 
   const handleNavigation = (viewId: string) => {

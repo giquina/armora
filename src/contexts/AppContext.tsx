@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useReducer, useEffect, useCallback, ReactNode } from 'react';
 import { AppState, ViewState, User, PersonalizationData, DeviceCapabilities, UserSubscription, SubscriptionTier, PremiumInterest, NotificationData, SafeRideFundMetrics, CommunityImpactData, AssignmentState, Assignment, PanicAlert, INotificationItem } from '../types';
+import { CPOProfile, CPOSearchFilters } from '../types/cpo';
 import {
   createProtectionAssignment,
   getProtectionAssignment,
@@ -37,6 +38,14 @@ const initialState: AppState = {
     panicAlertTimestamp: null,
     lastKnownLocation: null,
   },
+  // CPO Management State
+  selectedCPO: null,
+  favoriteCPOs: [],
+  cpoFilters: {},
+  bookingFlow: null,
+  // Service Tiers & Real-time Tracking
+  selectedServiceTier: null,
+  trackingData: null,
   isLoading: false,
   error: null,
   notifications: [],
@@ -65,7 +74,17 @@ type AppAction =
   | { type: 'ADD_NOTIFICATION'; payload: INotificationItem }
   | { type: 'MARK_NOTIFICATION_READ'; payload: { id: string } }
   | { type: 'MARK_ALL_NOTIFICATIONS_READ' }
-  | { type: 'SET_NOTIFICATIONS'; payload: INotificationItem[] };
+  | { type: 'SET_NOTIFICATIONS'; payload: INotificationItem[] }
+  // CPO Management Actions
+  | { type: 'SET_SELECTED_CPO'; payload: any | null }
+  | { type: 'ADD_FAVORITE_CPO'; payload: string }
+  | { type: 'REMOVE_FAVORITE_CPO'; payload: string }
+  | { type: 'SET_CPO_FILTERS'; payload: any }
+  | { type: 'SET_BOOKING_FLOW'; payload: { step: 'cpo-selection' | 'security-assessment' | 'service-tiers' | 'confirmation' | 'success'; data: any } | null }
+  | { type: 'UPDATE_BOOKING_FLOW_DATA'; payload: any }
+  // Service Tiers & Tracking Actions
+  | { type: 'SET_SERVICE_TIER'; payload: string | null }
+  | { type: 'SET_TRACKING_DATA'; payload: any | null };
 
 // Reducer
 function appReducer(state: AppState, action: AppAction): AppState {
@@ -162,6 +181,35 @@ function appReducer(state: AppState, action: AppAction): AppState {
       return { ...state, notifications: (state.notifications || []).map(n => ({ ...n, isRead: true })) };
     case 'SET_NOTIFICATIONS':
       return { ...state, notifications: action.payload };
+    // CPO Management Cases
+    case 'SET_SELECTED_CPO':
+      return { ...state, selectedCPO: action.payload };
+    case 'ADD_FAVORITE_CPO':
+      return {
+        ...state,
+        favoriteCPOs: [...state.favoriteCPOs, action.payload]
+      };
+    case 'REMOVE_FAVORITE_CPO':
+      return {
+        ...state,
+        favoriteCPOs: state.favoriteCPOs.filter(id => id !== action.payload)
+      };
+    case 'SET_CPO_FILTERS':
+      return { ...state, cpoFilters: action.payload };
+    case 'SET_BOOKING_FLOW':
+      return { ...state, bookingFlow: action.payload };
+    case 'UPDATE_BOOKING_FLOW_DATA':
+      return {
+        ...state,
+        bookingFlow: state.bookingFlow ?
+          { ...state.bookingFlow, data: { ...state.bookingFlow.data, ...action.payload } } :
+          null
+      };
+    // Service Tiers & Tracking Cases
+    case 'SET_SERVICE_TIER':
+      return { ...state, selectedServiceTier: action.payload };
+    case 'SET_TRACKING_DATA':
+      return { ...state, trackingData: action.payload };
     default:
       return state;
   }
@@ -200,6 +248,17 @@ interface AppContextType {
   activatePanicAlert: (location?: any) => Promise<void>;
   deactivatePanicAlert: () => Promise<void>;
   updateLastKnownLocation: (location: { lat: number; lng: number; address: string }) => void;
+  // CPO Management actions
+  setSelectedCPO: (cpo: any | null) => void;
+  addFavoriteCPO: (cpoId: string) => void;
+  removeFavoriteCPO: (cpoId: string) => void;
+  setCPOFilters: (filters: any) => void;
+  setBookingFlow: (step: 'cpo-selection' | 'security-assessment' | 'service-tiers' | 'confirmation' | 'success', data: any) => void;
+  updateBookingFlowData: (data: any) => void;
+  clearBookingFlow: () => void;
+  // Service Tiers & Tracking actions
+  setServiceTier: (tier: string | null) => void;
+  setTrackingData: (data: any | null) => void;
 }
 
 // Create context
@@ -231,6 +290,13 @@ export function AppProvider({ children }: { children: ReactNode }) {
     
     console.log('✅ Navigating to:', view);
     dispatch({ type: 'SET_VIEW', payload: view });
+
+    // Save to localStorage immediately for refresh persistence
+    const persistableViews = ['home', 'booking', 'hub', 'account', 'services', 'about', 'coverage-areas', 'subscription', 'venue-protection-welcome', 'venue-security-questionnaire', 'venue-protection-success'];
+    if (persistableViews.includes(view)) {
+      localStorage.setItem('armora_current_view', view);
+    }
+
     // Keep URL hash in sync for simple deep linking (e.g., #booking)
     try {
       if (typeof window !== 'undefined' && window.location.hash !== `#${view}`) {
@@ -636,6 +702,46 @@ export function AppProvider({ children }: { children: ReactNode }) {
     });
   }, []);
 
+  // CPO Management functions
+  const setSelectedCPO = useCallback((cpo: any | null) => {
+    dispatch({ type: 'SET_SELECTED_CPO', payload: cpo });
+  }, []);
+
+  const addFavoriteCPO = useCallback((cpoId: string) => {
+    if (!state.favoriteCPOs.includes(cpoId)) {
+      dispatch({ type: 'ADD_FAVORITE_CPO', payload: cpoId });
+    }
+  }, [state.favoriteCPOs]);
+
+  const removeFavoriteCPO = useCallback((cpoId: string) => {
+    dispatch({ type: 'REMOVE_FAVORITE_CPO', payload: cpoId });
+  }, []);
+
+  const setCPOFilters = useCallback((filters: any) => {
+    dispatch({ type: 'SET_CPO_FILTERS', payload: filters });
+  }, []);
+
+  const setBookingFlow = useCallback((step: 'cpo-selection' | 'security-assessment' | 'service-tiers' | 'confirmation' | 'success', data: any) => {
+    dispatch({ type: 'SET_BOOKING_FLOW', payload: { step, data } });
+  }, []);
+
+  const updateBookingFlowData = useCallback((data: any) => {
+    dispatch({ type: 'UPDATE_BOOKING_FLOW_DATA', payload: data });
+  }, []);
+
+  const clearBookingFlow = useCallback(() => {
+    dispatch({ type: 'SET_BOOKING_FLOW', payload: null });
+  }, []);
+
+  // Service Tiers & Tracking functions
+  const setServiceTier = useCallback((tier: string | null) => {
+    dispatch({ type: 'SET_SERVICE_TIER', payload: tier });
+  }, []);
+
+  const setTrackingData = useCallback((data: any | null) => {
+    dispatch({ type: 'SET_TRACKING_DATA', payload: data });
+  }, []);
+
   // Initialize Safe Assignment Fund data when subscription changes
   useEffect(() => {
     if (state.subscription?.tier === 'essential') {
@@ -681,6 +787,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
     const savedUser = localStorage.getItem('armora_user');
     const savedQuestionnaireData = localStorage.getItem('armora_questionnaire');
     const savedNotifications = localStorage.getItem('armora_notifications');
+    const savedCurrentView = localStorage.getItem('armora_current_view');
 
     if (savedUser) {
       try {
@@ -720,6 +827,21 @@ export function AppProvider({ children }: { children: ReactNode }) {
         console.warn('Failed to parse saved notifications');
       }
     }
+
+    // Restore current view from localStorage
+    if (savedCurrentView && savedCurrentView !== 'splash') {
+      try {
+        const viewToRestore = savedCurrentView as ViewState;
+        // Only restore valid views, and avoid restoring to authentication views
+        const validViewsToRestore = ['home', 'booking', 'hub', 'account', 'services', 'about', 'coverage-areas'];
+        if (validViewsToRestore.includes(viewToRestore)) {
+          dispatch({ type: 'SET_VIEW', payload: viewToRestore });
+        }
+      } catch (error) {
+        console.error('Failed to restore current view:', error);
+        localStorage.removeItem('armora_current_view');
+      }
+    }
   }, [updateQuestionnaireData]);
 
   // Save user and questionnaire data to localStorage
@@ -736,6 +858,18 @@ export function AppProvider({ children }: { children: ReactNode }) {
       localStorage.setItem('armora_questionnaire', JSON.stringify(state.questionnaireData));
     }
   }, [state.questionnaireData]);
+
+  // Save current view to localStorage
+  useEffect(() => {
+    // Save current view for persistence on refresh, but skip splash and auth views
+    const persistableViews = ['home', 'booking', 'hub', 'account', 'services', 'about', 'coverage-areas', 'subscription', 'venue-protection-welcome', 'venue-security-questionnaire', 'venue-protection-success'];
+    if (persistableViews.includes(state.currentView)) {
+      localStorage.setItem('armora_current_view', state.currentView);
+    } else if (state.currentView === 'splash' || state.currentView === 'welcome') {
+      // Clear saved view on splash/welcome to force proper flow on next visit
+      localStorage.removeItem('armora_current_view');
+    }
+  }, [state.currentView]);
 
   const value: AppContextType = {
     state,
@@ -801,6 +935,17 @@ export function AppProvider({ children }: { children: ReactNode }) {
     activatePanicAlert,
     deactivatePanicAlert,
     updateLastKnownLocation,
+    // CPO Management functions
+    setSelectedCPO,
+    addFavoriteCPO,
+    removeFavoriteCPO,
+    setCPOFilters,
+    setBookingFlow,
+    updateBookingFlowData,
+    clearBookingFlow,
+    // Service Tiers & Tracking functions
+    setServiceTier,
+    setTrackingData,
   };
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;

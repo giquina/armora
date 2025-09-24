@@ -51,6 +51,25 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 export const useAuth = () => {
   const context = useContext(AuthContext);
   if (!context) {
+    // In development mode, return a mock context instead of throwing
+    if (process.env.NODE_ENV === 'development') {
+      console.warn('useAuth called outside AuthProvider - returning mock context for development mode');
+      return {
+        user: null,
+        session: null,
+        profile: null,
+        loading: false,
+        error: null,
+        signUp: async () => {},
+        signIn: async () => {},
+        signInWithGoogle: async () => {},
+        signOut: async () => {},
+        updateProfile: async () => {},
+        refreshProfile: async () => {},
+        saveQuestionnaire: async () => {},
+        acknowledgeMartynsLaw: async () => {},
+      } as AuthContextType;
+    }
     throw new Error('useAuth must be used within an AuthProvider');
   }
   return context;

@@ -4,7 +4,7 @@
 export type NavigationViews = 'home' | 'services' | 'hub' | 'account';
 
 // Complete view state including navigation and flow states
-export type ViewState = 'splash' | 'welcome' | 'login' | 'signup' | 'guest-disclaimer' | 'questionnaire' | 'achievement' | 'home' | 'subscription-offer' | 'trial-setup' | 'member-dashboard' | 'services' | 'service-selection' | 'booking' | 'hub' | 'Assignments' | 'account' | 'venue-protection-welcome' | 'venue-security-questionnaire' | 'venue-protection-success' | 'about' | 'coverage-areas' | 'legacy-booking-view';
+export type ViewState = 'splash' | 'welcome' | 'login' | 'signup' | 'guest-disclaimer' | 'questionnaire' | 'achievement' | 'home' | 'subscription-offer' | 'trial-setup' | 'member-dashboard' | 'services' | 'booking' | 'hub' | 'Assignments' | 'account' | 'venue-protection-welcome' | 'venue-security-questionnaire' | 'venue-protection-success' | 'advanced-booking' | 'security-assessment' | 'tracking' | 'subscription' | 'service-tiers' | 'about' | 'coverage-areas' | 'legacy-booking-view' | 'service-selection';
 
 export type UserType = 'registered' | 'google' | 'guest' | null;
 
@@ -237,6 +237,17 @@ export interface AppState {
   communityImpactData: CommunityImpactData | null;
   venueProtectionData?: any; // Venue protection assessment data
   assignmentState: AssignmentState;
+  // CPO Management State
+  selectedCPO: any | null; // Selected CPO for booking
+  favoriteCPOs: string[]; // Array of CPO IDs
+  cpoFilters: any; // CPO search/filter preferences
+  bookingFlow: {
+    step: 'cpo-selection' | 'security-assessment' | 'service-tiers' | 'confirmation' | 'success';
+    data: any;
+  } | null;
+  // Service Tiers & Real-time Tracking
+  selectedServiceTier: string | null;
+  trackingData: any | null;
   isLoading: boolean;
   error: string | null;
   notifications?: INotificationItem[];

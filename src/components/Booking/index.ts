@@ -6,4 +6,4 @@ export { default as QuickProtectionEstimate } from './QuickProtectionEstimate';
 export { ProtectionAssignmentConfirmation as BookingConfirmation } from '../ProtectionAssignment/ProtectionAssignmentConfirmation';
 export { ProtectionAssignmentSuccess as BookingSuccess } from '../ProtectionAssignment/ProtectionAssignmentSuccess';
 export { ProtectionAssignmentErrorBoundary as BookingErrorBoundary } from '../ProtectionAssignment/ProtectionAssignmentErrorBoundary';
-export { WhereWhenView } from '../ProtectionAssignment/WhereWhenView';
+export { WhereWhenView } from './WhereWhenView';

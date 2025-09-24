@@ -1,0 +1,324 @@
+/* Service Tier Card - Professional Protection Services */
+
+.tierCard {
+  background: rgba(26, 26, 46, 0.8);
+  border: 2px solid rgba(255, 215, 0, 0.2);
+  border-radius: var(--radius-lg);
+  padding: var(--space-lg);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  min-height: 450px;
+  display: flex;
+  flex-direction: column;
+  backdrop-filter: blur(10px);
+}
+
+.tierCard:hover {
+  border-color: rgba(255, 215, 0, 0.4);
+  transform: translateY(-4px);
+  box-shadow: 0 10px 30px rgba(255, 215, 0, 0.15);
+}
+
+.tierCard.selected {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 30px rgba(255, 215, 0, 0.25);
+}
+
+.tierCard.recommended {
+  border-color: #f59e0b;
+  background: rgba(245, 158, 11, 0.05);
+}
+
+.tierCard.recommended::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #f59e0b, #fbbf24);
+}
+
+/* Recommended Badge */
+.recommendedBadge {
+  position: absolute;
+  top: var(--space-md);
+  right: var(--space-md);
+  background: linear-gradient(45deg, #f59e0b, #fbbf24);
+  color: #1a1a2e;
+  padding: var(--space-xs) var(--space-sm);
+  border-radius: var(--radius-sm);
+  font-size: var(--font-xs);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  z-index: 2;
+}
+
+/* Tier Header */
+.tierHeader {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-md);
+  margin-bottom: var(--space-lg);
+}
+
+.tierIcon {
+  width: 60px;
+  height: 60px;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  flex-shrink: 0;
+  border: 2px solid rgba(255, 215, 0, 0.3);
+}
+
+.tierInfo {
+  flex: 1;
+  min-width: 0;
+}
+
+.tierName {
+  font-size: var(--font-lg);
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0 0 var(--space-sm) 0;
+  line-height: 1.2;
+}
+
+.pricing {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  flex-wrap: wrap;
+}
+
+.price,
+.discountedPrice {
+  font-size: var(--font-base);
+  font-weight: 600;
+  color: #FFD700;
+}
+
+.originalPrice {
+  font-size: var(--font-sm);
+  color: var(--text-secondary);
+  text-decoration: line-through;
+}
+
+.discountBadge {
+  background: #22c55e;
+  color: white;
+  padding: var(--space-xs) var(--space-sm);
+  border-radius: var(--radius-sm);
+  font-size: var(--font-xs);
+  font-weight: 700;
+}
+
+/* Tier Description */
+.tierDescription {
+  color: var(--text-secondary);
+  margin-bottom: var(--space-lg);
+  line-height: 1.5;
+  font-size: var(--font-sm);
+}
+
+/* Features List */
+.featuresList {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-lg);
+}
+
+.feature {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-sm);
+}
+
+.featureIcon {
+  font-weight: 700;
+  flex-shrink: 0;
+  margin-top: 2px;
+  font-size: var(--font-sm);
+}
+
+.featureText {
+  font-size: var(--font-sm);
+  color: var(--text-primary);
+  line-height: 1.4;
+}
+
+/* Service Level Indicators */
+.serviceLevel {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+  margin-bottom: var(--space-lg);
+  padding: var(--space-md);
+  background: rgba(255, 215, 0, 0.05);
+  border-radius: var(--radius-md);
+  border: 1px solid rgba(255, 215, 0, 0.1);
+}
+
+.levelIndicator {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: var(--font-xs);
+}
+
+.levelLabel {
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.levelValue {
+  color: #FFD700;
+  font-weight: 600;
+}
+
+/* Select Button */
+.selectButton {
+  width: 100%;
+  padding: var(--space-md);
+  border: 2px solid #FFD700;
+  border-radius: var(--radius-md);
+  background: transparent;
+  color: #FFD700;
+  font-size: var(--font-base);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-top: auto;
+}
+
+.selectButton:hover {
+  background: #FFD700;
+  color: #1a1a2e;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
+}
+
+.selectedButton {
+  background: #22c55e;
+  border-color: #22c55e;
+  color: white;
+}
+
+.selectedButton:hover {
+  background: #16a34a;
+  border-color: #16a34a;
+}
+
+/* Subscription Upsell */
+.subscriptionUpsell {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(45deg, #8b5cf6, #a855f7);
+  padding: var(--space-sm);
+  text-align: center;
+  transform: translateY(100%);
+  transition: transform 0.3s ease;
+}
+
+.tierCard:hover .subscriptionUpsell {
+  transform: translateY(0);
+}
+
+.upsellText {
+  color: white;
+  font-size: var(--font-xs);
+  font-weight: 600;
+}
+
+/* Mobile Optimizations */
+@media (max-width: 768px) {
+  .tierCard {
+    min-height: 400px;
+    padding: var(--space-md);
+  }
+
+  .tierHeader {
+    gap: var(--space-sm);
+  }
+
+  .tierIcon {
+    width: 50px;
+    height: 50px;
+    font-size: 24px;
+  }
+
+  .tierName {
+    font-size: var(--font-base);
+  }
+
+  .serviceLevel {
+    padding: var(--space-sm);
+  }
+
+  .levelIndicator {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-xs);
+  }
+}
+
+/* Desktop Grid Optimizations */
+@media (min-width: 1024px) {
+  .tierCard {
+    min-height: 500px;
+  }
+
+  .tierIcon {
+    width: 70px;
+    height: 70px;
+    font-size: 32px;
+  }
+
+  .tierName {
+    font-size: var(--font-xl);
+  }
+
+  .serviceLevel {
+    padding: var(--space-lg);
+  }
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .tierCard,
+  .selectButton,
+  .subscriptionUpsell {
+    transition: none;
+  }
+
+  .tierCard:hover {
+    transform: none;
+  }
+}
+
+/* High Contrast Mode */
+@media (prefers-contrast: high) {
+  .tierCard {
+    border-width: 3px;
+  }
+
+  .featureIcon {
+    font-weight: 900;
+  }
+
+  .selectButton {
+    border-width: 3px;
+  }
+}

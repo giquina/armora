@@ -17,11 +17,19 @@ import {
 } from "../lib/supabase"
 import { useAuth } from '../contexts/AuthContext';
 
+// Development mode mock user for hooks
+const DEV_MOCK_USER = {
+  id: 'dev-user-123',
+  email: 'dev@example.com',
+  user_metadata: { name: 'Dev User' }
+};
+
 /**
  * Hook for fetching user's protection assignments
  */
 export function useProtectionAssignments() {
-  const { user } = useAuth();
+  const auth = useAuth();
+  const user = auth.user || DEV_MOCK_USER;
   const [assignments, setAssignments] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -339,7 +347,10 @@ export function useNearbyOfficers(lat?: number, lng?: number, radiusKm: number =
  * Hook for user profile with protection preferences
  */
 export function useUserProfile() {
-  const { user, profile, loading: authLoading } = useAuth();
+  const auth = useAuth();
+  const user = auth.user || DEV_MOCK_USER;
+  const profile = auth.profile || { ...DEV_MOCK_USER, full_name: 'Dev User' };
+  const authLoading = auth.loading || false;
   const [extendedProfile, setExtendedProfile] = useState<any>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -381,7 +392,8 @@ export function useUserProfile() {
  * Hook for real-time notifications
  */
 export function useNotifications() {
-  const { user } = useAuth();
+  const auth = useAuth();
+  const user = auth.user || DEV_MOCK_USER;
   const [notifications, setNotifications] = useState<any[]>([]);
   const [loading, setLoading] = useState(false);
 
@@ -443,7 +455,8 @@ export function useNotifications() {
  * Hook for emergency activation status
  */
 export function useEmergencyStatus() {
-  const { user } = useAuth();
+  const auth = useAuth();
+  const user = auth.user || DEV_MOCK_USER;
   const [emergencyActive, setEmergencyActive] = useState(false);
   const [lastActivation, setLastActivation] = useState<any>(null);
 

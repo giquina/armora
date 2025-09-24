@@ -30,7 +30,7 @@ const mockRegisteredUser: User = {
 
 const mockBookingData: BookingData = {
   service: mockEssentialService,
-  Commencement Point: '123 Test Street, London',
+  'Commencement Point': '123 Test Street, London',
   secureDestination: '456 Demo Avenue, London',
   estimatedDistance: 15,
   estimatedDuration: 35,
@@ -212,7 +212,7 @@ describe('Booking Components Basic Tests', () => {
     test('should handle missing data gracefully', () => {
       const incompleteBookingData = {
         ...mockBookingData,
-        Commencement Point: '',
+        'Commencement Point': '',
         secureDestination: ''
       };
 
