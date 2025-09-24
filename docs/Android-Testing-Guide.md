@@ -198,7 +198,7 @@ console.log('Scroll Behavior:', testScrollBehavior());
 
 #### Installation Testing
 1. **Chrome Mobile Installation**
-   - Open https://localhost:3000 in Chrome
+   - Open https://localhost:3001 in Chrome
    - Wait for "Add to Home Screen" prompt
    - Test installation process
    - Verify home screen icon

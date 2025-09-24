@@ -16,13 +16,13 @@ const initialState: AppState = {
   user: null,
   questionnaireData: null,
   deviceCapabilities: {
-    isOnline: navigator.onLine,
-    isMobile: /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent),
-    isTouch: 'ontouchstart' in window,
-    screenWidth: window.innerWidth,
-    screenHeight: window.innerHeight,
-    orientation: window.innerWidth > window.innerHeight ? 'landscape' : 'portrait',
-    supportsInstallPrompt: 'serviceWorker' in navigator,
+    isOnline: typeof navigator !== 'undefined' ? navigator.onLine : true,
+    isMobile: typeof navigator !== 'undefined' ? /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) : false,
+    isTouch: typeof window !== 'undefined' ? 'ontouchstart' in window : false,
+    screenWidth: typeof window !== 'undefined' ? window.innerWidth : 1024,
+    screenHeight: typeof window !== 'undefined' ? window.innerHeight : 768,
+    orientation: typeof window !== 'undefined' ? (window.innerWidth > window.innerHeight ? 'landscape' : 'portrait') : 'landscape',
+    supportsInstallPrompt: typeof navigator !== 'undefined' ? 'serviceWorker' in navigator : false,
   },
   subscription: null,
   selectedServiceForProtectionAssignment: undefined,
@@ -118,7 +118,7 @@ function appReducer(state: AppState, action: AppAction): AppState {
       if (state.assignmentState.currentAssignment?.id === action.payload.assignmentId) {
         const updatedAssignment = {
           ...state.assignmentState.currentAssignment,
-          status: action.payload.status as any,
+          status: action.payload.status as 'scheduled' | 'active' | 'in_progress' | 'completed' | 'cancelled',
         };
         return {
           ...state,
@@ -643,7 +643,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
     } else {
       updateSafeRideFundMetrics(null);
     }
-  }, [state.subscription?.tier]); // Only depend on tier to prevent infinite loop
+  }, [state.subscription?.tier, initializeSafeRideFundData]); // Include callback dependency
 
   // Monitor device capabilities
   useEffect(() => {
@@ -705,7 +705,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
     if (savedNotifications) {
       try {
         const parsed = JSON.parse(savedNotifications) as any[];
-        const normalized: INotificationItem[] = parsed.map((n) => ({
+        const normalized: INotificationItem[] = parsed.map((n: any) => ({
           id: n.id,
           type: n.type || 'info',
           title: n.title || 'Update',

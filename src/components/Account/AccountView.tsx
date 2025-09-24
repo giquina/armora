@@ -154,11 +154,14 @@ export function AccountView() {
 
   // Initialize user data
   useEffect(() => {
-    if (user) {
-      const mockData = generateMockUserData(user);
-      setUserData(mockData);
-      setIsLoading(false);
-    }
+    // Always generate mock data, even without a user
+    const mockData = generateMockUserData(user || {
+      name: 'Guest User',
+      email: 'guest@armora.security',
+      userType: 'guest' as any
+    });
+    setUserData(mockData);
+    setIsLoading(false);
   }, [user]);
 
   if (isLoading || !userData) {

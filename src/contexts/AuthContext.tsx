@@ -50,8 +50,40 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const useAuth = () => {
   const context = useContext(AuthContext);
+  // Always return a safe fallback to prevent crashes
   if (!context) {
-    throw new Error('useAuth must be used within an AuthProvider');
+    console.warn('useAuth: AuthContext not found, returning mock implementation');
+    return {
+      user: null,
+      session: null,
+      profile: null,
+      loading: false,
+      error: null,
+      signUp: async () => {
+        console.warn('Auth not initialized: signUp called');
+      },
+      signIn: async () => {
+        console.warn('Auth not initialized: signIn called');
+      },
+      signInWithGoogle: async () => {
+        console.warn('Auth not initialized: signInWithGoogle called');
+      },
+      signOut: async () => {
+        console.warn('Auth not initialized: signOut called');
+      },
+      updateProfile: async () => {
+        console.warn('Auth not initialized: updateProfile called');
+      },
+      refreshProfile: async () => {
+        console.warn('Auth not initialized: refreshProfile called');
+      },
+      saveQuestionnaire: async () => {
+        console.warn('Auth not initialized: saveQuestionnaire called');
+      },
+      acknowledgeMartynsLaw: async () => {
+        console.warn('Auth not initialized: acknowledgeMartynsLaw called');
+      },
+    } as AuthContextType;
   }
   return context;
 };

@@ -70,7 +70,7 @@ export function ActiveProtectionPanel({ isOpen, onClose, isActive }: ActiveProte
     updateTime();
     const interval = setInterval(updateTime, 1000);
     return () => clearInterval(interval);
-  }, [isActive, protectionData.startTime]);
+  }, [isActive, protectionData.startTime, protectionData.expectedEndTime]);
 
   // Handle scroll indicator updates
   useEffect(() => {

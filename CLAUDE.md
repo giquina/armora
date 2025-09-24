@@ -24,7 +24,7 @@ Armora is a React 19.1.1 TypeScript application for premium close protection and
 - **Playwright**: End-to-end testing framework
 
 ## Core Development Commands
-- `npm start` - Start development server (localhost:3000)
+- `npm start` - Start development server (localhost:3001)
 - `npm run build` - Production build with type checking
 - `npm test` - Run tests in watch mode (Jest + React Testing Library)
 - `npm test -- --coverage` - Coverage report

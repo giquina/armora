@@ -6,7 +6,7 @@ Premium close protection and security transport services across England & Wales.
 
 ```bash
 npm install
-npm start          # Start development server (localhost:3000)
+npm start          # Start development server (localhost:3001)
 npm run dev        # Start with hooks system + orchestration
 npm run build      # Production build with type checking
 npm test           # Run tests in watch mode
@@ -31,7 +31,7 @@ npm run test:e2e   # Run Playwright end-to-end tests
 ## 🔧 Development Commands
 
 ### Core Commands
-- `npm start` - Development server (localhost:3000)
+- `npm start` - Development server (localhost:3001)
 - `npm run build` - Production build with type checking
 - `npm test` - Run tests in watch mode
 - `npm run dev` - Start with full hooks system

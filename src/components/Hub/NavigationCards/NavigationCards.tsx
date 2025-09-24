@@ -167,7 +167,7 @@ export const NavigationCards: React.FC<NavigationCardsProps> = ({
       setActiveSection(sections[sections.length - 1]);
       document.getElementById(`tab-${sections[sections.length - 1]}`)?.focus();
     }
-  }, [activeSection, setActiveSection]);
+  }, [activeSection, setActiveSection, sections]);
 
   return (
     <div

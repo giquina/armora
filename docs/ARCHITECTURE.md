@@ -176,7 +176,7 @@ App.tsx (Root State Management)
 ### **GitHub Codespaces Environment**
 - **VS Code** integrated development
 - **Claude Code** AI assistance
-- **Hot reloading** at localhost:3000
+- **Hot reloading** at localhost:3001
 - **TypeScript** compilation with error checking
 
 ### **Mobile-First Development**

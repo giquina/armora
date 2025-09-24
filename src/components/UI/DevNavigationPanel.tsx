@@ -7,7 +7,7 @@ interface DevNavigationPanelProps {
 }
 
 export function DevNavigationPanel({ className }: DevNavigationPanelProps) {
-  const { navigateToView } = useApp();
+  const { navigateToView, setUser, updateQuestionnaireData } = useApp();
   const [isCollapsed, setIsCollapsed] = useState(false);
 
   // Available views for quick navigation
@@ -28,6 +28,50 @@ export function DevNavigationPanel({ className }: DevNavigationPanelProps) {
 
   const handleNavigation = (viewId: string) => {
     console.log(`🚀 [DEV] Navigating to: ${viewId}`);
+
+    // Special handling for dashboard - set up mock user data
+    if (viewId === 'home') {
+      console.log('🚀 [DEV] Setting up mock data for dashboard access');
+
+      // Set up mock user
+      const mockUser = {
+        id: 'dev-user-123',
+        name: 'Test User',
+        email: 'test@armora.dev',
+        isAuthenticated: true,
+        userType: 'registered' as const,
+        hasCompletedQuestionnaire: true,
+        hasUnlockedReward: true,
+        createdAt: new Date()
+      };
+      setUser(mockUser);
+
+      // Set up mock questionnaire data
+      const mockQuestionnaireData = {
+        step1_transportProfile: 'executive-business',
+        step2_travelFrequency: 'weekly',
+        step3_serviceRequirements: ['professional-security', 'premium-vehicles', 'punctuality'],
+        step4_primaryCoverage: ['london', 'birmingham'],
+        step5_secondaryCoverage: ['manchester'],
+        step6_safetyContact: {
+          name: 'Safety Contact',
+          phone: '+44 7700 900000',
+          relationship: 'spouse'
+        },
+        step7_specialRequirements: ['wheelchair-accessible'],
+        step8_contactPreferences: {
+          email: 'test@armora.dev',
+          phone: '+44 7700 900000',
+          notifications: ['booking-updates', 'Protection Officer-arrival']
+        },
+        step9_profileReview: true,
+        completedAt: new Date(),
+        recommendedService: 'executive',
+        conversionAttempts: 0
+      };
+      updateQuestionnaireData(mockQuestionnaireData);
+    }
+
     navigateToView(viewId as any);
   };
 

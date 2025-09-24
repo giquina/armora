@@ -60,18 +60,23 @@ root.render(
   </React.StrictMode>
 );
 
-// Register service worker for PWA functionality
+// Service worker registration removed to avoid stale cached chunks causing ChunkLoadError.
+// Proactively unregister any existing service workers and clear caches (best-effort, non-blocking).
 if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => {
-    navigator.serviceWorker
-      .register('/sw.js')
-      .then((registration) => {
-        console.log('SW registered: ', registration);
-      })
-      .catch((registrationError) => {
-        console.log('SW registration failed: ', registrationError);
-      });
-  });
+  navigator.serviceWorker.getRegistrations().then(registrations => {
+    registrations.forEach(r => r.unregister());
+    if (registrations.length > 0) {
+      console.log('[SW] Unregistered existing service workers to prevent asset caching issues.');
+    }
+  }).catch(err => console.warn('[SW] Unregister failed:', err));
+
+  // Clear runtime caches that may still hold old chunks
+  if ('caches' in window) {
+    caches.keys().then(keys => {
+      if (keys.length) console.log('[SW] Clearing caches:', keys);
+      return Promise.all(keys.map(k => caches.delete(k)));
+    }).catch(err => console.warn('[SW] Cache clear failed:', err));
+  }
 }
 
 // If you want to start measuring performance in your app, pass a function

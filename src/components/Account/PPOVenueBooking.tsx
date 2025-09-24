@@ -80,7 +80,7 @@ export function PPOVenueBooking({ isVisible }: PPOVenueBookingProps) {
             <select
               className={styles.select}
               value={selectedDuration}
-              onChange={(e) => setSelectedDuration(e.target.value as any)}
+              onChange={(e) => setSelectedDuration(e.target.value as 'day' | '2_days' | 'month' | 'year')}
             >
               {Object.entries(durationLabels).map(([value, label]) => (
                 <option key={value} value={value}>{label}</option>
@@ -111,7 +111,7 @@ export function PPOVenueBooking({ isVisible }: PPOVenueBookingProps) {
                 name="venueType"
                 value="standard"
                 checked={venueType === 'standard'}
-                onChange={(e) => setVenueType(e.target.value as any)}
+                onChange={(e) => setVenueType(e.target.value as 'standard' | 'high_risk')}
                 className={styles.radio}
               />
               <span className={styles.radioText}>Standard Venue</span>
@@ -124,7 +124,7 @@ export function PPOVenueBooking({ isVisible }: PPOVenueBookingProps) {
                 name="venueType"
                 value="high_risk"
                 checked={venueType === 'high_risk'}
-                onChange={(e) => setVenueType(e.target.value as any)}
+                onChange={(e) => setVenueType(e.target.value as 'standard' | 'high_risk')}
                 className={styles.radio}
               />
               <span className={styles.radioText}>High-Risk Venue (+50%)</span>

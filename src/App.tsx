@@ -83,7 +83,7 @@ function BookingFlow() {
 
     return {
       serviceId: preSelectedServiceId || undefined,
-      context: bookingContext as any
+      context: bookingContext as 'immediate' | 'airport' | 'executive' | 'schedule' | 'event' | undefined
     };
   };
 
@@ -550,7 +550,7 @@ function AppRouter() {
     if (showBanner) {
       localStorage.setItem('armora_achievement_banner_shown', new Date().toISOString());
     }
-  }, [currentView, user?.hasCompletedQuestionnaire, user?.hasUnlockedReward]);
+  }, [currentView, user?.hasCompletedQuestionnaire, user?.hasUnlockedReward, user?.userType]);
   
   const handleClaimDiscount = () => {
     // Mark reward as unlocked

@@ -48,7 +48,7 @@
 ## 🚀 DEVELOPMENT ENVIRONMENT:
 - **Platform**: GitHub Codespaces with VS Code integration
 - **AI Assistant**: Claude Code for development support
-- **Live Preview**: localhost:3000 with hot reloading
+- **Live Preview**: localhost:3001 with hot reloading
 - **Package Manager**: npm (all scripts documented in package.json)
 - **Testing**: Browser dev tools starting at 320px width
 - **Documentation**: Beginner-friendly explanations required

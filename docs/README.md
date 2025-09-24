@@ -78,7 +78,7 @@ Regular user (2 assignments/month) saves £41+ per assignment = £82+ monthly sa
 ### **Development Environment:**
 - **GitHub Codespaces** with VS Code integration
 - **Claude Code** AI development assistant
-- **Live preview** at localhost:3000
+- **Live preview** at localhost:3001
 - **Hot reloading** for real-time development
 
 ### **Styling & Design:**
@@ -186,7 +186,7 @@ armora-transport-app/
    ```
 
 4. **View the app:**
-   - Open browser to `http://localhost:3000`
+   - Open browser to `http://localhost:3001`
    - In Codespaces: Use the built-in browser preview
    - The app will automatically reload when you make changes
 
