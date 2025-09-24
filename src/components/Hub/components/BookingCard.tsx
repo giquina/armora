@@ -83,7 +83,7 @@ export function BookingCard({
           </div>
           <div className={styles.priceDisplay}>£{booking.pricing.total}</div>
           <div className={styles.ratingDisplay}>
-            {'⭐'.repeat(Math.floor(booking.Protection Officer.rating))}
+            {'⭐'.repeat(Math.floor(booking.protectionOfficer.rating))}
           </div>
         </div>
       </div>
@@ -110,7 +110,7 @@ export function BookingCard({
           <div className={styles.statIcon}>👤</div>
           <div className={styles.statContent}>
             <div className={styles.statLabel}>OFFICER</div>
-            <div className={styles.statValue}>{booking.Protection Officer.name}</div>
+            <div className={styles.statValue}>{booking.protectionOfficer.name}</div>
           </div>
         </div>
 
@@ -118,7 +118,7 @@ export function BookingCard({
           <div className={styles.statIcon}>🚗</div>
           <div className={styles.statContent}>
             <div className={styles.statLabel}>VEHICLE</div>
-            <div className={styles.statValue}>{booking.Protection Officer.vehicle}</div>
+            <div className={styles.statValue}>{booking.protectionOfficer.vehicle}</div>
           </div>
         </div>
       </div>
@@ -242,7 +242,7 @@ export function BookingCard({
         </div>
         <div className={styles.metaItem}>
           <span className={styles.metaLabel}>Protection Officer:</span>
-          <span className={styles.metaValue}>{booking.Protection Officer.name}</span>
+          <span className={styles.metaValue}>{booking.protectionOfficer.name}</span>
         </div>
       </div>
 
