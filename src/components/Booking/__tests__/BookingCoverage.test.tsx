@@ -73,7 +73,7 @@ const mockUsers = {
 
 const mockBookingData: BookingData = {
   service: mockServices[0],
-  Commencement Point: '123 Test Street, London',
+  commencementPoint: '123 Test Street, London',
   secureDestination: '456 Demo Avenue, London',
   estimatedDistance: 15,
   estimatedDuration: 35,
@@ -239,7 +239,7 @@ describe('Booking Components Coverage Tests', () => {
       await waitFor(() => {
         expect(onLocationConfirmed).toHaveBeenCalledWith(
           expect.objectContaining({
-            Commencement Point: 'Test Commencement Point',
+            commencementPoint: 'Test Commencement Point',
             secureDestination: 'Test destination',
             estimatedCost: expect.any(Number)
           })
@@ -544,7 +544,7 @@ describe('Booking Components Coverage Tests', () => {
     test('should handle missing data gracefully', () => {
       const incompleteBookingData = {
         ...mockBookingData,
-        Commencement Point: '',
+        commencementPoint: '',
         secureDestination: '',
         service: undefined as any
       };

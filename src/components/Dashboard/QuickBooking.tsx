@@ -23,7 +23,7 @@ export function QuickBooking({ onBookNow, selectedService, isLoading = false, us
   const [destinationLocation, setDestinationLocation] = useState<Location | undefined>();
   const [currentLocation, setCurrentLocation] = useState<Location | null>(null);
   const [isLoadingLocation, setIsLoadingLocation] = useState(false);
-  const [editMode, setEditMode] = useState<'Commencement Point' | 'destination' | null>(null);
+  const [editMode, setEditMode] = useState<'commencementPoint' | 'destination' | null>(null);
   const [scheduledTime, setScheduledTime] = useState('');
   const [isScheduled, setIsScheduled] = useState(false);
   const [multiStops, setMultiStops] = useState<Location[]>([]);
@@ -118,7 +118,7 @@ export function QuickBooking({ onBookNow, selectedService, isLoading = false, us
     setEditMode(null);
   }, []);
 
-  const toggleMapEdit = (mode: 'Commencement Point' | 'destination') => {
+  const toggleMapEdit = (mode: 'commencementPoint' | 'destination') => {
     if (editMode === mode) {
       setEditMode(null);
     } else {
@@ -200,8 +200,8 @@ export function QuickBooking({ onBookNow, selectedService, isLoading = false, us
       {/* Interactive Map - Always Visible */}
       <div className={styles.mapSection}>
         <BookingMap
-          Commencement Point={commencementLocation}
-          destination={destinationLocation}
+          commencementPoint={commencementLocation}
+          secureDestination={destinationLocation}
           onPickupChange={handlePickupChange}
           onDestinationChange={handleDestinationChange}
           editMode={editMode}
@@ -216,18 +216,18 @@ export function QuickBooking({ onBookNow, selectedService, isLoading = false, us
           <label className={styles.inputLabel} htmlFor="Commencement Point-location">
             <span className={styles.locationIcon}>📍</span>
             Commencement Point Location
-            {editMode === 'Commencement Point' && <span className={styles.editingIndicator}>✏️ Editing</span>}
+            {editMode === 'commencementPoint' && <span className={styles.editingIndicator}>✏️ Editing</span>}
           </label>
           <div className={styles.inputWrapper}>
             <input
               id="Commencement Point-location"
               type="text"
-              className={`${styles.locationInput} ${editMode === 'Commencement Point' ? styles.editing : ''}`}
+              className={`${styles.locationInput} ${editMode === 'commencementPoint' ? styles.editing : ''}`}
               placeholder="Enter Commencement Point address or use current location"
               value={commencementLocation?.address || ''}
               onChange={(e) => {
-                if (commencementPointLocation) {
-                  setPickupLocation({ ...commencementPointLocation, address: e.target.value });
+                if (commencementLocation) {
+                  setPickupLocation({ ...commencementLocation, address: e.target.value });
                 }
               }}
               onFocus={() => {}} // Map is always visible
@@ -251,8 +251,8 @@ export function QuickBooking({ onBookNow, selectedService, isLoading = false, us
               </button>
               <button
                 type="button"
-                className={`${styles.mapEditButton} ${editMode === 'Commencement Point' ? styles.active : ''}`}
-                onClick={() => toggleMapEdit('Commencement Point')}
+                className={`${styles.mapEditButton} ${editMode === 'commencementPoint' ? styles.active : ''}`}
+                onClick={() => toggleMapEdit('commencementPoint')}
                 title="Edit on map"
               >
                 🗺️
@@ -286,8 +286,8 @@ export function QuickBooking({ onBookNow, selectedService, isLoading = false, us
               placeholder="Enter secureDestination address"
               value={destinationLocation?.address || ''}
               onChange={(e) => {
-                if (secureDestinationLocation) {
-                  setDestinationLocation({ ...secureDestinationLocation, address: e.target.value });
+                if (destinationLocation) {
+                  setDestinationLocation({ ...destinationLocation, address: e.target.value });
                 } else {
                   setDestinationLocation({ lat: 0, lng: 0, address: e.target.value });
                 }

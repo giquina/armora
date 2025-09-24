@@ -15,7 +15,7 @@ interface ChartData {
 
 interface TrendData {
   month: string;
-  Protection Details: number;
+  protectionDetails: number;
   spending: number;
 }
 
@@ -46,7 +46,7 @@ export function AnalyticsDashboard({ bookings, userStats }: AnalyticsDashboardPr
     const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'];
     return months.map((month, index) => ({
       month,
-      Protection Details: Math.floor(Math.random() * 10) + 3,
+      protectionDetails: Math.floor(Math.random() * 10) + 3,
       spending: Math.floor(Math.random() * 500) + 200
     }));
   };
@@ -166,7 +166,7 @@ export function AnalyticsDashboard({ bookings, userStats }: AnalyticsDashboardPr
                     <div
                       className={styles.tripsBar}
                       style={{
-                        height: `${(item.Protection Details / 15) * 100}%`,
+                        height: `${(item.protectionDetails / 15) * 100}%`,
                         animationDelay: `${index * 0.1}s`
                       }}
                     ></div>
