@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { AppProvider, useApp } from './contexts/AppContext';
+import { AuthProvider } from './contexts/AuthContext';
 import { ProtectionAssignmentProvider } from './contexts/ProtectionAssignmentContext';
 import { AppLayout } from './components/Layout/AppLayout';
 import { SplashScreen } from './components/SplashScreen/SplashScreen';
@@ -14,7 +15,7 @@ import { Dashboard } from './components/Dashboard';
 import { ServicesPage } from './components/Services/ServicesPage';
 import { Hub } from './components/Hub';
 import { SubscriptionOffer } from './components/Subscription/SubscriptionOffer';
-import { VehicleSelection, LocationPicker } from './components/Booking';
+// Removed unused imports
 import LegacyBookingPage from './components/Booking/LegacyBookingPage';
 import { ProtectionAssignmentSuccess, WhereWhenView } from './components/ProtectionAssignment';
 import { PaymentIntegration } from './components/Booking/PaymentIntegration';
@@ -672,11 +673,13 @@ function AppRouter() {
 
 function App() {
   return (
-    <AppProvider>
-      <ProtectionAssignmentProvider>
-        <AppRouter />
-      </ProtectionAssignmentProvider>
-    </AppProvider>
+    <AuthProvider>
+      <AppProvider>
+        <ProtectionAssignmentProvider>
+          <AppRouter />
+        </ProtectionAssignmentProvider>
+      </AppProvider>
+    </AuthProvider>
   );
 }
 
