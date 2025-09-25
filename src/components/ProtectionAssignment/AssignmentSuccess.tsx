@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
-import { useApp } from '../../../contexts/AppContext';
-import { BookingHistoryManager } from '../../../utils/bookingHistory';
-import { ProtectionAssignmentData } from '../../../types';
+import { useApp } from '../../contexts/AppContext';
+import { BookingHistoryManager } from '../../utils/bookingHistory';
+import { ProtectionAssignmentData } from '../../types';
 import styles from './AssignmentSuccess.module.css';
 import '../../styles/booking-white-theme.css';
 

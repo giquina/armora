@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useApp } from '../../contexts/AppContext';
 import { ServiceLevel, LocationData } from '../../types';
 import styles from './WhereWhenView.module.css';
+import '../../styles/booking-white-theme.css';
 
 interface WhereWhenViewProps {
   onContinueToPayment: (data: {
@@ -27,52 +28,43 @@ const SERVICE_OPTIONS: ServiceOption[] = [
   {
     id: 'standard',
     name: 'Essential Protection',
-    price: '£65/hour',
-    description: 'SIA Level 2, personal protection trained CPOs',
+    price: '£50/hour',
+    description: 'Professional protection for everyday security',
     icon: '🛡️',
-    features: ['SIA-licensed CPOs', 'Real-time tracking', '24/7 support', 'Standard response time']
+    features: ['SIA-licensed officers', 'Real-time tracking', '24/7 support']
   },
   {
     id: 'executive',
-    name: 'Executive Shield',
-    price: '£95/hour',
-    description: 'SIA Level 3, corporate bodyguard services',
+    name: 'Executive Protection',
+    price: '£75/hour',
+    description: 'Premium security for high-profile clients',
     icon: '👔',
-    features: ['Advanced threat assessment', 'Discrete surveillance', 'Emergency protocols', 'Priority response']
+    features: ['Advanced threat assessment', 'Discrete surveillance', 'Emergency protocols']
   },
   {
     id: 'shadow',
     name: 'Shadow Protocol',
-    price: '£125/hour',
+    price: '£65/hour',
     description: 'Special Forces trained, covert protection specialists',
     icon: '🕴️',
-    features: ['Military-grade training', 'Covert operations', 'Counter-surveillance', 'Elite specialists']
+    features: ['Military-grade training', 'Covert operations', 'Counter-surveillance']
   },
   {
     id: 'client-vehicle',
     name: 'Client Vehicle Service',
     price: '£55/hour',
-    description: 'Security-trained CPO for customer\'s vehicle',
+    description: 'Security-trained Protection Officer for your vehicle',
     icon: '🔑',
-    features: ['Use your vehicle', 'No mileage charges', 'Enhanced privacy', 'Familiar surroundings']
+    features: ['Your vehicle', 'No mileage charges', 'Enhanced privacy']
   }
 ];
 
 const AIRPORT_LOCATIONS = [
-  { name: 'London Heathrow Airport', address: 'Heathrow Airport, Hounslow TW6 1AP', distance: '15 miles', icon: '✈️' },
-  { name: 'London Gatwick Airport', address: 'Gatwick Airport, Horley RH6 0NP', distance: '28 miles', icon: '✈️' },
-  { name: 'London City Airport', address: 'London City Airport, London E16 2PX', distance: '8 miles', icon: '✈️' },
-  { name: 'London Stansted Airport', address: 'Stansted Airport, Stansted CM24 1QW', distance: '31 miles', icon: '✈️' },
-  { name: 'London Luton Airport', address: 'Luton Airport, Luton LU2 9LY', distance: '34 miles', icon: '✈️' }
-];
-
-const POPULAR_DESTINATIONS = [
-  { name: 'The Shard', address: '32 London Bridge St, London SE1 9SG', icon: '🏢' },
-  { name: 'Canary Wharf', address: 'Canary Wharf, London E14 5AB', icon: '🏦' },
-  { name: 'Oxford Street', address: 'Oxford St, London W1C 1JN', icon: '🛍️' },
-  { name: 'Westminster', address: 'Westminster, London SW1A 0AA', icon: '🏛️' },
-  { name: 'King\'s Cross Station', address: 'Euston Rd, London N1 9AL', icon: '🚂' },
-  { name: 'Liverpool Street', address: 'Liverpool St, London EC2M 7QH', icon: '🚂' }
+  { name: 'London Heathrow Airport', address: 'Heathrow Airport, Hounslow TW6 1AP', distance: '15 miles' },
+  { name: 'London Gatwick Airport', address: 'Gatwick Airport, Horley RH6 0NP', distance: '28 miles' },
+  { name: 'London City Airport', address: 'London City Airport, London E16 2PX', distance: '8 miles' },
+  { name: 'London Stansted Airport', address: 'Stansted Airport, Stansted CM24 1QW', distance: '31 miles' },
+  { name: 'London Luton Airport', address: 'Luton Airport, Luton LU2 9LY', distance: '34 miles' }
 ];
 
 export function WhereWhenView({ onContinueToPayment, preSelectedServiceId, preSelectedContext }: WhereWhenViewProps) {
@@ -109,7 +101,7 @@ export function WhereWhenView({ onContinueToPayment, preSelectedServiceId, preSe
   const [toLocation, setToLocation] = useState<string>('');
   const [isEditingFrom, setIsEditingFrom] = useState(false);
   const [estimatedPrice, setEstimatedPrice] = useState<number>(130);
-  const [shouldShowAirports, setShouldShowAirports] = useState(preSelectedContext === 'airport');
+
   const toLocationRef = useRef<HTMLInputElement>(null);
 
   // Auto-focus on to location when component mounts
@@ -118,6 +110,9 @@ export function WhereWhenView({ onContinueToPayment, preSelectedServiceId, preSe
       toLocationRef.current?.focus();
     }, 300);
   }, []);
+
+  // Show airports for airport context
+  const shouldShowAirports = preSelectedContext === 'airport';
 
   // Calculate price estimate
   useEffect(() => {
@@ -169,7 +164,7 @@ export function WhereWhenView({ onContinueToPayment, preSelectedServiceId, preSe
   const selectedServiceData = SERVICE_OPTIONS.find(s => s.id === selectedService)!;
 
   return (
-    <div className={styles.container}>
+    <div className={`${styles.container} booking-white-theme`}>
       {/* Header */}
       <div className={styles.header}>
         <button
@@ -181,7 +176,7 @@ export function WhereWhenView({ onContinueToPayment, preSelectedServiceId, preSe
             <path d="m15 18-6-6 6-6" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
         </button>
-        <h1 className={styles.title}>Arrange Protection Service</h1>
+        <h1 className={styles.title}>Book Protection Service</h1>
       </div>
 
       <div className={styles.content}>
@@ -195,24 +190,15 @@ export function WhereWhenView({ onContinueToPayment, preSelectedServiceId, preSe
                 className={`${styles.serviceCard} ${selectedService === service.id ? styles.serviceCardActive : ''}`}
                 onClick={() => setSelectedService(service.id)}
               >
-                <div className={styles.serviceHeader}>
-                  <div className={styles.serviceIcon}>{service.icon}</div>
-                  <div className={styles.serviceInfo}>
-                    <h3 className={styles.serviceName}>{service.name}</h3>
-                    <p className={styles.servicePrice}>{service.price}</p>
-                  </div>
-                  {selectedService === service.id && (
-                    <div className={styles.selectedIndicator}>✓</div>
-                  )}
+                <div className={styles.serviceIcon}>{service.icon}</div>
+                <div className={styles.serviceInfo}>
+                  <h3 className={styles.serviceName}>{service.name}</h3>
+                  <p className={styles.servicePrice}>{service.price}</p>
+                  <p className={styles.serviceDescription}>{service.description}</p>
                 </div>
-                <p className={styles.serviceDescription}>{service.description}</p>
-                <div className={styles.serviceFeatures}>
-                  {service.features.slice(0, 3).map((feature, index) => (
-                    <span key={index} className={styles.featureBadge}>
-                      {feature}
-                    </span>
-                  ))}
-                </div>
+                {selectedService === service.id && (
+                  <div className={styles.selectedIndicator}>✓</div>
+                )}
               </button>
             ))}
           </div>
@@ -256,62 +242,31 @@ export function WhereWhenView({ onContinueToPayment, preSelectedServiceId, preSe
               <input
                 ref={toLocationRef}
                 className={styles.locationInput}
-                placeholder="Enter destination address or landmark"
+                placeholder="Enter secureDestination address"
                 value={toLocation}
                 onChange={(e) => setToLocation(e.target.value)}
               />
             </div>
           </div>
 
-          {/* Popular Destinations */}
-          <div className={styles.destinationQuickSelect}>
-            <h3 className={styles.quickSelectTitle}>Popular Destinations</h3>
-            <div className={styles.destinationTabs}>
-              <button
-                className={`${styles.destinationTab} ${shouldShowAirports ? styles.destinationTabActive : ''}`}
-                onClick={() => setShouldShowAirports(true)}
-              >
-                ✈️ Airports
-              </button>
-              <button
-                className={`${styles.destinationTab} ${!shouldShowAirports ? styles.destinationTabActive : ''}`}
-                onClick={() => setShouldShowAirports(false)}
-              >
-                🏢 Landmarks
-              </button>
-            </div>
-
-            <div className={styles.destinationGrid}>
-              {shouldShowAirports ? (
-                AIRPORT_LOCATIONS.map((airport) => (
+          {/* Airport Quick Select */}
+          {shouldShowAirports && (
+            <div className={styles.airportQuickSelect}>
+              <h3 className={styles.quickSelectTitle}>Popular Airports</h3>
+              <div className={styles.airportGrid}>
+                {AIRPORT_LOCATIONS.map((airport) => (
                   <button
                     key={airport.address}
-                    className={styles.destinationButton}
+                    className={styles.airportButton}
                     onClick={() => setToLocation(airport.address)}
                   >
-                    <span className={styles.destinationIcon}>{airport.icon}</span>
-                    <div className={styles.destinationInfo}>
-                      <span className={styles.destinationName}>{airport.name}</span>
-                      <span className={styles.destinationDistance}>{airport.distance}</span>
-                    </div>
+                    <span className={styles.airportName}>{airport.name}</span>
+                    <span className={styles.airportDistance}>{airport.distance}</span>
                   </button>
-                ))
-              ) : (
-                POPULAR_DESTINATIONS.map((destination) => (
-                  <button
-                    key={destination.address}
-                    className={styles.destinationButton}
-                    onClick={() => setToLocation(destination.address)}
-                  >
-                    <span className={styles.destinationIcon}>{destination.icon}</span>
-                    <div className={styles.destinationInfo}>
-                      <span className={styles.destinationName}>{destination.name}</span>
-                    </div>
-                  </button>
-                ))
-              )}
+                ))}
+              </div>
             </div>
-          </div>
+          )}
         </div>
 
         {/* Time Selection */}
@@ -369,54 +324,48 @@ export function WhereWhenView({ onContinueToPayment, preSelectedServiceId, preSe
           )}
         </div>
 
-        {/* Enhanced Price Calculator */}
+        {/* Price Estimate */}
         <div className={styles.priceSection}>
           <div className={styles.priceCard}>
             <div className={styles.priceHeader}>
-              <h3 className={styles.priceTitle}>Protection Assignment Estimate</h3>
+              <h3 className={styles.priceTitle}>Estimated Cost</h3>
               {timeOption === 'now' && (
-                <span className={styles.rushBadge}>Immediate Response</span>
+                <span className={styles.rushBadge}>Rush pricing</span>
               )}
             </div>
-
             <div className={styles.priceAmount}>£{estimatedPrice}</div>
-
-            <div className={styles.priceBreakdown}>
-              <div className={styles.breakdownRow}>
-                <span className={styles.breakdownLabel}>
-                  <span className={styles.serviceIcon}>{selectedServiceData.icon}</span>
-                  {selectedServiceData.name}
-                </span>
-                <span className={styles.breakdownValue}>{selectedServiceData.price}</span>
+            <div className={styles.priceDetails}>
+              <div className={styles.priceBreakdown}>
+                <span>{selectedServiceData.name}</span>
+                <span>2 hour minimum</span>
               </div>
-              <div className={styles.breakdownRow}>
-                <span className={styles.breakdownLabel}>Minimum Duration</span>
-                <span className={styles.breakdownValue}>2 hours</span>
-              </div>
-              {timeOption === 'now' && (
-                <div className={styles.breakdownRow}>
-                  <span className={styles.breakdownLabel}>Immediate Response Fee</span>
-                  <span className={styles.breakdownValue}>+25%</span>
-                </div>
-              )}
-              <div className={styles.breakdownRow}>
-                <span className={styles.breakdownLabel}>Distance Charge</span>
-                <span className={styles.breakdownValue}>£2.50/mile</span>
-              </div>
+              <p className={styles.priceNote}>
+                Final price calculated on completion • No hidden fees
+              </p>
             </div>
+          </div>
+        </div>
 
-            <div className={styles.priceFeatures}>
-              <div className={styles.includedFeatures}>
-                <h4 className={styles.featuresTitle}>✓ Included</h4>
-                {selectedServiceData.features.slice(0, 3).map((feature, index) => (
-                  <span key={index} className={styles.includedFeature}>{feature}</span>
-                ))}
-              </div>
-            </div>
+        {/* Protection Service Banner - Improved with How It Works */}
+        <div className={styles.protectionBanner}>
+          <div className={styles.bannerIcon}>🛡️</div>
+          <h3 className={styles.bannerTitle}>How It Works - Simple & Secure</h3>
 
-            <p className={styles.priceNote}>
-              Final quote provided before confirmation • No booking fees • Transparent pricing
-            </p>
+          <div className={styles.processSteps}>
+            <div className={styles.stepText}>1. Select your protection level</div>
+            <div className={styles.stepText}>2. Enter your destination</div>
+            <div className={styles.stepText}>3. Your officer arrives in 15-20 mins</div>
+          </div>
+
+          <div className={styles.bannerFeatures}>
+            <span>✓ Secure vehicle included</span>
+            <span className={styles.dot}>•</span>
+            <span>✓ Real-time tracking</span>
+            <span className={styles.dot}>•</span>
+            <span>✓ Fixed transparent pricing</span>
+          </div>
+          <div className={styles.bannerRating}>
+            ⭐ 4.9 rating from 2,847 protected clients
           </div>
         </div>
 
@@ -427,7 +376,7 @@ export function WhereWhenView({ onContinueToPayment, preSelectedServiceId, preSe
             onClick={handleContinue}
             disabled={!toLocation.trim() || (timeOption === 'schedule' && (!scheduledDate || !scheduledTime))}
           >
-            💳 Continue to Secure Payment
+            Continue to Payment
           </button>
         </div>
       </div>

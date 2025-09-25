@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { ServiceLevel, LocationData } from '../../../types';
-import { LoadingSpinner } from '../../UI/LoadingSpinner';
-import { calculateNationwideProtection, detectServiceRegion, getNationwideDestinations, isWithinServiceCoverage, NationwidePricingBreakdown } from '../../../utils/nationwidePricing';
+import { ServiceLevel, LocationData } from '../../types';
+import { LoadingSpinner } from '../UI/LoadingSpinner';
+import { calculateNationwideProtection, detectServiceRegion, getNationwideDestinations, isWithinServiceCoverage, NationwidePricingBreakdown } from '../../utils/nationwidePricing';
 import styles from './LocationPicker.module.css';
 
 interface LocationPickerProps {

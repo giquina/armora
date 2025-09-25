@@ -5,8 +5,8 @@ import { VehicleSelection } from '../VehicleSelection';
 import { LocationPicker } from '../LocationPicker';
 import { AssignmentConfirmation } from '../AssignmentConfirmation';
 import { AssignmentSuccess } from '../AssignmentSuccess';
-import { AppProvider } from '../../../contexts/AppContext';
-import { ServiceLevel, User, BookingData } from '../../../types';
+import { AppProvider } from '../../contexts/AppContext';
+import { ServiceLevel, User, BookingData } from '../../types';
 
 // Mock data
 const mockServices: ServiceLevel[] = [

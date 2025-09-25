@@ -15,7 +15,7 @@ import {
   getProtectionOfficers,
   activateEmergency,
   getUserAssignments,
-  getSafeRideFundStats,
+  getSafeAssignmentFundStats,
 } from "../lib/supabase"
 
 import { populateDatabase, clearSampleData, getSampleDataStats } from './populateDatabase';
@@ -586,7 +586,7 @@ async function testSafeRideFund(): Promise<IntegrationTestResult> {
 
   try {
     // Test Safe Assignment Fund statistics
-    const { data: stats, error } = await getSafeRideFundStats();
+    const { data: stats, error } = await getSafeAssignmentFundStats();
 
     if (error) {
       return {

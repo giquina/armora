@@ -2,8 +2,8 @@ import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { VehicleSelection } from '../VehicleSelection';
-import { ServiceLevel, User } from '../../../types';
-import { AppProvider } from '../../../contexts/AppContext';
+import { ServiceLevel, User } from '../../types';
+import { AppProvider } from '../../contexts/AppContext';
 
 const mockRegisteredUser: User = {
   id: 'user123',

@@ -6,13 +6,13 @@ import {
   PaymentError,
   SavedPaymentMethod,
   CorporateAccount
-} from '../../../types';
-import { PaymentForm } from '../../Payment/PaymentForm';
-import { PaymentSuccess } from '../../Payment/PaymentSuccess';
-import { CorporateBilling } from '../../Payment/CorporateBilling';
-import { BookingProgressIndicator } from '../../UI/ProgressIndicator';
-import { Button } from '../../UI/Button';
-import { LoadingSpinner } from '../../UI/LoadingSpinner';
+} from '../../types';
+import { PaymentForm } from '../Payment/PaymentForm';
+import { PaymentSuccess } from '../Payment/PaymentSuccess';
+import { CorporateBilling } from '../Payment/CorporateBilling';
+import { BookingProgressIndicator } from '../UI/ProgressIndicator';
+import { Button } from '../UI/Button';
+import { LoadingSpinner } from '../UI/LoadingSpinner';
 import styles from './PaymentIntegration.module.css';
 
 interface PaymentIntegrationProps {

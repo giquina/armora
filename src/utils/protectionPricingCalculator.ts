@@ -1,5 +1,5 @@
-import { ProtectionLevel } from '../components/ProtectionAssignment/Booking/ProtectionLevelSelector';
-import { VenueTimeData } from '../components/ProtectionAssignment/Booking/VenueTimeEstimator';
+import { ProtectionLevel } from '../components/ProtectionAssignment/ProtectionLevelSelector';
+import { VenueTimeData } from '../components/ProtectionAssignment/VenueTimeEstimator';
 import { formatPrice } from './priceFormatter';
 import { calculateNationwideProtection, NationwidePricingBreakdown } from './nationwidePricing';
 

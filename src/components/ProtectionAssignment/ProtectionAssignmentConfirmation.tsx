@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { ProtectionAssignmentData } from '../../types';
-import { ProtectionLevel } from './Booking/ProtectionLevelSelector';
-import { VenueTimeData } from './Booking/VenueTimeEstimator';
+import { ProtectionLevel } from './ProtectionLevelSelector';
+import { VenueTimeData } from './VenueTimeEstimator';
 import { ProtectionServiceRequest, calculateProtectionPricing } from '../../utils/protectionPricingCalculator';
 import { formatPrice } from '../../utils/priceFormatter';
 import { LoadingSpinner } from '../UI/LoadingSpinner';

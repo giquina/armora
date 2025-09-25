@@ -1,5 +1,5 @@
 import React, { Component, ReactNode } from 'react';
-import { ServiceLevel, ProtectionAssignmentData } from '../../../types';
+import { ServiceLevel, ProtectionAssignmentData } from '../../types';
 import styles from './AssignmentErrorBoundary.module.css';
 
 interface ErrorInfo {

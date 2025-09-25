@@ -16,9 +16,9 @@ import { ServicesPage } from './components/Services/ServicesPage';
 import { Hub } from './components/Hub';
 import { SubscriptionOffer } from './components/Subscription/SubscriptionOffer';
 // Removed unused imports
-import LegacyAssignmentPage from './components/ProtectionAssignment/Booking/LegacyAssignmentPage';
-import { ProtectionAssignmentSuccess, WhereWhenView } from './components/ProtectionAssignment';
-import { PaymentIntegration } from './components/ProtectionAssignment/Booking/PaymentIntegration';
+import LegacyAssignmentPage from './components/ProtectionAssignment/LegacyAssignmentPage';
+import { AssignmentSuccess, WhereWhenView } from './components/ProtectionAssignment';
+import { PaymentIntegration } from './components/ProtectionAssignment/PaymentIntegration';
 import { ProtectionAssignmentErrorBoundary } from './components/ProtectionAssignment/ProtectionAssignmentErrorBoundary';
 import { ServiceSelection } from './components/ServiceSelection/ServiceSelection';
 import { ReferralSection } from './components/Account/ReferralSection';
@@ -208,7 +208,7 @@ function BookingFlow() {
         </ProtectionAssignmentErrorBoundary>
       ) : null;
     case 'booking-success':
-      return <ProtectionAssignmentSuccess assignmentId={bookingId} />;
+      return <AssignmentSuccess assignmentId={bookingId} />;
     default:
       return (
         <ProtectionAssignmentErrorBoundary

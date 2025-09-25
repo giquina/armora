@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useApp } from '../../contexts/AppContext';
 import styles from './UnifiedProtectionAssignment.module.css';
+import '../../styles/assignment-white-theme.css';
 
 interface PriceEstimate {
   journey: number;
@@ -203,7 +204,7 @@ export function UnifiedProtectionAssignment() {
   };
 
   return (
-    <div className={styles.unifiedContainer}>
+    <div className={`${styles.unifiedContainer} assignment-white-theme`}>
       {/* Live Status Header */}
       <div className={styles.liveStatus}>
         <span className={`${styles.statusDot} ${isUpdating ? styles.updating : ''}`}>🟢</span>
@@ -467,6 +468,22 @@ export function UnifiedProtectionAssignment() {
           </div>
         </div>
       )}
+
+      {/* Protection Service Banner - Moved to Bottom */}
+      <div className={styles.protectionBanner}>
+        <div className={styles.bannerIcon}>🛡️</div>
+        <h3 className={styles.bannerTitle}>Your Protection Service</h3>
+        <div className={styles.bannerFeatures}>
+          <span>SIA-licensed officers</span>
+          <span className={styles.dot}>•</span>
+          <span>2hr minimum</span>
+          <span className={styles.dot}>•</span>
+          <span>Secure transport</span>
+        </div>
+        <div className={styles.bannerRating}>
+          ⭐ 4.9 rating from 2,847 assignments
+        </div>
+      </div>
     </div>
   );
 }

@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import { ProtectionAssignmentData } from '../../../types';
+import { ProtectionAssignmentData } from '../../types';
 import { ProtectionLevel } from './ProtectionLevelSelector';
 import { VenueTimeData } from './VenueTimeEstimator';
-import { ProtectionServiceRequest, calculateProtectionPricing } from '../../../utils/protectionPricingCalculator';
-import { formatPrice } from '../../../utils/priceFormatter';
-import { LoadingSpinner } from '../../UI/LoadingSpinner';
-import { NationwidePricingBreakdown } from '../../../utils/nationwidePricing';
+import { ProtectionServiceRequest, calculateProtectionPricing } from '../../utils/protectionPricingCalculator';
+import { formatPrice } from '../../utils/priceFormatter';
+import { LoadingSpinner } from '../UI/LoadingSpinner';
+import { NationwidePricingBreakdown } from '../../utils/nationwidePricing';
 import styles from './AssignmentConfirmation.module.css';
 import '../../styles/booking-white-theme.css';
 

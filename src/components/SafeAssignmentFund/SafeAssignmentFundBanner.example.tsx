@@ -2,8 +2,8 @@
 // This file demonstrates how to integrate the banner into different parts of the app
 
 import React from 'react';
-import SafeRideFundBanner from './SafeRideFundBanner';
-import SafeRideFundModal from './SafeRideFundModal';
+import SafeAssignmentFundBanner from './SafeAssignmentFundBanner';
+import SafeAssignmentFundModal from './SafeAssignmentFundModal';
 
 // Example 1: Basic usage with modal integration
 export const BasicBannerExample: React.FC = () => {
@@ -12,13 +12,13 @@ export const BasicBannerExample: React.FC = () => {
   return (
     <div>
       {/* Full banner with click handler */}
-      <SafeRideFundBanner 
+      <SafeAssignmentFundBanner
         onBannerClick={() => setShowModal(true)}
         variant="full"
       />
-      
+
       {showModal && (
-        <SafeRideFundModal onClose={() => setShowModal(false)} />
+        <SafeAssignmentFundModal onClose={() => setShowModal(false)} />
       )}
     </div>
   );
@@ -28,7 +28,7 @@ export const BasicBannerExample: React.FC = () => {
 export const CompactBannerExample: React.FC = () => {
   return (
     <div style={{ width: '300px' }}>
-      <SafeRideFundBanner 
+      <SafeAssignmentFundBanner
         variant="compact"
         className="my-custom-banner"
       />
@@ -39,7 +39,7 @@ export const CompactBannerExample: React.FC = () => {
 // Example 3: Read-only banner without interaction
 export const ReadOnlyBannerExample: React.FC = () => {
   return (
-    <SafeRideFundBanner 
+    <SafeAssignmentFundBanner
       variant="full"
       // No onBannerClick prop means it's read-only
     />
@@ -55,15 +55,15 @@ export const WelcomePageIntegration: React.FC = () => {
       {/* Other welcome page content */}
       
       {/* Add banner before or after main content */}
-      <SafeRideFundBanner 
+      <SafeAssignmentFundBanner
         onBannerClick={() => setShowModal(true)}
         variant="full"
       />
-      
+
       {/* Rest of welcome page content */}
-      
+
       {showModal && (
-        <SafeRideFundModal onClose={() => setShowModal(false)} />
+        <SafeAssignmentFundModal onClose={() => setShowModal(false)} />
       )}
     </div>
   );
@@ -76,7 +76,7 @@ export const DashboardIntegration: React.FC = () => {
       <h1>Dashboard</h1>
       
       {/* Compact banner in dashboard */}
-      <SafeRideFundBanner 
+      <SafeAssignmentFundBanner
         variant="compact"
         onBannerClick={() => console.log('Navigate to Safe Assignment Fund details')}
       />
