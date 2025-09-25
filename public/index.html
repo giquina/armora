@@ -8,23 +8,30 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="mobile-web-app-capable" content="yes" />
+
+    <!-- Primary Meta Tags -->
     <meta
       name="description"
-      content="Professional SIA-licensed close protection officers providing executive security services. 2-hour minimum bookings. Not a taxi service."
+      content="SIA licensed close protection officers providing executive security services across London. Professional CPOs from £50/hour. Book your protection detail today."
     />
-    <meta name="keywords" content="close protection, SIA licensed, executive protection, personal security, CPO services, bodyguard London" />
-    <meta name="author" content="Armora Protection Services" />
+    <meta name="keywords" content="close protection London, SIA licensed CPO, executive protection, security detail, protection officers, professional bodyguards UK, Armora security" />
+    <meta name="author" content="Armora Security" />
+    <meta name="robots" content="index, follow" />
+    <meta name="language" content="English" />
+    <meta name="revisit-after" content="7 days" />
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://armorasecurity.com/" />
     <meta property="og:title" content="Armora - Professional Close Protection Services" />
-    <meta property="og:description" content="SIA-licensed protection officers providing comprehensive security services including secure transport" />
-    <meta property="og:site_name" content="Armora Protection Services" />
+    <meta property="og:description" content="Elite SIA licensed protection officers for executives, VIPs, and high-net-worth individuals. Discrete, professional security services." />
+    <meta property="og:site_name" content="Armora Security" />
 
-    <!-- Twitter -->
+    <!-- Twitter Card -->
     <meta property="twitter:card" content="summary_large_image" />
-    <meta property="twitter:title" content="Armora - Professional Close Protection Services" />
-    <meta property="twitter:description" content="SIA-licensed protection officers providing comprehensive security services including secure transport" />
+    <meta property="twitter:url" content="https://armorasecurity.com/" />
+    <meta property="twitter:title" content="Armora - SIA Licensed Close Protection Officers" />
+    <meta property="twitter:description" content="Professional executive protection services in London. Book SIA licensed CPOs from £50/hour." />
 
     <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
     <!--
@@ -41,7 +48,49 @@
       work correctly both with client-side routing and a non-root public URL.
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
-    <title>Armora - Professional Close Protection Services</title>
+    <title>Armora - SIA Licensed Close Protection Officers | Executive Security London</title>
+
+    <!-- Structured Data for Professional Service -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "ProfessionalService",
+      "name": "Armora Security",
+      "description": "SIA licensed close protection officers and executive security services",
+      "@id": "https://armorasecurity.com",
+      "url": "https://armorasecurity.com",
+      "telephone": "+44-20-XXXX-XXXX",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "London",
+        "addressCountry": "GB"
+      },
+      "priceRange": "£50-£125 per hour",
+      "serviceType": ["Close Protection", "Executive Protection", "Security Services"],
+      "areaServed": [
+        {
+          "@type": "City",
+          "name": "London"
+        },
+        {
+          "@type": "Country",
+          "name": "England"
+        },
+        {
+          "@type": "Country",
+          "name": "Wales"
+        }
+      ],
+      "hasCredential": {
+        "@type": "EducationalOccupationalCredential",
+        "credentialCategory": "Professional License",
+        "recognizedBy": {
+          "@type": "Organization",
+          "name": "Security Industry Authority (SIA)"
+        }
+      }
+    }
+    </script>
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>

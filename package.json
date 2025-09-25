@@ -1,5 +1,7 @@
 {
-  "name": "armora",
+  "name": "armora-security",
+  "description": "Professional close protection and executive security services platform",
+  "keywords": ["close protection", "security", "CPO", "SIA", "executive protection", "bodyguards"],
   "version": "0.1.0",
   "private": true,
   "dependencies": {

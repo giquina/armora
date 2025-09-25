@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { LocationPicker } from './LocationPicker';
+import { LocationPicker } from '../../LocationPicker/LocationPicker';
 import { useApp } from '../../../contexts/AppContext';
 import styles from './LegacyAssignmentPage.module.css';
 
@@ -23,7 +23,7 @@ export default function LegacyAssignmentPage() {
           setOpen(false);
           navigateToView('home');
         }}
-        suppressNavigate
+        suppressNavigate={true}
         onLocationSelect={() => { /* do nothing here; this page is for viewing */ }}
       />
     </div>

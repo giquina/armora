@@ -68,78 +68,79 @@ export const CompletedCard: React.FC<CompletedCardProps> = ({
       {/* Enhanced Content */}
       {data.count > 0 && (
         <div className={styles.cardContent}>
-          {/* Main Stats */}
-          <div className={styles.statsRow}>
-            <div className={styles.monthSummary}>
-              <span className={styles.statLabel}>{data.monthLabel}</span>
-              <span className={styles.statNumber}>{data.totalCompleted} assignments</span>
-              <span className={styles.spentAmount}>{data.spentThisMonth} spent</span>
+          {/* Header with Green Checkmark */}
+          <div className={styles.completedHeader}>
+            <div className={styles.statusSection}>
+              <span className={styles.greenIndicator}>✓</span>
+              <span className={styles.statusText}>THIS MONTH</span>
             </div>
-            {showVisuals && (
-              <div className={styles.ratingSection}>
-                <RatingStars
-                  rating={data.averageRating}
-                  size="small"
-                  showNumber={true}
-                  className={styles.averageRating}
-                />
-              </div>
-            )}
+            <div className={styles.summaryTitle}>Protection Summary</div>
           </div>
 
-          {/* Loyalty Points Progress */}
+          {/* Safety Statistics - Reframe from points */}
+          <div className={styles.safetyStats}>
+            <div className={styles.statItem}>
+              <span className={styles.statNumber}>15</span>
+              <span className={styles.statLabel}>Secure Journeys Completed</span>
+            </div>
+            <div className={styles.statItem}>
+              <span className={styles.statNumber}>87</span>
+              <span className={styles.statLabel}>Hours Protected</span>
+            </div>
+            <div className={styles.safetyStat}>
+              <span className={styles.safetyBadge}>✓</span>
+              <span className={styles.safetyText}>100% Safety Record</span>
+            </div>
+          </div>
+
+          {/* Value Statement - Investment Focus */}
+          <div className={styles.valueStatement}>
+            <div className={styles.investmentRow}>
+              <span className={styles.investmentLabel}>Your investment in safety:</span>
+              <span className={styles.investmentAmount}>£3,250</span>
+            </div>
+            <div className={styles.responseTime}>
+              <span className={styles.responseLabel}>Average response time:</span>
+              <span className={styles.responseValue}>12 minutes</span>
+            </div>
+          </div>
+
+          {/* Rating Section - Keep for trust building */}
           {showVisuals && (
-            <div className={styles.loyaltySection}>
-              <div className={styles.loyaltyHeader}>
-                <span className={styles.loyaltyPoints}>{data.loyaltyPoints} pts</span>
-                <span className={styles.loyaltyNext}>{data.pointsToNextTier} to next tier</span>
-              </div>
-              <div className={styles.progressBar}>
-                <div
-                  className={styles.progressFill}
-                  style={{
-                    width: `${loyaltyProgressPercent}%`,
-                    backgroundColor: '#FFD700'
-                  }}
-                />
-              </div>
+            <div className={styles.ratingSection}>
+              <RatingStars
+                rating={data.averageRating}
+                size="small"
+                showNumber={true}
+                className={styles.averageRating}
+              />
+              <span className={styles.ratingLabel}>Your protection quality rating</span>
             </div>
           )}
 
-          {/* Quick Actions */}
-          {showVisuals && (
-            <div className={styles.quickActions}>
-              {quickActions.map((action, index) => (
-                <div
-                  key={index}
-                  className={styles.quickAction}
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    action.handler();
-                  }}
-                  title={action.label}
-                  role="button"
-                  tabIndex={0}
-                  onKeyDown={(e) => {
-                    if (e.key === 'Enter' || e.key === ' ') {
-                      e.preventDefault();
-                      e.stopPropagation();
-                      action.handler();
-                    }
-                  }}
-                >
-                  <span className={styles.actionIcon}>{action.icon}</span>
-                </div>
-              ))}
-            </div>
-          )}
-
-          {/* Smart Insight */}
-          {showFullData && data.pendingRatings > 0 && (
-            <div className={styles.smartInsight}>
-              Rate {data.pendingRatings} assignments for £50 credit
-            </div>
-          )}
+          {/* Action Buttons */}
+          <div className={styles.actionButtons}>
+            <button
+              className={styles.actionButton}
+              onClick={(e) => {
+                e.stopPropagation();
+                console.log('View protection history');
+              }}
+            >
+              <span className={styles.buttonIcon}>📋</span>
+              <span className={styles.buttonLabel}>View Protection History</span>
+            </button>
+            <button
+              className={styles.actionButton}
+              onClick={(e) => {
+                e.stopPropagation();
+                console.log('Download report');
+              }}
+            >
+              <span className={styles.buttonIcon}>📄</span>
+              <span className={styles.buttonLabel}>Download Report</span>
+            </button>
+          </div>
         </div>
       )}
 

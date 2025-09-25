@@ -972,3 +972,1084 @@
   outline: 2px solid #ffd700;
   outline-offset: 2px;
 }
+
+/* NEW PROFESSIONAL DESIGN STYLES */
+
+/* Status Bar Styles */
+.statusBar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.statusSection {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.serviceTierBadge {
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-weight: 600;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Officer Trust Section */
+.officerTrustSection {
+  display: flex;
+  gap: 12px;
+  padding: 16px;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  margin-bottom: 16px;
+}
+
+.officerPhotoSection {
+  flex-shrink: 0;
+}
+
+.officerPhoto {
+  position: relative;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #FFD700, #FFA500);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  font-weight: 700;
+  color: #1a1a2e;
+}
+
+.officerInitials {
+  font-size: 24px;
+  font-weight: 700;
+  color: #1a1a2e;
+}
+
+.verificationBadge {
+  position: absolute;
+  bottom: -2px;
+  right: -2px;
+  width: 24px;
+  height: 24px;
+  background: #00FF88;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  color: white;
+  border: 2px solid #1a1a2e;
+}
+
+.officerCredentials {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.officerName {
+  font-size: 16px;
+  font-weight: 700;
+  color: white;
+  line-height: 1.2;
+}
+
+.siaLicense {
+  font-size: 14px;
+  color: #00FF88;
+  font-weight: 500;
+}
+
+.officerRating {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.8);
+  margin: 2px 0;
+}
+
+.specializations {
+  display: flex;
+  gap: 4px;
+  flex-wrap: wrap;
+  margin-top: 4px;
+}
+
+.specBadge {
+  font-size: 10px;
+  padding: 2px 6px;
+  background: rgba(255, 215, 0, 0.2);
+  color: #FFD700;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 215, 0, 0.3);
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  font-weight: 500;
+}
+
+/* Journey Progress Section */
+.journeyProgress {
+  margin-bottom: 16px;
+}
+
+.progressTimeline {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.startPoint, .endPoint {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  min-width: 60px;
+}
+
+.locationIcon {
+  font-size: 16px;
+}
+
+.locationText {
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.7);
+  text-align: center;
+  line-height: 1.2;
+}
+
+.progressBarContainer {
+  flex: 1;
+  position: relative;
+}
+
+.progressBar {
+  height: 8px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+  overflow: hidden;
+  position: relative;
+}
+
+.progressFill {
+  height: 100%;
+  background: linear-gradient(90deg, #FFD700, #FFA500);
+  border-radius: 4px;
+  transition: width 0.3s ease;
+}
+
+.movingIndicator {
+  position: absolute;
+  top: -2px;
+  width: 12px;
+  height: 12px;
+  background: #FFD700;
+  border-radius: 50%;
+  transform: translateX(-50%);
+  box-shadow: 0 0 8px rgba(255, 215, 0, 0.5);
+  animation: pulse 2s ease-in-out infinite;
+}
+
+.timeRemaining {
+  text-align: center;
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.8);
+  font-weight: 500;
+  margin-top: 8px;
+}
+
+/* Service Details Grid */
+.serviceDetailsGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 16px;
+  padding: 12px 16px;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 8px;
+}
+
+.detailColumn {
+  text-align: center;
+}
+
+.detailLabel {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.6);
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  margin-bottom: 4px;
+}
+
+.detailValue {
+  font-size: 18px;
+  font-weight: 700;
+  color: white;
+}
+
+/* Investment Section */
+.investmentSection {
+  text-align: center;
+  padding: 12px;
+  background: rgba(255, 215, 0, 0.05);
+  border-radius: 8px;
+  border: 1px solid rgba(255, 215, 0, 0.1);
+  margin-bottom: 16px;
+}
+
+.investmentLabel {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.7);
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  margin-bottom: 4px;
+}
+
+.investmentAmount {
+  font-size: 24px;
+  font-weight: 700;
+  color: #FFD700;
+  line-height: 1;
+  margin-bottom: 4px;
+}
+
+.serviceDescription {
+  font-size: 14px;
+  color: white;
+  font-weight: 600;
+  margin-bottom: 2px;
+}
+
+.serviceIncludes {
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+/* Action Buttons */
+.actionButtons {
+  display: flex;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.actionButton {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 12px 8px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  color: white;
+  font-size: 10px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  min-height: 60px;
+}
+
+.actionButton:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 215, 0, 0.3);
+  transform: translateY(-1px);
+}
+
+.buttonIcon {
+  font-size: 18px;
+  color: #FFD700;
+}
+
+.buttonLabel {
+  text-align: center;
+  line-height: 1.2;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+/* UPCOMING CARD STYLES */
+.upcomingHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.nextDateTime {
+  font-size: 16px;
+  font-weight: 700;
+  color: #00D4FF;
+}
+
+.serviceDetails {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 12px;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 8px;
+  margin-bottom: 16px;
+}
+
+.serviceStatus, .confirmationStatus {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.checkmark {
+  color: #00FF88;
+  font-size: 14px;
+}
+
+.routeDisplay {
+  font-size: 15px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.9);
+  padding: 4px 0;
+}
+
+.durationDisplay {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.countdownSection {
+  text-align: center;
+  margin-bottom: 16px;
+}
+
+/* COMPLETED CARD STYLES */
+.completedHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.greenIndicator {
+  color: #00FF88;
+  font-size: 16px;
+}
+
+.summaryTitle {
+  font-size: 14px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.safetyStats {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.statItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.statNumber {
+  font-size: 20px;
+  font-weight: 700;
+  color: #00FF88;
+}
+
+.statLabel {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.7);
+  text-align: right;
+}
+
+.safetyStat {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  justify-content: center;
+  padding: 8px;
+  background: rgba(0, 255, 136, 0.05);
+  border-radius: 6px;
+}
+
+.safetyBadge {
+  color: #00FF88;
+  font-size: 16px;
+}
+
+.safetyText {
+  color: #00FF88;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.valueStatement {
+  padding: 12px;
+  background: rgba(255, 215, 0, 0.05);
+  border-radius: 8px;
+  margin-bottom: 16px;
+}
+
+.investmentRow, .responseTime {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 4px;
+}
+
+.investmentLabel, .responseLabel {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.investmentAmount {
+  font-size: 18px;
+  font-weight: 700;
+  color: #FFD700;
+}
+
+.responseValue {
+  font-size: 16px;
+  font-weight: 600;
+  color: #00FF88;
+}
+
+.ratingLabel {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.6);
+  margin-left: 8px;
+}
+
+/* ANALYTICS CARD STYLES */
+.analyticsHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.analyticsIcon {
+  font-size: 18px;
+}
+
+.periodSelector {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.7);
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+.primaryMetrics {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.metricItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.metricNumber {
+  font-size: 20px;
+  font-weight: 700;
+  color: #FFD700;
+}
+
+.metricLabel {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.7);
+  text-align: right;
+  flex: 1;
+  margin-left: 12px;
+}
+
+.investmentMetric {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 12px;
+  background: rgba(255, 215, 0, 0.05);
+  border-radius: 6px;
+}
+
+.investmentLabel {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.trendIndicator {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+}
+
+.trendText {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+/* Heat Map Section */
+.heatMapSection {
+  margin-bottom: 16px;
+}
+
+.heatMapLabel {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.7);
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  margin-bottom: 8px;
+}
+
+.heatMapGrid {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin-bottom: 8px;
+}
+
+.heatMapRow {
+  display: flex;
+  gap: 2px;
+}
+
+.heatMapDay {
+  width: 12px;
+  height: 12px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 2px;
+}
+
+.heatMapDay.protected {
+  background: #FFD700;
+}
+
+.heatMapLegend {
+  display: flex;
+  gap: 12px;
+  font-size: 10px;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.legendItem {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.legendColor {
+  width: 8px;
+  height: 8px;
+  border-radius: 1px;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.legendColor.protected {
+  background: #FFD700;
+}
+
+.insights {
+  margin-bottom: 16px;
+}
+
+.insightItem {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.7);
+  margin-bottom: 4px;
+}
+
+.recommendation {
+  font-size: 12px;
+  color: #00FF88;
+  font-weight: 600;
+  margin-top: 8px;
+  padding: 6px 8px;
+  background: rgba(0, 255, 136, 0.05);
+  border-radius: 4px;
+}
+
+/* MOBILE-FIRST REDESIGN - IMPROVED CRAMPED LAYOUT */
+
+/* Base mobile styles (320px+) */
+@media (max-width: 414px) {
+  /* Card improvements */
+  .navCard {
+    min-height: auto; /* Remove fixed height */
+    padding: 12px; /* Reduced from 18px */
+    border-radius: 12px; /* Slightly smaller radius */
+  }
+
+  .cardContent {
+    gap: 14px; /* Increased from 8px for better breathing room */
+  }
+
+  /* Status bar improvements */
+  .statusBar {
+    margin-bottom: 12px;
+    padding-bottom: 10px;
+  }
+
+  .statusText {
+    font-size: 13px; /* Increased from smaller sizes */
+    font-weight: 600;
+  }
+
+  .serviceTierBadge {
+    font-size: 10px;
+    padding: 3px 8px;
+  }
+
+  /* SIMPLIFIED OFFICER SECTION */
+  .officerTrustSection {
+    padding: 12px; /* Reduced from 16px */
+    gap: 10px; /* Reduced from 12px */
+    margin-bottom: 12px; /* Reduced from 16px */
+  }
+
+  .officerPhoto {
+    width: 44px; /* Significantly reduced from 80px → 60px → 44px */
+    height: 44px;
+    font-size: 16px; /* Proportionally smaller */
+    flex-shrink: 0;
+  }
+
+  .officerInitials {
+    font-size: 16px; /* Proportionally smaller */
+  }
+
+  .verificationBadge {
+    width: 18px; /* Smaller verification badge */
+    height: 18px;
+    font-size: 10px;
+    bottom: -1px;
+    right: -1px;
+  }
+
+  /* Officer credentials simplified */
+  .officerCredentials {
+    gap: 3px; /* Tighter spacing */
+    min-width: 0; /* Prevent overflow */
+  }
+
+  .officerName {
+    font-size: 15px; /* Slightly reduced */
+    line-height: 1.2;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .siaLicense {
+    font-size: 12px; /* Reduced but still readable */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .siaVerified {
+    color: #00FF88;
+    font-weight: 600;
+  }
+
+  .officerRating {
+    font-size: 12px; /* Consistent with SIA license */
+    margin: 1px 0;
+    color: rgba(255, 255, 255, 0.7);
+  }
+
+  /* Expand button for progressive disclosure */
+  .expandButton {
+    margin-top: 6px;
+    padding: 4px 8px;
+    background: rgba(255, 215, 0, 0.1);
+    border: 1px solid rgba(255, 215, 0, 0.3);
+    color: #FFD700;
+    border-radius: 4px;
+    font-size: 11px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .expandButton:hover {
+    background: rgba(255, 215, 0, 0.2);
+    transform: translateY(-1px);
+  }
+
+  /* Specialization badges - hide on smallest screens */
+  .specializations {
+    display: none; /* Hide to reduce clutter on mobile */
+  }
+
+  /* JOURNEY PROGRESS SIMPLIFIED */
+  .journeyProgress {
+    margin-bottom: 12px; /* Reduced spacing */
+  }
+
+  .progressTimeline {
+    flex-direction: column; /* Stack vertically on mobile */
+    gap: 8px;
+    margin-bottom: 6px;
+  }
+
+  .startPoint, .endPoint {
+    min-width: auto;
+    flex-direction: row;
+    justify-content: flex-start;
+    gap: 6px;
+  }
+
+  .locationIcon {
+    font-size: 14px;
+  }
+
+  .locationText {
+    font-size: 12px; /* Increased from 11px */
+    white-space: nowrap;
+  }
+
+  .progressBarContainer {
+    order: -1; /* Show progress bar first */
+    margin: 8px 0;
+  }
+
+  .progressBar {
+    height: 6px; /* Slightly smaller */
+  }
+
+  .movingIndicator {
+    width: 10px;
+    height: 10px;
+    top: -2px;
+  }
+
+  .timeRemaining {
+    font-size: 13px; /* Increased from 14px for consistency */
+    margin-top: 6px;
+  }
+
+  /* SERVICE DETAILS GRID IMPROVED */
+  .serviceDetailsGrid {
+    grid-template-columns: 1fr; /* Single column on mobile */
+    gap: 8px;
+    padding: 10px 12px; /* Reduced padding */
+    margin-bottom: 12px;
+  }
+
+  .detailColumn {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-align: left; /* Left align instead of center */
+  }
+
+  .detailLabel {
+    font-size: 12px; /* Consistent sizing */
+    margin-bottom: 0;
+  }
+
+  .detailValue {
+    font-size: 16px; /* Slightly reduced from 18px */
+  }
+
+  /* INVESTMENT SECTION SIMPLIFIED */
+  .investmentSection {
+    padding: 10px 12px; /* Reduced padding */
+    margin-bottom: 12px;
+  }
+
+  .investmentLabel {
+    font-size: 11px;
+    margin-bottom: 3px;
+  }
+
+  .investmentAmount {
+    font-size: 20px; /* Reduced from 24px */
+    margin-bottom: 3px;
+  }
+
+  .serviceDescription {
+    font-size: 13px; /* Reduced from 14px */
+    margin-bottom: 1px;
+  }
+
+  .serviceIncludes {
+    font-size: 11px; /* Consistent small text */
+  }
+
+  /* ACTION BUTTONS FULL WIDTH */
+  .actionButtons {
+    flex-direction: column;
+    gap: 12px; /* Increased from 6px for better touch targets */
+    margin-top: 8px;
+  }
+
+  .actionButton {
+    width: 100%; /* Full width */
+    min-height: 48px; /* Increased to meet touch target requirements */
+    padding: 14px 16px; /* Better padding */
+    flex-direction: row; /* Horizontal layout */
+    justify-content: center;
+    gap: 8px;
+    border-radius: 8px;
+    font-size: 14px; /* Increased from 10px */
+    font-weight: 600;
+  }
+
+  .buttonIcon {
+    font-size: 16px; /* Slightly reduced from 18px */
+  }
+
+  .buttonLabel {
+    font-size: 14px; /* Much larger than previous 10px */
+    font-weight: 600;
+  }
+
+  /* UPCOMING CARD IMPROVEMENTS */
+  .upcomingHeader {
+    margin-bottom: 12px;
+    padding-bottom: 6px;
+  }
+
+  .nextDateTime {
+    font-size: 15px; /* Slightly smaller */
+  }
+
+  .serviceDetails {
+    padding: 10px 12px;
+    gap: 6px;
+    margin-bottom: 12px;
+  }
+
+  .checkmark {
+    font-size: 12px;
+  }
+
+  .routeDisplay {
+    font-size: 14px; /* Slightly smaller */
+    padding: 3px 0;
+  }
+
+  .durationDisplay {
+    font-size: 13px; /* Consistent sizing */
+  }
+
+  .countdownSection {
+    margin-bottom: 12px;
+  }
+
+  .countdownTime {
+    font-size: 15px; /* Slightly smaller */
+  }
+
+  .countdownLabel {
+    font-size: 12px; /* Increased from smaller */
+  }
+
+  /* COMPLETED CARD IMPROVEMENTS */
+  .completedHeader {
+    margin-bottom: 12px;
+    padding-bottom: 6px;
+  }
+
+  .greenIndicator {
+    font-size: 14px;
+  }
+
+  .summaryTitle {
+    font-size: 13px;
+  }
+
+  .safetyStats {
+    gap: 6px;
+    margin-bottom: 12px;
+  }
+
+  .statNumber {
+    font-size: 18px; /* Slightly smaller from 20px */
+  }
+
+  .statLabel {
+    font-size: 12px; /* Consistent sizing */
+  }
+
+  .safetyText {
+    font-size: 13px; /* Slightly smaller */
+  }
+
+  .valueStatement {
+    padding: 10px 12px;
+    margin-bottom: 12px;
+  }
+
+  .investmentRow, .responseTime {
+    margin-bottom: 3px;
+  }
+
+  .investmentLabel, .responseLabel {
+    font-size: 12px; /* Consistent sizing */
+  }
+
+  .investmentAmount {
+    font-size: 16px; /* Reduced from 18px */
+  }
+
+  .responseValue {
+    font-size: 15px; /* Slightly smaller */
+  }
+
+  .ratingLabel {
+    font-size: 11px;
+  }
+
+  /* ANALYTICS CARD IMPROVEMENTS */
+  .analyticsHeader {
+    margin-bottom: 12px;
+    padding-bottom: 6px;
+  }
+
+  .analyticsIcon {
+    font-size: 16px;
+  }
+
+  .periodSelector {
+    font-size: 11px;
+  }
+
+  .primaryMetrics {
+    gap: 10px;
+    margin-bottom: 12px;
+  }
+
+  .metricNumber {
+    font-size: 18px; /* Slightly smaller */
+  }
+
+  .metricLabel {
+    font-size: 12px; /* Consistent sizing */
+  }
+
+  .investmentMetric {
+    padding: 8px 10px;
+  }
+
+  .trendText {
+    font-size: 11px;
+  }
+
+  .heatMapSection {
+    margin-bottom: 12px;
+  }
+
+  .heatMapLabel {
+    font-size: 11px;
+    margin-bottom: 6px;
+  }
+
+  .heatMapGrid {
+    gap: 2px;
+    padding: 8px;
+    margin-bottom: 6px;
+  }
+
+  .heatMapDay {
+    width: 10px;
+    height: 10px;
+  }
+
+  .heatMapLegend {
+    gap: 8px;
+    font-size: 10px;
+  }
+
+  .legendColor {
+    width: 6px;
+    height: 6px;
+  }
+
+  .insights {
+    margin-bottom: 12px;
+  }
+
+  .insightItem {
+    font-size: 11px;
+    margin-bottom: 3px;
+  }
+
+  .recommendation {
+    font-size: 11px;
+    margin-top: 6px;
+    padding: 5px 6px;
+  }
+}
+
+/* Extra small screens (320px) - minimal adjustments */
+@media (max-width: 360px) {
+  .navCard {
+    padding: 12px; /* Consistent spacing across breakpoints */
+  }
+
+  .officerPhoto {
+    width: 44px; /* Consistent 44px across all mobile */
+    height: 44px;
+    font-size: 16px;
+  }
+
+  .officerInitials {
+    font-size: 16px;
+  }
+
+  .verificationBadge {
+    width: 16px;
+    height: 16px;
+    font-size: 9px;
+  }
+
+  .actionButton {
+    min-height: 48px; /* Accessibility compliance - 48px minimum */
+    padding: 14px 16px;
+  }
+
+  .investmentAmount {
+    font-size: 18px;
+  }
+
+  .detailValue {
+    font-size: 15px;
+  }
+}
+
+/* Medium screens (375px+) - slight improvements */
+@media (min-width: 375px) and (max-width: 414px) {
+  .navCard {
+    padding: 12px; /* Consistent spacing across breakpoints */
+  }
+
+  .officerPhoto {
+    width: 44px; /* Consistent 44px across all mobile */
+    height: 44px;
+    font-size: 16px;
+  }
+
+  .actionButton {
+    min-height: 48px; /* Consistent accessibility compliance */
+  }
+}

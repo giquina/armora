@@ -198,7 +198,7 @@ export function UnifiedProtectionAssignment() {
       }));
 
       // Navigate to full protection service flow
-      navigateToView('assignment');
+      navigateToView('Assignments');
     }
   };
 

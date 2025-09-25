@@ -48,14 +48,45 @@
   flex-wrap: wrap;
 }
 
-.statusItem {
-  color: #FFD700;
+.statusPill {
+  display: flex;
+  align-items: center;
+  gap: 8px;
   font-size: 14px;
-  font-weight: 500;
-  padding: 4px 12px;
+  font-weight: 600;
+  padding: 8px 16px;
+  border-radius: 20px;
+  border: 1px solid;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+.statusPill.active {
+  color: #00FF88;
+  background: rgba(0, 255, 136, 0.1);
+  border-color: rgba(0, 255, 136, 0.3);
+}
+
+.statusPill.scheduled {
+  color: #FFD700;
   background: rgba(255, 215, 0, 0.1);
-  border-radius: 12px;
-  border: 1px solid rgba(255, 215, 0, 0.2);
+  border-color: rgba(255, 215, 0, 0.3);
+}
+
+.statusPill.inactive {
+  color: rgba(255, 255, 255, 0.6);
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+.pulseIndicator {
+  animation: pulse 2s ease-in-out infinite;
+  color: #00FF88;
+}
+
+.amberIndicator {
+  animation: pulse 2s ease-in-out infinite;
+  color: #FFD700;
 }
 
 /* Navigation Cards - Vertical Stack */
@@ -906,11 +937,11 @@
   box-shadow: 0 4px 12px rgba(255, 215, 0, 0.3);
 }
 
-/* Mobile Responsiveness */
+/* Mobile Responsiveness - Improved Spacing */
 @media (max-width: 768px) {
   .hubContainer {
-    padding: 16px 12px;
-    gap: 16px; /* Reduce gap on mobile */
+    padding: 14px 10px; /* Slightly reduced */
+    gap: 18px; /* Better breathing room */
     /* Keep reserved space for the fixed panel on small screens */
     padding-bottom: calc(180px + env(safe-area-inset-bottom));
   }
@@ -919,11 +950,27 @@
   .assignmentsSection,
   .headerSection,
   .filtersSection {
-    padding: 12px;
+    padding: 14px; /* Slightly more than before */
   }
 
   .quickActionsSection {
-    padding: 6px; /* Even tighter on mobile */
+    padding: 8px; /* Better than 6px */
+  }
+
+  /* Header improvements */
+  .pageTitle {
+    font-size: 24px; /* Slightly smaller on mobile */
+  }
+
+  .subtitle {
+    font-size: 16px;
+  }
+
+  /* Status pill improvements */
+  .statusPill {
+    padding: 6px 12px; /* Better mobile padding */
+    font-size: 12px;
+    gap: 6px;
   }
 
   .tabNavigation {
@@ -975,6 +1022,7 @@
     line-height: 1.2;
     letter-spacing: 0.2px;
   }
+
   .controlsRow {
     grid-template-columns: 1fr auto auto;
     gap: 6px;

@@ -1,5 +1,5 @@
-import { ProtectionLevel } from '../components/ProtectionAssignment/ProtectionLevelSelector';
-import { VenueTimeData } from '../components/ProtectionAssignment/VenueTimeEstimator';
+import { ProtectionLevel } from '../components/ProtectionAssignment/Booking/ProtectionLevelSelector';
+import { VenueTimeData } from '../components/ProtectionAssignment/Booking/VenueTimeEstimator';
 
 export interface ProtectionPreferences {
   defaultProtectionType: 'transport' | 'personal' | null;

@@ -51,9 +51,10 @@ export const CurrentCard: React.FC<CurrentCardProps> = ({
   tabId,
   ariaControls
 }) => {
-  // With 1-per-row layout, we have full width to show all data
-  const showFullData = true;
+  const [showDetails, setShowDetails] = React.useState(false);
+  const showFullData = screenWidth >= 768; // Only show all details on desktop
   const showVisuals = screenWidth >= 320;
+  const isMobile = screenWidth <= 414;
 
   const getTierColor = (tier: string) => {
     switch (tier) {
@@ -93,115 +94,145 @@ export const CurrentCard: React.FC<CurrentCardProps> = ({
       {/* Enhanced Content */}
       {data.count > 0 && (
         <div className={styles.cardContent}>
-          {/* Primary Status */}
-          <div className={styles.primaryStatus}>
-            <span className={styles.statusText}>{data.status}</span>
-            <div className={styles.liveIndicator}>
-              <span className={`${styles.statusDot} ${styles[data.officerStatus]}`} />
-              <span className={styles.statusLabel}>Live</span>
+          {/* Status Bar with Service Tier Badge */}
+          <div className={styles.statusBar}>
+            <div className={styles.statusSection}>
+              <span className={styles.pulseIndicator}>●</span>
+              <span className={styles.statusText}>PROTECTION ACTIVE</span>
             </div>
-          </div>
-
-          {/* Time & Progress Row */}
-          <div className={styles.progressRow}>
-            <div className={styles.timeInfo}>
-              <div className={styles.timeRemaining}>{data.timeRemaining}</div>
-              <div className={styles.eta}>ETA {data.eta}</div>
-            </div>
-            {showVisuals && (
-              <ProgressRing
-                percent={data.progressPercent}
-                color={getTierColor(data.serviceTier)}
-                size={32}
-                strokeWidth={2}
-                className={styles.progressRing}
-              />
-            )}
-          </div>
-
-          {/* Essential Assignment Details Only */}
-          {data.assignmentData && (
-            <div className={styles.assignmentDetails}>
-              <div className={styles.assignmentRow}>
-                <span className={styles.assignmentLabel}>Officer</span>
-                <span className={styles.assignmentValue}>{data.assignmentData.officerName}</span>
-              </div>
-              <div className={styles.assignmentRow}>
-                <span className={styles.assignmentLabel}>Route</span>
-                <div className={styles.routeInfo}>
-                  <span className={styles.routeText}>
-                    {data.assignmentData.location.start.split(',')[0]}
-                    <span className={styles.routeArrow}>→</span>
-                    {data.assignmentData.location.end.split(',')[0]}
-                  </span>
-                </div>
-              </div>
-              <div className={styles.assignmentRow}>
-                <span className={styles.assignmentLabel}>Time</span>
-                <span className={styles.assignmentValue}>
-                  {data.assignmentData.time} ({data.assignmentData.duration})
-                </span>
-              </div>
-              <div className={styles.assignmentRow}>
-                <span className={styles.assignmentLabel}>Cost</span>
-                <span className={`${styles.assignmentValue} ${styles.highlight}`}>
-                  £{data.assignmentData.totalCost}
-                </span>
-              </div>
-            </div>
-          )}
-
-          {/* Service Tier & Service Fee - Keep for visual emphasis */}
-          <div className={styles.bottomRow}>
             <div
-              className={styles.serviceTier}
+              className={styles.serviceTierBadge}
               style={{
-                color: getTierColor(data.serviceTier),
-                backgroundColor: `${getTierColor(data.serviceTier)}20`
+                background: `linear-gradient(90deg, ${getTierColor(data.serviceTier)}, #FFA500)`,
+                color: '#1a1a2e'
               }}
             >
-              {data.serviceTier}
-            </div>
-            <div className={styles.runningFare}>
-              {data.runningFare}
-              <span className={styles.fareIcon}>↗</span>
+              {data.serviceTier.toUpperCase()}
             </div>
           </div>
 
-          {/* Quick Actions - Show on hover for larger screens */}
-          {showVisuals && (
-            <div className={styles.quickActions}>
-              {quickActions.map((action, index) => (
-                <div
-                  key={index}
-                  className={styles.quickAction}
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    action.handler();
-                  }}
-                  title={action.label}
-                  role="button"
-                  tabIndex={0}
-                  onKeyDown={(e) => {
-                    if (e.key === 'Enter' || e.key === ' ') {
-                      e.preventDefault();
-                      e.stopPropagation();
-                      action.handler();
-                    }
-                  }}
-                >
-                  <span className={styles.actionIcon}>{action.icon}</span>
+          {/* Officer Trust Section - Simplified for Mobile */}
+          {data.assignmentData && (
+            <div className={styles.officerTrustSection}>
+              <div className={styles.officerPhotoSection}>
+                <div className={styles.officerPhoto}>
+                  <span className={styles.officerInitials}>
+                    {data.assignmentData.officerName.split(' ').map(n => n[0]).join('')}
+                  </span>
+                  <div className={styles.verificationBadge}>✓</div>
                 </div>
-              ))}
+              </div>
+              <div className={styles.officerCredentials}>
+                <div className={styles.officerName}>CPO {data.assignmentData.officerName}</div>
+                <div className={styles.siaLicense}>
+                  ★★★★★ 4.9 | <span className={styles.siaVerified}>SIA ✓</span>
+                </div>
+                <div className={styles.officerRating}>12 Years Experience</div>
+                {/* Specializations only show on desktop or when expanded */}
+                {(showFullData || showDetails) && (
+                  <div className={styles.specializations}>
+                    <span className={styles.specBadge}>Executive</span>
+                    <span className={styles.specBadge}>Diplomatic</span>
+                    <span className={styles.specBadge}>VIP Events</span>
+                  </div>
+                )}
+                {/* Show more details toggle on mobile */}
+                {isMobile && !showDetails && (
+                  <button
+                    className={styles.expandButton}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setShowDetails(true);
+                    }}
+                  >
+                    View Officer Details
+                  </button>
+                )}
+              </div>
             </div>
           )}
 
-          {/* Smart Insight */}
-          {showFullData && (
-            <div className={styles.smartInsight}>
-              On track to arrive 5 min early
+          {/* Journey Progress Section */}
+          <div className={styles.journeyProgress}>
+            <div className={styles.progressTimeline}>
+              <div className={styles.startPoint}>
+                <span className={styles.locationIcon}>📍</span>
+                <span className={styles.locationText}>
+                  {data.assignmentData ? data.assignmentData.location.start.split(',')[0] : 'Kensington'}
+                </span>
+              </div>
+              <div className={styles.progressBarContainer}>
+                <div className={styles.progressBar}>
+                  <div
+                    className={styles.progressFill}
+                    style={{ width: `${data.progressPercent}%` }}
+                  />
+                  <div className={styles.movingIndicator} style={{ left: `${data.progressPercent}%` }} />
+                </div>
+              </div>
+              <div className={styles.endPoint}>
+                <span className={styles.locationIcon}>🏢</span>
+                <span className={styles.locationText}>
+                  {data.assignmentData ? data.assignmentData.location.end.split(',')[0] : 'Canary Wharf'}
+                </span>
+              </div>
             </div>
-          )}
+            <div className={styles.timeRemaining}>45 minutes remaining</div>
+          </div>
+
+          {/* Service Details Grid */}
+          <div className={styles.serviceDetailsGrid}>
+            <div className={styles.detailColumn}>
+              <div className={styles.detailLabel}>Protection Duration</div>
+              <div className={styles.detailValue}>{data.timeRemaining}</div>
+            </div>
+            <div className={styles.detailColumn}>
+              <div className={styles.detailLabel}>Arrival Time</div>
+              <div className={styles.detailValue}>{data.eta}</div>
+            </div>
+          </div>
+
+          {/* Investment Section */}
+          <div className={styles.investmentSection}>
+            <div className={styles.investmentLabel}>Protection Investment</div>
+            <div className={styles.investmentAmount}>{data.runningFare}</div>
+            <div className={styles.serviceDescription}>Executive Protection Service</div>
+            <div className={styles.serviceIncludes}>Includes secure transport + close protection</div>
+          </div>
+
+          {/* Action Buttons with Labels */}
+          <div className={styles.actionButtons}>
+            <button
+              className={styles.actionButton}
+              onClick={(e) => {
+                e.stopPropagation();
+                console.log('Contact officer');
+              }}
+            >
+              <span className={styles.buttonIcon}>📞</span>
+              <span className={styles.buttonLabel}>Contact Officer</span>
+            </button>
+            <button
+              className={styles.actionButton}
+              onClick={(e) => {
+                e.stopPropagation();
+                console.log('Security support');
+              }}
+            >
+              <span className={styles.buttonIcon}>🛡️</span>
+              <span className={styles.buttonLabel}>Security Support</span>
+            </button>
+            <button
+              className={styles.actionButton}
+              onClick={(e) => {
+                e.stopPropagation();
+                console.log('Track protection');
+              }}
+            >
+              <span className={styles.buttonIcon}>📍</span>
+              <span className={styles.buttonLabel}>Track Protection</span>
+            </button>
+          </div>
         </div>
       )}
 

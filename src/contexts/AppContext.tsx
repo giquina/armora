@@ -27,7 +27,7 @@ const initialState: AppState = {
   subscription: null,
   selectedServiceForProtectionAssignment: undefined,
   userProfileSelection: undefined,
-  safeRideFundMetrics: null,
+  safeAssignmentFundMetrics: null,
   communityImpactData: null,
   assignmentState: {
     currentAssignment: null,
@@ -52,7 +52,7 @@ type AppAction =
   | { type: 'UPDATE_DEVICE_CAPABILITIES'; payload: Partial<DeviceCapabilities> }
   | { type: 'SET_SUBSCRIPTION'; payload: UserSubscription | null }
   | { type: 'SET_SELECTED_SERVICE'; payload: string }
-  | { type: 'SET_SAFE_RIDE_FUND_METRICS'; payload: SafeRideFundMetrics | null }
+  | { type: 'SET_SAFE_RIDE_FUND_METRICS'; payload: SafeAssignmentFundMetrics | null }
   | { type: 'SET_COMMUNITY_IMPACT_DATA'; payload: CommunityImpactData | null }
   | { type: 'SET_ASSIGNMENT'; payload: Assignment | null }
   | { type: 'UPDATE_ASSIGNMENT_STATUS'; payload: { assignmentId: string; status: string } }
@@ -101,7 +101,7 @@ function appReducer(state: AppState, action: AppAction): AppState {
     case 'SET_SELECTED_SERVICE':
       return { ...state, selectedServiceForProtectionAssignment: action.payload };
     case 'SET_SAFE_RIDE_FUND_METRICS':
-      return { ...state, safeRideFundMetrics: action.payload };
+      return { ...state, safeAssignmentFundMetrics: action.payload };
     case 'SET_COMMUNITY_IMPACT_DATA':
       return { ...state, communityImpactData: action.payload };
     case 'SET_ASSIGNMENT':
@@ -187,7 +187,7 @@ interface AppContextType {
   recordPremiumInterest: (data: PremiumInterest) => Promise<void>;
   sendOwnerNotification: (data: NotificationData) => Promise<boolean>;
   // Safe Assignment Fund actions
-  updateSafeRideFundMetrics: (metrics: SafeRideFundMetrics | null) => void;
+  updateSafeRideFundMetrics: (metrics: SafeAssignmentFundMetrics | null) => void;
   updateCommunityImpactData: (data: CommunityImpactData | null) => void;
   initializeSafeRideFundData: () => void;
   // Notifications
@@ -421,7 +421,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
   };
 
   // Safe Assignment Fund actions
-  const updateSafeRideFundMetrics = (metrics: SafeRideFundMetrics | null) => {
+  const updateSafeRideFundMetrics = (metrics: SafeAssignmentFundMetrics | null) => {
     dispatch({ type: 'SET_SAFE_RIDE_FUND_METRICS', payload: metrics });
   };
 
@@ -435,7 +435,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
       const joinDate = state.subscription.startDate || new Date();
       const monthsSinceJoined = Math.max(1, Math.floor((new Date().getTime() - joinDate.getTime()) / (1000 * 60 * 60 * 24 * 30)));
 
-      const metrics: SafeRideFundMetrics = {
+      const metrics: SafeAssignmentFundMetrics = {
         personalRidesFunded: monthsSinceJoined,
         totalContributed: monthsSinceJoined * 4, // £4 per month
         currentStreak: monthsSinceJoined,

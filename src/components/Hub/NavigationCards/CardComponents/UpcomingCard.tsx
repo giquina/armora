@@ -94,20 +94,40 @@ export const UpcomingCard: React.FC<UpcomingCardProps> = ({
       {/* Enhanced Content */}
       {data.count > 0 && (
         <div className={styles.cardContent}>
-          {/* Next Assignment Info */}
-          <div className={styles.nextAssignment}>
-            <div className={styles.assignmentTime}>
-              {data.nextAssignment} - {data.dayOfWeek}
+          {/* Header with Amber Indicator */}
+          <div className={styles.upcomingHeader}>
+            <div className={styles.statusSection}>
+              <span className={styles.amberIndicator}>●</span>
+              <span className={styles.statusText}>NEXT PROTECTION</span>
             </div>
-            <div className={styles.assignmentDuration}>CPO: {data.officerAssigned}</div>
-            <div className={styles.assignmentDuration}>{data.duration}</div>
+            <div className={styles.nextDateTime}>Tomorrow 09:00</div>
+          </div>
+
+          {/* Service Details - NO officer name */}
+          <div className={styles.serviceDetails}>
+            <div className={styles.serviceStatus}>
+              <span className={styles.checkmark}>✓</span>
+              <span className={styles.statusText}>Executive Protection Assigned</span>
+            </div>
+            <div className={styles.routeDisplay}>
+              <span className={styles.routeText}>
+                {data.assignmentData ? data.assignmentData.location.start.split(',')[0] : 'Mayfair'} → {data.assignmentData ? data.assignmentData.location.end.split(',')[0] : 'Heathrow Airport'}
+              </span>
+            </div>
+            <div className={styles.durationDisplay}>
+              6 hours coverage
+            </div>
+            <div className={styles.confirmationStatus}>
+              <span className={styles.checkmark}>✓</span>
+              <span className={styles.statusText}>Officer Confirmed</span>
+            </div>
           </div>
 
           {/* Countdown Timer */}
-          <div className={styles.countdownRow}>
+          <div className={styles.countdownSection}>
             <div className={styles.countdown}>
               <span className={styles.countdownTime}>{liveCountdown}</span>
-              <span className={styles.countdownLabel}>remaining</span>
+              <span className={styles.countdownLabel}>until protection begins</span>
             </div>
             {data.favoriteTimeSlot && (
               <div className={styles.favoriteSlot} title="Matches your usual time preference">
@@ -116,47 +136,31 @@ export const UpcomingCard: React.FC<UpcomingCardProps> = ({
             )}
           </div>
 
-          {/* Essential Assignment Details Only */}
-          {data.assignmentData && (
-            <div className={styles.assignmentDetails}>
-              <div className={styles.assignmentRow}>
-                <span className={styles.assignmentLabel}>Officer</span>
-                <span className={styles.assignmentValue}>{data.assignmentData.officerName}</span>
-              </div>
-              <div className={styles.assignmentRow}>
-                <span className={styles.assignmentLabel}>Route</span>
-                <div className={styles.routeInfo}>
-                  <span className={styles.routeText}>
-                    {data.assignmentData.location.start.split(',')[0]}
-                    <span className={styles.routeArrow}>→</span>
-                    {data.assignmentData.location.end.split(',')[0]}
-                  </span>
-                </div>
-              </div>
-              <div className={styles.assignmentRow}>
-                <span className={styles.assignmentLabel}>Time</span>
-                <span className={styles.assignmentValue}>
-                  {data.assignmentData.time} ({data.assignmentData.duration})
-                </span>
-              </div>
-              <div className={styles.assignmentRow}>
-                <span className={styles.assignmentLabel}>Cost</span>
-                <span className={`${styles.assignmentValue} ${styles.highlight}`}>
-                  £{data.assignmentData.totalCost}
-                </span>
-              </div>
-            </div>
-          )}
+          {/* Action Buttons */}
+          <div className={styles.actionButtons}>
+            <button
+              className={styles.actionButton}
+              onClick={(e) => {
+                e.stopPropagation();
+                console.log('View details');
+              }}
+            >
+              <span className={styles.buttonIcon}>📋</span>
+              <span className={styles.buttonLabel}>View Details</span>
+            </button>
+            <button
+              className={styles.actionButton}
+              onClick={(e) => {
+                e.stopPropagation();
+                console.log('Modify protection');
+              }}
+            >
+              <span className={styles.buttonIcon}>⚙️</span>
+              <span className={styles.buttonLabel}>Modify Protection</span>
+            </button>
+          </div>
 
-          {/* Officer & Schedule Info */}
-          {showFullData && (
-            <div className={styles.officerSchedule}>
-              <div className={styles.assignedOfficer}>Officer: {data.officerAssigned}</div>
-              <div className={styles.totalScheduled}>{data.totalScheduled} assignments scheduled</div>
-            </div>
-          )}
-
-          {/* Mini Calendar */}
+          {/* Mini Calendar - Keep for visual reference */}
           {showVisuals && (
             <div className={styles.calendarSection}>
               <div className={styles.calendarLabel}>Next 7 days</div>
@@ -166,41 +170,6 @@ export const UpcomingCard: React.FC<UpcomingCardProps> = ({
                 highlight="tomorrow"
                 className={styles.miniCalendar}
               />
-            </div>
-          )}
-
-          {/* Quick Actions */}
-          {showVisuals && (
-            <div className={styles.quickActions}>
-              {quickActions.map((action, index) => (
-                <div
-                  key={index}
-                  className={styles.quickAction}
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    action.handler();
-                  }}
-                  title={action.label}
-                  role="button"
-                  tabIndex={0}
-                  onKeyDown={(e) => {
-                    if (e.key === 'Enter' || e.key === ' ') {
-                      e.preventDefault();
-                      e.stopPropagation();
-                      action.handler();
-                    }
-                  }}
-                >
-                  <span className={styles.actionIcon}>{action.icon}</span>
-                </div>
-              ))}
-            </div>
-          )}
-
-          {/* Smart Insight */}
-          {showFullData && data.favoriteTimeSlot && (
-            <div className={styles.smartInsight}>
-              Similar to your Tuesday routine
             </div>
           )}
         </div>

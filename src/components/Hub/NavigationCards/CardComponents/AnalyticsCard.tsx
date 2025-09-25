@@ -71,87 +71,102 @@ export const AnalyticsCard: React.FC<AnalyticsCardProps> = ({
 
       {/* Enhanced Content */}
       <div className={styles.cardContent}>
-        {/* Monthly Spend & Trend */}
-        <div className={styles.spendSection}>
-          <div className={styles.monthlySpend}>
-            <span className={styles.spendAmount}>{data.spendingLabel}</span>
-            <div
-              className={styles.spendTrend}
+        {/* Header */}
+        <div className={styles.analyticsHeader}>
+          <div className={styles.statusSection}>
+            <span className={styles.analyticsIcon}>📊</span>
+            <span className={styles.statusText}>PROTECTION INSIGHTS</span>
+          </div>
+          <div className={styles.periodSelector}>Last 30 Days</div>
+        </div>
+
+        {/* Primary Metrics - Protection Focus */}
+        <div className={styles.primaryMetrics}>
+          <div className={styles.metricItem}>
+            <span className={styles.metricNumber}>127</span>
+            <span className={styles.metricLabel}>Hours of Protection Coverage</span>
+          </div>
+          <div className={styles.investmentMetric}>
+            <span className={styles.investmentAmount}>£2,450</span>
+            <span className={styles.investmentLabel}>Security Investment</span>
+          </div>
+          <div className={styles.trendIndicator}>
+            <span
+              className={styles.trendIcon}
               style={{ color: getTrendColor(data.spendTrend) }}
             >
-              <span className={styles.trendIcon}>{getTrendIcon(data.spendTrend)}</span>
-              <span className={styles.trendPercent}>{Math.abs(data.spendTrend)}% vs last month</span>
+              {getTrendIcon(data.spendTrend)}
+            </span>
+            <span className={styles.trendText}>18% increase in coverage</span>
+          </div>
+        </div>
+
+        {/* Protection Calendar Heat Map Concept */}
+        <div className={styles.heatMapSection}>
+          <div className={styles.heatMapLabel}>Protection Calendar</div>
+          <div className={styles.heatMapGrid}>
+            {/* Simplified heat map representation */}
+            <div className={styles.heatMapRow}>
+              <div className={styles.heatMapDay}></div>
+              <div className={`${styles.heatMapDay} ${styles.protected}`}></div>
+              <div className={styles.heatMapDay}></div>
+              <div className={`${styles.heatMapDay} ${styles.protected}`}></div>
+              <div className={`${styles.heatMapDay} ${styles.protected}`}></div>
+              <div className={styles.heatMapDay}></div>
+              <div className={styles.heatMapDay}></div>
+            </div>
+            <div className={styles.heatMapRow}>
+              <div className={styles.heatMapDay}></div>
+              <div className={styles.heatMapDay}></div>
+              <div className={`${styles.heatMapDay} ${styles.protected}`}></div>
+              <div className={styles.heatMapDay}></div>
+              <div className={`${styles.heatMapDay} ${styles.protected}`}></div>
+              <div className={`${styles.heatMapDay} ${styles.protected}`}></div>
+              <div className={styles.heatMapDay}></div>
             </div>
           </div>
-          <div className={styles.spendLabel}>{data.topStat}</div>
+          <div className={styles.heatMapLegend}>
+            <span className={styles.legendItem}>
+              <div className={`${styles.legendColor} ${styles.protected}`}></div>
+              Protected
+            </span>
+            <span className={styles.legendItem}>
+              <div className={styles.legendColor}></div>
+              Unprotected
+            </span>
+          </div>
         </div>
 
-        {/* Sparkline Chart */}
-        {showVisuals && data.sparklineData.length > 0 && (
-          <div className={styles.chartSection}>
-            <div className={styles.chartLabel}>Last 30 days</div>
-            <SparklineChart
-              data={data.sparklineData}
-              color="#FF6B6B"
-              height={25}
-              width={70}
-              className={styles.sparkline}
-            />
-          </div>
-        )}
-
-
-
-        {/* Report Status */}
-        <div className={styles.reportSection}>
-          <div className={styles.reportStatus}>
-            <span
-              className={styles.statusDot}
-              style={{
-                backgroundColor: data.reportStatus === 'Ready' ? '#00FF88' : '#FFD700'
-              }}
-            />
-            <span className={styles.statusText}>Report {data.reportStatus}</span>
-          </div>
-          {showFullData && (
-            <div className={styles.lastUpdated}>Updated {data.lastUpdated}</div>
-          )}
+        {/* Insights */}
+        <div className={styles.insights}>
+          <div className={styles.insightItem}>Most protected routes: Home ↔ Office</div>
+          <div className={styles.insightItem}>Peak protection: Weekday evenings</div>
+          <div className={styles.recommendation}>Recommended: Add weekend coverage</div>
         </div>
 
-        {/* Quick Actions */}
-        {showVisuals && (
-          <div className={styles.quickActions}>
-            {quickActions.map((action, index) => (
-              <div
-                key={index}
-                className={styles.quickAction}
-                onClick={(e) => {
-                  e.stopPropagation();
-                  action.handler();
-                }}
-                title={action.label}
-                role="button"
-                tabIndex={0}
-                onKeyDown={(e) => {
-                  if (e.key === 'Enter' || e.key === ' ') {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    action.handler();
-                  }
-                }}
-              >
-                <span className={styles.actionIcon}>{action.icon}</span>
-              </div>
-            ))}
-          </div>
-        )}
-
-        {/* Smart Insight */}
-        {showFullData && (
-          <div className={styles.smartInsight}>
-            You save most with Executive tier
-          </div>
-        )}
+        {/* Action Buttons */}
+        <div className={styles.actionButtons}>
+          <button
+            className={styles.actionButton}
+            onClick={(e) => {
+              e.stopPropagation();
+              console.log('Optimize coverage');
+            }}
+          >
+            <span className={styles.buttonIcon}>⚡</span>
+            <span className={styles.buttonLabel}>Optimize Coverage</span>
+          </button>
+          <button
+            className={styles.actionButton}
+            onClick={(e) => {
+              e.stopPropagation();
+              console.log('View full analytics');
+            }}
+          >
+            <span className={styles.buttonIcon}>📊</span>
+            <span className={styles.buttonLabel}>View Full Analytics</span>
+          </button>
+        </div>
       </div>
     </button>
   );
