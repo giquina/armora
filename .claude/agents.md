@@ -1,7 +1,7 @@
 # Armora Development Agents
 
 ## Overview
-Specialized AI agents that automate specific development tasks and maintain code quality standards for the Armora premium close protection and security transport services across England & Wales. Mobile-first Progressive Web App targeting app store distribution.
+Specialized AI agents that automate specific development tasks and maintain code quality standards for the Armora premium VIP security transport service application.
 
 ## Agent System Architecture
 
@@ -15,20 +15,19 @@ All agents are stored in `.claude/agents/` directory as JavaScript modules.
 
 ## Available Agents
 
-### 1. Mobile Tester (`mobile-tester.js`)
-**Purpose**: Ensures perfect mobile responsiveness and prevents horizontal scrolling issues across all viewport sizes (320px+).
+### 1. Mobile Viewport Tester (`mobile-tester.js`)
+**Purpose**: Ensures perfect mobile responsiveness and prevents horizontal scrolling issues.
 
 **Key Features**:
-- Tests all viewport widths from 320px to 768px (primary mobile target)
-- Validates touch target sizes (minimum 44px for professional interface)
-- Checks for horizontal overflow issues (CRITICAL: no horizontal scrolling)
+- Tests all viewport widths from 320px to 768px
+- Validates touch target sizes (minimum 44px)
+- Checks for horizontal overflow issues
 - Verifies CSS Module calculations (`calc(100vw - 36px)`)
-- Tests card border visibility and responsive breakpoints
-- Validates professional close protection UI components
-- Checks font scaling and readability on different devices
-- Ensures Hub View and Protection Panel mobile optimization
+- Tests card border visibility
+- Validates responsive breakpoints
+- Checks font scaling on different devices
 
-**Trigger**: Automatically on component files (*.tsx) and style files (*.css), or manual via `npm run agents:test`
+**Trigger**: Automatically on CSS changes or manual via `npm run agents:mobile-test`
 
 **Success Criteria**:
 - Zero horizontal scroll at any viewport
@@ -78,20 +77,19 @@ All agents are stored in `.claude/agents/` directory as JavaScript modules.
 - Error messages clear and actionable
 
 ### 4. Booking Flow Manager (`booking-flow-manager.js`)
-**Purpose**: Manages and validates the complete protection assignment booking flow architecture.
+**Purpose**: Manages and validates the complete booking flow architecture.
 
 **Key Features**:
-- Dual booking system validation (legacy + new ProtectionAssignment system)
-- Protection tier calculations (Essential £65/h, Executive £95/h, Shadow £125/h, Client Vehicle £55/h)
-- WhereWhenView and PaymentIntegration flow testing
-- Professional Hub View and NavigationCards validation
-- Assignment state tracking with panic alert system
-- Guest vs registered/Google user capability checks
-- 50% reward system validation for registered users
-- Booking persistence across sessions and error recovery
-- Professional terminology compliance verification
+- State management validation across booking steps
+- Service level calculations (Standard £45/h, Executive £75/h, Shadow £65/h)
+- Location picker integration testing
+- Payment flow preparation
+- Guest vs registered user capability checks
+- 50% reward system validation
+- Booking persistence across sessions
+- Error recovery testing
 
-**Trigger**: On booking/ProtectionAssignment component changes or via `npm run agents:file`
+**Trigger**: On booking component changes or via `npm run agents:booking-test`
 
 **Success Criteria**:
 - Complete booking in < 3 minutes
@@ -100,19 +98,19 @@ All agents are stored in `.claude/agents/` directory as JavaScript modules.
 - State persists correctly
 
 ### 5. Server Keeper (`server-keeper.js`)
-**Purpose**: Monitors development server health, performance, and handles critical server issues.
+**Purpose**: Monitors development server health and performance.
 
 **Key Features**:
-- Development server monitoring and auto-restart
-- Memory usage monitoring (target <512MB)
+- Memory usage monitoring
 - Hot reload performance tracking
-- Build time optimization (target <30s)
-- Error log aggregation and port conflict resolution
-- Critical priority activation on server issues/port conflicts
-- Bundle size tracking and dependency analysis
-- React 19.1.1 and TypeScript 4.9.5 compatibility monitoring
+- Build time optimization
+- Error log aggregation
+- Port conflict resolution
+- Auto-restart on critical errors
+- Bundle size tracking
+- Dependency analysis
 
-**Trigger**: Automatically on server issues/port conflicts (critical priority), or continuous during development
+**Trigger**: Continuous during development or via `npm run agents:server-monitor`
 
 **Success Criteria**:
 - Build time < 30 seconds
@@ -438,40 +436,5 @@ Access agent reports at `.claude/reports/dashboard.html` for visual metrics and 
 
 ---
 
-### 6. Orchestration Agent (`orchestration-agent.js`)
-**Purpose**: Manages and coordinates other agents, providing intelligent agent activation based on context.
-
-**Key Features**:
-- Proactive agent orchestration without manual intervention
-- Context-aware agent activation based on file types and changes
-- Intelligent agent scheduling and priority management
-- Agent performance monitoring and optimization
-- Cross-agent communication and coordination
-- Resource management and conflict resolution
-- Automated workflow optimization
-
-**Trigger**: Continuous orchestration during development, auto-activates other agents based on context
-
-**Success Criteria**:
-- Agents activate automatically based on context
-- No agent conflicts or resource contention
-- Optimal agent performance and coordination
-
-## Agent Commands
-
-### Individual Agent Execution
-```bash
-npm run agents:start     # Start agent orchestration system
-npm run agents:status    # Check agent health status
-npm run agents:test      # Test agent functionality
-npm run agents:file      # Run file-specific agents
-```
-
-### Batch Operations
-```bash
-npm run agents           # Interactive agent selector
-npm run orchestrate:status # View active agents and system status
-```
-
-Last Updated: 2025-09-23T18:47:06.793Z
-Version: 1.2.0
+Last Updated: 2025-09-25T15:29:38.576Z
+Version: 1.1.0

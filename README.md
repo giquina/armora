@@ -1,16 +1,15 @@
 # 🛡️ Armora Security Transport
 
-Premium close protection and security transport services across England & Wales. Nationwide service delivery with SIA-licensed Close Protection Officers (CPOs). Mobile-first Progressive Web App targeting app store distribution.
+Premium VIP security transport mobile app built with React TypeScript + PWA for app store distribution.
 
 ## 🚀 Quick Start
 
 ```bash
 npm install
-npm start          # Start development server (localhost:3001)
-npm run dev        # Start with hooks system + orchestration
-npm run build      # Production build with type checking
-npm test           # Run tests in watch mode
-npm run test:e2e   # Run Playwright end-to-end tests
+npm start          # Start development server
+npm run dev        # Start with hooks system
+npm run build      # Production build
+npm test           # Run tests
 ```
 
 ## 📱 Mobile-First Development
@@ -22,16 +21,15 @@ npm run test:e2e   # Run Playwright end-to-end tests
 
 ## 🏗️ Architecture
 
-- **View-based Routing**: No React Router - uses AppContext `currentView` state
-- **User Flow**: splash → welcome → login/signup/guest-disclaimer → questionnaire → achievement → home → booking → hub → account
-- **Protection Tiers**: Essential (£65/h) | Executive (£95/h) | Shadow (£125/h) | Client Vehicle (£55/h)
+- **SPA Pattern**: Single-page app with view-based routing
+- **User Flow**: Splash → Welcome → Auth → Questionnaire → Dashboard → Booking
+- **Service Levels**: Standard (£45/hr) | Executive (£75/hr) | Shadow (£65/hr)
 - **State Management**: React Context with useReducer (no Redux)
-- **User Types**: registered | google | guest (with different capabilities)
 
 ## 🔧 Development Commands
 
 ### Core Commands
-- `npm start` - Development server (localhost:3001)
+- `npm start` - Development server (localhost:3000)
 - `npm run build` - Production build with type checking
 - `npm test` - Run tests in watch mode
 - `npm run dev` - Start with full hooks system
@@ -56,45 +54,40 @@ npm run test:e2e   # Run Playwright end-to-end tests
 
 ### Agents
 - `npm run agents` - Interactive agent selector
-- `npm run agents:start/status/test/file` - Agent management commands
-- `npm run orchestrate:status` - View active agents and system status
+- `npm run agents:all` - Run all agents
+- `npm run agents:critical` - Run critical agents only
 
 ## 📊 Project Status
 
 ✅ **Complete**:
 - Authentication system (registered/Google/guest)
 - 9-step questionnaire with privacy options
-- Dashboard with protection tier selection
-- Professional Hub View with NavigationCards and Active Protection Panel
-- Complete protection assignment booking flow (dual system)
-- Achievement celebrations with confetti
+- Dashboard with service selection
+- Complete booking flow
+- Achievement celebrations
 - 4D premium logo system
 - Safe Ride Fund integration (3,741+ rides)
-- Assignment state tracking with panic alerts
-- Professional close protection terminology throughout
 
 ⏳ **In Progress**:
 - PWA service worker implementation
-- App store preparation (iOS/Android ready)
-- Payment integration (Stripe + multiple methods)
-- Real-time tracking system
+- App store preparation
+- Payment integration
+- Real-time tracking
 
 🔜 **Planned**:
 - Push notifications
 - Offline mode
 - Multi-language support
-- Advanced analytics dashboard
+- Advanced analytics
 
 ## 🛠️ Technology Stack
 
-- **Frontend**: React 19.1.1 + TypeScript 4.9.5 (strict mode)
-- **Styling**: CSS Modules (no CSS-in-JS libraries)
-- **State**: React Context + useReducer (no Redux)
-- **Build**: Create React App 5.0.1 (react-scripts)
-- **Testing**: Jest + React Testing Library + Playwright (E2E)
-- **Maps**: Leaflet + react-leaflet
-- **Payments**: Stripe (@stripe/react-stripe-js)
-- **PWA**: Service Workers + Manifest (app store ready)
+- **Frontend**: React 19.1.1 + TypeScript 4.9.5
+- **Styling**: CSS Modules (no CSS-in-JS)
+- **State**: React Context + useReducer
+- **Build**: Create React App 5.0.1
+- **Testing**: Jest + React Testing Library
+- **PWA**: Service Workers + Manifest
 
 ## 📱 Device Support
 
@@ -118,26 +111,18 @@ npm run test:e2e   # Run Playwright end-to-end tests
 armora/
 ├── src/
 │   ├── components/     # React components
-│   │   ├── Auth/       # Authentication flow
-│   │   ├── Dashboard/  # Protection tier selection
-│   │   ├── Hub/        # Professional protection command centre
-│   │   ├── Booking/    # Protection booking flow
-│   │   ├── ProtectionAssignment/  # New unified booking system
-│   │   ├── VenueProtection/       # Venue security services
-│   │   └── UI/         # Shared UI components (ArmoraLogo, etc.)
-│   ├── contexts/       # Global state (AppContext, ProtectionAssignmentContext)
-│   ├── styles/         # CSS modules, variables, design system
-│   ├── types/          # TypeScript interfaces (940+ line comprehensive types)
-│   ├── utils/          # Utility functions (pricing, compliance, verification)
-│   └── data/           # Static data (questionnaires, achievements)
+│   ├── contexts/       # Global state
+│   ├── styles/         # CSS modules & variables
+│   ├── types/          # TypeScript interfaces
+│   ├── utils/          # Utility functions
+│   └── data/           # Static data
 ├── .claude/            # AI development tools
-│   ├── agents/         # 6 specialized agents (mobile-tester, pwa-optimizer, etc.)
-│   ├── commands/       # Slash commands and orchestration
-│   └── tasks/          # Task management system
+│   ├── agents/         # Specialized agents
+│   ├── commands/       # Slash commands
+│   └── tasks/          # Task management
 ├── dev-tools/          # Development utilities
-│   └── hooks/          # 9 development hooks (mobile viewport, brand compliance, etc.)
-├── tests/e2e/          # Playwright end-to-end tests
-└── docs/               # Comprehensive documentation (25+ files)
+│   └── hooks/          # Development hooks
+└── docs/               # Documentation
 ```
 
 ## 🚀 Deployment
@@ -149,13 +134,11 @@ The app is configured for deployment as a Progressive Web App, ready for:
 
 ## 🤝 Contributing
 
-1. **Always run `npm run build`** after changes (no separate lint command - type checking in build)
-2. **Use `npm run dev`** for development with hooks system + orchestration
-3. **Ensure no horizontal scrolling** on mobile (320px+ tested automatically)
-4. **Follow TypeScript strict mode** - all new code must be properly typed
-5. **Professional terminology** - use CPO, Principal, Protection Detail (not driver/passenger/ride)
-6. **Test on real devices** and run `npm run test:e2e` for E2E tests
-7. **Use AI assistance** - `npm run suggest` for task suggestions and agent orchestration
+1. Run `npm run suggest` for AI task suggestions
+2. Use `npm run dev` for development with hooks
+3. Ensure no horizontal scrolling on mobile
+4. Follow TypeScript strict mode
+5. Test on real devices
 
 ## 📄 License
 
@@ -163,4 +146,4 @@ Proprietary - Armora Security Transport Ltd.
 
 ---
 
-Last updated: 2025-09-23T18:47:06.472Z
+Last updated: 2025-09-25T15:29:38.574Z

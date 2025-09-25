@@ -1,7 +1,7 @@
 # ARMORA Language & Tone Guidelines
 ## Complete Knowledge Base with Code Integration
 
-Last updated: 2025-09-23T18:47:06.722Z
+Last updated: 2025-09-25T15:29:39.177Z
 
 ---
 

@@ -30,13 +30,13 @@ Armora is a React 19.1.1 TypeScript application for premium close protection and
 - `npm test -- --coverage` - Coverage report
 - `npm test -- --watchAll=false` - Single run (CI mode)
 - `npm test -- src/components/Booking/__tests__/BookingConfirmation.test.tsx` - Run specific test file
-- `npm run test:e2e` - Run Playwright end-to-end tests
+- `npm run test:e2e` - Run Playwright end-to-end tests (tests/e2e directory)
+- `npm run dev` - Start with hooks system AND agent orchestration (recommended for full development experience)
 
 **CRITICAL**: No separate lint/typecheck commands - always run `npm run build` to verify TypeScript correctness before committing.
 
 ## Development Infrastructure
 Includes automated hooks system and AI task management:
-- `npm run dev` - Start with hooks system and orchestration
 - `npm run hooks:start/stop/status/restart/emergency` - Manage development hooks
 - `npm run hooks:help` - Show hooks system help
 - `npm run suggest` - AI task suggestions via codebase analysis
@@ -388,4 +388,4 @@ The app uses React Context for state management with two main contexts:
 - **Mobile Optimization**: Aggressive mobile-first approach with touch targets
 - **Asset Optimization**: Proper handling of images and static assets
 
-Last updated: 2025-09-23T18:47:06.779Z
+Last updated: 2025-09-25T15:29:38.575Z
