@@ -1,6 +1,6 @@
 import React from 'react';
-import { PricingBreakdown, ProtectionServiceRequest } from '../../utils/protectionPricingCalculator';
-import { formatPrice } from '../../utils/priceFormatter';
+import { PricingBreakdown, ProtectionServiceRequest } from '../../../utils/protectionPricingCalculator';
+import { formatPrice } from '../../../utils/priceFormatter';
 import styles from './PricingDisplay.module.css';
 
 interface PricingDisplayProps {

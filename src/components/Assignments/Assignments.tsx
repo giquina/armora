@@ -2,12 +2,12 @@ import React from 'react';
 import { useApp } from '../../contexts/AppContext';
 import { getDisplayName } from '../../utils/nameUtils';
 import { BookingHistoryManager } from '../../utils/bookingHistory';
-import { RecentServices } from './RecentTrips';
+import { RecentAssignments } from './RecentAssignments';
 import { FavoriteRoutes } from './FavoriteRoutes';
 import { PersonalizedQuickActions } from './PersonalizedQuickActions';
 import styles from './Assignments.module.css';
 
-export function Bookings() {
+export function Assignments() {
   const { state, navigateToView } = useApp();
   const { user } = state;
   const [bookingHistory, setBookingHistory] = React.useState(() =>
@@ -110,7 +110,7 @@ export function Bookings() {
 
           {/* Recent Services Section */}
           <div className={styles.section}>
-            <RecentServices maxItems={5} />
+            <RecentAssignments maxItems={5} />
           </div>
 
           {/* Favorite Routes Section */}

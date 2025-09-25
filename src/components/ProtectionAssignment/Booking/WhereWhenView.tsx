@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { useApp } from '../../contexts/AppContext';
-import { ServiceLevel, LocationData } from '../../types';
+import { useApp } from '../../../contexts/AppContext';
+import { ServiceLevel, LocationData } from '../../../types';
 import styles from './WhereWhenView.module.css';
 import '../../styles/booking-white-theme.css';
 

@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { ServiceLevel } from '../../types';
-import { Button } from '../UI/Button';
-import { LoadingSpinner } from '../UI/LoadingSpinner';
-import { calculateHourlyPrice, calculateJourneyPrice } from '../../data/standardizedServices';
+import { ServiceLevel } from '../../../types';
+import { Button } from '../../UI/Button';
+import { LoadingSpinner } from '../../UI/LoadingSpinner';
+import { calculateHourlyPrice, calculateJourneyPrice } from '../../../data/standardizedServices';
 import styles from './GuestQuoteModal.module.css';
 
 interface GuestQuoteModalProps {

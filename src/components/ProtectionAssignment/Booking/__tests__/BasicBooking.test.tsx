@@ -2,8 +2,8 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 import { VehicleSelection } from '../VehicleSelection';
 import { LocationPicker } from '../LocationPicker';
-import { BookingConfirmation } from '../BookingConfirmation';
-import { BookingSuccess } from '../BookingSuccess';
+import { AssignmentConfirmation } from '../AssignmentConfirmation';
+import { AssignmentSuccess } from '../AssignmentSuccess';
 import { AppProvider } from '../../../contexts/AppContext';
 import { ServiceLevel, User, BookingData } from '../../../types';
 
@@ -30,7 +30,7 @@ const mockRegisteredUser: User = {
 
 const mockBookingData: BookingData = {
   service: mockEssentialService,
-  Commencement Point: '123 Test Street, London',
+  commencementPoint: '123 Test Street, London',
   secureDestination: '456 Demo Avenue, London',
   estimatedDistance: 15,
   estimatedDuration: 35,
@@ -86,7 +86,7 @@ describe('Booking Components Basic Tests', () => {
         />
       );
 
-      expect(screen.getByLabelText(/Commencement Point location/i)).toBeInTheDocument();
+      expect(screen.getByLabelText(/commencement point location/i)).toBeInTheDocument();
       expect(screen.getByLabelText(/destination/i)).toBeInTheDocument();
     });
 
@@ -104,10 +104,10 @@ describe('Booking Components Basic Tests', () => {
     });
   });
 
-  describe('BookingConfirmation', () => {
+  describe('AssignmentConfirmation', () => {
     test('should render booking confirmation component', () => {
       renderWithProvider(
-        <BookingConfirmation
+        <AssignmentConfirmation
           bookingData={mockBookingData}
           onConfirmBooking={jest.fn()}
           onBack={jest.fn()}
@@ -120,7 +120,7 @@ describe('Booking Components Basic Tests', () => {
 
     test('should show cost information', () => {
       renderWithProvider(
-        <BookingConfirmation
+        <AssignmentConfirmation
           bookingData={mockBookingData}
           onConfirmBooking={jest.fn()}
           onBack={jest.fn()}
@@ -132,7 +132,7 @@ describe('Booking Components Basic Tests', () => {
 
     test('should show terms checkbox', () => {
       renderWithProvider(
-        <BookingConfirmation
+        <AssignmentConfirmation
           bookingData={mockBookingData}
           onConfirmBooking={jest.fn()}
           onBack={jest.fn()}
@@ -143,16 +143,16 @@ describe('Booking Components Basic Tests', () => {
     });
   });
 
-  describe('BookingSuccess', () => {
+  describe('AssignmentSuccess', () => {
     test('should render booking success component', () => {
-      renderWithProvider(<BookingSuccess bookingId="TEST123" />);
+      renderWithProvider(<AssignmentSuccess bookingId="TEST123" />);
 
       expect(screen.getByText(/booking confirmed/i)).toBeInTheDocument();
       expect(screen.getByText('TEST123')).toBeInTheDocument();
     });
 
     test('should show booking reference', () => {
-      renderWithProvider(<BookingSuccess bookingId="ARMORA-2024-001" />);
+      renderWithProvider(<AssignmentSuccess bookingId="ARMORA-2024-001" />);
 
       expect(screen.getByText('ARMORA-2024-001')).toBeInTheDocument();
     });
@@ -180,7 +180,7 @@ describe('Booking Components Basic Tests', () => {
       const guestBookingData = { ...mockBookingData, user: guestUser };
 
       renderWithProvider(
-        <BookingConfirmation
+        <AssignmentConfirmation
           bookingData={guestBookingData}
           onConfirmBooking={jest.fn()}
           onBack={jest.fn()}
@@ -197,7 +197,7 @@ describe('Booking Components Basic Tests', () => {
       };
 
       renderWithProvider(
-        <BookingConfirmation
+        <AssignmentConfirmation
           bookingData={expensiveBooking}
           onConfirmBooking={jest.fn()}
           onBack={jest.fn()}
@@ -212,12 +212,12 @@ describe('Booking Components Basic Tests', () => {
     test('should handle missing data gracefully', () => {
       const incompleteBookingData = {
         ...mockBookingData,
-        Commencement Point: '',
+        commencementPoint: '',
         secureDestination: ''
       };
 
       renderWithProvider(
-        <BookingConfirmation
+        <AssignmentConfirmation
           bookingData={incompleteBookingData}
           onConfirmBooking={jest.fn()}
           onBack={jest.fn()}
@@ -235,7 +235,7 @@ describe('Booking Components Basic Tests', () => {
       };
 
       renderWithProvider(
-        <BookingConfirmation
+        <AssignmentConfirmation
           bookingData={nullUserBookingData}
           onConfirmBooking={jest.fn()}
           onBack={jest.fn()}
@@ -276,7 +276,7 @@ describe('Booking Components Basic Tests', () => {
         />
       );
 
-      const commencementPointInput = screen.getByLabelText(/Commencement Point location/i);
+      const commencementPointInput = screen.getByLabelText(/commencement point location/i);
       const destinationInput = screen.getByLabelText(/destination/i);
 
       expect(commencementPointInput).toHaveAttribute('aria-required', 'true');

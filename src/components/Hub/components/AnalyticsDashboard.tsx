@@ -164,7 +164,7 @@ export function AnalyticsDashboard({ bookings, userStats }: AnalyticsDashboardPr
                 <div key={item.month} className={styles.barGroup}>
                   <div className={styles.barContainer}>
                     <div
-                      className={styles.tripsBar}
+                      className={styles.assignmentsBar}
                       style={{
                         height: `${(item.protectionDetails / 15) * 100}%`,
                         animationDelay: `${index * 0.1}s`

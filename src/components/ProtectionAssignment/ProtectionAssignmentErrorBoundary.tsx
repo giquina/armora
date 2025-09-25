@@ -212,7 +212,7 @@ Thank you,
                     </span>
                   </div>
                   <div className={styles.preservedItem}>
-                    <span className={styles.preservedLabel}>dropoff:</span>
+                    <span className={styles.preservedLabel}>destination:</span>
                     <span className={styles.preservedValue}>
                       {preservedState.protectionAssignmentData.secureDestination}
                     </span>

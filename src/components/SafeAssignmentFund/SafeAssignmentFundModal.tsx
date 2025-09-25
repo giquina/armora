@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import styles from './SafeRideFundModal.module.css';
+import styles from './SafeAssignmentFundModal.module.css';
 import { 
   useCounterAnimation, 
   useIntersectionObserver, 
@@ -7,7 +7,7 @@ import {
   formatCounterValue
 } from '../../utils/animationUtils';
 
-interface SafeRideFundModalProps {
+interface SafeAssignmentFundModalProps {
   onClose: () => void;
 }
 
@@ -42,7 +42,7 @@ const organizationTestimonials = [
 ];
 
 
-const SafeRideFundModal: React.FC<SafeRideFundModalProps> = ({ onClose }) => {
+const SafeAssignmentFundModal: React.FC<SafeAssignmentFundModalProps> = ({ onClose }) => {
   const [currentStoryIndex, setCurrentStoryIndex] = useState(0);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [hasAnimationStarted, setHasAnimationStarted] = useState(false);
@@ -324,4 +324,4 @@ const SafeRideFundModal: React.FC<SafeRideFundModalProps> = ({ onClose }) => {
   );
 };
 
-export default SafeRideFundModal;
+export default SafeAssignmentFundModal;

@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
-import { LocationPicker } from '../LocationPicker/LocationPicker';
-import { useApp } from '../../contexts/AppContext';
-import styles from './LegacyBookingPage.module.css';
+import { LocationPicker } from './LocationPicker';
+import { useApp } from '../../../contexts/AppContext';
+import styles from './LegacyAssignmentPage.module.css';
 
 /**
- * LegacyBookingPage
- * Full-screen page that shows the prior dark booking experience by simply
+ * LegacyAssignmentPage
+ * Full-screen page that shows the prior dark assignment experience by simply
  * mounting the LocationPicker overlay in an always-open state with a dark backdrop.
  * This lets stakeholders view the old design directly via the app router.
  */
-export default function LegacyBookingPage() {
+export default function LegacyAssignmentPage() {
   const [open, setOpen] = useState(true);
   const { navigateToView } = useApp();
 

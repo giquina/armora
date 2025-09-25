@@ -310,7 +310,7 @@ export const getAssignmentAnalytics = async (userId: string, startDate?: string,
 }
 
 // Safe Assignment Fund operations
-export const recordSafeRideFundContribution = async (contributionData: any) => {
+export const recordSafeAssignmentFundContribution = async (contributionData: any) => {
   return await supabase
     .from('safe_ride_fund_contributions')
     .insert(contributionData)
@@ -318,7 +318,7 @@ export const recordSafeRideFundContribution = async (contributionData: any) => {
     .single()
 }
 
-export const getSafeRideFundStats = async () => {
+export const getSafeAssignmentFundStats = async () => {
   return await supabase
     .from('safe_ride_fund_stats')
     .select('*')

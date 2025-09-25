@@ -470,11 +470,25 @@ export function Hub() {
       {/* Header Section */}
       <div className={styles.headerSection}>
         <h1 className={styles.pageTitle}>PROTECTION HUB</h1>
-        <p className={styles.subtitle}>Your Protection Management Hub</p>
+        <p className={styles.subtitle}>Your Secure Transport Command Center</p>
         <div className={styles.quickStatus}>
-          {currentAssignments.length > 0 && <span className={styles.statusItem}>{currentAssignments.length} Active</span>}
-          {upcomingAssignments.length > 0 && <span className={styles.statusItem}>{upcomingAssignments.length} Scheduled</span>}
-          {currentAssignments.length === 0 && upcomingAssignments.length === 0 && <span className={styles.statusItem}>No Active Protection</span>}
+          {currentAssignments.length > 0 && (
+            <span className={`${styles.statusPill} ${styles.active}`}>
+              <span className={styles.pulseIndicator}>●</span>
+              {currentAssignments.length} Active
+            </span>
+          )}
+          {upcomingAssignments.length > 0 && (
+            <span className={`${styles.statusPill} ${styles.scheduled}`}>
+              <span className={styles.amberIndicator}>●</span>
+              {upcomingAssignments.length} Scheduled
+            </span>
+          )}
+          {currentAssignments.length === 0 && upcomingAssignments.length === 0 && (
+            <span className={`${styles.statusPill} ${styles.inactive}`}>
+              No Active Protection
+            </span>
+          )}
         </div>
       </div>
 

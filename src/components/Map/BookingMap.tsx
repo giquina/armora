@@ -142,7 +142,7 @@ export const BookingMap: React.FC<BookingMapProps> = ({
         // Reject inaccurate locations (over 50m accuracy)
         if (accuracy > 50) {
           console.warn(`Location too inaccurate: ${accuracy}m. Requesting high accuracy GPS.`);
-          setLocationError(`Location accuracy is ${accuracy}m. Please enable precise location/GPS for accurate pickup.`);
+          setLocationError(`Location accuracy is ${accuracy}m. Please enable precise location/GPS for accurate commencement.`);
           setIsLoadingLocation(false);
           return;
         }

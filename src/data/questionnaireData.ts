@@ -467,7 +467,7 @@ export const questionnaireSteps: QuestionnaireStep[] = [
     ],
     validation: { required: true, minSelections: 1, maxSelections: 8, errorMessage: "Please select 1-8 coverage areas" },
     helpText: "Choose your regular security zones. We'll make sure we're always ready where you need protection most.",
-    stepDescription: "Where you need protection helps us assign Protection Officers who really know those security zones. They'll know the secure routes, safe pickup locations, and which areas to avoid during high-risk periods. Local security knowledge makes every assignment safer."
+    stepDescription: "Where you need protection helps us assign Protection Officers who really know those security zones. They'll know the secure routes, secure commencement points, and which areas to avoid during high-risk periods. Local security knowledge makes every assignment safer."
   },
   {
     id: 5,
@@ -542,7 +542,7 @@ export const questionnaireSteps: QuestionnaireStep[] = [
     ],
     validation: { required: false },
     helpText: "These are optional extras. Pick any that matter to your security needs.",
-    stepDescription: "Airports, hotels, event venues - these places have their own security protocols. Protection Officers familiar with these venues know exactly where to provide secure pickup, which entrances to use, and how to navigate security procedures. No more confusion at high-security locations."
+    stepDescription: "Airports, hotels, event venues - these places have their own security protocols. Protection Officers familiar with these venues know exactly where to provide secure commencement, which entrances to use, and how to navigate security procedures. No more confusion at high-security locations."
   },
   {
     id: 6,

@@ -84,19 +84,19 @@ export function LiveTrackingDashboard({
                 </div>
               </div>
 
-              <div className={styles.driverSection}>
-                <div className={styles.driverAvatar}>
+              <div className={styles.cpoSection}>
+                <div className={styles.cpoAvatar}>
                   <div className={styles.avatarPlaceholder}>
                     {booking.protectionOfficer.name.charAt(0)}
                   </div>
                   <div className={styles.onlineIndicator}></div>
                 </div>
-                <div className={styles.driverInfo}>
-                  <div className={styles.driverName}>{booking.protectionOfficer.name}</div>
+                <div className={styles.cpoInfo}>
+                  <div className={styles.cpoName}>{booking.protectionOfficer.name}</div>
                   <div className={styles.vehicleInfo}>
                     {booking.protectionOfficer.vehicle} • {booking.protectionOfficer.plate}
                   </div>
-                  <div className={styles.driverRating}>
+                  <div className={styles.cpoRating}>
                     <span className={styles.stars}>{'⭐'.repeat(Math.floor(booking.protectionOfficer.rating))}</span>
                     <span className={styles.ratingNumber}>{booking.protectionOfficer.rating}</span>
                   </div>

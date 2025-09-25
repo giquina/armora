@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useReducer, useEffect, useCallback, ReactNode } from 'react';
-import { AppState, ViewState, User, PersonalizationData, DeviceCapabilities, UserSubscription, SubscriptionTier, PremiumInterest, NotificationData, SafeRideFundMetrics, CommunityImpactData, AssignmentState, Assignment, PanicAlert, INotificationItem } from '../types';
+import { AppState, ViewState, User, PersonalizationData, DeviceCapabilities, UserSubscription, SubscriptionTier, PremiumInterest, NotificationData, SafeAssignmentFundMetrics, CommunityImpactData, AssignmentState, Assignment, PanicAlert, INotificationItem } from '../types';
 import {
   createProtectionAssignment,
   getProtectionAssignment,
@@ -7,7 +7,7 @@ import {
   subscribeToAssignmentUpdates,
   activateEmergency,
   deactivateEmergency,
-  getSafeRideFundStats,
+  getSafeAssignmentFundStats,
 } from "../lib/supabase"
 
 // Initial state
@@ -450,13 +450,13 @@ export function AppProvider({ children }: { children: ReactNode }) {
 
     // Load community impact data from Supabase
     try {
-      const { data: fundStats, error } = await getSafeRideFundStats();
+      const { data: fundStats, error } = await getSafeAssignmentFundStats();
 
       if (!error && fundStats) {
         const communityData: CommunityImpactData = {
           totalMembers: 1247, // Could be calculated from profiles count
-          monthlyRidesFunded: 278, // Could be calculated from recent assignments
-          totalRidesFunded: fundStats.total_rides_provided || 3741,
+          monthlyAssignmentsFunded: 278, // Could be calculated from recent assignments
+          totalAssignmentsFunded: fundStats.total_rides_provided || 3741,
           lastUpdated: new Date(fundStats.last_updated || new Date())
         };
 
@@ -465,8 +465,8 @@ export function AppProvider({ children }: { children: ReactNode }) {
         // Fallback to default data
         const communityData: CommunityImpactData = {
           totalMembers: 1247,
-          monthlyRidesFunded: 278,
-          totalRidesFunded: 3741,
+          monthlyAssignmentsFunded: 278,
+          totalAssignmentsFunded: 3741,
           lastUpdated: new Date()
         };
 
@@ -477,8 +477,8 @@ export function AppProvider({ children }: { children: ReactNode }) {
       // Use fallback data
       const communityData: CommunityImpactData = {
         totalMembers: 1247,
-        monthlyRidesFunded: 278,
-        totalRidesFunded: 3741,
+        monthlyAssignmentsFunded: 278,
+        totalAssignmentsFunded: 3741,
         lastUpdated: new Date()
       };
 

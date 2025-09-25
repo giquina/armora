@@ -1,9 +1,9 @@
 // Armora Security Transport - Safe Assignment Fund Explainer Component
 
 import React, { useState, useEffect } from 'react';
-import styles from './SafeRideFundExplainer.module.css';
+import styles from './SafeAssignmentFundExplainer.module.css';
 
-interface SafeRideFundExplainerProps {
+interface SafeAssignmentFundExplainerProps {
   variant?: 'compact' | 'full' | 'breakdown';
   showAnimation?: boolean;
   className?: string;
@@ -51,11 +51,11 @@ const safeRideFundData = {
   }
 };
 
-export function SafeRideFundExplainer({ 
-  variant = 'full', 
+export function SafeAssignmentFundExplainer({
+  variant = 'full',
   showAnimation = true,
   className = ''
-}: SafeRideFundExplainerProps) {
+}: SafeAssignmentFundExplainerProps) {
   const [animatedCount, setAnimatedCount] = useState(0);
   const [showDetails, setShowDetails] = useState(false);
 
@@ -224,3 +224,6 @@ export function SafeRideFundExplainer({
     </div>
   );
 }
+
+// Legacy export for backward compatibility
+export const SafeRideFundExplainer = SafeAssignmentFundExplainer;

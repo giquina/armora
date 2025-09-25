@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useApp } from '../../contexts/AppContext';
-import styles from './UnifiedProtectionBooking.module.css';
+import styles from './UnifiedProtectionAssignment.module.css';
 
 interface PriceEstimate {
   journey: number;
@@ -34,7 +34,7 @@ const SERVICE_LEVELS = {
   shadow: { name: 'Shadow', rate: 65, description: 'Specialist protection officer', popular: true }
 };
 
-export function UnifiedProtectionBooking() {
+export function UnifiedProtectionAssignment() {
   const { state, navigateToView } = useApp();
   const { user } = state;
 
@@ -188,7 +188,7 @@ export function UnifiedProtectionBooking() {
   const handleConfirmProtection = () => {
     if (estimate) {
       // Store protection service data
-      localStorage.setItem('armora_booking_data', JSON.stringify({
+      localStorage.setItem('armora_assignment_data', JSON.stringify({
         secureDestination: secureDestination,
         serviceLevel,
         venueProtection,
@@ -198,7 +198,7 @@ export function UnifiedProtectionBooking() {
       }));
 
       // Navigate to full protection service flow
-      navigateToView('booking');
+      navigateToView('assignment');
     }
   };
 
@@ -471,4 +471,4 @@ export function UnifiedProtectionBooking() {
   );
 }
 
-export default UnifiedProtectionBooking;
+export default UnifiedProtectionAssignment;

@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
-import { ServiceLevel, User } from '../../types';
-import { LoadingSpinner } from '../UI/LoadingSpinner';
-import { ServiceCardSkeletonLoader } from '../UI/SkeletonLoader';
-import { ServiceCard } from '../Dashboard/ServiceCard';
-import { SmartRecommendation } from '../Dashboard/SmartRecommendation';
+import { ServiceLevel, User } from '../../../types';
+import { LoadingSpinner } from '../../UI/LoadingSpinner';
+import { ServiceCardSkeletonLoader } from '../../UI/SkeletonLoader';
+import { ServiceCard } from '../../Dashboard/ServiceCard';
+import { SmartRecommendation } from '../../Dashboard/SmartRecommendation';
 import { GuestQuoteModal } from './GuestQuoteModal';
-import { getAllServices } from '../../data/standardizedServices';
-import { getDisplayName } from '../../utils/nameUtils';
+import { getAllServices } from '../../../data/standardizedServices';
+import { getDisplayName } from '../../../utils/nameUtils';
 import styles from './VehicleSelection.module.css';
 
 interface VehicleSelectionProps {

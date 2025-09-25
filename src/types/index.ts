@@ -203,7 +203,7 @@ export interface FirstRideReward {
 export interface RewardData {
   discountPercentage: 50;
   maxDiscountAmount: 15; // £15
-  rewardType: 'first_ride_discount';
+  rewardType: 'first_assignment_discount';
   validityPeriod: 30; // days
   terms: string[];
 }
@@ -233,7 +233,7 @@ export interface AppState {
   subscription: UserSubscription | null;
   selectedServiceForProtectionAssignment?: string;
   userProfileSelection?: string; // Step 1 profile for FloatingCTA personalization
-  safeRideFundMetrics: SafeRideFundMetrics | null;
+  safeAssignmentFundMetrics: SafeAssignmentFundMetrics | null;
   communityImpactData: CommunityImpactData | null;
   venueProtectionData?: any; // Venue protection assessment data
   assignmentState: AssignmentState;
@@ -454,7 +454,7 @@ export interface NotificationData {
 }
 
 // Safe Assignment Fund Types
-export interface SafeRideFundMetrics {
+export interface SafeAssignmentFundMetrics {
   personalRidesFunded: number;
   totalContributed: number;
   currentStreak: number; // months active
@@ -466,8 +466,8 @@ export interface SafeRideFundMetrics {
 
 export interface CommunityImpactData {
   totalMembers: number;
-  monthlyRidesFunded: number;
-  totalRidesFunded: number;
+  monthlyAssignmentsFunded: number;
+  totalAssignmentsFunded: number;
   lastUpdated: Date;
 }
 
@@ -938,4 +938,15 @@ export interface INotificationItem {
   requiresAction: boolean;
   actionText?: string;
   actionHandler?: () => void;
+}
+
+// Safe Assignment Fund metrics interface
+export interface SafeRideFundMetrics {
+  personalRidesFunded: number;
+  totalContributed: number;
+  currentStreak: number;
+  monthlyContribution: number;
+  impactLevel: 'bronze' | 'silver' | 'gold' | 'platinum';
+  communityRank: number;
+  lastUpdated: string;
 }

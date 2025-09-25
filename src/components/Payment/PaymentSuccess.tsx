@@ -96,7 +96,7 @@ export function PaymentSuccess({
             <div className={styles.routePoint}>
               <span className={styles.routeIcon}>📍</span>
               <div className={styles.routeInfo}>
-                <div className={styles.routeLabel}>pickup</div>
+                <div className={styles.routeLabel}>commencement</div>
                 <div className={styles.routeAddress}>{protectionAssignmentData.commencementPoint}</div>
               </div>
             </div>

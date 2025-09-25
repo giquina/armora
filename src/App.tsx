@@ -16,9 +16,9 @@ import { ServicesPage } from './components/Services/ServicesPage';
 import { Hub } from './components/Hub';
 import { SubscriptionOffer } from './components/Subscription/SubscriptionOffer';
 // Removed unused imports
-import LegacyBookingPage from './components/Booking/LegacyBookingPage';
+import LegacyAssignmentPage from './components/ProtectionAssignment/Booking/LegacyAssignmentPage';
 import { ProtectionAssignmentSuccess, WhereWhenView } from './components/ProtectionAssignment';
-import { PaymentIntegration } from './components/Booking/PaymentIntegration';
+import { PaymentIntegration } from './components/ProtectionAssignment/Booking/PaymentIntegration';
 import { ProtectionAssignmentErrorBoundary } from './components/ProtectionAssignment/ProtectionAssignmentErrorBoundary';
 import { ServiceSelection } from './components/ServiceSelection/ServiceSelection';
 import { ReferralSection } from './components/Account/ReferralSection';
@@ -609,10 +609,10 @@ function AppRouter() {
         const servicePrice = selectedServiceId === 'standard' ? 45 : selectedServiceId === 'executive' ? 75 : selectedServiceId === 'shadow' ? 65 : 45;
         return <SubscriptionOffer selectedService={selectedServiceId || undefined} servicePrice={servicePrice} />;
       case 'booking':
-        return <LegacyBookingPage />;
+        return <LegacyAssignmentPage />;
       case 'legacy-booking-view':
         // Internal viewer to display the old dark booking overlay as a full page
-        return <LegacyBookingPage />;
+        return <LegacyAssignmentPage />;
       case 'service-selection':
         return <ServiceSelection />;
       case 'hub':

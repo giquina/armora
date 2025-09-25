@@ -4,13 +4,13 @@ import { BookingHistoryManager } from '../../utils/bookingHistory';
 import { useApp } from '../../contexts/AppContext';
 import styles from './RecentServices.module.css';
 
-interface RecentServicesProps {
+interface RecentAssignmentsProps {
   onRebook?: (item: ProtectionAssignmentHistoryItem) => void;
   onAddToFavorites?: (item: ProtectionAssignmentHistoryItem) => void;
   maxItems?: number;
 }
 
-export function RecentServices({ onRebook, onAddToFavorites, maxItems = 5 }: RecentServicesProps) {
+export function RecentAssignments({ onRebook, onAddToFavorites, maxItems = 5 }: RecentAssignmentsProps) {
   const { navigateToView } = useApp();
   const [history, setHistory] = React.useState<ProtectionAssignmentHistoryItem[]>([]);
   const [favorites, setFavorites] = React.useState<FavoriteRoute[]>([]);
@@ -120,10 +120,10 @@ export function RecentServices({ onRebook, onAddToFavorites, maxItems = 5 }: Rec
     <div className={styles.recentServices}>
       <h2 className={styles.sectionTitle}>🚗 Recent Journeys</h2>
 
-      <div className={styles.tripsList}>
+      <div className={styles.assignmentsList}>
         {history.map((protectionDetail) => (
-          <div key={protectionDetail.id} className={styles.tripCard}>
-            <div className={styles.tripHeader}>
+          <div key={protectionDetail.id} className={styles.assignmentCard}>
+            <div className={styles.assignmentHeader}>
               <div className={styles.dateTimeInfo}>
                 <span className={styles.date}>{formatDate(protectionDetail.date)}</span>
                 <span className={styles.time}>{formatTime(protectionDetail.time)}</span>
@@ -147,7 +147,7 @@ export function RecentServices({ onRebook, onAddToFavorites, maxItems = 5 }: Rec
               </div>
             </div>
 
-            <div className={styles.tripDetails}>
+            <div className={styles.assignmentDetails}>
               <div className={styles.detailItem}>
                 <span className={styles.detailIcon}>💰</span>
                 <span className={styles.detailText}>{protectionDetail.price}</span>
@@ -166,7 +166,7 @@ export function RecentServices({ onRebook, onAddToFavorites, maxItems = 5 }: Rec
               )}
             </div>
 
-            <div className={styles.tripActions}>
+            <div className={styles.assignmentActions}>
               <button
                 className={styles.rebookButton}
                 onClick={() => handleRebook(protectionDetail)}
@@ -205,3 +205,8 @@ export function RecentServices({ onRebook, onAddToFavorites, maxItems = 5 }: Rec
     </div>
   );
 }
+
+export default RecentAssignments;
+
+// Export as RecentServices for backward compatibility
+export { RecentAssignments as RecentServices };

@@ -28,7 +28,7 @@ const SERVICE_OPTIONS: ServiceOption[] = [
     id: 'standard',
     name: 'Essential Protection',
     price: '£65/hour',
-    description: 'SIA Level 2, personal protection trained drivers',
+    description: 'SIA Level 2, personal protection trained CPOs',
     icon: '🛡️',
     features: ['SIA-licensed CPOs', 'Real-time tracking', '24/7 support', 'Standard response time']
   },
@@ -52,7 +52,7 @@ const SERVICE_OPTIONS: ServiceOption[] = [
     id: 'client-vehicle',
     name: 'Client Vehicle Service',
     price: '£55/hour',
-    description: 'Security-trained driver for customer\'s vehicle',
+    description: 'Security-trained CPO for customer\'s vehicle',
     icon: '🔑',
     features: ['Use your vehicle', 'No mileage charges', 'Enhanced privacy', 'Familiar surroundings']
   }

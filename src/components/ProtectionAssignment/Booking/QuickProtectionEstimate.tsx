@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useApp } from '../../contexts/AppContext';
+import { useApp } from '../../../contexts/AppContext';
 import { PricingCalculator } from './PricingCalculator';
 import styles from './QuickProtectionEstimate.module.css';
 

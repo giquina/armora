@@ -9,6 +9,8 @@ Armora is a React 19.1.1 TypeScript application for premium close protection and
 
 **PROFESSIONAL PROTECTION FOCUSED**: Use close protection terminology throughout - "CPO" (Close Protection Officer), "Principal" (not passenger), "Protection Detail" (not ride), "Security Assessment" (not booking review). All UI copy should reflect professional security services, not taxi/ride-sharing language.
 
+**SIA COMPLIANCE CRITICAL**: This codebase underwent major restructuring in September 2025 for full SIA compliance. All folder names, file names, and component names now use protection terminology. See `SIA_COMPLIANCE.md` for comprehensive guidelines.
+
 ## Critical Dependencies
 - **React 19.1.1** with new JSX Transform
 - **TypeScript 4.9.5** in strict mode
@@ -16,10 +18,11 @@ Armora is a React 19.1.1 TypeScript application for premium close protection and
 - **CSS Modules** for styling (no CSS-in-JS libraries)
 - **No external UI libraries** - custom components only
 
-### Additional Key Dependencies
+### Backend & Integration Dependencies
+- **Supabase**: Backend database, auth, real-time (@supabase/supabase-js, @supabase/auth-helpers-react)
 - **Stripe**: Payment processing (@stripe/react-stripe-js, @stripe/stripe-js)
 - **Leaflet**: Maps and location services (react-leaflet)
-- **QR Code**: QR code generation for bookings (qrcode)
+- **QR Code**: QR code generation for assignments (qrcode)
 - **Canvas Confetti**: Achievement animations (canvas-confetti)
 - **Playwright**: End-to-end testing framework
 
@@ -29,7 +32,7 @@ Armora is a React 19.1.1 TypeScript application for premium close protection and
 - `npm test` - Run tests in watch mode (Jest + React Testing Library)
 - `npm test -- --coverage` - Coverage report
 - `npm test -- --watchAll=false` - Single run (CI mode)
-- `npm test -- src/components/Booking/__tests__/BookingConfirmation.test.tsx` - Run specific test file
+- `npm test -- src/components/ProtectionAssignment/__tests__/AssignmentConfirmation.test.tsx` - Run specific test file
 - `npm run test:e2e` - Run Playwright end-to-end tests (tests/e2e directory)
 - `npm run dev` - Start with hooks system AND agent orchestration (recommended for full development experience)
 
@@ -72,10 +75,11 @@ Includes automated hooks system and AI task management:
 
 ### State Management Pattern
 **View-based routing** (NO React Router - uses AppContext `currentView` state):
-- Views: `splash` → `welcome` → `login`/`signup`/`guest-disclaimer` → `questionnaire` → `achievement` → `home` → `booking` → `hub` → `account`
+- Views: `splash` → `welcome` → `login`/`signup`/`guest-disclaimer` → `questionnaire` → `achievement` → `home` → `assignments` → `hub` → `account`
 - User types: `registered` | `google` | `guest`
 - Navigation: `navigateToView(viewName)` function from AppContext
-- Persistence: localStorage keys: `armoraUser`, `armoraQuestionnaireResponses`, `armoraBookingData`
+- Persistence: localStorage keys: `armoraUser`, `armoraQuestionnaireResponses`, `armoraAssignmentData`
+- **Supabase Backend**: Real-time database with SIA-compliant schema
 
 **Global State Structure** (`AppContext.tsx`):
 - `useReducer` for state management (no Redux)
@@ -84,9 +88,17 @@ Includes automated hooks system and AI task management:
 - Assignment state tracking with panic alert system
 - Error handling and loading states
 
+**Backend Architecture** (`src/lib/supabase.ts`):
+- **Complete Supabase Integration**: 372 lines of SIA-compliant functions
+- **Real-time Features**: Assignment tracking, officer location updates
+- **SIA-Compliant Schema**: protection_assignments, protection_officers, principals
+- **Emergency Systems**: Panic button with location tracking
+- **Geographic Search**: PostGIS-powered officer finding with radius queries
+- **Payment Integration**: Stripe transactions with protection terminology
+
 ### Component Architecture
 **Full-screen views** (bypass AppLayout): splash, welcome, auth, questionnaire, achievement
-**App-wrapped views** (include header): dashboard, booking, profile, hub
+**App-wrapped views** (include header): dashboard, assignments, profile, hub
 
 ### Key File Structure
 ```
@@ -94,7 +106,9 @@ src/
 ├── App.tsx                               - Main router with view switching and BookingFlow component
 ├── contexts/
 │   ├── AppContext.tsx                    - Global state management with assignment tracking
-│   └── ProtectionAssignmentContext.tsx  - Protection assignment booking state
+│   └── ProtectionAssignmentContext.tsx  - Protection assignment state management
+├── lib/
+│   └── supabase.ts                       - Supabase client with SIA-compliant functions
 ├── types/index.ts                        - Comprehensive TypeScript interfaces (940+ lines)
 ├── components/
 │   ├── Auth/                            - Authentication flow
@@ -103,8 +117,11 @@ src/
 │   ├── Hub/                             - Professional protection hub command centre
 │   │   ├── NavigationCards/             - Interactive assignment status navigation cards
 │   │   └── ActiveProtectionPanel/       - Real-time protection detail monitoring
-│   ├── Booking/                         - Complete protection booking flow
-│   ├── ProtectionAssignment/            - New unified protection booking system
+│   ├── ProtectionAssignment/            - Complete protection assignment system
+│   │   └── Booking/                     - Legacy booking components (being integrated)
+│   ├── Assignments/                     - Assignment management and history
+│   ├── Officer/                         - CPO-related components (panic alerts, etc.)
+│   ├── SafeAssignmentFund/              - Community safety fund components
 │   ├── VenueProtection/                 - Venue security services
 │   ├── WeddingEventSecurity/            - Specialized event protection
 │   ├── UI/ArmoraLogo.tsx                - Premium 4D logo system
@@ -135,9 +152,9 @@ src/
 - Regional: All major towns with 2-hour response time
 - Airports: Heathrow, Gatwick, Manchester, Birmingham specialists
 
-### Safe Ride Fund Initiative
-- **Impact Counter**: Live counter showing 3,741+ safe rides delivered (animated on WelcomePage)
-- **Components**: `SafeRideFundCTA`, `SafeRideFundModal` with interactive contribution system
+### Safe Assignment Fund Initiative
+- **Impact Counter**: Live counter showing 3,741+ safe assignments delivered (animated on WelcomePage)
+- **Components**: `SafeAssignmentFundCTA`, `SafeAssignmentFundModal` with interactive contribution system
 - **Development Mode**: Credentials modal always visible in dev mode (`showDevButton` in WelcomePage)
 
 ## CSS Architecture & Design System
@@ -193,9 +210,28 @@ src/
 - **Jest configuration**: Custom module mapping for CSS and assets in package.json
 
 ## Current Status
-✅ **Complete**: Auth, Questionnaire (9-step + privacy), Dashboard, Professional Assignments View with NavigationCards, Mobile-optimized Active Protection Panel, Booking flow, Achievement, 4D logo system, Safe Ride Fund integration, Assignment state tracking with panic alerts
-⚠️ **Critical Needs**: Test coverage expansion, PWA service worker, payment integration completion, location search improvements
-🔜 **Planned**: Real-time tracking, push notifications, offline mode
+✅ **Complete**:
+- Complete SIA compliance restructuring (September 2025)
+- Supabase backend with real-time features
+- Auth system (registered/Google/guest)
+- 9-step questionnaire with privacy options
+- Dashboard with protection tier selection
+- Professional Hub with assignment tracking
+- Mobile-optimized Active Protection Panel
+- Protection assignment flow (unified system)
+- Achievement system with confetti animations
+- 4D logo system and professional branding
+- Safe Assignment Fund integration (3,741+ assignments tracked)
+- Assignment state tracking with panic alert system
+
+⚠️ **Critical Needs**:
+- Minor TypeScript interface fixes after restructuring
+- Test coverage expansion for new folder structure
+- PWA service worker implementation
+- Payment integration completion
+- Location search improvements
+
+🔜 **Planned**: Enhanced real-time tracking, push notifications, offline mode
 
 ## Key Utility Functions
 - **timeEstimate** (`src/utils/timeEstimate.ts`) - Standardized time formatting across app
@@ -229,6 +265,11 @@ The app uses a **dual booking system** transitioning from legacy to new:
 - Panic alert system with location tracking
 - Auto-navigation to hub when active assignment detected
 - Assignment status: `scheduled` | `active` | `in_progress` | `completed` | `cancelled`
+
+**Dual Assignment System** (Legacy + New Integration):
+- **New System**: `ProtectionAssignmentContext` with unified protection flow
+- **Legacy Components**: Under `src/components/ProtectionAssignment/Booking/` (being integrated)
+- **Migration Status**: Folder structure updated, some TypeScript interfaces need alignment
 
 ### Questionnaire System (`/src/data/questionnaireData.ts`)
 Dynamic 9-step system with privacy options. Enhanced mobile typography (1.4-1.5rem) and `calc(100vw - 8px)` width utilization.
@@ -388,4 +429,4 @@ The app uses React Context for state management with two main contexts:
 - **Mobile Optimization**: Aggressive mobile-first approach with touch targets
 - **Asset Optimization**: Proper handling of images and static assets
 
-Last updated: 2025-09-25T15:29:38.575Z
+Last updated: 2025-09-25T20:57:51.350Z

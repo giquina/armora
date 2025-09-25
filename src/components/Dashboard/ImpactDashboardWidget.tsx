@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { useApp } from '../../contexts/AppContext';
-import { SafeRideFundExplainer } from '../Common/SafeRideFundExplainer';
+import { SafeAssignmentFundExplainer } from '../Common/SafeAssignmentFundExplainer';
 import styles from './ImpactDashboardWidget.module.css';
 
 interface ImpactDashboardWidgetProps {
@@ -27,8 +27,8 @@ const generateUserImpactData = (userStartDate: Date) => {
 
 const communityImpactData = {
   totalMembers: 1247,
-  monthlyRidesFunded: 278,
-  totalRidesFunded: 3741,
+  monthlyAssignmentsFunded: 278,
+  totalAssignmentsFunded: 3741,
   lastUpdated: new Date().toISOString()
 };
 
@@ -100,7 +100,7 @@ export function ImpactDashboardWidget({ className = '' }: ImpactDashboardWidgetP
       </div>
 
       {showFullExplainer ? (
-        <SafeRideFundExplainer variant="full" showAnimation={true} />
+        <SafeAssignmentFundExplainer variant="full" showAnimation={true} />
       ) : (
         <>
           <div className={styles.statsGrid}>
@@ -138,7 +138,7 @@ export function ImpactDashboardWidget({ className = '' }: ImpactDashboardWidgetP
             <div className={styles.communityStats}>
               <div className={styles.communityStatsGrid}>
                 <div className={styles.communityStat}>
-                  <span className={styles.communityNumber}>{communityImpactData.monthlyRidesFunded}</span>
+                  <span className={styles.communityNumber}>{communityImpactData.monthlyAssignmentsFunded}</span>
                   <span className={styles.communityLabel}>Assignments this month</span>
                 </div>
                 <div className={styles.communityStat}>
@@ -147,7 +147,7 @@ export function ImpactDashboardWidget({ className = '' }: ImpactDashboardWidgetP
                 </div>
               </div>
               <div className={styles.totalImpact}>
-                Together we've funded <strong>{communityImpactData.totalRidesFunded.toLocaleString()}</strong> safe journeys
+                Together we've funded <strong>{communityImpactData.totalAssignmentsFunded.toLocaleString()}</strong> safe journeys
               </div>
             </div>
           </div>

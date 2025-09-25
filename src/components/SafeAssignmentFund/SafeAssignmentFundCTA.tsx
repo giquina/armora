@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import styles from './SafeRideFundCTA.module.css';
+import styles from './SafeAssignmentFundCTA.module.css';
 
-interface SafeRideFundCTAProps {
+interface SafeAssignmentFundCTAProps {
   onClick: () => void;
 }
 
-const SafeRideFundCTA: React.FC<SafeRideFundCTAProps> = ({ onClick }) => {
+const SafeAssignmentFundCTA: React.FC<SafeAssignmentFundCTAProps> = ({ onClick }) => {
   const [hasViewedModal, setHasViewedModal] = useState(false);
 
   useEffect(() => {
@@ -36,4 +36,4 @@ const SafeRideFundCTA: React.FC<SafeRideFundCTAProps> = ({ onClick }) => {
   );
 };
 
-export default SafeRideFundCTA;
+export default SafeAssignmentFundCTA;

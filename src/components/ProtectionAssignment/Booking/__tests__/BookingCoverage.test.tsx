@@ -3,8 +3,8 @@ import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { VehicleSelection } from '../VehicleSelection';
 import { LocationPicker } from '../LocationPicker';
-import { BookingConfirmation } from '../BookingConfirmation';
-import { BookingSuccess } from '../BookingSuccess';
+import { AssignmentConfirmation } from '../AssignmentConfirmation';
+import { AssignmentSuccess } from '../AssignmentSuccess';
 import { AppProvider } from '../../../contexts/AppContext';
 import { ServiceLevel, User, BookingData } from '../../../types';
 
@@ -73,7 +73,7 @@ const mockUsers = {
 
 const mockBookingData: BookingData = {
   service: mockServices[0],
-  Commencement Point: '123 Test Street, London',
+  commencementPoint: '123 Test Street, London',
   secureDestination: '456 Demo Avenue, London',
   estimatedDistance: 15,
   estimatedDuration: 35,
@@ -212,22 +212,22 @@ describe('Booking Components Coverage Tests', () => {
         />
       );
 
-      const commencementPointInput = screen.getByLabelText(/Commencement Point location/i);
+      const commencementPointInput = screen.getByLabelText(/commencement point location/i);
       const destinationInput = screen.getByLabelText(/destination/i);
       const confirmButton = screen.getByRole('button', { name: /confirm location/i });
 
       // Test empty form validation
       await userEvent.click(confirmButton);
-      expect(screen.getByText(/Commencement Point location is required/i)).toBeInTheDocument();
+      expect(screen.getByText(/commencement point location is required/i)).toBeInTheDocument();
       expect(screen.getByText(/secureDestination is required/i)).toBeInTheDocument();
 
       // Test partial form validation
-      await userEvent.type(commencementPointInput, 'Test Commencement Point');
+      await userEvent.type(commencementPointInput, 'Test commencement point');
       await userEvent.click(confirmButton);
       expect(screen.getByText(/secureDestination is required/i)).toBeInTheDocument();
 
       // Test complete form
-      await userEvent.type(secureDestinationInput, 'Test destination');
+      await userEvent.type(destinationInput, 'Test destination');
       
       // Wait for estimate calculation
       await waitFor(() => {
@@ -239,7 +239,7 @@ describe('Booking Components Coverage Tests', () => {
       await waitFor(() => {
         expect(onLocationConfirmed).toHaveBeenCalledWith(
           expect.objectContaining({
-            Commencement Point: 'Test Commencement Point',
+            commencementPoint: 'Test commencement point',
             secureDestination: 'Test destination',
             estimatedCost: expect.any(Number)
           })
@@ -293,10 +293,10 @@ describe('Booking Components Coverage Tests', () => {
         />
       );
 
-      const commencementPointInput = screen.getByLabelText(/Commencement Point location/i);
+      const commencementPointInput = screen.getByLabelText(/commencement point location/i);
       await userEvent.type(commencementPointInput, 'Test location');
       
-      const clearButton = screen.getByRole('button', { name: /clear Commencement Point/i });
+      const clearButton = screen.getByRole('button', { name: /clear commencement point/i });
       await userEvent.click(clearButton);
       
       expect(commencementPointInput).toHaveValue('');
@@ -312,11 +312,11 @@ describe('Booking Components Coverage Tests', () => {
         />
       );
 
-      const commencementPointInput = screen.getByLabelText(/Commencement Point location/i);
+      const commencementPointInput = screen.getByLabelText(/commencement point location/i);
       const destinationInput = screen.getByLabelText(/destination/i);
 
-      await userEvent.type(commencementPointInput, 'Test Commencement Point');
-      await userEvent.type(secureDestinationInput, 'Test destination');
+      await userEvent.type(commencementPointInput, 'Test commencement point');
+      await userEvent.type(destinationInput, 'Test destination');
 
       await waitFor(() => {
         expect(screen.getByText(/estimated cost/i)).toBeInTheDocument();
@@ -336,9 +336,9 @@ describe('Booking Components Coverage Tests', () => {
 
       // Clear and re-enter to trigger calculation
       await userEvent.clear(commencementPointInput);
-      await userEvent.clear(secureDestinationInput);
-      await userEvent.type(commencementPointInput, 'Test Commencement Point');
-      await userEvent.type(secureDestinationInput, 'Test destination');
+      await userEvent.clear(destinationInput);
+      await userEvent.type(commencementPointInput, 'Test commencement point');
+      await userEvent.type(destinationInput, 'Test destination');
 
       await waitFor(() => {
         expect(screen.getByText(/estimated cost/i)).toBeInTheDocument();
@@ -346,12 +346,12 @@ describe('Booking Components Coverage Tests', () => {
     });
   });
 
-  describe('BookingConfirmation Coverage', () => {
+  describe('AssignmentConfirmation Coverage', () => {
     test('should handle terms acceptance and booking confirmation', async () => {
       const onConfirmBooking = jest.fn().mockResolvedValue('TEST123');
       
       renderWithProvider(
-        <BookingConfirmation
+        <AssignmentConfirmation
           bookingData={mockBookingData}
           onConfirmBooking={onConfirmBooking}
           onBack={jest.fn()}
@@ -375,7 +375,7 @@ describe('Booking Components Coverage Tests', () => {
 
     test('should handle additional requirements', async () => {
       renderWithProvider(
-        <BookingConfirmation
+        <AssignmentConfirmation
           bookingData={mockBookingData}
           onConfirmBooking={jest.fn()}
           onBack={jest.fn()}
@@ -390,7 +390,7 @@ describe('Booking Components Coverage Tests', () => {
 
     test('should show reward discount for eligible users', () => {
       renderWithProvider(
-        <BookingConfirmation
+        <AssignmentConfirmation
           bookingData={mockBookingData}
           onConfirmBooking={jest.fn()}
           onBack={jest.fn()}
@@ -407,7 +407,7 @@ describe('Booking Components Coverage Tests', () => {
       };
 
       renderWithProvider(
-        <BookingConfirmation
+        <AssignmentConfirmation
           bookingData={guestBookingData}
           onConfirmBooking={jest.fn()}
           onBack={jest.fn()}
@@ -421,7 +421,7 @@ describe('Booking Components Coverage Tests', () => {
       const onConfirmBooking = jest.fn().mockRejectedValue(new Error('Payment failed'));
       
       renderWithProvider(
-        <BookingConfirmation
+        <AssignmentConfirmation
           bookingData={mockBookingData}
           onConfirmBooking={onConfirmBooking}
           onBack={jest.fn()}
@@ -445,7 +445,7 @@ describe('Booking Components Coverage Tests', () => {
       ));
       
       renderWithProvider(
-        <BookingConfirmation
+        <AssignmentConfirmation
           bookingData={mockBookingData}
           onConfirmBooking={slowBooking}
           onBack={jest.fn()}
@@ -463,9 +463,9 @@ describe('Booking Components Coverage Tests', () => {
     });
   });
 
-  describe('BookingSuccess Coverage', () => {
+  describe('AssignmentSuccess Coverage', () => {
     test('should display booking information correctly', () => {
-      renderWithProvider(<BookingSuccess bookingId="TEST123" />);
+      renderWithProvider(<AssignmentSuccess bookingId="TEST123" />);
 
       expect(screen.getByText(/booking confirmed/i)).toBeInTheDocument();
       expect(screen.getByText('TEST123')).toBeInTheDocument();
@@ -474,7 +474,7 @@ describe('Booking Components Coverage Tests', () => {
     test('should handle copy booking ID functionality', async () => {
       const mockWriteText = navigator.clipboard.writeText as jest.Mock;
       
-      renderWithProvider(<BookingSuccess bookingId="COPY123" />);
+      renderWithProvider(<AssignmentSuccess bookingId="COPY123" />);
 
       const copyButton = screen.getByRole('button', { name: /copy booking id/i });
       await userEvent.click(copyButton);
@@ -486,7 +486,7 @@ describe('Booking Components Coverage Tests', () => {
       const mockWriteText = navigator.clipboard.writeText as jest.Mock;
       mockWriteText.mockRejectedValue(new Error('Clipboard access denied'));
       
-      renderWithProvider(<BookingSuccess bookingId="FAIL123" />);
+      renderWithProvider(<AssignmentSuccess bookingId="FAIL123" />);
 
       const copyButton = screen.getByRole('button', { name: /copy booking id/i });
       await userEvent.click(copyButton);
@@ -497,7 +497,7 @@ describe('Booking Components Coverage Tests', () => {
     });
 
     test('should handle navigation actions', async () => {
-      renderWithProvider(<BookingSuccess bookingId="NAV123" />);
+      renderWithProvider(<AssignmentSuccess bookingId="NAV123" />);
 
       const trackButton = screen.getByRole('button', { name: /track booking/i });
       const bookAnotherButton = screen.getByRole('button', { name: /book another Protection Detail/i });
@@ -517,7 +517,7 @@ describe('Booking Components Coverage Tests', () => {
       const mockShare = jest.fn().mockResolvedValue(undefined);
       Object.defineProperty(navigator, 'share', { value: mockShare, writable: true });
       
-      renderWithProvider(<BookingSuccess bookingId="SHARE123" />);
+      renderWithProvider(<AssignmentSuccess bookingId="SHARE123" />);
 
       const shareButton = screen.getByRole('button', { name: /share booking/i });
       await userEvent.click(shareButton);
@@ -531,11 +531,11 @@ describe('Booking Components Coverage Tests', () => {
 
     test('should handle different booking ID formats', () => {
       // Test empty booking ID
-      const { rerender } = renderWithProvider(<BookingSuccess bookingId="" />);
+      const { rerender } = renderWithProvider(<AssignmentSuccess bookingId="" />);
       expect(screen.getByText(/reference unavailable/i)).toBeInTheDocument();
 
       // Test long booking ID
-      rerender(<AppProvider><BookingSuccess bookingId="VERY-LONG-BOOKING-ID-123456789" /></AppProvider>);
+      rerender(<AppProvider><AssignmentSuccess bookingId="VERY-LONG-BOOKING-ID-123456789" /></AppProvider>);
       expect(screen.getByText('VERY-LONG-BOOKING-ID-123456789')).toBeInTheDocument();
     });
   });
@@ -544,14 +544,14 @@ describe('Booking Components Coverage Tests', () => {
     test('should handle missing data gracefully', () => {
       const incompleteBookingData = {
         ...mockBookingData,
-        Commencement Point: '',
+        commencementPoint: '',
         secureDestination: '',
         service: undefined as any
       };
 
       expect(() => {
         renderWithProvider(
-          <BookingConfirmation
+          <AssignmentConfirmation
             bookingData={incompleteBookingData}
             onConfirmBooking={jest.fn()}
             onBack={jest.fn()}
@@ -564,7 +564,7 @@ describe('Booking Components Coverage Tests', () => {
       const timeoutError = jest.fn().mockRejectedValue(new Error('Network timeout'));
       
       renderWithProvider(
-        <BookingConfirmation
+        <AssignmentConfirmation
           bookingData={mockBookingData}
           onConfirmBooking={timeoutError}
           onBack={jest.fn()}

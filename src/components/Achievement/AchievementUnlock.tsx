@@ -75,7 +75,7 @@ const AchievementUnlock: React.FC<AchievementUnlockProps> = ({
 
   const handleContinue = () => {
     // Save reward data to localStorage for later use
-    localStorage.setItem('armora_first_ride_reward', JSON.stringify(rewardData));
+    localStorage.setItem('armora_first_assignment_reward', JSON.stringify(rewardData));
     onContinueToDashboard();
   };
 
@@ -209,39 +209,39 @@ const AchievementUnlock: React.FC<AchievementUnlockProps> = ({
             </div>
           </div>
 
-          <div className={styles.driversShowcase}>
-            <div className={styles.driverCard}>
-              <div className={styles.driverAvatar}>
+          <div className={styles.cpoShowcase}>
+            <div className={styles.cpoCard}>
+              <div className={styles.cpoAvatar}>
                 <div className={styles.avatarImage}>👨‍💼</div>
                 <div className={styles.certificationBadge}>SIA</div>
               </div>
-              <div className={styles.driverInfo}>
-                <div className={styles.driverName}>Marcus Johnson</div>
-                <div className={styles.driverTitle}>Executive Protection</div>
+              <div className={styles.cpoInfo}>
+                <div className={styles.cpoName}>Marcus Johnson</div>
+                <div className={styles.cpoTitle}>Executive Protection</div>
                 <div className={styles.responseTime}>4 min away</div>
               </div>
             </div>
             
-            <div className={styles.driverCard}>
-              <div className={styles.driverAvatar}>
+            <div className={styles.cpoCard}>
+              <div className={styles.cpoAvatar}>
                 <div className={styles.avatarImage}>👩‍💼</div>
                 <div className={styles.certificationBadge}>SIA</div>
               </div>
-              <div className={styles.driverInfo}>
-                <div className={styles.driverName}>Sarah Mitchell</div>
-                <div className={styles.driverTitle}>VIP Transport</div>
+              <div className={styles.cpoInfo}>
+                <div className={styles.cpoName}>Sarah Mitchell</div>
+                <div className={styles.cpoTitle}>VIP Transport</div>
                 <div className={styles.responseTime}>6 min away</div>
               </div>
             </div>
 
-            <div className={styles.driverCard}>
-              <div className={styles.driverAvatar}>
+            <div className={styles.cpoCard}>
+              <div className={styles.cpoAvatar}>
                 <div className={styles.avatarImage}>👨‍💼</div>
                 <div className={styles.certificationBadge}>SIA</div>
               </div>
-              <div className={styles.driverInfo}>
-                <div className={styles.driverName}>David Clark</div>
-                <div className={styles.driverTitle}>Close Protection</div>
+              <div className={styles.cpoInfo}>
+                <div className={styles.cpoName}>David Clark</div>
+                <div className={styles.cpoTitle}>Close Protection</div>
                 <div className={styles.responseTime}>8 min away</div>
               </div>
             </div>

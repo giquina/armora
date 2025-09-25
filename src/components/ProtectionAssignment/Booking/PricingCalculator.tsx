@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { useApp } from '../../contexts/AppContext';
-import { formatPrice } from '../../utils/priceFormatter';
-import { estimateJourneyTime, estimateDistance } from '../../utils/protectionPricingCalculator';
+import { useApp } from '../../../contexts/AppContext';
+import { formatPrice } from '../../../utils/priceFormatter';
+import { estimateJourneyTime, estimateDistance } from '../../../utils/protectionPricingCalculator';
 import styles from './PricingCalculator.module.css';
 
 interface PriceBreakdown {

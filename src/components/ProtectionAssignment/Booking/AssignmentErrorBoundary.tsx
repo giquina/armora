@@ -1,36 +1,36 @@
 import React, { Component, ReactNode } from 'react';
-import { ServiceLevel, ProtectionAssignmentData } from '../../types';
-import styles from './BookingErrorBoundary.module.css';
+import { ServiceLevel, ProtectionAssignmentData } from '../../../types';
+import styles from './AssignmentErrorBoundary.module.css';
 
 interface ErrorInfo {
   componentStack: string;
   errorBoundary?: string;
 }
 
-interface BookingErrorBoundaryState {
+interface AssignmentErrorBoundaryState {
   hasError: boolean;
   error: Error | null;
   errorInfo: ErrorInfo | null;
   retryCount: number;
 }
 
-interface BookingErrorBoundaryProps {
+interface AssignmentErrorBoundaryProps {
   children: ReactNode;
-  fallbackComponent?: 'where-when' | 'vehicle-selection' | 'location-picker' | 'booking-confirmation';
+  fallbackComponent?: 'where-when' | 'vehicle-selection' | 'location-picker' | 'assignment-confirmation';
   onError?: (error: Error, errorInfo: ErrorInfo) => void;
   onRetry?: () => void;
   onNavigateBack?: () => void;
   preservedState?: {
     selectedService?: ServiceLevel | null;
     protectionAssignmentData?: ProtectionAssignmentData | null;
-    bookingId?: string;
+    assignmentId?: string;
   };
 }
 
-export class BookingErrorBoundary extends Component<BookingErrorBoundaryProps, BookingErrorBoundaryState> {
+export class AssignmentErrorBoundary extends Component<AssignmentErrorBoundaryProps, AssignmentErrorBoundaryState> {
   private maxRetries = 3;
   
-  constructor(props: BookingErrorBoundaryProps) {
+  constructor(props: AssignmentErrorBoundaryProps) {
     super(props);
     
     this.state = {
@@ -41,7 +41,7 @@ export class BookingErrorBoundary extends Component<BookingErrorBoundaryProps, B
     };
   }
 
-  static getDerivedStateFromError(error: Error): Partial<BookingErrorBoundaryState> {
+  static getDerivedStateFromError(error: Error): Partial<AssignmentErrorBoundaryState> {
     return {
       hasError: true,
       error,
@@ -49,7 +49,7 @@ export class BookingErrorBoundary extends Component<BookingErrorBoundaryProps, B
   }
 
   componentDidCatch(error: Error, errorInfo: ErrorInfo) {
-    console.error('BookingErrorBoundary caught an error:', error, errorInfo);
+    console.error('AssignmentErrorBoundary caught an error:', error, errorInfo);
     
     this.setState({
       error,
@@ -64,7 +64,7 @@ export class BookingErrorBoundary extends Component<BookingErrorBoundaryProps, B
     // Log error to external service in production
     if (process.env.NODE_ENV === 'production') {
       // Replace with your error reporting service (e.g., Sentry, LogRocket)
-      console.error('Booking flow error:', {
+      console.error('Assignment flow error:', {
         error: error.message,
         stack: error.stack,
         componentStack: errorInfo.componentStack,

@@ -11,7 +11,7 @@ import {
   getProtectionOfficers,
   getUserProfile,
   subscribeToAssignmentUpdates,
-  getSafeRideFundStats,
+  getSafeAssignmentFundStats,
   getOfficerReviews,
   findNearbyOfficers,
 } from "../lib/supabase"
@@ -208,7 +208,7 @@ export function useAssignmentTracking(assignmentId: string | null) {
 /**
  * Hook for Safe Assignment Fund statistics
  */
-export function useSafeRideFundStats() {
+export function useSafeAssignmentFundStats() {
   const [stats, setStats] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -218,7 +218,7 @@ export function useSafeRideFundStats() {
       try {
         setLoading(true);
         setError(null);
-        const { data, error: fetchError } = await getSafeRideFundStats();
+        const { data, error: fetchError } = await getSafeAssignmentFundStats();
 
         if (fetchError) throw fetchError;
 

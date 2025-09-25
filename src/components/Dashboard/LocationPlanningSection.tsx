@@ -16,12 +16,12 @@ export function LocationPlanningSection({ onLocationSet, isDisabled = false, onC
   const [isLoadingLocation, setIsLoadingLocation] = useState(false);
   const [isCalculatingJourney, setIsCalculatingJourney] = useState(false);
   const [journeyEstimate, setJourneyEstimate] = useState<LocationSection['journeyEstimate'] | null>(null);
-  const [errors, setErrors] = useState<{ commencementPoint?: string; dropoff?: string; geolocation?: string }>({});
+  const [errors, setErrors] = useState<{ commencementPoint?: string; secureDestination?: string; geolocation?: string }>({});
   const [showProceedButton, setShowProceedButton] = useState(false);
 
   // Refs for auto-focus and scroll functionality
   const commencementPointInputRef = useRef<HTMLInputElement>(null);
-  const dropoffInputRef = useRef<HTMLInputElement>(null);
+  const secureDestinationInputRef = useRef<HTMLInputElement>(null);
 
   // Handle current location request
   const handleUseCurrentLocation = async () => {
@@ -51,7 +51,7 @@ export function LocationPlanningSection({ onLocationSet, isDisabled = false, onC
 
       // Auto-focus to secureDestination field after commencementPoint is set
       setTimeout(() => {
-        dropoffInputRef.current?.focus();
+        secureDestinationInputRef.current?.focus();
       }, 500);
 
     } catch (error) {
@@ -164,7 +164,7 @@ export function LocationPlanningSection({ onLocationSet, isDisabled = false, onC
     // Auto-focus to secureDestination when commencementPoint is filled
     if (value.trim().length > 10 && !secureDestinationAddress.trim()) {
       setTimeout(() => {
-        dropoffInputRef.current?.focus();
+        secureDestinationInputRef.current?.focus();
       }, 100);
     }
   };
@@ -195,7 +195,7 @@ export function LocationPlanningSection({ onLocationSet, isDisabled = false, onC
     if (e.key === 'Enter') {
       e.preventDefault();
       if (field === 'commencementPoint' && commencementAddress.trim()) {
-        dropoffInputRef.current?.focus();
+        secureDestinationInputRef.current?.focus();
       } else if (field === 'secureDestination' && secureDestinationAddress.trim() && commencementAddress.trim()) {
         handleProceedToServices();
       }
@@ -266,18 +266,18 @@ export function LocationPlanningSection({ onLocationSet, isDisabled = false, onC
             Destination
           </label>
           <input
-            ref={dropoffInputRef}
+            ref={secureDestinationInputRef}
             id="secure-destination-location"
             type="text"
             value={secureDestinationAddress}
             onChange={handleDropoffChange}
             onKeyPress={(e) => handleKeyPress(e, 'secureDestination')}
             placeholder="Enter secureDestination address"
-            className={`${styles.input} ${errors.dropoff ? styles.inputError : ''} ${secureDestinationAddress.trim() ? styles.inputCompleted : ''}`}
+            className={`${styles.input} ${errors.secureDestination ? styles.inputError : ''} ${secureDestinationAddress.trim() ? styles.inputCompleted : ''}`}
             disabled={isDisabled}
           />
-          {errors.dropoff && (
-            <div className={styles.errorMessage}>{errors.dropoff}</div>
+          {errors.secureDestination && (
+            <div className={styles.errorMessage}>{errors.secureDestination}</div>
           )}
         </div>
 

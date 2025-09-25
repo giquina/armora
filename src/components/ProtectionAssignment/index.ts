@@ -2,10 +2,10 @@
 export { ProtectionAssignmentConfirmation } from './ProtectionAssignmentConfirmation';
 export { ProtectionAssignmentErrorBoundary } from './ProtectionAssignmentErrorBoundary';
 export { ProtectionAssignmentSuccess } from './ProtectionAssignmentSuccess';
-export { UnifiedProtectionBooking } from './UnifiedProtectionBooking';
+export { UnifiedProtectionAssignment } from './UnifiedProtectionAssignment';
 export { WhereWhenView } from './WhereWhenView';
 
 // Legacy exports for backward compatibility
-export { ProtectionAssignmentConfirmation as BookingConfirmation } from './ProtectionAssignmentConfirmation';
-export { ProtectionAssignmentErrorBoundary as BookingErrorBoundary } from './ProtectionAssignmentErrorBoundary';
-export { ProtectionAssignmentSuccess as BookingSuccess } from './ProtectionAssignmentSuccess';
+export { ProtectionAssignmentConfirmation as AssignmentConfirmation } from './ProtectionAssignmentConfirmation';
+export { ProtectionAssignmentErrorBoundary as AssignmentErrorBoundary } from './ProtectionAssignmentErrorBoundary';
+export { ProtectionAssignmentSuccess as AssignmentSuccess } from './ProtectionAssignmentSuccess';

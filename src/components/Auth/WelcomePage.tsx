@@ -7,9 +7,9 @@ import GoogleIcon from '../UI/GoogleIcon';
 import { ArmoraLogo } from '../UI/ArmoraLogo';
 import { WelcomeTitle, ArmoraTagline } from '../UI/BrandText';
 import { CredentialsModal } from '../UI/CredentialsModal';
-import SafeRideFundCTA from '../SafeRideFund/SafeRideFundCTA';
-import SafeRideFundModal from '../SafeRideFund/SafeRideFundModal';
-// import SafeRideFundBanner from '../SafeRideFund/SafeRideFundBanner';
+import SafeAssignmentFundCTA from '../SafeAssignmentFund/SafeAssignmentFundCTA';
+import SafeAssignmentFundModal from '../SafeAssignmentFund/SafeAssignmentFundModal';
+// import SafeAssignmentFundBanner from '../SafeAssignmentFund/SafeAssignmentFundBanner';
 import { DevNavigationPanel } from '../UI/DevNavigationPanel';
 import styles from './WelcomePage.module.css';
 
@@ -74,7 +74,7 @@ export function WelcomePage() {
       step8_contactPreferences: {
         email: 'test@armora.dev',
         phone: '+44 7700 900000',
-        notifications: ['booking-updates', 'Protection Officer-arrival']
+        notifications: ['booking-updates', 'cpo-arrival']
       },
       step9_profileReview: true,
       completedAt: new Date(),
@@ -91,9 +91,9 @@ export function WelcomePage() {
     <SeasonalTheme className={styles.welcomePage}>
       {/* New unified Safe Assignment Fund Banner at top */}
       {/* Temporarily commented out due to TS errors - to be fixed in next session */}
-      {/* <SafeRideFundBanner variant="compact" className={styles.topBanner} onBannerClick={() => setShowSafeRideModal(true)} /> */}
+      {/* <SafeAssignmentFundBanner variant="compact" className={styles.topBanner} onBannerClick={() => setShowSafeRideModal(true)} /> */}
       {/* Removed legacy impactCounterTop bar */}
-      <div className={`${styles.welcomeContainer}`}>
+      <div className={styles.welcomeContainer}>
         {/* Premium Header Section */}
         <header className={styles.welcomeHeader}>
           <div className={styles.headerSection}>
@@ -265,8 +265,8 @@ export function WelcomePage() {
       </div>
 
       {/* Safe Assignment Fund CTA */}
-      <SafeRideFundCTA onClick={() => {
-        console.log('🛡️ WelcomePage: SafeRideFundCTA onClick handler called!');
+      <SafeAssignmentFundCTA onClick={() => {
+        console.log('🛡️ WelcomePage: SafeAssignmentFundCTA onClick handler called!');
         setShowSafeRideModal(true);
       }} />
 
@@ -278,7 +278,7 @@ export function WelcomePage() {
 
       {/* Safe Assignment Fund Modal */}
       {showSafeRideModal && (
-        <SafeRideFundModal onClose={() => setShowSafeRideModal(false)} />
+        <SafeAssignmentFundModal onClose={() => setShowSafeRideModal(false)} />
       )}
 
       {/* Developer Navigation Panel */}

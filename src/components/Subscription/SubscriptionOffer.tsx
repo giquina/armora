@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { useApp } from '../../contexts/AppContext';
 import { subscriptionPlans, calculateSavings, formatSavings } from '../../data/subscriptionData';
 import { PremiumInterest } from '../../types';
-import { SafeRideFundExplainer } from '../Common/SafeRideFundExplainer';
+import { SafeAssignmentFundExplainer } from '../Common/SafeAssignmentFundExplainer';
 import styles from './SubscriptionOffer.module.css';
 
 interface SubscriptionOfferProps {
@@ -165,7 +165,7 @@ export function SubscriptionOffer({ selectedService, servicePrice = 45 }: Subscr
               </div>
             </div>
 
-            <SafeRideFundExplainer variant="compact" showAnimation={false} />
+            <SafeAssignmentFundExplainer variant="compact" showAnimation={false} />
             
             <div className={styles.safeRideFundSection}>
               <button 
@@ -177,7 +177,7 @@ export function SubscriptionOffer({ selectedService, servicePrice = 45 }: Subscr
               </button>
               
               {showSafeRideFund && (
-                <SafeRideFundExplainer variant="breakdown" showAnimation={false} />
+                <SafeAssignmentFundExplainer variant="breakdown" showAnimation={false} />
               )}
             </div>
 

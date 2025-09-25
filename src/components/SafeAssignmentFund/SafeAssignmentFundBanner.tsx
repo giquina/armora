@@ -1,16 +1,16 @@
-// SafeRideFund Banner with CSS Marquee Animation
-// File: src/components/SafeRideFund/SafeRideFundBanner.tsx
+// SafeAssignmentFund Banner with CSS Marquee Animation
+// File: src/components/SafeAssignmentFund/SafeAssignmentFundBanner.tsx
 
 import React, { useState, useEffect, useRef } from 'react';
-import styles from './SafeRideFundBanner.module.css';
+import styles from './SafeAssignmentFundBanner.module.css';
 
-interface SafeRideFundBannerProps {
+interface SafeAssignmentFundBannerProps {
   variant?: 'full' | 'compact';
   className?: string;
   onBannerClick?: () => void;
 }
 
-const SafeRideFundBanner: React.FC<SafeRideFundBannerProps> = ({ 
+const SafeAssignmentFundBanner: React.FC<SafeAssignmentFundBannerProps> = ({ 
   variant = 'full',
   className = '',
   onBannerClick 
@@ -216,4 +216,4 @@ const SafeRideFundBanner: React.FC<SafeRideFundBannerProps> = ({
   );
 };
 
-export default SafeRideFundBanner;
+export default SafeAssignmentFundBanner;

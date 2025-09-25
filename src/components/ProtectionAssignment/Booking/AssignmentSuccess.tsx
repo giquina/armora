@@ -1,15 +1,15 @@
 import React, { useEffect } from 'react';
-import { useApp } from '../../contexts/AppContext';
-import { BookingHistoryManager } from '../../utils/bookingHistory';
-import { ProtectionAssignmentData } from '../../types';
-import styles from './BookingSuccess.module.css';
+import { useApp } from '../../../contexts/AppContext';
+import { BookingHistoryManager } from '../../../utils/bookingHistory';
+import { ProtectionAssignmentData } from '../../../types';
+import styles from './AssignmentSuccess.module.css';
 import '../../styles/booking-white-theme.css';
 
-interface BookingSuccessProps {
-  bookingId: string;
+interface AssignmentSuccessProps {
+  assignmentId: string;
 }
 
-export function BookingSuccess({ bookingId }: BookingSuccessProps) {
+export function AssignmentSuccess({ assignmentId }: AssignmentSuccessProps) {
   const { navigateToView } = useApp();
 
   useEffect(() => {
@@ -25,8 +25,8 @@ export function BookingSuccess({ bookingId }: BookingSuccessProps) {
           const driverNames = ['John S.', 'Sarah M.', 'David L.', 'Emma R.', 'Michael T.', 'Lisa K.'];
           const randomDriver = driverNames[Math.floor(Math.random() * driverNames.length)];
 
-          BookingHistoryManager.saveBookingToHistory(protectionAssignmentData, bookingId, randomDriver);
-          console.log('✅ Booking saved to history:', bookingId);
+          BookingHistoryManager.saveBookingToHistory(protectionAssignmentData, assignmentId, randomDriver);
+          console.log('✅ Assignment saved to history:', assignmentId);
         }
       }
     } catch (error) {
@@ -39,7 +39,7 @@ export function BookingSuccess({ bookingId }: BookingSuccessProps) {
     }, 10000);
 
     return () => clearTimeout(timer);
-  }, [navigateToView, bookingId]);
+  }, [navigateToView, assignmentId]);
 
   const handleBackToDashboard = () => {
     navigateToView('home');
@@ -59,14 +59,14 @@ export function BookingSuccess({ bookingId }: BookingSuccessProps) {
         </div>
         
         <div className={styles.successContent}>
-          <h1 className={styles.title}>Booking Confirmed!</h1>
+          <h1 className={styles.title}>Assignment Confirmed!</h1>
           <p className={styles.subtitle}>
             Your security transport has been successfully booked
           </p>
           
           <div className={styles.bookingId}>
-            <span className={styles.label}>Booking Reference:</span>
-            <span className={styles.id}>{bookingId}</span>
+            <span className={styles.label}>Assignment Reference:</span>
+            <span className={styles.id}>{assignmentId}</span>
           </div>
         </div>
 
@@ -102,7 +102,7 @@ export function BookingSuccess({ bookingId }: BookingSuccessProps) {
         <div className={styles.importantInfo}>
           <h4>Important Information</h4>
           <ul>
-            <li>Check your email for detailed booking confirmation</li>
+            <li>Check your email for detailed assignment confirmation</li>
             <li>SMS updates will be sent to your registered phone number</li>
             <li>24/7 support: Call 0800-ARMORA (0800-276672)</li>
             <li>Cancellations within 30 minutes incur a £15 fee</li>
@@ -120,7 +120,7 @@ export function BookingSuccess({ bookingId }: BookingSuccessProps) {
             className={styles.secondaryButton}
             onClick={handleViewBookingDetails}
           >
-            View Booking Details
+            View Assignment Details
           </button>
         </div>
 

@@ -246,7 +246,7 @@ export function BookingCard({
         </div>
       </div>
 
-      <div className={styles.driverRatingSection}>
+      <div className={styles.cpoRatingSection}>
         <div className={styles.ratingPrompt}>Rate your Protection Officer:</div>
         <div className={styles.ratingStars}>
           {[1, 2, 3, 4, 5].map((star) => (

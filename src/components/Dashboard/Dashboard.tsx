@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useApp } from '../../contexts/AppContext';
 import { useAuth } from '../../contexts/AuthContext';
-import { useProtectionAssignments, useSafeRideFundStats, useUserProfile, useNotifications } from '../../hooks/useSupabaseData';
+import { useProtectionAssignments, useSafeAssignmentFundStats, useUserProfile, useNotifications } from '../../hooks/useSupabaseData';
 import { Button } from '../UI/Button';
 import { ServiceCard } from './ServiceCard';
 // import { CreatorImpactWidget } from './CreatorImpactWidget';
@@ -46,7 +46,7 @@ export function Dashboard() {
   const { user: legacyUser, questionnaireData, deviceCapabilities } = state;
   const { user, profile } = useAuth();
   const { assignments, loading: assignmentsLoading } = useProtectionAssignments();
-  const { stats: safeRideFundStats } = useSafeRideFundStats();
+  const { stats: safeAssignmentFundStats } = useSafeAssignmentFundStats();
   const { profile: extendedProfile } = useUserProfile();
   const { notifications } = useNotifications();
   const [showRewardBanner, setShowRewardBanner] = useState(false);
@@ -411,7 +411,7 @@ export function Dashboard() {
             aria-label={`Showing card ${currentCarouselIndex + 1} of ${carouselCards}`}
           >
             <div className={styles.carouselTrack}>
-              {/* Card 1: RIDE NOW */}
+              {/* Card 1: PROTECTION NOW */}
               <button
                 className={styles.getStartedCard}
                 onClick={() => {
