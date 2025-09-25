@@ -109,8 +109,7 @@ export function WhereWhenView({ onContinueToPayment, preSelectedServiceId, preSe
   const [toLocation, setToLocation] = useState<string>('');
   const [isEditingFrom, setIsEditingFrom] = useState(false);
   const [estimatedPrice, setEstimatedPrice] = useState<number>(130);
-  const [shouldShowAirports, setShouldShowAirports] = useState(true);
-
+  const [shouldShowAirports, setShouldShowAirports] = useState(preSelectedContext === 'airport');
   const toLocationRef = useRef<HTMLInputElement>(null);
 
   // Auto-focus on to location when component mounts
@@ -119,9 +118,6 @@ export function WhereWhenView({ onContinueToPayment, preSelectedServiceId, preSe
       toLocationRef.current?.focus();
     }, 300);
   }, []);
-
-  // Show airports for airport context
-  const shouldShowAirports = preSelectedContext === 'airport';
 
   // Calculate price estimate
   useEffect(() => {

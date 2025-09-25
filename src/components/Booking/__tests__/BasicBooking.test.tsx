@@ -15,7 +15,7 @@ const mockEssentialService: ServiceLevel = {
   hourlyRate: 45,
   description: 'Professional security officers provide safe, reliable transport.',
   features: ['Certified security professional', 'Advanced vehicle protection'],
-  socialProof: { tripsCompleted: 2847 }
+  socialProof: { assignmentsCompleted: 2847 }
 };
 
 const mockRegisteredUser: User = {

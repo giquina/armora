@@ -213,7 +213,7 @@ export const CPODetailModal: React.FC<CPODetailModalProps> = ({
                     <div className={styles.vehicleInfo}>
                       <h4>{cpo.vehicle.make} {cpo.vehicle.model} ({cpo.vehicle.year})</h4>
                       <p>Type: {cpo.vehicle.type.replace('_', ' ')}</p>
-                      <p>Capacity: {cpo.vehicle.capacity} passengers</p>
+                      <p>Capacity: {cpo.vehicle.capacity} principals</p>
                       <p>Color: {cpo.vehicle.color}</p>
                     </div>
                     {cpo.vehicle.features.length > 0 && (

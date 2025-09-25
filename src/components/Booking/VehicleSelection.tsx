@@ -35,7 +35,7 @@ const convertToServiceLevel = (): ServiceLevel[] => {
     features: service.features.map(f => f.text), // Convert from {icon, text} to string array
     isPopular: service.id === 'shadow', // Shadow is marked as most popular
     socialProof: {
-      tripsCompleted: 3921, // Use static numbers since analytics not available
+      assignmentsCompleted: 3921, // Use static numbers since analytics not available
       selectionRate: service.id === 'shadow' ? 67 : undefined
     }
   }));

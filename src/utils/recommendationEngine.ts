@@ -211,7 +211,7 @@ export function analyzeUserProfile(questionnaireData: PersonalizationData | null
       ],
       certifications: ['Student Safety Certified', 'Campus Access Trained', 'Youth Protection Trained'],
       trustIndicators: ['Serving 500+ students', 'Late-night safety: 100%', 'University partnership approved'],
-      personalizedMessage: 'Your education journey deserves safe, reliable transport you can depend on.',
+      personalizedMessage: 'Your education security needs deserve safe, reliable protection you can depend on.',
       socialProof: '78% of students choose professional transport for safety',
     }
   };
@@ -228,7 +228,7 @@ function getDefaultProfile(): UserProfile {
     description: 'Professional security transport designed for discerning clients who value safety, reliability, and peace of mind.',
     benefits: [
       'SIA Level 2 security-certified professional Protection Officers',
-      'Real-time GPS tracking and journey monitoring',
+      'Real-time GPS tracking and protection monitoring',
       '24/7 response and support systems',
       'Background-checked and vetted security professionals',
       'Eco-friendly Nissan Leaf EV fleet with full safety systems'

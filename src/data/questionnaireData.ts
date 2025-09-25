@@ -8,127 +8,127 @@ export const questionnaireSteps: QuestionnaireStep[] = [
     id: 1,
     title: "Professional Profile",
     subtitle: "Help us understand your security requirements",
-    question: "Which of these best describes you and your transport needs?",
+    question: "Which professional category requires secure transport with protection services?",
     type: "radio",
     options: [
       {
         id: "executive",
         label: "🏢 Are you an executive or business professional?",
         value: "executive",
-        description: "Do you need reliable transport for high-stakes meetings, corporate events, or daily commutes? We understand that in your world, time is money and first impressions matter.",
-        examples: "*Choose this if you hold a senior position and need transport that reflects your professional status."
+        description: "Do you require secure transport with professional protection for high-stakes meetings, corporate events, or daily commutes? We understand that executive transport must combine security with professional presentation.",
+        examples: "*Choose this if you hold a senior position requiring secure transport with protection services matching your professional status."
       },
       {
         id: "entrepreneur", 
         label: "💼 Are you a business owner or entrepreneur?",
         value: "entrepreneur",
-        description: "Are you building your empire, meeting investors, or managing multiple ventures? Your transport needs are as dynamic as your business decisions.",
-        examples: "*Choose this if you own a business or are self-employed with professional transport needs."
+        description: "Are you building your empire, meeting investors, or managing multiple ventures? Your secure transport and protection needs are as dynamic as your business decisions.",
+        examples: "*Choose this if you own a business or are self-employed requiring flexible secure transport with protection arrangements."
       },
       {
         id: "celebrity",
         label: "🎭 Are you in entertainment or media?",
         value: "celebrity",
-        description: "Do you need discrete transport to studios, premieres, or appearances? Whether you're in front of the camera or behind the scenes, privacy and timing are everything.",
-        examples: "*Choose this if you're an actor, musician, TV personality, producer, or media professional."
+        description: "Do you need discrete security services to studios, premieres, or appearances? Whether you're in front of the camera or behind the scenes, privacy and security are everything.",
+        examples: "*Choose this if you're an actor, musician, TV personality, producer, or media professional requiring discrete security services."
       },
       {
         id: "athlete",
         label: "⚽ Are you a sports professional or athlete?", 
         value: "athlete",
-        description: "Do you need transport to training, competitions, or sports events? We understand the importance of arriving relaxed and focused on your performance.",
-        examples: "*Choose this if you're an athlete, coach, or sports professional."
+        description: "Do you need protection for training, competitions, or sports events? We understand the importance of arriving safely and focused on your performance.",
+        examples: "*Choose this if you're an athlete, coach, or sports professional requiring protection for training and events."
       },
       {
         id: "government",
         label: "🏛️ Are you a government or public sector official?",
         value: "government", 
-        description: "Do your responsibilities require secure, punctual transport to sensitive locations? Whether it's council meetings, government buildings, or public events, we understand protocol matters.",
-        examples: "*Choose this if you work in any level of government, civil service, or public administration."
+        description: "Do your responsibilities require secure, protocol-compliant protection to sensitive locations? Whether it's council meetings, government buildings, or public events, we understand security protocols matter.",
+        examples: "*Choose this if you work in any level of government, civil service, or public administration requiring protocol-compliant security services."
       },
       {
         id: "diplomat",
         label: "🌍 Are you part of an international delegation?",
         value: "diplomat",
-        description: "Are you coordinating transport for diplomatic visits, international business groups, or foreign delegations? Protocol and cultural sensitivity are paramount.",
-        examples: "*Choose this if you're organizing or part of international group travel."
+        description: "Are you coordinating protection for diplomatic visits, international business groups, or foreign delegations? Security protocols and cultural sensitivity are paramount.",
+        examples: "*Choose this if you're organizing or part of international group requiring specialized protection services."
       },
       {
         id: "medical",
         label: "🏥 Are you a senior healthcare professional?",
         value: "medical",
-        description: "Do you move between hospitals, clinics, or urgent calls? Perhaps you need reliable transport after exhausting shifts or for important medical conferences?",
-        examples: "*Choose this if you're a doctor, surgeon, senior nurse, or healthcare administrator."
+        description: "Do you move between hospitals, clinics, or urgent calls? Perhaps you need reliable protection after exhausting shifts or for important medical conferences?",
+        examples: "*Choose this if you're a doctor, surgeon, senior nurse, or healthcare administrator requiring protection between facilities."
       },
       {
         id: "legal",
         label: "⚖️ Are you a legal professional?",
         value: "legal",
-        description: "Do you need dependable transport between courts, chambers, and client meetings? We know your reputation depends on punctuality and maintaining client confidentiality.",
-        examples: "*Choose this if you're a barrister, solicitor, judge, or other legal professional requiring discrete transport."
+        description: "Do you need dependable protection between courts, chambers, and client meetings? We know your reputation depends on punctuality and maintaining client confidentiality.",
+        examples: "*Choose this if you're a barrister, solicitor, judge, or other legal professional requiring confidential protection services."
       },
       {
         id: "creative",
         label: "🎨 Are you a creative professional?",
         value: "creative",
-        description: "Are you an artist, designer, or creative consultant moving between studios, galleries, or client presentations? Your creative energy shouldn't be wasted on travel stress.",
-        examples: "*Choose this if you work in creative industries."
+        description: "Are you an artist, designer, or creative consultant moving between studios, galleries, or client presentations? Your creative energy shouldn't be compromised by security concerns.",
+        examples: "*Choose this if you work in creative industries requiring protection for creative venues."
       },
       {
         id: "academic",
         label: "🎓 Are you an academic or educational professional?",
         value: "academic",
-        description: "Do you travel between universities, conferences, or research facilities? Perhaps you're a visiting professor or education administrator who values intellectual conversation during commutes?",
-        examples: "*Choose this if you work in education, research, or academic administration."
+        description: "Do you travel between universities, conferences, or research facilities? Perhaps you're a visiting professor or education administrator who requires secure protection for academic activities?",
+        examples: "*Choose this if you work in education, research, or academic administration requiring campus or conference protection."
       },
       {
         id: "student",
         label: "📚 Are you a student?",
         value: "student",
-        description: "Are you studying at university or college? Need safe protection for late library sessions, social events, or Protection Details home? We understand student life has unique security needs.",
-        examples: "*Choose this if you're currently in full-time education."
+        description: "Are you studying at university or college? Need safe protection for late library sessions, social events, or secure travel home? We understand student life has unique security needs.",
+        examples: "*Choose this if you're currently in full-time education requiring affordable security options."
       },
       {
         id: "international_visitor",
         label: "✈️ Are you visiting the UK?",
         value: "international_visitor",
-        description: "Are you here for tourism, temporary work, or visiting family? Do you need reliable transport to explore safely without worrying about navigation or parking?",
-        examples: "*Choose this if you're a tourist or temporary visitor to the UK."
+        description: "Are you here for tourism, temporary work, or visiting family? Do you need reliable protection to explore safely without worrying about navigation or security?",
+        examples: "*Choose this if you're a tourist or temporary visitor to the UK requiring temporary protection services."
       },
       {
         id: "finance",
         label: "📊 Are you a financial services professional?",
         value: "finance",
-        description: "Do you work in banking, investment, or insurance? Are early morning market hours and late client dinners part of your routine? Your transport should match your professional standards.",
-        examples: "*Choose this if you work in finance, banking, trading, or insurance at any level."
+        description: "Do you work in banking, investment, or insurance? Are early morning market hours and late client dinners part of your routine? Your security should match your professional standards.",
+        examples: "*Choose this if you work in finance, banking, trading, or insurance requiring secure movement."
       },
       {
         id: "security",
         label: "🛡️ Are you in security or law enforcement?",
         value: "security",
         description: "Do you work in private security, police services, or military? You understand protocols and appreciate professional standards in protection services.",
-        examples: "*Choose this if you're in any security, police, or military role requiring civilian transport."
+        examples: "*Choose this if you're in any security, police, or military role requiring discrete civilian protection."
       },
       {
         id: "family",
         label: "👨‍👩‍👧‍👦 Are you looking for secure family transport?",
         value: "family",
-        description: "Do you need safe, reliable transport for your loved ones? Whether it's school runs, family outings, or airport transfers, your family's safety and comfort come first.",
-        examples: "*Choose this if you're primarily booking for family activities and personal use."
+        description: "Do you need safe, reliable protection for your loved ones? Whether it's school runs, family outings, or airport security, your family's safety and protection come first.",
+        examples: "*Choose this if you're primarily booking family protection services and personal security."
       },
       {
         id: "general",
         label: "🚗 Are you looking for general premium transport?",
         value: "general",
-        description: "Do you simply want reliable, comfortable protection without specific professional requirements? Sometimes you just need dependable security.",
-        examples: "*Choose this if you need quality transport but don't fit other specific categories."
+        description: "Do you simply want reliable, comfortable protection without specific professional requirements? Sometimes you just need dependable security services.",
+        examples: "*Choose this if you need standard protection services but don't fit other specific categories."
       },
       {
         id: "high_profile",
         label: "🔒 Are you a high-profile individual requiring maximum discretion?",
         value: "high_profile",
-        description: "Is your privacy paramount? Do you need the highest level of discretion and security for your movements? We understand some clients need invisible excellence.",
-        examples: "*Choose this if you require enhanced security measures and complete confidentiality."
+        description: "Is your privacy paramount? Do you need the highest level of discretion and security for your movements? We understand some clients require maximum security protocols.",
+        examples: "*Choose this if you require enhanced security measures and complete confidentiality with maximum discretion."
       },
       {
         id: "prefer_not_to_say",
@@ -139,7 +139,7 @@ export const questionnaireSteps: QuestionnaireStep[] = [
       }
     ],
     validation: { required: true, errorMessage: "Please select your professional profile" },
-    helpText: "Tell us about yourself so we can match you with the perfect transport experience. There are no wrong answers - just honest ones.",
+    helpText: "Tell us about yourself so we can match you with the perfect secure transport and protection service. There are no wrong answers - just honest ones.",
     isFirstStep: true,
     processOverview: {
       timeRequired: "8-9 minutes",
@@ -151,91 +151,91 @@ export const questionnaireSteps: QuestionnaireStep[] = [
       ],
       securityAssurance: "All responses are encrypted and used exclusively for service matching. Your privacy is our priority."
     },
-    stepDescription: "Tell us what you do so we can match you with the right officers. A CEO might need someone who understands business confidentiality, while a student might prefer a friendly officer who knows the best late-night food spots. It's all about finding your perfect match."
+    stepDescription: "Tell us what you do so we can match you with the right protection officers. A CEO might need someone who understands business confidentiality, while a student might prefer a friendly officer who knows secure late-night routes. It's all about finding your perfect security match."
   },
   {
     id: 2,
-    title: "Travel Frequency",
-    subtitle: "Understanding your transport patterns",
-    question: "How often will you need our services?",
+    title: "Protection Frequency",
+    subtitle: "Understanding your security patterns",
+    question: "How often do you need secure transport with professional protection?",
     type: "radio",
     options: [
       {
         id: "daily",
-        label: "📅 Do you need daily transport?",
+        label: "📅 Do you need daily protection?",
         value: "daily",
-        description: "Is secure transport part of your everyday routine? Whether it's your commute to work or multiple daily appointments, we'll become part of your daily life.",
-        examples: "*Choose this if you need transport 5 or more times per week."
+        description: "Is secure protection part of your everyday routine? Whether it's your commute to work or multiple daily appointments, we'll become part of your daily security.",
+        examples: "*Choose this if you need protection services 5 or more times per week."
       },
       {
         id: "weekly",
-        label: "🗓️ Do you need regular business transport?",
+        label: "🗓️ Do you need regular business protection?",
         value: "weekly",
-        description: "Are you traveling for business several times a week? Client meetings, office visits, or regular business entertainment?",
-        examples: "*Choose this if you need transport 2-4 times per week."
+        description: "Are you traveling for business several times a week? Client meetings, office visits, or regular business entertainment requiring security?",
+        examples: "*Choose this if you need protection services 2-4 times per week."
       },
       {
         id: "monthly",
-        label: "📆 Do you need monthly transport?",
+        label: "📆 Do you need monthly protection?",
         value: "monthly",
-        description: "Are your transport needs periodic? Monthly board meetings, regular check-ups, or social events?",
-        examples: "*Choose this if you need transport 1-3 times per month."
+        description: "Are your protection needs periodic? Monthly board meetings, regular check-ups, or social events?",
+        examples: "*Choose this if you need protection services 1-3 times per month."
       },
       {
         id: "project_based",
-        label: "🎯 Do you have project-based transport needs?",
+        label: "🎯 Do you have project-based protection needs?",
         value: "project_based",
-        description: "Is your need temporary but intensive? Perhaps a film shoot, business project, or temporary assignment?",
-        examples: "*Choose this if you need intensive transport for specific time periods."
+        description: "Is your need temporary but intensive? Perhaps a film shoot, business project, or temporary assignment requiring security?",
+        examples: "*Choose this if you need intensive protection for specific time periods."
       },
       {
         id: "unpredictable",
-        label: "❓ Are your transport needs unpredictable?",
+        label: "❓ Are your protection needs unpredictable?",
         value: "unpredictable",
-        description: "Is your schedule too variable to predict? Last-minute meetings or spontaneous travel requirements?",
-        examples: "*Choose this if you can't predict your transport frequency."
+        description: "Is your schedule too variable to predict? Last-minute meetings or spontaneous security requirements?",
+        examples: "*Choose this if you can't predict your protection service frequency."
       },
       {
         id: "special_events",
-        label: "🎪 Do you only need transport for special events?",
+        label: "🎪 Do you only need protection for special events?",
         value: "special_events",
-        description: "Are you looking for transport just for important occasions? Galas, premieres, or special celebrations?",
-        examples: "*Choose this if you only need occasional event transport."
+        description: "Are you looking for protection just for important occasions? Galas, premieres, or special celebrations?",
+        examples: "*Choose this if you only need occasional event protection."
       },
       {
         id: "seasonal",
         label: "🏦 Are you here for holiday or tourist purposes?",
         value: "seasonal",
-        description: "Are you visiting the UK for leisure? Need reliable transport to explore without the stress of driving?",
-        examples: "*Choose this if you're a tourist or holiday visitor."
+        description: "Are you visiting the UK for leisure? Need reliable protection to explore without the stress of security concerns?",
+        examples: "*Choose this if you're a tourist or holiday visitor requiring temporary protection."
       },
       {
         id: "weekly_appointments",
         label: "📅 Do you have weekly appointments?",
         value: "weekly_appointments",
         description: "Do you have regular weekly commitments? Perhaps standing meetings, medical appointments, or social engagements?",
-        examples: "*Choose this if you need transport 1-2 times per week."
+        examples: "*Choose this if you need protection services 1-2 times per week."
       },
       {
         id: "biweekly",
         label: "🗓️ Do you travel every other week?",
         value: "biweekly",
-        description: "Is your schedule more spread out? Perhaps alternating between offices or bi-weekly business Protection Details?",
-        examples: "*Choose this if you need transport every other week."
+        description: "Is your schedule more spread out? Perhaps alternating between offices or bi-weekly business assignments?",
+        examples: "*Choose this if you need protection services every other week."
       },
       {
         id: "quarterly",
         label: "📆 Do you travel quarterly?",
         value: "quarterly",
-        description: "Are your transport needs tied to quarterly business cycles? Perhaps investor meetings or seasonal events?",
-        examples: "*Choose this if you need transport every few months."
+        description: "Are your protection needs tied to quarterly business cycles? Perhaps investor meetings or seasonal events?",
+        examples: "*Choose this if you need protection services every few months."
       },
       {
         id: "term_time",
-        label: "🎓 Do you need term-time transport only?",
+        label: "🎓 Do you need term-time protection only?",
         value: "term_time",
-        description: "Are your transport needs tied to the academic calendar? University terms or school schedules?",
-        examples: "*Choose this if you're a student needing term-time transport."
+        description: "Are your protection needs tied to the academic calendar? University terms or school schedules?",
+        examples: "*Choose this if you're a student needing term-time protection services."
       },
       {
         id: "prefer_not_to_say",
@@ -246,14 +246,14 @@ export const questionnaireSteps: QuestionnaireStep[] = [
       }
     ],
     validation: { required: true, errorMessage: "Please select your travel frequency requirements" },
-    helpText: "Knowing your rhythm helps us be ready when you need us. Whether daily or occasionally, we adapt to your life.",
-    stepDescription: "How often you travel helps us serve you better. Daily commuters get familiar Protection Officers who learn your favorite routes and coffee order. Occasional riders get our most flexible Protection Officers who are great with new destinations. It's like having a regular barista versus a helpful concierge."
+    helpText: "Knowing your rhythm helps us be ready when you need us. Whether daily or occasionally, we adapt to your security needs.",
+    stepDescription: "How often you need protection helps us serve you better. Daily principals get familiar Protection Officers who learn your secure routes and preferences. Occasional clients get our most flexible Protection Officers who excel with new locations. It's like having a regular security team versus adaptable protection specialists."
   },
   {
     id: 3,
-    title: "Service Requirements",
+    title: "Security Requirements",
     subtitle: "What matters most to you",
-    question: "What would make your journey perfect? Tell us everything that matters to you.",
+    question: "What secure transport experience with protection officers matters most to you?",
     type: "checkbox",
     options: [
       {
@@ -261,91 +261,91 @@ export const questionnaireSteps: QuestionnaireStep[] = [
         label: "🔒 Is absolute privacy and confidentiality essential?",
         value: "privacy_discretion",
         description: "Do your conversations and destinations need to remain completely confidential? No questions asked?",
-        examples: "*Select this if discretion is paramount to your needs."
+        examples: "*Select this if discretion is paramount to your security needs."
       },
       {
         id: "security_awareness",
         label: "🛡️ Do you need security that blends in seamlessly?",
         value: "security_awareness",
         description: "Would you feel safer knowing trained professionals are watching over you without drawing unwanted attention to your movements?",
-        examples: "*Select this if you want protection without the obvious security presence."
+        examples: "*Select this if you want discrete protection without obvious security presence."
       },
       {
         id: "premium_comfort",
-        label: "🚗 Do you expect the best vehicles?",
+        label: "🚗 Do you expect premium protection vehicles?",
         value: "premium_comfort",
-        description: "Is the vehicle itself part of your image? Do you need premium cars that make the right statement?",
-        examples: "*Select this if vehicle quality and presentation matter to you."
+        description: "Is the security vehicle itself part of your image? Do you need premium cars that make the right professional statement?",
+        examples: "*Select this if protection vehicle quality and presentation matter to your security profile."
       },
       {
         id: "professional_service",
         label: "👤 Is your Protection Officer's presentation crucial for your image?",
         value: "professional_service",
         description: "Do your Protection Officers need to match your professional standards when meeting clients or arriving at important events?",
-        examples: "*Select this if your Protection Officer's appearance reflects on your reputation."
+        examples: "*Select this if your Protection Officer's professional appearance reflects on your security requirements."
       },
       {
         id: "reliability_tracking",
         label: "⏰ Is punctuality absolutely critical?",
         value: "reliability_tracking",
-        description: "Can't afford to be late? Is your schedule so precise that every minute counts?",
-        examples: "*Select this if being on time is non-negotiable for you."
+        description: "Can't afford to be late? Is your schedule so precise that every minute counts for your security?",
+        examples: "*Select this if being on time is non-negotiable for your protection schedule."
       },
       {
         id: "flexibility_coverage",
-        label: "📁 Do you need 24/7 availability?",
+        label: "📁 Do you need 24/7 protection availability?",
         value: "flexibility_coverage",
-        description: "Are your hours unpredictable? Early flights, late meetings, or middle-of-the-night emergencies?",
-        examples: "*Select this if you need round-the-clock service availability."
+        description: "Are your hours unpredictable? Early flights, late meetings, or middle-of-the-night security emergencies?",
+        examples: "*Select this if you need round-the-clock protection service availability."
       },
       {
         id: "specialized_needs",
-        label: "👥 Do you need group or family transport?",
+        label: "👥 Do you need group or family protection?",
         value: "specialized_needs",
-        description: "Are you booking for multiple people? Need vehicles that accommodate your entire family or team?",
-        examples: "*Select this if you regularly need multi-Principal transport."
+        description: "Are you booking protection for multiple people? Need security vehicles that accommodate your entire family or team?",
+        examples: "*Select this if you regularly need multi-Principal protection services."
       },
       {
         id: "communication_skills",
         label: "💬 Do you value excellent communication?",
         value: "communication_skills",
         description: "Do you need Protection Officers who can engage professionally when needed but also respect when you need quiet time?",
-        examples: "*Select this if Protection Officer communication skills matter to you."
+        examples: "*Select this if Protection Officer communication skills matter to your security experience."
       },
       {
         id: "route_knowledge",
-        label: "🗺️ Do you need expert route planning?",
+        label: "🗺️ Do you need expert security route planning?",
         value: "route_knowledge",
-        description: "Want to avoid traffic, know shortcuts, or need someone who truly knows the city inside out?",
-        examples: "*Select this if journey efficiency and route knowledge are important."
+        description: "Want to avoid threats, know secure routes, or need someone who truly knows safe city navigation?",
+        examples: "*Select this if security route efficiency and protective navigation are important."
       },
       {
         id: "real_time_tracking",
-        label: "📱 Do you want real-time tracking and updates?",
+        label: "📱 Do you want real-time protection tracking and updates?",
         value: "real_time_tracking",
-        description: "Do you or your team need to track journeys, receive updates, or coordinate schedules digitally?",
-        examples: "*Select this if you want full digital visibility of your transport."
+        description: "Do you or your team need to track protection assignments, receive security updates, or coordinate schedules digitally?",
+        examples: "*Select this if you want full digital visibility of your protection services."
       },
       {
         id: "trained_professionals",
         label: "🛡️ Do you prefer highly trained professional Protection Officers?",
         value: "trained_professionals",
-        description: "Would you feel more confident with Protection Officers who have advanced professional training and situational awareness?",
-        examples: "*Select this if you want Protection Officers with enhanced professional qualifications."
+        description: "Would you feel more confident with Protection Officers who have advanced security training and situational awareness?",
+        examples: "*Select this if you want Protection Officers with enhanced security qualifications and specialized training."
       },
       {
         id: "payment_flexibility",
         label: "💳 Do you need flexible payment options?",
         value: "payment_flexibility",
-        description: "Do you need corporate billing, multiple payment methods, or special invoicing arrangements?",
-        examples: "*Select this if standard payment doesn't suit your needs."
+        description: "Do you need corporate billing, multiple payment methods, or special invoicing arrangements for protection services?",
+        examples: "*Select this if standard payment doesn't suit your protection service needs."
       },
       {
         id: "multi_city_coverage",
         label: "🌍 Do you travel across multiple cities?",
         value: "multi_city_coverage",
-        description: "Do you need consistent service whether you're in London, Manchester, or Edinburgh?",
-        examples: "*Select this if you need nationwide coverage."
+        description: "Do you need consistent protection service whether you're in London, Manchester, or Edinburgh?",
+        examples: "*Select this if you need nationwide protection coverage."
       },
       {
         id: "prefer_not_to_say",
@@ -355,15 +355,15 @@ export const questionnaireSteps: QuestionnaireStep[] = [
         examples: "*Our specialists will provide adaptable service recommendations based on your booking patterns while maintaining complete confidentiality about your specific requirements."
       }
     ],
-    validation: { required: true, minSelections: 1, maxSelections: 5, errorMessage: "Please select 1-5 requirements" },
-    helpText: "Pick what matters most to you (select 1-5 options). Every detail helps us create your perfect transport experience.",
-    stepDescription: "What matters most to you? Some prefer chatty Protection Officers, others want quiet Assignments. Some need help with luggage, others value privacy. Your preferences help us pick Protection Officers who naturally match your style - no awkward Assignments."
+    validation: { required: true, minSelections: 1, maxSelections: 5, errorMessage: "Please select 1-5 security requirements" },
+    helpText: "Pick what matters most to you (select 1-5 options). Every detail helps us create your perfect secure transport experience with professional protection.",
+    stepDescription: "What matters most to your security? Some prefer communicative Protection Officers, others want discrete assignments. Some need assistance with equipment, others prioritize privacy. Your preferences help us pick Protection Officers who naturally match your security style - no compromised protection."
   },
   {
     id: 4,
-    title: "Primary Coverage Areas",
-    subtitle: "Where do you need service most",
-    question: "Where do you need us most? Tell us your regular locations.",
+    title: "Protection Coverage Areas",
+    subtitle: "Where do you need security most",
+    question: "Where do you need secure transport services with protection coverage?",
     type: "checkbox",
     options: [
       {
@@ -375,14 +375,14 @@ export const questionnaireSteps: QuestionnaireStep[] = [
       },
       {
         id: "financial_district",
-        label: "🏭 Do you regularly need transport in Manchester?",
+        label: "🏭 Do you regularly need protection in Manchester?",
         value: "financial_district",
-        description: "Are you part of the Northern Powerhouse? From MediaCity to the business district, we cover all of Greater Manchester.",
-        examples: "*Select this if Manchester is a regular destination."
+        description: "Are you part of the Northern Powerhouse? From MediaCity to the business district, we provide security coverage across Greater Manchester.",
+        examples: "*Select this if Manchester is a regular protection destination."
       },
       {
         id: "government_quarter",
-        label: "🏙️ Do you frequently travel to Birmingham?",
+        label: "🏙️ Do you frequently need protection in Birmingham?",
         value: "government_quarter",
         description: "Is the Midlands your territory? From the Jewellery Quarter to the NEC, we know Birmingham inside out.",
         examples: "*Select this if Birmingham features in your travel plans."
@@ -405,8 +405,8 @@ export const questionnaireSteps: QuestionnaireStep[] = [
         id: "airport_transfers",
         label: "✈️ Do you frequently fly from UK airports?",
         value: "airport_transfers",
-        description: "Are you constantly catching flights? Whether it's Heathrow at 5am or a late arrival at Gatwick, we'll get you there stress-free.",
-        examples: "*Select this if you regularly need airport transfers."
+        description: "Are you constantly catching flights? Whether it's Heathrow at 5am or a late arrival at Gatwick, we'll provide secure airport protection.",
+        examples: "*Select this if you regularly need airport protection services."
       },
       {
         id: "tourist_destinations",
@@ -466,22 +466,22 @@ export const questionnaireSteps: QuestionnaireStep[] = [
       }
     ],
     validation: { required: true, minSelections: 1, maxSelections: 8, errorMessage: "Please select 1-8 coverage areas" },
-    helpText: "Choose your regular haunts. We'll make sure we're always ready where you need us most.",
-    stepDescription: "Where you travel helps us assign Protection Officers who really know those areas. They'll know the quickest routes, best Commencement Point spots, and even which areas to avoid during rush hour. Local knowledge makes every journey smoother."
+    helpText: "Choose your regular security zones. We'll make sure we're always ready where you need protection most.",
+    stepDescription: "Where you need protection helps us assign Protection Officers who really know those security zones. They'll know the secure routes, safe pickup locations, and which areas to avoid during high-risk periods. Local security knowledge makes every assignment safer."
   },
   {
     id: 5,
-    title: "Secondary Coverage",
-    subtitle: "Additional service areas",
-    question: "Do any of these special locations or situations apply to you?",
+    title: "Specialized Venues",
+    subtitle: "Additional protection areas",
+    question: "Do you require protection services at these specialized venues?",
     type: "checkbox",
     options: [
       {
         id: "london_suburbs",
         label: "✈️ Do you frequently fly from UK airports?",
         value: "london_suburbs",
-        description: "Are you constantly catching flights? Whether it's Heathrow at 5am or a late arrival at Gatwick, we'll get you there stress-free.",
-        examples: "*Select this if you regularly need airport transfers."
+        description: "Are you constantly catching flights? Whether it's Heathrow at 5am or a late arrival at Gatwick, we'll provide secure airport protection.",
+        examples: "*Select this if you regularly need airport protection services."
       },
       {
         id: "business_parks",
@@ -541,8 +541,8 @@ export const questionnaireSteps: QuestionnaireStep[] = [
       }
     ],
     validation: { required: false },
-    helpText: "These are optional extras. Pick any that matter to your travel needs.",
-    stepDescription: "Airports, hotels, event venues - these places have their own rules and tricks. Protection Officers familiar with these spots know exactly where to pick you up, which entrances to use, and how to skip the chaos. No more confusion at Terminal 3."
+    helpText: "These are optional extras. Pick any that matter to your security needs.",
+    stepDescription: "Airports, hotels, event venues - these places have their own security protocols. Protection Officers familiar with these venues know exactly where to provide secure pickup, which entrances to use, and how to navigate security procedures. No more confusion at high-security locations."
   },
   {
     id: 6,
@@ -614,9 +614,9 @@ export const questionnaireSteps: QuestionnaireStep[] = [
   },
   {
     id: 7,
-    title: "Special Requirements",
-    subtitle: "Any additional needs",
-    question: "Is there anything special we should know to serve you perfectly?",
+    title: "Protection Accommodations",
+    subtitle: "Any additional security needs",
+    question: "Are there any specific requirements for your protection service?",
     type: "checkbox",
     options: [
       {
@@ -652,7 +652,7 @@ export const questionnaireSteps: QuestionnaireStep[] = [
         label: "👥 Group & Family Transport",
         value: "group_family_transport",
         description: "Multiple Principals and family needs",
-        examples: "*Child Safety Seats Required (specify ages/weights), Family Group Transport (specify ages), Business Team Coordination, Multiple Vehicle Coordination, Security Detail Coordination, Group Communication Requirements"
+        examples: "*Child Safety Seats Required (specify ages/weights), Family Group Protection (specify ages), Business Team Coordination, Multiple Vehicle Coordination, Security Detail Coordination, Group Communication Requirements"
       },
       {
         id: "luggage_equipment",
@@ -665,8 +665,8 @@ export const questionnaireSteps: QuestionnaireStep[] = [
         id: "pet_transport",
         label: "🐕 Pet Transport",
         value: "pet_transport",
-        description: "Traveling with animals",
-        examples: "*Small Pet Carrier (cats, small dogs), Large Dog Transport, Multiple Pet Transport, Pet Safety Equipment Required, Veterinary Documentation Assistance, Pet Comfort Amenities"
+        description: "Protection accommodation for animals",
+        examples: "*Small Pet Accommodation (cats, small dogs), Large Dog Protection Transport, Multiple Pet Security Accommodation, Pet Safety Equipment Required, Veterinary Documentation Assistance, Pet Comfort During Protection"
       },
       {
         id: "security_preferences",
@@ -712,8 +712,8 @@ export const questionnaireSteps: QuestionnaireStep[] = [
       }
     ],
     validation: { required: false, minSelections: 0, maxSelections: 12, errorMessage: "Please select your special requirements" },
-    helpText: "Tell us about anything that would make your journey more comfortable. We're here to help.",
-    stepDescription: "Everyone's different. Maybe you travel with a wheelchair, maybe you have a service dog, or maybe you just need extra time getting in and out. Whatever you need, we'll make sure your Protection Officer is prepared and comfortable helping."
+    helpText: "Tell us about anything that would make your protection service more effective. We're here to help.",
+    stepDescription: "Everyone's security needs are different. Maybe you need wheelchair accessibility, maybe you have a service dog, or maybe you just need extra time for secure transfers. Whatever you need, we'll make sure your Protection Officer is prepared and comfortable providing appropriate security assistance."
   },
   {
     id: 8,
@@ -813,9 +813,9 @@ export const questionnaireSteps: QuestionnaireStep[] = [
   },
   {
     id: 9,
-    title: "Profile Review",
+    title: "Protection Profile Review",
     subtitle: "Complete your security assessment",
-    question: "Does everything look correct? You're almost ready for premium transport.",
+    question: "Please confirm your protection profile to unlock your security benefits.",
     type: "radio",
     options: [
       {
@@ -841,8 +841,8 @@ export const questionnaireSteps: QuestionnaireStep[] = [
       }
     ],
     validation: { required: true, errorMessage: "Please confirm your profile to complete assessment" },
-    helpText: "Almost there! Take a quick look to make sure everything's right before we get started.",
-    stepDescription: "Take a quick look to make sure we've got everything right. This helps your Protection Officers prepare properly and ensures you get exactly the service you're expecting. Think of it as your personal travel preferences saved for every Assignment.",
+    helpText: "Almost there! Take a quick look to make sure everything's right before we configure your protection services.",
+    stepDescription: "Take a quick look to make sure we've got everything right. This helps your Protection Officers prepare properly and ensures you get exactly the security service you're expecting. Think of it as your personal protection preferences saved for every assignment.",
     isLastStep: true,
     profileSummary: {
       showSummary: true,
@@ -967,7 +967,7 @@ export const getServiceRecommendation = (responses: Record<string, any>): string
 export const serviceData = {
   "armora-standard": {
     id: "armora-standard",
-    name: "Armora Secure",
+    name: "Essential Protection",
     description: "Professional security transport service",
     features: [
       "SIA Level 2 security-certified Protection Officers",
@@ -978,13 +978,13 @@ export const serviceData = {
       "Background-checked professionals",
       "Emergency response protocols"
     ],
-    price: "£45/hour",
+    price: "£50/hour + £2.50/mile protection fees",
     confidence: 85,
-    estimatedMonthly: "£360-720"
+    estimatedMonthly: "£400-800/month"
   },
   "armora-executive": {
-    id: "armora-executive", 
-    name: "Armora Executive",
+    id: "armora-executive",
+    name: "Executive Protection",
     description: "Premium security transport with enhanced amenities",
     features: [
       "Executive chauffeur service",
@@ -996,13 +996,13 @@ export const serviceData = {
       "First aid trained Protection Officers",
       "SIA Close Protection Officers"
     ],
-    price: "£75/hour",
+    price: "£75/hour + £2.50/mile security costs",
     confidence: 92,
-    estimatedMonthly: "£600-1200"
+    estimatedMonthly: "£600-1200/month"
   },
   "armora-shadow": {
     id: "armora-shadow",
-    name: "Armora Shadow", 
+    name: "Shadow Protocol",
     description: "Discrete security escort with trained protection officers",
     features: [
       "SIA Close Protection (CP) officers",
@@ -1013,9 +1013,9 @@ export const serviceData = {
       "Safety coordination protocols",
       "First aid trained Protection Officers"
     ],
-    price: "£65/hour",
+    price: "£65/hour + £2.50/mile discrete coverage",
     confidence: 89,
-    estimatedMonthly: "£520-1040",
+    estimatedMonthly: "£520-1040/month",
     popular: true
   }
 };

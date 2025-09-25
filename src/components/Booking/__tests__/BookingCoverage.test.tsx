@@ -18,7 +18,7 @@ const mockServices: ServiceLevel[] = [
     hourlyRate: 45,
     description: 'Professional security officers provide safe, reliable transport.',
     features: ['Certified security professional', 'Advanced vehicle protection'],
-    socialProof: { tripsCompleted: 2847 }
+    socialProof: { assignmentsCompleted: 2847 }
   },
   {
     id: 'executive',
@@ -29,7 +29,7 @@ const mockServices: ServiceLevel[] = [
     description: 'Executive-level security with premium transport.',
     features: ['Elite security detail', 'Premium reinforced vehicle'],
     isPopular: true,
-    socialProof: { tripsCompleted: 1847, selectionRate: 67 }
+    socialProof: { assignmentsCompleted: 1847, selectionRate: 67 }
   },
   {
     id: 'shadow',
@@ -39,7 +39,7 @@ const mockServices: ServiceLevel[] = [
     hourlyRate: 65,
     description: 'Discreet, low-profile security transport.',
     features: ['Discreet security officers', 'Unmarked vehicles'],
-    socialProof: { tripsCompleted: 1547 }
+    socialProof: { assignmentsCompleted: 1547 }
   }
 ];
 

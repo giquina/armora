@@ -23,9 +23,9 @@ export interface Booking {
     phone: string;
   };
   pricing: {
-    baseFare: number;
-    timeFare: number;
-    distanceFare: number;
+    baseServiceFee: number;
+    timeServiceFee: number;
+    distanceServiceFee: number;
     total: number;
     currency: string;
   };
@@ -83,9 +83,9 @@ export const mockBookings: Booking[] = [
       phone: '+44 7700 900123'
     },
     pricing: {
-      baseFare: 35,
-      timeFare: 45,
-      distanceFare: 25,
+      baseServiceFee: 35,
+      timeServiceFee: 45,
+      distanceServiceFee: 25,
       total: 105,
       currency: 'GBP'
     },
@@ -122,9 +122,9 @@ export const mockBookings: Booking[] = [
       phone: '+44 7700 900456'
     },
     pricing: {
-      baseFare: 25,
-      timeFare: 30,
-      distanceFare: 15,
+      baseServiceFee: 25,
+      timeServiceFee: 30,
+      distanceServiceFee: 15,
       total: 70,
       currency: 'GBP'
     },
@@ -163,9 +163,9 @@ export const mockBookings: Booking[] = [
       phone: '+44 7700 900789'
     },
     pricing: {
-      baseFare: 30,
-      timeFare: 35,
-      distanceFare: 18,
+      baseServiceFee: 30,
+      timeServiceFee: 35,
+      distanceServiceFee: 18,
       total: 83,
       currency: 'GBP'
     },

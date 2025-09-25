@@ -37,12 +37,12 @@ export interface ServiceLevel {
   dailyRate?: number; // For venue security services
   vehicle?: string;
   capacity?: string;
-  driverQualification?: string;
+  officerQualification?: string;
   description: string;
   features: string[];
   isPopular?: boolean;
   socialProof?: {
-    tripsCompleted: number;
+    assignmentsCompleted: number;
     selectionRate?: number;
   };
   // Venue security specific properties

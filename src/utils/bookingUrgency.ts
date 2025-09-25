@@ -3,7 +3,7 @@
 
 interface AvailabilityInfo {
   status: 'available' | 'limited' | 'high-demand' | 'very-busy';
-  driversNearby: number;
+  officersNearby: number;
   estimatedWaitTime: string;
   nextAvailable: string;
   urgencyMessage?: string;
@@ -55,9 +55,9 @@ class BookingUrgencyService {
     const isPeakTime = this.isPeakTime(hour, dayOfWeek);
 
     const services = [
-      { id: 'standard', baseDrivers: 25, surgeMultiplier: 1.2 },
-      { id: 'executive', baseDrivers: 12, surgeMultiplier: 1.4 },
-      { id: 'shadow', baseDrivers: 8, surgeMultiplier: 1.6 }
+      { id: 'standard', baseOfficers: 25, surgeMultiplier: 1.2 },
+      { id: 'executive', baseOfficers: 12, surgeMultiplier: 1.4 },
+      { id: 'shadow', baseOfficers: 8, surgeMultiplier: 1.6 }
     ];
 
     return services.map(service => ({
@@ -83,34 +83,34 @@ class BookingUrgencyService {
 
   // Calculate availability metrics for a service
   private static calculateAvailability(
-    service: { id: string; baseDrivers: number; surgeMultiplier: number },
+    service: { id: string; baseOfficers: number; surgeMultiplier: number },
     isPeakTime: boolean,
     isWeekend: boolean,
     isBusinessHours: boolean
   ): AvailabilityInfo {
     // Base Protection Officer availability with random variation
-    let driversNearby = service.baseDrivers;
+    let officersNearby = service.baseOfficers;
 
     // Apply time-based modifiers
     if (isPeakTime) {
-      driversNearby = Math.floor(driversNearby * 0.6); // 40% reduction during peak
+      officersNearby = Math.floor(officersNearby * 0.6); // 40% reduction during peak
     } else if (!isBusinessHours && !isWeekend) {
-      driversNearby = Math.floor(driversNearby * 0.8); // 20% reduction off-hours
+      officersNearby = Math.floor(officersNearby * 0.8); // 20% reduction off-hours
     } else if (isWeekend) {
-      driversNearby = Math.floor(driversNearby * 0.9); // 10% reduction weekends
+      officersNearby = Math.floor(officersNearby * 0.9); // 10% reduction weekends
     }
 
     // Add random variation (±20%)
     const variation = 0.2;
-    driversNearby = Math.floor(driversNearby * (1 + (Math.random() - 0.5) * variation));
-    driversNearby = Math.max(driversNearby, 1); // Minimum 1 Protection Officer
+    officersNearby = Math.floor(officersNearby * (1 + (Math.random() - 0.5) * variation));
+    officersNearby = Math.max(officersNearby, 1); // Minimum 1 Protection Officer
 
-    return this.determineAvailabilityStatus(driversNearby, service.id, isPeakTime);
+    return this.determineAvailabilityStatus(officersNearby, service.id, isPeakTime);
   }
 
   // Determine status and messages based on Protection Officer count
   private static determineAvailabilityStatus(
-    driversNearby: number,
+    officersNearby: number,
     serviceId: string,
     isPeakTime: boolean
   ): AvailabilityInfo {
@@ -121,32 +121,32 @@ class BookingUrgencyService {
     let urgencyMessage: string | undefined;
     let socialProofMessage: string | undefined;
 
-    if (driversNearby >= 15) {
+    if (officersNearby >= 15) {
       status = 'available';
       estimatedWaitTime = '3-5 minutes';
       nextAvailable = 'Now';
       demandLevel = 'low';
-      socialProofMessage = `${driversNearby} Protection Officers nearby`;
-    } else if (driversNearby >= 8) {
+      socialProofMessage = `${officersNearby} Protection Officers nearby`;
+    } else if (officersNearby >= 8) {
       status = 'available';
       estimatedWaitTime = '5-8 minutes';
       nextAvailable = 'Now';
       demandLevel = 'medium';
-      socialProofMessage = `${driversNearby} Protection Officers available`;
-    } else if (driversNearby >= 4) {
+      socialProofMessage = `${officersNearby} Protection Officers available`;
+    } else if (officersNearby >= 4) {
       status = 'limited';
       estimatedWaitTime = '8-12 minutes';
       nextAvailable = 'Now';
       demandLevel = 'medium';
       urgencyMessage = 'Limited availability';
-      socialProofMessage = `${driversNearby} Protection Officers remaining`;
-    } else if (driversNearby >= 2) {
+      socialProofMessage = `${officersNearby} Protection Officers remaining`;
+    } else if (officersNearby >= 2) {
       status = 'high-demand';
       estimatedWaitTime = '12-20 minutes';
       nextAvailable = 'Now';
       demandLevel = 'high';
       urgencyMessage = 'High demand area';
-      socialProofMessage = `Only ${driversNearby} Protection Officers available`;
+      socialProofMessage = `Only ${officersNearby} Protection Officers available`;
     } else {
       status = 'very-busy';
       estimatedWaitTime = '20-35 minutes';
@@ -163,7 +163,7 @@ class BookingUrgencyService {
 
     return {
       status,
-      driversNearby,
+      officersNearby,
       estimatedWaitTime,
       nextAvailable,
       urgencyMessage,
@@ -293,7 +293,7 @@ class BookingUrgencyService {
   } {
     const availability = this.getServicesAvailability();
 
-    const totalActiveDrivers = availability.reduce((sum, s) => sum + s.availability.driversNearby, 0);
+    const totalActiveDrivers = availability.reduce((sum, s) => sum + s.availability.officersNearby, 0);
     const peakDemandServices = availability
       .filter(s => s.availability.status === 'high-demand' || s.availability.status === 'very-busy')
       .map(s => s.serviceId);

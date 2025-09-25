@@ -6,10 +6,10 @@ import { ProtectionServiceRequest, calculateProtectionPricing } from '../../util
 import { formatPrice } from '../../utils/priceFormatter';
 import { LoadingSpinner } from '../UI/LoadingSpinner';
 import { NationwidePricingBreakdown } from '../../utils/nationwidePricing';
-import styles from './BookingConfirmation.module.css';
+import styles from './AssignmentConfirmation.module.css';
 import '../../styles/booking-white-theme.css';
 
-interface BookingConfirmationProps {
+interface AssignmentConfirmationProps {
   protectionAssignmentData: ProtectionAssignmentData & { pricingBreakdown?: NationwidePricingBreakdown };
   protectionLevel: ProtectionLevel;
   venueTimeData?: VenueTimeData;
@@ -18,14 +18,14 @@ interface BookingConfirmationProps {
   onBack: () => void;
 }
 
-export function BookingConfirmation({
+export function AssignmentConfirmation({
   protectionAssignmentData,
   protectionLevel,
   venueTimeData,
   secureDestination,
   onConfirmBooking,
   onBack
-}: BookingConfirmationProps) {
+}: AssignmentConfirmationProps) {
   const [isBooking, setIsBooking] = useState(false);
   const [additionalRequirements, setAdditionalRequirements] = useState('');
   const [agreedToTerms, setAgreedToTerms] = useState(false);

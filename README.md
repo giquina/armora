@@ -1,14 +1,32 @@
-# 🛡️ Armora Security Transport
+# 🛡️ Armora - Professional Secure Transport with Close Protection
 
-Premium VIP security transport mobile app built with React TypeScript + PWA for app store distribution.
+**SIA-licensed Close Protection Officers providing secure transport as an integrated element of their protective duties.**
+
+Professional secure transport platform built with React TypeScript + PWA, connecting clients with SIA-licensed protection officers across England & Wales.
+
+## 🛡️ Service Overview
+
+Armora provides **secure transport with close protection** - NOT taxi or ride-hailing services. Our SIA-licensed Close Protection Officers (CPOs) deliver integrated protective security and professional secure transport.
+
+### What We Provide:
+- ✅ **Close Protection with Secure Transport** - Licensed protective security during movement
+- ✅ **Executive Protection Services** - Professional security for high-value clients
+- ✅ **SIA-Licensed Officers** - All personnel hold valid SIA Close Protection licenses
+- ✅ **Secure Route Planning** - Risk-assessed transportation with security protocols
+
+### What We Are NOT:
+- ❌ Private Hire Vehicle (PHV) service
+- ❌ Taxi or ride-hailing platform
+- ❌ Standard chauffeur service
+- ❌ Transportation company
 
 ## 🚀 Quick Start
 
 ```bash
 npm install
-npm start          # Start development server
-npm run dev        # Start with hooks system
-npm run build      # Production build
+npm start          # Start development server (localhost:3001)
+npm run dev        # Start with hooks system + agent orchestration
+npm run build      # Production build with type checking
 npm test           # Run tests
 ```
 
@@ -21,10 +39,11 @@ npm test           # Run tests
 
 ## 🏗️ Architecture
 
-- **SPA Pattern**: Single-page app with view-based routing
-- **User Flow**: Splash → Welcome → Auth → Questionnaire → Dashboard → Booking
-- **Service Levels**: Standard (£45/hr) | Executive (£75/hr) | Shadow (£65/hr)
-- **State Management**: React Context with useReducer (no Redux)
+- **SPA Pattern**: Single-page app with view-based routing (NO React Router)
+- **User Flow**: Splash → Welcome → Auth → Questionnaire → Achievement → Dashboard → Protection Hub
+- **Protection Tiers**: Essential (£65/hr) | Executive (£95/hr) | Shadow Protocol (£125/hr)
+- **State Management**: React Context with useReducer + Supabase backend
+- **Database**: Supabase with protection-compliant schema
 
 ## 🔧 Development Commands
 
@@ -62,11 +81,13 @@ npm test           # Run tests
 ✅ **Complete**:
 - Authentication system (registered/Google/guest)
 - 9-step questionnaire with privacy options
-- Dashboard with service selection
-- Complete booking flow
+- Dashboard with protection tier selection
+- Complete protection assignment flow
 - Achievement celebrations
 - 4D premium logo system
-- Safe Ride Fund integration (3,741+ rides)
+- Safe Assignment Fund integration (3,741+ protected assignments)
+- Professional Hub with assignment tracking
+- Supabase backend with SIA-compliant schema
 
 ⏳ **In Progress**:
 - PWA service worker implementation
@@ -83,11 +104,14 @@ npm test           # Run tests
 ## 🛠️ Technology Stack
 
 - **Frontend**: React 19.1.1 + TypeScript 4.9.5
+- **Backend**: Supabase (PostgreSQL + Auth + Real-time)
 - **Styling**: CSS Modules (no CSS-in-JS)
-- **State**: React Context + useReducer
+- **State**: React Context + useReducer + Supabase
 - **Build**: Create React App 5.0.1
-- **Testing**: Jest + React Testing Library
+- **Testing**: Jest + React Testing Library + Playwright E2E
 - **PWA**: Service Workers + Manifest
+- **Payment**: Stripe integration
+- **Maps**: Leaflet for location services
 
 ## 📱 Device Support
 

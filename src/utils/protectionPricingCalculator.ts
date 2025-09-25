@@ -26,7 +26,7 @@ export interface ProtectionServiceRequest {
   userType: 'registered' | 'google' | 'guest';
   hasUnlockedReward?: boolean;
   estimatedDistance?: number; // in miles
-  journeyTimeMinutes?: number; // one-way journey time
+  assignmentTimeMinutes?: number; // one-way journey time
   origin?: string; // for nationwide calculation
   useNationwidePricing?: boolean; // enable new pricing system
 }
@@ -61,7 +61,7 @@ export function calculateProtectionPricing(request: ProtectionServiceRequest): P
     userType,
     hasUnlockedReward,
     estimatedDistance = 12, // Default 12 miles total
-    journeyTimeMinutes = 25   // Default 25 minutes one-way
+    assignmentTimeMinutes = 25   // Default 25 minutes one-way
   } = request;
 
   // Calculate total protection time
@@ -69,14 +69,14 @@ export function calculateProtectionPricing(request: ProtectionServiceRequest): P
 
   if (protectionLevel.type === 'transport') {
     // Transport: Journey time both ways + wait time (minimum 2 hours)
-    const journeyHours = (journeyTimeMinutes * 2) / 60; // Both ways
-    const waitHours = Math.max(RATES.MINIMUM_HOURS - journeyHours, 0.5); // Minimum wait time
-    totalHours = Math.max(journeyHours + waitHours, RATES.MINIMUM_HOURS);
+    const assignmentHours = (assignmentTimeMinutes * 2) / 60; // Both ways
+    const waitHours = Math.max(RATES.MINIMUM_HOURS - assignmentHours, 0.5); // Minimum wait time
+    totalHours = Math.max(assignmentHours + waitHours, RATES.MINIMUM_HOURS);
   } else {
     // Personal Protection: Journey time both ways + venue time
-    const journeyHours = (journeyTimeMinutes * 2) / 60;
+    const assignmentHours = (assignmentTimeMinutes * 2) / 60;
     const venueHours = venueTimeData?.venueHours || 2;
-    totalHours = Math.max(journeyHours + venueHours, RATES.MINIMUM_HOURS);
+    totalHours = Math.max(assignmentHours + venueHours, RATES.MINIMUM_HOURS);
   }
 
   // Calculate base costs
@@ -267,7 +267,7 @@ function createFormattedBreakdown(
   ];
 
   // Add journey info
-  const journeyTime = request.journeyTimeMinutes || 25;
+  const journeyTime = request.assignmentTimeMinutes || 25;
   breakdown.push(`Journey: Current location to ${request.secureDestination} (${journeyTime} mins)`);
   breakdown.push(`Service Type: ${request.protectionLevel.name}`);
 
@@ -278,12 +278,12 @@ function createFormattedBreakdown(
   breakdown.push(`Return journey: ${journeyTime} mins`);
 
   // Calculate total protection time for display
-  const journeyHours = (journeyTime * 2) / 60;
+  const assignmentHours = (journeyTime * 2) / 60;
   const venueHours = request.venueTimeData?.venueHours || 0;
   const waitHours = request.protectionLevel.type === 'transport'
-    ? Math.max(RATES.MINIMUM_HOURS - journeyHours, 0.5)
+    ? Math.max(RATES.MINIMUM_HOURS - assignmentHours, 0.5)
     : 0;
-  const totalTime = Math.max(journeyHours + venueHours + waitHours, RATES.MINIMUM_HOURS);
+  const totalTime = Math.max(assignmentHours + venueHours + waitHours, RATES.MINIMUM_HOURS);
 
   breakdown.push(`Total protection time: ${totalTime} hours`);
   breakdown.push('');

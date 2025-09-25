@@ -273,7 +273,7 @@ export class BookingHistoryManager {
       if (timeCommon && !suggestions.find(s => s.data?.to === timeCommon.to)) {
         suggestions.push({
           id: 'suggestion-time',
-          title: `${timeCategory.charAt(0).toUpperCase() + timeCategory.slice(1)} pickup?`,
+          title: `${timeCategory.charAt(0).toUpperCase() + timeCategory.slice(1)} protection commencement?`,
           subtitle: `Your usual ${timeCategory} destination`,
           icon: timeCategory === 'morning' ? '🌅' : timeCategory === 'afternoon' ? '☀️' : '🌙',
           type: 'suggestion',
@@ -309,7 +309,7 @@ export class BookingHistoryManager {
       },
       {
         id: 'default-evening',
-        title: 'Evening pickup',
+        title: 'Evening protection commencement',
         subtitle: 'Safe evening transport',
         icon: '🌙',
         type: 'default',

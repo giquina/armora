@@ -39,7 +39,7 @@ interface UserPreferences {
   bookingHistory: Array<{
     timestamp: string;
     serviceTier: string;
-    pickupTime: string;
+    commencementTime: string;
     route: {
       commencementPoint: Location;
       secureDestination: Location;
@@ -127,7 +127,7 @@ class UserPreferencesService {
     preferences.bookingHistory.unshift({
       timestamp: new Date().toISOString(),
       serviceTier: bookingData.serviceTier,
-      pickupTime: bookingData.scheduledTime,
+      commencementTime: bookingData.scheduledTime,
       route: {
         commencementPoint: bookingData.commencementLocation,
         secureDestination: bookingData.destinationLocation
@@ -263,7 +263,7 @@ class UserPreferencesService {
     preferences.isBusinessUser = businessPercentage > 0.6;
     preferences.userType = preferences.isBusinessUser ? 'business' : 'individual';
 
-    // Calculate average journey cost (indicator of user tier)
+    // Calculate average protection service fee (indicator of user tier)
     const avgCost = recentBookings.reduce((sum, b) => sum + b.cost, 0) / recentBookings.length;
     if (avgCost > 100) {
       preferences.userType = 'vip';
@@ -327,7 +327,7 @@ class UserPreferencesService {
     // Add recent locations
     suggestions.push(...recent.slice(0, 3));
 
-    // Add home/work for pickup
+    // Add home/work for protection commencement
     if (type === 'commencementPoint') {
       if (preferences.homeLocation) suggestions.push(preferences.homeLocation);
       if (preferences.workLocation) suggestions.push(preferences.workLocation);
