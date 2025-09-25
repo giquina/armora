@@ -1,7 +1,7 @@
 export const SEO_CONFIG = {
-  defaultTitle: 'Armora - SIA Licensed Close Protection Officers | Executive Security London',
+  defaultTitle: 'Armora - SIA Licensed Close Protection Officers | Executive Security UK',
   titleTemplate: '%s | Armora Security',
-  defaultDescription: 'SIA licensed close protection officers providing executive security services across London. Professional CPOs from £50/hour.',
+  defaultDescription: 'SIA licensed close protection officers providing executive security services across the UK. Professional CPOs from £50/hour. Nationwide coverage England, Wales, Scotland & Northern Ireland.',
   siteUrl: 'https://armorasecurity.com',
   siteName: 'Armora Security',
   twitterHandle: '@ArmoraSecurity',
@@ -9,8 +9,8 @@ export const SEO_CONFIG = {
   // Page-specific titles and descriptions
   pages: {
     home: {
-      title: 'SIA Licensed Close Protection Officers | Executive Security London',
-      description: 'Professional close protection services across England & Wales. SIA licensed CPOs from £50/hour. Book your protection detail today.'
+      title: 'SIA Licensed Close Protection Officers | Executive Security UK',
+      description: 'Professional close protection services across the UK. SIA licensed CPOs from £50/hour. Nationwide coverage England, Wales, Scotland & Northern Ireland.'
     },
     services: {
       title: 'Protection Services | Essential, Executive & Shadow Protection',
@@ -18,7 +18,7 @@ export const SEO_CONFIG = {
     },
     booking: {
       title: 'Book Protection Officers | 24/7 Security Detail Services',
-      description: 'Request protection services with 2-hour minimum bookings. Immediate availability for security assignments across London.'
+      description: 'Request protection services with 2-hour minimum bookings. Immediate availability for security assignments across the UK.'
     },
     dashboard: {
       title: 'My Protection Assignments | Armora Security Dashboard',
@@ -52,9 +52,9 @@ export const SEO_CONFIG = {
 
   // SEO keywords by category
   keywords: {
-    primary: ['close protection London', 'SIA licensed CPO', 'executive protection', 'security detail', 'protection officers'],
+    primary: ['close protection UK', 'SIA licensed CPO', 'executive protection nationwide', 'security detail', 'protection officers'],
     secondary: ['professional bodyguards UK', 'Armora security', 'personal protection services', 'corporate security', 'VIP protection'],
-    location: ['London close protection', 'England security services', 'Wales protection officers', 'UK bodyguards'],
+    location: ['UK close protection', 'England security services', 'Wales protection officers', 'Scotland bodyguards', 'Northern Ireland CPO', 'nationwide security'],
     service: ['protection detail', 'security assignment', 'executive shield', 'shadow protocol', 'essential protection']
   },
 
@@ -75,9 +75,11 @@ export const SEO_CONFIG = {
       priceRange: '£50-£125 per hour',
       serviceType: ['Close Protection', 'Executive Protection', 'Security Services'],
       areaServed: [
-        { '@type': 'City', name: 'London' },
+        { '@type': 'Country', name: 'United Kingdom' },
         { '@type': 'Country', name: 'England' },
-        { '@type': 'Country', name: 'Wales' }
+        { '@type': 'Country', name: 'Wales' },
+        { '@type': 'Country', name: 'Scotland' },
+        { '@type': 'Country', name: 'Northern Ireland' }
       ]
     }
   }
