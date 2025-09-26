@@ -225,6 +225,11 @@ export interface DeviceCapabilities {
   supportsInstallPrompt: boolean;
 }
 
+export interface AssignmentContext {
+  preselectedService?: 'essential' | 'executive' | 'shadow' | 'client-vehicle';
+  source?: 'home' | 'services' | 'toolbar' | 'hamburger';
+}
+
 export interface AppState {
   currentView: ViewState;
   user: User | null;
@@ -237,6 +242,8 @@ export interface AppState {
   communityImpactData: CommunityImpactData | null;
   venueProtectionData?: any; // Venue protection assessment data
   assignmentState: AssignmentState;
+  assignmentContext: AssignmentContext | null;
+  isAssignmentActive: boolean;
   isLoading: boolean;
   error: string | null;
   notifications?: INotificationItem[];

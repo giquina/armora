@@ -46,7 +46,7 @@ function AssignmentFlow() {
       onClose={endAssignment}
     />
   );
-}
+
 
 function AppRouter() {
   const { state, navigateToView } = useApp();
@@ -247,4 +247,3 @@ function App() {
 }
 
 export default App;
-

@@ -288,7 +288,7 @@ export function WeddingEventSecurity() {
   const [highProfileGuests, setHighProfileGuests] = useState(false);
   const [selectedPackage, setSelectedPackage] = useState('Premium');
 
-  const handleBookingClick = () => {
+  const handleProtectionRequest = () => {
     navigateToView('venue-protection-welcome');
   };
 
@@ -543,7 +543,7 @@ export function WeddingEventSecurity() {
 
       {/* CTA Section */}
       <div className={styles.ctaSection}>
-        <button className={styles.primaryCta} onClick={handleBookingClick}>
+        <button className={styles.primaryCta} onClick={handleProtectionRequest}>
           📞 Book Free Consultation
         </button>
         <button className={styles.secondaryCta}>

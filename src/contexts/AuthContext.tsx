@@ -50,8 +50,8 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const useAuth = () => {
   const context = useContext(AuthContext);
-  // Always return a safe fallback to prevent crashes
   if (!context) {
+    // Always return a fallback in development to prevent app crashes
     console.warn('useAuth: AuthContext not found, returning mock implementation');
     return {
       user: null,
@@ -59,30 +59,14 @@ export const useAuth = () => {
       profile: null,
       loading: false,
       error: null,
-      signUp: async () => {
-        console.warn('Auth not initialized: signUp called');
-      },
-      signIn: async () => {
-        console.warn('Auth not initialized: signIn called');
-      },
-      signInWithGoogle: async () => {
-        console.warn('Auth not initialized: signInWithGoogle called');
-      },
-      signOut: async () => {
-        console.warn('Auth not initialized: signOut called');
-      },
-      updateProfile: async () => {
-        console.warn('Auth not initialized: updateProfile called');
-      },
-      refreshProfile: async () => {
-        console.warn('Auth not initialized: refreshProfile called');
-      },
-      saveQuestionnaire: async () => {
-        console.warn('Auth not initialized: saveQuestionnaire called');
-      },
-      acknowledgeMartynsLaw: async () => {
-        console.warn('Auth not initialized: acknowledgeMartynsLaw called');
-      },
+      signUp: async () => {},
+      signIn: async () => {},
+      signInWithGoogle: async () => {},
+      signOut: async () => {},
+      updateProfile: async () => {},
+      refreshProfile: async () => {},
+      saveQuestionnaire: async () => {},
+      acknowledgeMartynsLaw: async () => {},
     } as AuthContextType;
   }
   return context;

@@ -1,5 +1,5 @@
-import { ProtectionLevel } from '../components/ProtectionAssignment/ProtectionLevelSelector';
-import { VenueTimeData } from '../components/ProtectionAssignment/VenueTimeEstimator';
+// Import from local utils since components were removed
+import { ProtectionLevel, VenueTimeData } from './protectionPreferences';
 import { formatPrice } from './priceFormatter';
 import { calculateNationwideProtection } from './nationwidePricing';
 

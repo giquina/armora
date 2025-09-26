@@ -8,7 +8,7 @@ import { SERVICES_DATA, getRecommendedService } from '../../data/servicesData';
 import styles from './ServicesPage.module.css';
 
 export function ServicesPage() {
-  const { state, navigateToView } = useApp();
+  const { state, startAssignment } = useApp();
   const { questionnaireData } = state;
   const [expandedService, setExpandedService] = useState<string | null>(null);
   const [showComparison, setShowComparison] = useState(false);
@@ -18,10 +18,12 @@ export function ServicesPage() {
     return getRecommendedService(questionnaireData);
   }, [questionnaireData]);
 
-  const handleBooking = useCallback((serviceId: string) => {
-    localStorage.setItem('armora_selected_service', serviceId);
-    navigateToView('booking');
-  }, [navigateToView]);
+  const handleProtectionRequest = useCallback((serviceId: string) => {
+    startAssignment({
+      preselectedService: serviceId as 'essential' | 'executive' | 'shadow' | 'client-vehicle',
+      source: 'services'
+    });
+  }, [startAssignment]);
 
   const handleServiceExpand = useCallback((serviceId: string) => {
     // Only one service can be expanded at a time
@@ -93,7 +95,7 @@ export function ServicesPage() {
               service={service}
               isRecommended={recommendedService === service.id}
               onExpand={handleServiceExpand}
-              onBook={handleBooking}
+              onBook={handleProtectionRequest}
               autoCollapse={true}
               expandedService={expandedService}
             />

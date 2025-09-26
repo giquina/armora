@@ -10,8 +10,8 @@ import { CredentialsModal } from '../UI/CredentialsModal';
 import SafeAssignmentFundCTA from '../SafeAssignmentFund/SafeAssignmentFundCTA';
 import SafeAssignmentFundModal from '../SafeAssignmentFund/SafeAssignmentFundModal';
 // import SafeAssignmentFundBanner from '../SafeAssignmentFund/SafeAssignmentFundBanner';
-import { DevNavigationPanel } from '../UI/DevNavigationPanel';
-import { ClerkSignInButtons, useClerkAvailable } from './ClerkAuthWrapper';
+// Removed DevNavigationPanel import
+// Removed Clerk imports - using Supabase only
 import styles from './WelcomePage.module.css';
 
 export function WelcomePage() {
@@ -19,7 +19,7 @@ export function WelcomePage() {
   const [showContent, setShowContent] = useState(false);
   const [showCredentialsModal, setShowCredentialsModal] = useState(false);
   const [showSafeRideModal, setShowSafeRideModal] = useState(false);
-  const isClerkAvailable = useClerkAvailable();
+  // Removed Clerk availability check - using Supabase only
 
   // Debug modal state changes
   useEffect(() => {
@@ -200,17 +200,7 @@ export function WelcomePage() {
             </div>
           </div>
 
-          {/* Clerk Authentication - only show if configured */}
-          {isClerkAvailable && (
-            <>
-              <div className={styles.divider}>
-                <span className={styles.dividerText}>or</span>
-              </div>
-              <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '16px' }}>
-                <ClerkSignInButtons />
-              </div>
-            </>
-          )}
+          {/* Removed Clerk authentication section - using Supabase auth only */}
 
           <div className={styles.divider}>
             <span className={styles.dividerText}>or</span>
@@ -295,10 +285,7 @@ export function WelcomePage() {
         <SafeAssignmentFundModal onClose={() => setShowSafeRideModal(false)} />
       )}
 
-      {/* Developer Navigation Panel */}
-      {showDevButton && (
-        <DevNavigationPanel />
-      )}
+      {/* Developer Navigation Panel removed */}
     </SeasonalTheme>
   );
 }

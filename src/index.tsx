@@ -1,15 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { ClerkProvider } from '@clerk/clerk-react';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-// Get Clerk publishable key from environment
-const CLERK_PUBLISHABLE_KEY = process.env.REACT_APP_CLERK_PUBLISHABLE_KEY;
-
-if (!CLERK_PUBLISHABLE_KEY) {
-  console.warn('Missing REACT_APP_CLERK_PUBLISHABLE_KEY - Clerk authentication disabled');
-}
 
 // Comprehensive error suppression for development
 if (process.env.NODE_ENV === 'development') {
@@ -61,23 +54,12 @@ if (process.env.NODE_ENV === 'development') {
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
-// Render app with or without Clerk based on key availability
-if (CLERK_PUBLISHABLE_KEY) {
-  root.render(
-    <React.StrictMode>
-      <ClerkProvider publishableKey={CLERK_PUBLISHABLE_KEY} afterSignOutUrl="/">
-        <App />
-      </ClerkProvider>
-    </React.StrictMode>
-  );
-} else {
-  // Fallback without Clerk for development
-  root.render(
-    <React.StrictMode>
-      <App />
-    </React.StrictMode>
-  );
-}
+
+root.render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>
+);
 
 // Service worker registration removed to avoid stale cached chunks causing ChunkLoadError.
 // Proactively unregister any existing service workers and clear caches (best-effort, non-blocking).

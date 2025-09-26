@@ -3,13 +3,13 @@ import { useApp } from '../../contexts/AppContext';
 import { BookingHistoryManager } from '../../utils/bookingHistory';
 import { ProtectionAssignmentData } from '../../types';
 import styles from './AssignmentSuccess.module.css';
-import '../../styles/booking-white-theme.css';
 
 interface AssignmentSuccessProps {
   assignmentId: string;
+  onClose?: () => void;
 }
 
-export function AssignmentSuccess({ assignmentId }: AssignmentSuccessProps) {
+export function AssignmentSuccess({ assignmentId, onClose }: AssignmentSuccessProps) {
   const { navigateToView } = useApp();
 
   useEffect(() => {
@@ -52,7 +52,7 @@ export function AssignmentSuccess({ assignmentId }: AssignmentSuccessProps) {
   };
 
   return (
-    <div className={`${styles.container} booking-white-theme`}>
+    <div className={styles.container}>
       <div className={styles.successCard}>
         <div className={styles.successIcon}>
           <div className={styles.checkmark}>✓</div>

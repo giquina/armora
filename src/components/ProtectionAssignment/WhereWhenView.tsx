@@ -2,7 +2,6 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useApp } from '../../contexts/AppContext';
 import { ServiceLevel, LocationData } from '../../types';
 import styles from './WhereWhenView.module.css';
-import '../../styles/booking-white-theme.css';
 
 interface WhereWhenViewProps {
   onContinueToPayment: (data: {
@@ -164,7 +163,7 @@ export function WhereWhenView({ onContinueToPayment, preSelectedServiceId, preSe
   const selectedServiceData = SERVICE_OPTIONS.find(s => s.id === selectedService)!;
 
   return (
-    <div className={`${styles.container} booking-white-theme`}>
+    <div className={styles.container}>
       {/* Header */}
       <div className={styles.header}>
         <button
@@ -176,7 +175,7 @@ export function WhereWhenView({ onContinueToPayment, preSelectedServiceId, preSe
             <path d="m15 18-6-6 6-6" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
         </button>
-        <h1 className={styles.title}>Book Protection Service</h1>
+        <h1 className={styles.title}>Request Protection Service</h1>
       </div>
 
       <div className={styles.content}>

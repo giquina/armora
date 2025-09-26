@@ -15,6 +15,31 @@
   border-bottom: 1px solid rgba(255, 215, 0, 0.15);
 }
 
+/* Clickable Logo Section */
+.logoSection {
+  display: flex;
+  align-items: center;
+  gap: 4px; /* brand closer to logo */
+  min-width: 0;
+  margin-right: auto; /* keep icons pushed to the right */
+  background: none;
+  border: none;
+  cursor: pointer;
+  border-radius: 8px;
+  padding: 4px 8px;
+  transition: all 0.2s ease;
+}
+
+.logoSection:hover {
+  background: rgba(255, 215, 0, 0.08);
+  transform: scale(1.02);
+}
+
+.logoSection:active {
+  transform: scale(0.98);
+}
+
+/* Legacy brand class for backward compatibility */
 .brand {
   display: flex;
   align-items: center;
@@ -24,7 +49,8 @@
 }
 
 /* Downscale logo only within the toolbar context */
-.brand :global(.armoraLogo4d.small) {
+.brand :global(.armoraLogo4d.small),
+.logoSection :global(.armoraLogo4d.small) {
   --logo-scale: 0.20;
   --orbit-scale: 0.30;
 }
@@ -62,8 +88,40 @@
   padding: 0 !important;
 }
 
-.iconBtn:hover { background: rgba(255, 215, 0, 0.08); color: #FFD700; }
-.iconBtn:active { transform: scale(0.96); }
+/* Enhanced icon button interactions */
+.iconBtn:hover {
+  background: rgba(255, 215, 0, 0.08);
+  color: #FFD700;
+}
+
+.iconBtn:active {
+  transform: scale(0.96);
+}
+
+/* Tooltip functionality via browser default */
+.iconBtn[title],
+.logoSection[title] {
+  position: relative;
+}
+
+/* Visual feedback for tooltips on hover */
+.iconBtn:hover[title],
+.logoSection:hover[title] {
+  position: relative;
+}
+
+/* Enhanced visual feedback on mobile */
+@media (hover: none) and (pointer: coarse) {
+  .iconBtn:active {
+    background: rgba(255, 215, 0, 0.15);
+    transform: scale(0.94);
+  }
+
+  .logoSection:active {
+    background: rgba(255, 215, 0, 0.15);
+    transform: scale(0.96);
+  }
+}
 
 .iconBtn svg { width: 20px; height: 20px; stroke: currentColor; }
 .iconLabel { display: none; margin-left: 6px; font-weight: 700; letter-spacing: 0.02em; color: #e8e8f0; }
@@ -88,7 +146,8 @@
 }
 
 /* Crisp rendering for SVG/CSS logo */
-.brand :where(svg, canvas) {
+.brand :where(svg, canvas),
+.logoSection :where(svg, canvas) {
   shape-rendering: geometricPrecision;
   text-rendering: optimizeLegibility;
   image-rendering: -webkit-optimize-contrast;
@@ -102,6 +161,7 @@
   }
   .brandName { max-width: 50vw; }
   .brand { margin-right: 0; justify-self: center; }
+  .logoSection { margin-right: 0; justify-self: center; }
   .actions { justify-self: end; }
   .iconBtn { padding: 0 8px !important; width: auto; }
   .iconLabel { display: inline; }

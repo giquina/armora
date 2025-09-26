@@ -8,6 +8,12 @@ import {
   getSafeAssignmentFundStats,
 } from "../lib/supabase"
 
+// Protection Assignment Context Interface
+export interface AssignmentContext {
+  preselectedService?: 'essential' | 'executive' | 'shadow' | 'client-vehicle';
+  source?: 'home' | 'services' | 'toolbar' | 'hamburger';
+}
+
 // Initial state
 const initialState: AppState = {
   currentView: 'splash',
@@ -35,6 +41,8 @@ const initialState: AppState = {
     panicAlertTimestamp: null,
     lastKnownLocation: null,
   },
+  assignmentContext: null,
+  isAssignmentActive: false,
   isLoading: false,
   error: null,
   notifications: [],
@@ -47,6 +55,8 @@ type AppAction =
   | { type: 'SET_QUESTIONNAIRE_DATA'; payload: PersonalizationData }
   | { type: 'SET_USER_PROFILE_SELECTION'; payload: string | undefined }
   | { type: 'UPDATE_USER_QUESTIONNAIRE_COMPLETION' }
+  | { type: 'START_ASSIGNMENT'; payload: AssignmentContext }
+  | { type: 'END_ASSIGNMENT' }
   | { type: 'UPDATE_DEVICE_CAPABILITIES'; payload: Partial<DeviceCapabilities> }
   | { type: 'SET_SUBSCRIPTION'; payload: UserSubscription | null }
   | { type: 'SET_SELECTED_SERVICE'; payload: string }
@@ -145,6 +155,18 @@ function appReducer(state: AppState, action: AppAction): AppState {
           lastKnownLocation: action.payload,
         }
       };
+    case 'START_ASSIGNMENT':
+      return {
+        ...state,
+        assignmentContext: action.payload,
+        isAssignmentActive: true
+      };
+    case 'END_ASSIGNMENT':
+      return {
+        ...state,
+        assignmentContext: null,
+        isAssignmentActive: false
+      };
     case 'CLEAR_ERROR':
       return { ...state, error: null };
     case 'RESET_APP':
@@ -197,6 +219,9 @@ interface AppContextType {
   updateAssignmentStatus: (assignmentId: string, status: string) => Promise<void>;
   activatePanicAlert: (location?: any) => Promise<void>;
   deactivatePanicAlert: () => Promise<void>;
+  // Assignment actions
+  startAssignment: (context: AssignmentContext) => void;
+  endAssignment: () => void;
   updateLastKnownLocation: (location: { lat: number; lng: number; address: string }) => void;
 }
 
@@ -634,6 +659,15 @@ export function AppProvider({ children }: { children: ReactNode }) {
     });
   }, []);
 
+  // Assignment actions
+  const startAssignment = (context: AssignmentContext) => {
+    dispatch({ type: 'START_ASSIGNMENT', payload: context });
+  };
+
+  const endAssignment = () => {
+    dispatch({ type: 'END_ASSIGNMENT' });
+  };
+
   // Initialize Safe Assignment Fund data when subscription changes
   useEffect(() => {
     if (state.subscription?.tier === 'essential') {
@@ -799,6 +833,8 @@ export function AppProvider({ children }: { children: ReactNode }) {
     activatePanicAlert,
     deactivatePanicAlert,
     updateLastKnownLocation,
+    startAssignment,
+    endAssignment,
   };
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;

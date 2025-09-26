@@ -41,7 +41,7 @@ const convertToServiceLevel = (): ServiceLevel[] => {
 const ARMORA_SERVICES: ServiceLevel[] = convertToServiceLevel();
 
 export function Dashboard() {
-  const { state, navigateToView } = useApp();
+  const { state, startAssignment, navigateToView } = useApp();
   const { user: legacyUser, questionnaireData, deviceCapabilities } = state;
 
   // Development mode - mock auth data
@@ -63,6 +63,7 @@ export function Dashboard() {
 
 
   const handleUpgradeAccount = () => {
+    // Navigate to signup - keep this as navigation since it's not assignment-related
     navigateToView('signup');
   };
 
@@ -72,11 +73,11 @@ export function Dashboard() {
   };
 
   const handleServiceSelection = (serviceId: string) => {
-    // Store selected service for future booking
-    localStorage.setItem('armora_selected_service', serviceId);
-
-    // Navigate directly to booking page
-    navigateToView('booking');
+    // Start assignment with service context
+    startAssignment({
+      preselectedService: serviceId as 'essential' | 'executive' | 'shadow' | 'client-vehicle',
+      source: 'home'
+    });
 
     // Analytics
     console.log('[Analytics] Service selected from recommendation', {
@@ -87,11 +88,11 @@ export function Dashboard() {
   };
 
   const handleDirectBooking = (service: ServiceLevel) => {
-    // Store selected service and skip service selection step
-    localStorage.setItem('armora_selected_service', service.id);
-
-    // Navigate directly to booking page - this will skip the service selection step
-    navigateToView('booking');
+    // Start assignment with service context - this will skip the service selection step
+    startAssignment({
+      preselectedService: service.id as 'essential' | 'executive' | 'shadow' | 'client-vehicle',
+      source: 'home'
+    });
 
     // Analytics for direct booking from dashboard cards
     console.log('[Analytics] Direct booking from dashboard card', {

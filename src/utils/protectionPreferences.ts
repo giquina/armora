@@ -1,5 +1,16 @@
-import { ProtectionLevel } from '../components/ProtectionAssignment/ProtectionLevelSelector';
-import { VenueTimeData } from '../components/ProtectionAssignment/VenueTimeEstimator';
+// Define types locally since components were removed
+export interface ProtectionLevel {
+  id: string;
+  name: string;
+  hourlyRate: number;
+  type: 'personal' | 'transport';
+}
+
+export interface VenueTimeData {
+  hours: number;
+  minutes: number;
+  venueHours?: number;
+}
 
 export interface ProtectionPreferences {
   defaultProtectionType: 'transport' | 'personal' | null;

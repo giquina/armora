@@ -43,7 +43,7 @@
   z-index: 10000;
   width: 100%;
   max-width: 100%;
-  background: var(--bg-primary, #ffffff);
+  background: #1a1a2e; /* Solid dark background for better visibility */
   box-shadow: 0 -4px 32px rgba(0, 0, 0, 0.2);
 
   /* Mobile default: Bottom sheet */
@@ -198,7 +198,7 @@
 /* ===== HIGH CONTRAST MODE ===== */
 @media (prefers-contrast: high) {
   .modal {
-    border: 3px solid var(--accent, #FFD700);
+    border: 3px solid #FFD700;
   }
 
   .backdrop {
@@ -210,7 +210,7 @@
 /* ===== DARK MODE SUPPORT ===== */
 @media (prefers-color-scheme: dark) {
   .modal {
-    background: var(--bg-primary-dark, #1a1a2e);
+    background: #1a1a2e !important; /* Force dark background */
     box-shadow: 0 -4px 32px rgba(0, 0, 0, 0.4);
   }
 
@@ -226,7 +226,7 @@
 
 /* Focus trap styling */
 .modal *:focus {
-  outline: 2px solid var(--accent, #FFD700);
+  outline: 2px solid #FFD700;
   outline-offset: 2px;
 }
 

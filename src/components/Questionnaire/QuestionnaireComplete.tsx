@@ -256,7 +256,7 @@ export function QuestionnaireComplete({ onRestart, onContinue }: QuestionnaireCo
           onClick={onContinue}
           className={`${styles.button} ${styles.primaryButton}`}
         >
-          {isGuest ? 'View Services' : 'Start Booking'}
+          {isGuest ? 'View Services' : 'Request Protection'}
         </button>
       </div>
 

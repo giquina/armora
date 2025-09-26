@@ -11,6 +11,8 @@ Armora is a React 19.1.1 TypeScript application for premium close protection and
 
 **SIA COMPLIANCE CRITICAL**: This codebase underwent major restructuring in September 2025 for full SIA compliance. All folder names, file names, and component names now use protection terminology. See `SIA_COMPLIANCE.md` for comprehensive guidelines.
 
+**LEGAL SERVICE DEFINITION**: Armora provides SIA-licensed Close Protection Officers (CPOs) who deliver secure transport as an integrated element of their protective duties. NOT a private hire vehicle (PHV) or taxi service.
+
 ## Critical Dependencies
 - **React 19.1.1** with new JSX Transform
 - **TypeScript 4.9.5** in strict mode
@@ -20,6 +22,8 @@ Armora is a React 19.1.1 TypeScript application for premium close protection and
 
 ### Backend & Integration Dependencies
 - **Supabase**: Backend database, auth, real-time (@supabase/supabase-js, @supabase/auth-helpers-react)
+- **Clerk**: Modern authentication provider (@clerk/clerk-react) with fallback support
+- **No Clerk Dependencies**: Project currently runs without Clerk - removed in cleanup
 - **Stripe**: Payment processing (@stripe/react-stripe-js, @stripe/stripe-js)
 - **Leaflet**: Maps and location services (react-leaflet)
 - **QR Code**: QR code generation for assignments (qrcode)
@@ -28,8 +32,8 @@ Armora is a React 19.1.1 TypeScript application for premium close protection and
 
 ## Core Development Commands
 - `npm run dev` - **RECOMMENDED**: Start with hooks system AND agent orchestration (full development experience)
-- `PORT=3001 npm start` - **PRIMARY**: Development server on port 3001 (recommended port)
-- `npm start` - Start development server (default localhost:3000, may have stale cache issues)
+- `npm start` - **PRIMARY**: Development server with deprecation warnings suppressed via NODE_OPTIONS
+- `PORT=3001 npm start` - Start on specific port 3001 (recommended port)
 - `npm run build` - Production build with type checking
 - `npm test` - Run tests in watch mode (Jest + React Testing Library)
 - `npm test -- --coverage` - Coverage report
@@ -38,29 +42,47 @@ Armora is a React 19.1.1 TypeScript application for premium close protection and
 - `npm run test:e2e` - Run Playwright end-to-end tests (tests/e2e directory)
 
 ### 🚀 Server Management
+**⚠️ IMPORTANT: ALWAYS USE PORT 3001 - PORT 3000 IS BROKEN**
+
+**Port 3000 Issue**: Due to webpack chunk loading errors and stale cache, port 3000 shows "ChunkLoadError" and fails to load. GitHub Codespaces may cache broken builds on port 3000.
+
+**SOLUTION: Use port 3001 exclusively**
+
 **Always use `npm run dev` for the best development experience** - it includes:
-- Development server with hot reload
+- Development server with hot reload on PORT 3001
 - AI-powered hooks system (mobile viewport testing, brand compliance, auto-save)
 - Specialized agent orchestration
 - Real-time file monitoring and suggestions
 
 **To keep server running in background:**
 ```bash
-# Method 1: Recommended full development setup
+# Method 1: Recommended full development setup (auto-uses port 3001)
 npm run dev
 
-# Method 2: Basic server only (if needed)
-nohup PORT=3001 npm start > /dev/null 2>&1 &
+# Method 2: Basic server only - MUST specify PORT=3001
+PORT=3001 npm start
 
-# Check if server is running
+# NEVER use port 3000 - it will show chunk loading errors
+# npm start  # ❌ DON'T USE - defaults to broken port 3000
+
+# Check if server is running on correct port
 curl -s http://localhost:3001 | head -20
 lsof -i :3001
 
-# Kill background processes if needed
+# Kill any broken port 3000 processes
 pkill -f "react-scripts start"
 ```
 
+**Access URLs:**
+- ✅ **Working**: http://localhost:3001
+- ❌ **Broken**: http://localhost:3000 (shows ChunkLoadError)
+
 **CRITICAL**: No separate lint/typecheck commands - always run `npm run build` to verify TypeScript correctness before committing.
+
+**IMPORTANT DEVELOPMENT NOTES**:
+- **Clerk Removed**: All Clerk-related code was removed in recent cleanup. Project uses Supabase auth only.
+- **ClerkAuthWrapper.tsx**: This file was deleted - references in docs are historical.
+- **Authentication Flow**: Now simplified to Supabase-only authentication system.
 
 ## Development Infrastructure
 Includes automated hooks system and AI task management:
@@ -133,7 +155,9 @@ src/
 │   └── ProtectionAssignmentContext.tsx  - Protection assignment state management
 ├── lib/
 │   └── supabase.ts                       - Supabase client with SIA-compliant functions
-├── types/index.ts                        - Comprehensive TypeScript interfaces (940+ lines)
+├── types/
+│   ├── index.ts                          - Comprehensive TypeScript interfaces (940+ lines)
+│   └── database.types.ts                 - Supabase-generated database types
 ├── components/
 │   ├── Auth/                            - Authentication flow
 │   ├── Questionnaire/                   - 9-step onboarding system
@@ -141,8 +165,8 @@ src/
 │   ├── Hub/                             - Professional protection hub command centre
 │   │   ├── NavigationCards/             - Interactive assignment status navigation cards
 │   │   └── ActiveProtectionPanel/       - Real-time protection detail monitoring
+│   ├── HubsView/                        - Complete hub management system with search/filtering
 │   ├── ProtectionAssignment/            - Complete protection assignment system
-│   │   └── Booking/                     - Legacy booking components (being integrated)
 │   ├── Assignments/                     - Assignment management and history
 │   ├── Officer/                         - CPO-related components (panic alerts, etc.)
 │   ├── SafeAssignmentFund/              - Community safety fund components
@@ -150,9 +174,15 @@ src/
 │   ├── WeddingEventSecurity/            - Specialized event protection
 │   ├── UI/ArmoraLogo.tsx                - Premium 4D logo system
 │   └── Layout/AppLayout.tsx             - Header with navigation
+├── utils/
+│   ├── compliance/                      - SIA compliance and terminology scanning
+│   ├── database/                        - Database utility functions
+│   ├── testing/                         - Testing utilities and mobile testing
+│   └── [various].ts                     - Pricing, verification, and other utilities
 ├── data/questionnaireData.ts            - Dynamic questionnaire logic
-├── utils/                               - Utility functions for pricing, compliance, verification
 └── styles/                              - Global CSS variables and themes
+
+migration-scripts/                        - Database setup and migration utilities
 ```
 
 ## Business Context
@@ -234,28 +264,34 @@ src/
 - **Jest configuration**: Custom module mapping for CSS and assets in package.json
 
 ## Current Status
-✅ **Complete**:
-- Complete SIA compliance restructuring (September 2025)
-- Supabase backend with real-time features
-- Auth system (registered/Google/guest)
+✅ **Complete** (Latest Update September 2025):
+- **Complete passenger app cleanup** - All driver-related code removed
+- **TypeScript optimization** - All compilation errors fixed, ESLint warnings minimized
+- **Dual authentication system** - Clerk integration with Supabase fallback
+- **Enhanced component architecture** - New HubsView system with search/filtering
+- **Professional file organization** - Migration scripts, compliance utilities
+- **Performance optimization** - Bundle size optimized (382KB), clean compilation
+- **SIA compliance restructuring** - Complete professional terminology implementation
+- **Backend integration** - Supabase + Clerk with real-time features
+- **Mobile-first design** - Responsive optimization across all breakpoints
+- **Development tooling** - Advanced hooks system with deprecation warning suppression
+
+✅ **Stable Core Features**:
 - 9-step questionnaire with privacy options
 - Dashboard with protection tier selection
 - Professional Hub with assignment tracking
-- Mobile-optimized Active Protection Panel
 - Protection assignment flow (unified system)
 - Achievement system with confetti animations
-- 4D logo system and professional branding
 - Safe Assignment Fund integration (3,741+ assignments tracked)
 - Assignment state tracking with panic alert system
 
-⚠️ **Critical Needs**:
-- Minor TypeScript interface fixes after restructuring
+⚠️ **Minor Remaining Tasks**:
 - Test coverage expansion for new folder structure
 - PWA service worker implementation
 - Payment integration completion
-- Location search improvements
+- Enhanced real-time tracking features
 
-🔜 **Planned**: Enhanced real-time tracking, push notifications, offline mode
+🔜 **Planned**: Push notifications, offline mode, advanced analytics
 
 ## Key Utility Functions
 - **timeEstimate** (`src/utils/timeEstimate.ts`) - Standardized time formatting across app
@@ -315,9 +351,14 @@ Premium close protection command centre with professional terminology:
 - **Safe Ride Fund integration**: Prominent CTAs and donation modal
 
 ### Authentication & User Types
+**Simplified Authentication System**: Supabase-only authentication (Clerk removed in cleanup)
+- **Supabase Auth**: Direct Supabase authentication integration
+- **User Role System**: Principal, Protection Officer, Admin roles via Supabase RLS
+- **Historical Note**: ClerkAuthWrapper.tsx and clerk.ts were removed in recent cleanup
+
 Three distinct user types with different capabilities:
 - **Registered**: Full protection booking + 50% rewards
-- **Google**: Same as registered
+- **Google**: Same as registered (via Supabase Google auth)
 - **Guest**: Quote-only mode, no direct protection booking
 
 ### Venue Protection & Event Security
@@ -482,7 +523,17 @@ npm test
 ```
 
 ### Recent Changes:
-✅ **Mobile Navigation Cards Optimized (Latest)**:
+✅ **Complete Passenger App Cleanup (Latest - September 26, 2025)**:
+- **Driver App Removal**: Completely removed all driver-related repositories and code
+- **Code Quality**: Fixed all TypeScript compilation errors and minimized ESLint warnings
+- **Performance**: Optimized bundle size to 382KB with clean compilation
+- **Authentication**: Added Clerk integration with automatic Supabase fallback
+- **Architecture**: New HubsView component system with comprehensive search/filtering
+- **Organization**: Restructured utilities into compliance/, database/, testing/ folders
+- **Migration**: Added comprehensive migration scripts for database setup
+- **Development**: Enhanced npm scripts with deprecation warning suppression
+
+✅ **Mobile Navigation Cards Optimized**:
 - Fixed text wrapping issues (CPO names no longer span 3 lines)
 - Removed excessive empty spaces and improved mobile spacing
 - Enhanced visual hierarchy and typography for small screens
@@ -491,4 +542,4 @@ npm test
 
 ---
 
-Last updated: 2025-09-26T03:09:00.000Z
+Last updated: 2025-09-26T15:45:00.000Z
