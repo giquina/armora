@@ -142,8 +142,8 @@ export const NavigationCards: React.FC<NavigationCardsProps> = ({
   };
 
   // Keyboard navigation across tabs
-  const sections: AssignmentStatus[] = ['current', 'upcoming', 'completed', 'analytics'];
   const onKeyDown = useCallback((e: React.KeyboardEvent<HTMLDivElement>) => {
+    const sections: AssignmentStatus[] = ['current', 'upcoming', 'completed', 'analytics'];
     const idx = sections.indexOf(activeSection);
     if (idx === -1) return;
     if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
@@ -167,7 +167,7 @@ export const NavigationCards: React.FC<NavigationCardsProps> = ({
       setActiveSection(sections[sections.length - 1]);
       document.getElementById(`tab-${sections[sections.length - 1]}`)?.focus();
     }
-  }, [activeSection, setActiveSection, sections]);
+  }, [activeSection, setActiveSection]);
 
   return (
     <div

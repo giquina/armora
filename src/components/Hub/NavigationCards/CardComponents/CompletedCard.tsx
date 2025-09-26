@@ -36,12 +36,7 @@ export const CompletedCard: React.FC<CompletedCardProps> = ({
   const showVisuals = screenWidth >= 320;
 
   // Calculate loyalty progress percentage
-  const loyaltyProgressPercent = ((data.loyaltyPoints % 1000) / 1000) * 100;
 
-  const quickActions = [
-    { icon: '⭐', label: 'Rate', handler: () => console.log('Open rating') },
-    { icon: '📄', label: 'Invoice', handler: () => console.log('Download invoice') }
-  ];
 
   return (
     <button

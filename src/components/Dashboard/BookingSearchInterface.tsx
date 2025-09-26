@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { useApp } from '../../contexts/AppContext';
-import { LocationPicker } from '../LocationPicker/LocationPicker';
 import styles from './BookingSearchInterface.module.css';
 
 interface BookingSearchInterfaceProps {
@@ -16,7 +15,6 @@ export function BookingSearchInterface({
     work: ''
   });
   const [recentDestination, setRecentDestination] = useState('');
-  const [showLocationPicker, setShowLocationPicker] = useState(false);
 
   useEffect(() => {
     // Load saved addresses from localStorage
@@ -28,23 +26,23 @@ export function BookingSearchInterface({
     setRecentDestination(recent);
   }, []);
 
-  // Open overlay when triggered from top toolbar
+  // Handle navigation to booking from toolbar
   useEffect(() => {
     const maybeOpenFromFlag = () => {
       if (localStorage.getItem('armora_open_location_picker') === 'true') {
         localStorage.removeItem('armora_open_location_picker');
-        setShowLocationPicker(true);
+        navigateToView('booking');
       }
     };
     maybeOpenFromFlag();
-    const handler = () => setShowLocationPicker(true);
+    const handler = () => navigateToView('booking');
     window.addEventListener('armora:open-location-picker' as any, handler);
     return () => window.removeEventListener('armora:open-location-picker' as any, handler);
-  }, []);
+  }, [navigateToView]);
 
   const handleSearchClick = () => {
-    // Open the legacy/primary booking overlay (LocationPicker)
-    setShowLocationPicker(true);
+    // Navigate to booking flow instead of opening modal
+    navigateToView('booking');
   };
 
   const handleQuickDestination = (type: 'home' | 'work' | 'recent', address?: string) => {
@@ -62,18 +60,6 @@ export function BookingSearchInterface({
     }
   };
 
-  const handleLocationSelect = (location: { address: string; coordinates?: { lat: number; lng: number } }) => {
-    // Store the selected destination
-    localStorage.setItem('armora_destination', location.address);
-    if (location.coordinates) {
-      localStorage.setItem('armora_destination_coords', JSON.stringify(location.coordinates));
-    }
-
-    // Call the callback if provided
-    if (onDestinationSelect) {
-      onDestinationSelect(location.address);
-    }
-  };
 
   return (
     <div className={styles.searchContainer}>
@@ -162,12 +148,7 @@ export function BookingSearchInterface({
       </div>
 
 
-      {/* Location Picker Overlay */}
-      <LocationPicker
-        isOpen={showLocationPicker}
-        onClose={() => setShowLocationPicker(false)}
-        onLocationSelect={handleLocationSelect}
-      />
+      {/* Location picker removed - now navigates directly to booking flow */}
     </div>
   );
 }

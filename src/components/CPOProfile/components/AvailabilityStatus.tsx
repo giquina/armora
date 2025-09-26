@@ -212,7 +212,6 @@ export const RealTimeStatus: React.FC<{
   currentStatus,
   onStatusChange
 }) => {
-  const [status, setStatus] = React.useState(currentStatus);
   const [lastUpdate, setLastUpdate] = React.useState(new Date());
 
   React.useEffect(() => {
@@ -226,11 +225,6 @@ export const RealTimeStatus: React.FC<{
     return () => clearInterval(interval);
   }, [cpoId]);
 
-  React.useEffect(() => {
-    if (onStatusChange && status !== currentStatus) {
-      onStatusChange(status);
-    }
-  }, [status, currentStatus, onStatusChange]);
 
   return (
     <div className={styles.realTimeStatus}>

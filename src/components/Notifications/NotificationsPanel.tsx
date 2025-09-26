@@ -10,7 +10,7 @@ interface NotificationsPanelProps {
 
 export const NotificationsPanel: React.FC<NotificationsPanelProps> = ({ isOpen, onClose }) => {
   const { state, markAllNotificationsRead, markNotificationRead, navigateToView } = useApp();
-  const items = (state.notifications || []) as INotificationItem[];
+  const items = useMemo(() => (state.notifications || []) as INotificationItem[], [state.notifications]);
   const unreadCount = useMemo(() => items.filter(i => !i.isRead).length, [items]);
 
   const handleView = (item: INotificationItem) => {

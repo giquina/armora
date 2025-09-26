@@ -6,7 +6,7 @@ export function RecruitmentWidget() {
   if (!visible) return null;
 
   return (
-    <aside className={styles.widget} role="complementary" aria-label="Recruitment widget">
+    <aside className={styles.widget} aria-label="Recruitment widget">
       <div className={styles.header}>
         <div className={styles.title}>
           <span>Join Our Protection Team</span>

@@ -34,7 +34,6 @@ export function QuickProtectionEstimate() {
   const [userLocation, setUserLocation] = useState('📍 Current location');
   const [isCalculating, setIsCalculating] = useState(false);
   const [estimate, setEstimate] = useState<PriceEstimate | null>(null);
-  const [showEstimate, setShowEstimate] = useState(false);
 
   // Auto-detect user location on component mount
   useEffect(() => {
@@ -57,7 +56,7 @@ export function QuickProtectionEstimate() {
     if (!secureDestination.trim()) return;
 
     setIsCalculating(true);
-    setShowEstimate(false);
+    setEstimate(null);
 
     // Simulate API calculation delay
     await new Promise(resolve => setTimeout(resolve, 800));
@@ -81,7 +80,6 @@ export function QuickProtectionEstimate() {
       };
 
       setEstimate(priceEstimate);
-      setShowEstimate(true);
 
       // Analytics
       console.log('[Analytics] Quick protection price calculated', {

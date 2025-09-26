@@ -15,15 +15,16 @@ import {
   getOfficerReviews,
   findNearbyOfficers,
 } from "../lib/supabase"
-import { useAuth } from '../contexts/AuthContext';
+// import { useAuth } from '../contexts/AuthContext'; // Removed for development
 
 /**
  * Hook for fetching user's protection assignments
  */
 export function useProtectionAssignments() {
-  const { user } = useAuth();
+  // Development mode - mock user data
+  const user: any = null;
   const [assignments, setAssignments] = useState<any[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false); // Set to false for development
   const [error, setError] = useState<string | null>(null);
 
   const fetchAssignments = useCallback(async () => {
@@ -339,7 +340,10 @@ export function useNearbyOfficers(lat?: number, lng?: number, radiusKm: number =
  * Hook for user profile with protection preferences
  */
 export function useUserProfile() {
-  const { user, profile, loading: authLoading } = useAuth();
+  // Development mode - mock auth data
+  const user: any = null;
+  const profile = null;
+  const authLoading = false;
   const [extendedProfile, setExtendedProfile] = useState<any>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -381,7 +385,8 @@ export function useUserProfile() {
  * Hook for real-time notifications
  */
 export function useNotifications() {
-  const { user } = useAuth();
+  // Development mode - mock user data
+  const user: any = null;
   const [notifications, setNotifications] = useState<any[]>([]);
   const [loading, setLoading] = useState(false);
 
@@ -443,7 +448,8 @@ export function useNotifications() {
  * Hook for emergency activation status
  */
 export function useEmergencyStatus() {
-  const { user } = useAuth();
+  // Development mode - mock user data
+  const user: any = null;
   const [emergencyActive, setEmergencyActive] = useState(false);
   const [lastActivation, setLastActivation] = useState<any>(null);
 

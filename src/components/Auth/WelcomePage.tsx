@@ -5,12 +5,13 @@ import { Button } from '../UI/Button';
 import SeasonalTheme from '../UI/SeasonalTheme';
 import GoogleIcon from '../UI/GoogleIcon';
 import { ArmoraLogo } from '../UI/ArmoraLogo';
-import { WelcomeTitle, ArmoraTagline } from '../UI/BrandText';
+// WelcomeTitle and ArmoraTagline removed - no longer used
 import { CredentialsModal } from '../UI/CredentialsModal';
 import SafeAssignmentFundCTA from '../SafeAssignmentFund/SafeAssignmentFundCTA';
 import SafeAssignmentFundModal from '../SafeAssignmentFund/SafeAssignmentFundModal';
 // import SafeAssignmentFundBanner from '../SafeAssignmentFund/SafeAssignmentFundBanner';
 import { DevNavigationPanel } from '../UI/DevNavigationPanel';
+import { ClerkSignInButtons, useClerkAvailable } from './ClerkAuthWrapper';
 import styles from './WelcomePage.module.css';
 
 export function WelcomePage() {
@@ -18,6 +19,7 @@ export function WelcomePage() {
   const [showContent, setShowContent] = useState(false);
   const [showCredentialsModal, setShowCredentialsModal] = useState(false);
   const [showSafeRideModal, setShowSafeRideModal] = useState(false);
+  const isClerkAvailable = useClerkAvailable();
 
   // Debug modal state changes
   useEffect(() => {
@@ -197,6 +199,18 @@ export function WelcomePage() {
               </Button>
             </div>
           </div>
+
+          {/* Clerk Authentication - only show if configured */}
+          {isClerkAvailable && (
+            <>
+              <div className={styles.divider}>
+                <span className={styles.dividerText}>or</span>
+              </div>
+              <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '16px' }}>
+                <ClerkSignInButtons />
+              </div>
+            </>
+          )}
 
           <div className={styles.divider}>
             <span className={styles.dividerText}>or</span>

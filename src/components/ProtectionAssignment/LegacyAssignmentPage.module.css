@@ -1,7 +1,0 @@
-/* Legacy booking viewer page - keep background consistent with old dark UI */
-.legacyPage {
-  position: fixed;
-  inset: 0;
-  background: #0f1027; /* deep navy to match app chrome */
-  z-index: 1;
-}

@@ -1,5 +1,4 @@
 import React from 'react';
-import { ProgressRing } from './MicroVisualizations/ProgressRing';
 import styles from '../NavigationCards.module.css';
 
 interface Assignment {
@@ -65,10 +64,6 @@ export const CurrentCard: React.FC<CurrentCardProps> = ({
     }
   };
 
-  const quickActions = [
-    { icon: '📞', label: 'Call', handler: () => console.log('Call officer') },
-    { icon: '📍', label: 'Track', handler: () => console.log('Open tracking') }
-  ];
 
   return (
     <button

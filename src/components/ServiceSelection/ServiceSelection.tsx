@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useApp } from '../../contexts/AppContext';
 import { useProtectionAssignment, ServiceOption } from '../../contexts/ProtectionAssignmentContext';
-import { STANDARDIZED_SERVICES, getAllServices, StandardizedService } from '../../data/standardizedServices';
+import { STANDARDIZED_SERVICES, getAllServices } from '../../data/standardizedServices';
 // import { MapView } from './MapView';
 // import { ServiceCard } from './ServiceCard';
 // import { BottomSheet } from './BottomSheet';
@@ -11,9 +11,8 @@ export function ServiceSelection() {
   const { navigateToView } = useApp();
   const { protectionAssignmentData, setSelectedService } = useProtectionAssignment();
   const [selectedServiceId, setSelectedServiceId] = useState<string | null>(null);
-  const [showPaymentMethod, setShowPaymentMethod] = useState(false);
-  const [isExpanded, setIsExpanded] = useState(false);
   const [isConfirming, setIsConfirming] = useState(false);
+  const [isExpanded] = useState(true);
 
   const handleServiceSelect = (serviceId: string) => {
     setSelectedServiceId(serviceId);
@@ -45,9 +44,6 @@ export function ServiceSelection() {
     }
   };
 
-  const handleBackPress = () => {
-    navigateToView('home');
-  };
 
   if (!protectionAssignmentData.commencementPoint || !protectionAssignmentData.secureDestination) {
     return (

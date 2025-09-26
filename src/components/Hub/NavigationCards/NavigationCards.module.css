@@ -1,14 +1,14 @@
 /* NAVIGATION CARDS - ENHANCED DASHBOARD SYSTEM */
 
-/* Grid Layout - Always 1 per row (vertical stack) with larger spacing */
+/* Grid Layout - Always 1 per row (vertical stack) with compact spacing for mobile */
 .navigationGrid {
   display: flex;
   flex-direction: column;
-  gap: 20px; /* Increased gap for larger cards */
-  margin-bottom: 32px; /* More bottom margin */
+  gap: 12px; /* Reduced gap for mobile */
+  margin-bottom: 20px; /* Reduced bottom margin */
 }
 
-/* Compact card design with essential information only */
+/* Compact card design with essential information only - Mobile First */
 .navCard {
   width: 100%;
   background: linear-gradient(135deg,
@@ -19,14 +19,14 @@
     0 4px 24px rgba(0, 0, 0, 0.12),
     inset 0 1px 0 rgba(255, 255, 255, 0.1);
   border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: 16px;
-  padding: 18px 16px; /* Reduced padding for more compact design */
+  border-radius: 12px; /* Smaller radius for mobile-first */
+  padding: 12px; /* Mobile-first compact padding */
   text-align: left;
   cursor: pointer;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   position: relative;
   overflow: visible;
-  min-height: 180px; /* 50% smaller - compact but sufficient */
+  min-height: auto; /* Remove fixed height for mobile-first */
   height: auto;
 }
 
@@ -103,35 +103,35 @@
   border-color: #FF6B6B;
 }
 
-/* Header Section - EXPANDED for better visibility */
+/* Header Section - MOBILE OPTIMIZED */
 .navCardHeader {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 12px; /* Increased for better spacing */
-  padding-bottom: 8px;
+  margin-bottom: 8px; /* Reduced for mobile */
+  padding-bottom: 6px; /* Reduced padding */
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .navCardLeft {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 6px; /* Reduced gap for mobile */
   flex: 1;
   min-width: 0;
 }
 
 .navCardIcon {
-  font-size: 24px; /* Larger icons */
+  font-size: 18px; /* Smaller for mobile */
   flex-shrink: 0;
 }
 
 .navCardTitle {
-  font-size: 18px; /* Larger title */
+  font-size: 15px; /* Optimized for mobile */
   font-weight: 700;
   color: white;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.3px; /* Reduced letter spacing */
   white-space: nowrap;
 }
 
@@ -183,13 +183,13 @@
   50% { opacity: 0.5; }
 }
 
-/* Card Content - COMPACT for essential information only */
+/* Card Content - MOBILE-FIRST COMPACT */
 .cardContent {
   display: flex;
   flex-direction: column;
-  gap: 8px; /* Compact spacing between content sections */
-  font-size: 14px; /* Compact but readable font size */
-  line-height: 1.3; /* Compact line height */
+  gap: 10px; /* Mobile-optimized spacing */
+  font-size: 13px; /* Mobile-first compact font size */
+  line-height: 1.2; /* Tighter line height for mobile */
 }
 
 /* Assignment Details Section - Compact */
@@ -1594,12 +1594,12 @@
   /* Card improvements */
   .navCard {
     min-height: auto; /* Remove fixed height */
-    padding: 12px; /* Reduced from 18px */
-    border-radius: 12px; /* Slightly smaller radius */
+    padding: 10px; /* Further reduced for mobile */
+    border-radius: 10px; /* Smaller radius for mobile */
   }
 
   .cardContent {
-    gap: 14px; /* Increased from 8px for better breathing room */
+    gap: 10px; /* Reduced gap for more compact mobile layout */
   }
 
   /* Status bar improvements */
@@ -1620,15 +1620,17 @@
 
   /* SIMPLIFIED OFFICER SECTION */
   .officerTrustSection {
-    padding: 12px; /* Reduced from 16px */
-    gap: 10px; /* Reduced from 12px */
-    margin-bottom: 12px; /* Reduced from 16px */
+    padding: 10px; /* Further reduced for mobile */
+    gap: 8px; /* Tighter gap */
+    margin-bottom: 10px; /* Reduced spacing */
+    display: flex;
+    align-items: center; /* Center align items */
   }
 
   .officerPhoto {
-    width: 44px; /* Significantly reduced from 80px → 60px → 44px */
-    height: 44px;
-    font-size: 16px; /* Proportionally smaller */
+    width: 40px; /* Even smaller for mobile */
+    height: 40px;
+    font-size: 14px; /* Proportionally smaller */
     flex-shrink: 0;
   }
 
@@ -1646,23 +1648,28 @@
 
   /* Officer credentials simplified */
   .officerCredentials {
-    gap: 3px; /* Tighter spacing */
+    gap: 2px; /* Even tighter spacing */
     min-width: 0; /* Prevent overflow */
+    flex: 1; /* Take available space */
   }
 
   .officerName {
-    font-size: 15px; /* Slightly reduced */
-    line-height: 1.2;
+    font-size: 14px; /* Smaller to prevent wrapping */
+    line-height: 1.1; /* Tighter line height */
+    font-weight: 600; /* Maintain readability with weight */
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    max-width: 100%; /* Ensure it doesn't exceed container */
   }
 
   .siaLicense {
-    font-size: 12px; /* Reduced but still readable */
+    font-size: 11px; /* Smaller to prevent wrapping */
+    line-height: 1.1; /* Tighter line height */
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    max-width: 100%; /* Ensure it doesn't exceed container */
   }
 
   .siaVerified {
@@ -1701,34 +1708,39 @@
 
   /* JOURNEY PROGRESS SIMPLIFIED */
   .journeyProgress {
-    margin-bottom: 12px; /* Reduced spacing */
+    margin-bottom: 8px; /* Further reduced spacing */
   }
 
   .progressTimeline {
-    flex-direction: column; /* Stack vertically on mobile */
-    gap: 8px;
-    margin-bottom: 6px;
+    flex-direction: row; /* Keep horizontal on mobile for compactness */
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 4px;
   }
 
   .startPoint, .endPoint {
-    min-width: auto;
-    flex-direction: row;
-    justify-content: flex-start;
-    gap: 6px;
+    min-width: 50px; /* Compact but sufficient */
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
   }
 
   .locationIcon {
-    font-size: 14px;
+    font-size: 12px; /* Smaller icon */
   }
 
   .locationText {
-    font-size: 12px; /* Increased from 11px */
+    font-size: 10px; /* Compact text */
     white-space: nowrap;
+    text-align: center;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 50px;
   }
 
   .progressBarContainer {
-    order: -1; /* Show progress bar first */
-    margin: 8px 0;
+    flex: 1; /* Take remaining space */
+    margin: 0; /* Remove extra margins */
   }
 
   .progressBar {
@@ -1748,32 +1760,34 @@
 
   /* SERVICE DETAILS GRID IMPROVED */
   .serviceDetailsGrid {
-    grid-template-columns: 1fr; /* Single column on mobile */
-    gap: 8px;
-    padding: 10px 12px; /* Reduced padding */
-    margin-bottom: 12px;
+    grid-template-columns: 1fr 1fr; /* Two columns for mobile efficiency */
+    gap: 6px;
+    padding: 8px 10px; /* Further reduced padding */
+    margin-bottom: 8px;
   }
 
   .detailColumn {
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
     align-items: center;
-    text-align: left; /* Left align instead of center */
+    text-align: center;
+    gap: 2px;
   }
 
   .detailLabel {
-    font-size: 12px; /* Consistent sizing */
+    font-size: 10px; /* Smaller text */
     margin-bottom: 0;
   }
 
   .detailValue {
-    font-size: 16px; /* Slightly reduced from 18px */
+    font-size: 14px; /* Compact but readable */
+    line-height: 1.1;
   }
 
   /* INVESTMENT SECTION SIMPLIFIED */
   .investmentSection {
-    padding: 10px 12px; /* Reduced padding */
-    margin-bottom: 12px;
+    padding: 8px 10px; /* Further reduced padding */
+    margin-bottom: 8px;
   }
 
   .investmentLabel {
@@ -1798,29 +1812,34 @@
   /* ACTION BUTTONS FULL WIDTH */
   .actionButtons {
     flex-direction: column;
-    gap: 12px; /* Increased from 6px for better touch targets */
-    margin-top: 8px;
+    gap: 8px; /* Reduced gap for mobile */
+    margin-top: 6px;
   }
 
   .actionButton {
     width: 100%; /* Full width */
-    min-height: 48px; /* Increased to meet touch target requirements */
-    padding: 14px 16px; /* Better padding */
+    min-height: 44px; /* Standard touch target */
+    padding: 10px 12px; /* Compact padding */
     flex-direction: row; /* Horizontal layout */
     justify-content: center;
-    gap: 8px;
-    border-radius: 8px;
-    font-size: 14px; /* Increased from 10px */
+    align-items: center;
+    gap: 6px;
+    border-radius: 6px;
+    font-size: 13px; /* Compact but readable */
     font-weight: 600;
   }
 
   .buttonIcon {
-    font-size: 16px; /* Slightly reduced from 18px */
+    font-size: 14px; /* Compact icon size */
+    flex-shrink: 0;
   }
 
   .buttonLabel {
-    font-size: 14px; /* Much larger than previous 10px */
+    font-size: 13px; /* Prevent text wrapping */
     font-weight: 600;
+    white-space: nowrap; /* Prevent wrapping */
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   /* UPCOMING CARD IMPROVEMENTS */
@@ -2001,55 +2020,120 @@
   }
 }
 
-/* Extra small screens (320px) - minimal adjustments */
+/* Extra small screens (320px) - further optimizations */
 @media (max-width: 360px) {
+  .navigationGrid {
+    gap: 10px; /* Even tighter on smallest screens */
+  }
+
   .navCard {
-    padding: 12px; /* Consistent spacing across breakpoints */
+    padding: 10px; /* Minimal padding for smallest screens */
+    border-radius: 10px;
+  }
+
+  .navCardHeader {
+    margin-bottom: 6px;
+    padding-bottom: 4px;
+  }
+
+  .navCardIcon {
+    font-size: 16px;
+  }
+
+  .navCardTitle {
+    font-size: 14px;
+  }
+
+  .navCardCount {
+    font-size: 12px;
   }
 
   .officerPhoto {
-    width: 44px; /* Consistent 44px across all mobile */
-    height: 44px;
-    font-size: 16px;
+    width: 36px; /* Even smaller on tiny screens */
+    height: 36px;
+    font-size: 12px;
   }
 
   .officerInitials {
-    font-size: 16px;
+    font-size: 12px;
+  }
+
+  .officerName {
+    font-size: 13px;
   }
 
   .verificationBadge {
-    width: 16px;
-    height: 16px;
-    font-size: 9px;
+    width: 14px;
+    height: 14px;
+    font-size: 8px;
   }
 
   .actionButton {
-    min-height: 48px; /* Accessibility compliance - 48px minimum */
-    padding: 14px 16px;
+    min-height: 40px; /* Slightly smaller but still accessible */
+    padding: 10px;
+    font-size: 12px;
+  }
+
+  .buttonIcon {
+    font-size: 12px;
+  }
+
+  .buttonLabel {
+    font-size: 12px;
   }
 
   .investmentAmount {
-    font-size: 18px;
+    font-size: 16px;
   }
 
   .detailValue {
-    font-size: 15px;
+    font-size: 13px;
+  }
+
+  .cardContent {
+    gap: 8px;
   }
 }
 
 /* Medium screens (375px+) - slight improvements */
 @media (min-width: 375px) and (max-width: 414px) {
+  .navigationGrid {
+    gap: 11px; /* Slightly more than smallest */
+  }
+
   .navCard {
-    padding: 12px; /* Consistent spacing across breakpoints */
+    padding: 11px; /* Slightly more comfortable padding */
+  }
+
+  .navCardHeader {
+    margin-bottom: 7px;
+    padding-bottom: 5px;
+  }
+
+  .navCardIcon {
+    font-size: 17px;
+  }
+
+  .navCardTitle {
+    font-size: 15px;
   }
 
   .officerPhoto {
-    width: 44px; /* Consistent 44px across all mobile */
-    height: 44px;
-    font-size: 16px;
+    width: 38px; /* Progressive increase */
+    height: 38px;
+    font-size: 13px;
+  }
+
+  .officerName {
+    font-size: 14px;
   }
 
   .actionButton {
-    min-height: 48px; /* Consistent accessibility compliance */
+    min-height: 42px; /* Progressive increase */
+    padding: 11px;
+  }
+
+  .cardContent {
+    gap: 9px;
   }
 }

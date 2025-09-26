@@ -1,0 +1,71 @@
+/* HUB STATUS BADGE */
+
+.statusBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 6px 12px;
+  border-radius: 16px;
+  border: 1px solid;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  transition: all 0.2s ease;
+}
+
+.statusBadge.small {
+  padding: 4px 8px;
+  font-size: 0.7rem;
+  gap: 3px;
+}
+
+.statusBadge.small .statusIcon {
+  font-size: 0.7rem;
+}
+
+.statusBadge.medium {
+  padding: 6px 12px;
+  font-size: 0.75rem;
+  gap: 4px;
+}
+
+.statusBadge.medium .statusIcon {
+  font-size: 0.8rem;
+}
+
+.statusIcon {
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.statusText {
+  line-height: 1;
+  font-weight: 600;
+}
+
+/* Pulse animation for available status */
+.statusBadge:has(.statusIcon:contains("🟢")) {
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+/* Mobile optimizations */
+@media (max-width: 480px) {
+  .statusBadge.medium {
+    padding: 5px 10px;
+    font-size: 0.7rem;
+  }
+
+  .statusBadge.small {
+    padding: 3px 6px;
+    font-size: 0.65rem;
+  }
+}

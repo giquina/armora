@@ -1,0 +1,91 @@
+/* QUICK ACTIONS BAR */
+
+.quickActionsBar {
+  background: var(--bg-card);
+  border-bottom: 1px solid var(--border-subtle);
+  padding: 12px;
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.quickActionsBar::-webkit-scrollbar {
+  display: none;
+}
+
+.quickActionButton {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 14px;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-full);
+  color: var(--text-primary);
+  font-size: var(--font-sm);
+  font-weight: 500;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  white-space: nowrap;
+  min-height: 44px;
+  touch-action: manipulation;
+  flex-shrink: 0;
+}
+
+.quickActionButton.active {
+  background: var(--accent);
+  color: var(--text-dark);
+  border-color: var(--accent);
+  font-weight: 600;
+}
+
+.quickActionButton:hover:not(.active) {
+  background: rgba(255, 215, 0, 0.1);
+  border-color: var(--accent);
+  transform: translateY(-1px);
+}
+
+.quickActionButton:active {
+  transform: translateY(0);
+}
+
+.quickActionIcon {
+  font-size: 1rem;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.quickActionLabel {
+  line-height: 1;
+}
+
+/* Mobile optimizations */
+@media (max-width: 480px) {
+  .quickActionsBar {
+    padding: 10px 12px;
+    gap: 6px;
+  }
+
+  .quickActionButton {
+    padding: 8px 12px;
+    font-size: 0.85rem;
+    gap: 5px;
+  }
+
+  .quickActionIcon {
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 320px) {
+  .quickActionsBar {
+    padding: 8px 10px;
+  }
+
+  .quickActionButton {
+    padding: 8px 10px;
+    font-size: 0.8rem;
+  }
+}

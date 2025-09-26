@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { useApp } from '../../contexts/AppContext';
-import { sanitizeText, validateJSON } from '../../utils/inputSanitization';
 import styles from './AccountView.module.css';
 
 interface UserAccountData {

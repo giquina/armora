@@ -1,7 +1,7 @@
 import { ProtectionLevel } from '../components/ProtectionAssignment/ProtectionLevelSelector';
 import { VenueTimeData } from '../components/ProtectionAssignment/VenueTimeEstimator';
 import { formatPrice } from './priceFormatter';
-import { calculateNationwideProtection, NationwidePricingBreakdown } from './nationwidePricing';
+import { calculateNationwideProtection } from './nationwidePricing';
 
 export interface PricingBreakdown {
   components: Array<{

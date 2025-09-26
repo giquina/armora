@@ -9,9 +9,8 @@ interface TopToolbarProps {
 }
 
 export const TopToolbar: React.FC<TopToolbarProps> = ({ onOpenNotifications }) => {
-  const { state, navigateToView } = useApp();
-  const { currentView } = state;
-  const unreadCount = useMemo(() => (state.notifications || []).filter(n => !n.isRead).length, [state.notifications]);
+  const { navigateToView, state } = useApp();
+  const unreadCount = useMemo(() => (state.notifications || []).filter((n: any) => !n.isRead).length, [state.notifications]);
 
   // Use exact splash/welcome brand style via BrandText
 

@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useApp } from '../../contexts/AppContext';
-import { useAuth } from '../../contexts/AuthContext';
-import { useProtectionAssignments, useSafeAssignmentFundStats, useUserProfile, useNotifications } from '../../hooks/useSupabaseData';
+// import { useAuth } from '../../contexts/AuthContext'; // Temporarily disabled for development
 import { Button } from '../UI/Button';
 import { ServiceCard } from './ServiceCard';
 // import { CreatorImpactWidget } from './CreatorImpactWidget';
@@ -44,11 +43,9 @@ const ARMORA_SERVICES: ServiceLevel[] = convertToServiceLevel();
 export function Dashboard() {
   const { state, navigateToView } = useApp();
   const { user: legacyUser, questionnaireData, deviceCapabilities } = state;
-  const { user, profile } = useAuth();
-  const { assignments, loading: assignmentsLoading } = useProtectionAssignments();
-  const { stats: safeAssignmentFundStats } = useSafeAssignmentFundStats();
-  const { profile: extendedProfile } = useUserProfile();
-  const { notifications } = useNotifications();
+
+  // Development mode - mock auth data
+  const user = null;
   const [showRewardBanner, setShowRewardBanner] = useState(false);
   const [currentCarouselIndex, setCurrentCarouselIndex] = useState(0);
   const [showCPOModal, setShowCPOModal] = useState(false);
@@ -57,13 +54,12 @@ export function Dashboard() {
 
   // Check if user has unlocked reward and hasn't dismissed banner
   useEffect(() => {
-    // ALWAYS show reward banner for eligible users (non-guests)
-    // Use legacy user for backward compatibility, fallback to Supabase user
-    const currentUser = legacyUser || user;
-    const isEligible = currentUser && (legacyUser?.userType !== 'guest' || user?.email);
+    // Development mode: use only legacy user data
+    const currentUser = legacyUser;
+    const isEligible = currentUser && (legacyUser?.userType !== 'guest');
     const hasSeenBanner = localStorage.getItem('armora_reward_banner_dismissed');
     setShowRewardBanner(Boolean(isEligible && !hasSeenBanner));
-  }, [user, legacyUser]);
+  }, [legacyUser]);
 
 
   const handleUpgradeAccount = () => {

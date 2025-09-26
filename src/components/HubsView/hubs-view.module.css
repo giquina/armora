@@ -1,0 +1,340 @@
+/* PREMIUM MOBILE-FIRST HUBS VIEW */
+
+/* Container */
+.hubsContainer {
+  width: 100%;
+  min-height: 100vh;
+  background: var(--bg-primary);
+  padding: 0;
+  overflow-x: hidden;
+}
+
+/* Header Section */
+.hubsHeader {
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+  padding: max(env(safe-area-inset-top), 16px) 16px 24px 16px;
+  text-align: center;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.hubsTitle {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0 0 8px 0;
+  line-height: 1.2;
+}
+
+.hubsSubtitle {
+  font-size: var(--font-base);
+  color: var(--text-secondary);
+  margin: 0 0 20px 0;
+  line-height: 1.4;
+}
+
+/* Quick Stats */
+.quickStats {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  margin-top: 20px;
+}
+
+.statItem {
+  text-align: center;
+}
+
+.statValue {
+  display: block;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--accent);
+  line-height: 1;
+  margin-bottom: 4px;
+}
+
+.statLabel {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-weight: 500;
+}
+
+/* Quick Actions Bar */
+.quickActionsBar {
+  background: var(--bg-card);
+  border-bottom: 1px solid var(--border-subtle);
+  padding: 12px;
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.quickActionsBar::-webkit-scrollbar {
+  display: none;
+}
+
+.quickActionButton {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 12px;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-full);
+  color: var(--text-primary);
+  font-size: var(--font-sm);
+  font-weight: 500;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  white-space: nowrap;
+  min-height: 44px;
+  touch-action: manipulation;
+}
+
+.quickActionButton.active {
+  background: var(--accent);
+  color: var(--text-dark);
+  border-color: var(--accent);
+}
+
+.quickActionButton:hover:not(.active) {
+  background: rgba(255, 215, 0, 0.1);
+  border-color: var(--accent);
+}
+
+.quickActionIcon {
+  font-size: 1rem;
+}
+
+/* Search and Filter Section */
+.searchSection {
+  background: var(--bg-card);
+  padding: 16px;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.searchInput {
+  width: 100%;
+  padding: 12px 16px;
+  background: var(--bg-primary);
+  border: 1px solid var(--border-primary);
+  border-radius: var(--radius-lg);
+  color: var(--text-primary);
+  font-size: 16px; /* Prevent zoom on iOS */
+  min-height: 44px;
+  box-sizing: border-box;
+  transition: border-color var(--transition-fast);
+}
+
+.searchInput:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+.searchInput::placeholder {
+  color: var(--text-secondary);
+}
+
+.filterToggle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 0;
+  margin-top: 12px;
+  color: var(--accent);
+  font-size: var(--font-sm);
+  font-weight: 500;
+  cursor: pointer;
+  background: none;
+  border: none;
+  min-height: 44px;
+  touch-action: manipulation;
+}
+
+/* Hubs Grid */
+.hubsGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+  padding: 16px;
+  max-width: var(--content-max-width);
+  margin: 0 auto;
+}
+
+/* Loading States */
+.loadingContainer {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+  padding: 16px;
+  max-width: var(--content-max-width);
+  margin: 0 auto;
+}
+
+/* Empty State */
+.emptyState {
+  text-align: center;
+  padding: 48px 16px;
+  color: var(--text-secondary);
+}
+
+.emptyStateIcon {
+  font-size: 3rem;
+  margin-bottom: 16px;
+}
+
+.emptyStateTitle {
+  font-size: var(--font-lg);
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0 0 8px 0;
+}
+
+.emptyStateDescription {
+  font-size: var(--font-base);
+  line-height: 1.5;
+  margin: 0 0 24px 0;
+}
+
+.emptyStateAction {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 24px;
+  background: var(--accent);
+  color: var(--text-dark);
+  border: none;
+  border-radius: var(--radius-lg);
+  font-size: var(--font-base);
+  font-weight: 600;
+  cursor: pointer;
+  min-height: 44px;
+  touch-action: manipulation;
+  transition: all var(--transition-fast);
+}
+
+.emptyStateAction:hover {
+  background: var(--hover-gold);
+  transform: translateY(-2px);
+}
+
+/* Responsive Design */
+@media (min-width: 768px) {
+  .hubsGrid,
+  .loadingContainer {
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    padding: 24px;
+  }
+
+  .hubsHeader {
+    padding: max(env(safe-area-inset-top), 24px) 24px 32px 24px;
+  }
+
+  .hubsTitle {
+    font-size: 2.25rem;
+  }
+
+  .searchSection {
+    padding: 24px;
+  }
+
+  .quickActionsBar {
+    padding: 16px 24px;
+    justify-content: center;
+    gap: 12px;
+  }
+
+  .quickActionButton {
+    padding: 10px 16px;
+  }
+
+  .quickStats {
+    gap: 32px;
+  }
+
+  .statValue {
+    font-size: 1.75rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .hubsGrid,
+  .loadingContainer {
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 24px;
+    padding: 32px;
+  }
+}
+
+/* Ensure no horizontal scrolling at 320px */
+@media (max-width: 320px) {
+  .hubsContainer {
+    padding: 0;
+  }
+
+  .hubsGrid,
+  .loadingContainer {
+    padding: 12px;
+    gap: 12px;
+  }
+
+  .hubsHeader {
+    padding: max(env(safe-area-inset-top), 12px) 12px 20px 12px;
+  }
+
+  .searchSection {
+    padding: 12px;
+  }
+
+  .quickActionsBar {
+    padding: 12px;
+    gap: 6px;
+  }
+
+  .quickActionButton {
+    padding: 8px 10px;
+    font-size: 0.8rem;
+  }
+
+  .quickStats {
+    gap: 16px;
+    margin-top: 16px;
+  }
+
+  .statValue {
+    font-size: 1.2rem;
+  }
+
+  .statLabel {
+    font-size: 0.7rem;
+  }
+}
+
+/* Animation for entering hubs */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.hubCard {
+  animation: fadeInUp 0.4s ease-out;
+  animation-fill-mode: both;
+}
+
+.hubCard:nth-child(1) { animation-delay: 0ms; }
+.hubCard:nth-child(2) { animation-delay: 100ms; }
+.hubCard:nth-child(3) { animation-delay: 200ms; }
+.hubCard:nth-child(4) { animation-delay: 300ms; }
+.hubCard:nth-child(5) { animation-delay: 400ms; }
+.hubCard:nth-child(6) { animation-delay: 500ms; }

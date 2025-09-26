@@ -27,14 +27,38 @@ Armora is a React 19.1.1 TypeScript application for premium close protection and
 - **Playwright**: End-to-end testing framework
 
 ## Core Development Commands
-- `npm start` - Start development server (localhost:3001)
+- `npm run dev` - **RECOMMENDED**: Start with hooks system AND agent orchestration (full development experience)
+- `PORT=3001 npm start` - **PRIMARY**: Development server on port 3001 (recommended port)
+- `npm start` - Start development server (default localhost:3000, may have stale cache issues)
 - `npm run build` - Production build with type checking
 - `npm test` - Run tests in watch mode (Jest + React Testing Library)
 - `npm test -- --coverage` - Coverage report
 - `npm test -- --watchAll=false` - Single run (CI mode)
 - `npm test -- src/components/ProtectionAssignment/__tests__/AssignmentConfirmation.test.tsx` - Run specific test file
 - `npm run test:e2e` - Run Playwright end-to-end tests (tests/e2e directory)
-- `npm run dev` - Start with hooks system AND agent orchestration (recommended for full development experience)
+
+### 🚀 Server Management
+**Always use `npm run dev` for the best development experience** - it includes:
+- Development server with hot reload
+- AI-powered hooks system (mobile viewport testing, brand compliance, auto-save)
+- Specialized agent orchestration
+- Real-time file monitoring and suggestions
+
+**To keep server running in background:**
+```bash
+# Method 1: Recommended full development setup
+npm run dev
+
+# Method 2: Basic server only (if needed)
+nohup PORT=3001 npm start > /dev/null 2>&1 &
+
+# Check if server is running
+curl -s http://localhost:3001 | head -20
+lsof -i :3001
+
+# Kill background processes if needed
+pkill -f "react-scripts start"
+```
 
 **CRITICAL**: No separate lint/typecheck commands - always run `npm run build` to verify TypeScript correctness before committing.
 
@@ -429,4 +453,42 @@ The app uses React Context for state management with two main contexts:
 - **Mobile Optimization**: Aggressive mobile-first approach with touch targets
 - **Asset Optimization**: Proper handling of images and static assets
 
-Last updated: 2025-09-25T21:00:00.000Z
+## 🚀 Quick Reference - Server Status & Commands
+
+### Current Development Server Status:
+- **Status**: ✅ RUNNING
+- **URL**: http://localhost:3001 (PRIMARY PORT)
+- **Process**: Clean server instance without stale webpack cache
+- **Last Updated**: Port 3000 removed due to chunk loading errors
+
+### Essential Commands:
+```bash
+# RECOMMENDED: Full development environment
+npm run dev
+
+# PRIMARY: Start on port 3001 (recommended)
+PORT=3001 npm start
+
+# Check if server is running
+curl -s http://localhost:3001 | head -5
+lsof -i :3001
+
+# Kill servers if needed
+pkill -f "react-scripts start"
+
+# Build and test
+npm run build
+npm test
+```
+
+### Recent Changes:
+✅ **Mobile Navigation Cards Optimized (Latest)**:
+- Fixed text wrapping issues (CPO names no longer span 3 lines)
+- Removed excessive empty spaces and improved mobile spacing
+- Enhanced visual hierarchy and typography for small screens
+- Optimized card heights and responsive layout across 320px-414px+
+- Progressive scaling for different mobile screen sizes
+
+---
+
+Last updated: 2025-09-26T03:09:00.000Z

@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState } from 'react';
 import { SERVICES_DATA } from '../../data/servicesData';
 import styles from './ServiceComparisonTable.module.css';
 
@@ -88,14 +88,14 @@ export function ServiceComparisonTable() {
     const values = selectedServices.map(id => {
       const rawValue = getFeatureValue(id, feature.key);
       if (feature.key === 'hourlyRate') {
-        return parseInt(rawValue.replace(/[£\/hr]/g, ''));
+        return parseInt(rawValue.replace(/[£/hr]/g, ''));
       }
       return rawValue;
     });
 
     const currentValue = getFeatureValue(serviceId, feature.key);
     const currentNumeric = feature.key === 'hourlyRate' ?
-      parseInt(currentValue.replace(/[£\/hr]/g, '')) : currentValue;
+      parseInt(currentValue.replace(/[£/hr]/g, '')) : currentValue;
 
     if (feature.highlight === 'lowest' && feature.key === 'hourlyRate') {
       return currentNumeric === Math.min(...values as number[]);

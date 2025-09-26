@@ -3,7 +3,7 @@ import { useApp } from '../../contexts/AppContext';
 import styles from './ProtectionStatus.module.css';
 
 export function ProtectionStatus() {
-  const { state, navigateToView } = useApp();
+  const { navigateToView } = useApp();
 
   // Mock active booking data - in real app would come from state
   const hasActiveProtection = false; // Would check state.activeBooking

@@ -1,5 +1,4 @@
 import React from 'react';
-import { SparklineChart } from './MicroVisualizations/SparklineChart';
 import styles from '../NavigationCards.module.css';
 
 interface AnalyticsCardData {
@@ -43,10 +42,6 @@ export const AnalyticsCard: React.FC<AnalyticsCardProps> = ({
     return trend < 0 ? '↓' : trend > 0 ? '↑' : '→';
   };
 
-  const quickActions = [
-    { icon: '📊', label: 'Full Report', handler: () => console.log('Open full report') },
-    { icon: '📤', label: 'Export', handler: () => console.log('Export data') }
-  ];
 
   return (
     <button

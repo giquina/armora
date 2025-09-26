@@ -67,10 +67,6 @@ export const UpcomingCard: React.FC<UpcomingCardProps> = ({
     return () => clearInterval(interval);
   }, [data.countdown]);
 
-  const quickActions = [
-    { icon: '🔄', label: 'Reschedule', handler: () => console.log('Reschedule') },
-    { icon: '➕', label: 'Book Similar', handler: () => console.log('Book similar') }
-  ];
 
   return (
     <button

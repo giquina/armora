@@ -53,14 +53,6 @@ export const CPODetailModal: React.FC<CPODetailModalProps> = ({
     return stars;
   };
 
-  const getServiceRateForBudget = (budget: string): number => {
-    switch (budget) {
-      case 'essential': return cpo.hourlyRates.essential;
-      case 'executive': return cpo.hourlyRates.executive;
-      case 'shadow': return cpo.hourlyRates.shadow;
-      default: return cpo.hourlyRates.essential;
-    }
-  };
 
   return (
     <div className={styles.modalOverlay} onClick={onClose}>

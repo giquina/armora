@@ -1,12 +1,10 @@
 import React, { createContext, useContext, useReducer, useEffect, useCallback, ReactNode } from 'react';
-import { AppState, ViewState, User, PersonalizationData, DeviceCapabilities, UserSubscription, SubscriptionTier, PremiumInterest, NotificationData, SafeAssignmentFundMetrics, CommunityImpactData, AssignmentState, Assignment, PanicAlert, INotificationItem } from '../types';
+import { AppState, ViewState, User, PersonalizationData, DeviceCapabilities, UserSubscription, SubscriptionTier, PremiumInterest, NotificationData, SafeAssignmentFundMetrics, CommunityImpactData, Assignment, INotificationItem } from '../types';
 import {
   createProtectionAssignment,
-  getProtectionAssignment,
   updateProtectionAssignment,
   subscribeToAssignmentUpdates,
   activateEmergency,
-  deactivateEmergency,
   getSafeAssignmentFundStats,
 } from "../lib/supabase"
 
@@ -210,7 +208,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
   const [state, dispatch] = useReducer(appReducer, initialState);
 
   // Convenience actions
-  const navigateToView = (view: ViewState) => {
+  const navigateToView = useCallback((view: ViewState) => {
     // Development mode: always allow questionnaire navigation for testing
     const isDevelopment = process.env.NODE_ENV === 'development';
     
@@ -239,7 +237,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
     } catch (e) {
       // no-op if hash cannot be set (e.g., SSR or restricted env)
     }
-  };
+  }, []);
 
   const setUser = (user: User | null) => {
     dispatch({ type: 'SET_USER', payload: user });
@@ -551,7 +549,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
     try {
       const currentLocation = location || state.assignmentState.lastKnownLocation;
 
-      const { data, error } = await activateEmergency(
+      const { error } = await activateEmergency(
         state.user.id,
         currentLocation,
         state.assignmentState.activeAssignmentId || undefined

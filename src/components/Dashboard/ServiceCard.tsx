@@ -1,8 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { ServiceLevel } from '../../types';
 import { Button } from '../UI/Button';
-import { InlineQuickScheduling } from '../UI/InlineQuickScheduling';
-import { StreamlinedBookingModal } from '../UI/StreamlinedBookingModal';
 import styles from './ServiceCard.module.css';
 
 // Service tier configuration with complete pricing and enhanced SIA-compliant descriptions
@@ -100,7 +98,7 @@ export function ServiceCard({
   onDirectBook,
   userType = null
 }: ServiceCardProps) {
-  const [showExpandedInfo, setShowExpandedInfo] = useState(false);
+  const [showExpandedInfo] = useState(false);
   const [isBookingLoading, setIsBookingLoading] = useState(false);
 
 
@@ -126,9 +124,6 @@ export function ServiceCard({
     }, 300);
   };
 
-  const handleMoreInfo = () => {
-    setShowExpandedInfo(!showExpandedInfo);
-  };
 
   const cardClasses = [
     styles.serviceCard,

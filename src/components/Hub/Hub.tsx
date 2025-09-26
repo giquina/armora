@@ -109,7 +109,6 @@ const mockAssignments: Assignment[] = [
   }
 ];
 
-type PanelState = 'collapsed' | 'half' | 'full';
 
 export function Hub() {
   const { navigateToView } = useApp();
@@ -117,13 +116,13 @@ export function Hub() {
   const [showTemplates, setShowTemplates] = useState(false);
   const [showFinancialTracker, setShowFinancialTracker] = useState(false);
   const [isLocationSharing, setIsLocationSharing] = useState(false);
-  const [panelState, setPanelState] = useState<PanelState>('collapsed');
-  const [sortBy, setSortBy] = useState<'time' | 'cost' | 'tier'>('time');
+  const [panelState] = useState<'collapsed' | 'half' | 'full'>('collapsed');
+  const [isLoading] = useState(false);
+  const [sortBy] = useState<'time' | 'cost' | 'tier'>('time');
   const [filters, setFilters] = useState<{ratedOnly: boolean; execOnly: boolean}>({ ratedOnly: false, execOnly: false });
   const [search, setSearch] = useState('');
   const [dateFrom, setDateFrom] = useState(''); // YYYY-MM-DD
   const [dateTo, setDateTo] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
   const assignments = mockAssignments;
 
   // Mock officer data for the control panel
@@ -191,25 +190,13 @@ export function Hub() {
   }, []);
 
   // Enhanced feature handlers
-  const handlePanicAlert = useCallback(() => {
-    console.log('🚨 PANIC ALERT TRIGGERED - Emergency dispatch initiated');
-    // In real app: trigger emergency protocol, notify all parties
-  }, []);
 
   const handleDirectCall = useCallback(() => {
     console.log('📞 Calling protection officer...');
     // In real app: initiate call to assigned officer
   }, []);
 
-  const handleLiveChat = useCallback(() => {
-    console.log('💬 Opening live chat...');
-    // In real app: open chat interface
-  }, []);
 
-  const handleShareLocation = useCallback(() => {
-    console.log('📍 Sharing current location...');
-    // In real app: share GPS coordinates with officer
-  }, []);
 
   const handleLocationToggle = useCallback(() => {
     setIsLocationSharing(!isLocationSharing);
@@ -232,38 +219,6 @@ export function Hub() {
     // In real app: process points claim
   }, []);
 
-  // Panel state transition handler
-  const handlePanelClick = useCallback(() => {
-    setPanelState(currentState => {
-      switch (currentState) {
-        case 'collapsed':
-          return 'half';
-        case 'half':
-          return 'full';
-        case 'full':
-          return 'collapsed';
-        default:
-          return 'collapsed';
-      }
-    });
-  }, []);
-
-  // Swipe gesture handlers for mobile
-  const handleSwipeUp = useCallback(() => {
-    setPanelState(currentState => {
-      if (currentState === 'collapsed') return 'half';
-      if (currentState === 'half') return 'full';
-      return currentState;
-    });
-  }, []);
-
-  const handleSwipeDown = useCallback(() => {
-    setPanelState(currentState => {
-      if (currentState === 'full') return 'half';
-      if (currentState === 'half') return 'collapsed';
-      return currentState;
-    });
-  }, []);
 
 
   const renderAssignmentCard = useCallback((assignment: Assignment) => {

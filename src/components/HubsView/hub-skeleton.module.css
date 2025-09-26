@@ -1,0 +1,219 @@
+/* HUB SKELETON LOADING STATES */
+
+.hubSkeleton {
+  background: #ffffff;
+  border-radius: 20px;
+  box-shadow:
+    0 4px 6px rgba(0, 0, 0, 0.05),
+    0 10px 25px rgba(0, 0, 0, 0.1);
+  padding: 0;
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+/* Skeleton animation */
+@keyframes skeleton-loading {
+  0% {
+    background-position: -200px 0;
+  }
+  100% {
+    background-position: calc(200px + 100%) 0;
+  }
+}
+
+.hubSkeleton * {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200px 100%;
+  animation: skeleton-loading 1.5s infinite;
+}
+
+/* Skeleton elements */
+.skeletonStripe {
+  height: 4px;
+  width: 100%;
+  background: linear-gradient(90deg, #FFD700, #FFA500, #FF6B35);
+  animation: none !important;
+}
+
+.skeletonHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 20px 20px 16px 20px;
+  gap: 12px;
+}
+
+.skeletonInfo {
+  flex: 1;
+}
+
+.skeletonTitle {
+  height: 20px;
+  width: 70%;
+  border-radius: 4px;
+  margin-bottom: 8px;
+}
+
+.skeletonLocation {
+  height: 14px;
+  width: 50%;
+  border-radius: 4px;
+}
+
+.skeletonActions {
+  display: flex;
+  gap: 8px;
+}
+
+.skeletonFavorite {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+.skeletonBadge {
+  width: 70px;
+  height: 28px;
+  border-radius: 14px;
+}
+
+.skeletonBadges {
+  display: flex;
+  gap: 6px;
+  padding: 0 20px 16px 20px;
+}
+
+.skeletonServiceBadge {
+  height: 22px;
+  width: 60px;
+  border-radius: 11px;
+}
+
+.skeletonOfficerSection {
+  padding: 0 20px 16px 20px;
+}
+
+.skeletonStats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  background: rgba(26, 26, 46, 0.03);
+  padding: 16px 12px;
+  border-radius: 12px;
+}
+
+.skeletonStatItem {
+  text-align: center;
+}
+
+.skeletonStatValue {
+  height: 20px;
+  width: 30px;
+  margin: 0 auto 6px auto;
+  border-radius: 4px;
+}
+
+.skeletonStatLabel {
+  height: 12px;
+  width: 100%;
+  border-radius: 4px;
+}
+
+.skeletonPerformance {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 16px;
+  padding: 0 20px 16px 20px;
+}
+
+.skeletonResponseTime,
+.skeletonCoverage,
+.skeletonLoad {
+  height: 40px;
+  border-radius: 8px;
+}
+
+.skeletonMeta {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 20px 16px 20px;
+  gap: 12px;
+}
+
+.skeletonRating {
+  height: 16px;
+  width: 80px;
+  border-radius: 4px;
+}
+
+.skeletonDistance {
+  height: 16px;
+  width: 60px;
+  border-radius: 4px;
+}
+
+.skeletonSelectSection {
+  padding: 16px 20px 20px 20px;
+  border-top: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.skeletonSelectButton {
+  width: 100%;
+  height: 44px;
+  border-radius: 12px;
+}
+
+/* Mobile adjustments */
+@media (max-width: 480px) {
+  .skeletonHeader {
+    padding: 16px 16px 12px 16px;
+  }
+
+  .skeletonBadges,
+  .skeletonOfficerSection,
+  .skeletonPerformance,
+  .skeletonMeta {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  .skeletonSelectSection {
+    padding: 12px 16px 16px 16px;
+  }
+
+  .skeletonStats {
+    padding: 12px 8px;
+    gap: 8px;
+  }
+
+  .skeletonPerformance {
+    gap: 12px;
+  }
+}
+
+@media (max-width: 320px) {
+  .hubSkeleton {
+    border-radius: 16px;
+  }
+
+  .skeletonHeader {
+    padding: 12px 12px 10px 12px;
+  }
+
+  .skeletonBadges,
+  .skeletonOfficerSection,
+  .skeletonPerformance,
+  .skeletonMeta {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+
+  .skeletonSelectSection {
+    padding: 10px 12px 12px 12px;
+  }
+
+  .skeletonSelectButton {
+    height: 40px;
+  }
+}
