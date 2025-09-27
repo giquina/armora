@@ -235,7 +235,7 @@ async function runWorkflowTests(result: MasterTestResult): Promise<void> {
   const workflows = [
     'User Registration and Profile Setup',
     'Protection Officer Assignment Process',
-    'Assignment Booking and Confirmation',
+    'Assignment Assignment and Confirmation',
     'Real-time Status Updates',
     'Emergency Alert Activation',
     'Assignment Completion and Review',

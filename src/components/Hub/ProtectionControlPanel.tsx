@@ -139,7 +139,7 @@ export function ProtectionControlPanel({
         return [
           { id: 'rate', icon: '⭐', title: 'RATE SERVICE', subtitle: `Review ${officer.name}`, helper: 'Share your experience' },
           { id: 'report', icon: '📄', title: 'VIEW REPORT', subtitle: 'Security summary', helper: 'Download PDF' },
-          { id: 'book', icon: '🔄', title: 'REQUEST AGAIN', subtitle: 'Same officer/time', helper: 'Repeat service' },
+          { id: 'request protection', icon: '🔄', title: 'REQUEST AGAIN', subtitle: 'Same officer/time', helper: 'Repeat service' },
           { id: 'issue', icon: '❗', title: 'REPORT ISSUE', subtitle: 'File complaint', helper: 'Service problem' }
         ];
       default:

@@ -116,7 +116,7 @@ export const SERVICES_DATA: ServiceData[] = [
       'Former military and police Close Protection',
       'Premium BMW vehicles maintained to luxury standards',
       'Corporate protocol and confidentiality training',
-      'Priority booking and dedicated support',
+      'Priority protection assignment and dedicated support',
       'Meeting point security assessments'
     ],
     officerDescription: {

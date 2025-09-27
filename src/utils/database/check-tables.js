@@ -13,7 +13,7 @@ async function checkTables() {
   const tableNames = [
     'protection_officers',
     'officers',
-    'drivers',
+    'protection officers',
     'protection_assignments',
     'assignments',
     'bookings',

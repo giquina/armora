@@ -63,12 +63,12 @@ export function ProtectionStatusModal({ isOpen, onClose, protectionStatus }: Pro
 
   const handleRequestProtection = () => {
     onClose();
-    navigateToView('booking');
+    navigateToView('protection-request');
   };
 
   const handleScheduleProtection = () => {
     onClose();
-    navigateToView('booking');
+    navigateToView('protection-request');
   };
 
   const handleViewHistory = () => {

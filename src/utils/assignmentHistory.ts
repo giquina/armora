@@ -1,9 +1,9 @@
 // Protection Assignment History Management Utilities
 import { ProtectionAssignmentHistoryItem, FavoriteRoute, QuickActionItem, PersonalizationAnalytics, ProtectionAssignmentData } from '../types';
 
-// Storage keys (maintaining legacy keys for compatibility)
+// Storage keys
 export const STORAGE_KEYS = {
-  ASSIGNMENT_HISTORY: 'armora_booking_history', // Keep legacy key for compatibility
+  ASSIGNMENT_HISTORY: 'armora_assignment_history',
   FAVORITE_ROUTES: 'armora_favorite_routes',
   PERSONALIZATION_ANALYTICS: 'armora_personalization_analytics',
 } as const;
@@ -15,7 +15,7 @@ const MIN_FREQUENCY_FOR_FAVORITE = 3;
 export class AssignmentHistoryManager {
 
   /**
-   * Save a completed protection assignment to history
+   * Save a completed assignment to history
    */
   static saveAssignmentToHistory(protectionAssignmentData: ProtectionAssignmentData, assignmentId: string, protectionOfficerName?: string): void {
     try {
@@ -78,15 +78,6 @@ export class AssignmentHistoryManager {
     }
   }
 
-  // Legacy method aliases for backward compatibility
-  static getBookingHistory(): ProtectionAssignmentHistoryItem[] {
-    return this.getAssignmentHistory();
-  }
-
-  static saveBookingToHistory(protectionAssignmentData: ProtectionAssignmentData, bookingId: string, protectionOfficerName?: string): void {
-    return this.saveAssignmentToHistory(protectionAssignmentData, bookingId, protectionOfficerName);
-  }
-
   /**
    * Get favorite routes from localStorage
    */
@@ -101,12 +92,12 @@ export class AssignmentHistoryManager {
   }
 
   /**
-   * Calculate how many times a route has been booked
+   * Calculate how many times a route has been requested
    */
   private static calculateRouteFrequency(history: ProtectionAssignmentHistoryItem[], from: string, to: string): number {
     return history.filter(item =>
       item.from === from && item.to === to
-    ).length + 1; // +1 for current booking
+    ).length + 1; // +1 for current assignment
   }
 
   /**
@@ -190,12 +181,12 @@ export class AssignmentHistoryManager {
 
     const actions: QuickActionItem[] = [];
 
-    // Most recent booking - "Book Again"
+    // Most recent assignment - "Request Again"
     if (history.length > 0) {
       const recent = history[0];
       actions.push({
-        id: 'rebook-recent',
-        title: `Rebook: ${this.shortenLocationName(recent.to)}`,
+        id: 'rerequest-recent',
+        title: `Rerequest: ${this.shortenLocationName(recent.to)}`,
         subtitle: `From ${this.shortenLocationName(recent.from)}`,
         icon: '🔄',
         type: 'recent',
@@ -214,7 +205,7 @@ export class AssignmentHistoryManager {
       actions.push({
         id: `favorite-${fav.id}`,
         title: fav.nickname || `${this.shortenLocationName(fav.from)} → ${this.shortenLocationName(fav.to)}`,
-        subtitle: `Booked ${fav.count} times`,
+        subtitle: `Requested ${fav.count} times`,
         icon: fav.count > 5 ? '⭐' : '📍',
         type: 'frequent',
         data: fav,
@@ -239,25 +230,25 @@ export class AssignmentHistoryManager {
   }
 
   /**
-   * Generate smart suggestions based on booking patterns
+   * Generate smart suggestions based on assignment patterns
    */
   static generateSmartSuggestions(history: ProtectionAssignmentHistoryItem[]): QuickActionItem[] {
     const suggestions: QuickActionItem[] = [];
 
-    // Pattern: Same day of week bookings
+    // Pattern: Same day of week assignments
     const today = new Date().getDay();
-    const sameDayBookings = history.filter(item => {
-      const bookingDay = new Date(item.date).getDay();
-      return bookingDay === today;
+    const sameDayAssignments = history.filter(item => {
+      const assignmentDay = new Date(item.date).getDay();
+      return assignmentDay === today;
     });
 
-    if (sameDayBookings.length >= 2) {
-      const mostCommon = this.getMostCommonRoute(sameDayBookings);
+    if (sameDayAssignments.length >= 2) {
+      const mostCommon = this.getMostCommonRoute(sameDayAssignments);
       if (mostCommon) {
         suggestions.push({
           id: 'suggestion-weekly',
           title: `${this.getDayName(today)} Regular?`,
-          subtitle: `You usually book ${this.shortenLocationName(mostCommon.to)}`,
+          subtitle: `You usually request ${this.shortenLocationName(mostCommon.to)}`,
           icon: '📅',
           type: 'suggestion',
           data: mostCommon,
@@ -270,19 +261,19 @@ export class AssignmentHistoryManager {
     const currentHour = new Date().getHours();
     const timeCategory = currentHour < 12 ? 'morning' : currentHour < 17 ? 'afternoon' : 'evening';
 
-    const timeBasedBookings = history.filter(item => {
+    const timeBasedAssignments = history.filter(item => {
       const hour = parseInt(item.time.split(':')[0]);
       if (timeCategory === 'morning') return hour < 12;
       if (timeCategory === 'afternoon') return hour >= 12 && hour < 17;
       return hour >= 17;
     });
 
-    if (timeBasedBookings.length >= 2) {
-      const timeCommon = this.getMostCommonRoute(timeBasedBookings);
+    if (timeBasedAssignments.length >= 2) {
+      const timeCommon = this.getMostCommonRoute(timeBasedAssignments);
       if (timeCommon && !suggestions.find(s => s.data?.to === timeCommon.to)) {
         suggestions.push({
           id: 'suggestion-time',
-          title: `${timeCategory.charAt(0).toUpperCase() + timeCategory.slice(1)} Commencement Point?`,
+          title: `${timeCategory.charAt(0).toUpperCase() + timeCategory.slice(1)} protection commencement?`,
           subtitle: `Your usual ${timeCategory} destination`,
           icon: timeCategory === 'morning' ? '🌅' : timeCategory === 'afternoon' ? '☀️' : '🌙',
           type: 'suggestion',
@@ -318,7 +309,7 @@ export class AssignmentHistoryManager {
       },
       {
         id: 'default-evening',
-        title: 'Evening Commencement Point',
+        title: 'Evening protection commencement',
         subtitle: 'Safe evening transport',
         icon: '🌙',
         type: 'default',
@@ -347,7 +338,7 @@ export class AssignmentHistoryManager {
       analytics.mostUsedService = Object.entries(serviceCount)
         .sort(([,a], [,b]) => b - a)[0]?.[0] || historyItem.service;
 
-      // Update booking patterns
+      // Update assignment patterns
       const date = new Date(historyItem.date);
       const dayName = this.getDayName(date.getDay());
       const monthName = date.toLocaleString('default', { month: 'long' });
@@ -467,7 +458,7 @@ export class AssignmentHistoryManager {
   }
 
   /**
-   * Clear all booking history and personalization data
+   * Clear all assignment history and personalization data
    */
   static clearAllData(): void {
     localStorage.removeItem(STORAGE_KEYS.ASSIGNMENT_HISTORY);
@@ -476,7 +467,7 @@ export class AssignmentHistoryManager {
   }
 
   /**
-   * Export protection assignment data for user download
+   * Export assignment data for user download
    */
   static exportProtectionAssignmentData(): string {
     const history = this.getAssignmentHistory();
@@ -491,6 +482,3 @@ export class AssignmentHistoryManager {
     }, null, 2);
   }
 }
-
-// Legacy class alias for backward compatibility
-export const BookingHistoryManager = AssignmentHistoryManager;

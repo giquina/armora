@@ -63,9 +63,9 @@ export function PopularRoutes() {
   };
 
   const handleQuickBook = (route: RoutePrice) => {
-    // Store route data for quick booking
+    // Store route data for quick protection assignment
     localStorage.setItem('armora_quick_route', JSON.stringify(route));
-    navigateToView('booking');
+    navigateToView('protection-request');
   };
 
   const formatPrice = (price: number) => {
@@ -143,7 +143,7 @@ export function PopularRoutes() {
                   className={styles.bookButton}
                   onClick={() => handleQuickBook(route)}
                 >
-                  Quick Book
+                  Quick Request
                 </button>
               </div>
             </div>
@@ -204,7 +204,7 @@ export function PopularRoutes() {
           <p>Get instant pricing for any journey in England & Wales</p>
           <button
             className={styles.customRouteButton}
-            onClick={() => navigateToView('booking')}
+            onClick={() => navigateToView('protection-request')}
           >
             Calculate Custom Route
           </button>

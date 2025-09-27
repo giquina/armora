@@ -20,7 +20,7 @@ interface UserPreferences {
   homeLocation?: Location;
   workLocation?: Location;
 
-  // Booking Patterns
+  // Assignment Patterns
   typicalBookingTimes: string[]; // ISO times when user usually books
   frequentRoutes: Array<{
     commencementPoint: Location;
@@ -113,7 +113,7 @@ class UserPreferencesService {
     };
   }
 
-  // Learn from user's booking behavior
+  // Learn from user's protection assignment behavior
   static learnFromBooking(bookingData: {
     serviceTier: string;
     commencementLocation: Location;
@@ -123,7 +123,7 @@ class UserPreferencesService {
   }): void {
     const preferences = this.getPreferences();
 
-    // Add to booking history
+    // Add to protection assignment history
     preferences.bookingHistory.unshift({
       timestamp: new Date().toISOString(),
       serviceTier: bookingData.serviceTier,
@@ -145,7 +145,7 @@ class UserPreferencesService {
     // Learn preferred service tier
     this.learnServicePreference(preferences);
 
-    // Learn booking time patterns
+    // Learn protection assignment time patterns
     this.learnBookingTimePatterns(preferences, bookingData.scheduledTime);
 
     // Update frequent routes
@@ -177,8 +177,8 @@ class UserPreferencesService {
     if (preferences.bookingHistory.length < 3) return;
 
     const recentBookings = preferences.bookingHistory.slice(0, 10);
-    const serviceCounts = recentBookings.reduce((counts, booking) => {
-      counts[booking.serviceTier] = (counts[booking.serviceTier] || 0) + 1;
+    const serviceCounts = recentBookings.reduce((counts, protection assignment) => {
+      counts[protection assignment.serviceTier] = (counts[protection assignment.serviceTier] || 0) + 1;
       return counts;
     }, {} as Record<string, number>);
 
@@ -190,7 +190,7 @@ class UserPreferencesService {
     }
   }
 
-  // Learn typical booking time patterns
+  // Learn typical protection assignment time patterns
   private static learnBookingTimePatterns(preferences: UserPreferences, scheduledTime: string): void {
     if (scheduledTime === 'immediate') return;
 
@@ -203,7 +203,7 @@ class UserPreferencesService {
       // Keep only recent patterns (last 20)
       preferences.typicalBookingTimes = preferences.typicalBookingTimes.slice(0, 20);
     } catch (error) {
-      console.warn('[Preferences] Error learning booking time pattern:', error);
+      console.warn('[Preferences] Error learning protection assignment time pattern:', error);
     }
   }
 
@@ -241,16 +241,16 @@ class UserPreferencesService {
       .slice(0, this.MAX_FREQUENT_ROUTES);
   }
 
-  // Update user profile based on booking patterns
+  // Update user profile based on protection assignment patterns
   private static updateUserProfile(preferences: UserPreferences): void {
     if (preferences.bookingHistory.length < 5) return;
 
     const recentBookings = preferences.bookingHistory.slice(0, 20);
 
-    // Determine if business user based on booking patterns
-    const businessHours = recentBookings.filter(booking => {
+    // Determine if business user based on protection assignment patterns
+    const businessHours = recentBookings.filter(protection assignment => {
       try {
-        const date = new Date(booking.timestamp);
+        const date = new Date(protection assignment.timestamp);
         const hour = date.getHours();
         const dayOfWeek = date.getDay();
         return dayOfWeek >= 1 && dayOfWeek <= 5 && hour >= 8 && hour <= 18;
@@ -294,7 +294,7 @@ class UserPreferencesService {
     }
   }
 
-  // Get smart default booking time
+  // Get smart default protection assignment time
   static getSmartTimeDefault(): string {
     const preferences = this.getPreferences();
 
@@ -302,11 +302,11 @@ class UserPreferencesService {
       return preferences.isBusinessUser ? '1hour' : 'immediate';
     }
 
-    // Analyze typical booking times to suggest default
+    // Analyze typical protection assignment times to suggest default
     const now = new Date();
     const currentHour = now.getHours();
 
-    // If it's business hours, suggest advance booking for business users
+    // If it's business hours, suggest advance protection assignment for business users
     if (preferences.isBusinessUser && currentHour >= 8 && currentHour <= 17) {
       return '1hour';
     }

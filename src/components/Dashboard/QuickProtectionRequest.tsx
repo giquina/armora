@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { Button } from '../UI/Button';
 import { LoadingSpinner } from '../UI/LoadingSpinner';
-import { BookingMap } from '../Map/BookingMap';
+import { ProtectionMap } from '../Map/ProtectionMap';
 import { SchedulingPicker } from '../UI/SchedulingPicker';
-import styles from './QuickBooking.module.css';
+import styles from './QuickProtectionRequest.module.css';
 
 interface Location {
   lat: number;
@@ -11,14 +11,14 @@ interface Location {
   address?: string;
 }
 
-interface QuickBookingProps {
-  onBookNow: () => void;
+interface QuickProtectionRequestProps {
+  onRequestProtection: () => void;
   selectedService: 'standard' | 'executive' | 'shadow' | null;
   isLoading?: boolean;
   userType?: 'registered' | 'google' | 'guest';
 }
 
-export function QuickBooking({ onBookNow, selectedService, isLoading = false, userType = 'guest' }: QuickBookingProps) {
+export function QuickProtectionRequest({ onRequestProtection, selectedService, isLoading = false, userType = 'guest' }: QuickProtectionRequestProps) {
   const [commencementLocation, setPickupLocation] = useState<Location | undefined>();
   const [destinationLocation, setDestinationLocation] = useState<Location | undefined>();
   const [currentLocation, setCurrentLocation] = useState<Location | null>(null);
@@ -161,8 +161,8 @@ export function QuickBooking({ onBookNow, selectedService, isLoading = false, us
   };
 
   const handleQuickBook = () => {
-    // Store comprehensive booking details for the booking flow
-    const bookingData = {
+    // Store comprehensive assignment details for the protection flow
+    const assignmentData = {
       commencementLocation,
       destinationLocation,
       multiStops: multiStops.filter(stop => stop.address?.trim()),
@@ -179,17 +179,17 @@ export function QuickBooking({ onBookNow, selectedService, isLoading = false, us
       }
     };
 
-    localStorage.setItem('armora_booking_draft', JSON.stringify(bookingData));
-    onBookNow();
+    localStorage.setItem('armora_assignment_draft', JSON.stringify(assignmentData));
+    onRequestProtection();
   };
 
-  const isReadyToBook = commencementLocation?.address && selectedService && (!isScheduled || scheduledTime);
+  const isReadyToRequest = commencementLocation?.address && selectedService && (!isScheduled || scheduledTime);
 
   // Check if Shadow service should be available (premium vehicle owners only)
   const shouldShowShadow = userType === 'registered' || userType === 'google';
 
   return (
-    <div className={styles.quickBooking}>
+    <div className={styles.quickProtectionRequest}>
       {/* Header */}
       <div className={styles.header}>
         <h2 className={styles.title}>Quick Request</h2>
@@ -199,7 +199,7 @@ export function QuickBooking({ onBookNow, selectedService, isLoading = false, us
 
       {/* Interactive Map - Always Visible */}
       <div className={styles.mapSection}>
-        <BookingMap
+        <ProtectionMap
           commencementPoint={commencementLocation}
           secureDestination={destinationLocation}
           onPickupChange={handlePickupChange}
@@ -394,17 +394,17 @@ export function QuickBooking({ onBookNow, selectedService, isLoading = false, us
         </div>
       )}
 
-      {/* Booking Options */}
-      <div className={styles.bookingOptions}>
-        {/* Immediate Booking */}
-        <div className={styles.bookingOption}>
-          <div className={styles.bookingOptionContent}>
-            <div className={styles.bookingOptionIcon}>🚗</div>
-            <div className={styles.bookingOptionText}>
-              <h3 className={styles.bookingOptionTitle}>
+      {/* Protection Options */}
+      <div className={styles.protectionOptions}>
+        {/* Immediate Protection */}
+        <div className={styles.protectionOption}>
+          <div className={styles.protectionOptionContent}>
+            <div className={styles.protectionOptionIcon}>🚗</div>
+            <div className={styles.protectionOptionText}>
+              <h3 className={styles.protectionOptionTitle}>
                 {isScheduled ? 'Schedule Service' : 'Request Now'}
               </h3>
-              <p className={styles.bookingOptionDescription}>
+              <p className={styles.protectionOptionDescription}>
                 {isScheduled
                   ? `Commencement Point at ${formatScheduledTime() || 'your chosen time'}`
                   : 'Immediate Commencement Point (5-15 minutes)'
@@ -418,7 +418,7 @@ export function QuickBooking({ onBookNow, selectedService, isLoading = false, us
             size="lg"
             isFullWidth
             onClick={handleQuickBook}
-            disabled={!isReadyToBook || isLoading}
+            disabled={!isReadyToRequest || isLoading}
             className={styles.bookButton}
           >
             {isLoading ? (
@@ -439,8 +439,8 @@ export function QuickBooking({ onBookNow, selectedService, isLoading = false, us
           </Button>
         </div>
 
-        {/* Booking Summary */}
-        <div className={styles.bookingSummary}>
+        {/* Protection Summary */}
+        <div className={styles.protectionSummary}>
           {isScheduled && scheduledTime && (
             <div className={styles.scheduledInfo}>
               <span className={styles.scheduledIcon}>⏰</span>

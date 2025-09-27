@@ -47,7 +47,7 @@ const ExecutiveOnboarding: React.FC<ExecutiveOnboardingProps> = ({
     {
       icon: '🔒',
       title: 'Encrypted Communications',
-      description: 'End-to-end encrypted booking and communication systems',
+      description: 'End-to-end encrypted protection assignment and communication systems',
       verified: true
     },
     {

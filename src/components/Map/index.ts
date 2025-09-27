@@ -1,1 +1,1 @@
-export { BookingMap } from './BookingMap';
+export { ProtectionMap } from './ProtectionMap';

@@ -152,7 +152,7 @@ INSERT INTO public.questionnaire_responses (
 ON CONFLICT (id) DO NOTHING;
 
 -- =====================================
--- UPDATE SAFE RIDE FUND STATS
+-- UPDATE SAFE protection service FUND STATS
 -- =====================================
 
 INSERT INTO public.safe_ride_fund_stats (total_rides_provided, total_contributions, total_contributors, last_updated)

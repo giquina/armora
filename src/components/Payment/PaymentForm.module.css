@@ -440,7 +440,7 @@
 
 /* Express payment button customization */
 .expressButton {
-  /* Stripe elements will handle the styling internally */
+  /* Sdetaile elements will handle the styling internally */
   outline: none !important;
 }
 

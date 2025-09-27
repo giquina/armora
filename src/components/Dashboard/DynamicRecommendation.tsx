@@ -213,7 +213,7 @@ export function DynamicRecommendation({
             <div className={styles.urgencyAlert}>
               <span className={styles.urgencyIcon}>🔥</span>
               <span className={styles.urgencyText}>
-                High demand area - book within 15 minutes for guaranteed service
+                High demand area - request protection within 15 minutes for guaranteed service
               </span>
             </div>
           )}

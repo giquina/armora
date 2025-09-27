@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { Booking } from '../utils/mockData';
+import { Assignment } from '../utils/mockData';
 import styles from './LiveTrackingDashboard.module.css';
 
 interface LiveTrackingDashboardProps {
-  activeBookings: Booking[];
+  activeBookings: Assignment[];
   onTrackDriver: (bookingId: string) => void;
   onContactDriver: (bookingId: string) => void;
 }
@@ -35,9 +35,9 @@ export function LiveTrackingDashboard({
     return { text: `${hours}h ${mins}m`, urgent: false };
   };
 
-  const getProgressPercentage = (booking: Booking) => {
-    const totalDuration = booking.route.duration * 60 * 1000; // Convert to ms
-    const startTime = booking.scheduledTime.getTime() - totalDuration;
+  const getProgressPercentage = (protection assignment: Assignment) => {
+    const totalDuration = protection assignment.route.duration * 60 * 1000; // Convert to ms
+    const startTime = protection assignment.scheduledTime.getTime() - totalDuration;
     const now = currentTime.getTime();
     const elapsed = now - startTime;
     const progress = Math.max(0, Math.min(100, (elapsed / totalDuration) * 100));
@@ -67,16 +67,16 @@ export function LiveTrackingDashboard({
       </div>
 
       <div className={styles.trackingCards}>
-        {activeBookings.map((booking) => {
-          const eta = getTimeUntilPickup(booking.scheduledTime);
-          const progress = getProgressPercentage(booking);
+        {activeBookings.map((protection assignment) => {
+          const eta = getTimeUntilPickup(protection assignment.scheduledTime);
+          const progress = getProgressPercentage(protection assignment);
 
           return (
-            <div key={booking.id} className={`${styles.trackingCard} ${eta.urgent ? styles.urgent : ''}`}>
+            <div key={protection assignment.id} className={`${styles.trackingCard} ${eta.urgent ? styles.urgent : ''}`}>
               <div className={styles.cardHeader}>
                 <div className={styles.bookingInfo}>
-                  <h3 className={styles.bookingTitle}>{booking.serviceName}</h3>
-                  <span className={styles.bookingId}>#{booking.id}</span>
+                  <h3 className={styles.bookingTitle}>{protection assignment.serviceName}</h3>
+                  <span className={styles.bookingId}>#{protection assignment.id}</span>
                 </div>
                 <div className={`${styles.eta} ${eta.urgent ? styles.etaUrgent : ''}`}>
                   <span className={styles.etaLabel}>ETA</span>
@@ -87,18 +87,18 @@ export function LiveTrackingDashboard({
               <div className={styles.cpoSection}>
                 <div className={styles.cpoAvatar}>
                   <div className={styles.avatarPlaceholder}>
-                    {booking.protectionOfficer.name.charAt(0)}
+                    {protection assignment.protectionOfficer.name.charAt(0)}
                   </div>
                   <div className={styles.onlineIndicator}></div>
                 </div>
                 <div className={styles.cpoInfo}>
-                  <div className={styles.cpoName}>{booking.protectionOfficer.name}</div>
+                  <div className={styles.cpoName}>{protection assignment.protectionOfficer.name}</div>
                   <div className={styles.vehicleInfo}>
-                    {booking.protectionOfficer.vehicle} • {booking.protectionOfficer.plate}
+                    {protection assignment.protectionOfficer.vehicle} • {protection assignment.protectionOfficer.plate}
                   </div>
                   <div className={styles.cpoRating}>
-                    <span className={styles.stars}>{'⭐'.repeat(Math.floor(booking.protectionOfficer.rating))}</span>
-                    <span className={styles.ratingNumber}>{booking.protectionOfficer.rating}</span>
+                    <span className={styles.stars}>{'⭐'.repeat(Math.floor(protection assignment.protectionOfficer.rating))}</span>
+                    <span className={styles.ratingNumber}>{protection assignment.protectionOfficer.rating}</span>
                   </div>
                 </div>
               </div>
@@ -108,13 +108,13 @@ export function LiveTrackingDashboard({
                   <div className={styles.routePoint}>
                     <span className={styles.routeIcon}>📍</span>
                     <span className={styles.routeText}>
-                      {booking.commencementLocation.address.split(',')[0]}
+                      {protection assignment.commencementLocation.address.split(',')[0]}
                     </span>
                   </div>
                   <div className={styles.routePoint}>
                     <span className={styles.routeIcon}>🏁</span>
                     <span className={styles.routeText}>
-                      {booking.secureDestination.address.split(',')[0]}
+                      {protection assignment.secureDestination.address.split(',')[0]}
                     </span>
                   </div>
                 </div>
@@ -132,28 +132,28 @@ export function LiveTrackingDashboard({
               <div className={styles.liveStats}>
                 <div className={styles.statItem}>
                   <span className={styles.statLabel}>Distance</span>
-                  <span className={styles.statValue}>{booking.route.distance}km</span>
+                  <span className={styles.statValue}>{protection assignment.route.distance}km</span>
                 </div>
                 <div className={styles.statItem}>
                   <span className={styles.statLabel}>Duration</span>
-                  <span className={styles.statValue}>{booking.route.duration}min</span>
+                  <span className={styles.statValue}>{protection assignment.route.duration}min</span>
                 </div>
                 <div className={styles.statItem}>
                   <span className={styles.statLabel}>Price</span>
-                  <span className={styles.statValue}>£{booking.pricing.total}</span>
+                  <span className={styles.statValue}>£{protection assignment.pricing.total}</span>
                 </div>
               </div>
 
               <div className={styles.trackingActions}>
                 <button
                   className={styles.primaryAction}
-                  onClick={() => onTrackDriver(booking.id)}
+                  onClick={() => onTrackDriver(protection assignment.id)}
                 >
                   📍 Live Map
                 </button>
                 <button
                   className={styles.secondaryAction}
-                  onClick={() => onContactDriver(booking.id)}
+                  onClick={() => onContactDriver(protection assignment.id)}
                 >
                   📞 Contact Protection Officer
                 </button>

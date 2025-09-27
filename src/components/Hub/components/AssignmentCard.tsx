@@ -1,24 +1,24 @@
 import React from 'react';
-import { Booking } from '../utils/mockData';
-import styles from './BookingCard.module.css';
+import { Assignment } from '../utils/mockData';
+import styles from './AssignmentCard.module.css';
 
-interface BookingCardProps {
-  booking: Booking;
-  onTrackDriver?: () => void;
-  onContactDriver?: () => void;
+interface AssignmentCardProps {
+  assignment: Assignment;
+  onTrackCPO?: () => void;
+  onContactCPO?: () => void;
   onCancel?: () => void;
-  onRebook?: () => void;
+  onRepeatAssignment?: () => void;
   onRate?: (rating: number) => void;
 }
 
-export function BookingCard({
-  booking,
-  onTrackDriver,
-  onContactDriver,
+export function AssignmentCard({
+  assignment,
+  onTrackCPO,
+  onContactCPO,
   onCancel,
-  onRebook,
+  onRepeatAssignment,
   onRate
-}: BookingCardProps) {
+}: AssignmentCardProps) {
   const formatTime = (date: Date) => {
     return date.toLocaleTimeString('en-GB', {
       hour: '2-digit',
@@ -36,7 +36,7 @@ export function BookingCard({
 
   const getTimeUntilPickup = () => {
     const now = new Date();
-    const diffMs = booking.scheduledTime.getTime() - now.getTime();
+    const diffMs = assignment.scheduledTime.getTime() - now.getTime();
     const diffMins = Math.floor(diffMs / (1000 * 60));
 
     if (diffMins < 0) return 'Now';
@@ -47,7 +47,7 @@ export function BookingCard({
   };
 
   const getServiceIcon = () => {
-    switch (booking.serviceType) {
+    switch (assignment.serviceType) {
       case 'standard': return '🛡️';
       case 'executive': return '👔';
       case 'shadow': return '🕵️';
@@ -56,7 +56,7 @@ export function BookingCard({
   };
 
   const getStatusColor = () => {
-    switch (booking.status) {
+    switch (assignment.status) {
       case 'active': return '#00ff88';
       case 'scheduled': return '#FFD700';
       case 'completed': return '#10B981';
@@ -75,15 +75,15 @@ export function BookingCard({
       {/* ROW 1: BALANCED HEADER */}
       <div className={styles.assignmentHeader}>
         <div className={styles.dateInfo}>
-          {formatDate(booking.scheduledTime)}
+          {formatDate(assignment.scheduledTime)}
         </div>
         <div className={styles.servicePriceSection}>
           <div className={styles.serviceLevelBadge}>
-            {getServiceIcon()} {booking.serviceType.toUpperCase()}
+            {getServiceIcon()} {assignment.serviceType.toUpperCase()}
           </div>
-          <div className={styles.priceDisplay}>£{booking.pricing.total}</div>
+          <div className={styles.priceDisplay}>£{assignment.pricing.total}</div>
           <div className={styles.ratingDisplay}>
-            {'⭐'.repeat(Math.floor(booking.protectionOfficer.rating))}
+            {'⭐'.repeat(Math.floor(assignment.protectionOfficer.rating))}
           </div>
         </div>
       </div>
@@ -94,7 +94,7 @@ export function BookingCard({
           <div className={styles.statIcon}>🕐</div>
           <div className={styles.statContent}>
             <div className={styles.statLabel}>TIME</div>
-            <div className={styles.statValue}>{formatTime(booking.scheduledTime)}</div>
+            <div className={styles.statValue}>{formatTime(assignment.scheduledTime)}</div>
           </div>
         </div>
 
@@ -102,7 +102,7 @@ export function BookingCard({
           <div className={styles.statIcon}>⏱️</div>
           <div className={styles.statContent}>
             <div className={styles.statLabel}>DURATION</div>
-            <div className={styles.statValue}>{booking.route.duration} min</div>
+            <div className={styles.statValue}>{assignment.route.duration} min</div>
           </div>
         </div>
 
@@ -110,7 +110,7 @@ export function BookingCard({
           <div className={styles.statIcon}>👤</div>
           <div className={styles.statContent}>
             <div className={styles.statLabel}>OFFICER</div>
-            <div className={styles.statValue}>{booking.protectionOfficer.name}</div>
+            <div className={styles.statValue}>{assignment.protectionOfficer.name}</div>
           </div>
         </div>
 
@@ -118,7 +118,7 @@ export function BookingCard({
           <div className={styles.statIcon}>🚗</div>
           <div className={styles.statContent}>
             <div className={styles.statLabel}>VEHICLE</div>
-            <div className={styles.statValue}>{booking.protectionOfficer.vehicle}</div>
+            <div className={styles.statValue}>{assignment.protectionOfficer.vehicle}</div>
           </div>
         </div>
       </div>
@@ -128,12 +128,12 @@ export function BookingCard({
         <div className={styles.routeItem}>
           <div className={styles.routeIcon}>📍</div>
           <div className={styles.routeLabel}>FROM</div>
-          <div className={styles.routeText}>{booking.commencementLocation.address}</div>
+          <div className={styles.routeText}>{assignment.commencementLocation.address}</div>
         </div>
         <div className={styles.routeItem}>
           <div className={styles.routeIcon}>🎯</div>
           <div className={styles.routeLabel}>TO</div>
-          <div className={styles.routeText}>{booking.secureDestination.address}</div>
+          <div className={styles.routeText}>{assignment.secureDestination.address}</div>
         </div>
       </div>
 
@@ -157,13 +157,13 @@ export function BookingCard({
         <div className={styles.serviceInfo}>
           <span className={styles.serviceIcon}>{getServiceIcon()}</span>
           <div className={styles.serviceDetails}>
-            <h3 className={styles.serviceName}>{booking.serviceName}</h3>
-            <span className={styles.bookingId}>{booking.id}</span>
+            <h3 className={styles.serviceName}>{assignment.serviceName}</h3>
+            <span className={styles.bookingId}>{assignment.id}</span>
           </div>
         </div>
         <div className={styles.scheduleTime}>
-          <div className={styles.scheduleDate}>{formatDate(booking.scheduledTime)}</div>
-          <div className={styles.scheduleTimeText}>{formatTime(booking.scheduledTime)}</div>
+          <div className={styles.scheduleDate}>{formatDate(assignment.scheduledTime)}</div>
+          <div className={styles.scheduleTimeText}>{formatTime(assignment.scheduledTime)}</div>
         </div>
       </div>
 
@@ -171,14 +171,14 @@ export function BookingCard({
         <div className={styles.location}>
           <div className={styles.locationIcon}>📍</div>
           <div className={styles.locationText}>
-            <div className={styles.locationAddress}>{booking.commencementLocation.address}</div>
+            <div className={styles.locationAddress}>{assignment.commencementLocation.address}</div>
           </div>
         </div>
         <div className={styles.routeLine}></div>
         <div className={styles.location}>
           <div className={styles.locationIcon}>🏁</div>
           <div className={styles.locationText}>
-            <div className={styles.locationAddress}>{booking.secureDestination.address}</div>
+            <div className={styles.locationAddress}>{assignment.secureDestination.address}</div>
           </div>
         </div>
       </div>
@@ -186,17 +186,17 @@ export function BookingCard({
       <div className={styles.bookingMeta}>
         <div className={styles.metaItem}>
           <span className={styles.metaLabel}>Price:</span>
-          <span className={styles.metaValue}>£{booking.pricing.total}</span>
+          <span className={styles.metaValue}>£{assignment.pricing.total}</span>
         </div>
         <div className={styles.metaItem}>
           <span className={styles.metaLabel}>Duration:</span>
-          <span className={styles.metaValue}>{booking.route.duration} min</span>
+          <span className={styles.metaValue}>{assignment.route.duration} min</span>
         </div>
       </div>
 
       <div className={styles.cardActions}>
         <button className={styles.primaryAction}>
-          ✏️ Edit Booking
+          ✏️ Edit Assignment
         </button>
         <button className={styles.secondaryAction}>
           🔔 Set Reminder
@@ -216,33 +216,33 @@ export function BookingCard({
         <div className={styles.serviceInfo}>
           <span className={styles.serviceIcon}>{getServiceIcon()}</span>
           <div className={styles.serviceDetails}>
-            <h3 className={styles.serviceName}>{booking.serviceName}</h3>
-            <span className={styles.bookingId}>{booking.id}</span>
+            <h3 className={styles.serviceName}>{assignment.serviceName}</h3>
+            <span className={styles.bookingId}>{assignment.id}</span>
           </div>
         </div>
         <div className={styles.completedTime}>
-          <div className={styles.completedDate}>{formatDate(booking.completedTime!)}</div>
-          <div className={styles.completedTimeText}>{formatTime(booking.completedTime!)}</div>
+          <div className={styles.completedDate}>{formatDate(assignment.completedTime!)}</div>
+          <div className={styles.completedTimeText}>{formatTime(assignment.completedTime!)}</div>
         </div>
       </div>
 
       <div className={styles.routeSummary}>
         <span className={styles.routeText}>
-          {booking.commencementLocation.address.split(',')[0]} → {booking.secureDestination.address.split(',')[0]}
+          {assignment.commencementLocation.address.split(',')[0]} → {assignment.secureDestination.address.split(',')[0]}
         </span>
         <span className={styles.routeStats}>
-          {booking.route.distance}km • {booking.route.duration}min
+          {assignment.route.distance}km • {assignment.route.duration}min
         </span>
       </div>
 
       <div className={styles.completedMeta}>
         <div className={styles.metaItem}>
           <span className={styles.metaLabel}>Final Cost:</span>
-          <span className={styles.metaValue}>£{booking.pricing.total}</span>
+          <span className={styles.metaValue}>£{assignment.pricing.total}</span>
         </div>
         <div className={styles.metaItem}>
           <span className={styles.metaLabel}>Protection Officer:</span>
-          <span className={styles.metaValue}>{booking.protectionOfficer.name}</span>
+          <span className={styles.metaValue}>{assignment.protectionOfficer.name}</span>
         </div>
       </div>
 
@@ -262,7 +262,7 @@ export function BookingCard({
       </div>
 
       <div className={styles.cardActions}>
-        <button className={styles.primaryAction} onClick={onRebook}>
+        <button className={styles.primaryAction} onClick={onRepeatAssignment}>
           🔄 Book Again
         </button>
         <button className={styles.secondaryAction}>
@@ -272,7 +272,7 @@ export function BookingCard({
     </div>
   );
 
-  switch (booking.status) {
+  switch (assignment.status) {
     case 'active':
       return renderActiveBooking();
     case 'scheduled':

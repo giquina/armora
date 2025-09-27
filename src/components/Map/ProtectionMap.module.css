@@ -1,4 +1,4 @@
-/* Armora Security Transport - Booking Map Styles */
+/* Armora Security Transport - Assignment Map Styles */
 
 .mapContainer {
   position: relative;
@@ -30,7 +30,7 @@
   animation: markerDrop 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 }
 
-.markerIcon.pickup {
+.markerIcon.commencement {
   background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
   border: 2px solid #FFD700;
 }
@@ -66,7 +66,7 @@
   animation: markerPulse 2s infinite;
 }
 
-.markerIcon.pickup .markerPulse {
+.markerIcon.commencement .markerPulse {
   background: #FFD700;
 }
 

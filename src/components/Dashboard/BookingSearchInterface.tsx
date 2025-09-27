@@ -26,37 +26,37 @@ export function BookingSearchInterface({
     setRecentDestination(recent);
   }, []);
 
-  // Handle navigation to booking from toolbar
+  // Handle navigation to protection assignment from toolbar
   useEffect(() => {
     const maybeOpenFromFlag = () => {
       if (localStorage.getItem('armora_open_location_picker') === 'true') {
         localStorage.removeItem('armora_open_location_picker');
-        navigateToView('booking');
+        navigateToView('protection-request');
       }
     };
     maybeOpenFromFlag();
-    const handler = () => navigateToView('booking');
+    const handler = () => navigateToView('protection-request');
     window.addEventListener('armora:open-location-picker' as any, handler);
     return () => window.removeEventListener('armora:open-location-picker' as any, handler);
   }, [navigateToView]);
 
   const handleSearchClick = () => {
-    // Navigate to booking flow instead of opening modal
-    navigateToView('booking');
+    // Navigate to protection assignment flow instead of opening modal
+    navigateToView('protection-request');
   };
 
   const handleQuickDestination = (type: 'home' | 'work' | 'recent', address?: string) => {
     if (address) {
-      // Set the quick secureDestination and navigate to booking
+      // Set the quick secureDestination and navigate to protection assignment
       localStorage.setItem('armora_quick_destination', address);
-      localStorage.setItem('armora_booking_preset', type);
+      localStorage.setItem('armora_assignment_preset', type);
       if (onDestinationSelect) {
         onDestinationSelect(address);
       }
-      navigateToView('booking');
+      navigateToView('protection-request');
     } else {
-      // Navigate to address setup or booking
-      navigateToView('booking');
+      // Navigate to address setup or protection assignment
+      navigateToView('protection-request');
     }
   };
 
@@ -148,7 +148,7 @@ export function BookingSearchInterface({
       </div>
 
 
-      {/* Location picker removed - now navigates directly to booking flow */}
+      {/* Location picker removed - now navigates directly to protection assignment flow */}
     </div>
   );
 }

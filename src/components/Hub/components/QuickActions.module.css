@@ -161,7 +161,7 @@
 }
 
 .actionCard:nth-child(3) {
-  /* Evening Pickup - Shadow theme */
+  /* Evening Commencement - Shadow theme */
   background: linear-gradient(135deg, #1e0f1e 0%, #2e1a2e 100%);
   border-color: rgba(139, 69, 219, 0.2);
 }

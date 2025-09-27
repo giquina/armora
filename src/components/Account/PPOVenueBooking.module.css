@@ -1,4 +1,4 @@
-/* Personal Protection Officer Venue Booking Styles */
+/* Personal Protection Officer Venue Assignment Styles */
 
 .ppoSection {
   background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
@@ -29,7 +29,7 @@
   opacity: 0.9;
 }
 
-.bookingForm {
+.assignmentForm {
   display: flex;
   flex-direction: column;
   gap: var(--space-md);

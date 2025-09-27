@@ -137,7 +137,7 @@
   }
 
   .position-bottom {
-    /* Override bottom position on tablet+ */
+    /* Overprotection bottom position on tablet+ */
     align-self: center;
     margin: 20px;
     border-radius: 20px;

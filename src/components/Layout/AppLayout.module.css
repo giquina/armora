@@ -11,9 +11,9 @@
   /* REMOVED: padding-top: 40px - no recruitment banner */
 }
 
-/* Modifier: when top toolbar is hidden (e.g., booking pages) */
+/* Modifier: when top toolbar is hidden (e.g., assignment pages) */
 .noTopbar .content {
-  /* Remove fixed-toolbar offset to let booking take full page */
+  /* Remove fixed-toolbar offset to let assignment take full page */
   padding-top: var(--space-lg);
 }
 

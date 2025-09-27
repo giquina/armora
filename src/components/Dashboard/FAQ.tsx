@@ -12,7 +12,7 @@ const FAQ_DATA: FAQItem[] = [
   {
     id: 1,
     question: "How can Armora provide protection in just 15-20 minutes?",
-    answer: "We have SIA-licensed Close Protection Officers strategically positioned across major UK cities. When your booking arrives, our Operations Center immediately receives your location and secureDestination, runs a location assessment for your specific route, conducts basic threat assessment for your journey areas, assigns the nearest qualified officer, and sends them your profile preferences. It's organized, efficient, and professional - like having your own security team always nearby."
+    answer: "We have SIA-licensed Close Protection Officers strategically positioned across major UK cities. When your protection assignment arrives, our Operations Center immediately receives your location and secureDestination, runs a location assessment for your specific route, conducts basic threat assessment for your journey areas, assigns the nearest qualified officer, and sends them your profile preferences. It's organized, efficient, and professional - like having your own security team always nearby."
   },
   {
     id: 2,
@@ -22,27 +22,27 @@ const FAQ_DATA: FAQItem[] = [
   {
     id: 3,
     question: "What app features enhance my protection experience?",
-    answer: "Our app is your complete protection platform. Features include secure messaging with your Close Protection Officer, live tracking of arrival and journey, saved profile preferences (protection style, regular routes, special requirements), ability to request favorite officers, complete journey history for expenses, panic button for emergencies, and multi-Principal booking options. Once you create your profile with preferences, every officer arrives fully briefed - no repeated explanations needed."
+    answer: "Our app is your complete protection platform. Features include secure messaging with your Close Protection Officer, live tracking of arrival and journey, saved profile preferences (protection style, regular routes, special requirements), ability to request favorite officers, complete journey history for expenses, panic button for emergencies, and multi-Principal protection assignment options. Once you create your profile with preferences, every officer arrives fully briefed - no repeated explanations needed."
   },
   {
     id: 4,
     question: "Who typically uses Armora and why?",
-    answer: "Our diverse client base includes content creators and streamers (\"Fan meetups can get overwhelming\"), international business visitors (\"Need UK security without hiring a firm\"), nightlife groups (\"Birthday party with 8 friends, booked 3 officers\"), nightlife club performers and dancers who prioritize safe transport after late performances, female executives (\"Late night office departures\"), crypto entrepreneurs (\"After my gains went public\"), medical tourists (\"Vulnerable after Harley Street procedures\"), and anyone who simply wants more than just a Protection Officer. The common thread? They all want genuine, government-licensed protection that's easy to arrange."
+    answer: "Our diverse client base includes content creators and streamers (\"Fan meetups can get overwhelming\"), international business visitors (\"Need UK security without hiring a firm\"), nightlife groups (\"Birthday party with 8 friends, protection confirmed 3 officers\"), nightlife club performers and dancers who prioritize safe transport after late performances, female executives (\"Late night office departures\"), crypto entrepreneurs (\"After my gains went public\"), medical tourists (\"Vulnerable after Harley Street procedures\"), and anyone who simply wants more than just a Protection Officer. The common thread? They all want genuine, government-licensed protection that's easy to arrange."
   },
   {
     id: 5,
-    question: "Can I book multiple Close Protection Officers?",
-    answer: "Absolutely. Through our app, you can book 1 to 10+ officers depending on your needs. Select the number needed, choose protection style for each (visible or discrete), and a lead officer coordinates the team. Common scenarios include content creator events (4 officers for meet-and-greets), nightclub tables (3 officers for comprehensive coverage), private parties (5+ officers for full venue security), and group celebrations where everyone wants to relax knowing security is handled. It's as easy as moving a slider in the app."
+    question: "Can I request protection multiple Close Protection Officers?",
+    answer: "Absolutely. Through our app, you can request protection 1 to 10+ officers depending on your needs. Select the number needed, choose protection style for each (visible or discrete), and a lead officer coordinates the team. Common scenarios include content creator events (4 officers for meet-and-greets), nightclub tables (3 officers for comprehensive coverage), private parties (5+ officers for full venue security), and group celebrations where everyone wants to relax knowing security is handled. It's as easy as moving a slider in the app."
   },
   {
     id: 6,
     question: "How does Armora work for international visitors?",
-    answer: "We're particularly popular with international visitors who want familiar security standards in the UK. Business executives use us for meeting-to-meeting protection, government officials book us when not qualifying for diplomatic protection, investors request us for high-value property viewings, and tourists want peace of mind exploring London. Your profile saves language preferences, protection style, and regular destinations. As one Dubai executive noted: \"Armora gives me the same protection standard I have at home, bookable from my hotel.\""
+    answer: "We're particularly popular with international visitors who want familiar security standards in the UK. Business executives use us for meeting-to-meeting protection, government officials request protection us when not qualifying for diplomatic protection, investors request us for high-value property viewings, and tourists want peace of mind exploring London. Your profile saves language preferences, protection style, and regular destinations. As one Dubai executive noted: \"Armora gives me the same protection standard I have at home, bookable from my hotel.\""
   },
   {
     id: 7,
     question: "What happens with location and threat assessment?",
-    answer: "When your booking arrives, we specifically assess YOUR journey - not monitor all of London. Our Operations Center evaluates your Commencement Point and secureDestination areas, checks for current events or disruptions, identifies secure alternatives if needed, considers time-specific factors (late night, rush hour), and briefs your officer on any relevant considerations. It's focused, practical intelligence for your specific journey, delivered in minutes not hours."
+    answer: "When your protection assignment arrives, we specifically assess YOUR journey - not monitor all of London. Our Operations Center evaluates your Commencement Point and secureDestination areas, checks for current events or disruptions, identifies secure alternatives if needed, considers time-specific factors (late night, rush hour), and briefs your officer on any relevant considerations. It's focused, practical intelligence for your specific journey, delivered in minutes not hours."
   },
   {
     id: 8,
@@ -52,12 +52,12 @@ const FAQ_DATA: FAQItem[] = [
   {
     id: 9,
     question: "What makes Armora perfect for content creators and digital celebrities?",
-    answer: "The digital age has created new security needs. Streamers use us for fan meetups and events, YouTubers book protection after revealing valuable setups, vloggers have officers maintain comfortable distances while filming, and influencers need discrete security at brand events. Our Close Protection Officers understand the difference between excited fans and genuine concerns, protecting without damaging your audience relationships. As one creator with 2M subscribers said: \"They keep me safe without making my fans feel pushed away.\""
+    answer: "The digital age has created new security needs. Streamers use us for fan meetups and events, YouTubers request protection protection after revealing valuable setups, vloggers have officers maintain comfortable distances while filming, and influencers need discrete security at brand events. Our Close Protection Officers understand the difference between excited fans and genuine concerns, protecting without damaging your audience relationships. As one creator with 2M subscribers said: \"They keep me safe without making my fans feel pushed away.\""
   },
   {
     id: 10,
     question: "How does the profile system make service better?",
-    answer: "Create your profile once, and every booking is personalized. Set your protection style preference (visible/discrete/shadow), save regular destinations, specify language preferences, include medical information if relevant, choose vehicle preferences, and note any special requirements. Every Close Protection Officer arrives knowing exactly how you want your protection handled. After several bookings, request your favorite officers directly. It's like having your own security team who knows you, available on-demand."
+    answer: "Create your profile once, and every protection assignment is personalized. Set your protection style preference (visible/discrete/shadow), save regular destinations, specify language preferences, include medical information if relevant, choose vehicle preferences, and note any special requirements. Every Close Protection Officer arrives knowing exactly how you want your protection handled. After several bookings, request your favorite officers directly. It's like having your own security team who knows you, available on-demand."
   },
   {
     id: 11,
@@ -66,8 +66,8 @@ const FAQ_DATA: FAQItem[] = [
   },
   {
     id: 12,
-    question: "How easy is it really to book protection?",
-    answer: "Booking takes literally 30 seconds. Open the app, select number of officers needed (1-10+), choose your protection level, confirm location and secureDestination, and track your officer's arrival. No phone calls, no quotes, no waiting for callbacks. Your saved profile means no repeated explanations. In-app messaging lets you communicate specifics without awkward calls. Whether you need one officer for an airport run or five for a private party, it's the same simple process. Professional security has never been this accessible."
+    question: "How easy is it really to request protection protection?",
+    answer: "Assignment takes literally 30 seconds. Open the app, select number of officers needed (1-10+), choose your protection level, confirm location and secureDestination, and track your officer's arrival. No phone calls, no quotes, no waiting for callbacks. Your saved profile means no repeated explanations. In-app messaging lets you communicate specifics without awkward calls. Whether you need one officer for an airport run or five for a private party, it's the same simple process. Professional security has never been this accessible."
   }
 ];
 
@@ -85,7 +85,7 @@ export function FAQ() {
 
   const handleBookProtection = () => {
     localStorage.setItem('armora_booking_context', 'faq');
-    navigateToView('booking');
+    navigateToView('protection-request');
   };
 
   return (

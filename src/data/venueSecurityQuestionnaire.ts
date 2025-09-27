@@ -724,7 +724,7 @@ export const venueSecuritySteps: QuestionnaireStep[] = [
       },
       {
         id: "advance_booking",
-        label: "📋 Advance Booking (30+ days notice)",
+        label: "📋 Advance Assignment (30+ days notice)",
         value: "advance_booking",
         description: "Event planned well in advance allowing optimal preparation and planning.",
         examples: "*Planned events, scheduled conferences, or events with advance notice for proper preparation."

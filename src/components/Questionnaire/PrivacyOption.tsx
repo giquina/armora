@@ -9,7 +9,7 @@ interface PrivacyOptionProps {
 }
 
 const privacyMessages = {
-  1: "Our security specialists will recommend appropriate service levels based on your booking patterns and general requirements",
+  1: "Our security specialists will recommend appropriate service levels based on your protection assignment patterns and general requirements",
   2: "We'll provide flexible scheduling options for all service frequencies without storing specific usage data", 
   3: "All service features will be available with premium privacy protocols maintained throughout",
   4: "We offer comprehensive UK coverage regardless of specific area preferences disclosed",
@@ -17,7 +17,7 @@ const privacyMessages = {
   6: "All routes and destinations handled with maximum confidentiality and minimal data retention",
   7: "Special requirements can be communicated directly to your assigned Protection Officer without prior disclosure",
   8: "Priority protocols available without personal information storage in our systems",
-  9: "Service selection available with anonymous booking capabilities and minimal profile requirements"
+  9: "Service selection available with anonymous protection assignment capabilities and minimal profile requirements"
 };
 
 export function PrivacyOption({ stepId, isSelected, onSelect, stepType }: PrivacyOptionProps) {

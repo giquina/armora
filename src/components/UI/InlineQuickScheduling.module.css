@@ -533,7 +533,7 @@
 
 /* ===== DARK MODE SUPPORT (Armora uses dark theme by default) ===== */
 /* The interface already uses Armora's dark theme colors */
-/* These overrides ensure compatibility if light theme is forced */
+/* These overprotections ensure compatibility if light theme is forced */
 @media (prefers-color-scheme: light) {
   .inlineScheduling {
     /* Force Armora dark theme even in light mode */

@@ -32,7 +32,7 @@ export function CoverageAreas({ onBack }: CoverageAreasProps) {
   };
 
   const handleBookProtection = () => {
-    navigateToView('booking');
+    navigateToView('protection-request');
   };
 
   const primaryAreas = [
@@ -229,7 +229,7 @@ export function CoverageAreas({ onBack }: CoverageAreasProps) {
                       className={styles.bookButton}
                       onClick={handleBookProtection}
                     >
-                      Book Protection in {area.name.split('&')[0].trim()}
+                      Request CPO in {area.name.split('&')[0].trim()}
                     </button>
                   </div>
                 )}
@@ -242,7 +242,7 @@ export function CoverageAreas({ onBack }: CoverageAreasProps) {
       {/* Extended Coverage Section */}
       <section className={styles.extendedSection}>
         <div className={styles.sectionContent}>
-          <h2 className={styles.sectionTitle}>Extended Coverage - Advanced Booking</h2>
+          <h2 className={styles.sectionTitle}>Extended Coverage - Advanced Assignment</h2>
           <p className={styles.sectionSubtitle}>
             Professional protection services available with advance notice
           </p>
@@ -298,7 +298,7 @@ export function CoverageAreas({ onBack }: CoverageAreasProps) {
               className={styles.primaryButton}
               onClick={handleBookProtection}
             >
-              Book Protection Services
+              Request CPO Services
             </button>
             <button
               className={styles.secondaryButton}

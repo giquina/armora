@@ -199,12 +199,12 @@ function convertNationwideToPricingBreakdown(request: ProtectionServiceRequest):
     });
   }
 
-  // Add booking fee if not waived
+  // Add protection assignment fee if not waived
   if (!nationwidePricing.bookingFee.waived) {
     components.push({
-      label: 'Booking Fee',
+      label: 'Assignment Fee',
       amount: nationwidePricing.bookingFee.amount,
-      description: 'Service booking administration'
+      description: 'Service protection assignment administration'
     });
   }
 

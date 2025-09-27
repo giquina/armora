@@ -1,6 +1,6 @@
 import React from 'react';
 import { ProtectionAssignmentHistoryItem, FavoriteRoute } from '../../types';
-import { BookingHistoryManager } from '../../utils/bookingHistory';
+import { AssignmentHistoryManager } from '../../utils/assignmentHistory';
 import { useApp } from '../../contexts/AppContext';
 import styles from './RecentServices.module.css';
 
@@ -16,9 +16,9 @@ export function RecentAssignments({ onRebook, onAddToFavorites, maxItems = 5 }: 
   const [favorites, setFavorites] = React.useState<FavoriteRoute[]>([]);
 
   React.useEffect(() => {
-    const bookingHistory = BookingHistoryManager.getBookingHistory();
-    const favoriteRoutes = BookingHistoryManager.getFavoriteRoutes();
-    setHistory(bookingHistory.slice(0, maxItems));
+    const assignmentHistory = AssignmentHistoryManager.getAssignmentHistory();
+    const favoriteRoutes = AssignmentHistoryManager.getFavoriteRoutes();
+    setHistory(assignmentHistory.slice(0, maxItems));
     setFavorites(favoriteRoutes);
   }, [maxItems]);
 
@@ -26,20 +26,20 @@ export function RecentAssignments({ onRebook, onAddToFavorites, maxItems = 5 }: 
     if (onRebook) {
       onRebook(item);
     } else {
-      // Default behavior: store selection and navigate to booking
+      // Default behavior: store selection and navigate to protection assignment
       localStorage.setItem('armora_rebook_data', JSON.stringify({
         from: item.from,
         to: item.to,
         service: item.service,
         timestamp: new Date().toISOString()
       }));
-      navigateToView('booking');
+      navigateToView('protection-request');
     }
   };
 
   const handleAddToFavorites = (item: ProtectionAssignmentHistoryItem) => {
-    BookingHistoryManager.addToFavorites(item, false);
-    const updatedFavorites = BookingHistoryManager.getFavoriteRoutes();
+    AssignmentHistoryManager.addToFavorites(item, false);
+    const updatedFavorites = AssignmentHistoryManager.getFavoriteRoutes();
     setFavorites(updatedFavorites);
 
     if (onAddToFavorites) {
@@ -108,7 +108,7 @@ export function RecentAssignments({ onRebook, onAddToFavorites, maxItems = 5 }: 
         </p>
         <button
           className={styles.emptyAction}
-          onClick={() => navigateToView('booking')}
+          onClick={() => navigateToView('protection-request')}
         >
           📅 Book Your First Service
         </button>
@@ -161,7 +161,7 @@ export function RecentAssignments({ onRebook, onAddToFavorites, maxItems = 5 }: 
               {protectionDetail.frequency > 1 && (
                 <div className={styles.detailItem}>
                   <span className={styles.detailIcon}>🔄</span>
-                  <span className={styles.detailText}>{protectionDetail.frequency}x booked</span>
+                  <span className={styles.detailText}>{protectionDetail.frequency}x protection confirmed</span>
                 </div>
               )}
             </div>

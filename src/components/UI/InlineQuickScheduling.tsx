@@ -75,13 +75,13 @@ export function InlineQuickScheduling({
   // Auto-select default based on user profile
   useEffect(() => {
     if (userProfile?.isBusinessUser) {
-      // Business users typically book ahead
+      // Business users typically request protection ahead
       const oneHourPreset = timePresets.find(p => p.id === '1hour');
       if (oneHourPreset) {
         handleTimeSelect(oneHourPreset);
       }
     } else {
-      // Regular users often want immediate booking
+      // Regular users often want immediate protection assignment
       const nowPreset = timePresets.find(p => p.id === 'now');
       if (nowPreset) {
         handleTimeSelect(nowPreset);
@@ -186,7 +186,7 @@ export function InlineQuickScheduling({
           ) : (
             <>
               <span className={styles.buttonIcon}>🚗</span>
-              {selectedTime === 'immediate' ? 'Book Now' : 'Schedule Service'}
+              {selectedTime === 'immediate' ? 'Request CPO' : 'Schedule Service'}
             </>
           )}
         </Button>

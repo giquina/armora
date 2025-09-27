@@ -1,12 +1,12 @@
 /* STREAMLINED BOOKING MODAL - MOBILE FIRST RESPONSIVE DESIGN */
 
 /* ===== CONTAINER & LAYOUT ===== */
-.bookingModal {
+.assignmentModal {
   /* This class will be applied to ResponsiveModal */
   z-index: 10000;
 }
 
-.bookingContainer {
+.assignmentContainer {
   display: flex;
   flex-direction: column;
   /* Armora Dark Navy Background */
@@ -454,7 +454,7 @@
 
 /* ===== TABLET RESPONSIVE (768px+) ===== */
 @media (min-width: 768px) {
-  .bookingContainer {
+  .assignmentContainer {
     max-height: 85vh;
     border-radius: 20px;
     overflow: hidden;
@@ -527,7 +527,7 @@
 
 /* ===== DESKTOP RESPONSIVE (1024px+) ===== */
 @media (min-width: 1024px) {
-  .bookingContainer {
+  .assignmentContainer {
     max-width: 500px;
     max-height: 80vh;
   }
@@ -627,9 +627,9 @@
 
 /* ===== DARK MODE SUPPORT (Armora uses dark theme by default) ===== */
 /* The interface already uses Armora's dark theme colors */
-/* These overrides ensure compatibility if light theme is forced */
+/* These overprotections ensure compatibility if light theme is forced */
 @media (prefers-color-scheme: light) {
-  .bookingContainer {
+  .assignmentContainer {
     /* Force Armora dark theme even in light mode */
     background: #1a1a2e !important;
     border-color: #FFD700 !important;
@@ -678,7 +678,7 @@
 
 /* ===== LANDSCAPE ORIENTATION (Mobile) ===== */
 @media (max-width: 768px) and (orientation: landscape) {
-  .bookingContainer {
+  .assignmentContainer {
     max-height: 95vh;
   }
 

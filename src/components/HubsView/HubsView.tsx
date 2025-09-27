@@ -94,12 +94,12 @@ export function HubsView() {
 
     // In a real app, this would:
     // 1. Store selected hub in context/localStorage
-    // 2. Navigate to booking with hub pre-selected
+    // 2. Navigate to protection assignment with hub pre-selected
     // 3. Update user preferences
 
-    // For now, navigate back to booking with hub selected
+    // For now, navigate back to protection assignment with hub selected
     // You could pass the hub ID via URL params or context
-    navigateToView('booking');
+    navigateToView('protection-request');
   }, [navigateToView]);
 
   const handleToggleFavorite = useCallback((hubId: string) => {
@@ -213,7 +213,7 @@ export function HubsView() {
           )}
           <button
             className={styles.emptyStateAction}
-            onClick={() => navigateToView('booking')}
+            onClick={() => navigateToView('protection-request')}
           >
             <span>🛡️</span>
             Request Protection Anyway

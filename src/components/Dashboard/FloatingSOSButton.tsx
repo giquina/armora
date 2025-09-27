@@ -15,7 +15,7 @@ export function FloatingSOSButton() {
   }, [isExpanded]);
 
   const handleEmergencyProtection = useCallback((e: React.MouseEvent) => {
-    // Only trigger booking if expanded, otherwise just expand
+    // Only trigger protection assignment if expanded, otherwise just expand
     if (!isExpanded) {
       handleToggleExpand(e);
       return;
@@ -37,8 +37,8 @@ export function FloatingSOSButton() {
       source: 'floating_sos_button'
     });
 
-    // Navigate to immediate booking
-    navigateToView('booking');
+    // Navigate to immediate protection assignment
+    navigateToView('protection-request');
   }, [navigateToView, isExpanded, handleToggleExpand]);
 
   const handleMouseDown = () => setIsPressed(true);

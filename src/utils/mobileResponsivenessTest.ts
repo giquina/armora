@@ -25,7 +25,7 @@ export const MOBILE_TEST_CONFIG = {
     '.card',
     '.service-card',
     '.protection-status',
-    '.booking-interface',
+    '.protection assignment-interface',
     '.navigation-item',
     '.panic-button',
   ],

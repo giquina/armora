@@ -25,7 +25,7 @@ export const TERMINOLOGY_RULES = {
     'Protection Detail': 'protection detail',
     'Commencement Point': 'collection point',
     'Secure Destination': 'secure destination',
-    'booking': 'assignment request',
+    'protection-assignment': 'assignment request',
 
     // Service-specific terms
     'uber': 'Armora Protection',

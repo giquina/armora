@@ -3,9 +3,9 @@ import { ServiceLevel, User, PersonalizationData } from '../../types';
 import { generateRecommendation } from '../../utils/recommendationEngine';
 import styles from './SmartRecommendation.module.css';
 
-interface UserBookingHistory {
-  totalBookings: number;
-  lastBookingDate: string | null;
+interface UserAssignmentHistory {
+  totalAssignments: number;
+  lastAssignmentDate: string | null;
   isFirstTimeUser: boolean;
   preferredService?: string;
 }
@@ -24,31 +24,31 @@ export const SmartRecommendation: React.FC<SmartRecommendationProps> = ({
   questionnaireData,
   onServiceSelect
 }) => {
-  // User booking history state
-  const [userBookingHistory, setUserBookingHistory] = useState<UserBookingHistory>(() => {
-    const saved = localStorage.getItem('armora_user_booking_history');
+  // User assignment history state
+  const [userAssignmentHistory, setUserAssignmentHistory] = useState<UserAssignmentHistory>(() => {
+    const saved = localStorage.getItem('armora_user_assignment_history');
     if (saved) {
       try {
         return JSON.parse(saved);
       } catch {
         return {
-          totalBookings: 0,
-          lastBookingDate: null,
+          totalAssignments: 0,
+          lastAssignmentDate: null,
           isFirstTimeUser: true
         };
       }
     }
     return {
-      totalBookings: 0,
-      lastBookingDate: null,
+      totalAssignments: 0,
+      lastAssignmentDate: null,
       isFirstTimeUser: true
     };
   });
 
-  // Save booking history changes
+  // Save assignment history changes
   useEffect(() => {
-    localStorage.setItem('armora_user_booking_history', JSON.stringify(userBookingHistory));
-  }, [userBookingHistory]);
+    localStorage.setItem('armora_user_assignment_history', JSON.stringify(userAssignmentHistory));
+  }, [userAssignmentHistory]);
 
   // Get recommended service (currently always Armora Secure/Standard)
   const getRecommendedService = () => {
@@ -56,34 +56,34 @@ export const SmartRecommendation: React.FC<SmartRecommendationProps> = ({
     return services.find(s => s.id === 'standard') || services[0];
   };
 
-  // Determine display type based on booking history
+  // Determine display type based on protection assignment history
   const getDisplayType = () => {
-    if (userBookingHistory.totalBookings === 0) {
+    if (userAssignmentHistory.totalAssignments === 0) {
       return 'first-time';
-    } else if (userBookingHistory.totalBookings >= 1) {
+    } else if (userAssignmentHistory.totalAssignments >= 1) {
       return 'returning';
     }
     return 'first-time';
   };
 
-  // Update booking history (to be called after successful booking)
-  const updateBookingHistory = (serviceId: string) => {
-    setUserBookingHistory(prev => ({
+  // Update assignment history (to be called after successful assignment)
+  const updateAssignmentHistory = (serviceId: string) => {
+    setUserAssignmentHistory(prev => ({
       ...prev,
-      totalBookings: prev.totalBookings + 1,
-      lastBookingDate: new Date().toISOString(),
+      totalAssignments: prev.totalAssignments + 1,
+      lastAssignmentDate: new Date().toISOString(),
       isFirstTimeUser: false,
       preferredService: serviceId
     }));
   };
 
-  // Expose update function to parent (for post-booking update)
+  // Expose update function to parent (for post-assignment update)
   useEffect(() => {
     // Attach to window for Dashboard to access
-    (window as any).updateArmoraBookingHistory = updateBookingHistory;
+    (window as any).updateArmoraAssignmentHistory = updateAssignmentHistory;
 
     return () => {
-      delete (window as any).updateArmoraBookingHistory;
+      delete (window as any).updateArmoraAssignmentHistory;
     };
   }, []);
 
@@ -121,7 +121,7 @@ export const SmartRecommendation: React.FC<SmartRecommendationProps> = ({
   };
 
   const handleSchedule = () => {
-    // Navigate to booking with schedule mode - placeholder for future implementation
+    // Navigate to protection assignment with schedule mode - placeholder for future implementation
     onServiceSelect(recommendedService?.id || 'standard');
   };
 

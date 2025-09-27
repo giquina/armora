@@ -156,8 +156,8 @@
   margin-left: var(--space-sm);
 }
 
-/* Booking-specific styles */
-.bookingProgress {
+/* Assignment-specific styles */
+.assignmentProgress {
   background: var(--bg-secondary);
   border: 1px solid var(--border-primary);
   border-radius: var(--radius-lg);
@@ -240,7 +240,7 @@
     height: 12px;
   }
   
-  .bookingProgress {
+  .assignmentProgress {
     padding: var(--space-md);
   }
 }

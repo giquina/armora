@@ -40,7 +40,7 @@ export function ServiceSelection() {
       setIsConfirming(true);
       // Add a slight delay for smooth animation
       await new Promise(resolve => setTimeout(resolve, 800));
-      navigateToView('booking');
+      navigateToView('protection-request');
     }
   };
 
@@ -169,7 +169,7 @@ export function ServiceSelection() {
                   Processing...
                 </>
               ) : (
-                'Confirm Booking'
+                'Confirm Assignment'
               )}
             </button>
           </div>

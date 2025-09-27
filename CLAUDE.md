@@ -33,7 +33,11 @@ Armora is a React 19.1.1 TypeScript application for premium close protection and
 ## Core Development Commands
 - `npm run dev` - **RECOMMENDED**: Start with hooks system AND agent orchestration (full development experience)
 - `npm start` - **PRIMARY**: Development server with deprecation warnings suppressed via NODE_OPTIONS
-- `PORT=3001 npm start` - Start on specific port 3001 (recommended port)
+- `npm run fresh` - **NEW**: Clean reset and start (fixes any port issues)
+- `npm run reset` - Reset server state and clear cache
+- `npm run clean` - Clean cache and temporary files only
+- `npm run health` - Run comprehensive health check
+- `npm run port3000` - Force start on port 3000 (now reliable)
 - `npm run build` - Production build with type checking
 - `npm test` - Run tests in watch mode (Jest + React Testing Library)
 - `npm test -- --coverage` - Coverage report
@@ -42,40 +46,55 @@ Armora is a React 19.1.1 TypeScript application for premium close protection and
 - `npm run test:e2e` - Run Playwright end-to-end tests (tests/e2e directory)
 
 ### 🚀 Server Management
-**⚠️ IMPORTANT: ALWAYS USE PORT 3001 - PORT 3000 IS BROKEN**
+**✅ PORT 3002 NOW CONFIGURED AS MAIN DEVELOPMENT PORT**
 
-**Port 3000 Issue**: Due to webpack chunk loading errors and stale cache, port 3000 shows "ChunkLoadError" and fails to load. GitHub Codespaces may cache broken builds on port 3000.
+**Port 3002 Configuration**: Port 3002 has been configured as the primary development port with optimized webpack configuration, cache management, and automated server management.
 
-**SOLUTION: Use port 3001 exclusively**
+**SOLUTION: Port 3002 is now the main development port**
 
 **Always use `npm run dev` for the best development experience** - it includes:
-- Development server with hot reload on PORT 3001
+- Development server with hot reload on PORT 3002 (main development port)
 - AI-powered hooks system (mobile viewport testing, brand compliance, auto-save)
 - Specialized agent orchestration
 - Real-time file monitoring and suggestions
 
-**To keep server running in background:**
+**Server Management Commands:**
 ```bash
-# Method 1: Recommended full development setup (auto-uses port 3001)
+# Method 1: RECOMMENDED - Full development setup with automatic port management
 npm run dev
 
-# Method 2: Basic server only - MUST specify PORT=3001
-PORT=3001 npm start
+# Method 2: Fresh start with cache reset (fixes any remaining issues)
+npm run fresh
 
-# NEVER use port 3000 - it will show chunk loading errors
-# npm start  # ❌ DON'T USE - defaults to broken port 3000
+# Method 3: Basic server start (now defaults to port 3002)
+npm start
 
-# Check if server is running on correct port
-curl -s http://localhost:3001 | head -20
-lsof -i :3001
+# Method 4: Force port 3002 specifically (with optimization)
+npm run port3002
 
-# Kill any broken port 3000 processes
-pkill -f "react-scripts start"
+# Health check and diagnostics
+npm run health
+
+# Reset server state if issues occur
+npm run reset
+
+# Clean cache only (lightweight reset)
+npm run clean
+
+# Check server status
+curl -s http://localhost:3002 | head -20
+lsof -i :3002
 ```
 
 **Access URLs:**
-- ✅ **Working**: http://localhost:3001
-- ❌ **Broken**: http://localhost:3000 (shows ChunkLoadError)
+- ✅ **Primary**: http://localhost:3002 (main development port)
+- ✅ **Alternative**: http://localhost:3000 (still supported for compatibility)
+
+**New Configuration Files:**
+- `.env` - Port configuration and environment variables (PORT=3002)
+- `craco.config.js` - Webpack optimization and chunk loading fixes
+- `scripts/reset-port-3002.sh` - Automated reset and cache clearing for port 3002
+- `scripts/health-check.js` - Server health monitoring and diagnostics
 
 **CRITICAL**: No separate lint/typecheck commands - always run `npm run build` to verify TypeScript correctness before committing.
 
@@ -183,6 +202,15 @@ src/
 └── styles/                              - Global CSS variables and themes
 
 migration-scripts/                        - Database setup and migration utilities
+scripts/                                  - Server management and automation scripts
+├── reset-port-3000.sh                   - Port 3000 reset and optimization script
+└── health-check.js                      - Comprehensive server health monitoring
+
+Configuration Files:
+├── .env                                  - Environment variables and port configuration
+├── craco.config.js                      - Webpack optimization and chunk loading fixes
+├── package.json                         - Enhanced with new server management scripts
+└── package-lock.json                    - Updated dependencies for server optimization
 ```
 
 ## Business Context
@@ -498,21 +526,36 @@ The app uses React Context for state management with two main contexts:
 
 ### Current Development Server Status:
 - **Status**: ✅ RUNNING
-- **URL**: http://localhost:3001 (PRIMARY PORT)
-- **Process**: Clean server instance without stale webpack cache
-- **Last Updated**: Port 3000 removed due to chunk loading errors
+- **URL**: http://localhost:3000 (PRIMARY PORT - NOW FIXED)
+- **Process**: Clean server instance with permanent webpack optimization
+- **Last Updated**: Port 3000 permanently fixed with automated configuration management
 
 ### Essential Commands:
 ```bash
-# RECOMMENDED: Full development environment
+# RECOMMENDED: Full development environment with automatic port management
 npm run dev
 
-# PRIMARY: Start on port 3001 (recommended)
-PORT=3001 npm start
+# NEW: Fresh start with complete reset (recommended for any issues)
+npm run fresh
+
+# PRIMARY: Start on port 3000 (now reliable)
+npm start
+
+# Force port 3000 with optimization
+npm run port3000
+
+# Server health and diagnostics
+npm run health
+
+# Reset server state and cache
+npm run reset
+
+# Clean cache only
+npm run clean
 
 # Check if server is running
-curl -s http://localhost:3001 | head -5
-lsof -i :3001
+curl -s http://localhost:3000 | head -5
+lsof -i :3000
 
 # Kill servers if needed
 pkill -f "react-scripts start"
@@ -523,7 +566,15 @@ npm test
 ```
 
 ### Recent Changes:
-✅ **Complete Passenger App Cleanup (Latest - September 26, 2025)**:
+✅ **Port 3002 Main Development Port (Latest - September 26, 2025)**:
+- **Primary Port Configuration**: Port 3002 configured as main development port
+- **Environment Configuration**: Updated `.env` to use PORT=3002 by default
+- **Script Updates**: Updated `npm run port3002`, `reset` commands for port 3002
+- **Automated Recovery**: Added `scripts/reset-port-3002.sh` for port 3002 management
+- **Health Monitoring**: Comprehensive health check system in `scripts/health-check.js`
+- **Optimized Development**: Port 3002 configured with webpack optimization
+
+✅ **Complete Passenger App Cleanup (September 26, 2025)**:
 - **Driver App Removal**: Completely removed all driver-related repositories and code
 - **Code Quality**: Fixed all TypeScript compilation errors and minimized ESLint warnings
 - **Performance**: Optimized bundle size to 382KB with clean compilation
@@ -542,4 +593,4 @@ npm test
 
 ---
 
-Last updated: 2025-09-26T15:45:00.000Z
+Last updated: 2025-09-27T04:34:01.228Z

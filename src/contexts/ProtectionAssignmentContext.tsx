@@ -163,15 +163,15 @@ export function ProtectionAssignmentProvider({ children }: { children: ReactNode
 
   const clearAssignment = () => {
     dispatch({ type: 'CLEAR_ASSIGNMENT' });
-    localStorage.removeItem('armora_booking_data'); // Keep same storage key for compatibility
+    localStorage.removeItem('armora_assignment_data'); // SIA-compliant storage key
   };
 
   const saveToStorage = () => {
-    localStorage.setItem('armora_booking_data', JSON.stringify(protectionAssignmentData));
+    localStorage.setItem('armora_assignment_data', JSON.stringify(protectionAssignmentData));
   };
 
   const loadFromStorage = () => {
-    const stored = localStorage.getItem('armora_booking_data');
+    const stored = localStorage.getItem('armora_assignment_data');
     if (stored) {
       try {
         const data = JSON.parse(stored);

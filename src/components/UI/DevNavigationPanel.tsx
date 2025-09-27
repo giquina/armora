@@ -22,7 +22,7 @@ export function DevNavigationPanel({ className }: DevNavigationPanelProps) {
     { id: 'home', label: 'Dashboard', icon: '📊' },
     { id: 'hub', label: 'Hub', icon: '🎯' },
     { id: 'services', label: 'Services', icon: '🛡️' },
-    { id: 'booking', label: 'Protection Assignment', icon: '📅' },
+    { id: 'protection-assignment', label: 'Protection Assignment', icon: '📅' },
     { id: 'assignments', label: 'Protection Details', icon: '📋' },
     { id: 'account', label: 'Account', icon: '👥' },
     { id: 'profile', label: 'Profile', icon: '👤' },
@@ -62,7 +62,7 @@ export function DevNavigationPanel({ className }: DevNavigationPanelProps) {
       step8_contactPreferences: {
         email: 'test@armora.dev',
         phone: '+44 7700 900000',
-        notifications: ['booking-updates', 'Protection Officer-arrival']
+        notifications: ['protection assignment-updates', 'Protection Officer-arrival']
       },
       step9_profileReview: true,
       completedAt: new Date(),
@@ -76,7 +76,7 @@ export function DevNavigationPanel({ className }: DevNavigationPanelProps) {
     console.log(`🚀 [DEV] Navigating to: ${viewId}`);
 
     // Views that require authentication - set up mock data first
-    const authRequiredViews = ['home', 'hub', 'assignments', 'account', 'profile', 'booking'];
+    const authRequiredViews = ['home', 'hub', 'assignments', 'account', 'profile', 'protection-assignment'];
 
     if (authRequiredViews.includes(viewId)) {
       setupMockAuth();

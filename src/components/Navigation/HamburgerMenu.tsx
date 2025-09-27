@@ -9,7 +9,7 @@ interface HamburgerMenuProps {
 }
 
 export const HamburgerMenu: React.FC<HamburgerMenuProps> = ({ isOpen, onClose }) => {
-  const { navigateToView, startAssignment, state } = useApp();
+  const { navigateToView, state } = useApp();
   const { user } = state;
 
   const handleNavigation = (view: ViewState) => {
@@ -18,9 +18,7 @@ export const HamburgerMenu: React.FC<HamburgerMenuProps> = ({ isOpen, onClose })
   };
 
   const handleRequestProtection = () => {
-    startAssignment({
-      source: 'hamburger'
-    });
+    navigateToView('protection-request');
     onClose();
   };
 

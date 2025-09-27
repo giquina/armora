@@ -41,7 +41,7 @@ const convertToServiceLevel = (): ServiceLevel[] => {
 const ARMORA_SERVICES: ServiceLevel[] = convertToServiceLevel();
 
 export function Dashboard() {
-  const { state, startAssignment, navigateToView } = useApp();
+  const { state, navigateToView } = useApp();
   const { user: legacyUser, questionnaireData, deviceCapabilities } = state;
 
   // Development mode - mock auth data
@@ -73,11 +73,8 @@ export function Dashboard() {
   };
 
   const handleServiceSelection = (serviceId: string) => {
-    // Start assignment with service context
-    startAssignment({
-      preselectedService: serviceId as 'essential' | 'executive' | 'shadow' | 'client-vehicle',
-      source: 'home'
-    });
+    // Navigate to protection request view
+    navigateToView('protection-request');
 
     // Analytics
     console.log('[Analytics] Service selected from recommendation', {
@@ -88,14 +85,11 @@ export function Dashboard() {
   };
 
   const handleDirectBooking = (service: ServiceLevel) => {
-    // Start assignment with service context - this will skip the service selection step
-    startAssignment({
-      preselectedService: service.id as 'essential' | 'executive' | 'shadow' | 'client-vehicle',
-      source: 'home'
-    });
+    // Navigate to protection request view
+    navigateToView('protection-request');
 
-    // Analytics for direct booking from dashboard cards
-    console.log('[Analytics] Direct booking from dashboard card', {
+    // Analytics for direct protection assignment from dashboard cards
+    console.log('[Analytics] Direct protection assignment from dashboard card', {
       serviceId: service.id,
       timestamp: Date.now(),
       userType: legacyUser?.userType || (user ? 'registered' : 'guest'),
@@ -105,10 +99,10 @@ export function Dashboard() {
 
   // CPO-related handlers
   const handleRequestOfficer = (cpoId: string) => {
-    // Store selected CPO and navigate to booking with pre-selected officer
+    // Store selected CPO and navigate to protection assignment with pre-selected officer
     localStorage.setItem('armora_selected_cpo', cpoId);
-    localStorage.setItem('armora_booking_context', 'cpo_selected');
-    navigateToView('booking');
+    localStorage.setItem('armora_assignment_context', 'cpo_selected');
+    navigateToView('protection-request');
   };
 
   const handleViewCPODetails = (cpoId: string) => {
@@ -257,7 +251,7 @@ export function Dashboard() {
   if (legacyUser?.userType === 'guest') {
     return (
       <div className={styles.dashboard}>
-        {/* Booking Search Interface for Guests */}
+        {/* Assignment Search Interface for Guests */}
         <BookingSearchInterface />
 
         {/* Guest Header */}
@@ -278,7 +272,7 @@ export function Dashboard() {
             <div className={styles.upgradeContent}>
               <h2 className={styles.upgradeTitle}>Create Account to Book</h2>
               <p className={styles.upgradeDescription}>
-                Register now to unlock direct booking, personalized recommendations, 
+                Register now to unlock direct protection assignment, personalized recommendations, 
                 and exclusive rewards including 50% off your first protection assignment.
               </p>
               <Button
@@ -318,7 +312,7 @@ export function Dashboard() {
           <div className={styles.contactCard}>
             <h3 className={styles.contactTitle}>Need Immediate Assistance?</h3>
             <p className={styles.contactDescription}>
-              Call our 24/7 security operations center for immediate booking assistance
+              Call our 24/7 security operations center for immediate protection assignment assistance
             </p>
             <div className={styles.contactDetails}>
               <div className={styles.contactItem}>
@@ -345,7 +339,7 @@ export function Dashboard() {
     <div className={styles.dashboard}>
       {/* Achievement Banner - Moved to top for immediate visibility */}
       {showRewardBanner && (
-        <div className={styles.rewardBanner} onClick={() => navigateToView('booking')}>
+        <div className={styles.rewardBanner} onClick={() => navigateToView('protection-request')}>
           <div className={styles.rewardContent}>
             <div className={styles.rewardIcon}>🏆</div>
             <div className={styles.rewardText}>
@@ -372,7 +366,7 @@ export function Dashboard() {
         </div>
       )}
 
-      {/* Booking Search Interface - Uber-style "Where to?" - Now below Achievement Banner */}
+      {/* Assignment Search Interface - Uber-style "Where to?" - Now below Achievement Banner */}
       <BookingSearchInterface />
 
       {/* Smart Recommendation - Your Protection Match Section */}
@@ -412,9 +406,9 @@ export function Dashboard() {
               <button
                 className={styles.getStartedCard}
                 onClick={() => {
-                  localStorage.setItem('armora_booking_context', 'immediate');
+                  localStorage.setItem('armora_assignment_context', 'immediate');
                   localStorage.setItem('armora_selected_service', 'standard');
-                  navigateToView('booking');
+                  navigateToView('protection-request');
                 }}
               >
                 <div className={styles.getStartedIcon}>⚡</div>
@@ -430,9 +424,9 @@ export function Dashboard() {
               <button
                 className={styles.getStartedCard}
                 onClick={() => {
-                  localStorage.setItem('armora_booking_context', 'airport');
+                  localStorage.setItem('armora_assignment_context', 'airport');
                   localStorage.setItem('armora_selected_service', 'executive');
-                  navigateToView('booking');
+                  navigateToView('protection-request');
                 }}
               >
                 <div className={styles.getStartedIcon}>✈️</div>
@@ -448,9 +442,9 @@ export function Dashboard() {
               <button
                 className={styles.getStartedCard}
                 onClick={() => {
-                  localStorage.setItem('armora_booking_context', 'schedule');
+                  localStorage.setItem('armora_assignment_context', 'schedule');
                   localStorage.setItem('armora_selected_service', 'executive');
-                  navigateToView('booking');
+                  navigateToView('protection-request');
                 }}
               >
                 <div className={styles.getStartedIcon}>📅</div>
@@ -592,12 +586,10 @@ export function Dashboard() {
           <button
             className={styles.bookNowMainButton}
             onClick={() => {
-              localStorage.setItem('armora_booking_context', 'executive');
-              localStorage.setItem('armora_selected_service', 'executive');
-              navigateToView('booking');
+              navigateToView('protection-request');
             }}
           >
-            🚀 Request Protection Services
+            🛡️ Quick Protection Request (SIA Compliant)
           </button>
           <p className={styles.ctaSubtext}>
             Complete your request in just 3 simple steps
@@ -918,9 +910,9 @@ export function Dashboard() {
           <button
             className={styles.eventPrimaryCTA}
             onClick={() => {
-              localStorage.setItem('armora_booking_context', 'event');
+              localStorage.setItem('armora_assignment_context', 'event');
               localStorage.setItem('armora_selected_service', 'executive');
-              navigateToView('booking');
+              navigateToView('protection-request');
             }}
           >
             Request Security Service

@@ -280,7 +280,7 @@
   height: 130px;
 }
 
-.tripsBar,
+.detailsBar,
 .spendingBar {
   width: 16px;
   border-radius: 4px 4px 0 0;
@@ -288,7 +288,7 @@
   animation: barGrow 0.8s ease-out forwards;
 }
 
-.tripsBar {
+.detailsBar {
   background: linear-gradient(to top, #10B981, #34D399);
 }
 
@@ -578,7 +578,7 @@
 @media (prefers-reduced-motion: reduce) {
   .analyticsContainer,
   .chartContainer,
-  .tripsBar,
+  .detailsBar,
   .spendingBar,
   .timeBarFill {
     animation: none;

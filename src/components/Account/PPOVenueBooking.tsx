@@ -38,10 +38,10 @@ export function PPOVenueBooking({ isVisible }: PPOVenueBookingProps) {
   const handleSubmitBooking = async () => {
     setIsSubmitting(true);
 
-    // Simulate API call for PPO venue booking
+    // Simulate API call for PPO venue protection assignment
     await new Promise(resolve => setTimeout(resolve, 2000));
 
-    console.log('[PPO Booking] Venue protection request submitted:', {
+    console.log('[PPO Assignment] Venue protection request submitted:', {
       duration: selectedDuration,
       officerCount,
       venueType,
@@ -54,7 +54,7 @@ export function PPOVenueBooking({ isVisible }: PPOVenueBookingProps) {
     setIsSubmitting(false);
     setShowQuoteModal(false);
 
-    alert('Your Personal Protection Officer venue booking request has been submitted. Our security team will contact you within 24 hours to discuss requirements and confirm availability.');
+    alert('Your Personal Protection Officer venue protection assignment request has been submitted. Our security team will contact you within 24 hours to discuss requirements and confirm availability.');
   };
 
   const durationLabels = {
@@ -232,7 +232,7 @@ export function PPOVenueBooking({ isVisible }: PPOVenueBookingProps) {
                   {isSubmitting ? (
                     <LoadingSpinner size="small" variant="light" text="Submitting..." inline />
                   ) : (
-                    'Request PPO Booking'
+                    'Request PPO Assignment'
                   )}
                 </Button>
               </div>

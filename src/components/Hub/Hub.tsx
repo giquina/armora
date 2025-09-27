@@ -355,7 +355,7 @@ export function Hub() {
               // Could show analytics demo
               console.log('Show analytics demo');
             } else {
-              navigateToView('booking');
+              navigateToView('protection-request');
             }
           }}
         >
@@ -515,7 +515,7 @@ export function Hub() {
       {/* Enhanced Quick Actions */}
       <div className={styles.quickActionsSection}>
         <div className={styles.quickActions}>
-          <button className={styles.actionButton} onClick={() => navigateToView('booking')}>
+          <button className={styles.actionButton} onClick={() => navigateToView('protection-request')}>
             <span className={styles.actionIcon}>🛡️</span>
             <span className={styles.actionText}>Request Protection</span>
           </button>

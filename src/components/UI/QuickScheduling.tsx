@@ -145,7 +145,7 @@ export function QuickScheduling({
       <div className={styles.header}>
         <div className={styles.headerContent}>
           <h2 className={styles.title}>Schedule Your {selectedService}</h2>
-          <p className={styles.subtitle}>Quick booking - choose your preferred time</p>
+          <p className={styles.subtitle}>Quick protection assignment - choose your preferred time</p>
         </div>
         <button
           className={styles.closeButton}
@@ -219,20 +219,20 @@ export function QuickScheduling({
         <div className={styles.recentSection}>
           <h3 className={styles.sectionTitle}>Book Again</h3>
           <div className={styles.recentBookings}>
-            {userProfile.recentBookings.slice(0, 2).map((booking, index) => (
+            {userProfile.recentBookings.slice(0, 2).map((protection assignment, index) => (
               <button
                 key={index}
                 className={styles.recentBooking}
                 onClick={() => {
-                  // Create datetime from recent booking
-                  const bookingDateTime = new Date(`${booking.date} ${booking.time}`).toISOString();
-                  onScheduleConfirmed(bookingDateTime, `Same as last time - ${booking.time}`);
+                  // Create datetime from recent protection assignment
+                  const bookingDateTime = new Date(`${protection assignment.date} ${protection assignment.time}`).toISOString();
+                  onScheduleConfirmed(bookingDateTime, `Same as last time - ${protection assignment.time}`);
                 }}
               >
                 <div className={styles.recentIcon}>🔄</div>
                 <div className={styles.recentContent}>
-                  <span className={styles.recentLabel}>Same as {booking.date}</span>
-                  <span className={styles.recentTime}>{booking.time}</span>
+                  <span className={styles.recentLabel}>Same as {protection assignment.date}</span>
+                  <span className={styles.recentTime}>{protection assignment.time}</span>
                 </div>
               </button>
             ))}
@@ -260,11 +260,11 @@ export function QuickScheduling({
           className={styles.confirmButton}
         >
           {isLoading ? (
-            <LoadingSpinner size="small" variant="light" text="Booking..." inline />
+            <LoadingSpinner size="small" variant="light" text="Assignment..." inline />
           ) : (
             <>
               <span className={styles.buttonIcon}>🚗</span>
-              Book Now
+              Request CPO
             </>
           )}
         </Button>

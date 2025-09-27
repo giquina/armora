@@ -40,6 +40,10 @@
     "test": "react-scripts test",
     "test:e2e": "playwright test",
     "eject": "react-scripts eject",
+    "clean": "rm -rf node_modules/.cache build dist .parcel-cache /tmp/webpack-* ~/.npm/_cacache 2>/dev/null",
+    "reset": "bash scripts/reset-port-3002.sh",
+    "fresh": "npm run reset && npm start",
+    "port3002": "PORT=3002 npm start",
     "dev": "npm run agents:start & node dev-tools/hooks/hooks-manager.js start && NODE_OPTIONS='--no-deprecation' npm start",
     "hooks:start": "node dev-tools/hooks/hooks-manager.js start",
     "hooks:stop": "node dev-tools/hooks/hooks-manager.js stop",
@@ -63,7 +67,8 @@
     "agents:test": "node .claude/claude-agent-bridge.js test",
     "agents:file": "node .claude/claude-agent-bridge.js file",
     "orchestrate": "echo 'Use agents:start instead'",
-    "orchestrate:status": "npm run agents:status"
+    "orchestrate:status": "npm run agents:status",
+    "health": "node scripts/health-check.js"
   },
   "eslintConfig": {
     "extends": [
@@ -96,6 +101,7 @@
     "@playwright/test": "^1.55.0",
     "@types/canvas-confetti": "^1.9.0",
     "@types/leaflet": "^1.9.20",
+    "css": "^3.0.0",
     "identity-obj-proxy": "^3.0.0",
     "jest-transform-stub": "^2.0.0",
     "puppeteer": "^24.19.0"

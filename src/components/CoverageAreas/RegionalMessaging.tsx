@@ -71,7 +71,7 @@ export function RegionalMessaging({ userLocation }: RegionalMessagingProps) {
           return {
             icon: '🏙️',
             title: `Protection Available in ${userLocation}`,
-            message: 'Advanced booking recommended for optimal service delivery',
+            message: 'Advanced protection assignment recommended for optimal service delivery',
             callToAction: 'Schedule protection service',
             priority: 'low'
           };
@@ -79,7 +79,7 @@ export function RegionalMessaging({ userLocation }: RegionalMessagingProps) {
           return {
             icon: '🌱',
             title: 'Rural Area Coverage',
-            message: 'Specialized rural and estate protection with advance booking',
+            message: 'Specialized rural and estate protection with advance protection assignment',
             callToAction: 'Request coverage assessment',
             priority: 'low'
           };
@@ -115,7 +115,7 @@ export function RegionalMessaging({ userLocation }: RegionalMessagingProps) {
       case 'low':
         return {
           time: '2-4 hours',
-          availability: 'Advance Booking',
+          availability: 'Advance Assignment',
           officers: 'Deployed Officers'
         };
       default:

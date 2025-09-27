@@ -10,7 +10,7 @@ interface ComparisonItem {
 
 const comparisonData: ComparisonItem[] = [
   {
-    feature: 'Minimum booking',
+    feature: 'Minimum protection assignment',
     traditional: '12 hours',
     armora: '2 hours',
     isAdvantage: true
@@ -34,7 +34,7 @@ const comparisonData: ComparisonItem[] = [
     isAdvantage: true
   },
   {
-    feature: 'Booking changes',
+    feature: 'Assignment changes',
     traditional: 'Penalties',
     armora: 'Flexible',
     isAdvantage: true
@@ -114,7 +114,7 @@ export function ComparisonMatrix() {
             Join thousands of professionals who've discovered flexible, transparent protection
           </p>
           <div className={styles.calloutActions}>
-            <button className={styles.primaryButton}>Book Protection Now</button>
+            <button className={styles.primaryButton}>Request CPO Now</button>
             <button className={styles.secondaryButton}>Calculate Your Journey</button>
           </div>
         </div>
@@ -155,7 +155,7 @@ export function ComparisonMatrix() {
           </div>
           <div className={styles.stat}>
             <div className={styles.statNumber}>2-10min</div>
-            <div className={styles.statLabel}>Booking time</div>
+            <div className={styles.statLabel}>Assignment time</div>
           </div>
           <div className={styles.stat}>
             <div className={styles.statNumber}>5,000+</div>

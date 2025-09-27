@@ -4,7 +4,7 @@
 export type NavigationViews = 'home' | 'services' | 'hub' | 'account';
 
 // Complete view state including navigation and flow states
-export type ViewState = 'splash' | 'welcome' | 'login' | 'signup' | 'guest-disclaimer' | 'questionnaire' | 'achievement' | 'home' | 'subscription-offer' | 'trial-setup' | 'member-dashboard' | 'services' | 'service-selection' | 'booking' | 'hub' | 'Assignments' | 'account' | 'venue-protection-welcome' | 'venue-security-questionnaire' | 'venue-protection-success' | 'about' | 'coverage-areas' | 'legacy-booking-view';
+export type ViewState = 'splash' | 'welcome' | 'login' | 'signup' | 'guest-disclaimer' | 'questionnaire' | 'achievement' | 'home' | 'subscription-offer' | 'trial-setup' | 'member-dashboard' | 'services' | 'service-selection' | 'protection-assignment' | 'hub' | 'Assignments' | 'account' | 'venue-protection-welcome' | 'venue-security-questionnaire' | 'venue-protection-success' | 'about' | 'coverage-areas' | 'legacy-assignment-view' | 'protection-request' | 'assignment-confirmed' | 'protection-assignment' | 'legacy-assignment-view';
 
 export type UserType = 'registered' | 'google' | 'guest' | null;
 
@@ -189,7 +189,7 @@ export interface PersonalizationData extends QuestionnaireData {
   conversionAttempts?: number;
 }
 
-export interface FirstRideReward {
+export interface FirstServiceReward {
   userId?: string;
   rewardType: 'questionnaire_completion';
   discountCode?: string;
@@ -387,8 +387,8 @@ export interface CorporateUser {
   id: string;
   email: string;
   name: string;
-  role: 'admin' | 'booker' | 'approver';
-  bookingLimit?: number;
+  role: 'admin' | 'assignment-coordinator' | 'approver';
+  assignmentLimit?: number;
   approvalRequired: boolean;
 }
 
@@ -418,7 +418,7 @@ export interface SubscriptionPlan {
   isPopular?: boolean;
   trialDays?: number;
   responseTime: string;
-  bookingFee: number;
+  serviceFee: number;
   originalBookingFee: number;
 }
 
@@ -434,7 +434,7 @@ export interface UserSubscription {
   daysRemainingInTrial?: number;
   memberBenefits: {
     discountPercentage: number;
-    bookingFee: number;
+    serviceFee: number;
     priorityBooking: boolean;
     flexibleCancellation: boolean;
     dedicatedManager?: boolean;
@@ -462,7 +462,7 @@ export interface NotificationData {
 
 // Safe Assignment Fund Types
 export interface SafeAssignmentFundMetrics {
-  personalRidesFunded: number;
+  personalServicesFunded: number;
   totalContributed: number;
   currentStreak: number; // months active
   monthlyContribution: number; // £4 for Essential
@@ -884,7 +884,7 @@ export interface IQuickAction {
   title: string;
   subtitle: string;
   icon: string;
-  type: 'panic' | 'call' | 'chat' | 'location' | 'reschedule' | 'cancel' | 'rate' | 'receipt' | 'rebook';
+  type: 'panic' | 'call' | 'chat' | 'location' | 'reschedule' | 'cancel' | 'rate' | 'receipt' | 'repeat-assignment';
   isEmergency: boolean;
   requiresConfirmation: boolean;
   action: () => void;
@@ -897,7 +897,7 @@ export interface IPredictiveSuggestion {
   description: string;
   confidence: number;
   suggestedAction: {
-    type: 'book' | 'reschedule' | 'upgrade' | 'alert';
+    type: 'request-protection' | 'reschedule' | 'upgrade' | 'alert';
     data: any;
   };
   priority: 'low' | 'medium' | 'high';
@@ -948,8 +948,8 @@ export interface INotificationItem {
 }
 
 // Safe Assignment Fund metrics interface
-export interface SafeRideFundMetrics {
-  personalRidesFunded: number;
+export interface SafeServiceFundMetrics {
+  personalServicesFunded: number;
   totalContributed: number;
   currentStreak: number;
   monthlyContribution: number;

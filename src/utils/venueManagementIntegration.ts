@@ -489,7 +489,7 @@ export async function getVenueLayout(
 }
 
 /**
- * Create security booking in venue management system
+ * Create security protection assignment in venue management system
  */
 export async function createSecurityBooking(
   systemName: string,
@@ -510,7 +510,7 @@ export async function createSecurityBooking(
   }
 
   try {
-    // Simulate API call to create booking
+    // Simulate API call to create protection assignment
     await new Promise(resolve => setTimeout(resolve, 2000));
 
     const bookingId = `sec_booking_${Date.now()}`;
@@ -521,7 +521,7 @@ export async function createSecurityBooking(
     return { success: true, bookingId };
 
   } catch (error) {
-    return { success: false, error: 'Failed to create security booking' };
+    return { success: false, error: 'Failed to create security protection assignment' };
   }
 }
 

@@ -22,8 +22,8 @@ export function Footer() {
                   </div>
                 </div>
                 <div className={styles.emails}>
-                  <a href="mailto:book@armora.security" className={styles.emailLink}>
-                    book@armora.security
+                  <a href="mailto:request protection@armora.security" className={styles.emailLink}>
+                    request protection@armora.security
                   </a>
                   <a href="mailto:corporate@armora.security" className={styles.emailLink}>
                     corporate@armora.security

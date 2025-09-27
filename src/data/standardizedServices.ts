@@ -369,7 +369,7 @@ export const calculateJourneyPrice = (
   };
 };
 
-// Personal Protection Officer (PPO) venue booking
+// Personal Protection Officer (PPO) venue protection assignment
 export interface PPOVenueBooking {
   serviceType: 'venue_protection';
   duration: 'day' | '2_days' | 'month' | 'year';

@@ -16,13 +16,13 @@
 }
 
 /* Service Cards */
-.tripsList {
+.detailsList {
   display: flex;
   flex-direction: column;
   gap: var(--space-md);
 }
 
-.tripCard {
+.detailCard {
   background: var(--bg-card);
   border: 2px solid var(--bg-secondary);
   border-radius: var(--radius-lg);
@@ -31,14 +31,14 @@
   position: relative;
 }
 
-.tripCard:hover {
+.detailCard:hover {
   border-color: rgba(255, 215, 0, 0.3);
   transform: translateY(-2px);
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
 }
 
 /* Service Header */
-.tripHeader {
+.detailHeader {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -133,7 +133,7 @@
 }
 
 /* Service Details */
-.tripDetails {
+.detailDetails {
   display: flex;
   flex-wrap: wrap;
   gap: var(--space-md);
@@ -161,7 +161,7 @@
 }
 
 /* Service Actions */
-.tripActions {
+.detailActions {
   display: flex;
   gap: var(--space-sm);
   align-items: center;
@@ -317,7 +317,7 @@
 
 /* Mobile Optimizations */
 @media (max-width: 768px) {
-  .tripCard {
+  .detailCard {
     padding: var(--space-md);
   }
 
@@ -332,7 +332,7 @@
     margin: var(--space-xs) 0;
   }
 
-  .tripActions {
+  .detailActions {
     flex-direction: column;
     gap: var(--space-sm);
   }
@@ -343,7 +343,7 @@
     min-width: auto;
   }
 
-  .tripDetails {
+  .detailDetails {
     flex-direction: column;
     gap: var(--space-sm);
   }
@@ -351,7 +351,7 @@
 
 /* Small Mobile */
 @media (max-width: 480px) {
-  .tripHeader {
+  .detailHeader {
     flex-direction: column;
     align-items: flex-start;
     gap: var(--space-sm);
@@ -385,7 +385,7 @@
 
 /* Reduced motion */
 @media (prefers-reduced-motion: reduce) {
-  .tripCard,
+  .detailCard,
   .rebookButton,
   .favoriteButton,
   .emptyAction,
@@ -393,7 +393,7 @@
     transition: none;
   }
 
-  .tripCard:hover,
+  .detailCard:hover,
   .rebookButton:hover,
   .emptyAction:hover {
     transform: none;

@@ -557,15 +557,15 @@
   box-shadow: 0 0 6px #00ff00;
 }
 
-/* Drivers Showcase */
-.driversShowcase {
+/* protection officers Showcase */
+.cposShowcase {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
   gap: var(--space-sm, 8px);
   margin-bottom: var(--space-lg, 24px);
 }
 
-.driverCard {
+.cpoCard {
   /* Premium glassmorphism card */
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(212, 175, 55, 0.2);
@@ -573,18 +573,18 @@
   padding: var(--space-sm, 8px);
   text-align: center;
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  animation: driverCardEntry 0.6s ease-out forwards;
+  animation: cpoCardEntry 0.6s ease-out forwards;
   backdrop-filter: blur(20px) saturate(1.1);
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2),
               inset 0 1px 0 rgba(255, 255, 255, 0.1);
 }
 
-.driverCard:hover {
+.cpoCard:hover {
   border-color: rgba(255, 215, 0, 0.4);
   transform: translateY(-2px);
 }
 
-@keyframes driverCardEntry {
+@keyframes cpoCardEntry {
   from {
     opacity: 0;
     transform: scale(0.9) translateY(10px);
@@ -595,7 +595,7 @@
   }
 }
 
-.driverAvatar {
+.cpoAvatar {
   position: relative;
   display: inline-block;
   margin-bottom: var(--space-xs, 4px);
@@ -626,17 +626,17 @@
   border: 1px solid #B8860B;
 }
 
-.driverInfo {
+.cpoInfo {
   font-size: 0.8rem;
 }
 
-.driverName {
+.cpoName {
   font-weight: 600;
   color: var(--text-primary, #e0e0e0);
   margin-bottom: 2px;
 }
 
-.driverTitle {
+.cpoTitle {
   color: var(--accent-gold, #FFD700);
   font-size: 0.7rem;
   margin-bottom: 2px;
@@ -991,12 +991,12 @@
   }
   
   /* Mobile adjustments for service preview */
-  .driversShowcase {
+  .cposShowcase {
     grid-template-columns: repeat(3, 1fr);
     gap: var(--space-xs, 4px);
   }
   
-  .driverCard {
+  .cpoCard {
     padding: var(--space-xs, 4px);
   }
   
@@ -1006,7 +1006,7 @@
     font-size: 1.5rem;
   }
   
-  .driverInfo {
+  .cpoInfo {
     font-size: 0.7rem;
   }
   
@@ -1105,8 +1105,8 @@
   }
 }
 
-/* Safe Ride Fund Section */
-.safeRideFundSection {
+/* Safe protection service Fund Section */
+.safeProtectionFundSection {
   background: linear-gradient(135deg, rgba(255, 215, 0, 0.1) 0%, rgba(255, 215, 0, 0.05) 100%);
   border: 1px solid rgba(255, 215, 0, 0.2);
   border-radius: 12px;
@@ -1115,10 +1115,10 @@
   display: flex;
   align-items: center;
   gap: var(--space-sm, 8px);
-  animation: safeRideFundGlow 2s ease-in-out infinite alternate;
+  animation: safeProtectionFundGlow 2s ease-in-out infinite alternate;
 }
 
-@keyframes safeRideFundGlow {
+@keyframes safeProtectionFundGlow {
   from {
     box-shadow: 0 0 20px rgba(255, 215, 0, 0.2);
   }
@@ -1127,13 +1127,13 @@
   }
 }
 
-.safeRideFundIcon {
+.safeProtectionFundIcon {
   font-size: 1.5rem;
   flex-shrink: 0;
   filter: drop-shadow(0 0 8px rgba(255, 215, 0, 0.6));
 }
 
-.safeRideFundMessage {
+.safeProtectionFundMessage {
   font-size: 0.9rem;
   color: var(--text-secondary, #e0e0e0);
   line-height: 1.4;
@@ -1148,23 +1148,23 @@
 }
 
 @media (max-width: 480px) {
-  .safeRideFundSection {
+  .safeProtectionFundSection {
     flex-direction: column;
     text-align: center;
     padding: var(--space-sm, 8px);
   }
   
-  .safeRideFundMessage {
+  .safeProtectionFundMessage {
     font-size: 0.85rem;
   }
   
-  .safeRideFundIcon {
+  .safeProtectionFundIcon {
     font-size: 1.3rem;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .safeRideFundSection {
+  .safeProtectionFundSection {
     animation: none;
   }
 }

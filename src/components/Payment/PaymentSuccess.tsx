@@ -33,7 +33,7 @@ export function PaymentSuccess({
         minute: '2-digit'
       }));
     } else {
-      // Add 8 minutes for immediate booking
+      // Add 8 minutes for immediate protection assignment
       now.setMinutes(now.getMinutes() + 8);
       setEstimatedArrival(now.toLocaleTimeString('en-GB', {
         hour: '2-digit',
@@ -77,14 +77,14 @@ export function PaymentSuccess({
         <p className={styles.subtitle}>Your security transport is confirmed</p>
       </div>
 
-      {/* Booking Details Card */}
+      {/* Assignment Details Card */}
       <div className={styles.bookingCard}>
         <div className={styles.cardHeader}>
           <div className={styles.bookingInfo}>
             <h2 className={styles.bookingTitle}>
               {getServiceEmoji(protectionAssignmentData.service.id)} {protectionAssignmentData.service.name}
             </h2>
-            <div className={styles.bookingId}>Booking ID: {bookingId}</div>
+            <div className={styles.bookingId}>Assignment ID: {bookingId}</div>
           </div>
           <div className={styles.paymentAmount}>
             {formatCurrency(paymentIntent.amount)}

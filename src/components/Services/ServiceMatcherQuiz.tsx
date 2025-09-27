@@ -230,7 +230,7 @@ export function ServiceMatcherQuiz() {
       score: result!.matchScore,
       timestamp: Date.now()
     }));
-    navigateToView('booking');
+    navigateToView('protection-request');
   };
 
   // Loading state

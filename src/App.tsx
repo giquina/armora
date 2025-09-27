@@ -16,7 +16,6 @@ import { ServicesPage } from './components/Services/ServicesPage';
 import { Hub } from './components/Hub';
 import { SubscriptionOffer } from './components/Subscription/SubscriptionOffer';
 // Removed unused imports
-import { AssignmentFullScreen } from './components/ProtectionAssignment/AssignmentFullScreen';
 import { ServiceSelection } from './components/ServiceSelection/ServiceSelection';
 import { AccountView } from './components/Account/AccountView';
 // Removed top banner; recruitment is now a side widget on Account page
@@ -27,26 +26,13 @@ import { VenueProtectionSuccess } from './components/VenueProtection/VenueProtec
 import { About } from './components/About/About';
 import { CoverageAreas } from './components/CoverageAreas/CoverageAreas';
 import { ServiceLevel, ProtectionAssignmentData, LocationData } from './types';
+import { ProtectionRequest, AssignmentConfirmed } from './components/ProtectionRequest';
 import './styles/globals.css';
 import './styles/disable-infinite-animations.css'; /* CRITICAL FIX: Stop infinite animations causing flashing */
 
 // Development tools for testing user scenarios removed due to chunk loading issues
 
 
-function AssignmentFlow() {
-  const { state, endAssignment } = useApp();
-
-  if (!state.isAssignmentActive || !state.assignmentContext) {
-    return null;
-  }
-
-  return (
-    <AssignmentFullScreen
-      context={state.assignmentContext}
-      onClose={endAssignment}
-    />
-  );
-}
 
 function AppRouter() {
   const { state, navigateToView } = useApp();
@@ -74,13 +60,13 @@ function AppRouter() {
         return false;
       }
 
-      // Show banner for NON-GUEST users who completed questionnaire and haven't made a booking yet
+      // Show banner for NON-GUEST users who completed questionnaire and haven't made a protection assignment yet
       if (user?.hasCompletedQuestionnaire && !user?.hasUnlockedReward && user?.userType !== 'guest') {
         const bannerDismissed = localStorage.getItem('armora_achievement_banner_dismissed');
-        const firstBookingMade = localStorage.getItem('armora_first_booking_completed');
+        const firstAssignmentMade = localStorage.getItem('armora_first_assignment_completed');
 
-        // Don't show if user has made their first booking
-        if (firstBookingMade) {
+        // Don't show if user has made their first protection assignment
+        if (firstAssignmentMade) {
           return false;
         }
 
@@ -119,7 +105,7 @@ function AppRouter() {
     }
     
     // Show success message (no navigation needed for assignment system)
-    // navigateToView('booking'); // Removed - using new assignment system
+    // navigateToView('protection-request'); // Removed - using new assignment system
     setShowAchievementBanner(false);
     
     // Record banner interaction
@@ -167,8 +153,8 @@ function AppRouter() {
         const selectedServiceId = localStorage.getItem('armora_selected_service');
         const servicePrice = selectedServiceId === 'standard' ? 45 : selectedServiceId === 'executive' ? 75 : selectedServiceId === 'shadow' ? 65 : 45;
         return <SubscriptionOffer selectedService={selectedServiceId || undefined} servicePrice={servicePrice} />;
-      case 'booking':
-      case 'legacy-booking-view':
+      case 'protection-assignment':
+      case 'legacy-assignment-view':
         // These views are no longer used - assignment system handles this
         return <Dashboard />;
       case 'service-selection':
@@ -188,18 +174,32 @@ function AppRouter() {
         return <VenueSecurityQuestionnaire />;
       case 'venue-protection-success':
         return <VenueProtectionSuccess />;
+      case 'protection-request':
+        return (
+          <ProtectionRequest
+            onAssignmentRequested={() => navigateToView('assignment-confirmed')}
+          />
+        );
+      case 'assignment-confirmed':
+        return (
+          <AssignmentConfirmed
+            onClose={() => navigateToView('home')}
+            onTrackAssignment={() => navigateToView('hub')}
+            onNewAssignment={() => navigateToView('protection-request')}
+          />
+        );
       default:
         return <SplashScreen />;
     }
   };
 
-  // Show assignment flow if active (full-screen)
-  if (state.isAssignmentActive) {
-    return <AssignmentFlow />;
+  // If assignment is active, navigate to hub instead of showing old flow
+  if (state.isAssignmentActive && currentView !== 'hub') {
+    navigateToView('hub');
   }
 
-  // Don't wrap authentication screens, questionnaire, and achievement in AppLayout (they're full-screen)
-  if (['splash', 'welcome', 'login', 'signup', 'guest-disclaimer', 'questionnaire', 'achievement'].includes(currentView)) {
+  // Don't wrap authentication screens, questionnaire, achievement, and protection request in AppLayout (they're full-screen)
+  if (['splash', 'welcome', 'login', 'signup', 'guest-disclaimer', 'questionnaire', 'achievement', 'protection-request', 'assignment-confirmed'].includes(currentView)) {
     return (
       <div>
         {renderCurrentView()}

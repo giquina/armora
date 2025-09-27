@@ -125,19 +125,19 @@
   margin-bottom: 20px;
 }
 
-.bookingInfo {
+.assignmentInfo {
   display: flex;
   flex-direction: column;
 }
 
-.bookingTitle {
+.assignmentTitle {
   font-size: 1.2rem;
   font-weight: bold;
   color: #ffffff;
   margin: 0 0 4px 0;
 }
 
-.bookingId {
+.assignmentId {
   font-size: 0.8rem;
   color: #a0a0b8;
   opacity: 0.8;
@@ -178,8 +178,8 @@
   }
 }
 
-/* Driver Section */
-.driverSection {
+/* protection officer Section */
+.cpoSection {
   display: flex;
   align-items: center;
   gap: 16px;
@@ -190,7 +190,7 @@
   border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-.driverAvatar {
+.cpoAvatar {
   position: relative;
 }
 
@@ -219,11 +219,11 @@
   animation: pulse 2s ease-in-out infinite;
 }
 
-.driverInfo {
+.cpoInfo {
   flex: 1;
 }
 
-.driverName {
+.cpoName {
   font-size: 1rem;
   font-weight: 600;
   color: #ffffff;
@@ -236,7 +236,7 @@
   margin-bottom: 6px;
 }
 
-.driverRating {
+.cpoRating {
   display: flex;
   align-items: center;
   gap: 6px;
@@ -476,7 +476,7 @@
     align-items: center;
   }
 
-  .driverSection {
+  .cpoSection {
     padding: 12px;
     gap: 12px;
   }
@@ -510,7 +510,7 @@
     font-size: 1.1rem;
   }
 
-  .bookingTitle {
+  .assignmentTitle {
     font-size: 1rem;
   }
 
@@ -554,8 +554,8 @@
     background: #000000;
   }
 
-  .bookingTitle,
-  .driverName {
+  .assignmentTitle,
+  .cpoName {
     color: #ffffff;
   }
 

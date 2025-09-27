@@ -17,20 +17,20 @@ export function QuickActions() {
   const handleAirportTransfer = () => {
     localStorage.setItem('armora_selected_service', 'executive');
     localStorage.setItem('armora_quick_destination', 'London Heathrow Airport (LHR)');
-    localStorage.setItem('armora_booking_preset', 'airport');
-    navigateToView('booking');
+    localStorage.setItem('armora_assignment_preset', 'airport');
+    navigateToView('protection-request');
   };
 
   const handleDailyCommute = () => {
     localStorage.setItem('armora_selected_service', 'standard');
-    localStorage.setItem('armora_booking_preset', 'commute');
-    navigateToView('booking');
+    localStorage.setItem('armora_assignment_preset', 'commute');
+    navigateToView('protection-request');
   };
 
   const handleEveningPickup = () => {
     localStorage.setItem('armora_selected_service', 'shadow');
-    localStorage.setItem('armora_booking_preset', 'evening');
-    navigateToView('booking');
+    localStorage.setItem('armora_assignment_preset', 'evening');
+    navigateToView('protection-request');
   };
 
   const handleEventSecurity = () => {

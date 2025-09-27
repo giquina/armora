@@ -34,12 +34,12 @@ export function QuestionnaireComplete({ onRestart, onContinue }: QuestionnaireCo
     {
       icon: '💰',
       title: '50% Discount Unlocked',
-      description: 'Save £22.50-£37.50 on your first booking'
+      description: 'Save £22.50-£37.50 on your first protection assignment'
     },
     {
       icon: '⚡',
       title: 'Priority Access Granted',
-      description: 'Skip the queue with instant booking'
+      description: 'Skip the queue with instant protection assignment'
     },
     {
       icon: '📞',
@@ -52,13 +52,13 @@ export function QuestionnaireComplete({ onRestart, onContinue }: QuestionnaireCo
   const guestLimitations = [
     {
       icon: '❌',
-      title: 'Limited Booking Access',
-      description: 'Quote-only, no direct booking available'
+      title: 'Limited Assignment Access',
+      description: 'Quote-only, no direct protection assignment available'
     },
     {
       icon: '❌',
       title: 'No Discount Available',
-      description: 'Miss out on 50% first booking discount'
+      description: 'Miss out on 50% first protection assignment discount'
     },
     {
       icon: '❌',
@@ -185,16 +185,16 @@ export function QuestionnaireComplete({ onRestart, onContinue }: QuestionnaireCo
             <div className={styles.upgradeContent}>
               <h3 className={styles.upgradeTitle}>Unlock Full Access</h3>
               <p className={styles.upgradeDescription}>
-                Create an account now and get 50% off your first booking plus priority access to all Armora services.
+                Create an account now and get 50% off your first protection assignment plus priority access to all Armora services.
               </p>
               <div className={styles.upgradeBenefits}>
                 <div className={styles.upgradeBenefit}>
                   <span className={styles.upgradeIcon}>🎯</span>
-                  <span>Direct booking access</span>
+                  <span>Direct protection assignment access</span>
                 </div>
                 <div className={styles.upgradeBenefit}>
                   <span className={styles.upgradeIcon}>💰</span>
-                  <span>50% first booking discount</span>
+                  <span>50% first protection assignment discount</span>
                 </div>
                 <div className={styles.upgradeBenefit}>
                   <span className={styles.upgradeIcon}>⭐</span>

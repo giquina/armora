@@ -1,6 +1,6 @@
 import React from 'react';
 import { QuickActionItem } from '../../types';
-import { BookingHistoryManager } from '../../utils/bookingHistory';
+import { AssignmentHistoryManager } from '../../utils/assignmentHistory';
 import { useApp } from '../../contexts/AppContext';
 import styles from './PersonalizedQuickActions.module.css';
 
@@ -22,7 +22,7 @@ export function PersonalizedQuickActions({
   React.useEffect(() => {
     const loadQuickActions = () => {
       try {
-        const actions = BookingHistoryManager.generatePersonalizedQuickActions();
+        const actions = AssignmentHistoryManager.generatePersonalizedQuickActions();
         setQuickActions(actions.slice(0, maxActions));
         setIsLoading(false);
       } catch (error) {
@@ -43,7 +43,7 @@ export function PersonalizedQuickActions({
 
     // Default behavior based on action type
     if (action.data) {
-      // Store the booking data for pre-filling the booking form
+      // Store the protection assignment data for pre-filling the protection assignment form
       localStorage.setItem('armora_rebook_data', JSON.stringify({
         from: action.data.from,
         to: action.data.to,
@@ -53,7 +53,7 @@ export function PersonalizedQuickActions({
       }));
     }
 
-    navigateToView('booking');
+    navigateToView('protection-request');
   };
 
   const getActionGradient = (action: QuickActionItem): string => {
@@ -138,7 +138,7 @@ export function PersonalizedQuickActions({
           <div className={styles.emptyIcon}>🚀</div>
           <h3 className={styles.emptyTitle}>Your Quick Actions</h3>
           <p className={styles.emptyText}>
-            After your first booking, personalized quick actions will appear here for faster rebooking.
+            After your first protection assignment, personalized quick actions will appear here for faster rebooking.
           </p>
         </div>
       </div>
@@ -199,7 +199,7 @@ export function PersonalizedQuickActions({
         <div className={styles.personalizationNote}>
           <span className={styles.noteIcon}>💡</span>
           <span className={styles.noteText}>
-            Actions updated based on your booking patterns
+            Actions updated based on your protection assignment patterns
           </span>
         </div>
       )}

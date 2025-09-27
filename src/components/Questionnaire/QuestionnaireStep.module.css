@@ -654,7 +654,7 @@
   margin-bottom: 8px; /* Reduced from 20px to 8px */
 }
 
-/* Radio and Checkbox Inputs - Brand Color Override */
+/* Radio and Checkbox Inputs - Brand Color Overprotection */
 .radioInput,
 .checkboxInput {
   width: 20px;
@@ -662,7 +662,7 @@
   margin: 0;
   flex-shrink: 0;
   margin-top: 2px;
-  /* Override browser defaults with Armora brand colors */
+  /* Overprotection browser defaults with Armora brand colors */
   appearance: none;
   -webkit-appearance: none;
   -moz-appearance: none;
@@ -1630,7 +1630,7 @@
   font-weight: 600;
 }
 
-.driverMatch {
+.cpoMatch {
   color: var(--text-primary);
 }
 
@@ -2595,7 +2595,7 @@
 
   /* Keep options container flush so each option's golden border reaches the edges */
   .optionsContainer {
-    width: 100% !important; /* override earlier calc(100vw - 8px) */
+    width: 100% !important; /* overprotection earlier calc(100vw - 8px) */
     max-width: 100% !important;
     padding-left: 0;
     padding-right: 0;
@@ -2603,7 +2603,7 @@
 
   /* Options should fill the container and respect its padding */
   .option {
-    width: 100% !important; /* override earlier calc(100vw - 12px) */
+    width: 100% !important; /* overprotection earlier calc(100vw - 12px) */
     max-width: 100% !important;
     margin-left: 0 !important;
     margin-right: 0 !important;
@@ -2685,7 +2685,7 @@
   margin-bottom: 3rem !important;
 }
 
-/* (Removed) Final override that stripped inner borders inside the Welcome/Intro card */
+/* (Removed) Final overprotection that sdetailped inner borders inside the Welcome/Intro card */
 
 /* ============================================= */
 /* NEW 2-BOX LAYOUT STYLES FOR STEP 1 REDESIGN */
@@ -2976,7 +2976,7 @@
 }
 
 /* ==================== UNIFIED BORDER RADIUS SYSTEM ==================== */
-/* GLOBAL CONSISTENCY - Override any inconsistent radius values */
+/* GLOBAL CONSISTENCY - Overprotection any inconsistent radius values */
 
 /* Content Boxes & Cards - 12px radius for unified appearance */
 .option,

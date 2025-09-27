@@ -76,7 +76,7 @@ export function WelcomePage() {
       step8_contactPreferences: {
         email: 'test@armora.dev',
         phone: '+44 7700 900000',
-        notifications: ['booking-updates', 'cpo-arrival']
+        notifications: ['protection assignment-updates', 'cpo-arrival']
       },
       step9_profileReview: true,
       completedAt: new Date(),

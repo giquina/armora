@@ -195,7 +195,7 @@ export function ServiceCard({
           <div className={styles.expandedHeader}>SERVICE DETAILS:</div>
           <div className={styles.expandedItem}>• Professional close protection</div>
           <div className={styles.expandedItem}>• Threat assessment included</div>
-          <div className={styles.expandedItem}>• 2-hour minimum booking</div>
+          <div className={styles.expandedItem}>• 2-hour minimum protection assignment</div>
 
           <div className={styles.expandedHeader}>PERFECT FOR:</div>
           <div className={styles.expandedItem}>• Business meetings</div>

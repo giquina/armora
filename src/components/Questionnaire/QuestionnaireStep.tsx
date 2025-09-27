@@ -812,7 +812,7 @@ Your privacy is important to us. All questions are optional and you can use "Pre
                     </li>
                     <li className={spacingStyles.tightBenefitItem}>
                       <span className={styles.checkmark}>✓</span>
-                      <span>Exclusive 50% discount on your first professional booking</span>
+                      <span>Exclusive 50% discount on your first professional protection assignment</span>
                     </li>
                   </ul>
                 </div>

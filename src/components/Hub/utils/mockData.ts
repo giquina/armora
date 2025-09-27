@@ -1,4 +1,4 @@
-export interface Booking {
+export interface Assignment {
   id: string;
   status: 'active' | 'scheduled' | 'completed' | 'cancelled';
   serviceType: 'standard' | 'executive' | 'shadow';
@@ -59,7 +59,7 @@ export interface UserStats {
 }
 
 // Mock data
-export const mockBookings: Booking[] = [
+export const mockBookings: Assignment[] = [
   {
     id: 'AR-2024-001',
     status: 'active',

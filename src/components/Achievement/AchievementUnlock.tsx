@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useApp } from '../../contexts/AppContext';
-import { AchievementUnlockProps, FirstRideReward } from '../../types';
+import { AchievementUnlockProps, FirstServiceReward } from '../../types';
 import styles from './AchievementUnlock.module.css';
 
 const AchievementUnlock: React.FC<AchievementUnlockProps> = ({
@@ -14,7 +14,7 @@ const AchievementUnlock: React.FC<AchievementUnlockProps> = ({
   const [showConfetti, setShowConfetti] = useState(false);
 
   // Generate reward data
-  const rewardData: FirstRideReward = {
+  const rewardData: FirstServiceReward = {
     userId: state.user?.id,
     rewardType: 'questionnaire_completion',
     discountCode: `ARMORA${Date.now().toString().slice(-6)}`,
@@ -27,7 +27,7 @@ const AchievementUnlock: React.FC<AchievementUnlockProps> = ({
 
   const terms = [
     'Valid for 30 days from profile completion',
-    'Applicable to first Assignment booking only',
+    'Applicable to first Assignment protection assignment only',
     'Cannot be combined with other offers',
     'Maximum discount value: £15',
     'Valid for all service tiers: Standard, Executive, Shadow'
@@ -300,7 +300,7 @@ const AchievementUnlock: React.FC<AchievementUnlockProps> = ({
             <div className={styles.guestActions}>
               <div className={styles.upgradePrompt}>
                 <p className={styles.upgradeMessage}>
-                  Create an account to save this reward and unlock full booking features
+                  Create an account to save this reward and unlock full protection assignment features
                 </p>
               </div>
               <button

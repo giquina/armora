@@ -31,7 +31,7 @@ export const achievements: Achievement[] = [
     name: 'Profile Complete',
     status: 'in_progress',
     progress: 70,
-    reward: 'Priority booking',
+    reward: 'Priority protection assignment',
     description: 'Complete your safety profile',
     requirement: 'Fill all profile sections',
   },

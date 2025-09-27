@@ -1,4 +1,4 @@
-/* Safe Ride Fund CTA Component Styles */
+/* Safe protection service Fund CTA Component Styles */
 
 .ctaContainer {
   position: fixed;
@@ -19,7 +19,7 @@
   font-weight: 600;
   font-size: 0.9rem;
   cursor: pointer;
-  pointer-events: all !important; /* Force clickable, override any conflicts */
+  pointer-events: all !important; /* Force clickable, overprotection any conflicts */
   box-shadow: 
     -4px 0 10px rgba(0, 0, 0, 0.3),
     -2px 0 20px rgba(255, 215, 0, 0.4),

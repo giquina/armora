@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useApp } from '../../contexts/AppContext';
-import { BookingHistoryManager } from '../../utils/bookingHistory';
+import { AssignmentHistoryManager } from '../../utils/assignmentHistory';
 import { ProtectionAssignmentData } from '../../types';
 import styles from './AssignmentSuccess.module.css';
 
@@ -13,7 +13,7 @@ export function AssignmentSuccess({ assignmentId, onClose }: AssignmentSuccessPr
   const { navigateToView } = useApp();
 
   useEffect(() => {
-    // Save booking to history on mount
+    // Save protection assignment to history on mount
     try {
       const preserved = localStorage.getItem('armora_booking_state');
       if (preserved) {
@@ -25,12 +25,12 @@ export function AssignmentSuccess({ assignmentId, onClose }: AssignmentSuccessPr
           const driverNames = ['John S.', 'Sarah M.', 'David L.', 'Emma R.', 'Michael T.', 'Lisa K.'];
           const randomDriver = driverNames[Math.floor(Math.random() * driverNames.length)];
 
-          BookingHistoryManager.saveBookingToHistory(protectionAssignmentData, assignmentId, randomDriver);
+          AssignmentHistoryManager.saveAssignmentToHistory(protectionAssignmentData, assignmentId, randomDriver);
           console.log('✅ Assignment saved to history:', assignmentId);
         }
       }
     } catch (error) {
-      console.error('❌ Failed to save booking to history:', error);
+      console.error('❌ Failed to save protection assignment to history:', error);
     }
 
     // Auto-redirect to dashboard after 10 seconds
@@ -46,7 +46,7 @@ export function AssignmentSuccess({ assignmentId, onClose }: AssignmentSuccessPr
   };
 
   const handleViewBookingDetails = () => {
-    // In a real app, this would navigate to booking details page
+    // In a real app, this would navigate to protection assignment details page
     // For now, we'll just go to dashboard
     navigateToView('home');
   };
@@ -61,7 +61,7 @@ export function AssignmentSuccess({ assignmentId, onClose }: AssignmentSuccessPr
         <div className={styles.successContent}>
           <h1 className={styles.title}>Assignment Confirmed!</h1>
           <p className={styles.subtitle}>
-            Your security transport has been successfully booked
+            Your security transport has been successfully protection confirmed
           </p>
           
           <div className={styles.bookingId}>

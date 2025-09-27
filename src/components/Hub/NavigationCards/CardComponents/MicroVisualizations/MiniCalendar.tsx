@@ -20,7 +20,7 @@ export const MiniCalendar: React.FC<MiniCalendarProps> = ({
     if (highlight === 'today' && dayIndex === 0) return 'today';
     if (highlight === 'tomorrow' && dayIndex === 1) return 'tomorrow';
     if (typeof highlight === 'number' && dayIndex === highlight) return 'highlighted';
-    if (bookedDays.includes(dayIndex)) return 'booked';
+    if (bookedDays.includes(dayIndex)) return 'protection confirmed';
     return 'empty';
   };
 
@@ -32,7 +32,7 @@ export const MiniCalendar: React.FC<MiniCalendarProps> = ({
         return '#00D4FF';
       case 'highlighted':
         return '#00FF88';
-      case 'booked':
+      case 'protection confirmed':
         return 'rgba(255, 215, 0, 0.6)';
       default:
         return 'rgba(255, 255, 255, 0.2)';
@@ -52,7 +52,7 @@ export const MiniCalendar: React.FC<MiniCalendarProps> = ({
       {dayNumbers.map((day, index) => {
         const status = getDayStatus(index);
         const color = getDayColor(status);
-        const isActive = status === 'today' || status === 'tomorrow' || status === 'highlighted' || status === 'booked';
+        const isActive = status === 'today' || status === 'tomorrow' || status === 'highlighted' || status === 'protection confirmed';
 
         return (
           <div
@@ -66,7 +66,7 @@ export const MiniCalendar: React.FC<MiniCalendarProps> = ({
               transition: 'all 0.3s ease',
               animation: status === 'today' ? 'pulse 2s ease-in-out infinite' : undefined
             }}
-            title={`Day ${day}${status === 'booked' ? ' - Booked' : ''}`}
+            title={`Day ${day}${status === 'protection confirmed' ? ' - Booked' : ''}`}
           />
         );
       })}

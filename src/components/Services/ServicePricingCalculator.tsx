@@ -97,7 +97,7 @@ export function ServicePricingCalculator() {
       breakdown,
       timestamp: Date.now()
     }));
-    navigateToView('booking');
+    navigateToView('protection-request');
   };
 
   const getTimeLabel = () => {

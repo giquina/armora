@@ -84,23 +84,23 @@ export function ProgressIndicator({
   );
 }
 
-// Pre-built progress indicator for booking flow - Updated for consistent 3-step flow
+// Pre-built progress indicator for protection assignment flow - Updated for consistent 3-step flow
 export function BookingProgressIndicator({ currentStep }: { currentStep: string }) {
   const bookingSteps: ProgressStep[] = [
     {
       label: 'Security Level',
-      completed: ['location-picker', 'booking-confirmation', 'booking-success'].includes(currentStep),
+      completed: ['location-picker', 'protection assignment-confirmation', 'protection assignment-success'].includes(currentStep),
       current: currentStep === 'vehicle-selection'
     },
     {
       label: 'Route Planning',
-      completed: ['booking-confirmation', 'booking-success'].includes(currentStep),
+      completed: ['protection assignment-confirmation', 'protection assignment-success'].includes(currentStep),
       current: currentStep === 'location-picker'
     },
     {
       label: 'Confirmation',
-      completed: currentStep === 'booking-success',
-      current: currentStep === 'booking-confirmation'
+      completed: currentStep === 'protection assignment-success',
+      current: currentStep === 'protection assignment-confirmation'
     }
   ];
 

@@ -259,15 +259,15 @@ export function StreamlinedBookingModal({
       // Brief delay for better UX (shows loading state)
       await new Promise(resolve => setTimeout(resolve, 1000));
 
-      console.log('[Analytics] Booking confirmed via streamlined flow', bookingData.analytics);
+      console.log('[Analytics] Assignment confirmed via streamlined flow', bookingData.analytics);
       onBookingConfirm(bookingData);
 
     } catch (error) {
       setErrors(prev => ({
         ...prev,
-        general: 'Booking failed. Please try again.'
+        general: 'Assignment failed. Please try again.'
       }));
-      console.error('[Booking] Error:', error);
+      console.error('[Assignment] Error:', error);
       setIsBooking(false);
     }
   };
@@ -304,7 +304,7 @@ export function StreamlinedBookingModal({
           <button
             className={styles.closeButton}
             onClick={onClose}
-            aria-label="Close booking"
+            aria-label="Close protection assignment"
           >
             ×
           </button>
@@ -430,10 +430,10 @@ export function StreamlinedBookingModal({
             ) : routeEstimate ? (
               <>
                 <span className={styles.buttonIcon}>🚗</span>
-                Book Now • £{routeEstimate.cost}
+                Request CPO • £{routeEstimate.cost}
               </>
             ) : (
-              'Book Now'
+              'Request CPO'
             )}
           </Button>
         </div>

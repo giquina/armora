@@ -1,21 +1,21 @@
 import React, { useState } from 'react';
-import { Booking } from '../utils/mockData';
-import styles from './BookingCalendar.module.css';
+import { Assignment } from '../utils/mockData';
+import styles from './AssignmentCalendar.module.css';
 
-interface BookingCalendarProps {
-  bookings: Booking[];
+interface AssignmentCalendarProps {
+  assignments: Assignment[];
   onDateSelect: (date: Date) => void;
-  onBookingClick: (booking: Booking) => void;
+  onAssignmentClick: (assignment: Assignment) => void;
 }
 
 interface CalendarDay {
   date: Date;
   isCurrentMonth: boolean;
   isToday: boolean;
-  bookings: Booking[];
+  assignments: Assignment[];
 }
 
-export function BookingCalendar({ bookings, onDateSelect, onBookingClick }: BookingCalendarProps) {
+export function AssignmentCalendar({ assignments, onDateSelect, onAssignmentClick }: AssignmentCalendarProps) {
   const [currentDate, setCurrentDate] = useState(new Date());
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const [viewMode, setViewMode] = useState<'month' | 'week'>('month');
@@ -40,7 +40,7 @@ export function BookingCalendar({ bookings, onDateSelect, onBookingClick }: Book
         date,
         isCurrentMonth: false,
         isToday: isSameDay(date, today),
-        bookings: getBookingsForDate(date)
+        assignments: getAssignmentsForDate(date)
       });
     }
 
@@ -51,7 +51,7 @@ export function BookingCalendar({ bookings, onDateSelect, onBookingClick }: Book
         date,
         isCurrentMonth: true,
         isToday: isSameDay(date, today),
-        bookings: getBookingsForDate(date)
+        assignments: getAssignmentsForDate(date)
       });
     }
 
@@ -63,17 +63,17 @@ export function BookingCalendar({ bookings, onDateSelect, onBookingClick }: Book
         date,
         isCurrentMonth: false,
         isToday: isSameDay(date, today),
-        bookings: getBookingsForDate(date)
+        assignments: getAssignmentsForDate(date)
       });
     }
 
     return days;
   };
 
-  const getBookingsForDate = (date: Date): Booking[] => {
-    return bookings.filter(booking => {
-      const bookingDate = new Date(booking.scheduledTime);
-      return isSameDay(bookingDate, date);
+  const getAssignmentsForDate = (date: Date): Assignment[] => {
+    return assignments.filter(assignment => {
+      const assignmentDate = new Date(assignment.scheduledTime);
+      return isSameDay(assignmentDate, date);
     });
   };
 
@@ -130,7 +130,7 @@ export function BookingCalendar({ bookings, onDateSelect, onBookingClick }: Book
     <div className={styles.calendarContainer}>
       <div className={styles.calendarHeader}>
         <div className={styles.headerTop}>
-          <h2 className={styles.calendarTitle}>📅 Booking Calendar</h2>
+          <h2 className={styles.calendarTitle}>📅 Assignment Calendar</h2>
           <div className={styles.viewToggle}>
             <button
               className={`${styles.viewButton} ${viewMode === 'month' ? styles.active : ''}`}
@@ -176,33 +176,33 @@ export function BookingCalendar({ bookings, onDateSelect, onBookingClick }: Book
                 ${!day.isCurrentMonth ? styles.otherMonth : ''}
                 ${day.isToday ? styles.today : ''}
                 ${selectedDate && isSameDay(day.date, selectedDate) ? styles.selected : ''}
-                ${day.bookings.length > 0 ? styles.hasBookings : ''}
+                ${day.assignments.length > 0 ? styles.hasAssignments : ''}
               `}
               onClick={() => handleDateClick(day)}
             >
               <div className={styles.dayNumber}>{day.date.getDate()}</div>
 
-              {day.bookings.length > 0 && (
-                <div className={styles.bookingIndicators}>
-                  {day.bookings.slice(0, 3).map((booking, bookingIndex) => (
+              {day.assignments.length > 0 && (
+                <div className={styles.assignmentIndicators}>
+                  {day.assignments.slice(0, 3).map((assignment, assignmentIndex) => (
                     <div
-                      key={booking.id}
-                      className={styles.bookingDot}
-                      style={{ backgroundColor: getStatusColor(booking.status) }}
-                      title={`${booking.serviceName} - ${booking.status}`}
+                      key={assignment.id}
+                      className={styles.assignmentDot}
+                      style={{ backgroundColor: getStatusColor(assignment.status) }}
+                      title={`${assignment.serviceName} - ${assignment.status}`}
                       onClick={(e) => {
                         e.stopPropagation();
-                        onBookingClick(booking);
+                        onAssignmentClick(assignment);
                       }}
                     >
                       <span className={styles.serviceIcon}>
-                        {getServiceTypeIcon(booking.serviceType)}
+                        {getServiceTypeIcon(assignment.serviceType)}
                       </span>
                     </div>
                   ))}
-                  {day.bookings.length > 3 && (
+                  {day.assignments.length > 3 && (
                     <div className={styles.moreIndicator}>
-                      +{day.bookings.length - 3}
+                      +{day.assignments.length - 3}
                     </div>
                   )}
                 </div>
@@ -224,47 +224,47 @@ export function BookingCalendar({ bookings, onDateSelect, onBookingClick }: Book
             })}
           </h3>
 
-          {getBookingsForDate(selectedDate).length > 0 ? (
-            <div className={styles.dayBookings}>
-              {getBookingsForDate(selectedDate).map(booking => (
+          {getAssignmentsForDate(selectedDate).length > 0 ? (
+            <div className={styles.dayAssignments}>
+              {getAssignmentsForDate(selectedDate).map(assignment => (
                 <div
-                  key={booking.id}
-                  className={styles.dayBookingCard}
-                  onClick={() => onBookingClick(booking)}
+                  key={assignment.id}
+                  className={styles.dayAssignmentCard}
+                  onClick={() => onAssignmentClick(assignment)}
                 >
-                  <div className={styles.bookingTime}>
-                    {booking.scheduledTime.toLocaleTimeString('en-GB', {
+                  <div className={styles.assignmentTime}>
+                    {assignment.scheduledTime.toLocaleTimeString('en-GB', {
                       hour: '2-digit',
                       minute: '2-digit'
                     })}
                   </div>
-                  <div className={styles.bookingInfo}>
-                    <div className={styles.bookingHeader}>
+                  <div className={styles.assignmentInfo}>
+                    <div className={styles.assignmentHeader}>
                       <span className={styles.serviceIcon}>
-                        {getServiceTypeIcon(booking.serviceType)}
+                        {getServiceTypeIcon(assignment.serviceType)}
                       </span>
-                      <span className={styles.serviceName}>{booking.serviceName}</span>
+                      <span className={styles.serviceName}>{assignment.serviceName}</span>
                       <span
                         className={styles.statusBadge}
-                        style={{ backgroundColor: getStatusColor(booking.status) }}
+                        style={{ backgroundColor: getStatusColor(assignment.status) }}
                       >
-                        {booking.status}
+                        {assignment.status}
                       </span>
                     </div>
                     <div className={styles.route}>
-                      {booking.commencementLocation.address.split(',')[0]} → {booking.secureDestination.address.split(',')[0]}
+                      {assignment.commencementLocation.address.split(',')[0]} → {assignment.secureDestination.address.split(',')[0]}
                     </div>
-                    <div className={styles.price}>£{booking.pricing.total}</div>
+                    <div className={styles.price}>£{assignment.pricing.total}</div>
                   </div>
                 </div>
               ))}
             </div>
           ) : (
-            <div className={styles.noDayBookings}>
+            <div className={styles.noDayAssignments}>
               <span className={styles.emptyIcon}>📅</span>
-              <span className={styles.emptyText}>No bookings on this date</span>
+              <span className={styles.emptyText}>No assignments on this date</span>
               <button className={styles.addBookingButton}>
-                + Add Booking
+                + Add Assignment
               </button>
             </div>
           )}

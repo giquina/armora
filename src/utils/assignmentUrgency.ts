@@ -1,4 +1,4 @@
-// Booking Urgency and Availability System
+// Assignment Urgency and Availability System
 // Creates realistic urgency indicators and availability status
 
 interface AvailabilityInfo {
@@ -18,7 +18,7 @@ interface ServiceAvailability {
   priceModifier: number; // 1.0 = normal, 1.2 = 20% surge, etc.
 }
 
-class BookingUrgencyService {
+class AssignmentUrgencyService {
   private static lastUpdated: number = 0;
   private static cachedAvailability: ServiceAvailability[] = [];
   private static readonly CACHE_DURATION = 30000; // 30 seconds
@@ -153,7 +153,7 @@ class BookingUrgencyService {
       nextAvailable = this.generateNextAvailableTime();
       demandLevel = 'surge';
       urgencyMessage = 'Very high demand';
-      socialProofMessage = 'Last Protection Officer booked 8 minutes ago';
+      socialProofMessage = 'Last Protection Officer assigned 8 minutes ago';
     }
 
     // Add peak time urgency
@@ -214,17 +214,17 @@ class BookingUrgencyService {
     });
   }
 
-  // Get recent booking activity message
+  // Get recent assignment activity message
   static getRecentActivityMessage(): string {
     const activities = [
-      'Last booked 3 minutes ago',
-      'Last booked 7 minutes ago',
-      'Last booked 12 minutes ago',
-      '2 bookings in the last hour',
-      '5 bookings in the last hour',
-      '8 bookings in the last hour',
+      'Last assignment confirmed 3 minutes ago',
+      'Last assignment confirmed 7 minutes ago',
+      'Last assignment confirmed 12 minutes ago',
+      '2 assignments confirmed in the last hour',
+      '5 assignments confirmed in the last hour',
+      '8 assignments confirmed in the last hour',
       'Most popular choice today',
-      'Booked 15 times today',
+      '15 assignments confirmed today',
       'Trending with business users',
       'Popular with VIP clients',
       'High demand in this area',
@@ -286,14 +286,14 @@ class BookingUrgencyService {
 
   // Get business insights for analytics
   static getBusinessInsights(): {
-    totalActiveDrivers: number;
+    totalActiveCPOs: number;
     peakDemandServices: string[];
     averageWaitTime: number;
     surgeActive: boolean;
   } {
     const availability = this.getServicesAvailability();
 
-    const totalActiveDrivers = availability.reduce((sum, s) => sum + s.availability.officersNearby, 0);
+    const totalActiveCPOs = availability.reduce((sum, s) => sum + s.availability.officersNearby, 0);
     const peakDemandServices = availability
       .filter(s => s.availability.status === 'high-demand' || s.availability.status === 'very-busy')
       .map(s => s.serviceId);
@@ -307,7 +307,7 @@ class BookingUrgencyService {
     const surgeActive = availability.some(s => s.priceModifier > 1.05);
 
     return {
-      totalActiveDrivers,
+      totalActiveCPOs,
       peakDemandServices,
       averageWaitTime: Math.round(avgWaitTimeMinutes),
       surgeActive
@@ -315,5 +315,5 @@ class BookingUrgencyService {
   }
 }
 
-export { BookingUrgencyService };
+export { AssignmentUrgencyService };
 export type { AvailabilityInfo, ServiceAvailability };

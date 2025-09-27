@@ -6,21 +6,20 @@ import { HamburgerMenu } from './HamburgerMenu';
 import styles from './TopToolbar.module.css';
 
 interface TopToolbarProps {
-  onOpenNotifications?: () => void;
+  onToggleNotifications?: () => void;
+  isNotificationsOpen?: boolean;
 }
 
-export const TopToolbar: React.FC<TopToolbarProps> = ({ onOpenNotifications }) => {
-  const { startAssignment, navigateToView, state } = useApp();
+export const TopToolbar: React.FC<TopToolbarProps> = ({ onToggleNotifications, isNotificationsOpen }) => {
+  const { navigateToView, state } = useApp();
   const unreadCount = useMemo(() => (state.notifications || []).filter((n: any) => !n.isRead).length, [state.notifications]);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   // Use exact splash/welcome brand style via BrandText
 
-  const openBooking = () => {
-    // Start assignment with no preselected service - show all steps
-    startAssignment({
-      source: 'toolbar'
-    });
+  const openProtectionRequest = () => {
+    // Navigate to SIA-compliant protection request flow
+    navigateToView('protection-request');
   };
 
   const handleLogoClick = () => {
@@ -49,7 +48,7 @@ export const TopToolbar: React.FC<TopToolbarProps> = ({ onOpenNotifications }) =
           className={styles.iconBtn}
           aria-label="Request Protection"
           title="Request Protection Services"
-          onClick={openBooking}
+          onClick={openProtectionRequest}
         >
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
             <rect x="3" y="5" width="18" height="16" rx="2"/>
@@ -57,13 +56,13 @@ export const TopToolbar: React.FC<TopToolbarProps> = ({ onOpenNotifications }) =
             <path d="M3 11h18"/>
             <path d="M12 15v4M10 17h4"/>
           </svg>
-          <span className={styles.iconLabel}>Book</span>
+          <span className={styles.iconLabel}>Request Protection</span>
         </button>
         <button
           className={styles.iconBtn}
           aria-label="Notifications"
           title="View Notifications"
-          onClick={() => onOpenNotifications && onOpenNotifications()}
+          onClick={() => onToggleNotifications && onToggleNotifications()}
         >
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
             <path d="M18 8a6 6 0 1 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/>

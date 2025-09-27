@@ -12,7 +12,7 @@ export const subscriptionPlans: SubscriptionPlan[] = [
     features: [
       '20% discount on all protection services',
       'Priority response and scheduling',
-      '£0 booking fees (save £10 per assignment)',
+      '£0 protection assignment fees (save £10 per assignment)',
       'Flexible cancellation policy',
       'Member-only vehicle preferences',
       'SMS assignment confirmations',
@@ -117,5 +117,5 @@ export const getMembershipBenefitSummary = (tier: string): string => {
   const plan = getSubscriptionPlan(tier);
   if (!plan) return '';
   
-  return `${plan.discount}% savings + ${plan.responseTime} response + £0 booking fees`;
+  return `${plan.discount}% savings + ${plan.responseTime} response + £0 protection assignment fees`;
 };

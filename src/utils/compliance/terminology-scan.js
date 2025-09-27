@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 
-const forbiddenTerms = ['taxi', 'driver', 'passenger', 'ride', 'fare', 'trip', 'pickup', 'dropoff'];
+const forbiddenTerms = ['taxi', 'protection officer', 'principal', 'protection service', 'fare', 'protection detail', 'pickup', 'dropoff'];
 const violations = [];
 
 function scanFile(filePath) {

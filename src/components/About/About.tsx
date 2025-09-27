@@ -137,7 +137,7 @@ export function About({ onBack }: AboutProps) {
               className={styles.primaryButton}
               onClick={() => window.location.href = '/'}
             >
-              Book Protection Services
+              Request CPO Services
             </button>
             <button
               className={styles.secondaryButton}

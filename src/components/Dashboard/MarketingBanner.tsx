@@ -287,7 +287,7 @@ export function MarketingBanner({
       // Close banner and navigate
       setBannerState(prev => ({ ...prev, isVisible: false }));
       onTrialStart();
-      navigateToView('booking');
+      navigateToView('protection-request');
       
       console.log('📊 Analytics: trial_started_from_banner', { variant });
     } catch (error) {

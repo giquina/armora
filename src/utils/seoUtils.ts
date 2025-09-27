@@ -80,7 +80,7 @@ export const getCanonicalUrl = (path: string = ''): string => {
  */
 export const validateTerminology = (text: string): { isValid: boolean; issues: string[] } => {
   const issues: string[] = [];
-  const forbiddenTerms = ['taxi', 'ride', 'driver', 'passenger', 'trip', 'uber', 'lyft'];
+  const forbiddenTerms = ['taxi', 'protection service', 'protection officer', 'principal', 'protection detail', 'uber', 'lyft'];
 
   forbiddenTerms.forEach(term => {
     if (text.toLowerCase().includes(term)) {

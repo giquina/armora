@@ -140,7 +140,7 @@ export function AirportSpecialists() {
                     </div>
 
                     <button className={styles.bookAirportButton}>
-                      Book {airport.name} Protection
+                      Request {airport.name} CPO
                     </button>
                   </div>
                 )}
@@ -174,7 +174,7 @@ export function AirportSpecialists() {
 
           <div className={styles.regionalNote}>
             <p className={styles.noteText}>
-              <strong>All UK airports covered</strong> with advance booking.
+              <strong>All UK airports covered</strong> with advance protection assignment.
               <br />
               Specialized teams available for private jet and corporate aviation.
             </p>

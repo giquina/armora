@@ -28,7 +28,12 @@ export const NotificationsPanel: React.FC<NotificationsPanelProps> = ({ isOpen, 
           <div className={styles.title}>Notifications {unreadCount > 0 ? `(${unreadCount})` : ''}</div>
           <div className={styles.actions}>
             <button className={styles.iconBtn} onClick={markAllNotificationsRead}>Mark all read</button>
-            <button className={styles.iconBtn} onClick={onClose} aria-label="Close">Close</button>
+            <button className={styles.closeBtn} onClick={onClose} aria-label="Close notifications">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <path d="m18 6-12 12"/>
+                <path d="m6 6 12 12"/>
+              </svg>
+            </button>
           </div>
         </div>
         <div className={styles.list}>

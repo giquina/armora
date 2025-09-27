@@ -10,6 +10,11 @@ export interface VenueTimeData {
   hours: number;
   minutes: number;
   venueHours?: number;
+  // Optional preferences captured during personal protection bookings
+  discreteProtection?: boolean;
+  helpWithShopping?: boolean;
+  waitInside?: boolean;
+  femaleOfficerPreferred?: boolean;
 }
 
 export interface ProtectionPreferences {
@@ -101,6 +106,7 @@ export function recordDestinationUsage(
   const duration = protectionLevel.type === 'personal' && venueTimeData
     ? venueTimeData.venueHours
     : 2; // Default for transport protection
+  const durationNumber = typeof duration === 'number' ? duration : 2;
 
   if (existingIndex >= 0) {
     // Update existing destination
@@ -108,7 +114,7 @@ export function recordDestinationUsage(
     preferences.commonDestinations[existingIndex] = {
       ...existing,
       protectionType: protectionLevel.type,
-      averageDuration: (existing.averageDuration + duration) / 2, // Simple average
+      averageDuration: (existing.averageDuration + durationNumber) / 2, // Simple average
       usageCount: existing.usageCount + 1,
       lastUsed: Date.now()
     };
@@ -117,7 +123,7 @@ export function recordDestinationUsage(
     preferences.commonDestinations.push({
       address: secureDestination,
       protectionType: protectionLevel.type,
-      averageDuration: duration,
+      averageDuration: durationNumber,
       usageCount: 1,
       lastUsed: Date.now()
     });
@@ -201,9 +207,15 @@ export function learnFromSelection(
 
   // Update preferences from venue time data
   if (venueTimeData) {
-    preferences.discreteProtection = venueTimeData.discreteProtection;
-    preferences.helpWithShopping = venueTimeData.helpWithShopping;
-    preferences.waitInside = venueTimeData.waitInside;
+    if (typeof venueTimeData.discreteProtection === 'boolean') {
+      preferences.discreteProtection = venueTimeData.discreteProtection;
+    }
+    if (typeof venueTimeData.helpWithShopping === 'boolean') {
+      preferences.helpWithShopping = venueTimeData.helpWithShopping;
+    }
+    if (typeof venueTimeData.waitInside === 'boolean') {
+      preferences.waitInside = venueTimeData.waitInside;
+    }
 
     if (venueTimeData.femaleOfficerPreferred) {
       preferences.preferredOfficerGender = 'female';

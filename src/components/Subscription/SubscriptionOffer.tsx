@@ -32,8 +32,8 @@ export function SubscriptionOffer({ selectedService, servicePrice = 45 }: Subscr
     try {
       setIsSubmitting('essential');
       await startFreeTrial('essential');
-      // Navigate to booking with trial active
-      navigateToView('booking');
+      // Navigate to protection assignment with trial active
+      navigateToView('protection-request');
     } catch (error) {
       console.error('Trial signup error:', error);
     } finally {
@@ -77,7 +77,7 @@ export function SubscriptionOffer({ selectedService, servicePrice = 45 }: Subscr
   };
 
   const handleGuestBooking = () => {
-    navigateToView('booking');
+    navigateToView('protection-request');
   };
 
   const handleClosePanel = () => {
@@ -152,13 +152,13 @@ export function SubscriptionOffer({ selectedService, servicePrice = 45 }: Subscr
 
             <div className={styles.savingsHighlight}>
               <div className={styles.savingsAmount}>
-                Save {formatSavings(essentialSavings)} on your booking today:
+                Save {formatSavings(essentialSavings)} on your protection assignment today:
               </div>
               <div className={styles.savingsBreakdown}>
                 • {essentialPlan.discount}% discount: £{servicePrice} → £{(servicePrice * 0.9).toFixed(2)}
               </div>
               <div className={styles.savingsBreakdown}>
-                • £{essentialPlan.originalBookingFee} booking fee → £0
+                • £{essentialPlan.originalBookingFee} protection assignment fee → £0
               </div>
               <div className={styles.savingsBreakdown}>
                 • Priority {essentialPlan.responseTime} response
@@ -323,7 +323,7 @@ export function SubscriptionOffer({ selectedService, servicePrice = 45 }: Subscr
           </div>
         )}
 
-        {/* Guest Booking Option */}
+        {/* Guest Assignment Option */}
         <div className={styles.guestOption}>
           <div className={styles.divider}>
             <span>OR</span>
@@ -337,7 +337,7 @@ export function SubscriptionOffer({ selectedService, servicePrice = 45 }: Subscr
           </button>
           
           <div className={styles.guestDetails}>
-            No benefits • £{servicePrice} + £5 booking fee = £{servicePrice + 5} total
+            No benefits • £{servicePrice} + £5 protection assignment fee = £{servicePrice + 5} total
           </div>
         </div>
         </div>

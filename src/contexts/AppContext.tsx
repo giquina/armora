@@ -254,7 +254,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
     
     console.log('✅ Navigating to:', view);
     dispatch({ type: 'SET_VIEW', payload: view });
-    // Keep URL hash in sync for simple deep linking (e.g., #booking)
+    // Keep URL hash in sync for simple deep linking (e.g., #protection assignment)
     try {
       if (typeof window !== 'undefined' && window.location.hash !== `#${view}`) {
         window.location.hash = view as string;

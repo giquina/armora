@@ -5,7 +5,7 @@ interface ActivityItem {
   id: string;
   text: string;
   timestamp: number;
-  type: 'booking' | 'rating' | 'member' | 'completion' | 'alert';
+  type: 'protection-assignment' | 'rating' | 'member' | 'completion' | 'alert';
   icon: string;
 }
 
@@ -36,14 +36,14 @@ export function ActivityTicker() {
       id: '4',
       text: "Airport transfer to Heathrow secured",
       timestamp: Date.now() - 300000, // 5 minutes ago
-      type: 'booking',
+      type: 'protection-assignment',
       icon: '✈️'
     },
     {
       id: '5',
       text: "VIP event protection confirmed for tonight",
       timestamp: Date.now() - 420000, // 7 minutes ago
-      type: 'booking',
+      type: 'protection-assignment',
       icon: '🎭'
     }
   ]);
@@ -56,8 +56,8 @@ export function ActivityTicker() {
     { text: "Protection service completed in {area}", type: 'completion' as const, icon: '✅', areas: ['Mayfair', 'Kensington', 'Chelsea', 'Canary Wharf', 'City of London', 'Westminster'] },
     { text: "New premium member from {area}", type: 'member' as const, icon: '🎯', areas: ['Belgravia', 'Knightsbridge', 'Notting Hill', 'Marylebone', 'Fitzrovia', 'South Kensington'] },
     { text: "{rating}★ rating from satisfied client", type: 'rating' as const, icon: '⭐', ratings: ['5', '5', '5', '4'] },
-    { text: "{service} booking confirmed", type: 'booking' as const, icon: '🚗', services: ['Executive protection', 'Airport transfer', 'Corporate security', 'Event protection', 'Shopping security'] },
-    { text: "Officer dispatched to {location}", type: 'booking' as const, icon: '🚨', locations: ['Central London', 'West End', 'Heathrow Airport', 'luxury hotel', 'corporate office'] },
+    { text: "{service} protection assignment confirmed", type: 'protection-assignment' as const, icon: '🚗', services: ['Executive protection', 'Airport transfer', 'Corporate security', 'Event protection', 'Shopping security'] },
+    { text: "Officer dispatched to {location}", type: 'protection-assignment' as const, icon: '🚨', locations: ['Central London', 'West End', 'Heathrow Airport', 'luxury hotel', 'corporate office'] },
     { text: "Security assessment completed for {client}", type: 'completion' as const, icon: '📋', clients: ['Fortune 500 company', 'luxury retailer', 'private residence', 'diplomatic mission', 'media executive'] }
   ];
 
@@ -135,7 +135,7 @@ export function ActivityTicker() {
 
   const getActivityColor = (type: string): string => {
     switch (type) {
-      case 'booking': return '#3b82f6';
+      case 'protection-assignment': return '#3b82f6';
       case 'completion': return '#22c55e';
       case 'rating': return '#f59e0b';
       case 'member': return '#8b5cf6';

@@ -38,8 +38,8 @@
     0 10px 25px rgba(0, 0, 0, 0.1);
 }
 
-/* Gradient Accent Stripe */
-.accentStripe {
+/* Gradient Accent Sdetaile */
+.accentSdetaile {
   height: 4px;
   background: linear-gradient(90deg, #FFD700, #FFA500, #FF6B35);
   width: 100%;

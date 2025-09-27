@@ -71,7 +71,7 @@
   gap: var(--space-sm);
 }
 
-.pickupDot {
+.commencementDot {
   width: 12px;
   height: 12px;
   background: var(--accent-primary);
@@ -147,7 +147,7 @@
   height: 200px;
 }
 
-.pickupMarker {
+.commencementMarker {
   position: absolute;
   top: 20%;
   left: 20%;

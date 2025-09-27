@@ -1,4 +1,4 @@
-/* Booking Calendar Styles */
+/* Assignment Calendar Styles */
 
 .calendarContainer {
   margin-bottom: 32px;
@@ -162,7 +162,7 @@
   transform: scale(1.1);
 }
 
-.calendarDay.hasBookings {
+.calendarDay.hasAssignments {
   border: 1px solid rgba(0, 255, 136, 0.3);
 }
 
@@ -181,8 +181,8 @@
   color: #FFD700;
 }
 
-/* Booking Indicators */
-.bookingIndicators {
+/* Assignment Indicators */
+.assignmentIndicators {
   display: flex;
   flex-wrap: wrap;
   gap: 2px;
@@ -191,7 +191,7 @@
   flex: 1;
 }
 
-.bookingDot {
+.assignmentDot {
   width: 16px;
   height: 16px;
   border-radius: 50%;
@@ -204,7 +204,7 @@
   border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
-.bookingDot:hover {
+.assignmentDot:hover {
   transform: scale(1.3);
 }
 
@@ -250,13 +250,13 @@
   margin: 0 0 16px 0;
 }
 
-.dayBookings {
+.dayAssignments {
   display: flex;
   flex-direction: column;
   gap: 12px;
 }
 
-.dayBookingCard {
+.dayAssignmentCard {
   display: flex;
   align-items: center;
   gap: 16px;
@@ -268,26 +268,26 @@
   transition: all 0.3s ease;
 }
 
-.dayBookingCard:hover {
+.dayAssignmentCard:hover {
   background: rgba(255, 255, 255, 0.1);
   transform: translateX(4px);
 }
 
-.bookingTime {
+.assignmentTime {
   font-size: 1rem;
   font-weight: bold;
   color: #FFD700;
   min-width: 60px;
 }
 
-.bookingInfo {
+.assignmentInfo {
   flex: 1;
   display: flex;
   flex-direction: column;
   gap: 4px;
 }
 
-.bookingHeader {
+.assignmentHeader {
   display: flex;
   align-items: center;
   gap: 8px;
@@ -320,8 +320,8 @@
   font-weight: 600;
 }
 
-/* No Bookings State */
-.noDayBookings {
+/* No Assignments State */
+.noDayAssignments {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -340,7 +340,7 @@
   color: #a0a0b8;
 }
 
-.addBookingButton {
+.addAssignmentButton {
   background: linear-gradient(45deg, #FFD700, #FFA500);
   color: #1a1a2e;
   border: none;
@@ -352,7 +352,7 @@
   transition: all 0.3s ease;
 }
 
-.addBookingButton:hover {
+.addAssignmentButton:hover {
   transform: translateY(-1px);
   box-shadow: 0 4px 12px rgba(255, 215, 0, 0.3);
 }
@@ -439,7 +439,7 @@
     font-size: 0.8rem;
   }
 
-  .bookingDot {
+  .assignmentDot {
     width: 12px;
     height: 12px;
   }
@@ -448,13 +448,13 @@
     font-size: 0.4rem;
   }
 
-  .dayBookingCard {
+  .dayAssignmentCard {
     flex-direction: column;
     align-items: flex-start;
     gap: 8px;
   }
 
-  .bookingTime {
+  .assignmentTime {
     min-width: auto;
   }
 
@@ -510,7 +510,7 @@
     font-size: 0.7rem;
   }
 
-  .bookingDot {
+  .assignmentDot {
     width: 10px;
     height: 10px;
   }
@@ -531,7 +531,7 @@
 /* Accessibility */
 @media (prefers-reduced-motion: reduce) {
   .calendarDay,
-  .dayBookingCard,
+  .dayAssignmentCard,
   .selectedDateDetails,
   .navButton {
     animation: none;
@@ -539,7 +539,7 @@
   }
 
   .calendarDay:hover,
-  .dayBookingCard:hover {
+  .dayAssignmentCard:hover {
     transform: none;
   }
 }

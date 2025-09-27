@@ -19,7 +19,7 @@ const ConversionPsychology: React.FC<ConversionPsychologyProps> = ({
   const scarcityMessages = {
     celebrity: [
       { text: "Only 3 discrete protection specialists available in your area", priority: "high" },
-      { text: "2 other high-profile clients booked today", priority: "medium" },
+      { text: "2 other high-profile clients protection confirmed today", priority: "medium" },
       { text: "Premium vehicle availability: Limited", priority: "high" }
     ],
     executive: [
@@ -155,7 +155,7 @@ const ConversionPsychology: React.FC<ConversionPsychologyProps> = ({
           </div>
           <div className={styles.trustItem}>
             <span className={styles.trustIcon}>⚡</span>
-            <span className={styles.trustText}>Instant Booking</span>
+            <span className={styles.trustText}>Instant Assignment</span>
           </div>
         </div>
       </div>

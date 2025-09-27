@@ -16,7 +16,7 @@ export const SEO_CONFIG = {
       title: 'Protection Services | Essential, Executive & Shadow Protection',
       description: 'Choose from Essential Protection (£65/h), Executive Shield (£95/h), or Shadow Protocol (£125/h). All SIA licensed protection officers.'
     },
-    booking: {
+    protection assignment: {
       title: 'Book Protection Officers | 24/7 Security Detail Services',
       description: 'Request protection services with 2-hour minimum bookings. Immediate availability for security assignments across the UK.'
     },
@@ -90,14 +90,14 @@ export const TERMINOLOGY_MAP = {
   // NEVER USE -> ALWAYS USE
   forbidden: {
     'taxi': 'protection service',
-    'ride': 'protection assignment',
-    'driver': 'protection officer',
-    'passenger': 'principal',
-    'trip': 'security detail',
+    'protection service': 'protection-assignment',
+    'protection officer': 'protection officer',
+    'principal': 'principal',
+    'protection detail': 'security detail',
     'journey': 'protection detail',
-    'fare': 'service fee',
-    'pickup': 'collection',
-    'dropoff': 'delivery'
+    'service fee': 'service fee',
+    'commencement point': 'collection',
+    'secure destination': 'delivery'
   },
 
   // Preferred professional terms

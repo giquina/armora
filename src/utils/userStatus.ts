@@ -150,7 +150,7 @@ export const getDaysSinceAssessment = (): number => {
   return Math.ceil(diffTime / (1000 * 60 * 60 * 24));
 };
 
-// Get membership tier based on booking count
+// Get membership tier based on protection assignment count
 export const getMembershipTier = (bookingCount: number): string => {
   if (bookingCount >= 20) return 'Platinum';
   if (bookingCount >= 10) return 'Gold';
@@ -184,7 +184,7 @@ export const markAssessmentComplete = (answers: PersonalizationData): void => {
   });
 };
 
-// Record a booking
+// Record a protection assignment
 export const recordBooking = (): void => {
   const userData = getUserData();
   const newCount = userData.bookingCount + 1;

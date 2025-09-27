@@ -408,7 +408,7 @@
   letter-spacing: 0.5px;
 }
 
-.runningFare {
+.runningFee {
   font-size: 19px; /* Larger for better visibility */
   color: #FFD700;
   font-weight: 700;
@@ -417,7 +417,7 @@
   gap: 4px;
 }
 
-.fareIcon {
+.feeIcon {
   font-size: 15px;
   animation: bounce 2s ease-in-out infinite;
 }
@@ -814,7 +814,7 @@
     font-size: 14px; /* Increased for readability */
   }
 
-  .runningFare {
+  .runningFee {
     font-size: 17px; /* Increased - important cost information */
   }
 
@@ -871,7 +871,7 @@
     font-size: 14px; /* Increased for readability */
   }
 
-  .runningFare {
+  .runningFee {
     font-size: 18px; /* Increased - important cost info */
   }
 
@@ -924,7 +924,7 @@
     font-size: 13px;
   }
 
-  .runningFare {
+  .runningFee {
     font-size: 15px;
   }
 
@@ -958,7 +958,7 @@
   .navCard,
   .progressFill,
   .statusDot,
-  .fareIcon,
+  .feeIcon,
   .favoriteSlot,
   .quickAction {
     transition: none;

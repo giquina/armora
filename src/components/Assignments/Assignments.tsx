@@ -1,7 +1,7 @@
 import React from 'react';
 import { useApp } from '../../contexts/AppContext';
 import { getDisplayName } from '../../utils/nameUtils';
-import { BookingHistoryManager } from '../../utils/bookingHistory';
+import { AssignmentHistoryManager } from '../../utils/assignmentHistory';
 import { RecentAssignments } from './RecentAssignments';
 import { FavoriteRoutes } from './FavoriteRoutes';
 import { PersonalizedQuickActions } from './PersonalizedQuickActions';
@@ -10,8 +10,8 @@ import styles from './Assignments.module.css';
 export function Assignments() {
   const { state, navigateToView } = useApp();
   const { user } = state;
-  const [bookingHistory, setBookingHistory] = React.useState(() =>
-    BookingHistoryManager.getBookingHistory()
+  const [assignmentHistory, setAssignmentHistory] = React.useState(() =>
+    AssignmentHistoryManager.getAssignmentHistory()
   );
   const [hasActiveRides] = React.useState(false); // Active Assignments data placeholder
   const [hasVenueBookings] = React.useState(false); // Venue bookings data placeholder
@@ -28,7 +28,7 @@ export function Assignments() {
   // Refresh data when component mounts or becomes visible
   React.useEffect(() => {
     const refreshData = () => {
-      setBookingHistory(BookingHistoryManager.getBookingHistory());
+      setAssignmentHistory(AssignmentHistoryManager.getAssignmentHistory());
     };
 
     refreshData();
@@ -52,8 +52,8 @@ export function Assignments() {
           Your Bookings{user ? `, ${getDisplayName(user)}` : ''}
         </h1>
         <p className={styles.subtitle}>
-          {bookingHistory.length > 0
-            ? `${bookingHistory.length} booking${bookingHistory.length !== 1 ? 's' : ''} completed • Transport & Security Services`
+          {assignmentHistory.length > 0
+            ? `${assignmentHistory.length} assignment${assignmentHistory.length !== 1 ? 's' : ''} completed • Transport & Security Services`
             : 'Track active bookings and view your service history'
           }
         </p>
@@ -155,7 +155,7 @@ export function Assignments() {
               <div className={styles.placeholderIcon}>📋</div>
               <h3 className={styles.placeholderTitle}>No Previous Bookings</h3>
               <p className={styles.placeholderText}>
-                Your venue security booking history will appear here.
+                Your venue security protection assignment history will appear here.
               </p>
             </div>
           </div>
@@ -200,7 +200,7 @@ export function Assignments() {
       )}
 
       {/* Smart Recommendations */}
-      {bookingHistory.length >= 2 && (
+      {assignmentHistory.length >= 2 && (
         <div className={styles.section}>
           <div className={styles.smartRecommendations}>
             <h2 className={styles.sectionTitle}>🤖 Smart Recommendations</h2>
@@ -209,10 +209,10 @@ export function Assignments() {
               <div className={styles.recommendationContent}>
                 <h3 className={styles.recommendationTitle}>Travel Pattern Detected</h3>
                 <p className={styles.recommendationText}>
-                  You frequently book Assignments on {getCurrentDayName()}. Would you like to set up a recurring booking?
+                  You frequently request protection Assignments on {getCurrentDayName()}. Would you like to set up a recurring protection assignment?
                 </p>
                 <button className={styles.recommendationButton}>
-                  Set Up Recurring Booking
+                  Set Up Recurring Assignment
                 </button>
               </div>
             </div>
@@ -226,7 +226,7 @@ export function Assignments() {
           className={styles.actionButton}
           onClick={handleBookNewService}
         >
-          🚀 New Booking
+          🚀 New Assignment
         </button>
         <button
           className={styles.actionButtonSecondary}
@@ -234,16 +234,16 @@ export function Assignments() {
         >
           ⚙️ Account Settings
         </button>
-        {bookingHistory.length > 0 && (
+        {assignmentHistory.length > 0 && (
           <button
             className={styles.actionButtonSecondary}
             onClick={() => {
-              const data = BookingHistoryManager.exportProtectionAssignmentData();
+              const data = AssignmentHistoryManager.exportProtectionAssignmentData();
               const blob = new Blob([data], { type: 'application/json' });
               const url = URL.createObjectURL(blob);
               const a = document.createElement('a');
               a.href = url;
-              a.download = `armora-booking-history-${new Date().toISOString().split('T')[0]}.json`;
+              a.download = `armora-protection assignment-history-${new Date().toISOString().split('T')[0]}.json`;
               a.click();
               URL.revokeObjectURL(url);
             }}

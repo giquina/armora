@@ -1,6 +1,6 @@
 import React from 'react';
 import { FavoriteRoute } from '../../types';
-import { BookingHistoryManager } from '../../utils/bookingHistory';
+import { AssignmentHistoryManager } from '../../utils/assignmentHistory';
 import { useApp } from '../../contexts/AppContext';
 import styles from './FavoriteRoutes.module.css';
 
@@ -15,7 +15,7 @@ export function FavoriteRoutes({ onBookRoute, maxItems = 5, showHeader = true }:
   const [favorites, setFavorites] = React.useState<FavoriteRoute[]>([]);
 
   React.useEffect(() => {
-    const favoriteRoutes = BookingHistoryManager.getFavoriteRoutes();
+    const favoriteRoutes = AssignmentHistoryManager.getFavoriteRoutes();
     // Sort by usage count and then by recent usage
     const sorted = favoriteRoutes
       .sort((a, b) => {
@@ -32,20 +32,20 @@ export function FavoriteRoutes({ onBookRoute, maxItems = 5, showHeader = true }:
     if (onBookRoute) {
       onBookRoute(route);
     } else {
-      // Default behavior: store selection and navigate to booking
+      // Default behavior: store selection and navigate to protection assignment
       localStorage.setItem('armora_rebook_data', JSON.stringify({
         from: route.from,
         to: route.to,
         service: route.preferredService,
         timestamp: new Date().toISOString()
       }));
-      navigateToView('booking');
+      navigateToView('protection-request');
     }
   };
 
   const handleRemoveFavorite = (routeId: string) => {
-    BookingHistoryManager.removeFromFavorites(routeId);
-    const updatedFavorites = BookingHistoryManager.getFavoriteRoutes();
+    AssignmentHistoryManager.removeFromFavorites(routeId);
+    const updatedFavorites = AssignmentHistoryManager.getFavoriteRoutes();
     setFavorites(updatedFavorites.slice(0, maxItems));
   };
 
@@ -74,7 +74,7 @@ export function FavoriteRoutes({ onBookRoute, maxItems = 5, showHeader = true }:
   };
 
   const calculateTimeSaved = (count: number): string => {
-    const timePerBooking = 2; // minutes saved per booking
+    const timePerBooking = 2; // minutes saved per protection assignment
     const totalMinutes = count * timePerBooking;
 
     if (totalMinutes < 60) {
@@ -104,7 +104,7 @@ export function FavoriteRoutes({ onBookRoute, maxItems = 5, showHeader = true }:
         <div className={styles.emptyIcon}>⭐</div>
         <h3 className={styles.emptyTitle}>No Favorite Routes Yet</h3>
         <p className={styles.emptyText}>
-          Routes you book frequently (3+ times) will automatically appear here as favorites for quick rebooking.
+          Routes you request protection frequently (3+ times) will automatically appear here as favorites for quick rebooking.
         </p>
         <div className={styles.emptyFeatures}>
           <div className={styles.emptyFeature}>
@@ -113,7 +113,7 @@ export function FavoriteRoutes({ onBookRoute, maxItems = 5, showHeader = true }:
           </div>
           <div className={styles.emptyFeature}>
             <span className={styles.featureIcon}>💾</span>
-            <span>Save time on every booking</span>
+            <span>Save time on every protection assignment</span>
           </div>
           <div className={styles.emptyFeature}>
             <span className={styles.featureIcon}>🎯</span>

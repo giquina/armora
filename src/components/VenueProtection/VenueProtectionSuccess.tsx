@@ -73,7 +73,7 @@ export function VenueProtectionSuccess() {
   };
 
   const handleBookTransport = () => {
-    navigateToView('booking');
+    navigateToView('protection-request');
   };
 
   return (

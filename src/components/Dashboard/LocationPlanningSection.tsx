@@ -215,7 +215,7 @@ export function LocationPlanningSection({ onLocationSet, isDisabled = false, onC
     <div className={styles.container}>
       <div className={styles.header}>
         <h2 className={styles.title}>Where would you like to go?</h2>
-        <p className={styles.subtitle}>Plan Your Route • Quick Booking</p>
+        <p className={styles.subtitle}>Plan Your Route • Quick Assignment</p>
       </div>
 
       <div className={styles.locationForm}>
@@ -259,7 +259,7 @@ export function LocationPlanningSection({ onLocationSet, isDisabled = false, onC
           )}
         </div>
 
-        {/* Drop-off Location */}
+        {/* Destination Location */}
         <div className={styles.inputGroup}>
           <label htmlFor="Secure Destination-location" className={styles.label}>
             <span className={styles.icon}>🏁</span>

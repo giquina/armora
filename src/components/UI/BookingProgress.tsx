@@ -168,14 +168,14 @@ export function BookingProgress({
         {currentStep === 'service' && 'Choose your preferred security transport service'}
         {currentStep === 'location' && 'Set your Commencement Point and secureDestination locations'}
         {currentStep === 'schedule' && 'Select when you need the transport'}
-        {currentStep === 'payment' && 'Confirm payment method and complete booking'}
-        {currentStep === 'confirmation' && 'Your booking is confirmed and protection officer assigned'}
+        {currentStep === 'payment' && 'Confirm payment method and complete protection assignment'}
+        {currentStep === 'confirmation' && 'Your protection assignment is confirmed and protection officer assigned'}
       </div>
     </div>
   );
 }
 
-// Progress hook for managing booking flow
+// Progress hook for managing protection assignment flow
 export function useBookingProgress(initialStep: BookingStep = 'service') {
   const [currentStep, setCurrentStep] = React.useState<BookingStep>(initialStep);
   const [completedSteps, setCompletedSteps] = React.useState<BookingStep[]>([]);

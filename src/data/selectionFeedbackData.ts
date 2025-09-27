@@ -215,7 +215,7 @@ export const selectionFeedbackData: SelectionFeedbackData = {
         'Consistent security team assignment',
         'Route optimization and planning',
         'Predictive security measures',
-        'Priority booking guarantees'
+        'Priority protection assignment guarantees'
       ],
       icon: '📅'
     },
@@ -236,7 +236,7 @@ export const selectionFeedbackData: SelectionFeedbackData = {
       benefits: [
         'Flexible scheduling options',
         'Monthly planning coordination',
-        'Priority booking access',
+        'Priority protection assignment access',
         'Consistent service standards'
       ],
       icon: '📅'
@@ -246,7 +246,7 @@ export const selectionFeedbackData: SelectionFeedbackData = {
       description: 'Flexible on-demand service for irregular transport needs with priority access.',
       benefits: [
         'No commitment required',
-        'Same-day booking available',
+        'Same-day protection assignment available',
         'Flexible timing options',
         'Premium service when needed'
       ],

@@ -49,11 +49,11 @@ export default function ProfileSummaryComponent({ userResponses, userName }: Pro
     const frequencies: Record<string, { package: string; description: string }> = {
       'daily': { 
         package: 'Executive Priority Package', 
-        description: 'daily commuting usage with same-day booking capabilities and priority Protection Officer assignment'
+        description: 'daily commuting usage with same-day protection assignment capabilities and priority Protection Officer assignment'
       },
       'weekly': { 
         package: 'Professional Regular Package', 
-        description: 'weekly business usage with advance booking benefits and consistent service standards'
+        description: 'weekly business usage with advance protection assignment benefits and consistent service standards'
       },
       'monthly': { 
         package: 'VIP Occasions Package', 

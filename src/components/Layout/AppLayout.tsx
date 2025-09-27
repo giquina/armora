@@ -54,7 +54,7 @@ export function AppLayout({
         showServices: true
       };
       case 'services': return { title: 'Services', subtitle: 'Choose your protection', showServices: false };
-      case 'booking': return { title: '', subtitle: 'Secure Transport', showServices: false };
+      case 'protection-assignment': return { title: '', subtitle: 'Secure Transport', showServices: false };
       case 'hub':
       case 'Assignments': return { title: 'Your Hub', subtitle: 'Transport & Security', showServices: false };
       case 'account': return { title: 'Your Account', subtitle: 'Settings & Preferences', showServices: false };
@@ -84,7 +84,7 @@ export function AppLayout({
       case 'services':
         navigateToView('home');
         break;
-      case 'booking':
+      case 'protection-assignment':
         navigateToView('services');
         break;
       case 'hub':
@@ -110,7 +110,7 @@ export function AppLayout({
   const layoutClasses = [
     styles.layout,
     currentView === 'home' ? styles.hasFooter : '',
-    currentView === 'booking' ? styles.noTopbar : '',
+    currentView === 'protection-assignment' ? styles.noTopbar : '',
     className
   ].filter(Boolean).join(' ');
 
@@ -118,9 +118,12 @@ export function AppLayout({
 
   return (
     <div className={layoutClasses}>
-  {/* Top toolbar should NOT appear on booking flow to allow full-screen focus */}
-  {currentView !== 'booking' && (
-    <TopToolbar onOpenNotifications={() => setIsNotificationsOpen(true)} />
+  {/* Top toolbar should NOT appear on protection assignment flow to allow full-screen focus */}
+  {currentView !== 'protection-assignment' && (
+    <TopToolbar
+      onToggleNotifications={() => setIsNotificationsOpen(!isNotificationsOpen)}
+      isNotificationsOpen={isNotificationsOpen}
+    />
   )}
       {shouldShowHeader && (
         <header className={styles.header}>
@@ -189,7 +192,7 @@ export function AppLayout({
                     {currentView === 'home' && (
                       <button
                         className={styles.quickActionButton}
-                        onClick={() => navigateToView('booking')}
+                        onClick={() => navigateToView('protection-request')}
                         aria-label="Quick request"
                         title="Quick request"
                       >
@@ -249,7 +252,7 @@ export function AppLayout({
             </button>
 
             <button
-              className={`${styles.navButton} ${currentView === 'services' || currentView.startsWith('venue-protection') || currentView === 'booking' ? styles.navButtonActive : ''}`}
+              className={`${styles.navButton} ${currentView === 'services' || currentView.startsWith('venue-protection') || currentView === 'protection-assignment' ? styles.navButtonActive : ''}`}
               onClick={() => navigateToView('services')}
               aria-label="Services"
             >

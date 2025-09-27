@@ -1,6 +1,6 @@
 /* ARMORA QUICK BOOKING - MOBILE-FIRST RESPONSIVE STYLING */
 
-.quickBooking {
+.quickAssignment {
   background: var(--bg-card);
   border-radius: var(--radius-lg);
   padding: var(--space-lg);
@@ -265,11 +265,11 @@
 /* ========================================
    BOOKING OPTIONS
 ======================================== */
-.bookingOptions {
+.assignmentOptions {
   margin-bottom: var(--space-lg);
 }
 
-.bookingOption {
+.assignmentOption {
   background: var(--bg-primary);
   border: 2px solid var(--bg-secondary);
   border-radius: var(--radius-lg);
@@ -278,30 +278,30 @@
   transition: border-color var(--transition-fast);
 }
 
-.bookingOption:hover {
+.assignmentOption:hover {
   border-color: var(--accent);
 }
 
-.bookingOptionContent {
+.assignmentOptionContent {
   display: flex;
   align-items: flex-start;
   gap: var(--space-md);
   margin-bottom: var(--space-lg);
 }
 
-.bookingOptionIcon {
+.assignmentOptionIcon {
   font-size: 24px;
   flex-shrink: 0;
   line-height: 1;
   margin-top: 2px;
 }
 
-.bookingOptionText {
+.assignmentOptionText {
   flex: 1;
   min-width: 0;
 }
 
-.bookingOptionTitle {
+.assignmentOptionTitle {
   font-size: var(--font-base);
   font-weight: 600;
   color: var(--text-primary);
@@ -309,7 +309,7 @@
   line-height: var(--line-tight);
 }
 
-.bookingOptionDescription {
+.assignmentOptionDescription {
   font-size: var(--font-sm);
   color: var(--text-secondary);
   margin: 0;
@@ -380,7 +380,7 @@
 
 /* Small Mobile (320px) */
 @media (max-width: 359px) {
-  .quickBooking {
+  .quickAssignment {
     padding: var(--space-md);
   }
   
@@ -390,11 +390,11 @@
     font-size: var(--font-sm);
   }
   
-  .bookingOptionContent {
+  .assignmentOptionContent {
     gap: var(--space-sm);
   }
   
-  .bookingOptionIcon {
+  .assignmentOptionIcon {
     font-size: 20px;
   }
   
@@ -413,7 +413,7 @@
 
 /* Tablet */
 @media (min-width: 768px) {
-  .quickBooking {
+  .quickAssignment {
     padding: var(--space-xl);
   }
   
@@ -425,7 +425,7 @@
     margin-bottom: var(--space-xl);
   }
   
-  .bookingOptions {
+  .assignmentOptions {
     margin-bottom: var(--space-xl);
   }
   
@@ -440,7 +440,7 @@
 
 /* Desktop */
 @media (min-width: 1024px) {
-  .quickBooking {
+  .quickAssignment {
     max-width: 600px;
     margin: 0 auto;
   }
@@ -498,7 +498,7 @@
   
   .serviceStatus,
   .serviceWarning,
-  .bookingOption {
+  .assignmentOption {
     border-width: 3px;
   }
   

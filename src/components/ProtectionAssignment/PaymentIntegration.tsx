@@ -143,14 +143,14 @@ export function PaymentIntegration({
     setCurrentStep('processing');
 
     try {
-      // Generate booking ID
+      // Generate protection assignment ID
       const generatedBookingId = `ARV-${Date.now().toString().slice(-6)}`;
       setBookingId(generatedBookingId);
 
-      // Simulate booking confirmation process
+      // Simulate protection assignment confirmation process
       await new Promise(resolve => setTimeout(resolve, 2000));
 
-      // Store booking data with payment information
+      // Store protection assignment data with payment information
       const bookingRecord = {
         id: generatedBookingId,
         userId: user?.id,
@@ -166,12 +166,12 @@ export function PaymentIntegration({
       };
 
       // Store in localStorage (in production, send to backend)
-      const existingBookings = JSON.parse(localStorage.getItem('armora_bookings') || '[]');
-      existingBookings.push(bookingRecord);
-      localStorage.setItem('armora_bookings', JSON.stringify(existingBookings));
+      const existingAssignments = JSON.parse(localStorage.getItem('armora_assignments') || '[]');
+      existingAssignments.push(bookingRecord);
+      localStorage.setItem('armora_assignments', JSON.stringify(existingAssignments));
 
       // Analytics tracking
-      console.log('[Analytics] Booking completed', {
+      console.log('[Analytics] Assignment completed', {
         bookingId: generatedBookingId,
         service: service.id,
         amount: intent.amount,
@@ -183,10 +183,10 @@ export function PaymentIntegration({
       setCurrentStep('success');
 
     } catch (error) {
-      console.error('Booking confirmation failed:', error);
+      console.error('Assignment confirmation failed:', error);
       setPaymentError({
         code: 'booking_failed',
-        message: 'Booking confirmation failed. Please contact support.',
+        message: 'Assignment confirmation failed. Please contact support.',
         type: 'network_error',
         suggestedAction: 'Contact support with your payment reference',
         retryable: false
@@ -228,15 +228,15 @@ export function PaymentIntegration({
   if (currentStep === 'confirmation') {
     return (
       <div className={styles.container}>
-        <BookingProgressIndicator currentStep="booking-confirmation" />
+        <BookingProgressIndicator currentStep="protection assignment-confirmation" />
 
         <div className={styles.header}>
-          <h1 className={styles.title}>Confirm Your Booking</h1>
+          <h1 className={styles.title}>Confirm Your Assignment</h1>
           <p className={styles.subtitle}>Step 3 of 3 • Payment & Confirmation</p>
           <p className={styles.description}>Review details before payment</p>
         </div>
 
-        {/* Booking Summary */}
+        {/* Assignment Summary */}
         <div className={styles.summaryCard}>
           <div className={styles.serviceHeader}>
             <h2 className={styles.serviceName}>{service.name}</h2>
@@ -331,7 +331,7 @@ export function PaymentIntegration({
                 className={styles.checkbox}
               />
               <span className={styles.checkboxText}>
-                Apply £{actualCreditsToApply} credits to this booking
+                Apply £{actualCreditsToApply} credits to this protection assignment
               </span>
             </label>
 
@@ -357,7 +357,7 @@ export function PaymentIntegration({
 
             {userCredits > 0 && (
               <div className={styles.creditNote}>
-                💡 Remaining credits after this booking: £{userCredits - actualCreditsToApply}
+                💡 Remaining credits after this protection assignment: £{userCredits - actualCreditsToApply}
               </div>
             )}
           </div>
@@ -375,7 +375,7 @@ export function PaymentIntegration({
           />
         </div>
 
-        {/* Corporate Booking Toggle */}
+        {/* Corporate Assignment Toggle */}
         {corporateAccount && (
           <div className={styles.corporateSection}>
             <label className={styles.checkboxLabel}>
@@ -470,7 +470,7 @@ export function PaymentIntegration({
     return (
       <div className={styles.container}>
         <div className={styles.processingContainer}>
-          <LoadingSpinner size="large" text="Confirming your booking..." />
+          <LoadingSpinner size="large" text="Confirming your protection assignment..." />
           <p className={styles.processingText}>
             Please don't close this page. We're confirming your payment and setting up your security transport.
           </p>
@@ -509,7 +509,7 @@ export function PaymentIntegration({
               onClick={onBack}
               className={styles.cancelButton}
             >
-              Back to Booking
+              Back to Assignment
             </Button>
           </div>
         </div>

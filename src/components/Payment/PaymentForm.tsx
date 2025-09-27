@@ -331,7 +331,7 @@ function PaymentFormContent({
   return (
     <div className={styles.paymentContainer}>
       <div className={styles.paymentHeader}>
-        <h2 className={styles.title}>Complete Your Booking</h2>
+        <h2 className={styles.title}>Complete Your Assignment</h2>
         <p className={styles.subtitle}>Secure payment powered by Stripe</p>
       </div>
 

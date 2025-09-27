@@ -8,7 +8,7 @@ import { SERVICES_DATA, getRecommendedService } from '../../data/servicesData';
 import styles from './ServicesPage.module.css';
 
 export function ServicesPage() {
-  const { state, startAssignment } = useApp();
+  const { state, navigateToView } = useApp();
   const { questionnaireData } = state;
   const [expandedService, setExpandedService] = useState<string | null>(null);
   const [showComparison, setShowComparison] = useState(false);
@@ -19,11 +19,11 @@ export function ServicesPage() {
   }, [questionnaireData]);
 
   const handleProtectionRequest = useCallback((serviceId: string) => {
-    startAssignment({
-      preselectedService: serviceId as 'essential' | 'executive' | 'shadow' | 'client-vehicle',
-      source: 'services'
-    });
-  }, [startAssignment]);
+    // Store selected service context for the protection request flow
+    localStorage.setItem('armora_selected_service', serviceId);
+    localStorage.setItem('armora_assignment_context', 'services');
+    navigateToView('protection-request');
+  }, [navigateToView]);
 
   const handleServiceExpand = useCallback((serviceId: string) => {
     // Only one service can be expanded at a time

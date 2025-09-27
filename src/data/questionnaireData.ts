@@ -114,7 +114,7 @@ export const questionnaireSteps: QuestionnaireStep[] = [
         label: "👨‍👩‍👧‍👦 Are you looking for secure family transport?",
         value: "family",
         description: "Do you need safe, reliable protection for your loved ones? Whether it's school runs, family outings, or airport security, your family's safety and protection come first.",
-        examples: "*Choose this if you're primarily booking family protection services and personal security."
+        examples: "*Choose this if you're primarily protection assignment family protection services and personal security."
       },
       {
         id: "general",
@@ -147,7 +147,7 @@ export const questionnaireSteps: QuestionnaireStep[] = [
         "Personalized security recommendations",
         "Matched with appropriate protection level",
         "Optimized routing and officer selection",
-        "Exclusive 50% discount on first booking"
+        "Exclusive 50% discount on first protection assignment"
       ],
       securityAssurance: "All responses are encrypted and used exclusively for service matching. Your privacy is our priority."
     },
@@ -302,7 +302,7 @@ export const questionnaireSteps: QuestionnaireStep[] = [
         id: "specialized_needs",
         label: "👥 Do you need group or family protection?",
         value: "specialized_needs",
-        description: "Are you booking protection for multiple people? Need security vehicles that accommodate your entire family or team?",
+        description: "Are you protection assignment protection for multiple people? Need security vehicles that accommodate your entire family or team?",
         examples: "*Select this if you regularly need multi-Principal protection services."
       },
       {
@@ -352,7 +352,7 @@ export const questionnaireSteps: QuestionnaireStep[] = [
         label: "❓ Prefer not to say",
         value: "prefer_not_to_say",
         description: "That's great. We'll adapt to your needs as we learn what works best for you.",
-        examples: "*Our specialists will provide adaptable service recommendations based on your booking patterns while maintaining complete confidentiality about your specific requirements."
+        examples: "*Our specialists will provide adaptable service recommendations based on your protection assignment patterns while maintaining complete confidentiality about your specific requirements."
       }
     ],
     validation: { required: true, minSelections: 1, maxSelections: 5, errorMessage: "Please select 1-5 security requirements" },
@@ -726,36 +726,36 @@ export const questionnaireSteps: QuestionnaireStep[] = [
         id: "sms_updates",
         label: "📱 SMS Updates",
         value: "sms_updates",
-        description: "Text messages for booking confirmations and Protection Officer updates",
-        examples: "*Real-time booking confirmations, Protection Officer arrival notifications, journey progress updates, and immediate security alerts delivered via SMS. Best for busy professionals who check messages frequently."
+        description: "Text messages for protection assignment confirmations and Protection Officer updates",
+        examples: "*Real-time protection assignment confirmations, Protection Officer arrival notifications, journey progress updates, and immediate security alerts delivered via SMS. Best for busy professionals who check messages frequently."
       },
       {
         id: "email_communication",
         label: "📧 Email Communications",
         value: "email_communication",
         description: "Detailed email confirmations and documentation",
-        examples: "*Professional email communications with booking confirmations, detailed journey information, receipts, and comprehensive documentation. Best for formal business environments and record keeping."
+        examples: "*Professional email communications with protection assignment confirmations, detailed journey information, receipts, and comprehensive documentation. Best for formal business environments and record keeping."
       },
       {
         id: "app_notifications",
         label: "🔔 App Notifications",
         value: "app_notifications",
         description: "Push notifications through Armora Transport app",
-        examples: "*Modern push notifications through our secure mobile app, including real-time tracking, Protection Officer updates, and booking management. Best for tech-savvy users seeking streamlined experience."
+        examples: "*Modern push notifications through our secure mobile app, including real-time tracking, Protection Officer updates, and protection assignment management. Best for tech-savvy users seeking streamlined experience."
       },
       {
         id: "phone_calls",
         label: "📞 Phone Calls",
         value: "phone_calls",
         description: "Voice communication for important updates",
-        examples: "*Direct phone calls from our operations team for important updates, booking confirmations, and security coordination. Best for senior executives preferring traditional business communication."
+        examples: "*Direct phone calls from our operations team for important updates, protection assignment confirmations, and security coordination. Best for senior executives preferring traditional business communication."
       },
       {
         id: "through_assistant",
         label: "👤 Through Personal Assistant",
         value: "through_assistant",
         description: "All communications via personal assistant or PA",
-        examples: "*All transport communications directed through your personal assistant or PA, including booking coordination, updates, and scheduling. Best for C-level executives and high-profile individuals."
+        examples: "*All transport communications directed through your personal assistant or PA, including protection assignment coordination, updates, and scheduling. Best for C-level executives and high-profile individuals."
       },
       {
         id: "business_contact",
@@ -796,8 +796,8 @@ export const questionnaireSteps: QuestionnaireStep[] = [
         id: "no_communications",
         label: "❌ No Non-Essential Communications",
         value: "no_communications",
-        description: "Protection Officer coordination only, no booking communications",
-        examples: "*Direct Protection Officer coordination only. No booking confirmations, updates, or administrative communications. Priority alerts still delivered for safety and security purposes."
+        description: "Protection Officer coordination only, no protection assignment communications",
+        examples: "*Direct Protection Officer coordination only. No protection assignment confirmations, updates, or administrative communications. Priority alerts still delivered for safety and security purposes."
       },
       {
         id: "prefer_not_to_say",
@@ -973,7 +973,7 @@ export const serviceData = {
       "SIA Level 2 security-certified Protection Officers",
       "Eco-friendly Nissan Leaf EV fleet (discreet)",
       "Professional security protocols",
-      "24/7 booking availability",
+      "24/7 protection assignment availability",
       "Real-time safety monitoring",
       "Background-checked professionals",
       "Emergency response protocols"

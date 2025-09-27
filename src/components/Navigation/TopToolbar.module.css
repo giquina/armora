@@ -124,7 +124,7 @@
 }
 
 .iconBtn svg { width: 20px; height: 20px; stroke: currentColor; }
-.iconLabel { display: none; margin-left: 6px; font-weight: 700; letter-spacing: 0.02em; color: #e8e8f0; }
+.iconLabel { display: none; margin-left: 6px; font-size: 14px; font-weight: 600; letter-spacing: 0.02em; color: #e8e8f0; }
 
 /* Unread badge on bell */
 .iconBtn { position: relative; }
@@ -154,16 +154,41 @@
 }
 
 @media (min-width: 768px) {
-  .topbar { 
-    height: var(--toolbar-height); 
-    display: grid; 
-    grid-template-columns: 1fr auto 1fr; 
+  .topbar {
+    height: var(--toolbar-height);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
   }
   .brandName { max-width: 50vw; }
-  .brand { margin-right: 0; justify-self: center; }
-  .logoSection { margin-right: 0; justify-self: center; }
-  .actions { justify-self: end; }
+  .logoSection {
+    margin-right: 0;
+    flex: 0 0 auto;
+  }
+  .actions {
+    margin-left: auto;
+    gap: 8px;
+  }
   .iconBtn { padding: 0 8px !important; width: auto; }
+
+  /* Only style the first button (Request CPO) with border */
+  .iconBtn:first-child {
+    padding: 6px 12px !important;
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    border-radius: 8px;
+    background: transparent;
+  }
+  .iconBtn:first-child:hover {
+    border-color: rgba(255, 215, 0, 0.6);
+    background: rgba(255, 215, 0, 0.12);
+    color: #FFD700;
+  }
+  .iconBtn:first-child:hover .iconLabel {
+    color: #FFD700;
+  }
+  .iconBtn:first-child:hover svg {
+    stroke: #FFD700;
+  }
   .iconLabel { display: inline; }
   .iconBtn svg { width: 22px; height: 22px; }
 }

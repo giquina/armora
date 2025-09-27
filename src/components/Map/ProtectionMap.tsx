@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { MapContainer, TileLayer, Marker, Popup, useMapEvents, Polyline } from 'react-leaflet';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
-import styles from './BookingMap.module.css';
+import styles from './ProtectionMap.module.css';
 
 // Fix Leaflet default marker icons
 delete (L.Icon.Default.prototype as any)._getIconUrl;
@@ -40,7 +40,7 @@ interface Location {
   address?: string;
 }
 
-interface BookingMapProps {
+interface ProtectionMapProps {
   commencementPoint?: Location;
   secureDestination?: Location;
   onPickupChange: (location: Location) => void;
@@ -107,7 +107,7 @@ const generateRoute = (commencementPoint?: Location, secureDestination?: Locatio
   ];
 };
 
-export const BookingMap: React.FC<BookingMapProps> = ({
+export const ProtectionMap: React.FC<ProtectionMapProps> = ({
   commencementPoint,
   secureDestination,
   onPickupChange,

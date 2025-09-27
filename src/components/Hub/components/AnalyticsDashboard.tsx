@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { Booking, UserStats } from '../utils/mockData';
+import { Assignment, UserStats } from '../utils/mockData';
 import styles from './AnalyticsDashboard.module.css';
 
 interface AnalyticsDashboardProps {
-  bookings: Booking[];
+  bookings: Assignment[];
   userStats: UserStats;
 }
 
@@ -29,8 +29,8 @@ export function AnalyticsDashboard({ bookings, userStats }: AnalyticsDashboardPr
 
   // Calculate service type distribution
   const getServiceDistribution = (): ChartData[] => {
-    const distribution = bookings.reduce((acc, booking) => {
-      acc[booking.serviceType] = (acc[booking.serviceType] || 0) + 1;
+    const distribution = bookings.reduce((acc, assignment) => {
+      acc[assignment.serviceType] = (acc[assignment.serviceType] || 0) + 1;
       return acc;
     }, {} as Record<string, number>);
 

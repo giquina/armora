@@ -182,7 +182,7 @@
 }
 
 /* HOLOGRAPHIC SECURITY STRIPS */
-.holographicStrips {
+.holographicSdetails {
   position: absolute;
   width: 100%;
   height: 100%;
@@ -369,7 +369,7 @@
 }
 
 .minimal .securityCircuits,
-.minimal .holographicStrips,
+.minimal .holographicSdetails,
 .minimal .orbitalSystem {
   display: none;
 }

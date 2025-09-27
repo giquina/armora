@@ -1,0 +1,461 @@
+/* SIA-COMPLIANT ASSIGNMENT CONFIRMED PAGE */
+
+.container {
+  max-width: 480px;
+  margin: 0 auto;
+  padding: var(--space-lg);
+  font-family: var(--font-primary);
+  background: var(--color-background);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Success Header */
+.header {
+  text-align: center;
+  margin-bottom: var(--space-xl);
+}
+
+.successIcon {
+  font-size: 4rem;
+  margin-bottom: var(--space-md);
+  animation: successPulse 2s ease-in-out infinite;
+}
+
+@keyframes successPulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+}
+
+.title {
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: var(--color-success);
+  margin: 0 0 var(--space-xs) 0;
+}
+
+.subtitle {
+  font-size: 1.1rem;
+  color: var(--color-text-secondary);
+  margin: 0;
+  font-weight: 500;
+}
+
+/* Reference Card */
+.referenceCard {
+  background: linear-gradient(135deg, var(--color-card), rgba(255, 215, 0, 0.1));
+  border: 2px solid var(--color-gold);
+  border-radius: var(--radius-md);
+  padding: var(--space-lg);
+  margin-bottom: var(--space-lg);
+  text-align: center;
+}
+
+.referenceHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--space-md);
+}
+
+.referenceLabel {
+  font-size: 0.9rem;
+  color: var(--color-text-secondary);
+  font-weight: 600;
+}
+
+.copyButton {
+  background: var(--color-gold);
+  color: var(--color-navy);
+  border: none;
+  border-radius: var(--radius-sm);
+  padding: var(--space-xs) var(--space-sm);
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.copyButton:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(255, 215, 0, 0.3);
+}
+
+.referenceNumber {
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: var(--color-gold);
+  font-family: 'Courier New', monospace;
+  letter-spacing: 1px;
+}
+
+/* Status Card */
+.statusCard {
+  background: var(--color-card);
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-lg);
+  margin-bottom: var(--space-lg);
+}
+
+.statusHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--space-md);
+}
+
+.statusTitle {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--color-text);
+  margin: 0;
+}
+
+.statusBadge {
+  background: var(--color-success);
+  color: white;
+  padding: var(--space-xs) var(--space-md);
+  border-radius: var(--radius-lg);
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.statusMessage {
+  font-size: 1rem;
+  color: var(--color-text);
+  line-height: 1.6;
+  margin: 0 0 var(--space-md) 0;
+}
+
+.etaInfo {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  background: rgba(255, 215, 0, 0.1);
+  border: 1px solid rgba(255, 215, 0, 0.3);
+  border-radius: var(--radius-sm);
+  padding: var(--space-md);
+}
+
+.etaIcon {
+  font-size: 1.5rem;
+}
+
+.etaDetails {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.etaLabel {
+  font-size: 0.9rem;
+  color: var(--color-text-secondary);
+  font-weight: 600;
+}
+
+.etaTime {
+  font-size: 1.1rem;
+  color: var(--color-gold);
+  font-weight: 700;
+}
+
+/* Details Card */
+.detailsCard {
+  background: var(--color-card);
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-lg);
+  margin-bottom: var(--space-lg);
+}
+
+.detailsTitle {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--color-text);
+  margin: 0 0 var(--space-lg) 0;
+}
+
+.detailRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: var(--space-md);
+  gap: var(--space-md);
+}
+
+.detailRow:last-child {
+  margin-bottom: 0;
+}
+
+.detailLabel {
+  font-size: 0.9rem;
+  color: var(--color-text-secondary);
+  font-weight: 600;
+  flex-shrink: 0;
+}
+
+.detailValue {
+  font-size: 0.9rem;
+  color: var(--color-text);
+  font-weight: 500;
+  text-align: right;
+  word-break: break-word;
+}
+
+/* Service Fee Summary */
+.serviceFeeSummary {
+  margin-top: var(--space-lg);
+  padding-top: var(--space-md);
+  border-top: 1px solid var(--color-border);
+}
+
+.feeRow, .discountRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--space-sm);
+}
+
+.feeLabel, .discountLabel {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.discountLabel {
+  color: var(--color-success);
+}
+
+.feeValue {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--color-gold);
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+}
+
+.originalFee {
+  text-decoration: line-through;
+  color: var(--color-text-secondary);
+  font-weight: 400;
+  font-size: 1rem;
+}
+
+.discountValue {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--color-success);
+}
+
+/* Action Buttons */
+.actions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  margin-bottom: var(--space-lg);
+}
+
+.trackButton,
+.shareButton,
+.newAssignmentButton {
+  padding: var(--space-lg);
+  border: none;
+  border-radius: var(--radius-md);
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+  min-height: var(--touch-target-lg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-sm);
+}
+
+.trackButton {
+  background: linear-gradient(135deg, var(--color-gold), #ffd700);
+  color: var(--color-navy);
+  box-shadow: 0 4px 16px rgba(255, 215, 0, 0.3);
+}
+
+.shareButton {
+  background: var(--color-card);
+  color: var(--color-text);
+  border: 2px solid var(--color-border);
+}
+
+.newAssignmentButton {
+  background: var(--color-navy-light);
+  color: var(--color-text);
+  border: 2px solid var(--color-gold);
+}
+
+.trackButton:hover,
+.shareButton:hover,
+.newAssignmentButton:hover {
+  transform: translateY(-2px);
+}
+
+.trackButton:hover {
+  box-shadow: 0 8px 24px rgba(255, 215, 0, 0.4);
+}
+
+.shareButton:hover {
+  border-color: var(--color-gold);
+  background: var(--color-navy-light);
+}
+
+.newAssignmentButton:hover {
+  background: rgba(255, 215, 0, 0.1);
+}
+
+/* Support Card */
+.supportCard {
+  background: var(--color-card);
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-lg);
+  margin-bottom: var(--space-lg);
+}
+
+.supportTitle {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--color-text);
+  margin: 0 0 var(--space-md) 0;
+}
+
+.supportOptions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.supportOption {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+}
+
+.supportIcon {
+  font-size: 1.5rem;
+}
+
+.supportDetails {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.supportLabel {
+  font-size: 0.9rem;
+  color: var(--color-text-secondary);
+  font-weight: 600;
+}
+
+.supportValue {
+  font-size: 1rem;
+  color: var(--color-text);
+  font-weight: 600;
+}
+
+/* Close Button */
+.closeButton {
+  background: var(--color-card);
+  color: var(--color-text);
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-lg);
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+  margin-top: auto;
+  min-height: var(--touch-target-lg);
+}
+
+.closeButton:hover {
+  border-color: var(--color-gold);
+  background: var(--color-navy-light);
+}
+
+/* Error State */
+.error {
+  text-align: center;
+  padding: var(--space-xl);
+}
+
+.error h2 {
+  color: var(--color-text);
+  margin-bottom: var(--space-lg);
+}
+
+/* Mobile Optimizations */
+@media (max-width: 640px) {
+  .container {
+    padding: var(--space-md);
+  }
+
+  .title {
+    font-size: 1.6rem;
+  }
+
+  .referenceNumber {
+    font-size: 1.5rem;
+  }
+
+  .actions {
+    gap: var(--space-sm);
+  }
+
+  .trackButton,
+  .shareButton,
+  .newAssignmentButton {
+    padding: var(--space-md);
+    font-size: 0.95rem;
+  }
+
+  .detailRow {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-xs);
+  }
+
+  .detailValue {
+    text-align: left;
+  }
+
+  .supportOptions {
+    gap: var(--space-lg);
+  }
+}
+
+/* Extra small screens */
+@media (max-width: 320px) {
+  .container {
+    padding: var(--space-sm);
+  }
+
+  .title {
+    font-size: 1.4rem;
+  }
+
+  .referenceNumber {
+    font-size: 1.3rem;
+  }
+
+  .successIcon {
+    font-size: 3rem;
+  }
+
+  .referenceCard,
+  .statusCard,
+  .detailsCard,
+  .supportCard {
+    padding: var(--space-md);
+  }
+}

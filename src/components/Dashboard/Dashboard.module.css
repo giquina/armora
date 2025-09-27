@@ -218,7 +218,7 @@
   /* Ensure text is always visible */
   -webkit-text-fill-color: #1a1a2e !important;
   text-shadow: none !important;
-  /* Force visibility overrides */
+  /* Force visibility overprotections */
   opacity: 1 !important;
   visibility: visible !important;
   display: block !important;
@@ -565,7 +565,7 @@
 /* ========================================
    SECTION STYLES
 ======================================== */
-.quickBookingSection,
+.quickAssignmentSection,
 .servicesSection,
 .recommendationSection,
 .actionSection,
@@ -603,7 +603,7 @@
     max-width: 100% !important;
   }
 
-  .quickBookingSection,
+  .quickAssignmentSection,
   .servicesSection,
   .actionSection,
   .upgradeSection,
@@ -1828,7 +1828,7 @@
     overflow-x: hidden;
   }
 
-  .quickBookingSection,
+  .quickAssignmentSection,
   .servicesSection,
   .recommendationSection,
   .upgradeSection,
@@ -1863,7 +1863,7 @@
 
 /* Tablet Adjustments */
 @media (min-width: 768px) {
-  .quickBookingSection,
+  .quickAssignmentSection,
   .servicesSection,
   .recommendationSection,
   .upgradeSection,
@@ -1894,7 +1894,7 @@
     padding: 0 var(--space-lg);
   }
   
-  .quickBookingSection,
+  .quickAssignmentSection,
   .recommendationSection,
   .upgradeSection,
   .contactSection {
@@ -2079,7 +2079,7 @@
 /* ========================================
    BOOKING CONFIRMATION STYLES (LEGACY - TO BE REMOVED)
 ======================================== */
-.bookingConfirmation {
+.assignmentConfirmation {
   margin: 2rem 0;
   animation: slideInUp 0.5s ease-out;
 }
@@ -2209,7 +2209,7 @@
   }
 }
 
-/* Mobile optimizations for booking confirmation */
+/* Mobile optimizations for assignment confirmation */
 @media (max-width: 768px) {
   .confirmationCard {
     padding: 1.5rem;
@@ -2765,8 +2765,8 @@
   }
 }
 
-/* Quick Booking Prompt - Subtle inline prompt */
-.quickBookingPrompt {
+/* Quick Assignment Prompt - Subtle inline prompt */
+.quickAssignmentPrompt {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -2809,7 +2809,7 @@
 
 /* Mobile optimization */
 @media (max-width: 480px) {
-  .quickBookingPrompt {
+  .quickAssignmentPrompt {
     margin: var(--space-sm) var(--content-padding-mobile);
     padding: 10px 14px;
   }
