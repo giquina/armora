@@ -62,7 +62,6 @@ export async function runMobileResponsivenessTests(): Promise<MobileTestSuite> {
     summary: '',
   };
 
-  console.log('📱 Starting Mobile Responsiveness Tests...\n');
 
   // Test each viewport
   for (const viewport of MOBILE_TEST_CONFIG.testViewports) {
@@ -72,7 +71,6 @@ export async function runMobileResponsivenessTests(): Promise<MobileTestSuite> {
   // Calculate summary
   suite.summary = `Mobile Tests ${suite.passedTests === suite.totalTests ? '✅ PASSED' : '❌ FAILED'}: ${suite.passedTests}/${suite.totalTests} viewports passed`;
 
-  console.log(`\n${suite.summary}`);
   return suite;
 }
 
@@ -85,7 +83,6 @@ async function testViewport(
 ): Promise<void> {
   suite.totalTests++;
 
-  console.log(`📱 Testing viewport: ${viewport.name} (${viewport.width}x${viewport.height})`);
 
   const result: MobileTestResult = {
     testName: `Mobile Responsiveness - ${viewport.name}`,
@@ -145,27 +142,20 @@ async function testViewport(
 
     if (result.success) {
       suite.passedTests++;
-      console.log(`   ✅ ${viewport.name} responsive design verified`);
     } else {
       suite.failedTests++;
-      console.log(`   ❌ ${viewport.name} has ${result.issues.length} critical issues`);
-      result.issues.forEach(issue => console.log(`      • ${issue}`));
     }
 
     if (result.warnings.length > 0) {
-      console.log(`   ⚠️ ${result.warnings.length} warnings:`);
-      result.warnings.forEach(warning => console.log(`      • ${warning}`));
     }
 
   } catch (error: any) {
     result.success = false;
     result.issues.push(`Test execution failed: ${error.message}`);
     suite.failedTests++;
-    console.log(`   ❌ Test failed: ${error.message}`);
   }
 
   suite.results.push(result);
-  console.log('');
 }
 
 /**

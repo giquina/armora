@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import { useState, useCallback } from 'react';
 import { useApp } from '../../contexts/AppContext';
 import styles from './FloatingSOSButton.module.css';
 
@@ -31,7 +31,6 @@ export function FloatingSOSButton() {
     localStorage.setItem('armora_booking_preset', 'emergency');
 
     // Analytics for emergency request
-    console.log('[Analytics] Emergency SOS activated', {
       timestamp: Date.now(),
       location: navigator.geolocation ? 'requesting' : 'unavailable',
       source: 'floating_sos_button'

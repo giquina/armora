@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { Button } from './Button';
 import { LoadingSpinner } from './LoadingSpinner';
 import { ResponsiveModal } from './ResponsiveModal';
@@ -96,7 +96,6 @@ export function StreamlinedBookingModal({
       };
 
       setCurrentLocation(location);
-      console.log('[Analytics] Current location obtained', {
         accuracy,
         service: selectedService.id,
         timestamp: Date.now()
@@ -154,7 +153,6 @@ export function StreamlinedBookingModal({
         cost
       });
 
-      console.log('[Analytics] Route calculated', {
         service: selectedService.id,
         distance,
         duration,
@@ -191,7 +189,6 @@ export function StreamlinedBookingModal({
   const handlePickupLocationSelect = useCallback((location: Location) => {
     setPickupLocation(location);
     setErrors(prev => ({ ...prev, commencementPoint: undefined }));
-    console.log('[Analytics] Commencement Point location selected', {
       address: location.address,
       method: location.address.includes('Current Location') ? 'gps' : 'manual',
       timestamp: Date.now()
@@ -201,7 +198,6 @@ export function StreamlinedBookingModal({
   const handleDestinationLocationSelect = useCallback((location: Location) => {
     setDestinationLocation(location);
     setErrors(prev => ({ ...prev, secureDestination: undefined }));
-    console.log('[Analytics] Destination location selected', {
       address: location.address,
       timestamp: Date.now()
     });
@@ -259,7 +255,6 @@ export function StreamlinedBookingModal({
       // Brief delay for better UX (shows loading state)
       await new Promise(resolve => setTimeout(resolve, 1000));
 
-      console.log('[Analytics] Assignment confirmed via streamlined flow', bookingData.analytics);
       onBookingConfirm(bookingData);
 
     } catch (error) {

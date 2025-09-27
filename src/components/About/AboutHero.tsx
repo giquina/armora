@@ -1,4 +1,3 @@
-import React from 'react';
 // Logo removed - keeping pages clean and focused
 import styles from './AboutHero.module.css';
 

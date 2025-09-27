@@ -1,4 +1,4 @@
-import React from 'react';
+import { FC } from 'react';
 import { useApp } from '../../contexts/AppContext';
 import { ViewState } from '../../types';
 import styles from './HamburgerMenu.module.css';
@@ -8,7 +8,7 @@ interface HamburgerMenuProps {
   onClose: () => void;
 }
 
-export const HamburgerMenu: React.FC<HamburgerMenuProps> = ({ isOpen, onClose }) => {
+export const HamburgerMenu: FC<HamburgerMenuProps> = ({ isOpen, onClose }) => {
   const { navigateToView, state } = useApp();
   const { user } = state;
 

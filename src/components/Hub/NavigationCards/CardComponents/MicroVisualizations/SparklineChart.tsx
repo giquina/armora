@@ -1,4 +1,4 @@
-import React from 'react';
+import { FC } from 'react';
 
 interface SparklineChartProps {
   data: number[];
@@ -8,7 +8,7 @@ interface SparklineChartProps {
   className?: string;
 }
 
-export const SparklineChart: React.FC<SparklineChartProps> = ({
+export const SparklineChart: FC<SparklineChartProps> = ({
   data,
   color = '#FF6B6B',
   height = 30,

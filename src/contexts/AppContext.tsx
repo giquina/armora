@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useReducer, useEffect, useCallback, ReactNode } from 'react';
+import { createContext, useContext, useReducer, useEffect, useCallback, ReactNode } from 'react';
 import { AppState, ViewState, User, PersonalizationData, DeviceCapabilities, UserSubscription, SubscriptionTier, PremiumInterest, NotificationData, SafeAssignmentFundMetrics, CommunityImpactData, Assignment, INotificationItem } from '../types';
 import {
   createProtectionAssignment,
@@ -236,8 +236,8 @@ export function AppProvider({ children }: { children: ReactNode }) {
   const navigateToView = useCallback((view: ViewState) => {
     // Development mode: always allow questionnaire navigation for testing
     const isDevelopment = process.env.NODE_ENV === 'development';
-    
-    console.log('🔍 Navigation Debug:', {
+
+    console.log('Navigation debug:', {
       targetView: view,
       currentUser: state.user,
       hasCompletedQuestionnaire: state.user?.hasCompletedQuestionnaire,
@@ -247,12 +247,10 @@ export function AppProvider({ children }: { children: ReactNode }) {
     
     // Skip questionnaire for returning users who already completed it (but not in development)
     if (view === 'questionnaire' && state.user?.hasCompletedQuestionnaire && !isDevelopment) {
-      console.log('⚠️  Redirecting to dashboard - user has completed questionnaire');
       dispatch({ type: 'SET_VIEW', payload: 'home' });
       return;
     }
     
-    console.log('✅ Navigating to:', view);
     dispatch({ type: 'SET_VIEW', payload: view });
     // Keep URL hash in sync for simple deep linking (e.g., #protection assignment)
     try {
@@ -375,7 +373,6 @@ export function AppProvider({ children }: { children: ReactNode }) {
         timestamp: new Date()
       });
 
-      console.log('🎉 Free trial started:', trialSubscription);
     } catch (error) {
       console.error('Error starting free trial:', error);
       setError('Failed to start free trial. Please try again.');
@@ -403,7 +400,6 @@ export function AppProvider({ children }: { children: ReactNode }) {
         totalInterestCount: existingInterests.length
       });
 
-      console.log('📧 Premium interest recorded:', data);
     } catch (error) {
       console.error('Error recording premium interest:', error);
       setError('Failed to record interest. Please try again.');
@@ -416,11 +412,10 @@ export function AppProvider({ children }: { children: ReactNode }) {
     try {
       // In real app, this would be an API call to send email
       // For now, we'll just log and simulate the notification
-      
-      console.log('📧 OWNER NOTIFICATION:', {
+      console.log('Owner notification:', {
         to: 'owner@armora-transport.co.uk',
-        subject: data.type === 'premium_interest' 
-          ? `🚨 NEW ${data.tier?.toUpperCase()} INTEREST` 
+        subject: data.type === 'premium_interest'
+          ? `🚨 NEW ${data.tier?.toUpperCase()} INTEREST`
           : data.type === 'trial_signup'
           ? '🎉 NEW TRIAL SIGNUP'
           : '✅ SUBSCRIPTION ACTIVATED',

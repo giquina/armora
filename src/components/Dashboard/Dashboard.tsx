@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useMemo } from 'react';
 import { useApp } from '../../contexts/AppContext';
 // import { useAuth } from '../../contexts/AuthContext'; // Temporarily disabled for development
 import { Button } from '../UI/Button';
@@ -62,67 +62,67 @@ export function Dashboard() {
   }, [legacyUser]);
 
 
-  const handleUpgradeAccount = () => {
+  const handleUpgradeAccount = useCallback(() => {
     // Navigate to signup - keep this as navigation since it's not assignment-related
     navigateToView('signup');
-  };
+  }, [navigateToView]);
 
-  const handleDismissReward = () => {
+  const handleDismissReward = useCallback(() => {
     setShowRewardBanner(false);
     localStorage.setItem('armora_reward_banner_dismissed', 'true');
-  };
+  }, []);
 
-  const handleServiceSelection = (serviceId: string) => {
+  const handleServiceSelection = useCallback((serviceId: string) => {
     // Navigate to protection request view
     navigateToView('protection-request');
 
     // Analytics
-    console.log('[Analytics] Service selected from recommendation', {
+    console.log('Service selected:', {
       serviceId,
       timestamp: Date.now(),
       userType: legacyUser?.userType || (user ? 'registered' : 'guest')
     });
-  };
+  }, [navigateToView, legacyUser?.userType, user]);
 
-  const handleDirectBooking = (service: ServiceLevel) => {
+  const handleDirectBooking = useCallback((service: ServiceLevel) => {
     // Navigate to protection request view
     navigateToView('protection-request');
 
     // Analytics for direct protection assignment from dashboard cards
-    console.log('[Analytics] Direct protection assignment from dashboard card', {
+    console.log('Direct booking:', {
       serviceId: service.id,
       timestamp: Date.now(),
       userType: legacyUser?.userType || (user ? 'registered' : 'guest'),
       source: 'dashboard_card'
     });
-  };
+  }, [navigateToView, legacyUser?.userType, user]);
 
   // CPO-related handlers
-  const handleRequestOfficer = (cpoId: string) => {
+  const handleRequestOfficer = useCallback((cpoId: string) => {
     // Store selected CPO and navigate to protection assignment with pre-selected officer
     localStorage.setItem('armora_selected_cpo', cpoId);
     localStorage.setItem('armora_assignment_context', 'cpo_selected');
     navigateToView('protection-request');
-  };
+  }, [navigateToView]);
 
-  const handleViewCPODetails = (cpoId: string) => {
+  const handleViewCPODetails = useCallback((cpoId: string) => {
     setSelectedCPOId(cpoId);
     setShowCPOModal(true);
-  };
+  }, []);
 
-  const handleAddToFavorites = (cpoId: string) => {
+  const handleAddToFavorites = useCallback((cpoId: string) => {
     // Store in localStorage for now - would be backend API in production
     const favorites = JSON.parse(localStorage.getItem('armora_favorite_cpos') || '[]');
     if (!favorites.includes(cpoId)) {
       favorites.push(cpoId);
       localStorage.setItem('armora_favorite_cpos', JSON.stringify(favorites));
     }
-  };
+  }, []);
 
-  // Get top 3 recommended CPOs for display
-  const getTopCPOs = () => {
+  // Get top 3 recommended CPOs for display - memoized to prevent re-computation
+  const topCPOs = useMemo(() => {
     return getRecommendedCPOs([], mockCPOs, 3);
-  };
+  }, []);
 
   // Carousel navigation utilities
   const carouselCards = 5; // Total number of cards
@@ -226,7 +226,8 @@ export function Dashboard() {
     return () => container.removeEventListener('scroll', throttledScroll);
   }, [currentCarouselIndex]);
 
-  const getPersonalizedRecommendation = () => {
+  // Memoize personalized recommendation to prevent re-computation
+  const recommendedService = useMemo(() => {
     if (!questionnaireData) return null;
 
     // USE QUESTIONNAIRE-BASED RECOMMENDATION: Use the actual recommendation from questionnaire analysis
@@ -243,9 +244,7 @@ export function Dashboard() {
 
     // Default fallback to standard if no clear recommendation
     return 'standard';
-  };
-
-  const recommendedService = getPersonalizedRecommendation();
+  }, [questionnaireData]);
 
   // For guest users - show limited interface
   if (legacyUser?.userType === 'guest') {
@@ -609,7 +608,7 @@ export function Dashboard() {
         </div>
 
         <div className={styles.topCPOsGrid}>
-          {getTopCPOs().map((cpo) => (
+          {topCPOs.map((cpo) => (
             <div key={cpo.id} className={styles.cpoCardWrapper}>
               <CPOCard
                 cpo={cpo}

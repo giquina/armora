@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useApp } from '../../contexts/AppContext';
 import { calculatePPOVenuePrice, PPOVenueBooking as PPOBooking } from '../../data/standardizedServices';
 import { Button } from '../UI/Button';
@@ -41,7 +41,6 @@ export function PPOVenueBooking({ isVisible }: PPOVenueBookingProps) {
     // Simulate API call for PPO venue protection assignment
     await new Promise(resolve => setTimeout(resolve, 2000));
 
-    console.log('[PPO Assignment] Venue protection request submitted:', {
       duration: selectedDuration,
       officerCount,
       venueType,

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useApp } from '../../contexts/AppContext';
 import { ServiceLevel, LocationData } from '../../types';
 import styles from './WhereWhenView.module.css';

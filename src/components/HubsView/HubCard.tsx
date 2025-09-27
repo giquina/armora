@@ -1,4 +1,4 @@
-import React from 'react';
+import { memo } from 'react';
 import { ProtectionHub } from './types';
 import { HubStatusBadge } from './HubStatusBadge';
 import styles from './hub-card.module.css';
@@ -9,7 +9,7 @@ interface HubCardProps {
   onToggleFavorite: (hubId: string) => void;
 }
 
-export function HubCard({ hub, onSelect, onToggleFavorite }: HubCardProps) {
+export const HubCard = memo(function HubCard({ hub, onSelect, onToggleFavorite }: HubCardProps) {
   const handleSelect = () => {
     onSelect(hub);
   };
@@ -179,4 +179,4 @@ export function HubCard({ hub, onSelect, onToggleFavorite }: HubCardProps) {
       </div>
     </div>
   );
-}
+});

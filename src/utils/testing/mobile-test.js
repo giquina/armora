@@ -1,14 +1,11 @@
 const fs = require('fs');
 const path = require('path');
 
-console.log('📱 Mobile Responsiveness Testing Report');
-console.log('=======================================');
 
 // Check for viewport meta tag in index.html
 const indexPath = path.join(__dirname, '../public/index.html');
 const indexContent = fs.readFileSync(indexPath, 'utf8');
 const hasViewport = indexContent.includes('viewport');
-console.log(`✅ Viewport meta tag: ${hasViewport ? 'Present' : 'Missing'}`);
 
 // Check for mobile-specific CSS
 const checkMobileStyles = () => {
@@ -39,15 +36,10 @@ const checkMobileStyles = () => {
     touchTargets += (content.match(/--touch-target|44px.*min-height/g) || []).length;
   });
 
-  console.log(`✅ Media queries for mobile: ${mediaQueries} found`);
-  console.log(`✅ Touch-friendly buttons (44px+): ${minHeightButtons} found`);
-  console.log(`✅ Touch target variables: ${touchTargets} references`);
 };
 
 checkMobileStyles();
 
-console.log('\n📋 Mobile Responsiveness Checklist:');
-console.log('====================================');
 
 const checks = [
   { test: 'Test at 320px width (iPhone SE)', status: '⚠️ Manual check required' },
@@ -58,27 +50,12 @@ const checks = [
   { test: 'Text readable without zoom', status: '✅ Font sizes 1.4rem+' }
 ];
 
-checks.forEach(check => {
-  console.log(`[${check.status === '✅ CSS rules found' || check.status === '✅ Font sizes 1.4rem+' ? 'x' : ' '}] ${check.test} - ${check.status}`);
-});
 
 // Check for PWA manifest
 const manifestPath = path.join(__dirname, '../public/manifest.json');
 if (fs.existsSync(manifestPath)) {
   const manifest = JSON.parse(fs.readFileSync(manifestPath, 'utf8'));
-  console.log('\n✅ PWA Manifest found:');
-  console.log(`  - App name: ${manifest.name}`);
-  console.log(`  - Display: ${manifest.display}`);
-  console.log(`  - Theme color: ${manifest.theme_color}`);
 } else {
-  console.log('\n❌ PWA Manifest missing');
 }
 
-console.log('\n📱 Recommended viewport tests:');
-console.log('- iPhone SE: 375x667');
-console.log('- iPhone 14: 390x844');
-console.log('- Android: 360x640');
-console.log('- Tablet: 768x1024');
 
-console.log('\n🔗 Open in browser: http://localhost:3000');
-console.log('Use Chrome DevTools responsive mode (Ctrl+Shift+M) to test!');

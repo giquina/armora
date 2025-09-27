@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { FC, useState } from 'react';
 import styles from './TimeExtensionModal.module.css';
 
 interface TimeExtensionOption {
@@ -23,7 +23,7 @@ interface TimeExtensionModalProps {
   officerName: string;
 }
 
-export const TimeExtensionModal: React.FC<TimeExtensionModalProps> = ({
+export const TimeExtensionModal: FC<TimeExtensionModalProps> = ({
   isOpen,
   onClose,
   onConfirm,

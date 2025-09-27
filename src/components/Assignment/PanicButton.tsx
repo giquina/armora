@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useApp } from '../../contexts/AppContext';
 import { PanicAlert } from '../../types';
 import styles from './PanicButton.module.css';
@@ -90,7 +90,6 @@ export function PanicButton({ assignmentId, officerId, className }: PanicButtonP
     setShowConfirmation(true);
 
     // Analytics
-    console.log('[Analytics] Panic button clicked', {
       assignmentId,
       officerId,
       timestamp: Date.now(),
@@ -136,7 +135,6 @@ export function PanicButton({ assignmentId, officerId, className }: PanicButtonP
         alertData
       }));
 
-      console.log('[Analytics] Panic alert sent successfully', alertData);
 
     } catch (error) {
       console.error('Failed to send panic alert:', error);
@@ -155,7 +153,6 @@ export function PanicButton({ assignmentId, officerId, className }: PanicButtonP
     // 2. Make API call to backend
     // 3. Trigger push notification
     // 4. Send SMS fallback
-    console.log('🚨 PANIC ALERT SENT TO CPO:', alertData);
 
     // Simulate CPO notification
     if ('Notification' in window && Notification.permission === 'granted') {
@@ -191,7 +188,6 @@ export function PanicButton({ assignmentId, officerId, className }: PanicButtonP
     // Remove from localStorage
     localStorage.removeItem('armora_panic_alert_sent');
 
-    console.log('[Analytics] Panic alert cancelled during countdown');
   };
 
   // Don't render if no location and no fallback

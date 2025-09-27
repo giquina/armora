@@ -1,4 +1,4 @@
-import React from 'react';
+import { FC } from 'react';
 import { SIABadge, MilitaryBackground, PoliceBackground } from '../../../types/cpo';
 import styles from '../styles/cpo-profile.module.css';
 
@@ -10,7 +10,7 @@ interface BadgeDisplayProps {
   compact?: boolean;
 }
 
-export const BadgeDisplay: React.FC<BadgeDisplayProps> = ({
+export const BadgeDisplay: FC<BadgeDisplayProps> = ({
   sia,
   militaryBackground,
   policeBackground,
@@ -147,7 +147,7 @@ export const BadgeDisplay: React.FC<BadgeDisplayProps> = ({
 };
 
 // Individual badge components for more granular use
-export const SIABadgeComponent: React.FC<{ sia: SIABadge; compact?: boolean }> = ({
+export const SIABadgeComponent: FC<{ sia: SIABadge; compact?: boolean }> = ({
   sia,
   compact = false
 }) => {
@@ -176,7 +176,7 @@ export const SIABadgeComponent: React.FC<{ sia: SIABadge; compact?: boolean }> =
   );
 };
 
-export const MilitaryBadgeComponent: React.FC<{ military: MilitaryBackground; compact?: boolean }> = ({
+export const MilitaryBadgeComponent: FC<{ military: MilitaryBackground; compact?: boolean }> = ({
   military,
   compact = false
 }) => {
@@ -209,7 +209,7 @@ export const MilitaryBadgeComponent: React.FC<{ military: MilitaryBackground; co
   );
 };
 
-export const PoliceBadgeComponent: React.FC<{ police: PoliceBackground; compact?: boolean }> = ({
+export const PoliceBadgeComponent: FC<{ police: PoliceBackground; compact?: boolean }> = ({
   police,
   compact = false
 }) => {

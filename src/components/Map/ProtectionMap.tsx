@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback, useRef } from 'react';
+import { FC, useState, useEffect, useCallback, useRef } from 'react';
 import { MapContainer, TileLayer, Marker, Popup, useMapEvents, Polyline } from 'react-leaflet';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
@@ -107,7 +107,7 @@ const generateRoute = (commencementPoint?: Location, secureDestination?: Locatio
   ];
 };
 
-export const ProtectionMap: React.FC<ProtectionMapProps> = ({
+export const ProtectionMap: FC<ProtectionMapProps> = ({
   commencementPoint,
   secureDestination,
   onPickupChange,
@@ -157,7 +157,6 @@ export const ProtectionMap: React.FC<ProtectionMapProps> = ({
         setIsLoadingLocation(false);
         setLocationError(null);
 
-        console.log(`✅ Accurate GPS location found: ${accuracy}m accuracy`);
 
         // Set as commencementPoint if no commencementPoint is set
         if (!commencementPoint) {

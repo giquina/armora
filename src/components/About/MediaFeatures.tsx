@@ -1,4 +1,3 @@
-import React from 'react';
 import styles from './MediaFeatures.module.css';
 
 export function MediaFeatures() {

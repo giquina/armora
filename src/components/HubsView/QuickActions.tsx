@@ -1,4 +1,3 @@
-import React from 'react';
 import styles from './quick-actions.module.css';
 
 interface QuickActionsProps {

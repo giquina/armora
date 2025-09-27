@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { NameConfirmationModal } from './NameConfirmationModal';
 import { useApp } from '../../contexts/AppContext';
 import { 
@@ -61,7 +61,6 @@ export function NameCollection({ userName, onNameChange, className = '' }: NameC
           const cursorPos = inputRef.current.value.length;
           inputRef.current.setSelectionRange(cursorPos, cursorPos);
         } catch (error) {
-          console.log('Focus attempt failed:', error);
         }
       }
     };

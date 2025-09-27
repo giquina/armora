@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { FC, useState } from 'react';
 import { IBookingTemplate } from '../../../types';
 import styles from './SmartTemplates.module.css';
 
@@ -10,7 +10,7 @@ interface SmartTemplatesProps {
   onDeleteTemplate: (templateId: string) => void;
 }
 
-export const SmartTemplates: React.FC<SmartTemplatesProps> = ({
+export const SmartTemplates: FC<SmartTemplatesProps> = ({
   templates,
   onUseTemplate,
   onCreateTemplate,

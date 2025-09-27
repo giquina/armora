@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useApp } from '../../contexts/AppContext';
 import { useProtectionAssignment, ServiceOption } from '../../contexts/ProtectionAssignmentContext';
 import { STANDARDIZED_SERVICES, getAllServices } from '../../data/standardizedServices';

@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { AssistanceRequestModal } from './AssistanceRequestModal';
 import { ExtendTimeModal } from './ExtendTimeModal';
 import styles from './ProtectionControlPanel.module.css';
@@ -42,7 +42,6 @@ export function ProtectionControlPanel({
   };
 
   const handleAssistanceSent = (reason: string, message?: string) => {
-    console.log('Assistance request sent:', { reason, message, assignmentId, timestamp: Date.now() });
     setAssistanceRequested(true);
     setShowAssistanceModal(false);
 
@@ -57,7 +56,6 @@ export function ProtectionControlPanel({
   };
 
   const handleExtensionConfirm = (duration: number, reason?: string) => {
-    console.log('Time extension confirmed:', { duration, reason, assignmentId, cost: duration * currentRate });
     setShowExtendModal(false);
   };
 
@@ -278,7 +276,6 @@ export function ProtectionControlPanel({
           // Determine button class and handler
           let buttonClass = `${styles.controlButton}`;
           let isActive = false;
-          let handler = () => console.log(`${button.id} clicked`);
 
           switch (button.id) {
             case 'assist':

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Assignment, UserStats } from '../utils/mockData';
 import styles from './AnalyticsDashboard.module.css';
 

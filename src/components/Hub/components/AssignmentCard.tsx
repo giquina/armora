@@ -1,4 +1,4 @@
-import React from 'react';
+import { memo } from 'react';
 import { Assignment } from '../utils/mockData';
 import styles from './AssignmentCard.module.css';
 
@@ -11,7 +11,7 @@ interface AssignmentCardProps {
   onRate?: (rating: number) => void;
 }
 
-export function AssignmentCard({
+export const AssignmentCard = memo(function AssignmentCard({
   assignment,
   onTrackCPO,
   onContactCPO,
@@ -139,10 +139,10 @@ export function AssignmentCard({
 
       {/* ROW 4: ACTION BUTTONS */}
       <div className={styles.actionButtons}>
-        <button className={`${styles.actionBtn} ${styles.btnTrack}`} onClick={onTrackDriver}>
+        <button className={`${styles.actionBtn} ${styles.btnTrack}`} onClick={onTrackCPO}>
           📍 Live Track
         </button>
-        <button className={`${styles.actionBtn} ${styles.btnCall}`} onClick={onContactDriver}>
+        <button className={`${styles.actionBtn} ${styles.btnCall}`} onClick={onContactCPO}>
           📞 Call Officer
         </button>
       </div>
@@ -282,4 +282,4 @@ export function AssignmentCard({
     default:
       return null;
   }
-}
+});

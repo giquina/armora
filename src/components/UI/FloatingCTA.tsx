@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useApp } from '../../contexts/AppContext';
 import styles from './FloatingCTA.module.css';
 import { getRemainingMinutes, formatMinutesLeft } from '../../utils/timeEstimate';

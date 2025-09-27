@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { useApp } from '../../contexts/AppContext';
 import { SERVICES_DATA } from '../../data/servicesData';
 import styles from './ServicePricingCalculator.module.css';

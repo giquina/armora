@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import { FC, useMemo } from 'react';
 import styles from './NotificationsPanel.module.css';
 import { INotificationItem } from '../../types';
 import { useApp } from '../../contexts/AppContext';
@@ -8,7 +8,7 @@ interface NotificationsPanelProps {
   onClose: () => void;
 }
 
-export const NotificationsPanel: React.FC<NotificationsPanelProps> = ({ isOpen, onClose }) => {
+export const NotificationsPanel: FC<NotificationsPanelProps> = ({ isOpen, onClose }) => {
   const { state, markAllNotificationsRead, markNotificationRead, navigateToView } = useApp();
   const items = useMemo(() => (state.notifications || []) as INotificationItem[], [state.notifications]);
   const unreadCount = useMemo(() => items.filter(i => !i.isRead).length, [items]);

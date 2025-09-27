@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { Button } from '../UI/Button';
 import { LoadingSpinner } from '../UI/LoadingSpinner';
 import { ProtectionMap } from '../Map/ProtectionMap';
@@ -65,7 +65,6 @@ export function QuickProtectionRequest({ onRequestProtection, selectedService, i
         address: `Current Location (${accuracy}m accuracy)`
       };
 
-      console.log(`✅ Accurate GPS location: ${accuracy}m accuracy`);
       setCurrentLocation(location);
       if (!commencementLocation) {
         setPickupLocation(location);

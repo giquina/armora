@@ -1,4 +1,4 @@
-import React from 'react';
+import { useState, useEffect } from 'react';
 import { FavoriteRoute } from '../../types';
 import { AssignmentHistoryManager } from '../../utils/assignmentHistory';
 import { useApp } from '../../contexts/AppContext';
@@ -12,9 +12,9 @@ interface FavoriteRoutesProps {
 
 export function FavoriteRoutes({ onBookRoute, maxItems = 5, showHeader = true }: FavoriteRoutesProps) {
   const { navigateToView } = useApp();
-  const [favorites, setFavorites] = React.useState<FavoriteRoute[]>([]);
+  const [favorites, setFavorites] = useState<FavoriteRoute[]>([]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     const favoriteRoutes = AssignmentHistoryManager.getFavoriteRoutes();
     // Sort by usage count and then by recent usage
     const sorted = favoriteRoutes

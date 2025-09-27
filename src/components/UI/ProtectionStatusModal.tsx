@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import { useApp } from '../../contexts/AppContext';
 import styles from './ProtectionStatusModal.module.css';
 

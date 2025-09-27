@@ -1,6 +1,6 @@
 // Armora Security Transport - Impact Dashboard Widget
 
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useApp } from '../../contexts/AppContext';
 import { SafeAssignmentFundExplainer } from '../Common/SafeAssignmentFundExplainer';
 import styles from './ImpactDashboardWidget.module.css';

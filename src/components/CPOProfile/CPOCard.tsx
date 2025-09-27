@@ -1,4 +1,4 @@
-import React from 'react';
+import { FC } from 'react';
 import { CPOProfile, CPOMatch } from '../../types/cpo';
 import { BadgeDisplay } from './components/BadgeDisplay';
 import { AvailabilityStatus } from './components/AvailabilityStatus';
@@ -16,7 +16,7 @@ interface CPOCardProps {
   compact?: boolean;
 }
 
-export const CPOCard: React.FC<CPOCardProps> = ({
+export const CPOCard: FC<CPOCardProps> = ({
   cpo,
   match,
   onRequestOfficer,

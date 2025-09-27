@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback, useMemo } from 'react';
 import { useApp } from '../../contexts/AppContext';
 import styles from './ProtectionRequest.module.css';
 
@@ -111,34 +111,34 @@ export function ProtectionRequest({ onAssignmentRequested, className }: Protecti
   }, []);
 
   // Save destination to recent locations
-  const saveDestination = (destination: string) => {
+  const saveDestination = useCallback((destination: string) => {
     if (!destination.trim()) return;
 
     const updated = [destination, ...recentLocations.filter(loc => loc !== destination)].slice(0, 5);
     setRecentLocations(updated);
     localStorage.setItem('armora_recent_destinations', JSON.stringify(updated));
-  };
+  }, [recentLocations]);
 
   // Handle destination input focus
-  const handleDestinationFocus = () => {
+  const handleDestinationFocus = useCallback(() => {
     setShowRecentLocations(true);
-  };
+  }, []);
 
   // Handle destination input blur with delay
-  const handleDestinationBlur = () => {
+  const handleDestinationBlur = useCallback(() => {
     // Delay hiding to allow clicks on recent locations
     setTimeout(() => setShowRecentLocations(false), 200);
-  };
+  }, []);
 
   // Select a location from recent/default list
-  const selectLocation = (location: string) => {
+  const selectLocation = useCallback((location: string) => {
     const cleanLocation = location.replace(/📍|🏢|🏠/, '').trim().replace(' (Saved)', '');
     setSecureDestination(cleanLocation);
     setShowRecentLocations(false);
-  };
+  }, []);
 
-  // Calculate service fee (minimum 2 hours)
-  const calculateServiceFee = () => {
+  // Calculate service fee (minimum 2 hours) - memoized to prevent re-computation
+  const serviceFeeCalculation = useMemo(() => {
     const baseHours = 2; // Minimum 2-hour assignment
     const baseFee = selectedService.hourlyRate * baseHours;
 
@@ -152,16 +152,17 @@ export function ProtectionRequest({ onAssignmentRequested, className }: Protecti
       hasDiscount,
       savings: hasDiscount ? baseFee - discountedFee : 0
     };
-  };
+  }, [selectedService.hourlyRate, state.user?.hasUnlockedReward, state.user?.userType]);
 
-  const { originalFee, finalFee, hasDiscount, savings } = calculateServiceFee();
+  const { originalFee, finalFee, hasDiscount, savings } = serviceFeeCalculation;
 
-  // Check if ready to request protection
-  const isReadyToRequest = secureDestination.trim() &&
-    (commencementTime !== 'schedule' || scheduledDateTime);
+  // Check if ready to request protection - memoized to prevent re-computation
+  const isReadyToRequest = useMemo(() => {
+    return secureDestination.trim() && (commencementTime !== 'schedule' || scheduledDateTime);
+  }, [secureDestination, commencementTime, scheduledDateTime]);
 
   // Handle protection request
-  const handleRequestProtection = () => {
+  const handleRequestProtection = useCallback(() => {
     if (!isReadyToRequest) return;
 
     // Save destination to recent locations
@@ -186,10 +187,10 @@ export function ProtectionRequest({ onAssignmentRequested, className }: Protecti
 
     localStorage.setItem('armora_assignment_data', JSON.stringify(assignmentData));
     onAssignmentRequested();
-  };
+  }, [isReadyToRequest, saveDestination, secureDestination, selectedService, commencementTime, scheduledDateTime, finalFee, originalFee, hasDiscount, savings, state.user, onAssignmentRequested]);
 
-  // Format deployment time
-  const getDeploymentInfo = () => {
+  // Format deployment time - memoized to prevent re-computation
+  const deploymentInfo = useMemo(() => {
     if (commencementTime === 'now') {
       return `CPO deployment: ${selectedService.responseTime}`;
     } else if (commencementTime === '30min') {
@@ -201,7 +202,7 @@ export function ProtectionRequest({ onAssignmentRequested, className }: Protecti
       return `Protection commences: ${date.toLocaleString('en-GB')}`;
     }
     return 'Select commencement time';
-  };
+  }, [commencementTime, selectedService.responseTime, scheduledDateTime]);
 
   return (
     <div className={`${styles.protectionRequest} ${className || ''}`}>
@@ -374,7 +375,7 @@ export function ProtectionRequest({ onAssignmentRequested, className }: Protecti
       {/* Assignment Summary */}
       <div className={styles.summary}>
         <div className={styles.summaryRow}>
-          <span className={styles.summaryLabel}>{getDeploymentInfo()}</span>
+          <span className={styles.summaryLabel}>{deploymentInfo}</span>
         </div>
         <div className={styles.summaryRow}>
           <span className={styles.summaryLabel}>Service fee (2hr minimum):</span>

@@ -1,4 +1,4 @@
-import React, { Component, ReactNode } from 'react';
+import { Component, ReactNode } from 'react';
 import { ServiceLevel, ProtectionAssignmentData } from '../../types';
 import styles from './ProtectionAssignmentErrorBoundary.module.css';
 

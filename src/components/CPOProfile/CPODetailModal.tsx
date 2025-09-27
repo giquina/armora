@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { FC, useState } from 'react';
 import { CPOProfile, CPOMatch } from '../../types/cpo';
 import { BadgeDisplay } from './components/BadgeDisplay';
 import { AvailabilityStatus } from './components/AvailabilityStatus';
@@ -15,7 +15,7 @@ interface CPODetailModalProps {
   isFavorite?: boolean;
 }
 
-export const CPODetailModal: React.FC<CPODetailModalProps> = ({
+export const CPODetailModal: FC<CPODetailModalProps> = ({
   cpo,
   match,
   isOpen,

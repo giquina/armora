@@ -1,4 +1,4 @@
-import React from 'react';
+import { FC } from 'react';
 import styles from './ExecutiveOnboarding.module.css';
 
 interface TrustIndicator {
@@ -14,7 +14,7 @@ interface ExecutiveOnboardingProps {
   totalSteps: number;
 }
 
-const ExecutiveOnboarding: React.FC<ExecutiveOnboardingProps> = ({
+const ExecutiveOnboarding: FC<ExecutiveOnboardingProps> = ({
   userProfile,
   currentStep,
   totalSteps

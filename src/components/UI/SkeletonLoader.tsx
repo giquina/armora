@@ -1,4 +1,3 @@
-import React from 'react';
 import styles from './SkeletonLoader.module.css';
 
 interface SkeletonLoaderProps {

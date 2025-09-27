@@ -1,4 +1,4 @@
-import React from 'react';
+import { FC } from 'react';
 import { Availability } from '../../../types/cpo';
 import styles from '../styles/cpo-profile.module.css';
 
@@ -8,7 +8,7 @@ interface AvailabilityStatusProps {
   compact?: boolean;
 }
 
-export const AvailabilityStatus: React.FC<AvailabilityStatusProps> = ({
+export const AvailabilityStatus: FC<AvailabilityStatusProps> = ({
   availability,
   showDetails = false,
   compact = false
@@ -176,7 +176,7 @@ export const AvailabilityStatus: React.FC<AvailabilityStatusProps> = ({
 };
 
 // Simplified version for use in lists
-export const AvailabilityIndicator: React.FC<{ status: string; nextAvailable?: string }> = ({
+export const AvailabilityIndicator: FC<{ status: string; nextAvailable?: string }> = ({
   status,
   nextAvailable
 }) => {
@@ -203,7 +203,7 @@ export const AvailabilityIndicator: React.FC<{ status: string; nextAvailable?: s
 };
 
 // Real-time status updater component
-export const RealTimeStatus: React.FC<{
+export const RealTimeStatus: FC<{
   cpoId: string;
   currentStatus: string;
   onStatusChange?: (newStatus: string) => void;

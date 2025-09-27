@@ -1,6 +1,6 @@
 // Armora Security Transport - Safe Assignment Fund Explainer Component
 
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import styles from './SafeAssignmentFundExplainer.module.css';
 
 interface SafeAssignmentFundExplainerProps {

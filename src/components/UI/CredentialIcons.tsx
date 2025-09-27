@@ -1,11 +1,11 @@
-import React from 'react';
+import { FC } from 'react';
 
 interface CredentialIconProps {
   type: 'sia' | 'homeoffice' | 'cabinet' | 'tfl' | 'phv' | 'cpo';
   className?: string;
 }
 
-const CredentialIcons: React.FC<CredentialIconProps> = ({ type, className = '' }) => {
+const CredentialIcons: FC<CredentialIconProps> = ({ type, className = '' }) => {
   const baseClass = `credential-icon ${className}`;
   
   switch(type) {

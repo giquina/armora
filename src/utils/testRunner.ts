@@ -144,11 +144,6 @@ export async function runTests(
     config = { ...config, ...customOptions };
   }
 
-  console.log('🚀 ARMORA PROTECTION SERVICE TEST RUNNER');
-  console.log('=========================================\n');
-  console.log(`Configuration: ${typeof configName === 'string' ? configName : 'custom'}`);
-  console.log(`Environment: ${config.environment}`);
-  console.log(`Started: ${new Date().toISOString()}\n`);
 
   // Validate environment first
   await validateTestEnvironment(config);
@@ -177,15 +172,10 @@ export async function runTests(
  * Validate test environment before running tests
  */
 async function validateTestEnvironment(config: TestRunnerConfig): Promise<void> {
-  console.log('🔍 Validating test environment...\n');
 
   // Check environment status
   const status = await getTestEnvironmentStatus();
 
-  console.log(`Database: ${status.database}`);
-  console.log(`Sample Data: ${status.sampleData}`);
-  console.log(`Authentication: ${status.auth}`);
-  console.log(`APIs: ${status.apis}\n`);
 
   // Validate critical requirements
   if (status.database !== 'connected') {
@@ -193,10 +183,8 @@ async function validateTestEnvironment(config: TestRunnerConfig): Promise<void> 
   }
 
   if (config.runIntegration && status.sampleData === 'missing' && !config.populateData) {
-    console.log('⚠️ No sample data found - will populate during tests');
   }
 
-  console.log('✅ Test environment validation passed\n');
 }
 
 /**
@@ -207,22 +195,16 @@ async function saveTestReports(result: any, config: TestRunnerConfig): Promise<v
     const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
     const basePath = config.outputPath || './test-reports';
 
-    console.log(`💾 Saving test reports to ${basePath}...\n`);
 
     // In a real implementation, you would save these to files
     // For now, just log that we would save them
-    console.log(`📄 Full Report: ${basePath}/armora-test-report-${timestamp}.md`);
-    console.log(`📄 Integration: ${basePath}/integration-${timestamp}.md`);
 
     if (result.reports.mobile) {
-      console.log(`📄 Mobile: ${basePath}/mobile-${timestamp}.md`);
     }
 
     if (result.reports.terminology) {
-      console.log(`📄 Terminology: ${basePath}/terminology-${timestamp}.md`);
     }
 
-    console.log('✅ Reports saved successfully\n');
 
   } catch (error: any) {
     console.error(`❌ Failed to save reports: ${error.message}\n`);
@@ -233,61 +215,30 @@ async function saveTestReports(result: any, config: TestRunnerConfig): Promise<v
  * Display final summary
  */
 function displayFinalSummary(result: any, config: TestRunnerConfig): void {
-  console.log('📊 TEST EXECUTION SUMMARY');
-  console.log('=========================\n');
 
   const statusIcon = result.overallStatus === 'PASSED' ? '✅' :
                     result.overallStatus === 'WARNING' ? '⚠️' : '❌';
 
-  console.log(`${statusIcon} Overall Result: ${result.overallStatus}`);
-  console.log(`⏱️ Duration: ${(result.duration / 1000).toFixed(2)}s`);
-  console.log(`🧪 Tests: ${result.summary.passedTests}/${result.summary.totalTests} passed`);
 
   if (result.summary.criticalIssues.length > 0) {
-    console.log(`\n🚨 Action Required:`);
-    result.summary.criticalIssues.forEach((issue: string) => {
-      console.log(`   • ${issue}`);
-    });
   }
 
   if (result.summary.recommendations.length > 0) {
-    console.log(`\n💡 Recommendations:`);
-    result.summary.recommendations.forEach((rec: string) => {
-      console.log(`   • ${rec}`);
-    });
   }
 
   // Next steps
-  console.log(`\n🎯 Next Steps:`);
-  if (result.overallStatus === 'PASSED') {
-    console.log(`   ✅ All tests passed - ready for deployment`);
-    console.log(`   📈 Consider running performance optimization`);
-  } else if (result.overallStatus === 'WARNING') {
-    console.log(`   ⚠️ Address warnings before deployment`);
-    console.log(`   🔄 Re-run tests after fixes`);
-  } else {
-    console.log(`   ❌ Fix critical issues immediately`);
-    console.log(`   🛑 Do not deploy until all issues resolved`);
-    console.log(`   🔄 Re-run full test suite after fixes`);
-  }
 
-  console.log(`\n🏁 Test run completed at ${new Date().toISOString()}`);
-  console.log('=========================================\n');
 }
 
 /**
  * Run quick health check
  */
 export async function quickCheck(): Promise<boolean> {
-  console.log('🚀 Running quick integration check...\n');
 
   const result = await quickIntegrationCheck();
 
   if (result.ready) {
-    console.log('✅ Quick check passed - system ready');
   } else {
-    console.log('❌ Quick check failed:');
-    result.issues.forEach(issue => console.log(`   • ${issue}`));
   }
 
   return result.ready;
@@ -297,19 +248,11 @@ export async function quickCheck(): Promise<boolean> {
  * Setup test environment
  */
 export async function setupTestEnvironment(): Promise<void> {
-  console.log('🔧 Setting up test environment...\n');
 
-  console.log('📊 Populating sample data...');
   const populationResult = await populateDatabase('development');
 
   if (populationResult.success) {
-    console.log('✅ Test environment setup completed');
-    console.log(`   Profiles: ${populationResult.details.profiles}`);
-    console.log(`   Officers: ${populationResult.details.officers}`);
-    console.log(`   Assignments: ${populationResult.details.assignments}`);
   } else {
-    console.log('❌ Test environment setup failed');
-    populationResult.errors.forEach(error => console.log(`   • ${error}`));
     throw new Error('Test environment setup failed');
   }
 }
@@ -320,7 +263,6 @@ export async function setupTestEnvironment(): Promise<void> {
 export async function runSpecificTests(
   category: 'integration' | 'mobile' | 'terminology' | 'workflow' | 'performance' | 'security'
 ): Promise<any> {
-  console.log(`🎯 Running ${category} tests...\n`);
   return await runTestCategory(category);
 }
 
@@ -366,10 +308,6 @@ export async function runFromCLI(args: string[]): Promise<void> {
     }
   } else {
     console.error(`❌ Unknown command: ${command}`);
-    console.log('\n📋 Available commands:');
-    Object.keys(CLI_COMMANDS).forEach(cmd => {
-      console.log(`   ${cmd}`);
-    });
     process.exit(1);
   }
 }

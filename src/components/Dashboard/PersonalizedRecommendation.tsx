@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { ServiceLevel, PersonalizationData, User } from '../../types';
 import { generateRecommendation, RecommendationData } from '../../utils/recommendationEngine';
 import styles from './PersonalizedRecommendation.module.css';
@@ -36,7 +36,6 @@ export function PersonalizedRecommendation({
     onServiceSelect(service.id);
 
     // Analytics
-    console.log('[Analytics] Personalized recommendation selected', {
       serviceId: service.id,
       profileType: profile.type,
       matchScore: profile.matchScore,

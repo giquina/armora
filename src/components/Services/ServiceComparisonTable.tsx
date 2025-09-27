@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { SERVICES_DATA } from '../../data/servicesData';
 import styles from './ServiceComparisonTable.module.css';
 

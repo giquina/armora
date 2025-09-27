@@ -46,15 +46,11 @@ function scanDirectory(dir) {
   });
 }
 
-console.log('🔍 Scanning for forbidden taxi terminology...');
-console.log('Forbidden terms:', forbiddenTerms.join(', '));
-console.log('---');
 
 scanDirectory('./src');
 
 if (violations.length > 0) {
   console.error('❌ Found', violations.length, 'terminology violations:');
-  console.log('');
 
   // Group by file
   const byFile = {};
@@ -64,13 +60,8 @@ if (violations.length > 0) {
   });
 
   Object.keys(byFile).forEach(file => {
-    console.log(`📄 ${file}:`);
     byFile[file].forEach(v => {
-      console.log(`  Line ${v.line}: Found "${v.term}" - ${v.content}`);
     });
-    console.log('');
   });
 } else {
-  console.log('✅ No forbidden terminology found!');
-  console.log('All text uses professional protection service terminology.');
 }

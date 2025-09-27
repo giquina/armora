@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import { useState, useRef } from 'react';
 import { TimeExtensionModal } from './TimeExtensionModal';
 import styles from './EnhancedProtectionPanel.module.css';
 
@@ -42,7 +42,6 @@ export function EnhancedProtectionPanel({
   const [isLocationEnabled, setIsLocationEnabled] = useState(isLocationSharing);
   const [isDraggingState, setIsDraggingState] = useState(false);
   const [panicModeActive, setPanicModeActive] = useState(false);
-  const [tapCount, setTapCount] = useState(0);
   const tapTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   const panelRef = useRef<HTMLDivElement>(null);
@@ -52,7 +51,6 @@ export function EnhancedProtectionPanel({
 
   // Touch handlers for smooth drag gestures
   const handleTouchStart = (e: React.TouchEvent) => {
-    console.log('🖐️ Touch start detected');
     startY.current = e.touches[0].clientY;
     currentY.current = startY.current; // Initialize currentY
     isDragging.current = true;
@@ -65,7 +63,6 @@ export function EnhancedProtectionPanel({
     currentY.current = e.touches[0].clientY;
     const deltaY = currentY.current - startY.current;
 
-    console.log('📱 Touch move:', deltaY, 'px');
 
     // Prevent default scrolling when dragging panel
     e.preventDefault();
@@ -77,32 +74,24 @@ export function EnhancedProtectionPanel({
     const deltaY = currentY.current - startY.current;
     const threshold = 50;
 
-    console.log('✋ Touch end - Delta:', deltaY, 'Threshold:', threshold, 'Current state:', panelState);
 
     if (Math.abs(deltaY) > threshold) {
       if (deltaY > 0) {
         // Swipe down
-        console.log('⬇️ Swipe down detected');
         if (panelState === 'full') {
-          console.log('🔄 Transitioning from full to half');
           setPanelState('half');
         } else if (panelState === 'half') {
-          console.log('🔄 Transitioning from half to collapsed');
           setPanelState('collapsed');
         }
       } else {
         // Swipe up
-        console.log('⬆️ Swipe up detected');
         if (panelState === 'collapsed') {
-          console.log('🔄 Transitioning from collapsed to half');
           setPanelState('half');
         } else if (panelState === 'half') {
-          console.log('🔄 Transitioning from half to full');
           setPanelState('full');
         }
       }
     } else {
-      console.log('❌ Gesture too small, no state change');
     }
 
     isDragging.current = false;
@@ -115,7 +104,6 @@ export function EnhancedProtectionPanel({
       e.stopPropagation();
     }
 
-    console.log('🔍 Panel toggle clicked, current state:', panelState);
 
     // Cycle through: collapsed -> half -> full -> collapsed
     if (panelState === 'collapsed') {
@@ -129,39 +117,18 @@ export function EnhancedProtectionPanel({
 
   // Triple-tap panic mode handler
   const handleTripleTap = () => {
-    setTapCount(prev => {
-      const newCount = prev + 1;
+    // Simple implementation for panic mode activation
+    setPanicModeActive(true);
 
-      // Clear any existing timeout
-      if (tapTimeoutRef.current) {
-        clearTimeout(tapTimeoutRef.current);
-      }
+    // Strong vibration pattern for panic
+    if ('vibrate' in navigator) {
+      navigator.vibrate([200, 100, 200, 100, 200]);
+    }
 
-      if (newCount === 3) {
-        // Triple tap detected - activate panic mode
-        console.log('🚨 TRIPLE TAP DETECTED - Silent panic mode activated');
-        setPanicModeActive(true);
-
-        // Strong vibration pattern for panic
-        if ('vibrate' in navigator) {
-          navigator.vibrate([200, 100, 200, 100, 200]);
-        }
-
-        // Auto-deactivate after 30 seconds
-        setTimeout(() => {
-          setPanicModeActive(false);
-        }, 30000);
-
-        return 0; // Reset count
-      } else {
-        // Set timeout to reset count after 1 second
-        tapTimeoutRef.current = setTimeout(() => {
-          setTapCount(0);
-        }, 1000);
-
-        return newCount;
-      }
-    });
+    // Auto-deactivate after 30 seconds
+    setTimeout(() => {
+      setPanicModeActive(false);
+    }, 30000);
   };
 
   // Action handlers
@@ -169,7 +136,6 @@ export function EnhancedProtectionPanel({
     if ('vibrate' in navigator) {
       navigator.vibrate([100, 50, 100, 50, 100]); // Strong panic pattern
     }
-    console.log('🚨 URGENT ASSISTANCE - Protection alert triggered');
     setPanicModeActive(true);
 
     // Auto-deactivate after 30 seconds
@@ -184,7 +150,6 @@ export function EnhancedProtectionPanel({
   };
 
   const handleTimeExtensionConfirm = (extensionData: any) => {
-    console.log('⏰ Time extension confirmed:', extensionData);
     setShowExtensionModal(false);
     // In real app: process extension with CPO notification
   };
@@ -193,7 +158,6 @@ export function EnhancedProtectionPanel({
     if ('vibrate' in navigator) {
       navigator.vibrate(10);
     }
-    console.log('📍 Route modification requested');
     // In real app: open route modification interface
   };
 
@@ -201,7 +165,6 @@ export function EnhancedProtectionPanel({
     if ('vibrate' in navigator) {
       navigator.vibrate(10);
     }
-    console.log('💬 Opening message interface with protection officer');
     // In real app: open chat interface
   };
 

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { memo, useState } from 'react';
 import { ServiceLevel } from '../../types';
 import { Button } from '../UI/Button';
 import styles from './ServiceCard.module.css';
@@ -87,7 +87,7 @@ interface ServiceCardProps {
   userType?: 'registered' | 'google' | 'guest' | null;
 }
 
-export function ServiceCard({
+export const ServiceCard = memo(function ServiceCard({
   service,
   isSelected,
   onSelect,
@@ -223,7 +223,6 @@ export function ServiceCard({
           onClick={(e) => {
             e.stopPropagation();
             // Template selection implementation placeholder
-            console.log('🛠️ Use Template clicked for service:', service.name);
           }}
           className={styles.useTemplateButton}
         >
@@ -232,4 +231,4 @@ export function ServiceCard({
       </div>
     </div>
   );
-}
+});

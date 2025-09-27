@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import { FC, useMemo, useState } from 'react';
 import { useApp } from '../../contexts/AppContext';
 import { ArmoraLogo } from '../UI/ArmoraLogo';
 import { BrandText } from '../UI/BrandText';
@@ -10,7 +10,7 @@ interface TopToolbarProps {
   isNotificationsOpen?: boolean;
 }
 
-export const TopToolbar: React.FC<TopToolbarProps> = ({ onToggleNotifications, isNotificationsOpen }) => {
+export const TopToolbar: FC<TopToolbarProps> = ({ onToggleNotifications, isNotificationsOpen }) => {
   const { navigateToView, state } = useApp();
   const unreadCount = useMemo(() => (state.notifications || []).filter((n: any) => !n.isRead).length, [state.notifications]);
   const [isMenuOpen, setIsMenuOpen] = useState(false);

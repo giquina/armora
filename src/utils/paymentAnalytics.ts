@@ -59,7 +59,6 @@ class PaymentAnalytics {
 
     // Log to console in development
     if (process.env.NODE_ENV === 'development') {
-      console.log('[Payment Analytics]', event, analyticsEvent);
     }
 
     // In production, send to analytics service

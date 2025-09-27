@@ -85,7 +85,6 @@ class UserPreferencesService {
       const updated = { ...current, ...preferences };
       localStorage.setItem(this.STORAGE_KEY, JSON.stringify(updated));
 
-      console.log('[Analytics] User preferences updated', {
         updatedFields: Object.keys(preferences),
         timestamp: new Date().toISOString()
       });
@@ -352,7 +351,6 @@ class UserPreferencesService {
   static clearPreferences(): void {
     try {
       localStorage.removeItem(this.STORAGE_KEY);
-      console.log('[Preferences] All preferences cleared');
     } catch (error) {
       console.error('[Preferences] Error clearing preferences:', error);
     }

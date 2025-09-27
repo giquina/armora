@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { SelectionFeedback as ISelectionFeedback } from '../../data/selectionFeedbackData';
 import styles from './SelectionFeedback.module.css';
 

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import { FC, memo, useState, useEffect, useMemo, useCallback } from 'react';
 import { ServiceLevel, User, PersonalizationData } from '../../types';
 import { generateRecommendation } from '../../utils/recommendationEngine';
 import styles from './SmartRecommendation.module.css';
@@ -18,7 +18,7 @@ interface SmartRecommendationProps {
 }
 
 // Fixed CSS variables for border visibility + simplified content
-export const SmartRecommendation: React.FC<SmartRecommendationProps> = ({
+export const SmartRecommendation: FC<SmartRecommendationProps> = memo(({
   services,
   user,
   questionnaireData,
@@ -50,24 +50,24 @@ export const SmartRecommendation: React.FC<SmartRecommendationProps> = ({
     localStorage.setItem('armora_user_assignment_history', JSON.stringify(userAssignmentHistory));
   }, [userAssignmentHistory]);
 
-  // Get recommended service (currently always Armora Secure/Standard)
-  const getRecommendedService = () => {
+  // Get recommended service (currently always Armora Secure/Standard) - memoized
+  const recommendedService = useMemo(() => {
     // For now, always recommend Standard as it's the only available service
     return services.find(s => s.id === 'standard') || services[0];
-  };
+  }, [services]);
 
-  // Determine display type based on protection assignment history
-  const getDisplayType = () => {
+  // Determine display type based on protection assignment history - memoized
+  const displayType = useMemo(() => {
     if (userAssignmentHistory.totalAssignments === 0) {
       return 'first-time';
     } else if (userAssignmentHistory.totalAssignments >= 1) {
       return 'returning';
     }
     return 'first-time';
-  };
+  }, [userAssignmentHistory.totalAssignments]);
 
   // Update assignment history (to be called after successful assignment)
-  const updateAssignmentHistory = (serviceId: string) => {
+  const updateAssignmentHistory = useCallback((serviceId: string) => {
     setUserAssignmentHistory(prev => ({
       ...prev,
       totalAssignments: prev.totalAssignments + 1,
@@ -75,7 +75,7 @@ export const SmartRecommendation: React.FC<SmartRecommendationProps> = ({
       isFirstTimeUser: false,
       preferredService: serviceId
     }));
-  };
+  }, []);
 
   // Expose update function to parent (for post-assignment update)
   useEffect(() => {
@@ -87,14 +87,28 @@ export const SmartRecommendation: React.FC<SmartRecommendationProps> = ({
     };
   }, []);
 
-  const recommendedService = getRecommendedService();
-  const displayType = getDisplayType();
+  // recommendedService and displayType are now computed above with useMemo
 
   // Generate personalized recommendation - MEMOIZED to prevent re-renders
   const recommendation = useMemo(() =>
     generateRecommendation(questionnaireData, user, services),
     [questionnaireData, user, services]
   );
+
+  // Enhanced version for first-time users with unified personalized design - MOVED BEFORE EARLY RETURN
+  const handleBeginProtection = useCallback(() => {
+    onServiceSelect(recommendedService?.id || 'standard');
+  }, [onServiceSelect, recommendedService?.id]);
+
+  const handleSchedule = useCallback(() => {
+    // Navigate to protection assignment with schedule mode - placeholder for future implementation
+    onServiceSelect(recommendedService?.id || 'standard');
+  }, [onServiceSelect, recommendedService?.id]);
+
+  const handleOtherOptions = useCallback(() => {
+    // Navigate to full services view - placeholder for future implementation
+    onServiceSelect(recommendedService?.id || 'standard');
+  }, [onServiceSelect, recommendedService?.id]);
 
   // Minimal version for returning users - optimized for desktop
   if (displayType === 'returning') {
@@ -114,21 +128,6 @@ export const SmartRecommendation: React.FC<SmartRecommendationProps> = ({
       </div>
     );
   }
-
-  // Enhanced version for first-time users with unified personalized design
-  const handleBeginProtection = () => {
-    onServiceSelect(recommendedService?.id || 'standard');
-  };
-
-  const handleSchedule = () => {
-    // Navigate to protection assignment with schedule mode - placeholder for future implementation
-    onServiceSelect(recommendedService?.id || 'standard');
-  };
-
-  const handleOtherOptions = () => {
-    // Navigate to full services view - placeholder for future implementation
-    onServiceSelect(recommendedService?.id || 'standard');
-  };
 
   return (
     <div className={styles.recommendationCard}>
@@ -218,6 +217,6 @@ export const SmartRecommendation: React.FC<SmartRecommendationProps> = ({
       </div>
     </div>
   );
-};
+});
 
 export default SmartRecommendation;

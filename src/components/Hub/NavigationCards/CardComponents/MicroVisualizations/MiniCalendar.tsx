@@ -1,4 +1,4 @@
-import React from 'react';
+import { FC } from 'react';
 
 interface MiniCalendarProps {
   days?: number;
@@ -7,7 +7,7 @@ interface MiniCalendarProps {
   className?: string;
 }
 
-export const MiniCalendar: React.FC<MiniCalendarProps> = ({
+export const MiniCalendar: FC<MiniCalendarProps> = ({
   days = 7,
   bookedDays = [],
   highlight,

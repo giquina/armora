@@ -72,7 +72,6 @@ export async function populateDatabase(
       return result;
     }
 
-    console.log(`🚀 Starting database population for ${environment} environment...`);
 
     const supabase = getServiceRoleClient();
 
@@ -83,18 +82,14 @@ export async function populateDatabase(
       return result;
     }
 
-    console.log('✅ Database connection established');
 
     // Execute sample data SQL
-    console.log('📝 Executing sample data SQL script...');
     const { error: sqlError } = await supabase.rpc('exec_sql', { sql: SAMPLE_DATA_SQL });
 
     if (sqlError) {
       // Try alternative approach - execute in parts
-      console.log('⚠️ Bulk SQL execution failed, trying individual operations...');
       await executeIndividualOperations(supabase, result);
     } else {
-      console.log('✅ Sample data SQL executed successfully');
     }
 
     // Verify data was inserted
@@ -151,7 +146,6 @@ async function executeIndividualOperations(supabase: any, result: PopulationResu
     if (profilesError) {
       result.warnings.push(`Profile insertion warning: ${profilesError.message}`);
     } else {
-      console.log('✅ Sample profiles inserted');
     }
 
     // Insert protection officers
@@ -180,7 +174,6 @@ async function executeIndividualOperations(supabase: any, result: PopulationResu
     if (officersError) {
       result.warnings.push(`Officer insertion warning: ${officersError.message}`);
     } else {
-      console.log('✅ Sample protection officers inserted');
     }
 
   } catch (error: any) {
@@ -200,7 +193,6 @@ async function verifyDataInsertion(supabase: any, result: PopulationResult): Pro
 
     if (!profileError) {
       result.details.profiles = profileCount || 0;
-      console.log(`📊 Profiles in database: ${result.details.profiles}`);
     }
 
     // Count protection officers
@@ -210,7 +202,6 @@ async function verifyDataInsertion(supabase: any, result: PopulationResult): Pro
 
     if (!officerError) {
       result.details.officers = officerCount || 0;
-      console.log(`🛡️ Protection officers in database: ${result.details.officers}`);
     }
 
     // Count assignments
@@ -220,7 +211,6 @@ async function verifyDataInsertion(supabase: any, result: PopulationResult): Pro
 
     if (!assignmentError) {
       result.details.assignments = assignmentCount || 0;
-      console.log(`📋 Protection assignments in database: ${result.details.assignments}`);
     }
 
     // Count reviews
@@ -230,7 +220,6 @@ async function verifyDataInsertion(supabase: any, result: PopulationResult): Pro
 
     if (!reviewError) {
       result.details.reviews = reviewCount || 0;
-      console.log(`⭐ Protection reviews in database: ${result.details.reviews}`);
     }
 
     // Count emergencies
@@ -240,7 +229,6 @@ async function verifyDataInsertion(supabase: any, result: PopulationResult): Pro
 
     if (!emergencyError) {
       result.details.emergencies = emergencyCount || 0;
-      console.log(`🚨 Emergency activations in database: ${result.details.emergencies}`);
     }
 
     // Count questionnaires
@@ -250,7 +238,6 @@ async function verifyDataInsertion(supabase: any, result: PopulationResult): Pro
 
     if (!questionnaireError) {
       result.details.questionnaires = questionnaireCount || 0;
-      console.log(`📝 Questionnaire responses in database: ${result.details.questionnaires}`);
     }
 
   } catch (error: any) {
@@ -263,7 +250,6 @@ async function verifyDataInsertion(supabase: any, result: PopulationResult): Pro
  */
 async function createTestUserAccounts(supabase: any, result: PopulationResult): Promise<void> {
   try {
-    console.log('👤 Creating test user accounts for authentication testing...');
 
     // Create test principal accounts
     for (const credential of TEST_CREDENTIALS.principals) {
@@ -299,7 +285,6 @@ async function createTestUserAccounts(supabase: any, result: PopulationResult): 
       }
     }
 
-    console.log('✅ Test user accounts processed');
 
   } catch (error: any) {
     result.warnings.push(`Test account creation error: ${error.message}`);
@@ -319,7 +304,6 @@ export async function clearSampleData(): Promise<PopulationResult> {
   };
 
   try {
-    console.log('🧹 Clearing sample data from database...');
     const supabase = getServiceRoleClient();
 
     // Delete in reverse order of dependencies
@@ -342,7 +326,6 @@ export async function clearSampleData(): Promise<PopulationResult> {
 
     result.success = true;
     result.message = '✅ Sample data cleared successfully';
-    console.log('✅ Sample data cleared from database');
 
   } catch (error: any) {
     result.errors.push(`Clear data error: ${error.message}`);

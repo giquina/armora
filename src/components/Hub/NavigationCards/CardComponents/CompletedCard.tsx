@@ -1,4 +1,4 @@
-import React from 'react';
+import { FC, memo } from 'react';
 import { RatingStars } from './MicroVisualizations/RatingStars';
 import styles from '../NavigationCards.module.css';
 
@@ -23,7 +23,7 @@ interface CompletedCardProps {
   ariaControls?: string;
 }
 
-export const CompletedCard: React.FC<CompletedCardProps> = ({
+export const CompletedCard: FC<CompletedCardProps> = memo(({
   data,
   isActive,
   onClick,
@@ -32,7 +32,6 @@ export const CompletedCard: React.FC<CompletedCardProps> = ({
   ariaControls
 }) => {
   // With 1-per-row layout, we have full width to show all data
-  const showFullData = true;
   const showVisuals = screenWidth >= 320;
 
   // Calculate loyalty progress percentage
@@ -119,7 +118,6 @@ export const CompletedCard: React.FC<CompletedCardProps> = ({
               className={styles.actionButton}
               onClick={(e) => {
                 e.stopPropagation();
-                console.log('View protection history');
               }}
             >
               <span className={styles.buttonIcon}>📋</span>
@@ -129,7 +127,6 @@ export const CompletedCard: React.FC<CompletedCardProps> = ({
               className={styles.actionButton}
               onClick={(e) => {
                 e.stopPropagation();
-                console.log('Download report');
               }}
             >
               <span className={styles.buttonIcon}>📄</span>
@@ -148,4 +145,4 @@ export const CompletedCard: React.FC<CompletedCardProps> = ({
       )}
     </button>
   );
-};
+});

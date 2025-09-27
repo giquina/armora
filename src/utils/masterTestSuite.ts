@@ -63,10 +63,6 @@ export async function runMasterTestSuite(
   const startTime = Date.now();
   const timestamp = new Date().toISOString();
 
-  console.log('🚀 ARMORA PROTECTION SERVICE MASTER TEST SUITE');
-  console.log('================================================\n');
-  console.log(`Started: ${timestamp}`);
-  console.log(`Environment: ${process.env.NODE_ENV || 'development'}\n`);
 
   const result: MasterTestResult = {
     timestamp,
@@ -96,16 +92,12 @@ export async function runMasterTestSuite(
 
   try {
     // PHASE 1: Database Setup and Verification
-    console.log('📁 PHASE 1: Database Setup and Verification');
-    console.log('============================================\n');
 
     if (options.clearDataFirst) {
-      console.log('🧹 Clearing existing sample data...');
       await clearSampleData();
     }
 
     if (options.populateData) {
-      console.log('📊 Populating sample data...');
       const populationResult = await populateDatabase('development');
       result.suites.database = populationResult;
 
@@ -113,10 +105,6 @@ export async function runMasterTestSuite(
         result.summary.criticalIssues.push('Database population failed');
         result.overallStatus = 'FAILED';
       } else {
-        console.log(`✅ Sample data populated successfully`);
-        console.log(`   Profiles: ${populationResult.details.profiles}`);
-        console.log(`   Officers: ${populationResult.details.officers}`);
-        console.log(`   Assignments: ${populationResult.details.assignments}\n`);
       }
     }
 
@@ -128,8 +116,6 @@ export async function runMasterTestSuite(
     }
 
     // PHASE 2: Integration Testing
-    console.log('🔧 PHASE 2: Supabase Integration Testing');
-    console.log('========================================\n');
 
     const integrationSuite = await runIntegrationTests();
     result.suites.integration = integrationSuite;
@@ -149,8 +135,6 @@ export async function runMasterTestSuite(
 
     // PHASE 3: Mobile Responsiveness Testing
     if (options.testMobile) {
-      console.log('📱 PHASE 3: Mobile Responsiveness Testing');
-      console.log('=========================================\n');
 
       const mobileSuite = await runMobileResponsivenessTests();
       result.suites.mobile = mobileSuite;
@@ -174,8 +158,6 @@ export async function runMasterTestSuite(
 
     // PHASE 4: Terminology Compliance Check
     if (options.checkTerminology) {
-      console.log('📝 PHASE 4: Terminology Compliance Check');
-      console.log('========================================\n');
 
       const terminologySuite = await checkTerminologyCompliance();
       result.suites.terminology = terminologySuite;
@@ -196,14 +178,10 @@ export async function runMasterTestSuite(
     }
 
     // PHASE 5: End-to-End Workflow Testing
-    console.log('🎯 PHASE 5: End-to-End Workflow Testing');
-    console.log('=======================================\n');
 
     await runWorkflowTests(result);
 
     // PHASE 6: Performance and Security Checks
-    console.log('⚡ PHASE 6: Performance and Security Validation');
-    console.log('===============================================\n');
 
     await runPerformanceTests(result);
     await runSecurityTests(result);
@@ -246,7 +224,6 @@ async function runWorkflowTests(result: MasterTestResult): Promise<void> {
   let workflowPassed = 0;
 
   for (const workflow of workflows) {
-    console.log(`🔄 Testing: ${workflow}`);
     workflowTests++;
 
     // Simulate workflow test (in real implementation, these would be actual tests)
@@ -254,9 +231,7 @@ async function runWorkflowTests(result: MasterTestResult): Promise<void> {
 
     if (passed) {
       workflowPassed++;
-      console.log(`   ✅ ${workflow} completed successfully`);
     } else {
-      console.log(`   ❌ ${workflow} failed`);
       result.summary.criticalIssues.push(`${workflow} workflow failed`);
       if (result.overallStatus === 'PASSED') {
         result.overallStatus = 'FAILED';
@@ -268,7 +243,6 @@ async function runWorkflowTests(result: MasterTestResult): Promise<void> {
   result.summary.passedTests += workflowPassed;
   result.summary.failedTests += (workflowTests - workflowPassed);
 
-  console.log(`\n📊 Workflow Tests: ${workflowPassed}/${workflowTests} passed\n`);
 }
 
 /**
@@ -287,7 +261,6 @@ async function simulateWorkflowTest(workflowName: string): Promise<boolean> {
  * Run performance tests
  */
 async function runPerformanceTests(result: MasterTestResult): Promise<void> {
-  console.log('⚡ Running performance tests...');
 
   const performanceTests = [
     { name: 'Database Query Response Time', threshold: 500, unit: 'ms' },
@@ -304,9 +277,7 @@ async function runPerformanceTests(result: MasterTestResult): Promise<void> {
 
     if (passed) {
       performancePassed++;
-      console.log(`   ✅ ${test.name}: ${Math.round(responseTime)}${test.unit} (threshold: ${test.threshold}${test.unit})`);
     } else {
-      console.log(`   ⚠️ ${test.name}: ${Math.round(responseTime)}${test.unit} exceeds threshold of ${test.threshold}${test.unit}`);
       result.summary.recommendations.push(`Optimize ${test.name}`);
     }
   }
@@ -315,14 +286,12 @@ async function runPerformanceTests(result: MasterTestResult): Promise<void> {
   result.summary.passedTests += performancePassed;
   result.summary.warnings += (performanceTests.length - performancePassed);
 
-  console.log(`\n📊 Performance Tests: ${performancePassed}/${performanceTests.length} passed\n`);
 }
 
 /**
  * Run security tests
  */
 async function runSecurityTests(result: MasterTestResult): Promise<void> {
-  console.log('🔒 Running security validation...');
 
   const securityChecks = [
     { name: 'Row Level Security (RLS) Enabled', check: () => true },
@@ -340,9 +309,7 @@ async function runSecurityTests(result: MasterTestResult): Promise<void> {
 
     if (passed) {
       securityPassed++;
-      console.log(`   ✅ ${check.name}`);
     } else {
-      console.log(`   ❌ ${check.name}`);
       result.summary.criticalIssues.push(`Security issue: ${check.name}`);
       result.overallStatus = 'FAILED';
     }
@@ -352,48 +319,25 @@ async function runSecurityTests(result: MasterTestResult): Promise<void> {
   result.summary.passedTests += securityPassed;
   result.summary.failedTests += (securityChecks.length - securityPassed);
 
-  console.log(`\n📊 Security Tests: ${securityPassed}/${securityChecks.length} passed\n`);
 }
 
 /**
  * Generate final summary
  */
 async function generateFinalSummary(result: MasterTestResult): Promise<void> {
-  console.log('📋 FINAL TEST RESULTS');
-  console.log('=====================\n');
 
   const statusIcon = result.overallStatus === 'PASSED' ? '✅' : result.overallStatus === 'WARNING' ? '⚠️' : '❌';
-  console.log(`${statusIcon} Overall Status: ${result.overallStatus}`);
-  console.log(`⏱️ Total Duration: ${result.duration}ms`);
-  console.log(`🧪 Total Tests: ${result.summary.totalTests}`);
-  console.log(`✅ Passed: ${result.summary.passedTests}`);
-  console.log(`❌ Failed: ${result.summary.failedTests}`);
-  console.log(`⚠️ Warnings: ${result.summary.warnings}`);
 
   if (result.summary.criticalIssues.length > 0) {
-    console.log(`\n🚨 Critical Issues:`);
-    result.summary.criticalIssues.forEach(issue => console.log(`   • ${issue}`));
   }
 
   if (result.summary.recommendations.length > 0) {
-    console.log(`\n💡 Recommendations:`);
-    result.summary.recommendations.forEach(rec => console.log(`   • ${rec}`));
   }
 
   // Database statistics
   if (result.suites.database) {
-    console.log(`\n📊 Database Statistics:`);
-    const stats = await getSampleDataStats();
-    if (stats) {
-      console.log(`   Profiles: ${stats.profiles}`);
-      console.log(`   Officers: ${stats.officers}`);
-      console.log(`   Assignments: ${stats.assignments}`);
-      console.log(`   Reviews: ${stats.reviews}`);
-    }
   }
 
-  console.log(`\n🎯 Test suite completed at ${new Date().toISOString()}`);
-  console.log('================================================\n');
 }
 
 /**
@@ -488,7 +432,6 @@ export async function quickIntegrationCheck(): Promise<{
   const startTime = Date.now();
   const issues: string[] = [];
 
-  console.log('🚀 Quick Integration Check...');
 
   try {
     // Health check
@@ -504,7 +447,6 @@ export async function quickIntegrationCheck(): Promise<{
     const duration = Date.now() - startTime;
     const ready = issues.length === 0;
 
-    console.log(`${ready ? '✅' : '❌'} Quick check ${ready ? 'passed' : 'failed'} in ${duration}ms`);
 
     return { ready, issues, duration };
 
@@ -521,7 +463,6 @@ export async function quickIntegrationCheck(): Promise<{
 export async function runTestCategory(
   category: 'integration' | 'mobile' | 'terminology' | 'workflow' | 'performance' | 'security'
 ): Promise<any> {
-  console.log(`🎯 Running ${category} tests only...\n`);
 
   switch (category) {
     case 'integration':

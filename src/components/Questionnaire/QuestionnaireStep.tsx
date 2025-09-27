@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { QuestionnaireStep as IQuestionnaireStep, QuestionnaireOption, QuestionnaireAnswer, CustomAnswerValue } from '../../types';
 import { CTAButtons } from './CTAButtons';
 import { NameCollection } from './NameCollection';

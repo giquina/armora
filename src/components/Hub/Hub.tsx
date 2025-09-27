@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useCallback } from 'react';
+import { useState, useMemo, useCallback } from 'react';
 import { useApp } from '../../contexts/AppContext';
 import { NavigationCards } from './NavigationCards/NavigationCards';
 import { EnhancedProtectionPanel } from './EnhancedProtectionPanel/EnhancedProtectionPanel';
@@ -116,7 +116,6 @@ export function Hub() {
   const [showTemplates, setShowTemplates] = useState(false);
   const [showFinancialTracker, setShowFinancialTracker] = useState(false);
   const [isLocationSharing, setIsLocationSharing] = useState(false);
-  const [panelState] = useState<'collapsed' | 'half' | 'full'>('collapsed');
   const [isLoading] = useState(false);
   const [sortBy] = useState<'time' | 'cost' | 'tier'>('time');
   const [filters, setFilters] = useState<{ratedOnly: boolean; execOnly: boolean}>({ ratedOnly: false, execOnly: false });
@@ -175,10 +174,9 @@ export function Hub() {
   }, [assignments, filters, sortFn, matchesSearch, inDateRange]);
 
   // Check if there's an active assignment for the quick actions bar
-  const hasActiveAssignment = currentAssignments.length > 0;
+  // const hasActiveAssignment = currentAssignments.length > 0;
 
   // Debug: Log assignment status
-  console.log('🔍 Debug - Current assignments:', currentAssignments.length, hasActiveAssignment);
 
   const getServiceTierBadge = useCallback((tier: ProtectionTier) => {
     switch (tier) {
@@ -192,7 +190,6 @@ export function Hub() {
   // Enhanced feature handlers
 
   const handleDirectCall = useCallback(() => {
-    console.log('📞 Calling protection officer...');
     // In real app: initiate call to assigned officer
   }, []);
 
@@ -200,22 +197,18 @@ export function Hub() {
 
   const handleLocationToggle = useCallback(() => {
     setIsLocationSharing(!isLocationSharing);
-    console.log(`📍 Location sharing ${!isLocationSharing ? 'enabled' : 'disabled'}`);
   }, [isLocationSharing]);
 
 
   const handleViewFinancialDetails = useCallback(() => {
-    console.log('📊 Opening detailed financial breakdown...');
     setShowFinancialTracker(!showFinancialTracker);
   }, [showFinancialTracker]);
 
   const handleAdjustBudget = useCallback(() => {
-    console.log('⚙️ Opening budget adjustment...');
     // In real app: open budget settings modal
   }, []);
 
   const handleClaimPoints = useCallback(() => {
-    console.log('🎁 Claiming loyalty points...');
     // In real app: process points claim
   }, []);
 
@@ -288,7 +281,7 @@ export function Hub() {
           )}
 
           {!assignment.rating && assignment.status === 'completed' && (
-            <button className={styles.inlineRateBtn} onClick={() => console.log('Open rating for', assignment.id)}>
+            <button className={styles.rateButton}>
               Rate Now
             </button>
           )}
@@ -297,34 +290,50 @@ export function Hub() {
     );
   }, [getServiceTierBadge]);
 
-  const renderEmptyState = (type: AssignmentStatus) => {
-    const emptyStates = {
-      current: {
-        icon: '🛡️',
-        title: 'No Active Protection',
-        description: 'Request protection now for immediate service',
-        buttonText: 'Request Protection'
-      },
-      upcoming: {
-        icon: '📅',
-        title: 'No Upcoming Assignments',
-        description: 'Schedule your next protection service',
-        buttonText: 'Request Protection'
-      },
-      completed: {
-        icon: '✅',
-        title: 'No Completed Assignments',
-        description: 'Your completed assignments will appear here',
-        buttonText: 'Request Protection'
-      },
-      analytics: {
-        icon: '📊',
-        title: 'No Data Available',
-        description: 'Analytics will be available after your first assignment',
-        buttonText: 'View Sample Report'
-      }
-    };
+  // Memoized empty states configuration
+  const emptyStates = useMemo(() => ({
+    current: {
+      icon: '🛡️',
+      title: 'No Active Protection',
+      description: 'Request protection now for immediate service',
+      buttonText: 'Request Protection'
+    },
+    upcoming: {
+      icon: '📅',
+      title: 'No Upcoming Assignments',
+      description: 'Schedule your next protection service',
+      buttonText: 'Request Protection'
+    },
+    completed: {
+      icon: '✅',
+      title: 'No Completed Assignments',
+      description: 'Your completed assignments will appear here',
+      buttonText: 'Request Protection'
+    },
+    analytics: {
+      icon: '📊',
+      title: 'No Data Available',
+      description: 'Analytics will be available after your first assignment',
+      buttonText: 'View Sample Report'
+    }
+  }), []);
 
+  const clearFilters = useCallback(() => {
+    setFilters({ ratedOnly: false, execOnly: false });
+    setSearch('');
+    setDateFrom('');
+    setDateTo('');
+  }, []);
+
+  const handleEmptyStateAction = useCallback((type: AssignmentStatus) => {
+    if (type === 'analytics') {
+      // Could show analytics demo
+    } else {
+      navigateToView('protection-request');
+    }
+  }, [navigateToView]);
+
+  const renderEmptyState = useCallback((type: AssignmentStatus) => {
     const state = emptyStates[type];
     const hasFilters = filters.ratedOnly || filters.execOnly || search || dateFrom || dateTo;
 
@@ -338,34 +347,22 @@ export function Hub() {
         {hasFilters && (
           <button
             className={styles.emptyAction}
-            onClick={() => {
-              setFilters({ ratedOnly: false, execOnly: false });
-              setSearch('');
-              setDateFrom('');
-              setDateTo('');
-            }}
+            onClick={clearFilters}
           >
             Clear filters
           </button>
         )}
         <button
           className={styles.emptyAction}
-          onClick={() => {
-            if (type === 'analytics') {
-              // Could show analytics demo
-              console.log('Show analytics demo');
-            } else {
-              navigateToView('protection-request');
-            }
-          }}
+          onClick={() => handleEmptyStateAction(type)}
         >
           {type === 'analytics' ? '📊' : '➕'} {state.buttonText}
         </button>
       </div>
     );
-  };
+  }, [emptyStates, filters, search, dateFrom, dateTo, clearFilters, handleEmptyStateAction]);
 
-  const renderAnalytics = () => (
+  const renderAnalytics = useCallback(() => (
     <div className={styles.assignmentsSection}>
       <div className={styles.analyticsContent} role="tabpanel" id="panel-analytics" aria-labelledby="tab-analytics">
         <div className={styles.analyticsCard}>
@@ -377,7 +374,7 @@ export function Hub() {
         </div>
       </div>
     </div>
-  );
+  ), []);
 
   const renderSectionContent = () => {
     if (activeSection === 'analytics') {

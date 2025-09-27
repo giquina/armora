@@ -1,4 +1,4 @@
-import React from 'react';
+import { FC } from 'react';
 import { IFinancialTracker } from '../../../types';
 import styles from './FinancialTracker.module.css';
 
@@ -9,7 +9,7 @@ interface FinancialTrackerProps {
   onClaimPoints: () => void;
 }
 
-export const FinancialTracker: React.FC<FinancialTrackerProps> = ({
+export const FinancialTracker: FC<FinancialTrackerProps> = ({
   financialData,
   onViewDetails,
   onAdjustBudget,

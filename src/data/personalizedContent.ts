@@ -1245,7 +1245,7 @@ export function getPersonalizedContent(
     'default';
   
   // Debug logging to track mapping flow
-  console.log('🎯 Personalization Debug:', {
+  console.log('getPersonalizedContent:', {
     profileSelection,
     mappedProfileKey: profileKey,
     currentStep,
@@ -1257,7 +1257,7 @@ export function getPersonalizedContent(
   const stepContent = profileContent[currentStep] || profileContent.step2;
   
   // Additional debug info
-  console.log('✅ Content Selected:', {
+  console.log('Content resolution:', {
     profileKey,
     stepKey: currentStep,
     contentTitle: stepContent.title,

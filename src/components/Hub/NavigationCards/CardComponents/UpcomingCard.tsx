@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { FC, memo, useState, useEffect } from 'react';
 import { MiniCalendar } from './MicroVisualizations/MiniCalendar';
 import styles from '../NavigationCards.module.css';
 
@@ -42,7 +42,7 @@ interface UpcomingCardProps {
   ariaControls?: string;
 }
 
-export const UpcomingCard: React.FC<UpcomingCardProps> = ({
+export const UpcomingCard: FC<UpcomingCardProps> = memo(({
   data,
   isActive,
   onClick,
@@ -51,7 +51,6 @@ export const UpcomingCard: React.FC<UpcomingCardProps> = ({
   ariaControls
 }) => {
   // With 1-per-row layout, we have full width to show all data
-  const showFullData = true;
   const showVisuals = screenWidth >= 320;
 
   // Live countdown state
@@ -138,7 +137,6 @@ export const UpcomingCard: React.FC<UpcomingCardProps> = ({
               className={styles.actionButton}
               onClick={(e) => {
                 e.stopPropagation();
-                console.log('View details');
               }}
             >
               <span className={styles.buttonIcon}>📋</span>
@@ -148,7 +146,6 @@ export const UpcomingCard: React.FC<UpcomingCardProps> = ({
               className={styles.actionButton}
               onClick={(e) => {
                 e.stopPropagation();
-                console.log('Modify protection');
               }}
             >
               <span className={styles.buttonIcon}>⚙️</span>
@@ -180,4 +177,4 @@ export const UpcomingCard: React.FC<UpcomingCardProps> = ({
       )}
     </button>
   );
-};
+});

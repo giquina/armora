@@ -1,4 +1,3 @@
-import React from 'react';
 import styles from './PrivacyOption.module.css';
 
 interface PrivacyOptionProps {

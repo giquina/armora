@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { AppProvider, useApp } from './contexts/AppContext';
 import { AuthProvider } from './contexts/AuthContext';
 import { ProtectionAssignmentProvider } from './contexts/ProtectionAssignmentContext';
@@ -25,7 +25,6 @@ import { VenueSecurityQuestionnaire } from './components/VenueProtection/VenueSe
 import { VenueProtectionSuccess } from './components/VenueProtection/VenueProtectionSuccess';
 import { About } from './components/About/About';
 import { CoverageAreas } from './components/CoverageAreas/CoverageAreas';
-import { ServiceLevel, ProtectionAssignmentData, LocationData } from './types';
 import { ProtectionRequest, AssignmentConfirmed } from './components/ProtectionRequest';
 import './styles/globals.css';
 import './styles/disable-infinite-animations.css'; /* CRITICAL FIX: Stop infinite animations causing flashing */
@@ -47,7 +46,6 @@ function AppRouter() {
     // Skip auto-navigation in development mode to allow testing Dashboard
     const isDevelopment = process.env.NODE_ENV === 'development';
     if (assignmentState?.hasActiveAssignment && user && currentView === 'home' && !isDevelopment) {
-      console.log('Active assignment detected, navigating to hub page');
       navigateToView('hub');
     }
   }, [assignmentState?.hasActiveAssignment, user, currentView, navigateToView]);

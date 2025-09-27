@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import styles from './RecruitmentTopBanner.module.css';
 
 interface RecruitmentTopBannerProps {
@@ -84,7 +84,6 @@ export function RecruitmentTopBanner({ className }: RecruitmentTopBannerProps) {
     localStorage.setItem('armora_recruitment_top_banner_dismissed', Date.now().toString());
 
     // Analytics
-    console.log('[Analytics] Recruitment top banner dismissed', {
       timestamp: Date.now(),
       dismissalCount: parseInt(localStorage.getItem('armora_recruitment_top_dismissal_count') || '0') + 1
     });
@@ -96,7 +95,6 @@ export function RecruitmentTopBanner({ className }: RecruitmentTopBannerProps) {
 
   const handleApplyClick = () => {
     // Analytics
-    console.log('[Analytics] Recruitment top banner apply clicked', {
       timestamp: Date.now(),
       source: 'top_banner',
       isExpanded
@@ -111,7 +109,6 @@ export function RecruitmentTopBanner({ className }: RecruitmentTopBannerProps) {
     setIsExpanded(!isExpanded);
 
     // Analytics
-    console.log('[Analytics] Recruitment top banner expanded', {
       timestamp: Date.now(),
       isExpanded: !isExpanded
     });

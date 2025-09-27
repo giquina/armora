@@ -1,6 +1,6 @@
 // Armora Security Transport - Marketing Banner Component
 
-import React, { useState, useEffect, useCallback, useRef } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import { useApp } from '../../contexts/AppContext';
 import styles from './MarketingBanner.module.css';
 
@@ -263,7 +263,6 @@ export function MarketingBanner({
     localStorage.setItem('membershipBannerDismissed', JSON.stringify(dismissData));
 
     // Track dismissal
-    console.log('📊 Analytics: membership_banner_dismissed', {
       dismissCount: dismissData.dismissCount,
       variant,
       expiresAt: new Date(dismissData.expiresAt).toISOString()
@@ -279,7 +278,6 @@ export function MarketingBanner({
       localStorage.setItem('marketingBannerTrialStarted', 'true');
       
       // Track CTA click
-      console.log('📊 Analytics: cta_clicked', { variant, source: 'marketing_banner' });
       
       // Start the trial
       await startFreeTrial('essential');
@@ -289,7 +287,6 @@ export function MarketingBanner({
       onTrialStart();
       navigateToView('protection-request');
       
-      console.log('📊 Analytics: trial_started_from_banner', { variant });
     } catch (error) {
       console.error('Error starting trial from banner:', error);
     }

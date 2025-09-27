@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useApp } from '../../contexts/AppContext';
 import { User } from '../../types';
 import { parseFullName, getTitleOptions, getDisplayOptions, getDisplayName } from '../../utils/nameUtils';

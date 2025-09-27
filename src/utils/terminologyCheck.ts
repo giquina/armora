@@ -132,8 +132,6 @@ export async function checkTerminologyCompliance(
     compliance: 'PASSED',
   };
 
-  console.log('🔍 Starting Armora Protection Service Terminology Compliance Check...\n');
-  console.log(`📁 Scanning directory: ${scanPath}`);
 
   try {
     // Scan all files recursively
@@ -144,7 +142,6 @@ export async function checkTerminologyCompliance(
       SCAN_PATTERNS.include.some(ext => file.endsWith(ext))
     );
 
-    console.log(`📄 Found ${targetFiles.length} files to scan\n`);
 
     // Check each file
     for (const file of targetFiles) {
@@ -161,7 +158,6 @@ export async function checkTerminologyCompliance(
     report.compliance = 'FAILED';
   }
 
-  console.log(`\n${report.summary}`);
   return report;
 }
 
@@ -456,22 +452,8 @@ function generateSummary(report: TerminologyReport): void {
   }
 
   // Log detailed results
-  console.log(`\n📊 Terminology Compliance Report:`);
-  console.log(`   Files scanned: ${report.filesScanned}`);
-  console.log(`   Total violations: ${report.violationsFound}`);
-  console.log(`   Critical violations: ${report.criticalViolations}`);
-  console.log(`   Warning violations: ${report.warningViolations}`);
 
   if (report.criticalViolations > 0) {
-    console.log(`\n🚨 Critical violations (must be fixed):`);
-    report.violations
-      .filter(v => v.severity === 'critical')
-      .slice(0, 10) // Show first 10
-      .forEach(violation => {
-        console.log(`   ${violation.file}:${violation.line} - "${violation.term}"`);
-        console.log(`      Context: ${violation.context}`);
-        console.log(`      Fix: ${violation.suggestion}\n`);
-      });
   }
 }
 
@@ -485,9 +467,7 @@ export async function autoFixViolations(
   const result = { fixed: 0, errors: [] as string[] };
 
   if (dryRun) {
-    console.log('🔧 DRY RUN: Showing what would be fixed...\n');
   } else {
-    console.log('🔧 Auto-fixing terminology violations...\n');
   }
 
   // Group violations by file
@@ -505,13 +485,8 @@ export async function autoFixViolations(
   for (const [filePath, violations] of violationsByFile) {
     try {
       if (dryRun) {
-        console.log(`📝 Would fix ${violations.length} violations in ${filePath}`);
-        violations.forEach(v => {
-          console.log(`   Line ${v.line}: "${v.term}" → "${v.suggestion}"`);
-        });
       } else {
         // Actual fixing would go here
-        console.log(`📝 Fixed ${violations.length} violations in ${filePath}`);
         result.fixed += violations.length;
       }
     } catch (error: any) {

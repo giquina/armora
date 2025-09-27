@@ -1,4 +1,4 @@
-import React from 'react';
+import { useState, useEffect } from 'react';
 import { QuickActionItem } from '../../types';
 import { AssignmentHistoryManager } from '../../utils/assignmentHistory';
 import { useApp } from '../../contexts/AppContext';
@@ -16,10 +16,10 @@ export function PersonalizedQuickActions({
   showHeader = true
 }: PersonalizedQuickActionsProps) {
   const { navigateToView } = useApp();
-  const [quickActions, setQuickActions] = React.useState<QuickActionItem[]>([]);
-  const [isLoading, setIsLoading] = React.useState(true);
+  const [quickActions, setQuickActions] = useState<QuickActionItem[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
 
-  React.useEffect(() => {
+  useEffect(() => {
     const loadQuickActions = () => {
       try {
         const actions = AssignmentHistoryManager.generatePersonalizedQuickActions();

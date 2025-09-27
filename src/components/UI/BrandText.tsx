@@ -1,4 +1,4 @@
-import React from 'react';
+import { ReactNode,  FC  } from 'react';
 import { getBrandTextStyles, getTaglineStyles } from '../../styles/brandConstants';
 import styles from './BrandText.module.css';
 
@@ -6,17 +6,17 @@ interface BrandTextProps {
   size?: 'hero' | 'large' | 'medium' | 'small';
   className?: string;
   animated?: boolean;
-  children?: React.ReactNode;
+  children?: ReactNode;
 }
 
 interface TaglineProps {
   size?: 'primary' | 'secondary';
   className?: string;
-  children: React.ReactNode;
+  children: ReactNode;
 }
 
 // Main ARMORA brand text component
-export const BrandText: React.FC<BrandTextProps> = ({
+export const BrandText: FC<BrandTextProps> = ({
   size = 'medium',
   className = '',
   animated = false,
@@ -35,7 +35,7 @@ export const BrandText: React.FC<BrandTextProps> = ({
 };
 
 // Tagline component with consistent styling
-export const BrandTagline: React.FC<TaglineProps> = ({
+export const BrandTagline: FC<TaglineProps> = ({
   size = 'primary',
   className = '',
   children
@@ -53,16 +53,16 @@ export const BrandTagline: React.FC<TaglineProps> = ({
 };
 
 // Pre-configured components for common use cases
-export const ArmoraBrandTitle: React.FC<{ size?: 'hero' | 'large' | 'medium' | 'small', animated?: boolean, className?: string }> = (props) => (
+export const ArmoraBrandTitle: FC<{ size?: 'hero' | 'large' | 'medium' | 'small', animated?: boolean, className?: string }> = (props) => (
   <BrandText {...props}>ARMORA</BrandText>
 );
 
-export const ArmoraTagline: React.FC<{ size?: 'primary' | 'secondary', className?: string }> = (props) => (
+export const ArmoraTagline: FC<{ size?: 'primary' | 'secondary', className?: string }> = (props) => (
   <BrandTagline {...props}>Discrete. Professional. Always Available.</BrandTagline>
 );
 
 // Welcome page specific component
-export const WelcomeTitle: React.FC<{ className?: string }> = ({ className = '' }) => (
+export const WelcomeTitle: FC<{ className?: string }> = ({ className = '' }) => (
   <h1 className={`${styles.welcomeTitle} ${className}`}>
     <span className={styles.welcomeHeadline}>Protection That Matches Your Standards</span>
   </h1>

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Assignment } from '../utils/mockData';
 import styles from './LiveTrackingDashboard.module.css';
 
@@ -35,9 +35,9 @@ export function LiveTrackingDashboard({
     return { text: `${hours}h ${mins}m`, urgent: false };
   };
 
-  const getProgressPercentage = (protection assignment: Assignment) => {
-    const totalDuration = protection assignment.route.duration * 60 * 1000; // Convert to ms
-    const startTime = protection assignment.scheduledTime.getTime() - totalDuration;
+  const getProgressPercentage = (assignment: Assignment) => {
+    const totalDuration = assignment.route.duration * 60 * 1000; // Convert to ms
+    const startTime = assignment.scheduledTime.getTime() - totalDuration;
     const now = currentTime.getTime();
     const elapsed = now - startTime;
     const progress = Math.max(0, Math.min(100, (elapsed / totalDuration) * 100));
@@ -67,16 +67,16 @@ export function LiveTrackingDashboard({
       </div>
 
       <div className={styles.trackingCards}>
-        {activeBookings.map((protection assignment) => {
-          const eta = getTimeUntilPickup(protection assignment.scheduledTime);
-          const progress = getProgressPercentage(protection assignment);
+        {activeBookings.map((assignment) => {
+          const eta = getTimeUntilPickup(assignment.scheduledTime);
+          const progress = getProgressPercentage(assignment);
 
           return (
-            <div key={protection assignment.id} className={`${styles.trackingCard} ${eta.urgent ? styles.urgent : ''}`}>
+            <div key={assignment.id} className={`${styles.trackingCard} ${eta.urgent ? styles.urgent : ''}`}>
               <div className={styles.cardHeader}>
                 <div className={styles.bookingInfo}>
-                  <h3 className={styles.bookingTitle}>{protection assignment.serviceName}</h3>
-                  <span className={styles.bookingId}>#{protection assignment.id}</span>
+                  <h3 className={styles.bookingTitle}>{assignment.serviceName}</h3>
+                  <span className={styles.bookingId}>#{assignment.id}</span>
                 </div>
                 <div className={`${styles.eta} ${eta.urgent ? styles.etaUrgent : ''}`}>
                   <span className={styles.etaLabel}>ETA</span>
@@ -87,18 +87,18 @@ export function LiveTrackingDashboard({
               <div className={styles.cpoSection}>
                 <div className={styles.cpoAvatar}>
                   <div className={styles.avatarPlaceholder}>
-                    {protection assignment.protectionOfficer.name.charAt(0)}
+                    {assignment.protectionOfficer.name.charAt(0)}
                   </div>
                   <div className={styles.onlineIndicator}></div>
                 </div>
                 <div className={styles.cpoInfo}>
-                  <div className={styles.cpoName}>{protection assignment.protectionOfficer.name}</div>
+                  <div className={styles.cpoName}>{assignment.protectionOfficer.name}</div>
                   <div className={styles.vehicleInfo}>
-                    {protection assignment.protectionOfficer.vehicle} • {protection assignment.protectionOfficer.plate}
+                    {assignment.protectionOfficer.vehicle} • {assignment.protectionOfficer.plate}
                   </div>
                   <div className={styles.cpoRating}>
-                    <span className={styles.stars}>{'⭐'.repeat(Math.floor(protection assignment.protectionOfficer.rating))}</span>
-                    <span className={styles.ratingNumber}>{protection assignment.protectionOfficer.rating}</span>
+                    <span className={styles.stars}>{'⭐'.repeat(Math.floor(assignment.protectionOfficer.rating))}</span>
+                    <span className={styles.ratingNumber}>{assignment.protectionOfficer.rating}</span>
                   </div>
                 </div>
               </div>
@@ -108,13 +108,13 @@ export function LiveTrackingDashboard({
                   <div className={styles.routePoint}>
                     <span className={styles.routeIcon}>📍</span>
                     <span className={styles.routeText}>
-                      {protection assignment.commencementLocation.address.split(',')[0]}
+                      {assignment.commencementLocation.address.split(',')[0]}
                     </span>
                   </div>
                   <div className={styles.routePoint}>
                     <span className={styles.routeIcon}>🏁</span>
                     <span className={styles.routeText}>
-                      {protection assignment.secureDestination.address.split(',')[0]}
+                      {assignment.secureDestination.address.split(',')[0]}
                     </span>
                   </div>
                 </div>
@@ -132,28 +132,28 @@ export function LiveTrackingDashboard({
               <div className={styles.liveStats}>
                 <div className={styles.statItem}>
                   <span className={styles.statLabel}>Distance</span>
-                  <span className={styles.statValue}>{protection assignment.route.distance}km</span>
+                  <span className={styles.statValue}>{assignment.route.distance}km</span>
                 </div>
                 <div className={styles.statItem}>
                   <span className={styles.statLabel}>Duration</span>
-                  <span className={styles.statValue}>{protection assignment.route.duration}min</span>
+                  <span className={styles.statValue}>{assignment.route.duration}min</span>
                 </div>
                 <div className={styles.statItem}>
                   <span className={styles.statLabel}>Price</span>
-                  <span className={styles.statValue}>£{protection assignment.pricing.total}</span>
+                  <span className={styles.statValue}>£{assignment.pricing.total}</span>
                 </div>
               </div>
 
               <div className={styles.trackingActions}>
                 <button
                   className={styles.primaryAction}
-                  onClick={() => onTrackDriver(protection assignment.id)}
+                  onClick={() => onTrackDriver(assignment.id)}
                 >
                   📍 Live Map
                 </button>
                 <button
                   className={styles.secondaryAction}
-                  onClick={() => onContactDriver(protection assignment.id)}
+                  onClick={() => onContactDriver(assignment.id)}
                 >
                   📞 Contact Protection Officer
                 </button>

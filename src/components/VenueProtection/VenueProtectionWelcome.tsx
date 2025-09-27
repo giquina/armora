@@ -1,4 +1,3 @@
-import React from 'react';
 import { useApp } from '../../contexts/AppContext';
 import { Button } from '../UI/Button';
 import styles from './VenueProtectionWelcome.module.css';
@@ -13,7 +12,6 @@ export function VenueProtectionWelcome() {
 
   const handleLearnMore = () => {
     // Could open a modal or navigate to info page
-    console.log('Learn more about venue protection services');
   };
 
   const handleBack = () => {

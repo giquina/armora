@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useApp } from '../../contexts/AppContext';
 import styles from './MembershipBar.module.css';
 
@@ -97,7 +97,6 @@ export function MembershipBar() {
     localStorage.setItem('armora_conversion_timestamp', Date.now().toString());
 
     // Analytics
-    console.log('[Analytics] Membership conversion started', {
       source: 'top_membership_bar',
       memberCount,
       timeLeft,
@@ -114,7 +113,6 @@ export function MembershipBar() {
     localStorage.setItem('armora_membership_bar_dismiss_time', Date.now().toString());
 
     // Analytics
-    console.log('[Analytics] Membership bar dismissed', {
       timeLeft,
       memberCount,
       timestamp: Date.now()

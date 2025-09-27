@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import { FC, useState, useEffect } from 'react';
 import styles from './SocialProofEngine.module.css';
 
 interface SocialProofEngineProps {
   className?: string;
 }
 
-const SocialProofEngine: React.FC<SocialProofEngineProps> = ({ className }) => {
+const SocialProofEngine: FC<SocialProofEngineProps> = ({ className }) => {
   const [currentStat, setCurrentStat] = useState(0);
   const [testimonialIndex, setTestimonialIndex] = useState(0);
 

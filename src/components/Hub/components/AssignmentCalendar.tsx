@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Assignment } from '../utils/mockData';
 import styles from './AssignmentCalendar.module.css';
 

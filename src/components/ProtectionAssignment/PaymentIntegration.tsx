@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import {
   ProtectionAssignmentData,
   PaymentFlow,
@@ -171,7 +171,6 @@ export function PaymentIntegration({
       localStorage.setItem('armora_assignments', JSON.stringify(existingAssignments));
 
       // Analytics tracking
-      console.log('[Analytics] Assignment completed', {
         bookingId: generatedBookingId,
         service: service.id,
         amount: intent.amount,
@@ -216,7 +215,6 @@ export function PaymentIntegration({
       paymentMethod: paymentIntent?.paymentMethod?.type || 'card'
     };
 
-    console.log('[Analytics] Receipt downloaded', receiptData);
     alert('Receipt download functionality would be implemented here');
   };
 

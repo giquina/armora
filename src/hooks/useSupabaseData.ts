@@ -70,7 +70,6 @@ export function useProtectionAssignments() {
           filter: `principal_id=eq.${user.id}`,
         },
         (payload) => {
-          console.log('Assignment update received:', payload);
           fetchAssignments();
         }
       )
@@ -173,7 +172,6 @@ export function useAssignmentTracking(assignmentId: string | null) {
 
         // Subscribe to real-time updates
         subscription = subscribeToAssignmentUpdates(assignmentId, (payload) => {
-          console.log('Real-time assignment update:', payload);
           if (payload.eventType === 'UPDATE') {
             setAssignment((prev: any) => ({
               ...prev,

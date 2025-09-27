@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC, memo } from 'react';
 import styles from '../NavigationCards.module.css';
 
 interface Assignment {
@@ -42,7 +42,7 @@ interface CurrentCardProps {
   ariaControls?: string;
 }
 
-export const CurrentCard: React.FC<CurrentCardProps> = ({
+export const CurrentCard: FC<CurrentCardProps> = memo(({
   data,
   isActive,
   onClick,
@@ -52,7 +52,6 @@ export const CurrentCard: React.FC<CurrentCardProps> = ({
 }) => {
   const [showDetails, setShowDetails] = React.useState(false);
   const showFullData = screenWidth >= 768; // Only show all details on desktop
-  const showVisuals = screenWidth >= 320;
   const isMobile = screenWidth <= 414;
 
   const getTierColor = (tier: string) => {
@@ -201,7 +200,6 @@ export const CurrentCard: React.FC<CurrentCardProps> = ({
               className={styles.actionButton}
               onClick={(e) => {
                 e.stopPropagation();
-                console.log('Contact officer');
               }}
             >
               <span className={styles.buttonIcon}>📞</span>
@@ -211,7 +209,6 @@ export const CurrentCard: React.FC<CurrentCardProps> = ({
               className={styles.actionButton}
               onClick={(e) => {
                 e.stopPropagation();
-                console.log('Security support');
               }}
             >
               <span className={styles.buttonIcon}>🛡️</span>
@@ -221,7 +218,6 @@ export const CurrentCard: React.FC<CurrentCardProps> = ({
               className={styles.actionButton}
               onClick={(e) => {
                 e.stopPropagation();
-                console.log('Track protection');
               }}
             >
               <span className={styles.buttonIcon}>📍</span>
@@ -240,4 +236,4 @@ export const CurrentCard: React.FC<CurrentCardProps> = ({
       )}
     </button>
   );
-};
+});

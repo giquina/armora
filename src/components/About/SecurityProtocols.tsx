@@ -1,4 +1,3 @@
-import React from 'react';
 import styles from './SecurityProtocols.module.css';
 
 interface Protocol {

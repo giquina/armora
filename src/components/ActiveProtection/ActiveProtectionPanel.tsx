@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import styles from './ActiveProtectionPanel.module.css';
 
 interface ActiveProtectionPanelProps {
@@ -102,12 +102,10 @@ export function ActiveProtectionPanel({ isOpen, onClose, isActive }: ActiveProte
   }, [isOpen]);
 
   const extendTime = (minutes: number) => {
-    console.log(`Extending protection by ${minutes} minutes`);
     // Time extension implementation placeholder
   };
 
   const handleEmergencyAction = (action: string) => {
-    console.log(`Emergency action: ${action}`);
     // Emergency actions implementation placeholder
   };
 

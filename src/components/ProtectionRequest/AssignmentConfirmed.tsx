@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from 'react';
-import { useApp } from '../../contexts/AppContext';
+import { useState, useEffect } from 'react';
 import styles from './AssignmentConfirmed.module.css';
 
 interface AssignmentConfirmedProps {
@@ -31,11 +30,10 @@ export function AssignmentConfirmed({
   onTrackAssignment,
   onNewAssignment
 }: AssignmentConfirmedProps) {
-  const { state } = useApp();
   const [assignmentData, setAssignmentData] = useState<AssignmentData | null>(null);
   const [assignmentReference, setAssignmentReference] = useState<string>('');
   const [cpoETA, setCpoETA] = useState<string>('');
-  const [showShareOptions, setShowShareOptions] = useState(false);
+  // Removed unused state variables for cleaner TypeScript compilation
 
   useEffect(() => {
     // Load assignment data from localStorage

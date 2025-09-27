@@ -1,6 +1,6 @@
 // Armora Security Transport - Subscription Offer Component
 
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useApp } from '../../contexts/AppContext';
 import { subscriptionPlans, calculateSavings, formatSavings } from '../../data/subscriptionData';
 import { PremiumInterest } from '../../types';

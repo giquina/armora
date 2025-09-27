@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useEffect, useState } from 'react';
+import { FC, ReactNode, createContext, useContext, useEffect, useState } from 'react';
 import { User, Session } from '@supabase/supabase-js';
 import {
   supabase,
@@ -6,7 +6,6 @@ import {
   signInWithEmail,
   signInWithGoogle,
   signOut,
-  getCurrentUser,
   getUserProfile,
   updateUserProfile,
   saveQuestionnaireResponse,
@@ -72,7 +71,7 @@ export const useAuth = () => {
   return context;
 };
 
-export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+export const AuthProvider: FC<{ children: ReactNode }> = ({ children }) => {
   const [user, setUser] = useState<User | null>(null);
   const [session, setSession] = useState<Session | null>(null);
   const [profile, setProfile] = useState<Profile | null>(null);
@@ -126,13 +125,10 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       // Handle auth events
       switch (event) {
         case 'SIGNED_IN':
-          console.log('User signed in');
           break;
         case 'SIGNED_OUT':
-          console.log('User signed out');
           break;
         case 'USER_UPDATED':
-          console.log('User updated');
           break;
       }
     });

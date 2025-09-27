@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from 'react';
+import { FC, useEffect, useState, useCallback } from 'react';
 import { ConfettiParticle, createConfettiParticle, updateConfettiParticle } from './achievementAnimations';
 
 interface ConfettiProps {
@@ -10,7 +10,7 @@ interface ConfettiProps {
   onComplete?: () => void;
 }
 
-const Confetti: React.FC<ConfettiProps> = ({ 
+const Confetti: FC<ConfettiProps> = ({ 
   isActive, 
   centerX, 
   centerY, 

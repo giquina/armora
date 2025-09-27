@@ -1,4 +1,3 @@
-import React from 'react';
 import styles from './hub-skeleton.module.css';
 
 interface HubSkeletonProps {

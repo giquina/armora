@@ -1,4 +1,4 @@
-import React from 'react';
+import { memo, useState, useEffect } from 'react';
 import { ProtectionAssignmentHistoryItem, FavoriteRoute } from '../../types';
 import { AssignmentHistoryManager } from '../../utils/assignmentHistory';
 import { useApp } from '../../contexts/AppContext';
@@ -10,12 +10,12 @@ interface RecentAssignmentsProps {
   maxItems?: number;
 }
 
-export function RecentAssignments({ onRebook, onAddToFavorites, maxItems = 5 }: RecentAssignmentsProps) {
+export const RecentAssignments = memo(function RecentAssignments({ onRebook, onAddToFavorites, maxItems = 5 }: RecentAssignmentsProps) {
   const { navigateToView } = useApp();
-  const [history, setHistory] = React.useState<ProtectionAssignmentHistoryItem[]>([]);
-  const [favorites, setFavorites] = React.useState<FavoriteRoute[]>([]);
+  const [history, setHistory] = useState<ProtectionAssignmentHistoryItem[]>([]);
+  const [favorites, setFavorites] = useState<FavoriteRoute[]>([]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     const assignmentHistory = AssignmentHistoryManager.getAssignmentHistory();
     const favoriteRoutes = AssignmentHistoryManager.getFavoriteRoutes();
     setHistory(assignmentHistory.slice(0, maxItems));
@@ -204,7 +204,7 @@ export function RecentAssignments({ onRebook, onAddToFavorites, maxItems = 5 }: 
       )}
     </div>
   );
-}
+});
 
 export default RecentAssignments;
 

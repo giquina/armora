@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import { FC, useState, useEffect, useCallback } from 'react';
 import styles from './SafeAssignmentFundModal.module.css';
 import { 
   useCounterAnimation, 
@@ -42,7 +42,7 @@ const organizationTestimonials = [
 ];
 
 
-const SafeAssignmentFundModal: React.FC<SafeAssignmentFundModalProps> = ({ onClose }) => {
+const SafeAssignmentFundModal: FC<SafeAssignmentFundModalProps> = ({ onClose }) => {
   const [currentStoryIndex, setCurrentStoryIndex] = useState(0);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [hasAnimationStarted, setHasAnimationStarted] = useState(false);

@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useMemo, useRef } from 'react';
+import { useEffect, useState, useMemo, useRef } from 'react';
 import { useApp } from '../../contexts/AppContext';
 import { ArmoraLogo } from '../UI/ArmoraLogo';
 import styles from './SplashScreen.module.css';
@@ -53,17 +53,14 @@ export function SplashScreen() {
   const hasNavigatedRef = useRef(false);
 
   useEffect(() => {
-    console.log('🚀 SplashScreen mounted, starting 4-second timer...');
     const timer = setTimeout(() => {
       if (!hasNavigatedRef.current) {
         hasNavigatedRef.current = true;
-        console.log('⏰ Timer completed, navigating to welcome page...');
         navigateToView('welcome');
       }
     }, 4000);
 
     return () => {
-      console.log('🧹 SplashScreen unmounting, clearing timer...');
       clearTimeout(timer);
     };
   // Run once on mount; avoid resetting timer if context updates change function identities

@@ -1,4 +1,4 @@
-import React from 'react';
+import { useState, useEffect } from 'react';
 import { useApp } from '../../contexts/AppContext';
 import { getDisplayName } from '../../utils/nameUtils';
 import { AssignmentHistoryManager } from '../../utils/assignmentHistory';
@@ -10,12 +10,12 @@ import styles from './Assignments.module.css';
 export function Assignments() {
   const { state, navigateToView } = useApp();
   const { user } = state;
-  const [assignmentHistory, setAssignmentHistory] = React.useState(() =>
+  const [assignmentHistory, setAssignmentHistory] = useState(() =>
     AssignmentHistoryManager.getAssignmentHistory()
   );
-  const [hasActiveRides] = React.useState(false); // Active Assignments data placeholder
-  const [hasVenueBookings] = React.useState(false); // Venue bookings data placeholder
-  const [activeTab, setActiveTab] = React.useState<'transport' | 'venues'>('transport');
+  const [hasActiveRides] = useState(false); // Active Assignments data placeholder
+  const [hasVenueBookings] = useState(false); // Venue bookings data placeholder
+  const [activeTab, setActiveTab] = useState<'transport' | 'venues'>('transport');
 
   const handleBookNewService = () => {
     navigateToView('services');
@@ -26,7 +26,7 @@ export function Assignments() {
   };
 
   // Refresh data when component mounts or becomes visible
-  React.useEffect(() => {
+  useEffect(() => {
     const refreshData = () => {
       setAssignmentHistory(AssignmentHistoryManager.getAssignmentHistory());
     };

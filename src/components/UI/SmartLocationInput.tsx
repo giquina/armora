@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useCallback } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import { LoadingSpinner } from './LoadingSpinner';
 import styles from './SmartLocationInput.module.css';
 
@@ -307,7 +307,6 @@ export function SmartLocationInput({
     setShowSuggestions(false);
     setHasFocus(false);
 
-    console.log('[Analytics] Location suggestion selected', {
       type,
       suggestionType: suggestion.type,
       address: suggestion.address,

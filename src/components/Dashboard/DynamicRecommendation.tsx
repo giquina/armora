@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { ServiceLevel, PersonalizationData } from '../../types';
 import styles from './DynamicRecommendation.module.css';
 

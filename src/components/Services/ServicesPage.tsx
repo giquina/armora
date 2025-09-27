@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useCallback } from 'react';
+import { useState, useMemo, useCallback } from 'react';
 import { useApp } from '../../contexts/AppContext';
 import { WeddingEventSecurity } from '../WeddingEventSecurity';
 import { ServiceCard } from './ServiceCard';

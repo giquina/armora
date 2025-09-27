@@ -1,4 +1,4 @@
-import React from 'react';
+import { FC } from 'react';
 
 interface RatingStarsProps {
   rating: number;
@@ -8,7 +8,7 @@ interface RatingStarsProps {
   className?: string;
 }
 
-export const RatingStars: React.FC<RatingStarsProps> = ({
+export const RatingStars: FC<RatingStarsProps> = ({
   rating,
   maxRating = 5,
   size = 'small',

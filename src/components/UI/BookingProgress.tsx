@@ -1,4 +1,4 @@
-import React from 'react';
+import { useState, useCallback } from 'react';
 import styles from './BookingProgress.module.css';
 
 type BookingStep = 'service' | 'location' | 'schedule' | 'payment' | 'confirmation';
@@ -177,10 +177,10 @@ export function BookingProgress({
 
 // Progress hook for managing protection assignment flow
 export function useBookingProgress(initialStep: BookingStep = 'service') {
-  const [currentStep, setCurrentStep] = React.useState<BookingStep>(initialStep);
-  const [completedSteps, setCompletedSteps] = React.useState<BookingStep[]>([]);
+  const [currentStep, setCurrentStep] = useState<BookingStep>(initialStep);
+  const [completedSteps, setCompletedSteps] = useState<BookingStep[]>([]);
 
-  const completeStep = React.useCallback((step: BookingStep) => {
+  const completeStep = useCallback((step: BookingStep) => {
     setCompletedSteps(prev => {
       if (!prev.includes(step)) {
         return [...prev, step];
@@ -189,11 +189,11 @@ export function useBookingProgress(initialStep: BookingStep = 'service') {
     });
   }, []);
 
-  const goToStep = React.useCallback((step: BookingStep) => {
+  const goToStep = useCallback((step: BookingStep) => {
     setCurrentStep(step);
   }, []);
 
-  const nextStep = React.useCallback(() => {
+  const nextStep = useCallback(() => {
     const currentIndex = BOOKING_STEPS.findIndex(s => s.id === currentStep);
     if (currentIndex < BOOKING_STEPS.length - 1) {
       // Complete current step
@@ -206,7 +206,7 @@ export function useBookingProgress(initialStep: BookingStep = 'service') {
     return currentStep;
   }, [currentStep, completeStep]);
 
-  const previousStep = React.useCallback(() => {
+  const previousStep = useCallback(() => {
     const currentIndex = BOOKING_STEPS.findIndex(s => s.id === currentStep);
     if (currentIndex > 0) {
       const prevStepId = BOOKING_STEPS[currentIndex - 1].id;
@@ -218,21 +218,21 @@ export function useBookingProgress(initialStep: BookingStep = 'service') {
     return currentStep;
   }, [currentStep]);
 
-  const resetProgress = React.useCallback(() => {
+  const resetProgress = useCallback(() => {
     setCurrentStep('service');
     setCompletedSteps([]);
   }, []);
 
-  const getProgressPercentage = React.useCallback(() => {
+  const getProgressPercentage = useCallback(() => {
     const currentStepIndex = BOOKING_STEPS.findIndex(s => s.id === currentStep);
     return Math.round(((currentStepIndex + 1) / BOOKING_STEPS.length) * 100);
   }, [currentStep]);
 
-  const isStepCompleted = React.useCallback((step: BookingStep) => {
+  const isStepCompleted = useCallback((step: BookingStep) => {
     return completedSteps.includes(step);
   }, [completedSteps]);
 
-  const isStepAccessible = React.useCallback((step: BookingStep) => {
+  const isStepAccessible = useCallback((step: BookingStep) => {
     const stepIndex = BOOKING_STEPS.findIndex(s => s.id === step);
     const currentIndex = BOOKING_STEPS.findIndex(s => s.id === currentStep);
 

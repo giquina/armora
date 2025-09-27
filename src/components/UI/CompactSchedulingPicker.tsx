@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { DatePicker } from './DatePicker';
 import { CompactTimePicker } from './CompactTimePicker';
 import styles from './CompactSchedulingPicker.module.css';

@@ -7,7 +7,6 @@ const supabase = createClient(
 );
 
 async function checkTables() {
-  console.log('🔍 Checking available tables...');
 
   // Try different possible table names
   const tableNames = [
@@ -30,15 +29,11 @@ async function checkTables() {
         .limit(1);
 
       if (!error) {
-        console.log(`✅ Table '${tableName}' exists - ${data?.length || 0} records sample`);
         if (data && data.length > 0) {
-          console.log('   Sample data:', Object.keys(data[0]));
         }
       } else {
-        console.log(`❌ Table '${tableName}': ${error.message}`);
       }
     } catch (err) {
-      console.log(`❌ Table '${tableName}': ${err.message}`);
     }
   }
 }

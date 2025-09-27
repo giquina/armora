@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import styles from './ShareButtons.module.css';
 
 interface ShareButtonsProps {

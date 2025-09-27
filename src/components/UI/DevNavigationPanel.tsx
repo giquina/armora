@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useApp } from '../../contexts/AppContext';
 import styles from './DevNavigationPanel.module.css';
 
@@ -30,7 +30,6 @@ export function DevNavigationPanel({ className }: DevNavigationPanelProps) {
   ];
 
   const setupMockAuth = () => {
-    console.log('🚀 [DEV] Setting up mock auth data for authenticated views');
 
     // Set up mock user with comprehensive data
     const mockUser = {
@@ -73,7 +72,6 @@ export function DevNavigationPanel({ className }: DevNavigationPanelProps) {
   };
 
   const handleNavigation = (viewId: string) => {
-    console.log(`🚀 [DEV] Navigating to: ${viewId}`);
 
     // Views that require authentication - set up mock data first
     const authRequiredViews = ['home', 'hub', 'assignments', 'account', 'profile', 'protection-assignment'];

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useApp } from '../../contexts/AppContext';
 import { Button } from '../UI/Button';
 // Removed AnimatedTitle import as we now use BrandText component
@@ -23,7 +23,6 @@ export function WelcomePage() {
 
   // Debug modal state changes
   useEffect(() => {
-    console.log('🛡️ WelcomePage: showSafeRideModal state changed to:', showSafeRideModal);
   }, [showSafeRideModal]);
   // Removed impact counter + rotating message specific states
 
@@ -45,7 +44,6 @@ export function WelcomePage() {
 
   // Development-only function to skip to dashboard with mock data
   const handleDevSkipToDashboard = () => {
-    console.log('🚀 [DEV] Skipping to dashboard with mock data');
     
     // Set up mock user
     const mockUser = {
@@ -270,7 +268,6 @@ export function WelcomePage() {
 
       {/* Safe Assignment Fund CTA */}
       <SafeAssignmentFundCTA onClick={() => {
-        console.log('🛡️ WelcomePage: SafeAssignmentFundCTA onClick handler called!');
         setShowSafeRideModal(true);
       }} />
 

@@ -1,4 +1,4 @@
-import React from 'react';
+import { FC } from 'react';
 import styles from './AchievementBanner.module.css';
 
 interface MiniAchievementProps {
@@ -6,7 +6,7 @@ interface MiniAchievementProps {
   onDismiss: () => void;
 }
 
-const MiniAchievement: React.FC<MiniAchievementProps> = ({ onExpand, onDismiss }) => {
+const MiniAchievement: FC<MiniAchievementProps> = ({ onExpand, onDismiss }) => {
   const handleClick = (e: React.MouseEvent) => {
     e.preventDefault();
     onExpand();

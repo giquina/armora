@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Button } from '../UI/Button';
 import { VenueSecurityStepData } from '../../types/venue';
 import styles from '../Questionnaire/QuestionnaireStep.module.css'; // Reuse existing styles

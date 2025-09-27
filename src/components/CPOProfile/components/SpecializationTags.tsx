@@ -1,4 +1,4 @@
-import React from 'react';
+import { FC } from 'react';
 import { Specialization } from '../../../types/cpo';
 import styles from '../styles/cpo-profile.module.css';
 
@@ -11,7 +11,7 @@ interface SpecializationTagsProps {
   compact?: boolean;
 }
 
-export const SpecializationTags: React.FC<SpecializationTagsProps> = ({
+export const SpecializationTags: FC<SpecializationTagsProps> = ({
   specializations,
   maxDisplay = 3,
   clickable = false,
@@ -166,7 +166,7 @@ export const SpecializationTags: React.FC<SpecializationTagsProps> = ({
 };
 
 // Filter component for specializations
-export const SpecializationFilter: React.FC<{
+export const SpecializationFilter: FC<{
   availableSpecializations: string[];
   selectedSpecializations: string[];
   onSelectionChange: (selected: string[]) => void;
@@ -247,7 +247,7 @@ export const SpecializationFilter: React.FC<{
 };
 
 // Individual specialization badge component
-export const SpecializationBadge: React.FC<{
+export const SpecializationBadge: FC<{
   specialization: Specialization;
   variant?: 'default' | 'outlined' | 'minimal';
   size?: 'small' | 'medium' | 'large';

@@ -1,4 +1,4 @@
-import React from 'react';
+import { StrictMode } from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
@@ -56,9 +56,9 @@ const root = ReactDOM.createRoot(
 );
 
 root.render(
-  <React.StrictMode>
+  <StrictMode>
     <App />
-  </React.StrictMode>
+  </StrictMode>
 );
 
 // Service worker registration removed to avoid stale cached chunks causing ChunkLoadError.
@@ -67,14 +67,12 @@ if ('serviceWorker' in navigator) {
   navigator.serviceWorker.getRegistrations().then(registrations => {
     registrations.forEach(r => r.unregister());
     if (registrations.length > 0) {
-      console.log('[SW] Unregistered existing service workers to prevent asset caching issues.');
     }
   }).catch(err => console.warn('[SW] Unregister failed:', err));
 
   // Clear runtime caches that may still hold old chunks
   if ('caches' in window) {
     caches.keys().then(keys => {
-      if (keys.length) console.log('[SW] Clearing caches:', keys);
       return Promise.all(keys.map(k => caches.delete(k)));
     }).catch(err => console.warn('[SW] Cache clear failed:', err));
   }

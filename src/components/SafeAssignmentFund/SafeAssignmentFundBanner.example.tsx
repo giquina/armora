@@ -1,12 +1,12 @@
 // Example usage of SafeRideFundBanner component
 // This file demonstrates how to integrate the banner into different parts of the app
 
-import React from 'react';
+import { FC } from 'react';
 import SafeAssignmentFundBanner from './SafeAssignmentFundBanner';
 import SafeAssignmentFundModal from './SafeAssignmentFundModal';
 
 // Example 1: Basic usage with modal integration
-export const BasicBannerExample: React.FC = () => {
+export const BasicBannerExample: FC = () => {
   const [showModal, setShowModal] = React.useState(false);
 
   return (
@@ -25,7 +25,7 @@ export const BasicBannerExample: React.FC = () => {
 };
 
 // Example 2: Compact banner for sidebars or smaller spaces
-export const CompactBannerExample: React.FC = () => {
+export const CompactBannerExample: FC = () => {
   return (
     <div style={{ width: '300px' }}>
       <SafeAssignmentFundBanner
@@ -37,7 +37,7 @@ export const CompactBannerExample: React.FC = () => {
 };
 
 // Example 3: Read-only banner without interaction
-export const ReadOnlyBannerExample: React.FC = () => {
+export const ReadOnlyBannerExample: FC = () => {
   return (
     <SafeAssignmentFundBanner
       variant="full"
@@ -47,7 +47,7 @@ export const ReadOnlyBannerExample: React.FC = () => {
 };
 
 // Example 4: Integration in WelcomePage (suggested placement)
-export const WelcomePageIntegration: React.FC = () => {
+export const WelcomePageIntegration: FC = () => {
   const [showModal, setShowModal] = React.useState(false);
 
   return (
@@ -70,7 +70,7 @@ export const WelcomePageIntegration: React.FC = () => {
 };
 
 // Example 5: Dashboard integration
-export const DashboardIntegration: React.FC = () => {
+export const DashboardIntegration: FC = () => {
   return (
     <div className="dashboard">
       <h1>Dashboard</h1>
@@ -78,7 +78,6 @@ export const DashboardIntegration: React.FC = () => {
       {/* Compact banner in dashboard */}
       <SafeAssignmentFundBanner
         variant="compact"
-        onBannerClick={() => console.log('Navigate to Safe Assignment Fund details')}
       />
       
       {/* Other dashboard content */}

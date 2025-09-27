@@ -1,14 +1,14 @@
-import React, { useEffect, useState, useMemo } from 'react';
+import { FC, ReactNode, useEffect, useState, useMemo } from 'react';
 import { getCurrentTheme, SeasonalTheme } from '../../utils/seasonalThemes';
 import styles from './SeasonalTheme.module.css';
 
 interface SeasonalThemeProps {
-  children?: React.ReactNode;
+  children?: ReactNode;
   className?: string;
   testMonth?: number; // For testing different months
 }
 
-const SeasonalThemeComponent: React.FC<SeasonalThemeProps> = ({ 
+const SeasonalThemeComponent: FC<SeasonalThemeProps> = ({ 
   children, 
   className = '',
   testMonth 

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { SecurityProtocols } from './SecurityProtocols';
 import { TeamExpertise } from './TeamExpertise';
 import { MediaCredibility } from './MediaCredibility';

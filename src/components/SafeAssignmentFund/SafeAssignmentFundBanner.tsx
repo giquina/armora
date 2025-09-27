@@ -1,7 +1,7 @@
 // SafeAssignmentFund Banner with CSS Marquee Animation
 // File: src/components/SafeAssignmentFund/SafeAssignmentFundBanner.tsx
 
-import React, { useState, useEffect, useRef } from 'react';
+import { FC, useState, useEffect, useRef } from 'react';
 import styles from './SafeAssignmentFundBanner.module.css';
 
 interface SafeAssignmentFundBannerProps {
@@ -10,7 +10,7 @@ interface SafeAssignmentFundBannerProps {
   onBannerClick?: () => void;
 }
 
-const SafeAssignmentFundBanner: React.FC<SafeAssignmentFundBannerProps> = ({ 
+const SafeAssignmentFundBanner: FC<SafeAssignmentFundBannerProps> = ({ 
   variant = 'full',
   className = '',
   onBannerClick 

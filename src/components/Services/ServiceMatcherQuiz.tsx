@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useApp } from '../../contexts/AppContext';
 import { SERVICES_DATA } from '../../data/servicesData';
 import styles from './ServiceMatcherQuiz.module.css';

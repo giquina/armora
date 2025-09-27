@@ -1,4 +1,4 @@
-import React from 'react';
+import { FC } from 'react';
 
 interface ProgressRingProps {
   percent: number;
@@ -8,7 +8,7 @@ interface ProgressRingProps {
   className?: string;
 }
 
-export const ProgressRing: React.FC<ProgressRingProps> = ({
+export const ProgressRing: FC<ProgressRingProps> = ({
   percent,
   color = '#FFD700',
   size = 40,

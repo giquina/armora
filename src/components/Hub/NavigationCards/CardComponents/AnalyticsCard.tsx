@@ -1,4 +1,4 @@
-import React from 'react';
+import { FC, memo } from 'react';
 import styles from '../NavigationCards.module.css';
 
 interface AnalyticsCardData {
@@ -21,7 +21,7 @@ interface AnalyticsCardProps {
   ariaControls?: string;
 }
 
-export const AnalyticsCard: React.FC<AnalyticsCardProps> = ({
+export const AnalyticsCard: FC<AnalyticsCardProps> = memo(({
   data,
   isActive,
   onClick,
@@ -30,8 +30,6 @@ export const AnalyticsCard: React.FC<AnalyticsCardProps> = ({
   ariaControls
 }) => {
   // With 1-per-row layout, we have full width to show all data
-  const showFullData = true;
-  const showVisuals = screenWidth >= 320;
 
   const getTrendColor = (trend: number) => {
     // For spending, negative is good (green), positive is bad (red)
@@ -145,7 +143,6 @@ export const AnalyticsCard: React.FC<AnalyticsCardProps> = ({
             className={styles.actionButton}
             onClick={(e) => {
               e.stopPropagation();
-              console.log('Optimize coverage');
             }}
           >
             <span className={styles.buttonIcon}>⚡</span>
@@ -155,7 +152,6 @@ export const AnalyticsCard: React.FC<AnalyticsCardProps> = ({
             className={styles.actionButton}
             onClick={(e) => {
               e.stopPropagation();
-              console.log('View full analytics');
             }}
           >
             <span className={styles.buttonIcon}>📊</span>
@@ -165,4 +161,4 @@ export const AnalyticsCard: React.FC<AnalyticsCardProps> = ({
       </div>
     </button>
   );
-};
+});

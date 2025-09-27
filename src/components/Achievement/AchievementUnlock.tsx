@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import { FC, useState, useEffect } from 'react';
 import { useApp } from '../../contexts/AppContext';
 import { AchievementUnlockProps, FirstServiceReward } from '../../types';
 import styles from './AchievementUnlock.module.css';
 
-const AchievementUnlock: React.FC<AchievementUnlockProps> = ({
+const AchievementUnlock: FC<AchievementUnlockProps> = ({
   userType,
   completedQuestionnaire,
   onContinueToDashboard,

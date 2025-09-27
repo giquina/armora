@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useApp } from '../../contexts/AppContext';
 import { QuestionnaireStep as QuestionnaireStepComponent } from './QuestionnaireStep';
 import { ProgressIndicator } from './ProgressIndicator';
@@ -116,7 +116,6 @@ export function QuestionnaireFlow({ onComplete }: QuestionnaireFlowProps) {
       // Mark user as having completed questionnaire if authenticated
       if (user && user.userType !== 'guest') {
         // In a real app, this would make an API call to update user profile
-        console.log('Marking user as completed questionnaire');
       }
 
       // Set completion state

@@ -1,4 +1,4 @@
-import React from 'react';
+import { ReactNode,  FC  } from 'react';
 
 type IconName =
   | 'shield'
@@ -18,7 +18,7 @@ interface IconProps extends React.SVGProps<SVGSVGElement> {
   title?: string;
 }
 
-const paths: Record<IconName, React.ReactNode> = {
+const paths: Record<IconName, ReactNode> = {
   shield: (
     <path d="M12 2l7 3v6c0 5-3.5 9.5-7 11-3.5-1.5-7-6-7-11V5l7-3z" fill="currentColor" />
   ),
@@ -76,7 +76,7 @@ const paths: Record<IconName, React.ReactNode> = {
   ),
 };
 
-export const Icon: React.FC<IconProps> = ({ name, size = 18, title, ...rest }) => (
+export const Icon: FC<IconProps> = ({ name, size = 18, title, ...rest }) => (
   <svg
     width={size}
     height={size}

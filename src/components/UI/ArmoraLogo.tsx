@@ -1,4 +1,4 @@
-import React from 'react';
+import { FC } from 'react';
 import { ARMORA_BRAND } from '../../styles/brandConstants';
 import styles from './ArmoraLogo.module.css';
 
@@ -12,7 +12,7 @@ export interface ArmoraLogoProps {
   textPosition?: 'below' | 'beside';
 }
 
-export const ArmoraLogo: React.FC<ArmoraLogoProps> = ({
+export const ArmoraLogo: FC<ArmoraLogoProps> = ({
   size = 'medium',
   variant = 'full',
   showOrbits = true,

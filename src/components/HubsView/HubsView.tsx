@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useCallback, useEffect } from 'react';
+import { useState, useMemo, useCallback, useEffect } from 'react';
 import { ProtectionHub, HubFilters } from './types';
 import { mockProtectionHubs } from './mockData';
 import { HubCard } from './HubCard';
@@ -88,9 +88,6 @@ export function HubsView() {
     if (hub.status === 'offline') return;
 
     setSelectedHub(hub);
-    console.log('🏢 Selected Protection Hub:', hub.name);
-    console.log('📍 Coverage:', hub.coverage);
-    console.log('👮 Officers Available:', hub.officers.available);
 
     // In a real app, this would:
     // 1. Store selected hub in context/localStorage

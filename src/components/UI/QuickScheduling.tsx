@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Button } from './Button';
 import { LoadingSpinner } from './LoadingSpinner';
 import styles from './QuickScheduling.module.css';
@@ -117,8 +117,8 @@ export function QuickScheduling({
     setSelectedPreset(presetId);
     setShowAdvancedCalendar(false);
 
-    // Analytics
-    console.log('[Analytics] Quick preset selected', {
+    // Analytics - tracking preset selection
+    console.log('Preset selected:', {
       presetId,
       service: selectedService,
       timestamp: Date.now()
@@ -219,20 +219,20 @@ export function QuickScheduling({
         <div className={styles.recentSection}>
           <h3 className={styles.sectionTitle}>Book Again</h3>
           <div className={styles.recentBookings}>
-            {userProfile.recentBookings.slice(0, 2).map((protection assignment, index) => (
+            {userProfile.recentBookings.slice(0, 2).map((assignment, index) => (
               <button
                 key={index}
                 className={styles.recentBooking}
                 onClick={() => {
-                  // Create datetime from recent protection assignment
-                  const bookingDateTime = new Date(`${protection assignment.date} ${protection assignment.time}`).toISOString();
-                  onScheduleConfirmed(bookingDateTime, `Same as last time - ${protection assignment.time}`);
+                  // Create datetime from recent assignment
+                  const bookingDateTime = new Date(`${assignment.date} ${assignment.time}`).toISOString();
+                  onScheduleConfirmed(bookingDateTime, `Same as last time - ${assignment.time}`);
                 }}
               >
                 <div className={styles.recentIcon}>🔄</div>
                 <div className={styles.recentContent}>
-                  <span className={styles.recentLabel}>Same as {protection assignment.date}</span>
-                  <span className={styles.recentTime}>{protection assignment.time}</span>
+                  <span className={styles.recentLabel}>Same as {assignment.date}</span>
+                  <span className={styles.recentTime}>{assignment.time}</span>
                 </div>
               </button>
             ))}

@@ -1,4 +1,4 @@
-import React from 'react';
+import { memo } from 'react';
 import { useApp } from '../../../contexts/AppContext';
 import styles from './QuickActions.module.css';
 
@@ -11,7 +11,7 @@ interface QuickAction {
   onClick: () => void;
 }
 
-export function QuickActions() {
+export const QuickActions = memo(function QuickActions() {
   const { navigateToView } = useApp();
 
   const handleAirportTransfer = () => {
@@ -103,4 +103,4 @@ export function QuickActions() {
       </div>
     </div>
   );
-}
+});

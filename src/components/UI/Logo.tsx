@@ -1,4 +1,3 @@
-import React from 'react';
 import { useApp } from '../../contexts/AppContext';
 import styles from './Logo.module.css';
 
@@ -63,7 +62,6 @@ export function Logo({
     if (!clickable) return;
     
     const secureDestination = getLogoDestination();
-    console.log(`🏛️ [LOGO NAVIGATION] Routing to: ${secureDestination} (User: ${state.user?.userType || 'unauthenticated'})`);
     navigateToView(secureDestination as any);
   };
 

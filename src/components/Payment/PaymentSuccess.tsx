@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { ProtectionAssignmentData, PaymentIntent } from '../../types';
 import { Button } from '../UI/Button';
 // Logo removed - keeping pages clean and focused
@@ -42,7 +42,6 @@ export function PaymentSuccess({
     }
 
     // Send confirmation analytics
-    console.log('[Analytics] Payment successful', {
       bookingId,
       amount: paymentIntent.amount,
       service: protectionAssignmentData.service.id,

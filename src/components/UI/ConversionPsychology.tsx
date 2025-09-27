@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { FC, useState, useEffect } from 'react';
 import styles from './ConversionPsychology.module.css';
 
 interface ConversionPsychologyProps {
@@ -7,7 +7,7 @@ interface ConversionPsychologyProps {
   className?: string;
 }
 
-const ConversionPsychology: React.FC<ConversionPsychologyProps> = ({ 
+const ConversionPsychology: FC<ConversionPsychologyProps> = ({ 
   userProfile = 'executive',
   stepNumber = 1,
   className 

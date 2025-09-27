@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import { FC, useState, useEffect, useMemo } from 'react';
 import { CPOProfile, CPOMatch, CPOSearchFilters, MatchingCriteria } from '../../types/cpo';
 import { CPOCard } from './CPOCard';
 import { SpecializationFilter } from './components/SpecializationTags';
@@ -19,7 +19,7 @@ interface CPOListViewProps {
 type SortOption = 'match_score' | 'rating' | 'experience' | 'response_time' | 'price';
 type ViewMode = 'grid' | 'list';
 
-export const CPOListView: React.FC<CPOListViewProps> = ({
+export const CPOListView: FC<CPOListViewProps> = ({
   cpos,
   matches = [],
   isLoading = false,

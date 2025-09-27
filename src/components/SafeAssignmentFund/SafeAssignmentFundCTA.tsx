@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import { FC, useState, useEffect } from 'react';
 import styles from './SafeAssignmentFundCTA.module.css';
 
 interface SafeAssignmentFundCTAProps {
   onClick: () => void;
 }
 
-const SafeAssignmentFundCTA: React.FC<SafeAssignmentFundCTAProps> = ({ onClick }) => {
+const SafeAssignmentFundCTA: FC<SafeAssignmentFundCTAProps> = ({ onClick }) => {
   const [hasViewedModal, setHasViewedModal] = useState(false);
 
   useEffect(() => {
@@ -13,11 +13,9 @@ const SafeAssignmentFundCTA: React.FC<SafeAssignmentFundCTAProps> = ({ onClick }
     if (viewed) {
       setHasViewedModal(true);
     }
-    console.log('🛡️ SafeRideFundCTA mounted, hasViewedModal:', !!viewed);
   }, []);
 
   const handleClick = () => {
-    console.log('🛡️ SafeRideFundCTA clicked! Opening modal...');
     onClick();
   };
 

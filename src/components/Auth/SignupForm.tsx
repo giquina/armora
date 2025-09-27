@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useApp } from '../../contexts/AppContext';
 import { Button } from '../UI/Button';
 // Logo removed - keeping auth pages clean and focused
@@ -201,8 +201,6 @@ export function SignupForm() {
 
   // Development-only bypass function
   const handleDevSkipSignup = () => {
-    console.log('🚀 [DEV] Starting signup bypass...');
-    console.log('🚀 [DEV] Current environment:', process.env.NODE_ENV);
     
     // Create mock user (WITHOUT completed questionnaire to allow normal flow)
     const mockUser = {
@@ -215,7 +213,6 @@ export function SignupForm() {
       hasUnlockedReward: false,
       createdAt: new Date()
     };
-    console.log('🚀 [DEV] Setting mock user:', mockUser);
     setUser(mockUser);
 
     // Create mock questionnaire data (same as WelcomePage skip)
@@ -241,18 +238,14 @@ export function SignupForm() {
       recommendedService: 'executive',
       conversionAttempts: 0
     };
-    console.log('🚀 [DEV] Setting questionnaire data:', mockQuestionnaireData);
     updateQuestionnaireData(mockQuestionnaireData);
 
     // Navigate to questionnaire (following normal signup flow)
-    console.log('🚀 [DEV] Navigating to questionnaire (normal flow)...');
     navigateToView('questionnaire');
-    console.log('🚀 [DEV] Navigation complete!');
   };
 
   // Development-only function to skip directly to dashboard
   const handleDevSkipToDashboard = () => {
-    console.log('🚀 [DEV] FULL SKIP - Going directly to dashboard...');
     
     // Create mock user WITH completed questionnaire
     const mockUser = {
@@ -265,7 +258,6 @@ export function SignupForm() {
       hasUnlockedReward: true,
       createdAt: new Date()
     };
-    console.log('🚀 [DEV] Setting dashboard-ready user:', mockUser);
     setUser(mockUser);
 
     // Create mock questionnaire data
@@ -291,13 +283,10 @@ export function SignupForm() {
       recommendedService: 'executive',
       conversionAttempts: 0
     };
-    console.log('🚀 [DEV] Setting complete questionnaire data:', mockQuestionnaireData);
     updateQuestionnaireData(mockQuestionnaireData);
 
     // Navigate directly to dashboard
-    console.log('🚀 [DEV] Navigating directly to dashboard...');
     navigateToView('home');
-    console.log('🚀 [DEV] Full skip complete!');
   };
 
   return (
@@ -549,7 +538,6 @@ export function SignupForm() {
                 onClick={(e) => {
                   e.preventDefault();
                   e.stopPropagation();
-                  console.log('🔴 DEV BUTTON - NORMAL FLOW!');
                   handleDevSkipSignup();
                 }}
                 className={styles.devSkipButton}
@@ -563,7 +551,6 @@ export function SignupForm() {
                 onClick={(e) => {
                   e.preventDefault();
                   e.stopPropagation();
-                  console.log('🔴 DEV BUTTON - FULL SKIP!');
                   handleDevSkipToDashboard();
                 }}
                 className={styles.devSkipButton}

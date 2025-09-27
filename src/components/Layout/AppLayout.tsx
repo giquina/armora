@@ -1,4 +1,4 @@
-import React, { ReactNode, useState } from 'react';
+import { ReactNode, useState } from 'react';
 import { useApp } from '../../contexts/AppContext';
 import { ArmoraLogo } from '../UI/ArmoraLogo';
 import { Footer } from '../Footer';
@@ -273,7 +273,6 @@ export function AppLayout({
                 } else {
                   // For demo purposes, let's show the panel anyway
                   setIsActiveProtectionOpen(true);
-                  console.log('No active protection - showing demo panel');
                 }
               }}
               aria-label="Active Protection"

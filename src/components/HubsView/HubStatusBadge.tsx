@@ -1,4 +1,3 @@
-import React from 'react';
 import styles from './hub-status-badge.module.css';
 
 interface HubStatusBadgeProps {

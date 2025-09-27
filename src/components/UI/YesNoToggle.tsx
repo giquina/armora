@@ -1,4 +1,4 @@
-import React from 'react';
+import { FC } from 'react';
 import styles from './YesNoToggle.module.css';
 
 interface YesNoToggleProps {
@@ -9,7 +9,7 @@ interface YesNoToggleProps {
   className?: string;
 }
 
-const YesNoToggle: React.FC<YesNoToggleProps> = ({
+const YesNoToggle: FC<YesNoToggleProps> = ({
   value,
   onChange,
   disabled = false,

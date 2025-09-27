@@ -1,11 +1,11 @@
-import React, { useEffect, useRef } from 'react';
+import { ReactNode, useEffect, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import styles from './ResponsiveModal.module.css';
 
 interface ResponsiveModalProps {
   isOpen: boolean;
   onClose: () => void;
-  children: React.ReactNode;
+  children: ReactNode;
   className?: string;
   showBackdrop?: boolean;
   closeOnBackdropClick?: boolean;

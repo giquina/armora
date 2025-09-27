@@ -59,7 +59,6 @@ export async function runIntegrationTests(): Promise<IntegrationTestSuite> {
 
   const startTime = Date.now();
 
-  console.log('🚀 Starting Armora Protection Service Integration Tests...\n');
 
   // Test 1: Database Connection
   await runTest(suite, 'Database Connection', testDatabaseConnection);
@@ -95,8 +94,6 @@ export async function runIntegrationTests(): Promise<IntegrationTestSuite> {
   suite.duration = Date.now() - startTime;
   suite.summary = `Integration Tests ${suite.passedTests === suite.totalTests ? '✅ PASSED' : '❌ FAILED'}: ${suite.passedTests}/${suite.totalTests} tests passed in ${suite.duration}ms`;
 
-  console.log(`\n${suite.summary}`);
-  console.log(`🎯 Integration test suite completed\n`);
 
   return suite;
 }
@@ -110,7 +107,6 @@ async function runTest(
   testFunction: () => Promise<IntegrationTestResult>
 ): Promise<void> {
   suite.totalTests++;
-  console.log(`🧪 Running: ${testName}`);
 
   try {
     const result = await testFunction();
@@ -118,12 +114,9 @@ async function runTest(
 
     if (result.success) {
       suite.passedTests++;
-      console.log(`   ✅ ${result.message} (${result.duration}ms)`);
     } else {
       suite.failedTests++;
-      console.log(`   ❌ ${result.message} (${result.duration}ms)`);
       if (result.error) {
-        console.log(`   📋 Error: ${result.error}`);
       }
     }
 
@@ -138,10 +131,8 @@ async function runTest(
       error: error.message,
     };
     suite.results.push(failedResult);
-    console.log(`   ❌ Test execution failed: ${error.message}`);
   }
 
-  console.log('');
 }
 
 /**
@@ -740,25 +731,20 @@ async function testTerminologyCompliance(): Promise<IntegrationTestResult> {
  */
 export async function quickHealthCheck(): Promise<boolean> {
   try {
-    console.log('🏥 Running quick health check...');
 
     // Test database connection
     const { error } = await supabase.from('profiles').select('count').limit(1);
     if (error) {
-      console.log('❌ Database connection failed');
       return false;
     }
 
     // Test data existence
     const { data: officers } = await getProtectionOfficers();
     if (!officers || officers.length === 0) {
-      console.log('⚠️ No protection officers found - database may need sample data');
     }
 
-    console.log('✅ Health check passed');
     return true;
   } catch (error) {
-    console.log('❌ Health check failed:', error);
     return false;
   }
 }

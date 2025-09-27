@@ -1,11 +1,11 @@
-import React from 'react';
+import { FC } from 'react';
 
 interface GoogleIconProps {
   size?: number;
   className?: string;
 }
 
-const GoogleIcon: React.FC<GoogleIconProps> = ({ size = 20, className = '' }) => {
+const GoogleIcon: FC<GoogleIconProps> = ({ size = 20, className = '' }) => {
   return (
     <svg 
       viewBox="0 0 24 24" 

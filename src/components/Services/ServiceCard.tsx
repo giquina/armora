@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { memo, useState } from 'react';
 import { useApp } from '../../contexts/AppContext';
 import { getDynamicCaseStudies } from '../../data/servicesData';
 import styles from './ServiceCard.module.css';
@@ -62,7 +62,7 @@ interface ServiceCardProps {
   expandedService?: string | null;
 }
 
-export function ServiceCard({
+export const ServiceCard = memo(function ServiceCard({
   service,
   isRecommended = false,
   onExpand,
@@ -93,7 +93,6 @@ export function ServiceCard({
 
   const handleCompare = () => {
     // Service comparison implementation placeholder
-    console.log('Compare service:', service.id);
   };
 
   // getPersonalizedMessage removed as unused
@@ -267,4 +266,4 @@ export function ServiceCard({
       </button>
     </div>
   );
-}
+});

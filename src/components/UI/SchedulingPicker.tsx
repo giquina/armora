@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { DatePicker } from './DatePicker';
 import { TimePicker } from './TimePicker';
 import styles from './SchedulingPicker.module.css';
@@ -93,7 +93,6 @@ export function SchedulingPicker({
       setSelectedTime(earliest);
       const combined = combineDateTime(selectedDate, earliest);
       onDateTimeChange(combined);
-      console.log('[Analytics] Auto-selected earliest time', { earliest, date: selectedDate.toISOString() });
     }
   }, [autoSelectEarliestTime, selectedDate, selectedTime, onDateTimeChange]);
 

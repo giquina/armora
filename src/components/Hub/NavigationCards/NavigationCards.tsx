@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import { FC, useState, useEffect, useCallback, useMemo } from 'react';
 import { CurrentCard } from './CardComponents/CurrentCard';
 import { UpcomingCard } from './CardComponents/UpcomingCard';
 import { CompletedCard } from './CardComponents/CompletedCard';
@@ -39,7 +39,7 @@ interface NavigationCardsProps {
   completedAssignments: Assignment[];
 }
 
-export const NavigationCards: React.FC<NavigationCardsProps> = ({
+export const NavigationCards: FC<NavigationCardsProps> = ({
   activeSection,
   setActiveSection,
   assignmentCounts,
@@ -57,65 +57,70 @@ export const NavigationCards: React.FC<NavigationCardsProps> = ({
 
   // No longer needed - individual cards handle their own display logic
 
-  // Current assignment data - use real assignment if available
-  const currentAssignment = currentAssignments[0];
-  const currentData = currentAssignment ? {
-    status: "Protection Detail Active",
-    timeRemaining: currentAssignment.duration,
-    officerName: currentAssignment.officerName,
-    officerStatus: "online" as const,
-    currentLocation: currentAssignment.location.start,
-    serviceTier: currentAssignment.serviceTier,
-    runningFare: `£${currentAssignment.totalCost}`,
-    progressPercent: 75,
-    eta: currentAssignment.time,
-    count: assignmentCounts.current,
-    // Add real assignment details for display
-    assignmentData: currentAssignment
-  } : {
-    status: "No Active Protection",
-    timeRemaining: "0 minutes",
-    officerName: "No Officer Assigned",
-    officerStatus: "offline" as const,
-    currentLocation: "No Location",
-    serviceTier: "Essential" as const,
-    runningFare: "£0",
-    progressPercent: 0,
-    eta: "N/A",
-    count: 0,
-    assignmentData: null
-  };
+  // Memoized current assignment data - use real assignment if available
+  const currentData = useMemo(() => {
+    const currentAssignment = currentAssignments[0];
+    return currentAssignment ? {
+      status: "Protection Detail Active",
+      timeRemaining: currentAssignment.duration,
+      officerName: currentAssignment.officerName,
+      officerStatus: "online" as const,
+      currentLocation: currentAssignment.location.start,
+      serviceTier: currentAssignment.serviceTier,
+      runningFare: `£${currentAssignment.totalCost}`,
+      progressPercent: 75,
+      eta: currentAssignment.time,
+      count: assignmentCounts.current,
+      // Add real assignment details for display
+      assignmentData: currentAssignment
+    } : {
+      status: "No Active Protection",
+      timeRemaining: "0 minutes",
+      officerName: "No Officer Assigned",
+      officerStatus: "offline" as const,
+      currentLocation: "No Location",
+      serviceTier: "Essential" as const,
+      runningFare: "£0",
+      progressPercent: 0,
+      eta: "N/A",
+      count: 0,
+      assignmentData: null
+    };
+  }, [currentAssignments, assignmentCounts.current]);
 
-  // Upcoming assignment data - use real assignment if available
-  const upcomingAssignment = upcomingAssignments[0];
-  const upcomingData = upcomingAssignment ? {
-    nextAssignment: `${upcomingAssignment.date} ${upcomingAssignment.time}`,
-    countdown: "18h 45m", // Calculate based on assignment date/time
-    officerAssigned: upcomingAssignment.officerName,
-    dayOfWeek: new Date(upcomingAssignment.date).toLocaleDateString('en-US', { weekday: 'long' }),
-    totalScheduled: upcomingAssignments.length,
-    duration: upcomingAssignment.duration,
-    favoriteTimeSlot: true,
-    miniCalendar: [2, 4, 5], // Booked days in next 7 days
-    weather: "☀️",
-    count: assignmentCounts.upcoming,
-    // Add real assignment details for display
-    assignmentData: upcomingAssignment
-  } : {
-    nextAssignment: "No upcoming assignments",
-    countdown: "N/A",
-    officerAssigned: "No Officer Assigned",
-    dayOfWeek: "N/A",
-    totalScheduled: 0,
-    duration: "No assignments scheduled",
-    favoriteTimeSlot: false,
-    miniCalendar: [],
-    weather: "☀️",
-    count: 0,
-    assignmentData: null
-  };
+  // Memoized upcoming assignment data - use real assignment if available
+  const upcomingData = useMemo(() => {
+    const upcomingAssignment = upcomingAssignments[0];
+    return upcomingAssignment ? {
+      nextAssignment: `${upcomingAssignment.date} ${upcomingAssignment.time}`,
+      countdown: "18h 45m", // Calculate based on assignment date/time
+      officerAssigned: upcomingAssignment.officerName,
+      dayOfWeek: new Date(upcomingAssignment.date).toLocaleDateString('en-US', { weekday: 'long' }),
+      totalScheduled: upcomingAssignments.length,
+      duration: upcomingAssignment.duration,
+      favoriteTimeSlot: true,
+      miniCalendar: [2, 4, 5], // Booked days in next 7 days
+      weather: "☀️",
+      count: assignmentCounts.upcoming,
+      // Add real assignment details for display
+      assignmentData: upcomingAssignment
+    } : {
+      nextAssignment: "No upcoming assignments",
+      countdown: "N/A",
+      officerAssigned: "No Officer Assigned",
+      dayOfWeek: "N/A",
+      totalScheduled: 0,
+      duration: "No assignments scheduled",
+      favoriteTimeSlot: false,
+      miniCalendar: [],
+      weather: "☀️",
+      count: 0,
+      assignmentData: null
+    };
+  }, [upcomingAssignments, assignmentCounts.upcoming]);
 
-  const completedData = {
+  // Memoized completed data
+  const completedData = useMemo(() => ({
     monthLabel: "This Month",
     totalCompleted: 3,
     averageRating: 4.9,
@@ -127,9 +132,10 @@ export const NavigationCards: React.FC<NavigationCardsProps> = ({
     monthProgress: 15, // Added missing monthProgress property
     savedThisMonth: "£125", // Added missing savedThisMonth property
     count: assignmentCounts.completed
-  };
+  }), [assignmentCounts.completed]);
 
-  const analyticsData = {
+  // Memoized analytics data
+  const analyticsData = useMemo(() => ({
     monthlySpend: 2450,
     spendTrend: -18, // percentage vs last month
     sparklineData: [2200, 2100, 2300, 2250, 2400, 2300, 2450], // last 7 data points
@@ -139,7 +145,7 @@ export const NavigationCards: React.FC<NavigationCardsProps> = ({
     lastUpdated: "2 hours ago",
     hasNewReport: true,
     savingsAchieved: 245 // Added missing savingsAchieved property
-  };
+  }), []);
 
   // Keyboard navigation across tabs
   const onKeyDown = useCallback((e: React.KeyboardEvent<HTMLDivElement>) => {
@@ -179,7 +185,7 @@ export const NavigationCards: React.FC<NavigationCardsProps> = ({
       <CurrentCard
         data={currentData}
         isActive={activeSection === 'current'}
-        onClick={() => setActiveSection('current')}
+        onClick={useCallback(() => setActiveSection('current'), [setActiveSection])}
         screenWidth={screenWidth}
         tabId="tab-current"
         ariaControls="panel-current"
@@ -188,7 +194,7 @@ export const NavigationCards: React.FC<NavigationCardsProps> = ({
       <UpcomingCard
         data={upcomingData}
         isActive={activeSection === 'upcoming'}
-        onClick={() => setActiveSection('upcoming')}
+        onClick={useCallback(() => setActiveSection('upcoming'), [setActiveSection])}
         screenWidth={screenWidth}
         tabId="tab-upcoming"
         ariaControls="panel-upcoming"
@@ -197,7 +203,7 @@ export const NavigationCards: React.FC<NavigationCardsProps> = ({
       <CompletedCard
         data={completedData}
         isActive={activeSection === 'completed'}
-        onClick={() => setActiveSection('completed')}
+        onClick={useCallback(() => setActiveSection('completed'), [setActiveSection])}
         screenWidth={screenWidth}
         tabId="tab-completed"
         ariaControls="panel-completed"
@@ -206,7 +212,7 @@ export const NavigationCards: React.FC<NavigationCardsProps> = ({
       <AnalyticsCard
         data={analyticsData}
         isActive={activeSection === 'analytics'}
-        onClick={() => setActiveSection('analytics')}
+        onClick={useCallback(() => setActiveSection('analytics'), [setActiveSection])}
         screenWidth={screenWidth}
         tabId="tab-analytics"
         ariaControls="panel-analytics"

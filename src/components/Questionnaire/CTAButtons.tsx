@@ -1,4 +1,3 @@
-import React from 'react';
 import styles from './CTAButtons.module.css';
 import { Icon } from '../UI/Icon';
 

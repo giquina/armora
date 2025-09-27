@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useApp } from '../../contexts/AppContext';
 import styles from './AccountView.module.css';
 
@@ -174,13 +174,11 @@ export function AccountView() {
 
   const handleSignOut = () => {
     // Sign out implementation placeholder
-    console.log('Sign out');
     navigateToView('welcome');
   };
 
   const handleDeleteAccount = () => {
     // Account deletion implementation placeholder
-    console.log('Delete account');
   };
 
   const getSecurityScoreColor = (score: number) => {

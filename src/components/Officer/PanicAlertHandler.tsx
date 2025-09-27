@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { PanicAlert } from '../../types';
 import styles from './PanicAlertHandler.module.css';
 
@@ -66,7 +66,6 @@ export function PanicAlertHandler({ className }: PanicAlertHandlerProps) {
         }
       }
 
-      console.log('🚨 PANIC ALERT RECEIVED (CPO APP):', alert);
     };
 
     // Listen for custom panic alert events
@@ -151,10 +150,8 @@ export function PanicAlertHandler({ className }: PanicAlertHandlerProps) {
     };
 
     // In production, would send acknowledgment to server
-    console.log('🚨 PANIC ALERT ACKNOWLEDGED:', acknowledgedAlert);
 
     // Analytics
-    console.log('[Analytics] Panic alert acknowledged', {
       alertId: activeAlert.id,
       responseTime: countdown,
       timestamp: Date.now()
@@ -174,10 +171,8 @@ export function PanicAlertHandler({ className }: PanicAlertHandlerProps) {
       responseTime: new Date().toISOString()
     };
 
-    console.log('📞 CALLING CLIENT:', respondedAlert);
 
     // Analytics
-    console.log('[Analytics] Client call initiated', {
       alertId: activeAlert.id,
       clientPhone: activeAlert.clientPhone,
       timestamp: Date.now()
@@ -194,7 +189,6 @@ export function PanicAlertHandler({ className }: PanicAlertHandlerProps) {
     window.open(mapsUrl, '_blank');
 
     // Analytics
-    console.log('[Analytics] Navigation to client started', {
       alertId: activeAlert.id,
       location: activeAlert.location,
       timestamp: Date.now()
@@ -211,13 +205,11 @@ export function PanicAlertHandler({ className }: PanicAlertHandlerProps) {
       escalationTime: new Date().toISOString()
     };
 
-    console.log('🚨 ALERT ESCALATED - NO ACKNOWLEDGMENT:', escalatedAlert);
 
     // In production, would notify dispatch center
     alert('ALERT ESCALATED: No response from assigned officer. Notifying dispatch center.');
 
     // Analytics
-    console.log('[Analytics] Panic alert escalated', {
       alertId: activeAlert.id,
       reason: 'no_acknowledgment',
       timestamp: Date.now()
@@ -238,7 +230,6 @@ export function PanicAlertHandler({ className }: PanicAlertHandlerProps) {
     setIsAcknowledged(false);
     setCountdown(30);
 
-    console.log('[Analytics] Panic alert dismissed by officer');
   }, [activeAlert, isAcknowledged, alertSound]);
 
   // Don't render if no active alert

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { useApp } from '../../contexts/AppContext';
 import { AssignmentHistoryManager } from '../../utils/assignmentHistory';
 import { ProtectionAssignmentData } from '../../types';
@@ -26,7 +26,6 @@ export function AssignmentSuccess({ assignmentId, onClose }: AssignmentSuccessPr
           const randomDriver = driverNames[Math.floor(Math.random() * driverNames.length)];
 
           AssignmentHistoryManager.saveAssignmentToHistory(protectionAssignmentData, assignmentId, randomDriver);
-          console.log('✅ Assignment saved to history:', assignmentId);
         }
       }
     } catch (error) {

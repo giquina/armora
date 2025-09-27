@@ -1,4 +1,3 @@
-import React from 'react';
 import styles from './ProfileSummary.module.css';
 
 interface ProfileSummaryProps {

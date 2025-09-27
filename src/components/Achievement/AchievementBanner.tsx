@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useCallback } from 'react';
+import { FC, useState, useEffect, useRef, useCallback } from 'react';
 import styles from './AchievementBanner.module.css';
 import MiniAchievement from './MiniAchievement';
 import Confetti from './Confetti';
@@ -12,7 +12,7 @@ interface AchievementBannerProps {
   userName?: string;
 }
 
-const AchievementBanner: React.FC<AchievementBannerProps> = ({
+const AchievementBanner: FC<AchievementBannerProps> = ({
   isVisible,
   onClaim,
   onDismiss,
