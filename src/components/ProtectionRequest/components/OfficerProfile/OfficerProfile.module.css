@@ -48,13 +48,16 @@
   margin: 0;
   padding: 0;
   list-style: none;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 6px 16px; /* row gap, column gap */
 }
 
 .equipmentItem {
   display: flex;
   align-items: flex-start;
   gap: 8px;
-  padding: 6px 0;
+  padding: 4px 0; /* slightly tighter for compactness */
   font-size: 14px;
   color: #374151;
   line-height: 1.4;
@@ -95,9 +98,9 @@
 }
 
 .processSteps {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px 16px;
 }
 
 .processStep {
@@ -188,5 +191,13 @@
 @media (min-width: 768px) {
   .qualificationGrid {
     grid-template-columns: 1fr 1fr;
+  }
+
+  .equipmentList {
+    grid-template-columns: 1fr 1fr; /* two per row */
+  }
+
+  .processSteps {
+    grid-template-columns: 1fr 1fr; /* two per row */
   }
 }
