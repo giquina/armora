@@ -28,6 +28,12 @@
   padding: 20px;
 }
 
+.sectionRow {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+}
+
 .section {
   margin-bottom: 28px;
 }
@@ -66,6 +72,12 @@
 .bullet {
   color: #6b7280;
   flex-shrink: 0;
+}
+
+.equipmentIcon {
+  font-size: 16px;
+  flex-shrink: 0;
+  line-height: 1.2;
 }
 
 .qualificationGrid {
@@ -199,5 +211,17 @@
 
   .processSteps {
     grid-template-columns: 1fr 1fr; /* two per row */
+  }
+
+  .sectionRow {
+    grid-template-columns: 1fr 1fr; /* Equipment | Qualifications side-by-side */
+    align-items: start;
+  }
+}
+
+/* Desktop and up */
+@media (min-width: 1024px) {
+  .qualificationGrid {
+    grid-template-columns: 1fr 1fr 1fr; /* three per row for compactness */
   }
 }

@@ -117,6 +117,20 @@ interface OfficerProfileProps {
 export function OfficerProfile({ selectedService }: OfficerProfileProps) {
   const profile = OFFICER_PROFILES[selectedService || 'essential'] || OFFICER_PROFILES.essential;
 
+  const getEquipmentIcon = (item: string) => {
+    const t = item.toLowerCase();
+    if (t.includes('id') || t.includes('badge') || t.includes('reference')) return '🪪';
+    if (t.includes('suit') || t.includes('attire') || t.includes('professional')) return '🕴️';
+    if (t.includes('radio') || t.includes('comms') || t.includes('communication')) return '📻';
+    if (t.includes('first aid')) return '⛑️';
+    if (t.includes('threat') || t.includes('detection') || t.includes('counter')) return '🛰️';
+    if (t.includes('secure') || t.includes('encrypted')) return '🔒';
+    if (t.includes('emergency')) return '🚨';
+    if (t.includes('navigation')) return '🧭';
+    if (t.includes('driver') || t.includes('vehicle')) return '🚗';
+    return '🛡️';
+  };
+
   return (
     <div className={styles.container}>
       <div className={styles.header}>
@@ -125,29 +139,31 @@ export function OfficerProfile({ selectedService }: OfficerProfileProps) {
       </div>
 
       <div className={styles.content}>
-        {/* Equipment Section */}
-        <div className={styles.section}>
-          <h3 className={styles.sectionTitle}>Will Arrive With:</h3>
-          <ul className={styles.equipmentList}>
-            {profile.equipment.map((item, index) => (
-              <li key={index} className={styles.equipmentItem}>
-                <span className={styles.bullet}>•</span>
-                {item}
-              </li>
-            ))}
-          </ul>
-        </div>
+        <div className={styles.sectionRow}>
+          {/* Equipment Section */}
+          <div className={styles.section}>
+            <h3 className={styles.sectionTitle}>Will Arrive With:</h3>
+            <ul className={styles.equipmentList}>
+              {profile.equipment.map((item, index) => (
+                <li key={index} className={styles.equipmentItem}>
+                  <span className={styles.equipmentIcon}>{getEquipmentIcon(item)}</span>
+                  {item}
+                </li>
+              ))}
+            </ul>
+          </div>
 
-        {/* Qualifications Section */}
-        <div className={styles.section}>
-          <h3 className={styles.sectionTitle}>Qualifications:</h3>
-          <div className={styles.qualificationGrid}>
-            {profile.qualifications.map((qual, index) => (
-              <div key={index} className={styles.qualificationItem}>
-                <span className={styles.checkIcon}>✓</span>
-                <span className={styles.qualificationText}>{qual}</span>
-              </div>
-            ))}
+          {/* Qualifications Section */}
+          <div className={styles.section}>
+            <h3 className={styles.sectionTitle}>Qualifications:</h3>
+            <div className={styles.qualificationGrid}>
+              {profile.qualifications.map((qual, index) => (
+                <div key={index} className={styles.qualificationItem}>
+                  <span className={styles.checkIcon}>✓</span>
+                  <span className={styles.qualificationText}>{qual}</span>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
 
