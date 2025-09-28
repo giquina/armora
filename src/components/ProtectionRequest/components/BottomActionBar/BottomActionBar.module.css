@@ -725,15 +725,14 @@
 /* Responsive Design - Tablet */
 @media (min-width: 768px) {
   .bottomActionBar {
-    position: relative;
-    width: auto;
-    border-radius: 0 0 var(--radius-lg, 12px) var(--radius-lg, 12px);
-    border-left: 1px solid var(--border-light, #e2e8f0);
-    border-right: 1px solid var(--border-light, #e2e8f0);
-    border-bottom: 1px solid var(--border-light, #e2e8f0);
-    max-width: var(--max-content-width, 680px);
-    margin: 0 auto;
-    box-shadow: var(--shadow-md, 0 4px 6px rgba(0, 0, 0, 0.1));
+    /* Keep fixed position on larger screens to always stay visible */
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100vw;
+    /* Optional: use a slightly stronger shadow on larger screens */
+    box-shadow: 0 -6px 20px rgba(0, 0, 0, 0.12);
   }
 
   .pricingSummary {
@@ -895,9 +894,7 @@
 }
 
 /* Minimized State */
-.bottomActionBar.minimized {
-  /* Reduced height when minimized */
-}
+/* .bottomActionBar.minimized state is handled by nested rules below */
 
 .pricingSummary.hidden {
   display: none;
