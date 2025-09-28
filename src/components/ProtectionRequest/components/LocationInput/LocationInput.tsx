@@ -38,6 +38,8 @@ export const LocationInput: React.FC<LocationInputProps> = ({
   const inputRef = useRef<HTMLInputElement>(null);
   const pickupInputRef = useRef<HTMLInputElement>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const fullAddrRef = useRef<HTMLDivElement>(null);
+  const [showFullAddress, setShowFullAddress] = useState(false);
 
   // Close dropdown on outside click
   useEffect(() => {
@@ -46,10 +48,12 @@ export const LocationInput: React.FC<LocationInputProps> = ({
         dropdownRef.current &&
         !dropdownRef.current.contains(event.target as Node) &&
         !inputRef.current?.contains(event.target as Node) &&
-        !pickupInputRef.current?.contains(event.target as Node)
+        !pickupInputRef.current?.contains(event.target as Node) &&
+        (!fullAddrRef.current || !fullAddrRef.current.contains(event.target as Node))
       ) {
         setIsOpen(false);
         setIsPickupOpen(false);
+        setShowFullAddress(false);
       }
     };
 
@@ -222,8 +226,42 @@ export const LocationInput: React.FC<LocationInputProps> = ({
             readOnly={isPickupDetected && !isPickupEditable}
             title={isPickupDetected && (pickupSearchQuery || pickupLocation) ? (pickupSearchQuery || pickupLocation) : undefined}
           />
-          {isPickupDetected && !isPickupEditable && (
-            <span className={styles.detectedBadge} aria-label="Auto-detected address">Auto‑detected</span>
+          {showFullAddress && (
+            <div
+              ref={fullAddrRef}
+              className={styles.fullAddressPopover}
+              role="dialog"
+              aria-modal="false"
+              aria-label="Full commencement address"
+            >
+              <div className={styles.fullAddressHeader}>
+                <span>Commencement address</span>
+                <button
+                  type="button"
+                  className={styles.closePopover}
+                  aria-label="Close"
+                  onClick={() => setShowFullAddress(false)}
+                >
+                  ×
+                </button>
+              </div>
+              <div className={styles.fullAddressBody}>{pickupSearchQuery || pickupLocation}</div>
+              <div className={styles.fullAddressActions}>
+                <button
+                  type="button"
+                  className={styles.copyButton}
+                  onClick={async () => {
+                    try {
+                      await navigator.clipboard.writeText(pickupSearchQuery || pickupLocation);
+                    } catch (_) {
+                      /* ignore */
+                    }
+                  }}
+                >
+                  Copy
+                </button>
+              </div>
+            </div>
           )}
           {isDetecting && (
             <div className={styles.inputIcon} aria-label="Detecting current location">
@@ -246,6 +284,18 @@ export const LocationInput: React.FC<LocationInputProps> = ({
             >
               Edit
             </button>
+          )}
+          {isPickupDetected && !isPickupEditable && (
+            <div className={styles.metaRow}>
+              <span className={styles.detectedBadge} aria-label="Auto-detected address">Auto‑detected</span>
+              <button
+                type="button"
+                className={styles.viewFullLink}
+                onClick={() => setShowFullAddress(true)}
+              >
+                View full address
+              </button>
+            </div>
           )}
         </div>
       </div>

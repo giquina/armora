@@ -136,12 +136,9 @@
   transform: translateY(-50%) scale(0.98);
 }
 
-/* Auto-detected badge */
+/* Auto-detected badge (inline in meta row) */
 .detectedBadge {
-  position: absolute;
-  left: var(--space-4, 16px);
-  bottom: -18px;
-  font-size: 11px;
+  font-size: 12px;
   color: #64748b;
 }
 
@@ -401,6 +398,90 @@
   color: #111827;
   line-height: 1.4;
   font-weight: 600;
+}
+
+/* Meta row under input for detected state */
+.metaRow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 6px;
+}
+
+.viewFullLink {
+  appearance: none;
+  background: transparent;
+  border: 0;
+  padding: 0;
+  font-size: 12px;
+  color: var(--accent-primary, #FFD700);
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.viewFullLink:hover {
+  text-decoration: none;
+}
+
+/* Full address popover */
+.fullAddressPopover {
+  position: absolute;
+  z-index: var(--z-popover, 1020);
+  left: 0;
+  right: 0;
+  top: calc(100% + 8px);
+  background: var(--bg-elevated, #ffffff);
+  border: 1px solid var(--border-light, #e2e8f0);
+  box-shadow: var(--shadow-lg, 0 10px 15px rgba(0, 0, 0, 0.1));
+  border-radius: var(--radius-lg, 12px);
+  padding: 12px;
+}
+
+.fullAddressHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-weight: 700;
+  font-size: 14px;
+  margin-bottom: 8px;
+  color: var(--text-primary, #1a1a2e);
+}
+
+.closePopover {
+  appearance: none;
+  background: transparent;
+  border: 0;
+  font-size: 18px;
+  line-height: 1;
+  color: var(--text-secondary, #4a5568);
+  cursor: pointer;
+}
+
+.fullAddressBody {
+  font-size: 14px;
+  color: var(--text-primary, #1a1a2e);
+  margin-bottom: 10px;
+}
+
+.fullAddressActions {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.copyButton {
+  appearance: none;
+  background: var(--accent-primary, #FFD700);
+  color: #1a1a2e;
+  border: 0;
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.copyButton:hover {
+  filter: brightness(0.95);
 }
 
 /* Input Groups */
