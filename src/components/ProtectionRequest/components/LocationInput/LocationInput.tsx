@@ -218,9 +218,13 @@ export const LocationInput: React.FC<LocationInputProps> = ({
             onFocus={handlePickupFocus}
             onBlur={handleBlur}
             placeholder={isDetecting ? 'Detecting your current location…' : 'Protection commencement point'}
-            className={styles.input}
+            className={`${styles.input} ${isPickupDetected && !isPickupEditable ? styles.inputReadOnly : ''}`}
             readOnly={isPickupDetected && !isPickupEditable}
+            title={isPickupDetected && (pickupSearchQuery || pickupLocation) ? (pickupSearchQuery || pickupLocation) : undefined}
           />
+          {isPickupDetected && !isPickupEditable && (
+            <span className={styles.detectedBadge} aria-label="Auto-detected address">Auto‑detected</span>
+          )}
           {isDetecting && (
             <div className={styles.inputIcon} aria-label="Detecting current location">
               <div className={styles.spinner}>
