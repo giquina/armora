@@ -18,6 +18,23 @@ interface LocationInputProps {
   className?: string;
 }
 
+// Helper function to parse address into two lines
+const parseAddressLines = (address: string): { primary: string; secondary: string } => {
+  if (!address) return { primary: '', secondary: '' };
+
+  const parts = address.split(',').map(part => part.trim());
+
+  if (parts.length <= 2) {
+    return { primary: parts[0] || '', secondary: parts[1] || '' };
+  }
+
+  // For longer addresses, take first part as primary, combine rest as secondary
+  const primary = parts[0];
+  const secondary = parts.slice(1, 3).join(', '); // Take next 2 parts for secondary
+
+  return { primary, secondary };
+};
+
 export const LocationInput: React.FC<LocationInputProps> = ({
   value,
   onChange,

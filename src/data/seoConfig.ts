@@ -16,7 +16,7 @@ export const SEO_CONFIG = {
       title: 'Protection Services | Essential, Executive & Shadow Protection',
       description: 'Choose from Essential Protection (£65/h), Executive Shield (£95/h), or Shadow Protocol (£125/h). All SIA licensed protection officers.'
     },
-    protection assignment: {
+    'protection-assignment': {
       title: 'Book Protection Officers | 24/7 Security Detail Services',
       description: 'Request protection services with 2-hour minimum bookings. Immediate availability for security assignments across the UK.'
     },

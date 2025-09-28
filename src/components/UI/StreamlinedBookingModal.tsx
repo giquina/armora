@@ -96,11 +96,6 @@ export function StreamlinedBookingModal({
       };
 
       setCurrentLocation(location);
-        accuracy,
-        service: selectedService.id,
-        timestamp: Date.now()
-      });
-
     } catch (error: any) {
       let errorMessage = 'Unable to get current location. ';
 
@@ -118,12 +113,11 @@ export function StreamlinedBookingModal({
           errorMessage += 'Please enter Commencement Point address manually.';
       }
 
-      setErrors(prev => ({ ...prev, general: errorMessage }));
       console.warn('[Location] Error getting current location:', error);
     } finally {
       setIsLoadingLocation(false);
     }
-  }, [selectedService.id]);
+  }, []);
 
   const calculateRouteEstimate = useCallback(async () => {
     if (!commencementLocation || !destinationLocation) return;
@@ -152,15 +146,6 @@ export function StreamlinedBookingModal({
         duration,
         cost
       });
-
-        service: selectedService.id,
-        distance,
-        duration,
-        cost,
-        hasDiscount,
-        timestamp: Date.now()
-      });
-
     } catch (error) {
       setErrors(prev => ({
         ...prev,
@@ -189,18 +174,11 @@ export function StreamlinedBookingModal({
   const handlePickupLocationSelect = useCallback((location: Location) => {
     setPickupLocation(location);
     setErrors(prev => ({ ...prev, commencementPoint: undefined }));
-      address: location.address,
-      method: location.address.includes('Current Location') ? 'gps' : 'manual',
-      timestamp: Date.now()
-    });
   }, []);
 
   const handleDestinationLocationSelect = useCallback((location: Location) => {
     setDestinationLocation(location);
     setErrors(prev => ({ ...prev, secureDestination: undefined }));
-      address: location.address,
-      timestamp: Date.now()
-    });
   }, []);
 
   const useCurrentLocationForPickup = () => {

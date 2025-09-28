@@ -306,12 +306,6 @@ export function SmartLocationInput({
     setSearchQuery(suggestion.address);
     setShowSuggestions(false);
     setHasFocus(false);
-
-      type,
-      suggestionType: suggestion.type,
-      address: suggestion.address,
-      timestamp: Date.now()
-    });
   };
 
   // Handle input change
@@ -320,9 +314,7 @@ export function SmartLocationInput({
     setSearchQuery(query);
 
     // Clear selection if user is typing new query
-    if (value && query !== value.address) {
-      // Don't clear immediately to allow editing
-    }
+    // Don't clear immediately to allow editing
   };
 
   const getSuggestionIcon = (type: LocationSuggestion['type']) => {

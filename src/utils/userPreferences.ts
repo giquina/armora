@@ -84,10 +84,6 @@ class UserPreferencesService {
       const current = this.getPreferences();
       const updated = { ...current, ...preferences };
       localStorage.setItem(this.STORAGE_KEY, JSON.stringify(updated));
-
-        updatedFields: Object.keys(preferences),
-        timestamp: new Date().toISOString()
-      });
     } catch (error) {
       console.error('[Preferences] Error saving preferences:', error);
     }
@@ -176,8 +172,8 @@ class UserPreferencesService {
     if (preferences.bookingHistory.length < 3) return;
 
     const recentBookings = preferences.bookingHistory.slice(0, 10);
-    const serviceCounts = recentBookings.reduce((counts, protection assignment) => {
-      counts[protection assignment.serviceTier] = (counts[protection assignment.serviceTier] || 0) + 1;
+    const serviceCounts = recentBookings.reduce((counts, assignment) => {
+      counts[assignment.serviceTier] = (counts[assignment.serviceTier] || 0) + 1;
       return counts;
     }, {} as Record<string, number>);
 
@@ -247,9 +243,9 @@ class UserPreferencesService {
     const recentBookings = preferences.bookingHistory.slice(0, 20);
 
     // Determine if business user based on protection assignment patterns
-    const businessHours = recentBookings.filter(protection assignment => {
+    const businessHours = recentBookings.filter(assignment => {
       try {
-        const date = new Date(protection assignment.timestamp);
+        const date = new Date(assignment.timestamp);
         const hour = date.getHours();
         const dayOfWeek = date.getDay();
         return dayOfWeek >= 1 && dayOfWeek <= 5 && hour >= 8 && hour <= 18;
