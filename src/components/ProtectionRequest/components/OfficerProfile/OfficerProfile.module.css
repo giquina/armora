@@ -224,4 +224,7 @@
   .qualificationGrid {
     grid-template-columns: 1fr 1fr 1fr; /* three per row for compactness */
   }
+  .processSteps {
+    grid-template-columns: 1fr 1fr 1fr; /* three per row on desktop */
+  }
 }
