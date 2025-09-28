@@ -32,6 +32,9 @@ export const LocationInput: React.FC<LocationInputProps> = ({
   const [searchQuery, setSearchQuery] = useState('');
   const [pickupSearchQuery, setPickupSearchQuery] = useState('');
   const [activeField, setActiveField] = useState<'pickup' | 'destination'>('pickup');
+  const [isDetecting, setIsDetecting] = useState(false);
+  const [isPickupDetected, setIsPickupDetected] = useState(false);
+  const [isPickupEditable, setIsPickupEditable] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
   const pickupInputRef = useRef<HTMLInputElement>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -105,10 +108,69 @@ export const LocationInput: React.FC<LocationInputProps> = ({
     }
   }, [activeField, onChange, onPickupChange, onLocationSelect]);
 
-  // Use current location handler
-  const handleUseCurrentLocation = useCallback(() => {
-    handleLocationSelect('Current Location');
-  }, [handleLocationSelect]);
+  // Auto-detect current location on mount if pickup is empty
+  useEffect(() => {
+    let isCancelled = false;
+    const shouldDetect = !pickupLocation || pickupLocation.trim().length === 0;
+
+    async function reverseGeocode(lat: number, lon: number): Promise<string | null> {
+      try {
+        const params = new URLSearchParams({ format: 'jsonv2', lat: String(lat), lon: String(lon) });
+        const resp = await fetch(`https://nominatim.openstreetmap.org/reverse?${params.toString()}`, {
+          headers: {
+            'Accept': 'application/json',
+            // Identify application politely per Nominatim usage policy
+            'User-Agent': 'armora-security-app/0.1 (contact: support@armora.local)'
+          }
+        });
+        if (!resp.ok) return null;
+        const data = await resp.json();
+        const display = data?.display_name as string | undefined;
+        return display || null;
+      } catch (_) {
+        return null;
+      }
+    }
+
+    async function detect() {
+      if (!shouldDetect || !onPickupChange) return;
+      if (!('geolocation' in navigator)) return;
+      try {
+        setIsDetecting(true);
+        await new Promise<void>((resolve, reject) => {
+          navigator.geolocation.getCurrentPosition(
+            () => resolve(),
+            (err) => {
+              // Permission denied or other error
+              reject(err);
+            },
+            { enableHighAccuracy: true, timeout: 8000, maximumAge: 60000 }
+          );
+        });
+
+        navigator.geolocation.getCurrentPosition(async (pos) => {
+          if (isCancelled) return;
+          const { latitude, longitude } = pos.coords;
+          const address = await reverseGeocode(latitude, longitude);
+          const fallback = `${latitude.toFixed(5)}, ${longitude.toFixed(5)}`;
+          const detected = address || fallback;
+          setIsPickupDetected(true);
+          setIsPickupEditable(false);
+          setPickupSearchQuery(detected);
+          onPickupChange(detected);
+          setIsDetecting(false);
+        }, () => {
+          if (isCancelled) return;
+          setIsDetecting(false);
+        }, { enableHighAccuracy: true, timeout: 8000, maximumAge: 60000 });
+      } catch {
+        setIsDetecting(false);
+      }
+    }
+
+    detect();
+    return () => { isCancelled = true; };
+  }, [pickupLocation, onPickupChange]);
 
   // Handle blur for both inputs
   const handleBlur = useCallback(() => {
@@ -140,31 +202,47 @@ export const LocationInput: React.FC<LocationInputProps> = ({
         </div>
         <div className={styles.securityItem}>
           <span className={styles.securityIcon}>📍</span>
-          <span className={styles.securityText}>Used only to match you with nearest CPO</span>
+          <span className={styles.securityText}>Used only to assign nearest protection officer</span>
         </div>
       </div>
 
       {/* Pickup Location */}
       <div className={styles.inputGroup}>
-        <h3 className={styles.inputLabel}>📍 Where should your CPO collect you?</h3>
+        <h3 className={styles.inputLabel}>📍 Where does your protection begin?</h3>
         <div className={styles.inputWrapper}>
           <input
             ref={pickupInputRef}
             type="text"
-            value={pickupSearchQuery || pickupLocation}
+            value={isPickupEditable ? (pickupSearchQuery || pickupLocation) : (pickupSearchQuery || pickupLocation)}
             onChange={handlePickupChange}
             onFocus={handlePickupFocus}
             onBlur={handleBlur}
-            placeholder="Enter pick-up address..."
+            placeholder={isDetecting ? 'Detecting your current location…' : 'Protection commencement point'}
             className={styles.input}
+            readOnly={isPickupDetected && !isPickupEditable}
           />
-          <button
-            className={styles.currentLocationButton}
-            onClick={handleUseCurrentLocation}
-            type="button"
-          >
-            📍 Use current location
-          </button>
+          {isDetecting && (
+            <div className={styles.inputIcon} aria-label="Detecting current location">
+              <div className={styles.spinner}>
+                <svg className={styles.spinnerSvg} viewBox="0 0 24 24">
+                  <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeDasharray="32" strokeDashoffset="32" />
+                </svg>
+              </div>
+            </div>
+          )}
+          {isPickupDetected && !isPickupEditable && (
+            <button
+              className={styles.editButton}
+              type="button"
+              onClick={() => {
+                setIsPickupEditable(true);
+                setTimeout(() => pickupInputRef.current?.focus(), 0);
+              }}
+              aria-label="Edit commencement address"
+            >
+              Edit
+            </button>
+          )}
         </div>
       </div>
 
@@ -179,7 +257,7 @@ export const LocationInput: React.FC<LocationInputProps> = ({
             onChange={handleDestinationChange}
             onFocus={handleDestinationFocus}
             onBlur={handleBlur}
-            placeholder="Enter destination address..."
+            placeholder="Secure destination"
             className={styles.input}
           />
         </div>

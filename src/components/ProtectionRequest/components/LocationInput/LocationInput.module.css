@@ -51,7 +51,7 @@
   width: 100%;
   height: var(--touch-large, 56px);
   padding: var(--space-4, 16px);
-  padding-right: var(--space-12, 48px); /* Space for icon */
+  padding-right: calc(var(--space-12, 48px) + 64px); /* Space for icon and edit button */
   background: var(--bg-elevated, #ffffff);
   border: 2px solid var(--border-medium, #cbd5e0);
   border-radius: var(--radius-lg, 12px);
@@ -99,6 +99,34 @@
   justify-content: center;
   width: 24px;
   height: 24px;
+}
+
+/* Inline Edit Button inside input */
+.editButton {
+  position: absolute;
+  right: calc(var(--space-4, 16px) + 28px);
+  top: 50%;
+  transform: translateY(-50%);
+  height: 36px; /* ≥44px touch target via padding */
+  padding: 0 12px;
+  border-radius: 8px;
+  border: 1px solid var(--border-light, #e2e8f0);
+  background: var(--bg-secondary, #f7fafc);
+  color: var(--text-primary, #1a1a2e);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 150ms ease;
+}
+
+.editButton:hover {
+  background: var(--accent-primary, #FFD700);
+  color: #1a1a2e;
+  border-color: var(--accent-primary, #FFD700);
+}
+
+.editButton:active {
+  transform: translateY(-50%) scale(0.98);
 }
 
 /* Spinner Animation */
