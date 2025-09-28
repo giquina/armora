@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import React from 'react';
 import { Button } from './Button';
 import CredentialIcons from './CredentialIcons';
 import styles from './CredentialsModal.module.css';

@@ -1,0 +1,525 @@
+/* Threat Indicators Component - Phase 1 Mobile-First Design */
+
+.container {
+  width: 100%;
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 0 18px;
+  box-sizing: border-box;
+  background: transparent;
+}
+
+/* Question Container */
+.questionContainer {
+  width: 100%;
+  background: rgba(26, 26, 46, 0.9);
+  border-radius: 16px;
+  border: 1px solid rgba(255, 215, 0, 0.2);
+  overflow: hidden;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+/* Progress Section */
+.progressSection {
+  padding: 20px 24px;
+  background: rgba(26, 26, 46, 0.95);
+  border-bottom: 1px solid rgba(255, 215, 0, 0.2);
+}
+
+.progressHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.stepIndicator {
+  font-size: 0.9rem;
+  color: #e0e0e0;
+  font-weight: 500;
+}
+
+.currentRiskBadge {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.progressBar {
+  width: 100%;
+  height: 6px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.progressFill {
+  height: 100%;
+  background: linear-gradient(90deg, #FFD700, #FFA500);
+  border-radius: 3px;
+  transition: width 0.3s ease;
+}
+
+/* Question Card */
+.questionCard {
+  padding: 28px;
+  background: rgba(26, 26, 46, 0.8);
+  transition: all 0.3s ease;
+}
+
+.questionCard.animating {
+  opacity: 0.7;
+  transform: scale(0.98);
+}
+
+.questionHeader {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.questionIcon {
+  font-size: 2rem;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+}
+
+.questionTitle {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: #FFD700;
+  margin: 0;
+}
+
+.questionContent {
+  margin-bottom: 32px;
+}
+
+.questionText {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #e0e0e0;
+  margin: 0 0 12px 0;
+  line-height: 1.4;
+}
+
+.questionDescription {
+  font-size: 1rem;
+  color: #b0b0b0;
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* Answer Buttons */
+.answerSection {
+  margin-bottom: 32px;
+}
+
+.answerButtons {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.answerButton {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 20px;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  border-radius: 12px;
+  background: rgba(26, 26, 46, 0.6);
+  color: #e0e0e0;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  min-height: 80px;
+  position: relative;
+  overflow: hidden;
+}
+
+.answerButton:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+}
+
+.answerButton.selected {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(255, 215, 0, 0.3);
+}
+
+.yesButton.selected {
+  background: rgba(76, 175, 80, 0.2);
+  border-color: #4CAF50;
+  color: #4CAF50;
+}
+
+.noButton.selected {
+  background: rgba(244, 67, 54, 0.2);
+  border-color: #f44336;
+  color: #f44336;
+}
+
+.answerIcon {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.answerText {
+  font-size: 1rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* Navigation Section */
+.navigationSection {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.navButton {
+  background: rgba(255, 215, 0, 0.1);
+  border: 1px solid rgba(255, 215, 0, 0.3);
+  color: #FFD700;
+  padding: 10px 16px;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.navButton:hover {
+  background: rgba(255, 215, 0, 0.2);
+  border-color: rgba(255, 215, 0, 0.5);
+}
+
+.confidentialityNote {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #b0b0b0;
+  font-size: 0.85rem;
+  font-style: italic;
+}
+
+.lockIcon {
+  font-size: 1rem;
+}
+
+/* Risk Assessment Container */
+.assessmentContainer {
+  width: 100%;
+  background: rgba(26, 26, 46, 0.9);
+  border-radius: 16px;
+  border: 1px solid rgba(255, 215, 0, 0.2);
+  padding: 28px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+.assessmentHeader {
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.assessmentTitle {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #FFD700;
+  margin: 0 0 16px 0;
+}
+
+.riskBadge {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 12px 20px;
+  border-radius: 12px;
+  border: 2px solid;
+  font-weight: 600;
+}
+
+.assessmentDetails {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  margin-bottom: 32px;
+}
+
+.assessmentDescription h3,
+.recommendedService h3,
+.nextSteps h3 {
+  font-size: 1.1rem;
+  color: #FFD700;
+  margin: 0 0 12px 0;
+  font-weight: 600;
+}
+
+.assessmentDescription p {
+  color: #e0e0e0;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.serviceRecommendation {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px;
+  background: rgba(255, 215, 0, 0.1);
+  border: 1px solid rgba(255, 215, 0, 0.3);
+  border-radius: 12px;
+}
+
+.serviceIcon {
+  font-size: 1.5rem;
+}
+
+.serviceName {
+  font-size: 1.1rem;
+  color: #FFD700;
+  font-weight: 600;
+}
+
+.stepsList {
+  margin: 0;
+  padding-left: 20px;
+  color: #e0e0e0;
+}
+
+.stepsList li {
+  margin-bottom: 8px;
+  line-height: 1.4;
+}
+
+.assessmentActions {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+}
+
+.primaryButton,
+.secondaryButton {
+  padding: 14px 24px;
+  border-radius: 12px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: 2px solid;
+  min-width: 140px;
+}
+
+.primaryButton {
+  background: #FFD700;
+  color: #1a1a2e;
+  border-color: #FFD700;
+}
+
+.primaryButton:hover {
+  background: #FFA500;
+  border-color: #FFA500;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(255, 215, 0, 0.3);
+}
+
+.secondaryButton {
+  background: transparent;
+  color: #FFD700;
+  border-color: rgba(255, 215, 0, 0.5);
+}
+
+.secondaryButton:hover {
+  background: rgba(255, 215, 0, 0.1);
+  border-color: #FFD700;
+}
+
+/* Risk Level Colors */
+.riskGreen {
+  background: rgba(76, 175, 80, 0.2);
+  border-color: #4CAF50;
+  color: #4CAF50;
+}
+
+.riskYellow {
+  background: rgba(255, 193, 7, 0.2);
+  border-color: #ffc107;
+  color: #ffc107;
+}
+
+.riskOrange {
+  background: rgba(255, 152, 0, 0.2);
+  border-color: #ff9800;
+  color: #ff9800;
+}
+
+.riskRed {
+  background: rgba(244, 67, 54, 0.2);
+  border-color: #f44336;
+  color: #f44336;
+}
+
+.riskLevel {
+  font-size: 1rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.riskScore {
+  font-size: 0.85rem;
+  opacity: 0.9;
+}
+
+/* Mobile Responsive Design */
+@media (max-width: 767px) {
+  .container {
+    padding: 0 12px;
+  }
+
+  .questionContainer {
+    border-radius: 12px;
+  }
+
+  .progressSection {
+    padding: 16px 20px;
+  }
+
+  .questionCard {
+    padding: 20px;
+  }
+
+  .questionText {
+    font-size: 1.1rem;
+  }
+
+  .questionDescription {
+    font-size: 0.95rem;
+  }
+
+  .answerButtons {
+    gap: 12px;
+  }
+
+  .answerButton {
+    padding: 16px;
+    min-height: 70px;
+  }
+
+  .assessmentContainer {
+    padding: 20px;
+  }
+
+  .assessmentActions {
+    flex-direction: column;
+  }
+
+  .primaryButton,
+  .secondaryButton {
+    width: 100%;
+  }
+
+  .confidentialityNote {
+    font-size: 0.8rem;
+    text-align: center;
+  }
+}
+
+/* Tablet Responsive (768px+) */
+@media (min-width: 768px) {
+  .container {
+    padding: 0 24px;
+  }
+
+  .assessmentDetails {
+    flex-direction: row;
+    gap: 32px;
+  }
+
+  .assessmentDescription,
+  .recommendedService,
+  .nextSteps {
+    flex: 1;
+  }
+
+  .assessmentActions {
+    flex-direction: row;
+  }
+}
+
+/* Desktop Responsive (1024px+) */
+@media (min-width: 1024px) {
+  .questionCard {
+    padding: 32px;
+  }
+
+  .questionText {
+    font-size: 1.3rem;
+  }
+
+  .questionDescription {
+    font-size: 1.05rem;
+  }
+
+  .answerButtons {
+    gap: 20px;
+  }
+
+  .answerButton {
+    padding: 24px;
+    min-height: 90px;
+  }
+
+  .assessmentContainer {
+    padding: 32px;
+  }
+}
+
+/* Large Desktop (1200px+) */
+@media (min-width: 1200px) {
+  .container {
+    max-width: 800px;
+  }
+}
+
+/* Touch Target Optimization */
+@media (hover: none) and (pointer: coarse) {
+  .answerButton {
+    min-height: 88px;
+    padding: 20px;
+  }
+
+  .navButton {
+    min-height: 44px;
+    padding: 12px 20px;
+  }
+
+  .primaryButton,
+  .secondaryButton {
+    min-height: 48px;
+    padding: 16px 24px;
+  }
+}
+
+/* Horizontal Scroll Prevention */
+* {
+  box-sizing: border-box;
+}
+
+.container,
+.questionContainer,
+.assessmentContainer {
+  max-width: 100%;
+  overflow-x: hidden;
+}

@@ -97,6 +97,7 @@ export function MembershipBar() {
     localStorage.setItem('armora_conversion_timestamp', Date.now().toString());
 
     // Analytics
+    console.log('Membership bar trial started', {
       source: 'top_membership_bar',
       memberCount,
       timeLeft,
@@ -113,6 +114,7 @@ export function MembershipBar() {
     localStorage.setItem('armora_membership_bar_dismiss_time', Date.now().toString());
 
     // Analytics
+    console.log('Membership bar dismissed', {
       timeLeft,
       memberCount,
       timestamp: Date.now()

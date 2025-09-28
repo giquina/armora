@@ -1,0 +1,275 @@
+/* MODERN HEADER - MOBILE-FIRST STICKY DESIGN */
+/* Edge-to-edge header with high contrast and proper touch targets */
+
+.modernHeader {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: #ffffff; /* Clean white background */
+  border-bottom: 1px solid #e2e8f0;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  width: 100%;
+  /* Safe area support for modern devices */
+  padding-top: env(safe-area-inset-top);
+}
+
+/* Action Bar - Back button, progress, close button */
+.actionBar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  min-height: 56px;
+}
+
+/* Back Button */
+.backButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--touch-comfortable, 48px);
+  height: var(--touch-comfortable, 48px);
+  background: transparent;
+  border: none;
+  border-radius: var(--radius-full, 9999px);
+  color: var(--text-primary, #1a1a2e);
+  cursor: pointer;
+  transition: all var(--duration-fast, 150ms) var(--ease-out, cubic-bezier(0, 0, 0.2, 1));
+
+  /* Remove tap highlight on mobile */
+  -webkit-tap-highlight-color: transparent;
+}
+
+.backButton:hover {
+  background: var(--bg-secondary, #f7fafc);
+  transform: scale(1.05);
+}
+
+.backButton:active {
+  background: var(--border-light, #e2e8f0);
+  transform: scale(0.95);
+}
+
+/* Close Button */
+.closeButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--touch-comfortable, 48px);
+  height: var(--touch-comfortable, 48px);
+  background: transparent;
+  border: none;
+  border-radius: var(--radius-full, 9999px);
+  color: var(--text-secondary, #4a5568);
+  cursor: pointer;
+  transition: all var(--duration-fast, 150ms) var(--ease-out, cubic-bezier(0, 0, 0.2, 1));
+
+  /* Remove tap highlight on mobile */
+  -webkit-tap-highlight-color: transparent;
+}
+
+.closeButton:hover {
+  background: var(--bg-secondary, #f7fafc);
+  color: var(--text-primary, #1a1a2e);
+  transform: scale(1.05);
+}
+
+.closeButton:active {
+  background: var(--border-light, #e2e8f0);
+  transform: scale(0.95);
+}
+
+/* Progress Indicator */
+.progressContainer {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: var(--space-3, 12px);
+  margin: 0 var(--space-4, 16px);
+}
+
+.progressBar {
+  flex: 1;
+  height: 4px;
+  background: var(--border-light, #e2e8f0);
+  border-radius: var(--radius-full, 9999px);
+  overflow: hidden;
+}
+
+.progressFill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--accent-primary, #FFD700), var(--accent-hover, #e6c200));
+  border-radius: var(--radius-full, 9999px);
+  transition: width var(--duration-normal, 200ms) var(--ease-out, cubic-bezier(0, 0, 0.2, 1));
+
+  /* Add subtle animation */
+  position: relative;
+}
+
+.progressFill::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+.progressText {
+  font-size: var(--text-sm, 14px);
+  font-weight: var(--font-medium, 500);
+  color: var(--text-secondary, #4a5568);
+  white-space: nowrap;
+  min-width: fit-content;
+}
+
+/* Title Section */
+.titleSection {
+  padding: 8px 16px 16px;
+  text-align: center;
+}
+
+.title {
+  font-size: var(--text-2xl, 24px);
+  font-weight: var(--font-bold, 700);
+  line-height: var(--leading-tight, 1.2);
+  color: var(--text-primary, #1a1a2e);
+  margin: 0 0 var(--space-1, 4px) 0;
+
+  /* Prevent text from being too wide on mobile */
+  max-width: 100%;
+  word-wrap: break-word;
+}
+
+.subtitle {
+  font-size: var(--text-base, 16px);
+  font-weight: var(--font-normal, 400);
+  line-height: var(--leading-normal, 1.5);
+  color: var(--text-secondary, #4a5568);
+  margin: 0;
+
+  /* Prevent text from being too wide on mobile */
+  max-width: 100%;
+  word-wrap: break-word;
+}
+
+/* Responsive Design - Tablet and Desktop */
+@media (min-width: 768px) {
+  .modernHeader {
+    /* Contained width on larger screens */
+    width: auto;
+    margin-left: 0;
+    max-width: var(--max-content-width, 680px);
+    margin: 0 auto;
+    border-radius: var(--radius-lg, 12px) var(--radius-lg, 12px) 0 0;
+    border-left: 1px solid var(--border-light, #e2e8f0);
+    border-right: 1px solid var(--border-light, #e2e8f0);
+  }
+
+  .actionBar {
+    padding: var(--space-4, 16px) var(--space-6, 24px);
+  }
+
+  .titleSection {
+    padding: var(--space-3, 12px) var(--space-6, 24px) var(--space-5, 20px);
+  }
+
+  .title {
+    font-size: var(--text-3xl, 30px);
+  }
+
+  .subtitle {
+    font-size: var(--text-lg, 18px);
+  }
+}
+
+/* Desktop specific styles */
+@media (min-width: 1024px) {
+  .modernHeader {
+    position: relative; /* Not sticky on desktop */
+    top: auto;
+  }
+
+  .actionBar {
+    padding: var(--space-5, 20px) var(--space-8, 32px);
+  }
+
+  .titleSection {
+    padding: var(--space-4, 16px) var(--space-8, 32px) var(--space-6, 24px);
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .modernHeader {
+    border-bottom: 2px solid var(--text-primary, #1a1a2e);
+  }
+
+  .backButton,
+  .closeButton {
+    border: 1px solid var(--border-medium, #cbd5e0);
+  }
+
+  .progressBar {
+    border: 1px solid var(--border-dark, #a0aec0);
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .backButton,
+  .closeButton,
+  .progressFill {
+    transition: none;
+  }
+
+  .progressFill::after {
+    animation: none;
+  }
+}
+
+/* Focus states for accessibility */
+.backButton:focus,
+.closeButton:focus {
+  outline: 2px solid var(--accent-primary, #FFD700);
+  outline-offset: 2px;
+}
+
+/* Dark mode support (if implemented) */
+@media (prefers-color-scheme: dark) {
+  .modernHeader {
+    background: var(--bg-primary, #1a1a2e);
+    border-bottom-color: var(--border-dark, #4a5568);
+  }
+
+  .title {
+    color: var(--text-inverse, #ffffff);
+  }
+
+  .subtitle,
+  .progressText {
+    color: var(--text-secondary, #a0aec0);
+  }
+
+  .backButton,
+  .closeButton {
+    color: var(--text-inverse, #ffffff);
+  }
+
+  .backButton:hover,
+  .closeButton:hover {
+    background: rgba(255, 255, 255, 0.1);
+  }
+
+  .progressBar {
+    background: rgba(255, 255, 255, 0.2);
+  }
+}

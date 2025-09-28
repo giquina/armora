@@ -85,7 +85,7 @@ export const SmartRecommendation: FC<SmartRecommendationProps> = memo(({
     return () => {
       delete (window as any).updateArmoraAssignmentHistory;
     };
-  }, []);
+  }, [updateAssignmentHistory]);
 
   // recommendedService and displayType are now computed above with useMemo
 

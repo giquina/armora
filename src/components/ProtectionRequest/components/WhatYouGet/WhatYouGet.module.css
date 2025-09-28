@@ -1,0 +1,174 @@
+.container {
+  background: #ffffff;
+  border: 2px solid #e5e7eb;
+  border-radius: 12px;
+  overflow: hidden;
+  margin-bottom: 24px;
+}
+
+.header {
+  background: #f9fafb;
+  padding: 20px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.title {
+  font-size: 20px;
+  font-weight: 700;
+  color: #000000;
+  margin: 0 0 8px 0;
+}
+
+.subtitle {
+  font-size: 16px;
+  color: #374151;
+  margin: 0;
+}
+
+.content {
+  padding: 20px;
+}
+
+.section {
+  margin-bottom: 32px;
+}
+
+.section:last-child {
+  margin-bottom: 0;
+}
+
+.sectionTitle {
+  font-size: 14px;
+  font-weight: 700;
+  color: #000000;
+  text-transform: uppercase;
+  margin: 0 0 16px 0;
+}
+
+.timeline {
+  position: relative;
+  padding-left: 24px;
+}
+
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 9px;
+  top: 20px;
+  bottom: 20px;
+  width: 2px;
+  background: #e5e7eb;
+}
+
+.timelineItem {
+  display: grid;
+  grid-template-columns: 60px auto 1fr;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+  position: relative;
+}
+
+.timelineItem:last-child {
+  margin-bottom: 0;
+}
+
+.timelineTime {
+  font-size: 12px;
+  font-weight: 600;
+  color: #6b7280;
+  text-align: right;
+  justify-self: end;
+}
+
+.timelineDot {
+  width: 12px;
+  height: 12px;
+  background: #059669;
+  border-radius: 50%;
+  position: absolute;
+  left: -18px;
+  z-index: 1;
+}
+
+.timelineAction {
+  font-size: 14px;
+  color: #374151;
+  line-height: 1.4;
+}
+
+.includedList {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.includedItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 8px 0;
+  font-size: 14px;
+  color: #374151;
+  line-height: 1.5;
+}
+
+.includedCheck {
+  font-size: 16px;
+  color: #059669;
+  font-weight: 700;
+  flex-shrink: 0;
+  margin-top: -2px;
+}
+
+.exampleSection {
+  background: #f0fdf4;
+  padding: 16px;
+  border-radius: 8px;
+  border: 1px solid #bbf7d0;
+}
+
+.exampleTitle {
+  font-size: 12px;
+  font-weight: 700;
+  color: #059669;
+  text-transform: uppercase;
+  margin: 0 0 8px 0;
+}
+
+.exampleText {
+  font-size: 14px;
+  color: #374151;
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* Mobile optimizations */
+@media (max-width: 480px) {
+  .header {
+    padding: 16px;
+  }
+
+  .content {
+    padding: 16px;
+  }
+
+  .timelineItem {
+    grid-template-columns: 50px auto 1fr;
+    gap: 8px;
+  }
+
+  .timeline {
+    padding-left: 20px;
+  }
+
+  .timeline::before {
+    left: 7px;
+  }
+
+  .timelineDot {
+    left: -20px;
+    width: 10px;
+    height: 10px;
+  }
+}

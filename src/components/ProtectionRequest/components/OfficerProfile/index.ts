@@ -1,0 +1,1 @@
+export { OfficerProfile } from './OfficerProfile';

@@ -1,0 +1,390 @@
+/* TIME SELECTION - ARMORA BRAND COLORS & CLEAN BUTTON STRIP DESIGN */
+/* Clean button strip with navy/gold brand colors, no box-within-box effects */
+
+.timeSelection {
+  width: 100%;
+  background: transparent; /* No background card */
+  padding: 0;
+  margin-bottom: 24px;
+}
+
+.sectionHeader {
+  text-align: left;
+  padding: 0 0 16px 0;
+  margin: 0;
+}
+
+.sectionTitle {
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 1.2;
+  color: #1a2332; /* Armora Navy */
+  margin: 0;
+}
+
+/* BUTTON STRIP LAYOUT */
+.timeButtonStrip {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* 2x2 grid on mobile */
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+/* TIME BUTTONS WITH BRAND COLORS */
+.timeButton {
+  background: #FFFFFF; /* White background */
+  border: 1px solid #e5e7eb; /* Light gray border */
+  border-radius: 8px;
+  padding: 16px 12px;
+  cursor: pointer;
+  transition: all 200ms ease;
+  text-align: center;
+  width: 100%;
+  min-height: 44px; /* Minimum touch target */
+
+  /* Remove button styling */
+  appearance: none;
+  -webkit-appearance: none;
+  -webkit-tap-highlight-color: transparent;
+
+  /* Flexbox for content alignment */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+}
+
+/* HOVER STATE */
+.timeButton:hover {
+  background: rgba(201, 169, 97, 0.1); /* Light gold tint */
+  border-color: #c9a961; /* Gold border */
+  transform: none; /* No lift effect */
+}
+
+/* SELECTED STATE - NAVY WITH GOLD ACCENTS */
+.timeButton.selected {
+  background: #1a2332; /* Navy background */
+  border: 2px solid #c9a961; /* Gold border */
+  color: #FFFFFF; /* White text */
+  box-shadow: none; /* Clean, no shadows */
+}
+
+.timeButton:focus {
+  outline: 2px solid #c9a961;
+  outline-offset: 2px;
+}
+
+.timeButton:active {
+  transform: scale(0.98);
+}
+
+/* BUTTON CONTENT */
+.buttonContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  width: 100%;
+}
+
+.buttonHeader {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  position: relative;
+}
+
+.buttonIcon {
+  font-size: 16px;
+  width: 18px;
+  height: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.buttonLabel {
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.2;
+  color: #1a2332; /* Navy text */
+}
+
+.timeButton.selected .buttonLabel {
+  color: #FFFFFF; /* White text when selected */
+}
+
+/* TIME DISPLAY */
+.timeDisplay {
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1;
+  color: #6b7280; /* Dark gray */
+  margin-top: 2px;
+}
+
+.timeButton.selected .timeDisplay {
+  color: #c9a961; /* Gold when selected */
+}
+
+/* FASTEST INDICATOR - SMALL GOLD DOT */
+.fastestIndicator {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  width: 8px;
+  height: 8px;
+  background: #c9a961; /* Gold dot */
+  border-radius: 50%;
+  border: 2px solid #FFFFFF;
+}
+
+.timeButton.selected .fastestIndicator {
+  border-color: #1a2332; /* Navy border when selected */
+}
+
+/* CONFIRMATION MESSAGE */
+.confirmationMessage {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 16px;
+  background: rgba(201, 169, 97, 0.05); /* Very light gold background */
+  border: 1px solid rgba(201, 169, 97, 0.2);
+  border-radius: 8px;
+  margin-top: 16px;
+}
+
+.checkIcon {
+  font-size: 16px;
+  font-weight: bold;
+  color: #c9a961; /* Gold checkmark */
+  flex-shrink: 0;
+}
+
+.confirmationText {
+  font-size: 14px;
+  font-weight: 500;
+  color: #1a2332; /* Navy text */
+  line-height: 1.4;
+}
+
+/* SCHEDULE PICKER - KEEPS EXISTING STYLING */
+.schedulePicker {
+  margin-top: 16px;
+  padding: 20px 16px;
+  background: #f9fafb; /* Light gray background */
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+}
+
+.scheduleHeader {
+  text-align: center;
+  margin-bottom: 16px;
+}
+
+.scheduleTitle {
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.2;
+  color: #1a2332; /* Navy */
+  margin: 0 0 4px 0;
+}
+
+.scheduleSubtitle {
+  font-size: 14px;
+  font-weight: 400;
+  color: #4a5568;
+  margin: 0;
+}
+
+.dateTimeWrapper {
+  margin-bottom: 16px;
+}
+
+.dateTimeLabel {
+  display: block;
+  font-size: 14px;
+  font-weight: 500;
+  color: #1a2332; /* Navy */
+  margin-bottom: 8px;
+}
+
+.dateTimeInput {
+  width: 100%;
+  height: 44px;
+  padding: 12px 16px;
+  background: #FFFFFF;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  color: #1a2332; /* Navy */
+  font-size: 16px;
+  font-weight: 400;
+  transition: border-color 150ms ease;
+
+  /* Remove default appearance */
+  appearance: none;
+  -webkit-appearance: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.dateTimeInput:focus {
+  outline: none;
+  border-color: #c9a961; /* Gold focus border */
+  box-shadow: 0 0 0 3px rgba(201, 169, 97, 0.1);
+}
+
+.scheduleHelp {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.helpItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.helpIcon {
+  font-size: 16px;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.helpText {
+  font-size: 14px;
+  line-height: 1.5;
+  color: #4a5568;
+}
+
+/* RESPONSIVE DESIGN */
+
+/* Tablet - Single row */
+@media (min-width: 768px) {
+  .timeButtonStrip {
+    grid-template-columns: repeat(4, 1fr); /* Single row on tablet */
+    gap: 16px;
+  }
+
+  .timeButton {
+    padding: 20px 16px;
+    min-height: 56px;
+  }
+
+  .buttonLabel {
+    font-size: 15px;
+  }
+
+  .timeDisplay {
+    font-size: 13px;
+  }
+
+  .sectionTitle {
+    font-size: 20px;
+  }
+}
+
+/* Desktop - Single row with larger buttons */
+@media (min-width: 1024px) {
+  .timeButton {
+    padding: 24px 20px;
+    min-height: 64px;
+  }
+
+  .buttonLabel {
+    font-size: 16px;
+  }
+
+  .timeDisplay {
+    font-size: 14px;
+  }
+
+  .buttonIcon {
+    font-size: 18px;
+    width: 20px;
+    height: 20px;
+  }
+
+  .sectionTitle {
+    font-size: 22px;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .timeButton {
+    border-width: 2px;
+  }
+
+  .timeButton.selected {
+    border-width: 3px;
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .timeButton {
+    transition: none;
+  }
+
+  .timeButton:active {
+    transform: none;
+  }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  .sectionTitle,
+  .confirmationText {
+    color: #ffffff;
+  }
+
+  .timeButton {
+    background: #2a2a4a;
+    border-color: #4a5568;
+    color: #ffffff;
+  }
+
+  .timeButton .buttonLabel {
+    color: #ffffff;
+  }
+
+  .timeButton:hover {
+    background: rgba(201, 169, 97, 0.15);
+  }
+
+  .confirmationMessage {
+    background: rgba(201, 169, 97, 0.1);
+    border-color: rgba(201, 169, 97, 0.3);
+  }
+
+  .schedulePicker {
+    background: #2a2a4a;
+    border-color: #4a5568;
+  }
+
+  .scheduleTitle {
+    color: #ffffff;
+  }
+
+  .dateTimeInput {
+    background: #2a2a4a;
+    border-color: #4a5568;
+    color: #ffffff;
+  }
+}
+
+/* Focus visible support */
+.timeButton:focus-visible {
+  outline: 2px solid #c9a961;
+  outline-offset: 2px;
+}

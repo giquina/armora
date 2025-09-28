@@ -41,6 +41,8 @@ export function PPOVenueBooking({ isVisible }: PPOVenueBookingProps) {
     // Simulate API call for PPO venue protection assignment
     await new Promise(resolve => setTimeout(resolve, 2000));
 
+    // Log venue protection booking data
+    console.log({
       duration: selectedDuration,
       officerCount,
       venueType,

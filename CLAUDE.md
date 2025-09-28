@@ -3,594 +3,219 @@
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
 ## Project Overview
-Armora is a React 19.1.1 TypeScript application for premium close protection and security transport services across England & Wales. Nationwide service delivery with SIA-licensed Close Protection Officers (CPOs). Mobile-first Progressive Web App targeting app store distribution.
+Armora is a React 19.1.1 TypeScript application for premium close protection and executive security services across England & Wales. SIA-licensed Close Protection Officers (CPOs) provide nationwide service delivery. Mobile-first Progressive Web App targeting app store distribution.
 
-**NATIONWIDE SERVICE SCOPE**: Armora operates across England & Wales with regional pricing and coverage areas. Complete geographic service delivery with specialized airport services and major city coverage.
+**SERVICE SCOPE**: England & Wales with regional pricing variations. Complete geographic coverage with specialized airport services and major city operations.
 
-**PROFESSIONAL PROTECTION FOCUSED**: Use close protection terminology throughout - "CPO" (Close Protection Officer), "Principal" (not passenger), "Protection Detail" (not ride), "Security Assessment" (not booking review). All UI copy should reflect professional security services, not taxi/ride-sharing language.
+**PROFESSIONAL TERMINOLOGY**: Use security industry terminology throughout - "CPO" (Close Protection Officer), "Principal" (not passenger), "Protection Detail" (not ride), "Security Assessment" (not booking review). All UI copy must reflect professional security services.
 
-**SIA COMPLIANCE CRITICAL**: This codebase underwent major restructuring in September 2025 for full SIA compliance. All folder names, file names, and component names now use protection terminology. See `SIA_COMPLIANCE.md` for comprehensive guidelines.
+**SIA COMPLIANCE**: Major restructuring completed September 2025 for full SIA compliance. All components use protection terminology. See `SIA_COMPLIANCE.md` for guidelines.
 
-**LEGAL SERVICE DEFINITION**: Armora provides SIA-licensed Close Protection Officers (CPOs) who deliver secure transport as an integrated element of their protective duties. NOT a private hire vehicle (PHV) or taxi service.
-
-## Critical Dependencies
+## Core Stack & Dependencies
 - **React 19.1.1** with new JSX Transform
 - **TypeScript 4.9.5** in strict mode
-- **react-scripts 5.0.1** (Create React App)
-- **CSS Modules** for styling (no CSS-in-JS libraries)
-- **No external UI libraries** - custom components only
+- **react-scripts 5.0.1** (CRA) with CRACO customization
+- **CSS Modules** for styling (no CSS-in-JS)
+- **Supabase**: Backend, auth, real-time (@supabase/supabase-js)
+- **Stripe**: Payments (@stripe/react-stripe-js)
+- **React-Leaflet**: Maps and location services
+- **Playwright**: E2E testing framework
 
-### Backend & Integration Dependencies
-- **Supabase**: Backend database, auth, real-time (@supabase/supabase-js, @supabase/auth-helpers-react)
-- **Clerk**: Modern authentication provider (@clerk/clerk-react) with fallback support
-- **No Clerk Dependencies**: Project currently runs without Clerk - removed in cleanup
-- **Stripe**: Payment processing (@stripe/react-stripe-js, @stripe/stripe-js)
-- **Leaflet**: Maps and location services (react-leaflet)
-- **QR Code**: QR code generation for assignments (qrcode)
-- **Canvas Confetti**: Achievement animations (canvas-confetti)
-- **Playwright**: End-to-end testing framework
+## Development Commands
 
-## Core Development Commands
-- `npm run dev` - **RECOMMENDED**: Start with hooks system AND agent orchestration (full development experience)
-- `npm start` - **PRIMARY**: Development server with deprecation warnings suppressed via NODE_OPTIONS
-- `npm run fresh` - **NEW**: Clean reset and start (fixes any port issues)
-- `npm run reset` - Reset server state and clear cache
-- `npm run clean` - Clean cache and temporary files only
-- `npm run health` - Run comprehensive health check
-- `npm run port3000` - Force start on port 3000 (now reliable)
-- `npm run build` - Production build with type checking
-- `npm test` - Run tests in watch mode (Jest + React Testing Library)
-- `npm test -- --coverage` - Coverage report
-- `npm test -- --watchAll=false` - Single run (CI mode)
-- `npm test -- src/components/ProtectionAssignment/__tests__/AssignmentConfirmation.test.tsx` - Run specific test file
-- `npm run test:e2e` - Run Playwright end-to-end tests (tests/e2e directory)
-
-### 🚀 Server Management
-**✅ PORT 3002 NOW CONFIGURED AS MAIN DEVELOPMENT PORT**
-
-**Port 3002 Configuration**: Port 3002 has been configured as the primary development port with optimized webpack configuration, cache management, and automated server management.
-
-**SOLUTION: Port 3002 is now the main development port**
-
-**Always use `npm run dev` for the best development experience** - it includes:
-- Development server with hot reload on PORT 3002 (main development port)
-- AI-powered hooks system (mobile viewport testing, brand compliance, auto-save)
-- Specialized agent orchestration
-- Real-time file monitoring and suggestions
-
-**Server Management Commands:**
+### Essential Commands
 ```bash
-# Method 1: RECOMMENDED - Full development setup with automatic port management
-npm run dev
-
-# Method 2: Fresh start with cache reset (fixes any remaining issues)
-npm run fresh
-
-# Method 3: Basic server start (now defaults to port 3002)
-npm start
-
-# Method 4: Force port 3002 specifically (with optimization)
-npm run port3002
-
-# Health check and diagnostics
-npm run health
-
-# Reset server state if issues occur
-npm run reset
-
-# Clean cache only (lightweight reset)
-npm run clean
-
-# Check server status
-curl -s http://localhost:3002 | head -20
-lsof -i :3002
+npm run dev        # RECOMMENDED: Full dev environment with hooks & agents
+npm start          # Development server on port 3002 (primary)
+npm run fresh      # Clean reset and start (fixes any issues)
+npm run build      # Production build with TypeScript checking (NO separate lint command)
+npm test           # Jest watch mode
+npm test:e2e       # Playwright end-to-end tests
 ```
 
-**Access URLs:**
-- ✅ **Primary**: http://localhost:3002 (main development port)
-- ✅ **Alternative**: http://localhost:3000 (still supported for compatibility)
+### Server Management
+```bash
+npm run health     # Comprehensive health check
+npm run reset      # Reset server state and cache
+npm run clean      # Clean cache only
+npm run port3002   # Force port 3002 (optimized)
+```
 
-**New Configuration Files:**
-- `.env` - Port configuration and environment variables (PORT=3002)
-- `craco.config.js` - Webpack optimization and chunk loading fixes
-- `scripts/reset-port-3002.sh` - Automated reset and cache clearing for port 3002
-- `scripts/health-check.js` - Server health monitoring and diagnostics
+**PORT CONFIGURATION**: Port 3002 is the primary development port with webpack optimization. Port 3000 available as fallback.
 
-**CRITICAL**: No separate lint/typecheck commands - always run `npm run build` to verify TypeScript correctness before committing.
+### Development Infrastructure
+```bash
+# Hooks System (9 automated tools)
+npm run hooks:start        # Start all development hooks
+npm run hooks:stop         # Stop all hooks
+npm run hooks:status       # Check hooks status
 
-**IMPORTANT DEVELOPMENT NOTES**:
-- **Clerk Removed**: All Clerk-related code was removed in recent cleanup. Project uses Supabase auth only.
-- **ClerkAuthWrapper.tsx**: This file was deleted - references in docs are historical.
-- **Authentication Flow**: Now simplified to Supabase-only authentication system.
+# AI Task Management
+npm run suggest            # Get AI task suggestions
+npm run select-suggestion  # Interactive task selector
+npm run add-task          # Add new task
+npm run complete-task     # Mark task complete
 
-## Development Infrastructure
-Includes automated hooks system and AI task management:
-- `npm run hooks:start/stop/status/restart/emergency` - Manage development hooks
-- `npm run hooks:help` - Show hooks system help
-- `npm run suggest` - AI task suggestions via codebase analysis
-- `npm run select-suggestion` - Interactive suggestion selector
-- `npm run refresh-suggestions` - Refresh AI task suggestions
-- `npm run add-task/complete-task/start-task/task-status` - Task management system
-- `npm run update-docs` - Update documentation automatically
-- `npm run project-health` - Check overall project health
-- `npm run statusline` - Update status line
-- `npm run agents` - Manage specialized agents (.claude/agents/)
-- `npm run agents:start/status/test/file` - Agent management commands
-- `npm run orchestrate:status` - View active agents and system status
-
-**Hooks System**: 9 tools including mobile viewport tester (prevents horizontal scrolling), auto-saver, dev server monitor, brand compliance, and AI agent management.
-
-**Task Management**: Integrated AI-powered suggestion system tracks development tasks, priorities, and completion status through `.claude/` directory.
-
-## TypeScript Configuration
-**Strict mode enabled** (`tsconfig.json`):
-- Target: ES2018
-- JSX: react-jsx (React 19 transform)
-- Module: ESNext with Node resolution
-- All strict checks enabled
-- Special Jest module mapping for CSS imports and assets
+# Specialized Agents
+npm run agents:start      # Start agent orchestration
+npm run orchestrate:status # View active agents
+```
 
 ## Architecture
 
-### Core Stack
-- **React 19.1.1** + **TypeScript 4.9.5** (strict mode)
-- **CSS Modules** for component styling
-- **React Context** for state management (no Redux)
-- **Create React App 5.0.1** build system
+### State Management (No Redux/Router)
+**View-based navigation** via AppContext `currentView`:
+```
+splash → welcome → login/signup/guest → questionnaire → achievement → home → hub → assignments → account
+```
 
-### State Management Pattern
-**View-based routing** (NO React Router - uses AppContext `currentView` state):
-- Views: `splash` → `welcome` → `login`/`signup`/`guest-disclaimer` → `questionnaire` → `achievement` → `home` → `assignments` → `hub` → `account`
-- User types: `registered` | `google` | `guest`
-- Navigation: `navigateToView(viewName)` function from AppContext
-- Persistence: localStorage keys: `armoraUser`, `armoraQuestionnaireResponses`, `armoraAssignmentData`
-- **Supabase Backend**: Real-time database with SIA-compliant schema
+**Three Context Providers**:
+- `AppContext`: Global state, navigation, device capabilities
+- `AuthContext`: Supabase authentication only (Clerk removed)
+- `ProtectionAssignmentContext`: Booking/assignment state
 
-**Global State Structure** (`AppContext.tsx`):
-- `useReducer` for state management (no Redux)
-- Device capabilities detection (mobile, touch, orientation)
-- Subscription management with tier system
-- Assignment state tracking with panic alert system
-- Error handling and loading states
-
-**Backend Architecture** (`src/lib/supabase.ts`):
-- **Complete Supabase Integration**: 372 lines of SIA-compliant functions
-- **Real-time Features**: Assignment tracking, officer location updates
-- **SIA-Compliant Schema**: protection_assignments, protection_officers, principals
-- **Emergency Systems**: Panic button with location tracking
-- **Geographic Search**: PostGIS-powered officer finding with radius queries
-- **Payment Integration**: Stripe transactions with protection terminology
-
-### Component Architecture
-**Full-screen views** (bypass AppLayout): splash, welcome, auth, questionnaire, achievement
-**App-wrapped views** (include header): dashboard, assignments, profile, hub
-
-### Key File Structure
+### Key Directory Structure
 ```
 src/
-├── App.tsx                               - Main router with view switching and BookingFlow component
-├── contexts/
-│   ├── AppContext.tsx                    - Global state management with assignment tracking
-│   └── ProtectionAssignmentContext.tsx  - Protection assignment state management
-├── lib/
-│   └── supabase.ts                       - Supabase client with SIA-compliant functions
-├── types/
-│   ├── index.ts                          - Comprehensive TypeScript interfaces (940+ lines)
-│   └── database.types.ts                 - Supabase-generated database types
-├── components/
-│   ├── Auth/                            - Authentication flow
-│   ├── Questionnaire/                   - 9-step onboarding system
-│   ├── Dashboard/                       - Protection tier selection
-│   ├── Hub/                             - Professional protection hub command centre
-│   │   ├── NavigationCards/             - Interactive assignment status navigation cards
-│   │   └── ActiveProtectionPanel/       - Real-time protection detail monitoring
-│   ├── HubsView/                        - Complete hub management system with search/filtering
-│   ├── ProtectionAssignment/            - Complete protection assignment system
-│   ├── Assignments/                     - Assignment management and history
-│   ├── Officer/                         - CPO-related components (panic alerts, etc.)
-│   ├── SafeAssignmentFund/              - Community safety fund components
-│   ├── VenueProtection/                 - Venue security services
-│   ├── WeddingEventSecurity/            - Specialized event protection
-│   ├── UI/ArmoraLogo.tsx                - Premium 4D logo system
-│   └── Layout/AppLayout.tsx             - Header with navigation
-├── utils/
-│   ├── compliance/                      - SIA compliance and terminology scanning
-│   ├── database/                        - Database utility functions
-│   ├── testing/                         - Testing utilities and mobile testing
-│   └── [various].ts                     - Pricing, verification, and other utilities
-├── data/questionnaireData.ts            - Dynamic questionnaire logic
-└── styles/                              - Global CSS variables and themes
-
-migration-scripts/                        - Database setup and migration utilities
-scripts/                                  - Server management and automation scripts
-├── reset-port-3000.sh                   - Port 3000 reset and optimization script
-└── health-check.js                      - Comprehensive server health monitoring
-
-Configuration Files:
-├── .env                                  - Environment variables and port configuration
-├── craco.config.js                      - Webpack optimization and chunk loading fixes
-├── package.json                         - Enhanced with new server management scripts
-└── package-lock.json                    - Updated dependencies for server optimization
+├── App.tsx                              # View-based router
+├── contexts/                            # State management
+│   ├── AppContext.tsx                   # Global state with assignment tracking
+│   ├── AuthContext.tsx                  # Supabase auth
+│   └── ProtectionAssignmentContext.tsx  # Protection bookings
+├── lib/supabase.ts                      # Backend client (372 lines, SIA-compliant)
+├── types/index.ts                       # TypeScript interfaces (940+ lines)
+├── components/                          # 37 feature domains
+│   ├── Hub/                            # Command center with NavigationCards
+│   ├── ProtectionAssignment/           # Unified booking system
+│   ├── Questionnaire/                  # 9-step onboarding
+│   └── UI/ArmoraLogo.tsx              # Premium 4D logo
+└── utils/                              # Organized utilities
+    ├── compliance/                      # SIA compliance scanning
+    ├── database/                        # Database utilities
+    └── testing/                        # Test utilities
 ```
 
-## Business Context
-**Nationwide Coverage**: England & Wales with regional pricing variations. London premium rates, major cities -10%, rural areas +15%, airport services +25%.
+### CSS Architecture
+- **CSS Modules** for component scoping
+- **Design tokens**: `/src/styles/variables.css`
+- **Card standards**: `/src/styles/card-standards.css`
+- **Mobile-first**: 44px+ touch targets, aggressive mobile typography
+- **Viewport safety**: `calc(100vw - 36px)` for cards
 
-**Protection Tiers**:
-- Essential Protection (£65/h): SIA Level 2, personal protection trained drivers
-- Executive Shield (£95/h): SIA Level 3, corporate bodyguard services
-- Shadow Protocol (£125/h): Special Forces trained, covert protection specialists
-- Client Vehicle Service (£55/h): Security-trained driver for customer's vehicle
+## Business Logic
 
-**Venue Protection Services**: Day (£450), Weekend (£850), Monthly (£12,500), Annual (£135,000) contracts with 1-10 officer scaling.
+### Protection Tiers
+- **Essential** (£65/h): SIA Level 2
+- **Executive** (£95/h): SIA Level 3, corporate bodyguard
+- **Shadow Protocol** (£125/h): Special Forces trained
+- **Client Vehicle** (£55/h): Security driver for customer's vehicle
 
-**User Journey**: splash → welcome → auth → questionnaire → achievement → home → hub
-**User Capabilities**: Registered/Google users get direct protection booking + 50% reward; guests get quotes only
-**Professional Standards**: All officers are SIA licensed with specializations in Executive Protection, Threat Assessment, and Medical Response
+### User Types & Capabilities
+- **Registered/Google**: Direct protection booking + 50% rewards
+- **Guest**: Quote-only mode, no direct booking
 
-**Geographic Service Areas**:
-- Primary: London & Greater London (immediate availability)
-- Major Cities: Manchester, Birmingham, Leeds, Liverpool, Bristol, Cardiff
-- Regional: All major towns with 2-hour response time
-- Airports: Heathrow, Gatwick, Manchester, Birmingham specialists
+## Development Tools
 
-### Safe Assignment Fund Initiative
-- **Impact Counter**: Live counter showing 3,741+ safe assignments delivered (animated on WelcomePage)
-- **Components**: `SafeAssignmentFundCTA`, `SafeAssignmentFundModal` with interactive contribution system
-- **Development Mode**: Credentials modal always visible in dev mode (`showDevButton` in WelcomePage)
-
-## CSS Architecture & Design System
-
-### Global Styling Structure
-- **CSS Modules** for component-scoped styles
-- **Central design system** via `/src/styles/variables.css`
-- **Card standardization** via `/src/styles/card-standards.css` for consistent UI
-- **Global container** system via `/src/styles/global-container.css`
-- **Master width control**: `--content-max-width: 680px` across all views
-- **Special booking theme**: White background applied via `booking-white-theme.css`
-
-### Mobile-First Design (CRITICAL: No horizontal scrolling 320px+)
-- **Colors**: #1a1a2e (navy), #FFD700 (gold), #e0e0e0 (text)
-- **Touch targets**: 44px+ minimum (`--touch-target` CSS variable)
-- **Typography**: Aggressive mobile sizing (1.4-1.5rem), system fonts
-- **8px grid spacing**: `--space-xs: 4px` through `--space-xxl: 48px`
-- **Viewport constraints**: Cards use `calc(100vw - 36px)` to account for borders
-
-## Development Tools & Automation
-
-### Hooks System (`dev-tools/hooks/`)
-9 development hooks for automated quality assurance:
-- **armora-brand-compliance.js** - Enforces brand standards and messaging consistency
-- **auto-github-saver.js** - Automated Git operations and backup
-- **codebase-reviewer-suggester.js** - AI-powered task suggestions and code review
-- **dev-server-monitor.js** - Development server monitoring and auto-restart
-- **file-structure-organizer.js** - Code organization and file structure validation
-- **mobile-viewport-tester.js** - Prevents horizontal scrolling across all breakpoints
-- **subagent-manager.js** - Manages specialized development agents
-- **suggestion-selector.js** - Interactive task management system
-- **hooks-manager.js** - Central hooks control and coordination
+### Automated Hooks (9 tools in `dev-tools/hooks/`)
+- **mobile-viewport-tester.js**: Prevents horizontal scrolling (320px+)
+- **armora-brand-compliance.js**: Enforces professional standards
+- **dev-server-monitor.js**: Auto-restart on issues
+- **auto-github-saver.js**: Automated Git operations
+- **codebase-reviewer-suggester.js**: AI-powered suggestions
 
 ### Specialized Agents (`.claude/agents/`)
-6 agents for specialized development: mobile-tester, pwa-optimizer, ux-validator, booking-flow-manager, server-keeper, orchestration-agent
-
-### Automatic Agent Activation System
-**Proactive Agent Orchestration**: Agents automatically activate based on context without manual intervention.
-
-**Auto-Activation Rules**:
-- **Component files** (*.tsx) → `mobile-tester` + `ux-validator` automatically engage
-- **Style files** (*.css) → `mobile-tester` tests responsiveness + `ux-validator` checks consistency
-- **Server issues/port conflicts** → `server-keeper` immediately engages (critical priority)
-- **PWA files** (manifest.json, sw.js) → `pwa-optimizer` activates for app store readiness
-
-## Testing Strategy
-- `npm test` - Interactive watch mode (Jest + React Testing Library)
-- `npm test -- --coverage` - Generate coverage report
-- `npm test -- --watchAll=false` - Single run for CI
-- `npm run test:e2e` - Playwright end-to-end tests (./tests/e2e directory)
-- **Test files location**: `src/components/[Component]/__tests__/[Component].test.tsx`
-- **Current coverage**: Limited - has App.test.tsx and some booking tests
-- **Jest configuration**: Custom module mapping for CSS and assets in package.json
-
-## Current Status
-✅ **Complete** (Latest Update September 2025):
-- **Complete passenger app cleanup** - All driver-related code removed
-- **TypeScript optimization** - All compilation errors fixed, ESLint warnings minimized
-- **Dual authentication system** - Clerk integration with Supabase fallback
-- **Enhanced component architecture** - New HubsView system with search/filtering
-- **Professional file organization** - Migration scripts, compliance utilities
-- **Performance optimization** - Bundle size optimized (382KB), clean compilation
-- **SIA compliance restructuring** - Complete professional terminology implementation
-- **Backend integration** - Supabase + Clerk with real-time features
-- **Mobile-first design** - Responsive optimization across all breakpoints
-- **Development tooling** - Advanced hooks system with deprecation warning suppression
-
-✅ **Stable Core Features**:
-- 9-step questionnaire with privacy options
-- Dashboard with protection tier selection
-- Professional Hub with assignment tracking
-- Protection assignment flow (unified system)
-- Achievement system with confetti animations
-- Safe Assignment Fund integration (3,741+ assignments tracked)
-- Assignment state tracking with panic alert system
-
-⚠️ **Minor Remaining Tasks**:
-- Test coverage expansion for new folder structure
-- PWA service worker implementation
-- Payment integration completion
-- Enhanced real-time tracking features
-
-🔜 **Planned**: Push notifications, offline mode, advanced analytics
-
-## Key Utility Functions
-- **timeEstimate** (`src/utils/timeEstimate.ts`) - Standardized time formatting across app
-- **seasonalThemes** (`src/utils/seasonalThemes.ts`) - Dynamic seasonal theming
-- **dynamicPersonalization** (`src/utils/dynamicPersonalization.ts`) - User-specific content
-- **protectionPricingCalculator** (`src/utils/protectionPricingCalculator.ts`) - Protection service pricing logic
-- **assignmentHistory** (`src/utils/assignmentHistory.ts`) - Protection assignment tracking and history
-- **siaVerification** (`src/utils/siaVerification.ts`) - SIA license verification utilities
-- **martynsLawCompliance** (`src/utils/martynsLawCompliance.ts`) - Martyn's Law compliance checking
-- **venueSecurityCalculator** (`src/utils/venueSecurityCalculator.ts`) - Venue protection pricing and requirements
+Auto-activate based on context:
+- **Component files** → `mobile-tester` + `ux-validator`
+- **Style files** → Responsiveness testing
+- **Server issues** → `server-keeper` (critical priority)
+- **PWA files** → `pwa-optimizer`
 
 ## Critical Implementation Notes
 
-### Booking Flow Architecture
-The app uses a **dual booking system** transitioning from legacy to new:
+### Dual Booking System (Transitioning)
+**New System** (Primary): `ProtectionAssignmentContext`
+- Flow: `WhereWhenView` → `PaymentIntegration` → `Success`
 
-**New Protection Assignment System** (Primary):
-- Flow: `WhereWhenView` → `PaymentIntegration` → `ProtectionAssignmentSuccess`
-- State: Managed in `ProtectionAssignmentContext.tsx`
-- Error handling: `ProtectionAssignmentErrorBoundary` with state recovery
-- Location: `src/contexts/ProtectionAssignmentContext.tsx`
+**Legacy System** (Being phased out): Embedded in `App.tsx` lines 62-227
 
-**Legacy Booking Flow** (Being phased out):
-- Embedded `BookingFlow` component in `App.tsx` (lines 62-227)
-- State preservation for error recovery via localStorage
-- Error boundary wrapper with retry mechanisms
+### Authentication Flow
+- **Supabase-only** (Clerk removed in cleanup)
+- Three roles: Principal, Protection Officer, Admin
+- Google OAuth integration via Supabase
 
-### Assignment State Management
-**Real-time Assignment Tracking** (`AppContext.tsx`):
-- `assignmentState` tracks current protection details
-- Panic alert system with location tracking
-- Auto-navigation to hub when active assignment detected
-- Assignment status: `scheduled` | `active` | `in_progress` | `completed` | `cancelled`
+### Professional Hub (`src/components/Hub/`)
+- **NavigationCards**: Interactive assignment status cards
+- **ActiveProtectionPanel**: Real-time monitoring with scroll-snap UX
+- CPO credentials with SIA licenses
+- Security-focused status messages
 
-**Dual Assignment System** (Legacy + New Integration):
-- **New System**: `ProtectionAssignmentContext` with unified protection flow
-- **Legacy Components**: Under `src/components/ProtectionAssignment/Booking/` (being integrated)
-- **Migration Status**: Folder structure updated, some TypeScript interfaces need alignment
+## Testing Strategy
+```bash
+npm test                                    # Watch mode
+npm test -- --coverage                     # Coverage report
+npm test -- --watchAll=false               # CI mode
+npm test -- src/components/[Component]/__tests__/[Component].test.tsx  # Specific test
+```
 
-### Questionnaire System (`/src/data/questionnaireData.ts`)
-Dynamic 9-step system with privacy options. Enhanced mobile typography (1.4-1.5rem) and `calc(100vw - 8px)` width utilization.
+**Test Structure**: `src/components/[Component]/__tests__/`
+**E2E Tests**: `tests/e2e/` directory with Playwright
 
-### Professional Hub View (`src/components/Hub/`)
-Premium close protection command centre with professional terminology:
-- **NavigationCards System** (`NavigationCards/`): Interactive card-based navigation for current/upcoming/completed/analytics views with real-time data visualization
-- **Active Protection Panel** (`ActiveProtectionPanel/`): Mobile-optimized full-screen scroll snap UX for real-time protection monitoring
-- Protection duration tracking with progress indicators
-- CPO credentials including SIA licenses, experience, and specializations
-- Security-focused status messages (Protection Detail Active, CPO Approaching, etc.)
-- Service tier badges (Essential/Executive/Shadow) with professional color coding
-- Professional action buttons (Live Tracking, Contact CPO, Emergency)
-
-### WelcomePage Features (`src/components/Auth/WelcomePage.tsx`)
-- **Animated impact counter**: Shows 3,741+ safe rides with random increments
-- **Seasonal themes**: Dynamic theming based on date
-- **Credentials modal**: Development mode toggle for testing
-- **Safe Ride Fund integration**: Prominent CTAs and donation modal
-
-### Authentication & User Types
-**Simplified Authentication System**: Supabase-only authentication (Clerk removed in cleanup)
-- **Supabase Auth**: Direct Supabase authentication integration
-- **User Role System**: Principal, Protection Officer, Admin roles via Supabase RLS
-- **Historical Note**: ClerkAuthWrapper.tsx and clerk.ts were removed in recent cleanup
-
-Three distinct user types with different capabilities:
-- **Registered**: Full protection booking + 50% rewards
-- **Google**: Same as registered (via Supabase Google auth)
-- **Guest**: Quote-only mode, no direct protection booking
-
-### Venue Protection & Event Security
-**Venue Protection Services** (`src/components/VenueProtection/`):
-- Professional venue security management
-- Day/weekend/monthly/annual contract pricing
-- 1-10 officer scaling with tier-based services
-- Specialized security assessments and compliance
-
-**Wedding & Event Security** (`src/components/WeddingEventSecurity/`):
-- Specialized event protection services
-- Custom security planning for special occasions
-- Professional discrete protection for high-profile events
-
-### Compliance & Regulatory Components
-**SIA License Integration**:
-- `siaVerification` utility (`src/utils/siaVerification.ts`) - License status checking
-- Martyn's Law compliance checking (`src/utils/martynsLawCompliance.ts`)
-- Professional standards certification tracking
-
-**Geographic Compliance**:
-- England & Wales service boundary enforcement
-- Regional regulatory variation handling
-- Airport security protocol integration
-- Cross-border service restrictions (Scotland/NI)
-
-## Important Code Patterns
-
-### Achievement System
-- Triggers after questionnaire completion
-- Components: `AchievementUnlock`, `AchievementBanner`, `MiniAchievement`
-- Confetti animation library included (`canvas-confetti`)
-- Achievement data in `src/components/Achievement/achievementData.ts`
-
-### Loading States
-- Use `LoadingSpinner`, `SkeletonLoader`, or `ProgressIndicator` components
-- Never use external loading libraries
-- All loading states must be mobile-optimized
-
-### Form Validation
-- Client-side only (no server validation yet)
-- Use HTML5 validation attributes
-- Error messages in component state, not global
+## TypeScript Configuration
+- **Strict mode** enabled
+- Target: ES2018
+- JSX: react-jsx (React 19 transform)
+- Module: ESNext with Node resolution
 
 ## Common Troubleshooting
 
-### Horizontal Scrolling Issues
-Check: `global-container.css` and `card-standards.css` for viewport calculations. Cards use `calc(100vw - 36px)` to prevent overflow.
+### Build/Type Errors
+Always run `npm run build` - no separate lint command exists
+
+### Horizontal Scrolling
+Check `global-container.css` and viewport calculations
 
 ### Component Not Rendering
-Verify view state in `AppContext` and check if component is included in App.tsx view switching logic (`renderCurrentView()` function).
+Verify `currentView` in AppContext and App.tsx routing logic
 
-### Styling Not Applied
-Ensure CSS Module imports use correct syntax: `import styles from './Component.module.css'`
-
-### Test Failures
-- Run `npm test` in watch mode for development
-- Use `npm test -- --watchAll=false` for CI
-- CSS imports are mocked via `identity-obj-proxy`
-- Asset imports use `jest-transform-stub`
-
-### Professional Terminology Requirements
-When updating any UI text, ensure professional close protection language:
-- "Driver" → "Protection Officer/CPO"
-- "Ride/Trip" → "Assignment/Protection Detail"
-- "Passenger" → "Principal"
-- "Standard" → "Essential" (for protection tier)
-- "Premium" → "Executive" (for mid-tier service)
-- "VIP" → "Shadow Protocol" (for highest tier)
-- "In Progress" → "Protection Detail Active"
-- "En Route" → "CPO Approaching Principal"
-
-## Development Workflow Best Practices
-
-### Before Making Changes
-1. **Always run `npm run build` after changes**: This project has no separate lint command - type checking happens during build
-2. **Test on multiple breakpoints**: Use mobile viewport tester hook to verify no horizontal scrolling
-3. **Follow existing patterns**: Study similar components before creating new ones
-4. **Use TypeScript strict mode**: All new code must be properly typed
-
-### Common Debugging Steps
-1. **State issues**: Check AppContext state and view navigation logic in App.tsx
-2. **Styling issues**: Verify CSS Module imports and check responsive breakpoints
-3. **Build failures**: Run `npm run build` to catch type errors before committing
-4. **Mobile issues**: Use `npm run hooks:start` to enable mobile viewport testing
-5. **Test issues**: Check Jest configuration in package.json for module mapping
-
-### File Conventions
-- Components: PascalCase with matching .module.css files
-- Utilities: camelCase in `/src/utils/`
-- Types: Centralized in `/src/types/index.ts` (comprehensive 940+ line type definitions)
-- Data: Static data in `/src/data/`
-- Tests: `__tests__` directories with `.test.tsx` files
-
-## State Management Architecture
-
-### Context Providers
-The app uses React Context for state management with two main contexts:
-
-1. **AppContext** (`src/contexts/AppContext.tsx`):
-   - Global application state (user, currentView, device capabilities)
-   - View-based routing without React Router
-   - Subscription and authentication management
-   - Assignment state with panic alert system
-   - Safe Ride Fund metrics tracking
-
-2. **ProtectionAssignmentContext** (`src/contexts/ProtectionAssignmentContext.tsx`):
-   - Protection booking/assignment state management
-   - Service selection, location picking, payment methods
-   - Backward compatibility with legacy booking system
-   - Persistent storage with localStorage integration
-
-### Hook Usage
-- `useAppContext()` - Access global app state and navigation
-- `useProtectionAssignment()` - Access protection assignment state (new system)
-- `useBooking()` - Legacy hook for backward compatibility (being phased out)
-
-### Error Handling
-- `ProtectionAssignmentErrorBoundary` for booking flow protection
-- State recovery from localStorage after errors
-- Retry mechanisms with user-friendly fallbacks
-
-## Payment Integration
-- **Stripe Integration**: Uses @stripe/react-stripe-js and @stripe/stripe-js
-- **Payment Methods**: Card, Apple Pay, Google Pay, PayPal, Bank Transfer
-- **Corporate Billing**: VAT handling and corporate account support
-- **Payment Status Tracking**: Comprehensive status management
-
-## Performance Considerations
-- **React 19.1.1**: Uses new JSX transform for better performance
-- **CSS Modules**: Scoped styles prevent global CSS pollution
-- **Lazy Loading**: Components loaded on demand
-- **Mobile Optimization**: Aggressive mobile-first approach with touch targets
-- **Asset Optimization**: Proper handling of images and static assets
-
-## 🚀 Quick Reference - Server Status & Commands
-
-### Current Development Server Status:
-- **Status**: ✅ RUNNING
-- **URL**: http://localhost:3000 (PRIMARY PORT - NOW FIXED)
-- **Process**: Clean server instance with permanent webpack optimization
-- **Last Updated**: Port 3000 permanently fixed with automated configuration management
-
-### Essential Commands:
+### Server Issues
 ```bash
-# RECOMMENDED: Full development environment with automatic port management
-npm run dev
-
-# NEW: Fresh start with complete reset (recommended for any issues)
-npm run fresh
-
-# PRIMARY: Start on port 3000 (now reliable)
-npm start
-
-# Force port 3000 with optimization
-npm run port3000
-
-# Server health and diagnostics
-npm run health
-
-# Reset server state and cache
-npm run reset
-
-# Clean cache only
-npm run clean
-
-# Check if server is running
-curl -s http://localhost:3000 | head -5
-lsof -i :3000
-
-# Kill servers if needed
-pkill -f "react-scripts start"
-
-# Build and test
-npm run build
-npm test
+npm run fresh      # Complete reset
+npm run health     # Diagnostics
+pkill -f "react-scripts start"  # Kill stuck processes
 ```
 
-### Recent Changes:
-✅ **Port 3002 Main Development Port (Latest - September 26, 2025)**:
-- **Primary Port Configuration**: Port 3002 configured as main development port
-- **Environment Configuration**: Updated `.env` to use PORT=3002 by default
-- **Script Updates**: Updated `npm run port3002`, `reset` commands for port 3002
-- **Automated Recovery**: Added `scripts/reset-port-3002.sh` for port 3002 management
-- **Health Monitoring**: Comprehensive health check system in `scripts/health-check.js`
-- **Optimized Development**: Port 3002 configured with webpack optimization
+### Mobile Testing
+Enable hooks system: `npm run hooks:start` for automatic viewport testing
 
-✅ **Complete Passenger App Cleanup (September 26, 2025)**:
-- **Driver App Removal**: Completely removed all driver-related repositories and code
-- **Code Quality**: Fixed all TypeScript compilation errors and minimized ESLint warnings
-- **Performance**: Optimized bundle size to 382KB with clean compilation
-- **Authentication**: Added Clerk integration with automatic Supabase fallback
-- **Architecture**: New HubsView component system with comprehensive search/filtering
-- **Organization**: Restructured utilities into compliance/, database/, testing/ folders
-- **Migration**: Added comprehensive migration scripts for database setup
-- **Development**: Enhanced npm scripts with deprecation warning suppression
+## Professional Terminology Enforcement
+When updating UI text:
+- Driver → Protection Officer/CPO
+- Ride/Trip → Assignment/Protection Detail
+- Passenger → Principal
+- Standard → Essential
+- Premium → Executive
+- VIP → Shadow Protocol
+- In Progress → Protection Detail Active
+- En Route → CPO Approaching Principal
 
-✅ **Mobile Navigation Cards Optimized**:
-- Fixed text wrapping issues (CPO names no longer span 3 lines)
-- Removed excessive empty spaces and improved mobile spacing
-- Enhanced visual hierarchy and typography for small screens
-- Optimized card heights and responsive layout across 320px-414px+
-- Progressive scaling for different mobile screen sizes
+## Current Status
+✅ **Complete** (September 2025):
+- SIA compliance restructuring
+- TypeScript optimization (clean compilation)
+- Supabase-only authentication (Clerk removed)
+- Mobile-first responsive design
+- Advanced development tooling with 9 hooks + 6 agents
 
----
+⚠️ **Remaining Tasks**:
+- Test coverage expansion
+- PWA service worker implementation
+- Payment integration completion
 
-Last updated: 2025-09-27T04:34:01.228Z
+## Key Utilities
+- `timeEstimate.ts`: Standardized time formatting
+- `protectionPricingCalculator.ts`: Service pricing logic
+- `siaVerification.ts`: License verification
+- `martynsLawCompliance.ts`: Regulatory compliance
+- `venueSecurityCalculator.ts`: Venue protection requirements
+
+Last updated: 2025-09-28T16:54:06.100Z

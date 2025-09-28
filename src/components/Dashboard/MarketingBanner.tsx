@@ -263,6 +263,7 @@ export function MarketingBanner({
     localStorage.setItem('membershipBannerDismissed', JSON.stringify(dismissData));
 
     // Track dismissal
+    console.log('Marketing banner dismissed', {
       dismissCount: dismissData.dismissCount,
       variant,
       expiresAt: new Date(dismissData.expiresAt).toISOString()
@@ -278,6 +279,7 @@ export function MarketingBanner({
       localStorage.setItem('marketingBannerTrialStarted', 'true');
       
       // Track CTA click
+      console.log('Trial started from marketing banner', { variant, timestamp: Date.now() });
       
       // Start the trial
       await startFreeTrial('essential');

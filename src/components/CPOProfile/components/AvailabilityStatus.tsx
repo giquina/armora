@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useState, useEffect } from 'react';
 import { Availability } from '../../../types/cpo';
 import styles from '../styles/cpo-profile.module.css';
 
@@ -212,9 +212,9 @@ export const RealTimeStatus: FC<{
   currentStatus,
   onStatusChange
 }) => {
-  const [lastUpdate, setLastUpdate] = React.useState(new Date());
+  const [lastUpdate, setLastUpdate] = useState(new Date());
 
-  React.useEffect(() => {
+  useEffect(() => {
     // Set up real-time status monitoring
     const interval = setInterval(() => {
       // This would connect to Supabase real-time updates

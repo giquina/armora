@@ -89,7 +89,8 @@ export function PanicButton({ assignmentId, officerId, className }: PanicButtonP
 
     setShowConfirmation(true);
 
-    // Analytics
+    // Analytics - log panic button activation
+    console.log({
       assignmentId,
       officerId,
       timestamp: Date.now(),

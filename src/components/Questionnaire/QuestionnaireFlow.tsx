@@ -5,6 +5,13 @@ import { ProgressIndicator } from './ProgressIndicator';
 import { QuestionnaireComplete } from './QuestionnaireComplete';
 import { getQuestionsForUserType, getServiceRecommendation } from '../../data/questionnaireData';
 import { QuestionnaireData, PersonalizationData, QuestionnaireAnswer } from '../../types';
+import {
+  determineAssessmentPath,
+  shouldShowSevenPs,
+  getSevenPsAssessmentLevel,
+  shouldShowEnhancedEmergencyContacts
+} from '../../utils/progressiveDisclosure';
+import { calculateRiskFromResponses } from '../../utils/riskCalculator';
 import styles from './QuestionnaireFlow.module.css';
 
 interface QuestionnaireFlowProps {
@@ -37,16 +44,66 @@ export function QuestionnaireFlow({ onComplete }: QuestionnaireFlowProps) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showConversionPrompt, setShowConversionPrompt] = useState(false);
 
-  // Get steps for current user type
-  const filteredSteps = getQuestionsForUserType(user?.userType || 'guest');
+  // Get steps for current user type with progressive disclosure
+  const baseSteps = getQuestionsForUserType(user?.userType || 'guest');
+
+  // Apply progressive disclosure based on current responses
+  const filteredSteps = baseSteps.filter(step => {
+    // Progressive disclosure logic - show Seven Ps and enhanced emergency contacts based on risk
+    if (step.id === 2.6) { // Seven Ps Assessment
+      const riskAssessment = currentRiskAssessment;
+      if (!riskAssessment) return false;
+      return shouldShowSevenPs(riskAssessment.matrix.level, responses.step1_transportProfile);
+    }
+    if (step.id === 2.7) { // Enhanced Emergency Contacts
+      const riskAssessment = currentRiskAssessment;
+      if (!riskAssessment) return false;
+      return shouldShowEnhancedEmergencyContacts(riskAssessment.matrix.level);
+    }
+    return true; // Show all other steps
+  });
+
+  // Calculate current risk assessment for dynamic step modification
+  const currentRiskAssessment = Object.keys(responses).length > 0 ? calculateRiskFromResponses(responses) : null;
+  const assessmentPath = currentRiskAssessment ? determineAssessmentPath(responses) : 'standard';
 
   const totalSteps = filteredSteps.length;
   const currentStepData = filteredSteps.find(step => step.id === currentStep);
 
-  // Handle step completion and navigation
+  // Helper functions for step key mapping
+  function getSingleValueKey(stepId: number): string {
+    const stepMapping: Record<number, string> = {
+      1: 'transportProfile',
+      2: 'travelFrequency',
+      2.5: 'threatAssessment',
+      2.6: 'sevenPsAssessment',
+      2.7: 'enhancedEmergencyContacts',
+      3: 'serviceRequirements',
+      4: 'primaryAreas',
+      5: 'secondaryAreas',
+      6: 'emergencyContact',
+      7: 'specialRequirements',
+      8: 'communicationPreferences',
+      9: 'profileConfirmation'
+    };
+    return stepMapping[stepId] || `step${stepId}`;
+  }
+
+  function getMultiValueKey(stepId: number): string {
+    const stepMapping: Record<number, string> = {
+      3: 'serviceRequirements',
+      4: 'primaryAreas',
+      5: 'secondaryAreas',
+      7: 'specialRequirements',
+      8: 'communicationPreferences'
+    };
+    return stepMapping[stepId] || `step${stepId}`;
+  }
+
+  // Handle step completion and navigation with progressive disclosure
   const handleStepComplete = (stepId: number, value: QuestionnaireAnswer) => {
-    const stepKey = `step${stepId}_${currentStepData?.type === 'radio' ? 
-      getSingleValueKey(stepId) : 
+    const stepKey = `step${stepId}_${currentStepData?.type === 'radio' ?
+      getSingleValueKey(stepId) :
       getMultiValueKey(stepId)}` as keyof QuestionnaireData;
 
     const updatedResponses = {
@@ -55,6 +112,33 @@ export function QuestionnaireFlow({ onComplete }: QuestionnaireFlowProps) {
     };
 
     setResponses(updatedResponses);
+
+    // Handle special progressive disclosure steps
+    if (stepId === 2.5) {
+      // After threat assessment, check if we need Seven Ps or enhanced emergency contacts
+      const newRiskAssessment = calculateRiskFromResponses(updatedResponses);
+      const newAssessmentPath = determineAssessmentPath(updatedResponses);
+
+      // Store risk assessment data
+      updatedResponses.step2_5_riskAssessment = {
+        level: newRiskAssessment.matrix.level,
+        score: newRiskAssessment.matrix.score,
+        description: newRiskAssessment.matrix.level + ' risk level detected',
+        recommendedProtection: newRiskAssessment.matrix.protectionLevel,
+        assessmentPath: newRiskAssessment.matrix.level.toLowerCase() as 'standard' | 'enhanced' | 'significant' | 'critical'
+      };
+
+      // Trigger progressive disclosure based on risk level
+      if (shouldShowSevenPs(newRiskAssessment.matrix.level, updatedResponses.step1_transportProfile)) {
+        // Seven Ps assessment will be shown in the flow
+        console.log('Progressive disclosure: Seven Ps assessment triggered for risk level:', newRiskAssessment.matrix.level);
+      }
+
+      if (shouldShowEnhancedEmergencyContacts(newRiskAssessment.matrix.level)) {
+        // Enhanced emergency contacts will be shown in the flow
+        console.log('Progressive disclosure: Enhanced emergency contacts triggered for risk level:', newRiskAssessment.matrix.level);
+      }
+    }
 
     // Check if this step has a conversion prompt for guest users
     if (currentStepData?.showConversionPrompt && user?.userType === 'guest') {
@@ -227,30 +311,11 @@ export function QuestionnaireFlow({ onComplete }: QuestionnaireFlowProps) {
   // Helper functions
   function getCurrentStepValue(): string | string[] | undefined {
     if (!currentStepData) return undefined;
-    
-    const stepKey = `step${currentStep}_${currentStepData.type === 'radio' ? 
-      getSingleValueKey(currentStep) : 
+
+    const stepKey = `step${currentStep}_${currentStepData.type === 'radio' ?
+      getSingleValueKey(currentStep) :
       getMultiValueKey(currentStep)}` as keyof QuestionnaireData;
 
     return responses[stepKey] as string | string[] | undefined;
-  }
-
-  function getSingleValueKey(stepId: number): string {
-    const keyMap: Record<number, string> = {
-      1: 'transportProfile',
-      2: 'travelFrequency',
-      9: 'profileReview'
-    };
-    return keyMap[stepId] || 'value';
-  }
-
-  function getMultiValueKey(stepId: number): string {
-    const keyMap: Record<number, string> = {
-      3: 'serviceRequirements',
-      4: 'primaryCoverage',
-      5: 'secondaryCoverage',
-      7: 'specialRequirements'
-    };
-    return keyMap[stepId] || 'values';
   }
 }

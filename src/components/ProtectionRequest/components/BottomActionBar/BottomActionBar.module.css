@@ -1,0 +1,945 @@
+/* BOTTOM ACTION BAR - MOBILE-FIRST STICKY DESIGN */
+/* Sticky bottom bar with pricing, actions, and safe area support */
+
+.bottomActionBar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: #ffffff;
+  border-top: 1px solid var(--border-light, #e2e8f0);
+  box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.1);
+  z-index: var(--z-fixed, 100);
+
+  /* Backdrop blur for modern appearance */
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+
+  /* Full width on mobile */
+  width: 100vw;
+}
+
+/* Pricing Summary */
+.pricingSummary {
+  padding: 16px 16px 12px;
+}
+
+/* Compact Pricing Design */
+.pricingCompact {
+  background: #ffffff;
+  padding: 0;
+  transition: all 300ms ease-in-out;
+}
+
+/* Security Detail Section - Selected State */
+.securityDetailSelected {
+  margin-bottom: 16px;
+  padding: 16px;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  transition: all 300ms ease-in-out;
+}
+
+.securityDescription {
+  font-size: 14px;
+  font-weight: 600;
+  color: #374151;
+  margin: 0 0 12px 0;
+}
+
+.securityFeatures {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.securityFeature {
+  font-size: 13px;
+  color: #6b7280;
+  line-height: 1.4;
+}
+
+/* Initial State Styles - Full SIA-Compliant Implementation */
+.initialState {
+  padding: 12px 16px;
+  background: #ffffff;
+  transition: all 300ms ease-in-out;
+}
+
+.initialHeader {
+  margin-bottom: 12px;
+  text-align: center;
+}
+
+.initialTitle {
+  font-size: 18px;
+  font-weight: 700;
+  color: #1a2332;
+  margin: 0;
+  line-height: 1.3;
+}
+
+.securityDetailInitial {
+  margin-bottom: 16px;
+  padding: 12px;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+}
+
+.securityFeaturesCompact {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.featureRow {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.featureRow .securityFeature {
+  flex: 1;
+  min-width: 140px;
+}
+
+.processSteps {
+  margin-bottom: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.processStepsCompact {
+  margin-bottom: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.stepRow {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.stepRow .processStep {
+  flex: 1;
+  min-width: 120px;
+}
+
+.processStep {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 14px;
+  color: #374151;
+}
+
+.stepNumber {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  background: #e5e7eb;
+  color: #1a2332;
+  border-radius: 50%;
+  font-weight: 600;
+  font-size: 12px;
+  flex-shrink: 0;
+}
+
+.stepText {
+  line-height: 1.4;
+}
+
+.siaCompliance {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 13px;
+  color: #6b7280;
+  font-style: italic;
+  padding: 8px 0 0 0;
+  border-top: 1px solid #e5e7eb;
+  margin-top: 12px;
+  gap: 12px;
+}
+
+.siaComplianceRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 0 0 0;
+  border-top: 1px solid #e5e7eb;
+  margin-top: 12px;
+  gap: 16px;
+}
+
+.siaText {
+  font-size: 13px;
+  color: #6b7280;
+  font-style: italic;
+  flex: 1;
+}
+
+.buttonContainer {
+  flex-shrink: 0;
+}
+
+.buttonContainer .primaryButton {
+  min-width: 200px;
+  height: 48px;
+  font-size: 16px;
+  padding: 12px 16px;
+}
+
+/* Initial state button styling */
+.primaryButton.initialState {
+  background: #f3f4f6; /* Light gray background */
+  color: #1a2332; /* Navy text */
+  border: 1px solid #d1d5db;
+}
+
+.primaryButton.initialState:hover:not(:disabled) {
+  background: #c9a961; /* Gold on hover */
+  color: #ffffff; /* White text */
+  border-color: #c9a961;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(201, 169, 97, 0.4);
+  transition: all 300ms ease-in-out;
+}
+
+.selectionSummary {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+  font-size: 14px;
+}
+
+.selectionInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.selectionLabel {
+  color: #374151;
+  font-weight: 500;
+}
+
+.selectionValue {
+  color: #000000;
+  font-weight: 600;
+}
+
+/* CHANGE SELECTION LINK */
+.changeSelectionLink {
+  background: none;
+  border: none;
+  color: #c9a961; /* Gold */
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  text-decoration: underline;
+  text-decoration-color: transparent;
+  transition: all 0.2s ease;
+  padding: 0;
+  margin: 0;
+  white-space: nowrap;
+}
+
+.changeSelectionLink:hover {
+  color: #1a2332; /* Navy on hover */
+  text-decoration-color: #1a2332;
+}
+
+/* NEW PRICING HEADER STYLES */
+.pricingHeader {
+  margin-bottom: 16px;
+}
+
+.serviceTitleLine {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.serviceTitle {
+  font-size: 16px;
+  font-weight: 600;
+  color: #000000;
+}
+
+.changeLink {
+  background: none;
+  border: none;
+  color: #3b82f6; /* Blue link color */
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  text-decoration: underline;
+  transition: all 0.2s ease;
+  padding: 0;
+  margin: 0;
+}
+
+.changeLink:hover {
+  color: #2563eb; /* Darker blue on hover */
+}
+
+.journeyRoute {
+  font-size: 14px;
+  color: #6b7280;
+  margin-top: 4px;
+}
+
+/* REASSURANCE SECTION */
+.reassurance {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 16px;
+  padding-top: 12px;
+}
+
+.reassuranceItem {
+  font-size: 14px;
+  color: #6b7280;
+  display: flex;
+  align-items: center;
+}
+
+/* Mobile responsive for selection summary */
+@media (max-width: 480px) {
+  .selectionSummary {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .selectionInfo {
+    width: 100%;
+  }
+
+  .changeSelectionLink {
+    align-self: flex-start;
+  }
+}
+
+.durationLine {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+  font-size: 14px;
+}
+
+.durationLabel {
+  color: #374151;
+}
+
+.durationValue {
+  color: #000000;
+  font-weight: 500;
+}
+
+.serviceIncludesLine {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+  font-size: 13px;
+}
+
+.includesLabel {
+  color: #374151;
+}
+
+.includesValue {
+  color: #1a2332; /* Navy */
+  font-weight: 600;
+}
+
+.helpIcon {
+  font-size: 12px;
+  color: #666666;
+  cursor: help;
+  opacity: 0.7;
+  transition: opacity 0.2s ease;
+}
+
+.helpIcon:hover {
+  opacity: 1;
+}
+
+.divider {
+  height: 1px;
+  background: #e5e7eb;
+  margin: 12px 0;
+}
+
+.pricingDivider {
+  text-align: center;
+  color: #d1d5db;
+  font-size: 14px;
+  margin: 12px 0;
+  letter-spacing: 1px;
+}
+
+.pricingSeparator {
+  height: 1px;
+  background: #e5e7eb;
+  margin: 12px 0;
+}
+
+.priceBreakdown {
+  margin-bottom: 12px;
+}
+
+.priceLine {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+  font-size: 14px;
+}
+
+.priceLabel {
+  color: #374151;
+}
+
+.priceValue {
+  color: #000000;
+  font-weight: 600;
+}
+
+.discountValue {
+  color: #ef4444; /* Red text for discount */
+  font-weight: 600;
+}
+
+.transportIncludedText {
+  color: #c9a961; /* Gold */
+  font-weight: 600;
+  font-size: 13px;
+}
+
+.totalLine {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px;
+  background: #f9fafb;
+  border-radius: 8px;
+  margin-top: 12px;
+}
+
+.totalLabel {
+  font-size: 16px;
+  font-weight: 700;
+  color: #000000;
+}
+
+.totalAmount {
+  font-size: 28px;
+  font-weight: 700;
+  color: #000000;
+}
+
+.checkmark {
+  font-size: 16px;
+  font-weight: 700;
+  color: currentColor;
+  margin-right: 4px;
+}
+
+.priceContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: var(--space-2, 8px);
+}
+
+.priceInfo {
+  flex: 1;
+  min-width: 0; /* Allow text to truncate */
+}
+
+.priceLabel {
+  display: block;
+  font-size: var(--text-sm, 14px);
+  font-weight: var(--font-medium, 500);
+  color: var(--text-primary, #1a1a2e);
+  line-height: var(--leading-tight, 1.2);
+}
+
+.additionalInfo {
+  display: block;
+  font-size: var(--text-xs, 12px);
+  font-weight: var(--font-normal, 400);
+  color: var(--text-secondary, #4a5568);
+  line-height: var(--leading-normal, 1.5);
+  margin-top: var(--space-1, 4px);
+}
+
+.priceDisplay {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2, 8px);
+  flex-shrink: 0;
+}
+
+.originalPrice {
+  font-size: var(--text-base, 16px);
+  font-weight: var(--font-normal, 400);
+  color: var(--text-secondary, #4a5568);
+  text-decoration: line-through;
+}
+
+.finalPrice {
+  font-size: var(--text-xl, 20px);
+  font-weight: var(--font-bold, 700);
+  color: var(--accent-primary, #FFD700);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+/* Discount Information */
+.discountInfo {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2, 8px);
+  padding: var(--space-2, 8px);
+  background: rgba(16, 185, 129, 0.1);
+  border: 1px solid var(--success, #10b981);
+  border-radius: var(--radius-md, 8px);
+  margin-bottom: var(--space-2, 8px);
+}
+
+.discountIcon {
+  font-size: 16px;
+  flex-shrink: 0;
+}
+
+.discountText {
+  font-size: var(--text-sm, 14px);
+  font-weight: var(--font-medium, 500);
+  color: var(--success, #10b981);
+}
+
+/* Error Message */
+.errorMessage {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2, 8px);
+  padding: var(--space-3, 12px);
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid var(--error, #ef4444);
+  border-radius: var(--radius-md, 8px);
+  color: var(--error, #ef4444);
+  font-size: var(--text-sm, 14px);
+  font-weight: var(--font-medium, 500);
+  margin-bottom: var(--space-2, 8px);
+}
+
+/* Action Buttons */
+.actionButtons {
+  display: flex;
+  gap: var(--space-3, 12px);
+  padding: 0 var(--mobile-content-padding, 16px) var(--space-3, 12px);
+}
+
+.secondaryButton {
+  flex: 1;
+  height: var(--touch-large, 56px);
+  padding: var(--space-4, 16px);
+  background: #ffffff;
+  border: 2px solid #e5e7eb; /* Light gray border */
+  border-radius: var(--radius-lg, 12px);
+  color: #6b7280; /* Gray text */
+  font-size: var(--text-base, 16px);
+  font-weight: var(--font-semibold, 600);
+  cursor: pointer;
+  transition: all 300ms ease-in-out;
+
+  /* Remove button styling */
+  appearance: none;
+  -webkit-appearance: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.secondaryButton:hover {
+  border-color: #c9a961; /* Gold border on hover */
+  color: #1a2332; /* Navy text on hover */
+  background: #fefefe;
+}
+
+.secondaryButton:active {
+  transform: scale(0.98);
+}
+
+.secondaryButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.primaryButton {
+  flex: 1;
+  height: var(--touch-large, 56px);
+  padding: var(--space-4, 16px);
+  background: #1a2332; /* Navy background */
+  border: none;
+  border-radius: var(--radius-lg, 12px);
+  color: white;
+  font-size: var(--text-lg, 18px);
+  font-weight: var(--font-bold, 700);
+  cursor: pointer;
+  transition: all 300ms ease-in-out;
+  box-shadow: 0 4px 12px rgba(26, 35, 50, 0.3);
+
+  /* Remove button styling */
+  appearance: none;
+  -webkit-appearance: none;
+  -webkit-tap-highlight-color: transparent;
+
+  /* Loading state support */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2, 8px);
+}
+
+.fullWidth {
+  width: 100%;
+  flex: none;
+}
+
+.primaryButton:hover:not(:disabled) {
+  background: #c9a961; /* Gold on hover */
+  color: #1a2332; /* Navy text on gold background */
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(201, 169, 97, 0.4);
+}
+
+.primaryButton:active:not(:disabled) {
+  transform: translateY(0);
+  box-shadow: 0 2px 8px rgba(201, 169, 97, 0.3);
+}
+
+.primaryButton:disabled,
+.primaryButton.disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+  background: var(--border-medium, #cbd5e0);
+  color: var(--text-muted, #718096);
+}
+
+/* Loading Spinner */
+.spinner {
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.spinnerSvg {
+  width: 100%;
+  height: 100%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.spinnerSvg circle {
+  animation: dash 1.5s ease-in-out infinite;
+}
+
+@keyframes dash {
+  0% {
+    stroke-dasharray: 1, 150;
+    stroke-dashoffset: 0;
+  }
+  50% {
+    stroke-dasharray: 90, 150;
+    stroke-dashoffset: -35;
+  }
+  100% {
+    stroke-dasharray: 90, 150;
+    stroke-dashoffset: -124;
+  }
+}
+
+/* Trust Indicators */
+.trustIndicators {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2, 8px);
+  padding: var(--space-3, 12px) var(--mobile-content-padding, 16px) var(--space-2, 8px);
+  border-top: 1px solid var(--border-light, #e2e8f0);
+  background: var(--bg-secondary, #f7fafc);
+}
+
+.trustItem {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1, 4px);
+}
+
+.trustIcon {
+  font-size: 14px;
+  flex-shrink: 0;
+}
+
+.trustText {
+  font-size: var(--text-xs, 12px);
+  font-weight: var(--font-medium, 500);
+  color: var(--text-secondary, #4a5568);
+  white-space: nowrap;
+}
+
+.trustDivider {
+  color: var(--text-muted, #718096);
+  font-size: var(--text-xs, 12px);
+  margin: 0 var(--space-1, 4px);
+}
+
+/* Safe Area Padding */
+.safeAreaPadding {
+  height: env(safe-area-inset-bottom);
+  background: var(--bg-secondary, #f7fafc);
+}
+
+/* Responsive Design - Tablet */
+@media (min-width: 768px) {
+  .bottomActionBar {
+    position: relative;
+    width: auto;
+    border-radius: 0 0 var(--radius-lg, 12px) var(--radius-lg, 12px);
+    border-left: 1px solid var(--border-light, #e2e8f0);
+    border-right: 1px solid var(--border-light, #e2e8f0);
+    border-bottom: 1px solid var(--border-light, #e2e8f0);
+    max-width: var(--max-content-width, 680px);
+    margin: 0 auto;
+    box-shadow: var(--shadow-md, 0 4px 6px rgba(0, 0, 0, 0.1));
+  }
+
+  .pricingSummary {
+    padding: var(--space-5, 20px) var(--space-6, 24px) var(--space-4, 16px);
+  }
+
+  .actionButtons {
+    padding: 0 var(--space-6, 24px) var(--space-4, 16px);
+  }
+
+  .trustIndicators {
+    padding: var(--space-3, 12px) var(--space-6, 24px) var(--space-4, 16px);
+  }
+
+  .finalPrice {
+    font-size: var(--text-2xl, 24px);
+  }
+
+  .primaryButton {
+    font-size: var(--text-xl, 20px);
+  }
+}
+
+/* Desktop Design */
+@media (min-width: 1024px) {
+  .pricingSummary {
+    padding: var(--space-6, 24px) var(--space-8, 32px) var(--space-5, 20px);
+  }
+
+  .actionButtons {
+    padding: 0 var(--space-8, 32px) var(--space-5, 20px);
+  }
+
+  .trustIndicators {
+    padding: var(--space-4, 16px) var(--space-8, 32px) var(--space-5, 20px);
+  }
+
+  .primaryButton,
+  .secondaryButton {
+    height: 60px;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .bottomActionBar {
+    border-top-width: 2px;
+  }
+
+  .primaryButton {
+    border: 2px solid var(--accent-primary, #FFD700);
+  }
+
+  .secondaryButton {
+    border-width: 3px;
+  }
+
+  .trustIndicators {
+    border-top-width: 2px;
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .primaryButton,
+  .secondaryButton {
+    transition: none;
+  }
+
+  .primaryButton:hover {
+    transform: none;
+  }
+
+  .spinner,
+  .spinnerSvg,
+  .spinnerSvg circle {
+    animation: none;
+  }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  .bottomActionBar {
+    background: var(--bg-primary, #1a1a2e);
+    border-top-color: var(--border-dark, #4a5568);
+  }
+
+  .priceLabel {
+    color: var(--text-inverse, #ffffff);
+  }
+
+  .trustIndicators {
+    background: var(--bg-secondary, #252544);
+    border-top-color: var(--border-dark, #4a5568);
+  }
+
+  .secondaryButton {
+    background: var(--bg-secondary, #252544);
+    border-color: var(--border-dark, #4a5568);
+    color: var(--text-inverse, #ffffff);
+  }
+
+  .secondaryButton:hover {
+    background: var(--bg-card, #2a2a4a);
+  }
+
+  .safeAreaPadding {
+    background: var(--bg-secondary, #252544);
+  }
+}
+
+/* Focus visible support */
+.primaryButton:focus-visible,
+.secondaryButton:focus-visible {
+  outline: 2px solid var(--accent-primary, #FFD700);
+  outline-offset: 2px;
+}
+
+/* ==========================================
+   MINIMIZE/COLLAPSE FUNCTIONALITY
+   ========================================== */
+
+/* Minimize Button */
+.minimizeButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  padding: 12px 16px;
+  background: transparent;
+  border: none;
+  color: #6b7280;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 200ms ease;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.minimizeButton:hover {
+  background: #f9fafb;
+  color: #374151;
+}
+
+.minimizeButton:active {
+  background: #f3f4f6;
+}
+
+.minimizeIcon {
+  font-size: 16px;
+  transition: transform 200ms ease;
+}
+
+.minimizeText {
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+}
+
+/* Minimized State */
+.bottomActionBar.minimized {
+  /* Reduced height when minimized */
+}
+
+.pricingSummary.hidden {
+  display: none;
+}
+
+.actionButtons.minimizedActions {
+  /* Show only the primary action when minimized */
+  padding: 12px 16px 0;
+}
+
+.actionButtons.minimizedActions .siaComplianceRow {
+  /* Ensure SIA compliance row is still visible when minimized */
+  margin-bottom: 8px;
+}
+
+/* Smooth transitions for minimize/expand */
+.pricingSummary {
+  transition: all 300ms ease;
+  overflow: hidden;
+}
+
+.bottomActionBar.minimized .pricingSummary {
+  max-height: 0;
+  opacity: 0;
+  padding-top: 0;
+  padding-bottom: 0;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+/* Mobile optimization for minimize button */
+@media (max-width: 480px) {
+  .minimizeButton {
+    padding: 10px 16px;
+    font-size: 13px;
+  }
+
+  .minimizeIcon {
+    font-size: 14px;
+  }
+
+  .minimizeText {
+    font-size: 12px;
+  }
+}

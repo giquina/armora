@@ -42,6 +42,7 @@ export function PaymentSuccess({
     }
 
     // Send confirmation analytics
+    console.log('Payment successful', {
       bookingId,
       amount: paymentIntent.amount,
       service: protectionAssignmentData.service.id,

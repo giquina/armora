@@ -115,7 +115,7 @@ export function PanicAlertHandler({ className }: PanicAlertHandlerProps) {
       // Escalate alert if not acknowledged
       handleEscalateAlert();
     }
-  }, [activeAlert, isAcknowledged, countdown]);
+  }, [activeAlert, isAcknowledged, countdown, handleEscalateAlert]);
 
   const showDesktopNotification = (alert: PanicAlert) => {
     const notification = new Notification('🚨 PANIC ALERT - IMMEDIATE RESPONSE REQUIRED', {
@@ -152,6 +152,7 @@ export function PanicAlertHandler({ className }: PanicAlertHandlerProps) {
     // In production, would send acknowledgment to server
 
     // Analytics
+    console.log('Panic alert acknowledged', {
       alertId: activeAlert.id,
       responseTime: countdown,
       timestamp: Date.now()
@@ -171,8 +172,8 @@ export function PanicAlertHandler({ className }: PanicAlertHandlerProps) {
       responseTime: new Date().toISOString()
     };
 
-
     // Analytics
+    console.log('Client call initiated', {
       alertId: activeAlert.id,
       clientPhone: activeAlert.clientPhone,
       timestamp: Date.now()
@@ -189,6 +190,7 @@ export function PanicAlertHandler({ className }: PanicAlertHandlerProps) {
     window.open(mapsUrl, '_blank');
 
     // Analytics
+    console.log('Navigation to client initiated', {
       alertId: activeAlert.id,
       location: activeAlert.location,
       timestamp: Date.now()
@@ -205,11 +207,11 @@ export function PanicAlertHandler({ className }: PanicAlertHandlerProps) {
       escalationTime: new Date().toISOString()
     };
 
-
     // In production, would notify dispatch center
     alert('ALERT ESCALATED: No response from assigned officer. Notifying dispatch center.');
 
     // Analytics
+    console.log('Alert escalated', {
       alertId: activeAlert.id,
       reason: 'no_acknowledgment',
       timestamp: Date.now()

@@ -31,6 +31,7 @@ export function FloatingSOSButton() {
     localStorage.setItem('armora_booking_preset', 'emergency');
 
     // Analytics for emergency request
+    console.log('Emergency protection requested', {
       timestamp: Date.now(),
       location: navigator.geolocation ? 'requesting' : 'unavailable',
       source: 'floating_sos_button'

@@ -1,65 +1,20 @@
 import { useState, useEffect, useCallback, useMemo } from 'react';
 import { useApp } from '../../contexts/AppContext';
+import { SituationSelector } from './components/SituationSelector';
+import { ServiceComparison } from './components/ServiceComparison';
+import { WhatYouGet } from './components/WhatYouGet';
+import { OfficerProfile } from './components/OfficerProfile';
+import { LocationInput } from './components/LocationInput';
+import { TimeSelection } from './components/TimeSelection';
+import { BottomActionBar } from './components/BottomActionBar';
+import type { Situation } from './components/SituationSelector';
+import type { ServiceTier } from './components/ServiceComparison';
 import styles from './ProtectionRequest.module.css';
 
 interface ProtectionRequestProps {
   onAssignmentRequested: () => void;
   className?: string;
 }
-
-interface ServiceTier {
-  id: 'essential' | 'executive' | 'shadow' | 'client-vehicle';
-  name: string;
-  icon: string;
-  rate: string;
-  hourlyRate: number;
-  description: string;
-  responseTime: string;
-  features: string[];
-}
-
-const SERVICE_TIERS: ServiceTier[] = [
-  {
-    id: 'essential',
-    name: 'Essential Protection',
-    icon: '🛡️',
-    rate: '£50/hr',
-    hourlyRate: 50,
-    description: 'SIA-licensed Close Protection Officers',
-    responseTime: '2-4 min',
-    features: ['SIA Level 2 licensed', 'Real-time tracking', '24/7 support']
-  },
-  {
-    id: 'executive',
-    name: 'Executive Shield',
-    icon: '👔',
-    rate: '£75/hr',
-    hourlyRate: 75,
-    description: 'Premium security detail for high-profile clients',
-    responseTime: '3-5 min',
-    features: ['SIA Level 3 licensed', 'Threat assessment', 'Discrete surveillance']
-  },
-  {
-    id: 'shadow',
-    name: 'Shadow Protocol',
-    icon: '🥷',
-    rate: '£65/hr',
-    hourlyRate: 65,
-    description: 'Special Forces trained protection specialists',
-    responseTime: '5-8 min',
-    features: ['Military-grade training', 'Covert operations', 'Counter-surveillance']
-  },
-  {
-    id: 'client-vehicle',
-    name: 'Client Vehicle Service',
-    icon: '🚗',
-    rate: '£55/hr',
-    hourlyRate: 55,
-    description: 'Security-trained CPO for your vehicle',
-    responseTime: '4-6 min',
-    features: ['Your vehicle', 'No mileage charges', 'Enhanced privacy']
-  }
-];
 
 interface TimeOption {
   value: string;
@@ -68,29 +23,82 @@ interface TimeOption {
   badge?: string;
 }
 
-const TIME_OPTIONS: TimeOption[] = [
-  { value: 'now', label: 'Now', description: 'CPO deploys now', badge: 'FASTEST' },
-  { value: '30min', label: 'In 30 min', description: 'Protection commences in 30 minutes' },
-  { value: '1hour', label: 'In 1 hour', description: 'Protection commences in 1 hour' },
-  { value: 'schedule', label: 'Schedule', description: 'Choose specific time' }
-];
+// Generate time options with actual clock times
+const generateTimeOptions = (): TimeOption[] => {
+  const now = new Date();
+  const immediate = new Date(now.getTime() + 3 * 60000); // 3 minutes from now
+  const thirtyMin = new Date(now.getTime() + 30 * 60000); // 30 minutes from now
+  const oneHour = new Date(now.getTime() + 60 * 60000); // 1 hour from now
+
+  const formatTime = (date: Date) => {
+    return date.toLocaleTimeString('en-GB', {
+      hour: '2-digit',
+      minute: '2-digit',
+      hour12: false
+    });
+  };
+
+  return [
+    {
+      value: 'now',
+      label: '⚡ IMMEDIATE',
+      description: `Protection commences: ${formatTime(immediate)}`,
+      badge: 'FASTEST'
+    },
+    {
+      value: '30min',
+      label: '📅 IN 30 MIN',
+      description: `Protection commences: ${formatTime(thirtyMin)}`
+    },
+    {
+      value: '1hour',
+      label: '📅 IN 1 HOUR',
+      description: `Protection commences: ${formatTime(oneHour)}`
+    },
+    {
+      value: 'schedule',
+      label: '🗓️ SCHEDULE',
+      description: 'Pick specific date/time'
+    }
+  ];
+};
 
 export function ProtectionRequest({ onAssignmentRequested, className }: ProtectionRequestProps) {
-  const { state } = useApp();
-  const [selectedService, setSelectedService] = useState<ServiceTier>(SERVICE_TIERS[0]);
+  const { state, navigateToView } = useApp();
+  const [selectedSituation, setSelectedSituation] = useState<Situation | null>(null);
+  const [selectedService, setSelectedService] = useState<ServiceTier | null>(null);
+  const [pickupLocation, setPickupLocation] = useState('');
   const [secureDestination, setSecureDestination] = useState('');
   const [commencementTime, setCommencementTime] = useState('now');
   const [scheduledDateTime, setScheduledDateTime] = useState('');
   const [recentLocations, setRecentLocations] = useState<string[]>([]);
-  const [savedLocations, setSavedLocations] = useState<{home?: string, office?: string}>({});
-  const [showRecentLocations, setShowRecentLocations] = useState(false);
-  const [defaultRecentLocations] = useState([
-    '📍 Heathrow Airport',
-    '🏢 Canary Wharf',
-    '🏠 Home (Saved)'
-  ]);
 
-  // Load recent locations and saved locations from localStorage
+  // Generate time options with current time
+  const timeOptions = useMemo(() => generateTimeOptions(), []);
+
+  // Terms acceptance state
+  const [terms, setTerms] = useState({
+    understandService: false,
+    agreeVerification: false,
+    acceptTerms: false
+  });
+
+  // Handle situation selection
+  const handleSituationSelect = useCallback((situation: Situation) => {
+    setSelectedSituation(situation);
+  }, []);
+
+  // Handle service selection
+  const handleServiceSelect = useCallback((service: ServiceTier) => {
+    setSelectedService(service);
+  }, []);
+
+  // Handle terms changes
+  const handleTermChange = useCallback((term: keyof typeof terms) => {
+    setTerms(prev => ({ ...prev, [term]: !prev[term] }));
+  }, []);
+
+  // Load recent locations from localStorage
   useEffect(() => {
     const saved = localStorage.getItem('armora_recent_destinations');
     if (saved) {
@@ -100,14 +108,6 @@ export function ProtectionRequest({ onAssignmentRequested, className }: Protecti
         console.warn('Failed to load recent destinations:', error);
       }
     }
-
-    // Load saved home/office locations
-    const savedHome = localStorage.getItem('armora_home_address');
-    const savedOffice = localStorage.getItem('armora_office_address');
-    setSavedLocations({
-      home: savedHome || undefined,
-      office: savedOffice || undefined
-    });
   }, []);
 
   // Save destination to recent locations
@@ -119,26 +119,23 @@ export function ProtectionRequest({ onAssignmentRequested, className }: Protecti
     localStorage.setItem('armora_recent_destinations', JSON.stringify(updated));
   }, [recentLocations]);
 
-  // Handle destination input focus
-  const handleDestinationFocus = useCallback(() => {
-    setShowRecentLocations(true);
-  }, []);
-
-  // Handle destination input blur with delay
-  const handleDestinationBlur = useCallback(() => {
-    // Delay hiding to allow clicks on recent locations
-    setTimeout(() => setShowRecentLocations(false), 200);
-  }, []);
-
   // Select a location from recent/default list
   const selectLocation = useCallback((location: string) => {
     const cleanLocation = location.replace(/📍|🏢|🏠/, '').trim().replace(' (Saved)', '');
     setSecureDestination(cleanLocation);
-    setShowRecentLocations(false);
   }, []);
 
   // Calculate service fee (minimum 2 hours) - memoized to prevent re-computation
   const serviceFeeCalculation = useMemo(() => {
+    if (!selectedService) {
+      return {
+        originalFee: 0,
+        finalFee: 0,
+        hasDiscount: false,
+        savings: 0
+      };
+    }
+
     const baseHours = 2; // Minimum 2-hour assignment
     const baseFee = selectedService.hourlyRate * baseHours;
 
@@ -152,24 +149,43 @@ export function ProtectionRequest({ onAssignmentRequested, className }: Protecti
       hasDiscount,
       savings: hasDiscount ? baseFee - discountedFee : 0
     };
-  }, [selectedService.hourlyRate, state.user?.hasUnlockedReward, state.user?.userType]);
+  }, [selectedService, state.user?.hasUnlockedReward, state.user?.userType]);
 
   const { originalFee, finalFee, hasDiscount, savings } = serviceFeeCalculation;
 
   // Check if ready to request protection - memoized to prevent re-computation
   const isReadyToRequest = useMemo(() => {
-    return secureDestination.trim() && (commencementTime !== 'schedule' || scheduledDateTime);
-  }, [secureDestination, commencementTime, scheduledDateTime]);
+    const termsAccepted = Object.values(terms).every(v => v === true);
+    return selectedService &&
+           secureDestination.trim() &&
+           (commencementTime !== 'schedule' || scheduledDateTime) &&
+           termsAccepted;
+  }, [selectedService, secureDestination, commencementTime, scheduledDateTime, terms]);
+
+  // Handle navigation actions
+  const handleClose = useCallback(() => {
+    navigateToView('home');
+  }, [navigateToView]);
+
+
+  const handleChangeSelection = useCallback(() => {
+    // Scroll to situation selector
+    const element = document.querySelector('[data-section="situation-selector"]');
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }, []);
 
   // Handle protection request
   const handleRequestProtection = useCallback(() => {
-    if (!isReadyToRequest) return;
+    if (!isReadyToRequest || !selectedService) return;
 
     // Save destination to recent locations
     saveDestination(secureDestination);
 
     // Store assignment data
     const assignmentData = {
+      selectedSituation: selectedSituation?.id || 'general',
       selectedService: selectedService.id,
       serviceName: selectedService.name,
       serviceRate: selectedService.rate,
@@ -187,12 +203,14 @@ export function ProtectionRequest({ onAssignmentRequested, className }: Protecti
 
     localStorage.setItem('armora_assignment_data', JSON.stringify(assignmentData));
     onAssignmentRequested();
-  }, [isReadyToRequest, saveDestination, secureDestination, selectedService, commencementTime, scheduledDateTime, finalFee, originalFee, hasDiscount, savings, state.user, onAssignmentRequested]);
+  }, [isReadyToRequest, saveDestination, secureDestination, selectedSituation, selectedService, commencementTime, scheduledDateTime, finalFee, originalFee, hasDiscount, savings, state.user, onAssignmentRequested]);
 
   // Format deployment time - memoized to prevent re-computation
   const deploymentInfo = useMemo(() => {
+    if (!selectedService) return 'Select protection service';
+
     if (commencementTime === 'now') {
-      return `CPO deployment: ${selectedService.responseTime}`;
+      return `CPO deployment: ${selectedService.responseTime || '2-4 min'}`;
     } else if (commencementTime === '30min') {
       return 'Protection commences in 30 minutes';
     } else if (commencementTime === '1hour') {
@@ -202,218 +220,210 @@ export function ProtectionRequest({ onAssignmentRequested, className }: Protecti
       return `Protection commences: ${date.toLocaleString('en-GB')}`;
     }
     return 'Select commencement time';
-  }, [commencementTime, selectedService.responseTime, scheduledDateTime]);
+  }, [commencementTime, selectedService, scheduledDateTime]);
 
   return (
     <div className={`${styles.protectionRequest} ${className || ''}`}>
+      {/* Back Button */}
+      <button
+        className={styles.backButton}
+        onClick={handleClose}
+        aria-label="Go back"
+        type="button"
+      >
+        <span>←</span>
+      </button>
+      {/* Header */}
+      <div className={styles.header}>
+        <div className={styles.statusLine}>🟢 Officers Available Now</div>
+        <h1 className={styles.title}>Arrange Protection Services</h1>
+        <p className={styles.subtitle}>Professional security officers across England & Wales</p>
+        <div className={styles.trustBadges}>
+          <span className={styles.badge}>⚡ Fast response</span>
+          <span className={styles.badge}>📍 Nationwide coverage</span>
+          <span className={styles.badge}>✓ SIA & Government licensed</span>
+        </div>
+      </div>
+
       <div className={styles.contentWrapper}>
-        {/* Header */}
-        <div className={styles.header}>
-        <h1 className={styles.title}>Request Close Protection Officer</h1>
-        <p className={styles.subtitle}>Three quick decisions - your CPO will be deployed</p>
-      </div>
-
-      {/* Service Tier Selection */}
-      <div className={styles.section}>
-        <label className={styles.sectionLabel}>
-          Protection Level
-        </label>
-        <div className={styles.serviceSelector}>
-          <div className={styles.protectionLevelContainer}>
-            <span className={styles.serviceIcon}>{selectedService.icon}</span>
-            <select
-              className={styles.serviceDropdown}
-              value={selectedService.id}
-              onChange={(e) => {
-                const service = SERVICE_TIERS.find(s => s.id === e.target.value);
-                if (service) setSelectedService(service);
-              }}
-            >
-              {SERVICE_TIERS.map((service) => (
-                <option key={service.id} value={service.id}>
-                  {service.name} {service.rate} - {service.description}
-                </option>
-              ))}
-            </select>
-          </div>
-          <div className={styles.serviceDetails}>
-            <div className={styles.serviceInfo}>
-              <span className={styles.responseTime}>⚡ {selectedService.responseTime} response</span>
-              <span className={styles.features}>
-                {selectedService.features.join(' • ')}
-              </span>
+        {/* Section 1: Journey Location & Time - MOVED TO FIRST */}
+        <div className={styles.locationTimeSection}>
+          <div className={styles.journeyHeader}>
+            <div className={styles.journeyHeaderIcon}>🛡️</div>
+            <div className={styles.journeyHeaderContent}>
+              <h2 className={styles.journeyTitle}>Plan Your Protection</h2>
+              <p className={styles.journeySubtitle}>
+                Professional CPO with secure vehicle • Door-to-door service
+              </p>
             </div>
           </div>
-        </div>
-      </div>
 
-      {/* Secure Destination */}
-      <div className={styles.section}>
-        <label className={styles.sectionLabel} htmlFor="destination">
-          Secure Destination
-        </label>
-        <div className={styles.destinationInput}>
-          <input
-            id="destination"
-            type="text"
-            className={styles.locationInput}
-            placeholder="Enter protection required at..."
+          <LocationInput
             value={secureDestination}
-            onChange={(e) => setSecureDestination(e.target.value)}
-            onFocus={handleDestinationFocus}
-            onBlur={handleDestinationBlur}
+            onChange={setSecureDestination}
+            pickupLocation={pickupLocation}
+            onPickupChange={setPickupLocation}
+            recentLocations={recentLocations}
+            onLocationSelect={selectLocation}
           />
-          <div className={styles.locationIcon}>📍</div>
 
-          {/* Recent Locations Dropdown */}
-          {showRecentLocations && (
-            <div className={styles.recentLocationsDropdown}>
-              {recentLocations.length > 0 && (
-                <>
-                  <div className={styles.recentHeader}>Recent Locations</div>
-                  {recentLocations.slice(0, 3).map((location, index) => (
-                    <button
-                      key={index}
-                      className={styles.recentLocationItem}
-                      onClick={() => selectLocation(location)}
-                    >
-                      📍 {location}
-                    </button>
-                  ))}
-                </>
-              )}
-              <div className={styles.recentHeader}>Quick Access</div>
-              {defaultRecentLocations.map((location, index) => (
-                <button
-                  key={`default-${index}`}
-                  className={styles.recentLocationItem}
-                  onClick={() => selectLocation(location)}
-                >
-                  {location}
-                </button>
-              ))}
+          {/* Journey Summary - Shows when both locations are entered */}
+          {pickupLocation.trim() && secureDestination.trim() && (
+            <div className={styles.journeySummary}>
+              <div className={styles.journeyRoute}>
+                <div className={styles.routeItem}>
+                  <span className={styles.routeIcon}>📍</span>
+                  <span className={styles.routeText}>{pickupLocation}</span>
+                </div>
+                <div className={styles.routeArrow}>→</div>
+                <div className={styles.routeItem}>
+                  <span className={styles.routeIcon}>🎯</span>
+                  <span className={styles.routeText}>{secureDestination}</span>
+                </div>
+              </div>
+              <p className={styles.journeyNote}>✓ Your protection officer will drive you safely between these locations</p>
             </div>
           )}
+
+          <TimeSelection
+            timeOptions={timeOptions}
+            selectedTime={commencementTime}
+            onTimeChange={setCommencementTime}
+            scheduledDateTime={scheduledDateTime}
+            onScheduledDateTimeChange={setScheduledDateTime}
+          />
         </div>
 
-        {/* Quick Location Shortcuts */}
-        <div className={styles.locationShortcuts}>
-          {savedLocations.home && (
-            <button
-              className={styles.shortcutButton}
-              onClick={() => setSecureDestination(savedLocations.home!)}
-            >
-              🏠 Home
-            </button>
-          )}
-          {savedLocations.office && (
-            <button
-              className={styles.shortcutButton}
-              onClick={() => setSecureDestination(savedLocations.office!)}
-            >
-              🏢 Office
-            </button>
-          )}
-          {recentLocations.length > 0 && (
-            <div className={styles.recentDropdown}>
-              <select
-                className={styles.recentSelect}
-                value=""
-                onChange={(e) => {
-                  if (e.target.value) {
-                    setSecureDestination(e.target.value);
-                  }
-                }}
-              >
-                <option value="">✈️ Recent locations</option>
-                {recentLocations.slice(0, 5).map((location, index) => (
-                  <option key={index} value={location}>
-                    {location.length > 30 ? `${location.substring(0, 30)}...` : location}
-                  </option>
-                ))}
-              </select>
+        {/* Section 2: Situation Selector - NOW SHOWS AFTER JOURNEY ENTERED */}
+        {pickupLocation.trim() && secureDestination.trim() && (
+          <div data-section="situation-selector">
+            <div className={styles.journeyContext}>
+              <p className={styles.journeyContextText}>
+                🛡️ <strong>Your protection journey:</strong><br />
+                📍 {pickupLocation} → {secureDestination}
+                {commencementTime === 'now' && ' • Immediate protection'}
+                {commencementTime !== 'now' && commencementTime !== 'schedule' && ` • In ${commencementTime === '30min' ? '30 minutes' : '1 hour'}`}
+                {commencementTime === 'schedule' && scheduledDateTime && ` • ${new Date(scheduledDateTime).toLocaleString('en-GB')}`}
+              </p>
+              <p className={styles.journeySubtext}>Select protection for your journey:</p>
             </div>
-          )}
-        </div>
-      </div>
-
-      {/* Commencement Time */}
-      <div className={styles.section}>
-        <label className={styles.sectionLabel}>
-          Protection Commences
-        </label>
-        <div className={styles.timeOptions}>
-          {TIME_OPTIONS.map((option) => (
-            <button
-              key={option.value}
-              className={`${styles.timeButton} ${commencementTime === option.value ? styles.active : ''} ${option.value === 'now' ? styles.fastest : ''}`}
-              onClick={() => setCommencementTime(option.value)}
-            >
-              <span className={styles.timeLabel}>
-                {option.label}
-                {option.badge && <span className={styles.timeBadge}>{option.badge}</span>}
-              </span>
-              <span className={styles.timeDescription}>{option.description}</span>
-            </button>
-          ))}
-        </div>
-
-        {/* Schedule DateTime Picker */}
-        {commencementTime === 'schedule' && (
-          <div className={styles.schedulePicker}>
-            <input
-              type="datetime-local"
-              className={styles.dateTimeInput}
-              value={scheduledDateTime}
-              onChange={(e) => setScheduledDateTime(e.target.value)}
-              min={new Date().toISOString().slice(0, 16)}
+            <SituationSelector
+              selectedSituation={selectedSituation?.id || null}
+              onSituationSelect={handleSituationSelect}
             />
           </div>
         )}
-      </div>
 
-      {/* Assignment Summary */}
-      <div className={styles.summary}>
-        <div className={styles.summaryRow}>
-          <span className={styles.summaryLabel}>{deploymentInfo}</span>
-        </div>
-        <div className={styles.summaryRow}>
-          <span className={styles.summaryLabel}>Service fee (2hr minimum):</span>
-          <span className={styles.summaryValue}>
-            {hasDiscount && (
-              <span className={styles.originalFee}>£{originalFee}</span>
-            )}
-            £{finalFee}
-          </span>
-        </div>
-        {hasDiscount && (
-          <div className={styles.summaryRow}>
-            <span className={styles.discountLabel}>🎉 50% Member Discount:</span>
-            <span className={styles.discountValue}>-£{savings}</span>
+        {/* Section 3: Journey Benefits - SHOWS AFTER SITUATION SELECTED */}
+        {selectedSituation && (
+          <div className={styles.journeyDetailsSection}>
+            <h2 className={styles.sectionTitle}>🛡️ What's included in your protection service</h2>
+            <div className={styles.journeyInfo}>
+              <p className={styles.journeyDescription}>
+                Your protection officer will provide secure transport in a professional vehicle as part of your protection service.
+              </p>
+              <div className={styles.journeyBenefits}>
+                <span className={styles.benefit}>✓ Secure vehicle provided</span>
+                <span className={styles.benefit}>✓ Protection officer drives you safely</span>
+                <span className={styles.benefit}>✓ Door-to-door security service</span>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Section 3: Service Comparison */}
+        <ServiceComparison
+          selectedServiceId={selectedService?.id || null}
+          onServiceSelect={handleServiceSelect}
+          recommendedService={selectedSituation?.recommended}
+        />
+
+        {/* Section 3: What You Get */}
+        {selectedSituation && selectedService && (
+          <WhatYouGet
+            situation={selectedSituation.id}
+            service={selectedService.id}
+          />
+        )}
+
+        {/* Section 4: Officer Profile */}
+        {selectedService && (
+          <OfficerProfile selectedService={selectedService.id} />
+        )}
+
+
+        {/* Section 6: Terms & Conditions */}
+        {selectedService && secureDestination && (
+          <div className={styles.termsSection}>
+            <h2 className={styles.sectionTitle}>Terms & Conditions</h2>
+
+            <label className={styles.termItem}>
+              <input
+                type="checkbox"
+                checked={terms.understandService}
+                onChange={() => handleTermChange('understandService')}
+                className={styles.checkbox}
+              />
+              <span className={styles.termText}>
+                I understand this is a 2-hour minimum security service
+              </span>
+            </label>
+
+            <label className={styles.termItem}>
+              <input
+                type="checkbox"
+                checked={terms.agreeVerification}
+                onChange={() => handleTermChange('agreeVerification')}
+                className={styles.checkbox}
+              />
+              <span className={styles.termText}>
+                I agree to officer ID verification on arrival
+              </span>
+            </label>
+
+            <label className={styles.termItem}>
+              <input
+                type="checkbox"
+                checked={terms.acceptTerms}
+                onChange={() => handleTermChange('acceptTerms')}
+                className={styles.checkbox}
+              />
+              <span className={styles.termText}>
+                I accept the terms of service
+              </span>
+            </label>
           </div>
         )}
       </div>
 
-      {/* Request CTA */}
-      <button
-        className={styles.requestButton}
-        onClick={handleRequestProtection}
-        disabled={!isReadyToRequest}
-      >
-        {!secureDestination.trim() ? (
-          'Enter Secure Destination'
-        ) : commencementTime === 'schedule' && !scheduledDateTime ? (
-          'Set Schedule Time'
-        ) : (
-          `Request CPO £${finalFee}`
-        )}
-      </button>
-
-        {/* Trust Badges - Single Row */}
-        <div className={styles.trustBadges}>
-          🛡️ SIA Licensed | ⭐ 4.9 Rating | 🔒 Insured | 📍 Live Track
-        </div>
-      </div>
+      {/* SIA-Compliant Smart Bottom Panel */}
+      <BottomActionBar
+        isValid={!selectedService ? false : isReadyToRequest}
+        pricing={selectedService ? {
+          basePrice: originalFee,
+          discountAmount: hasDiscount ? savings : undefined,
+          finalPrice: finalFee,
+          hasDiscount,
+          originalPrice: hasDiscount ? originalFee : undefined
+        } : undefined}
+        serviceInfo={selectedService ? {
+          name: selectedService.name,
+          rate: selectedService.rate,
+          hourlyRate: selectedService.hourlyRate,
+          situation: selectedSituation?.label,
+          journeyRoute: pickupLocation && secureDestination ? `${pickupLocation} → ${secureDestination}` : undefined
+        } : undefined}
+        primaryButtonText={
+          !selectedService
+            ? 'Select Protection Level to Begin ↑'
+            : !Object.values(terms).every(v => v)
+            ? `Proceed to Assignment Details - £${finalFee.toFixed(2)}`
+            : `Accept Terms & Pay - £${finalFee.toFixed(2)}`
+        }
+        onPrimaryAction={!selectedService ? undefined : handleRequestProtection}
+        onChangeSelection={selectedService ? handleChangeSelection : undefined}
+        additionalInfo={deploymentInfo}
+      />
     </div>
   );
 }

@@ -3136,3 +3136,169 @@
   margin-bottom: 20px;
   pointer-events: none;
 }
+
+/* Threat Assessment Container */
+.threatAssessmentContainer {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+/* Seven Ps Assessment Container */
+.sevenPsContainer {
+  width: 100%;
+  margin: 16px 0;
+  padding: 0;
+  max-width: 100%;
+  overflow-x: hidden;
+  background: rgba(26, 26, 46, 0.6);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 215, 0, 0.2);
+  animation: fadeInAssessment 0.4s ease-out;
+}
+
+/* Enhanced Emergency Contacts Container */
+.enhancedEmergencyContainer {
+  width: 100%;
+  margin: 16px 0;
+  padding: 20px;
+  max-width: 100%;
+  overflow-x: hidden;
+  background: rgba(26, 26, 46, 0.8);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 215, 0, 0.3);
+  animation: fadeInAssessment 0.4s ease-out;
+}
+
+.enhancedEmergencyContacts {
+  width: 100%;
+}
+
+/* Progressive Assessment Animations */
+@keyframes fadeInAssessment {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+    scale: 0.98;
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    scale: 1;
+  }
+}
+
+/* Progressive Disclosure Transition */
+.progressiveTransition {
+  transition: all 0.3s ease-in-out;
+}
+
+.progressiveEnter {
+  opacity: 0;
+  transform: translateY(10px);
+}
+
+.progressiveEnterActive {
+  opacity: 1;
+  transform: translateY(0);
+  transition: all 0.3s ease-out;
+}
+
+.progressiveExit {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.progressiveExitActive {
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: all 0.2s ease-in;
+}
+
+/* Risk Level Indicators */
+.riskLevelIndicator {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 16px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin: 8px 0;
+}
+
+.riskLevelGreen {
+  background: rgba(40, 167, 69, 0.2);
+  color: #28a745;
+  border: 1px solid rgba(40, 167, 69, 0.4);
+}
+
+.riskLevelYellow {
+  background: rgba(255, 193, 7, 0.2);
+  color: #ffc107;
+  border: 1px solid rgba(255, 193, 7, 0.4);
+}
+
+.riskLevelOrange {
+  background: rgba(253, 126, 20, 0.2);
+  color: #fd7e14;
+  border: 1px solid rgba(253, 126, 20, 0.4);
+}
+
+.riskLevelRed {
+  background: rgba(220, 53, 69, 0.2);
+  color: #dc3545;
+  border: 1px solid rgba(220, 53, 69, 0.4);
+}
+
+/* Assessment Progress Indicator */
+.assessmentProgress {
+  margin: 16px 0;
+  padding: 12px;
+  background: rgba(255, 215, 0, 0.1);
+  border-radius: 8px;
+  border-left: 4px solid #ffd700;
+}
+
+.assessmentProgressTitle {
+  font-size: 14px;
+  font-weight: 600;
+  color: #ffd700;
+  margin-bottom: 4px;
+}
+
+.assessmentProgressText {
+  font-size: 13px;
+  color: #e0e0e0;
+  line-height: 1.4;
+}
+
+/* Mobile Optimizations for New Components */
+@media (max-width: 768px) {
+  .sevenPsContainer,
+  .enhancedEmergencyContainer {
+    margin: 12px 0;
+    padding: 16px;
+    border-radius: 8px;
+  }
+
+  .assessmentProgress {
+    margin: 12px 0;
+    padding: 10px;
+  }
+
+  .riskLevelIndicator {
+    font-size: 11px;
+    padding: 3px 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .sevenPsContainer,
+  .enhancedEmergencyContainer {
+    margin: 8px 0;
+    padding: 12px;
+  }
+}

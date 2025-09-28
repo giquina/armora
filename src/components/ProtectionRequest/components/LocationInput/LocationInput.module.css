@@ -1,0 +1,525 @@
+/* LOCATION INPUT - MOBILE-FIRST EDGE-TO-EDGE DESIGN */
+/* Enhanced location input with search, recent locations, and mobile optimization */
+
+.locationInput {
+  /* Clean white section - no edge-to-edge breakout */
+  width: 100%;
+  background: #ffffff;
+  padding: 16px;
+  margin-bottom: 16px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.sectionHeader {
+  padding: 0 0 16px 0;
+  margin: 0;
+}
+
+.sectionTitle {
+  font-size: var(--text-xl, 20px);
+  font-weight: var(--font-bold, 700);
+  line-height: var(--leading-tight, 1.2);
+  color: var(--text-primary, #1a1a2e);
+  margin: 0 0 var(--space-1, 4px) 0;
+}
+
+.sectionSubtitle {
+  font-size: var(--text-base, 16px);
+  font-weight: var(--font-normal, 400);
+  line-height: var(--leading-normal, 1.5);
+  color: var(--text-secondary, #4a5568);
+  margin: 0;
+}
+
+/* Input Container */
+.inputContainer {
+  position: relative;
+  padding: 0;
+  width: 100%;
+}
+
+/* Input Wrapper */
+.inputWrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+/* Main Input Field */
+.input {
+  width: 100%;
+  height: var(--touch-large, 56px);
+  padding: var(--space-4, 16px);
+  padding-right: var(--space-12, 48px); /* Space for icon */
+  background: var(--bg-elevated, #ffffff);
+  border: 2px solid var(--border-medium, #cbd5e0);
+  border-radius: var(--radius-lg, 12px);
+  color: var(--text-primary, #1a1a2e);
+  font-size: var(--text-base, 16px);
+  font-weight: var(--font-normal, 400);
+  line-height: var(--leading-normal, 1.5);
+  transition: all var(--duration-fast, 150ms) var(--ease-out, cubic-bezier(0, 0, 0.2, 1));
+
+  /* Remove default appearance */
+  appearance: none;
+  -webkit-appearance: none;
+  -webkit-tap-highlight-color: transparent;
+
+  /* Prevent zoom on iOS */
+  transform: translateZ(0);
+}
+
+.input:focus {
+  outline: none;
+  border-color: var(--accent-primary, #FFD700);
+  box-shadow: 0 0 0 3px rgba(255, 215, 0, 0.1);
+}
+
+.input.error {
+  border-color: var(--error, #ef4444);
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
+}
+
+.input::placeholder {
+  color: var(--text-muted, #718096);
+  opacity: 1;
+}
+
+/* Input Icon */
+.inputIcon {
+  position: absolute;
+  right: var(--space-4, 16px);
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-secondary, #4a5568);
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+}
+
+/* Spinner Animation */
+.spinner {
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.spinnerSvg {
+  width: 100%;
+  height: 100%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.spinnerSvg circle {
+  animation: dash 1.5s ease-in-out infinite;
+}
+
+@keyframes dash {
+  0% {
+    stroke-dasharray: 1, 150;
+    stroke-dashoffset: 0;
+  }
+  50% {
+    stroke-dasharray: 90, 150;
+    stroke-dashoffset: -35;
+  }
+  100% {
+    stroke-dasharray: 90, 150;
+    stroke-dashoffset: -124;
+  }
+}
+
+/* Error Message */
+.errorMessage {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2, 8px);
+  margin-top: var(--space-2, 8px);
+  padding: var(--space-3, 12px);
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid var(--error, #ef4444);
+  border-radius: var(--radius-md, 8px);
+  color: var(--error, #ef4444);
+  font-size: var(--text-sm, 14px);
+  font-weight: var(--font-medium, 500);
+}
+
+/* Saved Locations Shortcuts */
+.savedLocations {
+  display: flex;
+  gap: var(--space-2, 8px);
+  margin-top: var(--space-3, 12px);
+  flex-wrap: wrap;
+}
+
+.savedLocationButton {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2, 8px);
+  padding: var(--space-2, 8px) var(--space-3, 12px);
+  background: var(--bg-secondary, #f7fafc);
+  border: 1px solid var(--border-light, #e2e8f0);
+  border-radius: var(--radius-lg, 12px);
+  color: var(--text-primary, #1a1a2e);
+  font-size: var(--text-sm, 14px);
+  font-weight: var(--font-medium, 500);
+  cursor: pointer;
+  transition: all var(--duration-fast, 150ms) var(--ease-out, cubic-bezier(0, 0, 0.2, 1));
+
+  /* Ensure proper touch target */
+  min-height: var(--touch-min, 44px);
+
+  /* Remove button styling */
+  appearance: none;
+  -webkit-appearance: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.savedLocationButton:hover {
+  background: var(--accent-primary, #FFD700);
+  border-color: var(--accent-primary, #FFD700);
+  transform: translateY(-1px);
+}
+
+.savedLocationButton:active {
+  transform: translateY(0);
+}
+
+.savedLocationIcon {
+  font-size: 16px;
+  flex-shrink: 0;
+}
+
+.savedLocationText {
+  white-space: nowrap;
+}
+
+/* Dropdown Menu */
+.dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: var(--bg-elevated, #ffffff);
+  border: 1px solid var(--border-light, #e2e8f0);
+  border-radius: 0 0 var(--radius-lg, 12px) var(--radius-lg, 12px);
+  box-shadow: var(--shadow-lg, 0 10px 15px rgba(0, 0, 0, 0.1));
+  z-index: var(--z-popover, 1020);
+  max-height: 400px;
+  overflow-y: auto;
+  margin-top: 1px;
+
+  /* Smooth scrolling on mobile */
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Dropdown Section */
+.dropdownSection {
+  padding: var(--space-2, 8px) 0;
+}
+
+.dropdownSection:not(:last-child) {
+  border-bottom: 1px solid var(--border-light, #e2e8f0);
+}
+
+.dropdownHeader {
+  padding: var(--space-2, 8px) var(--space-4, 16px);
+  font-size: var(--text-xs, 12px);
+  font-weight: var(--font-bold, 700);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--text-muted, #718096);
+  margin: 0;
+  background: var(--bg-secondary, #f7fafc);
+  border-bottom: 1px solid var(--border-light, #e2e8f0);
+}
+
+/* Dropdown Item */
+.dropdownItem {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3, 12px);
+  width: 100%;
+  padding: var(--space-3, 12px) var(--space-4, 16px);
+  background: transparent;
+  border: none;
+  text-align: left;
+  cursor: pointer;
+  transition: background-color var(--duration-fast, 150ms) var(--ease-out, cubic-bezier(0, 0, 0.2, 1));
+
+  /* Ensure proper touch target */
+  min-height: var(--touch-large, 56px);
+
+  /* Remove button styling */
+  appearance: none;
+  -webkit-appearance: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.dropdownItem:hover {
+  background: var(--bg-secondary, #f7fafc);
+}
+
+.dropdownItem:active {
+  background: var(--border-light, #e2e8f0);
+}
+
+.locationIcon {
+  font-size: 20px;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.locationInfo {
+  flex: 1;
+  min-width: 0; /* Allow text to truncate */
+}
+
+.locationName {
+  display: block;
+  font-size: var(--text-base, 16px);
+  font-weight: var(--font-medium, 500);
+  color: var(--text-primary, #1a1a2e);
+  line-height: var(--leading-tight, 1.2);
+  margin-bottom: var(--space-1, 4px);
+
+  /* Truncate long names */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.locationAddress {
+  display: block;
+  font-size: var(--text-sm, 14px);
+  font-weight: var(--font-normal, 400);
+  color: var(--text-secondary, #4a5568);
+  line-height: var(--leading-normal, 1.5);
+
+  /* Truncate long addresses */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Empty State */
+.emptyState {
+  padding: var(--space-6, 24px) var(--space-4, 16px);
+  text-align: center;
+}
+
+.emptyText {
+  font-size: var(--text-sm, 14px);
+  color: var(--text-muted, #718096);
+  margin: 0;
+}
+
+/* Security Messaging */
+.securityMessage {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 20px;
+  padding: 16px;
+  background: linear-gradient(135deg, rgba(26, 35, 50, 0.05) 0%, rgba(201, 169, 97, 0.05) 100%);
+  border-radius: 12px;
+  border: 1px solid rgba(201, 169, 97, 0.2);
+}
+
+.securityItem {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.securityIcon {
+  font-size: 16px;
+  flex-shrink: 0;
+}
+
+.securityText {
+  font-size: 13px;
+  color: #1a2332;
+  line-height: 1.4;
+  font-weight: 500;
+}
+
+/* Input Groups */
+.inputGroup {
+  margin-bottom: 20px;
+}
+
+.inputLabel {
+  font-size: 16px;
+  font-weight: 600;
+  color: #1a2332;
+  margin: 0 0 10px 0;
+}
+
+/* Current Location Button */
+.currentLocationButton {
+  margin-top: 8px;
+  padding: 8px 12px;
+  background: #f1f5f9;
+  border: 1px solid #c9a961;
+  border-radius: 8px;
+  color: #1a2332;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.currentLocationButton:hover {
+  background: #c9a961;
+  color: white;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(201, 169, 97, 0.3);
+}
+
+/* Responsive Design - Tablet */
+@media (min-width: 768px) {
+  .locationInput {
+    width: auto;
+    margin-left: 0;
+    padding: var(--space-6, 24px);
+    border-radius: var(--radius-lg, 12px);
+    border: 1px solid var(--border-light, #e2e8f0);
+    border-bottom: 1px solid var(--border-light, #e2e8f0);
+    margin-bottom: var(--space-4, 16px);
+  }
+
+  .sectionHeader {
+    padding: 0 0 var(--space-5, 20px);
+  }
+
+  .inputContainer {
+    padding: 0;
+  }
+
+  .sectionTitle {
+    font-size: var(--text-2xl, 24px);
+  }
+}
+
+/* Responsive Design - Desktop */
+@media (min-width: 1024px) {
+  .sectionTitle {
+    font-size: var(--text-3xl, 30px);
+  }
+
+  .sectionSubtitle {
+    font-size: var(--text-lg, 18px);
+  }
+
+  .input {
+    font-size: var(--text-lg, 18px);
+    height: 60px;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .input {
+    border-width: 3px;
+  }
+
+  .input:focus {
+    box-shadow: 0 0 0 4px rgba(255, 215, 0, 0.2);
+  }
+
+  .dropdown {
+    border-width: 2px;
+  }
+
+  .dropdownItem:hover {
+    background: var(--accent-primary, #FFD700);
+    color: var(--text-primary, #1a1a2e);
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .input,
+  .savedLocationButton,
+  .dropdownItem {
+    transition: none;
+  }
+
+  .spinner,
+  .spinnerSvg,
+  .spinnerSvg circle {
+    animation: none;
+  }
+
+  .savedLocationButton:hover {
+    transform: none;
+  }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  .locationInput {
+    background: var(--bg-primary, #1a1a2e);
+    border-bottom-color: var(--border-dark, #4a5568);
+  }
+
+  .input {
+    background: var(--bg-card, #2a2a4a);
+    border-color: var(--border-dark, #4a5568);
+    color: var(--text-inverse, #ffffff);
+  }
+
+  .input::placeholder {
+    color: var(--text-secondary, #a0aec0);
+  }
+
+  .sectionTitle {
+    color: var(--text-inverse, #ffffff);
+  }
+
+  .dropdown {
+    background: var(--bg-card, #2a2a4a);
+    border-color: var(--border-dark, #4a5568);
+  }
+
+  .dropdownHeader {
+    background: var(--bg-secondary, #252544);
+  }
+
+  .locationName {
+    color: var(--text-inverse, #ffffff);
+  }
+
+  .savedLocationButton {
+    background: var(--bg-secondary, #252544);
+    border-color: var(--border-dark, #4a5568);
+    color: var(--text-inverse, #ffffff);
+  }
+}
+
+/* Focus visible support */
+.input:focus-visible,
+.savedLocationButton:focus-visible,
+.dropdownItem:focus-visible {
+  outline: 2px solid var(--accent-primary, #FFD700);
+  outline-offset: 2px;
+}

@@ -1,0 +1,43 @@
+{
+  "name": "Armora Development",
+  "image": "mcr.microsoft.com/devcontainers/javascript-node:1-18-bullseye",
+  "features": {
+    "ghcr.io/devcontainers/features/github-cli:1": {},
+    "ghcr.io/devcontainers/features/docker-in-docker:2": {}
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-vscode.vscode-typescript-next",
+        "bradlc.vscode-tailwindcss",
+        "esbenp.prettier-vscode"
+      ],
+      "settings": {
+        "workbench.colorTheme": "Dark+",
+        "editor.defaultFormatter": "esbenp.prettier-vscode",
+        "editor.formatOnSave": true,
+        "typescript.preferences.quoteStyle": "single"
+      }
+    },
+    "codespaces": {
+      "openFiles": [
+        "README.md",
+        "src/App.tsx"
+      ]
+    }
+  },
+  "forwardPorts": [3000, 3002],
+  "portsAttributes": {
+    "3000": {
+      "label": "Development Server (Primary)",
+      "onAutoForward": "notify"
+    },
+    "3002": {
+      "label": "Development Server (Alt)",
+      "onAutoForward": "notify"
+    }
+  },
+  "postCreateCommand": "npm install",
+  "postStartCommand": "npm run connection:fix",
+  "remoteUser": "node"
+}

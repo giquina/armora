@@ -130,7 +130,7 @@ export interface QuestionnaireStep {
   title: string;
   subtitle?: string;
   question: string;
-  type: 'radio' | 'checkbox' | 'input' | 'textarea' | 'select' | 'location';
+  type: 'radio' | 'checkbox' | 'input' | 'textarea' | 'select' | 'location' | 'threat_assessment' | 'enhanced_emergency_contacts' | 'seven_ps_assessment';
   options?: QuestionnaireOption[];
   placeholder?: string;
   validation: ValidationRule;
@@ -156,11 +156,250 @@ export interface QuestionnaireStep {
   securityStatement?: string;
   legalStatement?: string;
   serviceRecommendation?: ServiceRecommendation;
+  threatAssessment?: {
+    enabled: boolean;
+    questions: Array<{
+      id: string;
+      question: string;
+      description: string;
+      riskWeight: number;
+      icon: string;
+    }>;
+    riskLevels: {
+      GREEN: { range: [number, number]; description: string; assessmentPath: string };
+      YELLOW: { range: [number, number]; description: string; assessmentPath: string };
+      ORANGE: { range: [number, number]; description: string; assessmentPath: string };
+      RED: { range: [number, number]; description: string; assessmentPath: string };
+    };
+  };
+  progressiveDisclosure?: {
+    triggerConditions: {
+      riskLevel?: ('GREEN' | 'YELLOW' | 'ORANGE' | 'RED')[];
+      professionalProfiles?: string[];
+      securityRequirements?: string[];
+      specialRequirements?: string[];
+    };
+    assessmentLevel?: 'basic' | 'standard' | 'comprehensive' | 'conditional';
+    dataProtection?: {
+      specialCategoryData?: boolean;
+      encryptionLevel?: 'standard' | 'enhanced';
+      retentionPeriod?: string;
+    };
+  };
+}
+
+// Threat Assessment Interfaces for Phase 1 Implementation
+export interface IThreatIndicatorData {
+  hasReceivedThreats: boolean;        // "Have you received any threats in the past 12 months?"
+  hasPublicProfile: boolean;          // "Do you have a public profile (media, social, professional)?"
+  hasLegalProceedings: boolean;       // "Are you involved in any legal proceedings?"
+  hasPreviousIncidents: boolean;      // "Have you experienced security incidents before?"
+  requiresInternationalProtection: boolean; // "Do you travel internationally for work?"
+  hasControversialWork: boolean;      // "Does your work involve controversial decisions?"
+  hasHighValueAssets: boolean;        // "Do you manage high-value assets or information?"
+}
+
+export interface IRiskAssessment {
+  level: 'GREEN' | 'YELLOW' | 'ORANGE' | 'RED';
+  score: number;
+  description: string;
+  recommendedProtection: string;
+  assessmentPath: 'standard' | 'enhanced' | 'significant' | 'critical';
+}
+
+// Seven Ps Framework Interfaces for Professional Close Protection Assessment
+export interface IPeopleAssessment {
+  family: {
+    spouse?: {
+      name: string;
+      requiresProtection: boolean;
+      riskFactors: string[];
+    };
+    children?: Array<{
+      name: string;
+      age: number;
+      school?: string;
+      requiresProtection: boolean;
+    }>;
+    requiredFamilyProtection: boolean;
+  };
+  associates: {
+    businessPartners: string[];
+    householdStaff: string[];
+    regularContacts: string[];
+  };
+  threats: {
+    knownAdversaries: string[];
+    disgruntledAssociates: string[];
+    stalkers: string[];
+    specificThreats: string[];
+  };
+}
+
+export interface IPlacesAssessment {
+  residence: {
+    type: 'house' | 'apartment' | 'estate' | 'other';
+    securityFeatures: string[];
+    vulnerabilities: string[];
+    address?: string; // Optional for privacy
+  };
+  workplace: {
+    address: string;
+    accessControl: boolean;
+    securityTeam: boolean;
+    threatLevel: 'low' | 'medium' | 'high';
+  };
+  frequentLocations: Array<{
+    type: string;
+    address: string;
+    frequency: 'daily' | 'weekly' | 'monthly' | 'occasional';
+    riskLevel: 'low' | 'medium' | 'high';
+  }>;
+  travelPatterns: {
+    domestic: string[];
+    international: string[];
+    highRiskAreas: string[];
+    predictability: 'highly_predictable' | 'somewhat_predictable' | 'unpredictable';
+  };
+}
+
+export interface IPersonalityAssessment {
+  riskTolerance: 'low' | 'medium' | 'high';
+  complianceLevel: 'excellent' | 'good' | 'challenging';
+  publicInteraction: 'minimal' | 'controlled' | 'frequent';
+  socialMedia: {
+    platforms: string[];
+    activityLevel: 'low' | 'medium' | 'high';
+    controversial: boolean;
+    locationSharing: boolean;
+  };
+  communicationStyle: 'direct' | 'diplomatic' | 'private';
+}
+
+export interface IPrejudiceAssessment {
+  businessConflicts: string[];
+  ideologicalOpposition: string[];
+  culturalSensitivities: string[];
+  publicStances: string[];
+  religiousConsiderations: string[];
+  politicalAffiliations: string[];
+}
+
+export interface IPersonalHistoryAssessment {
+  previousIncidents: Array<{
+    date: string;
+    type: 'threat' | 'harassment' | 'physical' | 'cyber' | 'stalking' | 'other';
+    description: string;
+    outcome: string;
+    ongoing: boolean;
+    reportedToPolice: boolean;
+  }>;
+  lawEnforcement: {
+    reports: boolean;
+    cooperation: 'full' | 'partial' | 'none';
+    restrictions: string[];
+    ongoingInvestigations: boolean;
+  };
+  securityHistory: {
+    previousSecurityTeam?: string;
+    reasonForChange?: string;
+    effectiveness: 'excellent' | 'good' | 'poor' | 'na';
+  };
+}
+
+export interface IPoliticalAssessment {
+  publicProfile: boolean;
+  controversialViews: boolean;
+  activism: boolean;
+  oppositionGroups: string[];
+  publicOffice: boolean;
+  politicalExposure: 'none' | 'local' | 'national' | 'international';
+  religiousLeadership: boolean;
+}
+
+export interface ILifestyleAssessment {
+  highRiskActivities: string[];
+  socialActivities: {
+    frequency: 'rare' | 'occasional' | 'regular' | 'frequent';
+    venues: string[];
+    publicEvents: boolean;
+  };
+  healthConsiderations: {
+    mobilityIssues: boolean;
+    medicalEquipment: boolean;
+    regularTreatments: boolean;
+    emergencyProtocols: string[];
+  };
+  financialProfile: {
+    publicWealth: boolean;
+    businessOwnership: boolean;
+    highValueAssets: boolean;
+    financialDisputes: boolean;
+  };
+  travelStyle: {
+    accommodation: 'budget' | 'standard' | 'luxury' | 'exclusive';
+    transportation: 'public' | 'private' | 'mixed';
+    scheduleFlexibility: 'rigid' | 'flexible' | 'unpredictable';
+  };
+}
+
+export interface ISevenPsAssessment {
+  people: IPeopleAssessment;
+  places: IPlacesAssessment;
+  personality: IPersonalityAssessment;
+  prejudices: IPrejudiceAssessment;
+  personalHistory: IPersonalHistoryAssessment;
+  political: IPoliticalAssessment;
+  privateLifestyle: ILifestyleAssessment;
+  completionLevel: 'basic' | 'standard' | 'comprehensive';
+  riskLevel: 'GREEN' | 'YELLOW' | 'ORANGE' | 'RED';
+  assessmentDate: string;
+}
+
+export interface IEnhancedEmergencyInfo {
+  nextOfKin: {
+    name: string;
+    relationship: string;
+    primaryPhone: string;
+    secondaryPhone: string;
+    address: string;
+    canMakeDecisions: boolean;
+  };
+  medicalEmergency: {
+    bloodType?: string;
+    criticalAllergies: string[];
+    currentMedications: string[];
+    medicalConditions: string[];
+    emergencyProcedures: string[];
+    primaryPhysician?: {
+      name: string;
+      phone: string;
+      hospital: string;
+      specialNotes: string;
+    };
+  };
+  secondaryContact: {
+    name: string;
+    relationship: string;
+    phone: string;
+    role: 'backup' | 'business' | 'family' | 'legal';
+  };
+  dataConsent: {
+    medicalDataConsent: boolean;
+    emergencyContactConsent: boolean;
+    dataProcessingConsent: boolean;
+    consentTimestamp: string;
+  };
+  privacyLevel: 'minimal' | 'standard' | 'comprehensive';
+  encryptionLevel: 'standard' | 'enhanced';
 }
 
 export interface QuestionnaireData {
   step1_transportProfile?: string;
   step2_travelFrequency?: string;
+  step2_5_sevenPsAssessment?: ISevenPsAssessment; // Seven Ps framework assessment
+  step2_5_threatAssessment?: IThreatIndicatorData; // New threat assessment data
+  step2_5_riskAssessment?: IRiskAssessment; // Risk assessment results
   step3_serviceRequirements?: string[];
   step4_primaryCoverage?: string[];
   step5_secondaryCoverage?: string[];
@@ -169,13 +408,118 @@ export interface QuestionnaireData {
     phone?: string;
     relationship?: string;
   };
+  step6_emergencyContacts?: EmergencyContact[]; // Enhanced emergency contacts
+  step6_enhancedEmergencyContacts?: IEnhancedEmergencyInfo; // Enhanced emergency contact data
   step7_specialRequirements?: string[];
+  step7_securityHistory?: SecurityHistoryData; // New security history module
   step8_contactPreferences?: {
     email?: string;
     phone?: string;
     notifications?: string[];
   };
   step9_profileReview?: boolean;
+}
+
+// Threat Assessment Interfaces
+export interface ThreatIndicator {
+  id: string;
+  question: string;
+  category: 'personal' | 'professional' | 'operational' | 'legal' | 'security';
+  riskWeight: number; // 1-3 multiplier for risk calculation
+  answered?: boolean;
+  value?: boolean;
+}
+
+export interface ThreatAssessmentData {
+  indicators: Record<string, boolean>;
+  riskScore: number;
+  riskLevel: 'Low' | 'Medium' | 'High' | 'Critical';
+  riskColor: 'green' | 'yellow' | 'orange' | 'red';
+  professionalMultiplier: number;
+  completedAt?: Date;
+}
+
+export interface RiskMatrix {
+  probability: 1 | 2 | 3 | 4 | 5;
+  impact: 1 | 2 | 3 | 4 | 5;
+  score: number; // probability * impact
+  level: 'Low' | 'Medium' | 'High' | 'Critical';
+  color: 'green' | 'yellow' | 'orange' | 'red';
+}
+
+export interface EmergencyContact {
+  name: string;
+  phone: string;
+  relationship: string;
+  isPrimary: boolean;
+  hasDecisionAuthority?: boolean;
+  medicalInfo?: {
+    bloodType?: string;
+    allergies?: string[];
+    medications?: string[];
+    conditions?: string[];
+    physicianName?: string;
+    physicianPhone?: string;
+    preferredHospital?: string;
+  };
+}
+
+// Enhanced Emergency Contact Information Interfaces
+export interface IEnhancedEmergencyInfo {
+  nextOfKin: {
+    name: string;
+    relationship: string;
+    primaryPhone: string;
+    secondaryPhone: string;
+    address: string;
+    canMakeDecisions: boolean;  // Medical/legal decision authority
+  };
+
+  medicalEmergency: {
+    bloodType?: 'A+' | 'A-' | 'B+' | 'B-' | 'AB+' | 'AB-' | 'O+' | 'O-' | 'Unknown';
+    criticalAllergies?: string[];     // Life-threatening allergies
+    currentMedications?: string[];     // Current medication list
+    medicalConditions?: string[];      // Relevant medical conditions
+    emergencyProcedures?: string[];    // Special medical procedures
+    primaryPhysician?: {
+      name: string;
+      phone: string;
+      hospital: string;
+      specialNotes?: string;
+    };
+  };
+
+  secondaryContact: {
+    name: string;
+    relationship: string;
+    phone: string;
+    role: 'backup' | 'business' | 'family' | 'legal';
+  };
+
+  // Data protection and consent
+  dataConsent: {
+    medicalDataConsent: boolean;
+    emergencyContactConsent: boolean;
+    dataProcessingConsent: boolean;
+    consentTimestamp: string;
+  };
+
+  // Privacy settings
+  privacyLevel: 'minimal' | 'standard' | 'comprehensive';
+  encryptionLevel: 'standard' | 'enhanced';
+}
+
+export interface SecurityHistoryData {
+  previousTeams?: string[];
+  incidentHistory?: Array<{
+    type: 'harassment' | 'threat' | 'physical' | 'cyber' | 'stalking';
+    date: string;
+    description: string;
+    resolved: boolean;
+    lawEnforcementInvolved: boolean;
+  }>;
+  threatLevel: 1 | 2 | 3 | 4 | 5;
+  specialRequirements?: string[];
 }
 
 export interface PersonalizationData extends QuestionnaireData {
@@ -187,6 +531,10 @@ export interface PersonalizationData extends QuestionnaireData {
   completedAt?: Date;
   recommendedService?: string;
   conversionAttempts?: number;
+  // Enhanced threat assessment data
+  threatAssessment?: ThreatAssessmentData;
+  emergencyContacts?: EmergencyContact[];
+  securityHistory?: SecurityHistoryData;
 }
 
 export interface FirstServiceReward {

@@ -40,6 +40,7 @@ export function RecruitmentBanner({ className }: RecruitmentBannerProps) {
     localStorage.setItem('armora_recruitment_banner_dismissed', Date.now().toString());
 
     // Analytics
+    console.log('Recruitment banner dismissed', {
       timestamp: Date.now(),
       dismissalCount: parseInt(localStorage.getItem('armora_recruitment_dismissal_count') || '0') + 1
     });
@@ -51,6 +52,7 @@ export function RecruitmentBanner({ className }: RecruitmentBannerProps) {
 
   const handleApplyClick = () => {
     // Analytics
+    console.log('Recruitment apply clicked', {
       timestamp: Date.now(),
       source: 'global_banner'
     });

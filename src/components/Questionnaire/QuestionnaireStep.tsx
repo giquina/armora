@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
-import { QuestionnaireStep as IQuestionnaireStep, QuestionnaireOption, QuestionnaireAnswer, CustomAnswerValue } from '../../types';
+import { QuestionnaireStep as IQuestionnaireStep, QuestionnaireOption, QuestionnaireAnswer, CustomAnswerValue, IThreatIndicatorData, IRiskAssessment, IEnhancedEmergencyInfo, ISevenPsAssessment } from '../../types';
 import { CTAButtons } from './CTAButtons';
 import { NameCollection } from './NameCollection';
 import ProfileSummaryComponent from './ProfileSummary';
@@ -9,6 +9,17 @@ import { CustomAnswer } from './CustomAnswer';
 import { SelectionFeedback } from './SelectionFeedback';
 import { getSelectionFeedback, getCombinedFeedback, SelectionFeedback as ISelectionFeedback } from '../../data/selectionFeedbackData';
 import { useApp } from '../../contexts/AppContext';
+import ThreatIndicators from './ThreatIndicators';
+import { EnhancedEmergencyContacts } from './EnhancedEmergencyContacts';
+import { SevenPsAssessment } from './SevenPsAssessment';
+import {
+  determineAssessmentPath,
+  shouldShowSevenPs,
+  getSevenPsAssessmentLevel,
+  shouldShowEnhancedEmergencyContacts,
+  calculateProgressiveRiskScore
+} from '../../utils/progressiveDisclosure';
+import { calculateRiskFromResponses } from '../../utils/riskCalculator';
 import styles from './QuestionnaireStep.module.css';
 import spacingStyles from './BenefitListSpacing.module.css';
 import '../../styles/questionnaire-animations.css';
@@ -55,6 +66,23 @@ export function QuestionnaireStep({
   const [selectionFeedback, setSelectionFeedback] = useState<ISelectionFeedback | null>(null);
   const [showFeedback, setShowFeedback] = useState<boolean>(false);
 
+  // Threat assessment state
+  const [threatAssessmentData, setThreatAssessmentData] = useState<IThreatIndicatorData | null>(null);
+  const [riskAssessment, setRiskAssessment] = useState<IRiskAssessment | null>(null);
+
+  // Enhanced emergency contacts state
+  const [emergencyContactsData, setEmergencyContactsData] = useState<IEnhancedEmergencyInfo | null>(null);
+
+  // Seven Ps assessment state
+  const [sevenPsData, setSevenPsData] = useState<ISevenPsAssessment | null>(null);
+  const [showProgressiveModules, setShowProgressiveModules] = useState<boolean>(false);
+  const [progressiveAssessmentLevel, setProgressiveAssessmentLevel] = useState<'basic' | 'standard' | 'comprehensive'>('basic');
+
+  // Assessment loading and error states
+  const [isAssessmentLoading, setIsAssessmentLoading] = useState<boolean>(false);
+  const [assessmentError, setAssessmentError] = useState<string | null>(null);
+  const [progressiveDisclosureActive, setProgressiveDisclosureActive] = useState<boolean>(false);
+
   // Initialize values from current value
   useEffect(() => {
     if (currentValue) {
@@ -63,6 +91,22 @@ export function QuestionnaireStep({
         const customValue = currentValue as CustomAnswerValue;
         setIsCustomSelected(true);
         setCustomAnswer(customValue.value || '');
+        setSelectedValue('');
+        setSelectedValues([]);
+        setTextValue('');
+      } else if (typeof currentValue === 'object' && currentValue !== null && 'nextOfKin' in currentValue) {
+        // Handle enhanced emergency contacts data
+        setEmergencyContactsData(currentValue as IEnhancedEmergencyInfo);
+        setIsCustomSelected(false);
+        setCustomAnswer('');
+        setSelectedValue('');
+        setSelectedValues([]);
+        setTextValue('');
+      } else if (typeof currentValue === 'object' && currentValue !== null && 'people' in currentValue) {
+        // Handle Seven Ps assessment data
+        setSevenPsData(currentValue as ISevenPsAssessment);
+        setIsCustomSelected(false);
+        setCustomAnswer('');
         setSelectedValue('');
         setSelectedValues([]);
         setTextValue('');
@@ -333,7 +377,34 @@ Your privacy is important to us. All questions are optional and you can use "Pre
   const validate = (): boolean => {
     // If user provided custom answer, check if it has content
     if (isCustomSelected && customAnswer.trim().length > 0) return true;
-    
+
+    // Special handling for threat assessment
+    if (step.type === 'threat_assessment') {
+      if (step.validation.required && (!threatAssessmentData || !riskAssessment)) {
+        setErrors([step.validation.errorMessage || 'Please complete the security assessment']);
+        return false;
+      }
+      return true;
+    }
+
+    // Special handling for Seven Ps assessment
+    if (step.type === 'seven_ps_assessment') {
+      if (step.validation.required && !sevenPsData) {
+        setErrors([step.validation.errorMessage || 'Please complete the Seven Ps security assessment']);
+        return false;
+      }
+      return true;
+    }
+
+    // Special handling for enhanced emergency contacts
+    if (step.type === 'enhanced_emergency_contacts') {
+      if (step.validation.required && !emergencyContactsData) {
+        setErrors([step.validation.errorMessage || 'Please complete the enhanced emergency contact information']);
+        return false;
+      }
+      return true;
+    }
+
     const newErrors: string[] = [];
     const { validation } = step;
 
@@ -388,6 +459,43 @@ Your privacy is important to us. All questions are optional and you can use "Pre
     return newErrors.length === 0;
   };
 
+  // Progressive disclosure trigger after threat assessment
+  const triggerProgressiveDisclosure = (threatData: IThreatIndicatorData, riskAssessment: IRiskAssessment) => {
+    try {
+      setIsAssessmentLoading(true);
+      setAssessmentError(null);
+
+      const combinedResponses = {
+        ...userResponses,
+        [`step${step.id}`]: { threatData, riskAssessment }
+      };
+
+      const assessmentPath = determineAssessmentPath(combinedResponses);
+      const riskLevel = riskAssessment.matrix.level;
+
+      // Check if we need to show progressive modules
+      if (shouldShowSevenPs(riskLevel, userResponses.step1 || '')) {
+        setShowProgressiveModules(true);
+        setProgressiveAssessmentLevel(getSevenPsAssessmentLevel(riskLevel));
+        setProgressiveDisclosureActive(true);
+      }
+
+      if (shouldShowEnhancedEmergencyContacts(riskLevel)) {
+        setProgressiveDisclosureActive(true);
+      }
+
+      // Add smooth transition delay
+      setTimeout(() => {
+        setIsAssessmentLoading(false);
+      }, 300);
+
+    } catch (error) {
+      console.error('Error in progressive disclosure:', error);
+      setAssessmentError('Failed to determine enhanced assessment requirements. Please try again.');
+      setIsAssessmentLoading(false);
+    }
+  };
+
   // Handle form submission
   const handleSubmit = () => {
     // If user provided custom answer, submit custom answer object
@@ -395,7 +503,7 @@ Your privacy is important to us. All questions are optional and you can use "Pre
       onComplete(step.id, { type: 'custom', value: customAnswer.trim() });
       return;
     }
-    
+
     if (!validate()) {
       return;
     }
@@ -406,6 +514,10 @@ Your privacy is important to us. All questions are optional and you can use "Pre
       value = selectedValues;
     } else if (step.type === 'radio' || step.type === 'select') {
       value = selectedValue;
+    } else if (step.type === 'seven_ps_assessment') {
+      value = sevenPsData;
+    } else if (step.type === 'enhanced_emergency_contacts') {
+      value = emergencyContactsData;
     } else {
       value = textValue.trim();
     }
@@ -622,18 +734,173 @@ Your privacy is important to us. All questions are optional and you can use "Pre
     );
   };
 
+  // Render threat assessment component
+  const renderThreatAssessment = () => {
+    if (step.type !== 'threat_assessment' || !step.threatAssessment) return null;
+
+    const handleThreatAssessmentComplete = (data: IThreatIndicatorData, assessment: IRiskAssessment) => {
+      setThreatAssessmentData(data);
+      setRiskAssessment(assessment);
+
+      // Trigger progressive disclosure logic
+      triggerProgressiveDisclosure(data, assessment);
+
+      // Automatically proceed to next step after assessment completion
+      const combinedValue = {
+        threatData: data,
+        riskAssessment: assessment
+      };
+
+      onComplete(step.id, combinedValue);
+    };
+
+    // Extract initial data from currentValue if it exists
+    const initialThreatData = currentValue && typeof currentValue === 'object' && 'threatData' in currentValue
+      ? (currentValue as any).threatData
+      : undefined;
+
+    return (
+      <ThreatIndicators
+        onComplete={handleThreatAssessmentComplete}
+        initialData={initialThreatData}
+        className={styles.threatAssessmentContainer}
+      />
+    );
+  };
+
+  // Render Seven Ps assessment component
+  const renderSevenPsAssessment = () => {
+    if (step.type !== 'seven_ps_assessment') return null;
+
+    const handleSevenPsComplete = (assessment: ISevenPsAssessment) => {
+      try {
+        setSevenPsData(assessment);
+        setAssessmentError(null);
+        onComplete(step.id, assessment);
+      } catch (error) {
+        console.error('Error completing Seven Ps assessment:', error);
+        setAssessmentError('Failed to save Seven Ps assessment. Please try again.');
+      }
+    };
+
+    // Extract initial data from currentValue if it exists
+    const initialSevenPsData = currentValue && typeof currentValue === 'object' && 'people' in currentValue
+      ? (currentValue as ISevenPsAssessment)
+      : undefined;
+
+    return (
+      <div className={`${styles.sevenPsContainer} ${styles.progressiveTransition}`}>
+        {/* Risk Level Indicator */}
+        {riskAssessment && (
+          <div className={styles.assessmentProgress}>
+            <div className={styles.assessmentProgressTitle}>
+              Enhanced Security Assessment Required
+            </div>
+            <div className={styles.assessmentProgressText}>
+              Your risk level requires a {progressiveAssessmentLevel} Seven Ps security framework assessment.
+              <div className={`${styles.riskLevelIndicator} ${styles[`riskLevel${riskAssessment.matrix.level.charAt(0) + riskAssessment.matrix.level.slice(1).toLowerCase()}`]}`}>
+                {riskAssessment.matrix.level} Risk Level
+              </div>
+            </div>
+          </div>
+        )}
+
+        {assessmentError && (
+          <div className={styles.validationWarningMessage}>
+            ⚠️ {assessmentError}
+          </div>
+        )}
+
+        <SevenPsAssessment
+          initialData={initialSevenPsData}
+          assessmentLevel={progressiveAssessmentLevel}
+          onComplete={handleSevenPsComplete}
+          onProgressUpdate={(progress) => {
+            // Optional: Update progress indicator for better UX
+            if (progress === 100) {
+              setIsAssessmentLoading(false);
+            }
+          }}
+        />
+      </div>
+    );
+  };
+
+  // Render enhanced emergency contacts component
+  const renderEnhancedEmergencyContacts = () => {
+    if (step.type !== 'enhanced_emergency_contacts') return null;
+
+    const handleEnhancedEmergencyComplete = (data: IEnhancedEmergencyInfo) => {
+      try {
+        setEmergencyContactsData(data);
+        setAssessmentError(null);
+        onComplete(step.id, data);
+      } catch (error) {
+        console.error('Error completing enhanced emergency contacts:', error);
+        setAssessmentError('Failed to save emergency contact information. Please try again.');
+      }
+    };
+
+    // Extract initial data from currentValue if it exists
+    const initialEmergencyData = currentValue && typeof currentValue === 'object' && 'nextOfKin' in currentValue
+      ? (currentValue as IEnhancedEmergencyInfo)
+      : undefined;
+
+    return (
+      <div className={`${styles.enhancedEmergencyContainer} ${styles.progressiveTransition}`}>
+        {/* Enhanced Security Context */}
+        <div className={styles.assessmentProgress}>
+          <div className={styles.assessmentProgressTitle}>
+            Enhanced Emergency Contact Information
+          </div>
+          <div className={styles.assessmentProgressText}>
+            Your security level requires comprehensive emergency contact protocols for rapid response coordination.
+          </div>
+        </div>
+
+        {assessmentError && (
+          <div className={styles.validationWarningMessage}>
+            ⚠️ {assessmentError}
+          </div>
+        )}
+
+        <EnhancedEmergencyContacts
+          initialData={initialEmergencyData}
+          onComplete={handleEnhancedEmergencyComplete}
+          required={true}
+          className={styles.enhancedEmergencyContacts}
+        />
+      </div>
+    );
+  };
+
   // Check if we can proceed to next step
   const canProceed = () => {
     // If user provided custom answer with content, they can proceed
     if (isCustomSelected && customAnswer.trim().length > 0) return true;
-    
+
+    // Special handling for threat assessment
+    if (step.type === 'threat_assessment') {
+      return threatAssessmentData !== null && riskAssessment !== null;
+    }
+
+    // Special handling for Seven Ps assessment
+    if (step.type === 'seven_ps_assessment') {
+      return sevenPsData !== null;
+    }
+
+    // Special handling for enhanced emergency contacts
+    if (step.type === 'enhanced_emergency_contacts') {
+      return emergencyContactsData !== null;
+    }
+
     const { validation } = step;
-    
+
     if (step.type === 'checkbox') {
       const hasMinSelections = !validation.minSelections || selectedValues.length >= validation.minSelections;
       const hasMaxSelections = !validation.maxSelections || selectedValues.length <= validation.maxSelections;
       const hasValue = selectedValues.length > 0;
-      
+
       if (validation.required) {
         return hasValue && hasMinSelections && hasMaxSelections;
       } else {
@@ -889,16 +1156,54 @@ Your privacy is important to us. All questions are optional and you can use "Pre
             </div>
           ) : step.type === 'select' ? (
             renderSelect()
+          ) : step.type === 'threat_assessment' ? (
+            renderThreatAssessment()
+          ) : step.type === 'seven_ps_assessment' ? (
+            renderSevenPsAssessment()
+          ) : step.type === 'enhanced_emergency_contacts' ? (
+            renderEnhancedEmergencyContacts()
           ) : (
             renderTextInput()
           )}
         </div>
 
-        {errors.length > 0 && (
+        {(errors.length > 0 || assessmentError) && (
           <div className={styles.errorContainer}>
             {errors.map((error, index) => (
               <p key={index} className={styles.error}>{error}</p>
             ))}
+            {assessmentError && (
+              <div className={styles.validationWarningMessage}>
+                ⚠️ {assessmentError}
+                <button
+                  type="button"
+                  onClick={() => setAssessmentError(null)}
+                  className={styles.errorDismiss}
+                  style={{ marginLeft: '8px', background: 'none', border: 'none', color: '#ffc107', cursor: 'pointer' }}
+                >
+                  ✕
+                </button>
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* Progressive Disclosure Loading State */}
+        {isAssessmentLoading && (
+          <div className={styles.assessmentProgress}>
+            <div className={styles.assessmentProgressTitle}>
+              🔄 Processing Security Assessment...
+            </div>
+            <div className={styles.assessmentProgressText}>
+              Analyzing your responses to determine the appropriate level of enhanced security assessment.
+            </div>
+          </div>
+        )}
+
+        {/* Progressive Disclosure Notification */}
+        {progressiveDisclosureActive && !isAssessmentLoading && (
+          <div className={styles.validationSuccessMessage}>
+            ✓ Enhanced security assessment modules activated based on your risk profile.
           </div>
         )}
 

@@ -1,0 +1,511 @@
+{
+  "mainBackground": "rgb(26, 26, 46)",
+  "mainColor": "rgb(255, 255, 255)",
+  "pageTitle": "Armora - SIA Licensed Close Protection Officers | Executive Security UK",
+  "mainElementFound": true,
+  "elementStyles": [
+    {
+      "tagName": "HTML",
+      "className": "",
+      "backgroundColor": "rgba(0, 0, 0, 0)",
+      "color": "rgb(0, 0, 0)",
+      "borderColor": "rgb(0, 0, 0)",
+      "display": "block",
+      "visibility": "visible",
+      "textContent": "\n    \n    \n    \n    \n    \n    \n    \n\n    \n    \n   "
+    },
+    {
+      "tagName": "HEAD",
+      "className": "",
+      "backgroundColor": "rgba(0, 0, 0, 0)",
+      "color": "rgb(0, 0, 0)",
+      "borderColor": "rgb(0, 0, 0)",
+      "display": "none",
+      "visibility": "visible",
+      "textContent": "\n    \n    \n    \n    \n    \n    \n    \n\n    \n    \n   "
+    },
+    {
+      "tagName": "META",
+      "className": "",
+      "backgroundColor": "rgba(0, 0, 0, 0)",
+      "color": "rgb(0, 0, 0)",
+      "borderColor": "rgb(0, 0, 0)",
+      "display": "none",
+      "visibility": "visible",
+      "textContent": ""
+    },
+    {
+      "tagName": "LINK",
+      "className": "",
+      "backgroundColor": "rgba(0, 0, 0, 0)",
+      "color": "rgb(0, 0, 0)",
+      "borderColor": "rgb(0, 0, 0)",
+      "display": "none",
+      "visibility": "visible",
+      "textContent": ""
+    },
+    {
+      "tagName": "META",
+      "className": "",
+      "backgroundColor": "rgba(0, 0, 0, 0)",
+      "color": "rgb(0, 0, 0)",
+      "borderColor": "rgb(0, 0, 0)",
+      "display": "none",
+      "visibility": "visible",
+      "textContent": ""
+    },
+    {
+      "tagName": "META",
+      "className": "",
+      "backgroundColor": "rgba(0, 0, 0, 0)",
+      "color": "rgb(0, 0, 0)",
+      "borderColor": "rgb(0, 0, 0)",
+      "display": "none",
+      "visibility": "visible",
+      "textContent": ""
+    },
+    {
+      "tagName": "META",
+      "className": "",
+      "backgroundColor": "rgba(0, 0, 0, 0)",
+      "color": "rgb(0, 0, 0)",
+      "borderColor": "rgb(0, 0, 0)",
+      "display": "none",
+      "visibility": "visible",
+      "textContent": ""
+    },
+    {
+      "tagName": "META",
+      "className": "",
+      "backgroundColor": "rgba(0, 0, 0, 0)",
+      "color": "rgb(0, 0, 0)",
+      "borderColor": "rgb(0, 0, 0)",
+      "display": "none",
+      "visibility": "visible",
+      "textContent": ""
+    },
+    {
+      "tagName": "META",
+      "className": "",
+      "backgroundColor": "rgba(0, 0, 0, 0)",
+      "color": "rgb(0, 0, 0)",
+      "borderColor": "rgb(0, 0, 0)",
+      "display": "none",
+      "visibility": "visible",
+      "textContent": ""
+    },
+    {
+      "tagName": "META",
+      "className": "",
+      "backgroundColor": "rgba(0, 0, 0, 0)",
+      "color": "rgb(0, 0, 0)",
+      "borderColor": "rgb(0, 0, 0)",
+      "display": "none",
+      "visibility": "visible",
+      "textContent": ""
+    },
+    {
+      "tagName": "META",
+      "className": "",
+      "backgroundColor": "rgba(0, 0, 0, 0)",
+      "color": "rgb(0, 0, 0)",
+      "borderColor": "rgb(0, 0, 0)",
+      "display": "none",
+      "visibility": "visible",
+      "textContent": ""
+    },
+    {
+      "tagName": "META",
+      "className": "",
+      "backgroundColor": "rgba(0, 0, 0, 0)",
+      "color": "rgb(0, 0, 0)",
+      "borderColor": "rgb(0, 0, 0)",
+      "display": "none",
+      "visibility": "visible",
+      "textContent": ""
+    },
+    {
+      "tagName": "META",
+      "className": "",
+      "backgroundColor": "rgba(0, 0, 0, 0)",
+      "color": "rgb(0, 0, 0)",
+      "borderColor": "rgb(0, 0, 0)",
+      "display": "none",
+      "visibility": "visible",
+      "textContent": ""
+    },
+    {
+      "tagName": "META",
+      "className": "",
+      "backgroundColor": "rgba(0, 0, 0, 0)",
+      "color": "rgb(0, 0, 0)",
+      "borderColor": "rgb(0, 0, 0)",
+      "display": "none",
+      "visibility": "visible",
+      "textContent": ""
+    },
+    {
+      "tagName": "META",
+      "className": "",
+      "backgroundColor": "rgba(0, 0, 0, 0)",
+      "color": "rgb(0, 0, 0)",
+      "borderColor": "rgb(0, 0, 0)",
+      "display": "none",
+      "visibility": "visible",
+      "textContent": ""
+    },
+    {
+      "tagName": "META",
+      "className": "",
+      "backgroundColor": "rgba(0, 0, 0, 0)",
+      "color": "rgb(0, 0, 0)",
+      "borderColor": "rgb(0, 0, 0)",
+      "display": "none",
+      "visibility": "visible",
+      "textContent": ""
+    },
+    {
+      "tagName": "META",
+      "className": "",
+      "backgroundColor": "rgba(0, 0, 0, 0)",
+      "color": "rgb(0, 0, 0)",
+      "borderColor": "rgb(0, 0, 0)",
+      "display": "none",
+      "visibility": "visible",
+      "textContent": ""
+    },
+    {
+      "tagName": "META",
+      "className": "",
+      "backgroundColor": "rgba(0, 0, 0, 0)",
+      "color": "rgb(0, 0, 0)",
+      "borderColor": "rgb(0, 0, 0)",
+      "display": "none",
+      "visibility": "visible",
+      "textContent": ""
+    },
+    {
+      "tagName": "META",
+      "className": "",
+      "backgroundColor": "rgba(0, 0, 0, 0)",
+      "color": "rgb(0, 0, 0)",
+      "borderColor": "rgb(0, 0, 0)",
+      "display": "none",
+      "visibility": "visible",
+      "textContent": ""
+    },
+    {
+      "tagName": "META",
+      "className": "",
+      "backgroundColor": "rgba(0, 0, 0, 0)",
+      "color": "rgb(0, 0, 0)",
+      "borderColor": "rgb(0, 0, 0)",
+      "display": "none",
+      "visibility": "visible",
+      "textContent": ""
+    },
+    {
+      "tagName": "META",
+      "className": "",
+      "backgroundColor": "rgba(0, 0, 0, 0)",
+      "color": "rgb(0, 0, 0)",
+      "borderColor": "rgb(0, 0, 0)",
+      "display": "none",
+      "visibility": "visible",
+      "textContent": ""
+    },
+    {
+      "tagName": "META",
+      "className": "",
+      "backgroundColor": "rgba(0, 0, 0, 0)",
+      "color": "rgb(0, 0, 0)",
+      "borderColor": "rgb(0, 0, 0)",
+      "display": "none",
+      "visibility": "visible",
+      "textContent": ""
+    },
+    {
+      "tagName": "META",
+      "className": "",
+      "backgroundColor": "rgba(0, 0, 0, 0)",
+      "color": "rgb(0, 0, 0)",
+      "borderColor": "rgb(0, 0, 0)",
+      "display": "none",
+      "visibility": "visible",
+      "textContent": ""
+    },
+    {
+      "tagName": "META",
+      "className": "",
+      "backgroundColor": "rgba(0, 0, 0, 0)",
+      "color": "rgb(0, 0, 0)",
+      "borderColor": "rgb(0, 0, 0)",
+      "display": "none",
+      "visibility": "visible",
+      "textContent": ""
+    },
+    {
+      "tagName": "LINK",
+      "className": "",
+      "backgroundColor": "rgba(0, 0, 0, 0)",
+      "color": "rgb(0, 0, 0)",
+      "borderColor": "rgb(0, 0, 0)",
+      "display": "none",
+      "visibility": "visible",
+      "textContent": ""
+    },
+    {
+      "tagName": "LINK",
+      "className": "",
+      "backgroundColor": "rgba(0, 0, 0, 0)",
+      "color": "rgb(0, 0, 0)",
+      "borderColor": "rgb(0, 0, 0)",
+      "display": "none",
+      "visibility": "visible",
+      "textContent": ""
+    },
+    {
+      "tagName": "TITLE",
+      "className": "",
+      "backgroundColor": "rgba(0, 0, 0, 0)",
+      "color": "rgb(0, 0, 0)",
+      "borderColor": "rgb(0, 0, 0)",
+      "display": "none",
+      "visibility": "visible",
+      "textContent": "Armora - SIA Licensed Close Protection Officers | "
+    },
+    {
+      "tagName": "SCRIPT",
+      "className": "",
+      "backgroundColor": "rgba(0, 0, 0, 0)",
+      "color": "rgb(0, 0, 0)",
+      "borderColor": "rgb(0, 0, 0)",
+      "display": "none",
+      "visibility": "visible",
+      "textContent": "\n    {\n      \"@context\": \"https://schema.org\",\n   "
+    },
+    {
+      "tagName": "SCRIPT",
+      "className": "",
+      "backgroundColor": "rgba(0, 0, 0, 0)",
+      "color": "rgb(0, 0, 0)",
+      "borderColor": "rgb(0, 0, 0)",
+      "display": "none",
+      "visibility": "visible",
+      "textContent": ""
+    },
+    {
+      "tagName": "STYLE",
+      "className": "",
+      "backgroundColor": "rgba(0, 0, 0, 0)",
+      "color": "rgb(0, 0, 0)",
+      "borderColor": "rgb(0, 0, 0)",
+      "display": "none",
+      "visibility": "visible",
+      "textContent": "body {\n  margin: 0;\n  font-family: -apple-system, "
+    },
+    {
+      "tagName": "STYLE",
+      "className": "",
+      "backgroundColor": "rgba(0, 0, 0, 0)",
+      "color": "rgb(0, 0, 0)",
+      "borderColor": "rgb(0, 0, 0)",
+      "display": "none",
+      "visibility": "visible",
+      "textContent": "/* Armora Security Transport - Premium 4D Logo Sys"
+    },
+    {
+      "tagName": "STYLE",
+      "className": "",
+      "backgroundColor": "rgba(0, 0, 0, 0)",
+      "color": "rgb(0, 0, 0)",
+      "borderColor": "rgb(0, 0, 0)",
+      "display": "none",
+      "visibility": "visible",
+      "textContent": "/* ARMORA SECURITY MODERN FOOTER COMPONENT */\n\n.Fo"
+    },
+    {
+      "tagName": "STYLE",
+      "className": "",
+      "backgroundColor": "rgba(0, 0, 0, 0)",
+      "color": "rgb(0, 0, 0)",
+      "borderColor": "rgb(0, 0, 0)",
+      "display": "none",
+      "visibility": "visible",
+      "textContent": "/* BrandText.module.css - Consistent ARMORA brandi"
+    },
+    {
+      "tagName": "STYLE",
+      "className": "",
+      "backgroundColor": "rgba(0, 0, 0, 0)",
+      "color": "rgb(0, 0, 0)",
+      "borderColor": "rgb(0, 0, 0)",
+      "display": "none",
+      "visibility": "visible",
+      "textContent": "/* Overlay */\n.HamburgerMenu_overlay__kFSdt {\n  po"
+    },
+    {
+      "tagName": "STYLE",
+      "className": "",
+      "backgroundColor": "rgba(0, 0, 0, 0)",
+      "color": "rgb(0, 0, 0)",
+      "borderColor": "rgb(0, 0, 0)",
+      "display": "none",
+      "visibility": "visible",
+      "textContent": "/* Armora Top Toolbar (mobile-first, YouTube-style"
+    },
+    {
+      "tagName": "STYLE",
+      "className": "",
+      "backgroundColor": "rgba(0, 0, 0, 0)",
+      "color": "rgb(0, 0, 0)",
+      "borderColor": "rgb(0, 0, 0)",
+      "display": "none",
+      "visibility": "visible",
+      "textContent": "/* FULL-PAGE ACTIVE PROTECTION PANEL WITH CSS SCRO"
+    },
+    {
+      "tagName": "STYLE",
+      "className": "",
+      "backgroundColor": "rgba(0, 0, 0, 0)",
+      "color": "rgb(0, 0, 0)",
+      "borderColor": "rgb(0, 0, 0)",
+      "display": "none",
+      "visibility": "visible",
+      "textContent": "/* Notifications Panel - right side drawer */\n\n.No"
+    },
+    {
+      "tagName": "STYLE",
+      "className": "",
+      "backgroundColor": "rgba(0, 0, 0, 0)",
+      "color": "rgb(0, 0, 0)",
+      "borderColor": "rgb(0, 0, 0)",
+      "display": "none",
+      "visibility": "visible",
+      "textContent": "/* ARMORA APP LAYOUT STYLES */\n\n.AppLayout_layout_"
+    },
+    {
+      "tagName": "STYLE",
+      "className": "",
+      "backgroundColor": "rgba(0, 0, 0, 0)",
+      "color": "rgb(0, 0, 0)",
+      "borderColor": "rgb(0, 0, 0)",
+      "display": "none",
+      "visibility": "visible",
+      "textContent": "/* ARMORA PREMIUM SPLASH SCREEN - VIP EXPERIENCE *"
+    },
+    {
+      "tagName": "STYLE",
+      "className": "",
+      "backgroundColor": "rgba(0, 0, 0, 0)",
+      "color": "rgb(0, 0, 0)",
+      "borderColor": "rgb(0, 0, 0)",
+      "display": "none",
+      "visibility": "visible",
+      "textContent": "/* ARMORA BUTTON COMPONENT STYLES */\n\n.Button_butt"
+    },
+    {
+      "tagName": "STYLE",
+      "className": "",
+      "backgroundColor": "rgba(0, 0, 0, 0)",
+      "color": "rgb(0, 0, 0)",
+      "borderColor": "rgb(0, 0, 0)",
+      "display": "none",
+      "visibility": "visible",
+      "textContent": "/* Seasonal Theme Component - Monthly Background S"
+    },
+    {
+      "tagName": "STYLE",
+      "className": "",
+      "backgroundColor": "rgba(0, 0, 0, 0)",
+      "color": "rgb(0, 0, 0)",
+      "borderColor": "rgb(0, 0, 0)",
+      "display": "none",
+      "visibility": "visible",
+      "textContent": "/* ARMORA CREDENTIALS MODAL - COMPREHENSIVE SECURI"
+    },
+    {
+      "tagName": "STYLE",
+      "className": "",
+      "backgroundColor": "rgba(0, 0, 0, 0)",
+      "color": "rgb(0, 0, 0)",
+      "borderColor": "rgb(0, 0, 0)",
+      "display": "none",
+      "visibility": "visible",
+      "textContent": "/* Safe protection service Fund CTA Component Styl"
+    },
+    {
+      "tagName": "STYLE",
+      "className": "",
+      "backgroundColor": "rgba(0, 0, 0, 0)",
+      "color": "rgb(0, 0, 0)",
+      "borderColor": "rgb(0, 0, 0)",
+      "display": "none",
+      "visibility": "visible",
+      "textContent": "/* Safe protection service Fund Modal Styles - Pre"
+    },
+    {
+      "tagName": "STYLE",
+      "className": "",
+      "backgroundColor": "rgba(0, 0, 0, 0)",
+      "color": "rgb(0, 0, 0)",
+      "borderColor": "rgb(0, 0, 0)",
+      "display": "none",
+      "visibility": "visible",
+      "textContent": "/* ARMORA PREMIUM WELCOME PAGE - VIEWPORT OPTIMIZE"
+    },
+    {
+      "tagName": "STYLE",
+      "className": "",
+      "backgroundColor": "rgba(0, 0, 0, 0)",
+      "color": "rgb(0, 0, 0)",
+      "borderColor": "rgb(0, 0, 0)",
+      "display": "none",
+      "visibility": "visible",
+      "textContent": "/* ARMORA LOGIN FORM - PREMIUM AUTHENTICATION */\n\n"
+    },
+    {
+      "tagName": "STYLE",
+      "className": "",
+      "backgroundColor": "rgba(0, 0, 0, 0)",
+      "color": "rgb(0, 0, 0)",
+      "borderColor": "rgb(0, 0, 0)",
+      "display": "none",
+      "visibility": "visible",
+      "textContent": "/* ARMORA SIGNUP FORM - PREMIUM REGISTRATION */\n\n."
+    },
+    {
+      "tagName": "STYLE",
+      "className": "",
+      "backgroundColor": "rgba(0, 0, 0, 0)",
+      "color": "rgb(0, 0, 0)",
+      "borderColor": "rgb(0, 0, 0)",
+      "display": "none",
+      "visibility": "visible",
+      "textContent": "/* ARMORA GUEST DISCLAIMER - PREMIUM GUEST EXPERIE"
+    },
+    {
+      "tagName": "STYLE",
+      "className": "",
+      "backgroundColor": "rgba(0, 0, 0, 0)",
+      "color": "rgb(0, 0, 0)",
+      "borderColor": "rgb(0, 0, 0)",
+      "display": "none",
+      "visibility": "visible",
+      "textContent": "/* Armora Security Transport - Enhanced CTA Button"
+    },
+    {
+      "tagName": "STYLE",
+      "className": "",
+      "backgroundColor": "rgba(0, 0, 0, 0)",
+      "color": "rgb(0, 0, 0)",
+      "borderColor": "rgb(0, 0, 0)",
+      "display": "none",
+      "visibility": "visible",
+      "textContent": "/* Name Confirmation Modal Styles */\n\n/* Overlay *"
+    }
+  ],
+  "bodyBackground": "rgb(26, 26, 46)",
+  "bodyColor": "rgb(255, 255, 255)",
+  "currentView": "protection-request"
+}

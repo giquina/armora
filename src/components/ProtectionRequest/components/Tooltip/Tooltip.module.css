@@ -1,0 +1,118 @@
+/* TOOLTIP COMPONENT */
+
+.tooltipContainer {
+  position: relative;
+  display: inline-block;
+  cursor: help;
+}
+
+.tooltip {
+  position: absolute;
+  z-index: 1000;
+  padding: 8px 12px;
+  background: #000000;
+  color: #ffffff;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.4;
+  max-width: 200px;
+  white-space: normal;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  animation: tooltipFadeIn 0.2s ease-out;
+}
+
+.tooltipContent {
+  position: relative;
+}
+
+.tooltipArrow {
+  position: absolute;
+  width: 0;
+  height: 0;
+}
+
+/* Position variations */
+.tooltip.top {
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-bottom: 6px;
+}
+
+.tooltip.top .tooltipArrow {
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-top: 6px solid #000000;
+}
+
+.tooltip.bottom {
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-top: 6px;
+}
+
+.tooltip.bottom .tooltipArrow {
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-bottom: 6px solid #000000;
+}
+
+.tooltip.left {
+  right: 100%;
+  top: 50%;
+  transform: translateY(-50%);
+  margin-right: 6px;
+}
+
+.tooltip.left .tooltipArrow {
+  left: 100%;
+  top: 50%;
+  transform: translateY(-50%);
+  border-top: 6px solid transparent;
+  border-bottom: 6px solid transparent;
+  border-left: 6px solid #000000;
+}
+
+.tooltip.right {
+  left: 100%;
+  top: 50%;
+  transform: translateY(-50%);
+  margin-left: 6px;
+}
+
+.tooltip.right .tooltipArrow {
+  right: 100%;
+  top: 50%;
+  transform: translateY(-50%);
+  border-top: 6px solid transparent;
+  border-bottom: 6px solid transparent;
+  border-right: 6px solid #000000;
+}
+
+@keyframes tooltipFadeIn {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+  .tooltip {
+    max-width: 150px;
+    font-size: 12px;
+    padding: 6px 10px;
+  }
+}

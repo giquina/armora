@@ -1,0 +1,192 @@
+.container {
+  background: #ffffff;
+  border: 2px solid #e5e7eb;
+  border-radius: 12px;
+  overflow: hidden;
+  margin-bottom: 24px;
+}
+
+.header {
+  background: #1a2332;
+  color: white;
+  padding: 20px;
+}
+
+.title {
+  font-size: 20px;
+  font-weight: 700;
+  margin: 0 0 4px 0;
+}
+
+.subtitle {
+  font-size: 14px;
+  opacity: 0.9;
+  margin: 0;
+}
+
+.content {
+  padding: 20px;
+}
+
+.section {
+  margin-bottom: 28px;
+}
+
+.section:last-child {
+  margin-bottom: 0;
+}
+
+.sectionTitle {
+  font-size: 14px;
+  font-weight: 700;
+  color: #000000;
+  text-transform: uppercase;
+  margin: 0 0 12px 0;
+}
+
+.equipmentList {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.equipmentItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 6px 0;
+  font-size: 14px;
+  color: #374151;
+  line-height: 1.4;
+}
+
+.bullet {
+  color: #6b7280;
+  flex-shrink: 0;
+}
+
+.qualificationGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 8px;
+}
+
+.qualificationItem {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  background: #f9fafb;
+  border-radius: 8px;
+  border: 1px solid #e5e7eb;
+}
+
+.checkIcon {
+  font-size: 16px;
+  color: #059669;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.qualificationText {
+  font-size: 14px;
+  color: #374151;
+  font-weight: 500;
+}
+
+.processSteps {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.processStep {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.stepNumber {
+  width: 32px;
+  height: 32px;
+  background: #1a2332;
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.stepDescription {
+  font-size: 14px;
+  color: #374151;
+  line-height: 1.4;
+}
+
+.verificationNotice {
+  display: flex;
+  gap: 12px;
+  padding: 16px;
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  border-radius: 8px;
+  margin-top: 20px;
+}
+
+.noticeIcon {
+  font-size: 24px;
+  flex-shrink: 0;
+}
+
+.noticeContent {
+  flex: 1;
+}
+
+.noticeTitle {
+  font-size: 14px;
+  font-weight: 700;
+  color: #991b1b;
+  margin-bottom: 4px;
+}
+
+.noticeText {
+  font-size: 13px;
+  color: #7f1d1d;
+  line-height: 1.4;
+}
+
+/* Mobile optimizations */
+@media (max-width: 480px) {
+  .header,
+  .content {
+    padding: 16px;
+  }
+
+  .section {
+    margin-bottom: 24px;
+  }
+
+  .qualificationGrid {
+    gap: 6px;
+  }
+
+  .qualificationItem {
+    padding: 6px 10px;
+  }
+
+  .stepNumber {
+    width: 28px;
+    height: 28px;
+    font-size: 12px;
+  }
+}
+
+/* Tablet and up */
+@media (min-width: 768px) {
+  .qualificationGrid {
+    grid-template-columns: 1fr 1fr;
+  }
+}

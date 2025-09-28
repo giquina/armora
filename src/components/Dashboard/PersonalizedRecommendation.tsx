@@ -36,6 +36,7 @@ export function PersonalizedRecommendation({
     onServiceSelect(service.id);
 
     // Analytics
+    console.log('Service selected from recommendation', {
       serviceId: service.id,
       profileType: profile.type,
       matchScore: profile.matchScore,

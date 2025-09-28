@@ -68,7 +68,12 @@
     "agents:file": "node .claude/claude-agent-bridge.js file",
     "orchestrate": "echo 'Use agents:start instead'",
     "orchestrate:status": "npm run agents:status",
-    "health": "node scripts/health-check.js"
+    "health": "node scripts/health-check.js",
+    "keep-alive": "bash scripts/keep-alive.sh",
+    "keep-alive:start": "nohup bash scripts/keep-alive.sh > /tmp/keep-alive.log 2>&1 &",
+    "keep-alive:stop": "pkill -f keep-alive.sh",
+    "keep-alive:status": "ps aux | grep -v grep | grep keep-alive.sh || echo 'Keep-alive not running'",
+    "connection:fix": "npm run keep-alive:stop; pkill -f 'react-scripts start'; sleep 2; npm run fresh && npm run keep-alive:start"
   },
   "eslintConfig": {
     "extends": [

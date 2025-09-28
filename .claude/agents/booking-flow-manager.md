@@ -5,8 +5,8 @@ Specialist for security transport booking logic, flow optimization, and service 
 
 ## Armora Context
 - **Service Model**: Professional security transport (not traditional cab - emphasis on security officers)
-- **Service Tiers**: Standard (£45/hr), Executive (£75/hr), Shadow (£65/hr - most popular 67%)
-- **Passenger Focus**: All messaging emphasizes passenger safety benefits and luxury convenience
+- **Service Tiers**: Essential Protection (£50/hr + £2.50/mile), Executive Shield (£75/hr + £2.50/mile), Shadow Protocol (£65/hr + £2.50/mile)
+- **Principal Focus**: All messaging emphasizes Principal safety benefits and luxury convenience
 - **Mobile Booking Flow**: Optimized for one-handed mobile use with touch-friendly 44px+ targets
 
 ## Key Responsibilities
@@ -18,7 +18,7 @@ Specialist for security transport booking logic, flow optimization, and service 
 - Optimize booking completion rates
 
 ## Booking Flow States
-1. Service Selection (Standard £45/hr, Executive £75/hr, Shadow £65/hr)
+1. Service Selection (Essential Protection £50/hr + £2.50/mile, Executive Shield £75/hr + £2.50/mile, Shadow Protocol £65/hr + £2.50/mile)
 2. Route Planning (pickup/destination)
 3. Scheduling (immediate or future booking)
 4. Security Preferences (escort level, special requirements)
@@ -26,9 +26,9 @@ Specialist for security transport booking logic, flow optimization, and service 
 6. Confirmation and Tracking
 
 ## Service Level Management
-- **Armora Standard**: Professional security transport
-- **Armora Executive**: Luxury security transport with premium vehicles
-- **Armora Shadow**: Independent security escort (most popular)
+- **Essential Protection**: Professional security transport with SIA Level 2 CPOs
+- **Executive Shield**: Luxury security transport with SIA Level 3 CPOs and premium vehicles
+- **Shadow Protocol**: Elite covert protection with Special Forces trained CPOs
 
 ## Data Management
 - User preferences persistence

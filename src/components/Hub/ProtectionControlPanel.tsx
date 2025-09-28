@@ -276,6 +276,7 @@ export function ProtectionControlPanel({
           // Determine button class and handler
           let buttonClass = `${styles.controlButton}`;
           let isActive = false;
+          let handler: (() => void) | undefined;
 
           switch (button.id) {
             case 'assist':
@@ -298,9 +299,14 @@ export function ProtectionControlPanel({
               break;
             case 'track':
               buttonClass += ` ${styles.trackButton}`;
+              handler = () => console.log('Track handler not implemented');
               break;
             case 'rate':
               buttonClass += ` ${styles.rateButton}`;
+              handler = () => console.log('Rate handler not implemented');
+              break;
+            default:
+              handler = () => console.log(`Handler for ${button.id} not implemented`);
               break;
           }
 

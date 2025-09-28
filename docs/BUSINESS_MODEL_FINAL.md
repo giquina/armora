@@ -24,9 +24,9 @@ Total Service Fee = (Protection Hours × Hourly Rate) + (Journey Miles × £2.50
 ```
 
 ### **Protection Rates (Time-Based)**
-- **Standard Protection**: £50/hour (min 2 hours)
-- **Executive Protection**: £75/hour (min 2 hours)
-- **Shadow Protection**: £65/hour (min 2 hours)
+- **Essential Protection**: £50/hour + £2.50/mile (min 2 hours)
+- **Executive Shield**: £75/hour + £2.50/mile (min 2 hours)
+- **Shadow Protocol**: £65/hour + £2.50/mile (min 2 hours)
 
 ### **Secure Vehicle Operation (Distance-Based)**
 - **All Service Levels**: £2.50 per mile
@@ -81,9 +81,9 @@ Monthly Savings: £41 per assignment
 - **Geographic Coverage**: Greater London initially, expanding to major UK cities
 
 ### **Service Level Differentiation**
-- **Standard**: SIA Level 2 certified protection officers
-- **Executive**: SIA Level 3 with corporate experience
-- **Shadow**: Special Forces trained with covert capabilities
+- **Essential Protection**: SIA Level 2 certified protection officers
+- **Executive Shield**: SIA Level 3 with corporate experience
+- **Shadow Protocol**: Special Forces trained with covert capabilities
 
 ---
 
@@ -120,7 +120,7 @@ Monthly Savings: £41 per assignment
 Route: London Bridge to Canary Wharf
 Distance: 4 miles
 Time: 30 minutes
-Service: Standard Protection
+Service: Essential Protection
 
 Pricing:
 Protection Officer (2 hrs minimum): £100.00
@@ -136,7 +136,7 @@ Member Price: (£110 × 0.8) = £88.00
 Route: Central London to Heathrow
 Distance: 22 miles
 Time: 55 minutes
-Service: Executive Protection
+Service: Executive Shield
 
 Pricing:
 Protection Officer (2 hrs minimum): £150.00
@@ -151,7 +151,7 @@ Member Price: (£205 × 0.8) = £164.00
 ```
 Service: 6-hour executive protection with multiple stops
 Distance: 35 miles total
-Service: Executive Protection
+Service: Executive Shield
 
 Pricing:
 Protection Officer (6 hours): £450.00
@@ -231,5 +231,5 @@ Member Price: (£537.50 × 0.8) = £430.00
 
 ---
 
-*Last updated: 2025-09-27T04:34:01.351Z
+*Last updated: 2025-09-28T16:54:06.284Z
 *Document Status: FINAL - Ready for Implementation*

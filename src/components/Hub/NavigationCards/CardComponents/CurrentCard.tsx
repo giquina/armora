@@ -1,4 +1,4 @@
-import React, { FC, memo } from 'react';
+import React, { FC, memo, useState } from 'react';
 import styles from '../NavigationCards.module.css';
 
 interface Assignment {
@@ -50,7 +50,7 @@ export const CurrentCard: FC<CurrentCardProps> = memo(({
   tabId,
   ariaControls
 }) => {
-  const [showDetails, setShowDetails] = React.useState(false);
+  const [showDetails, setShowDetails] = useState(false);
   const showFullData = screenWidth >= 768; // Only show all details on desktop
   const isMobile = screenWidth <= 414;
 

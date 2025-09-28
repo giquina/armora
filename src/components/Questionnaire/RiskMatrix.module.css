@@ -1,0 +1,775 @@
+/* Risk Matrix Visualization - Professional Security Risk Assessment */
+
+.riskMatrix {
+  background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+  border: 2px solid #e9ecef;
+  border-radius: 16px;
+  padding: 20px;
+  margin: 16px 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  overflow: hidden;
+}
+
+.riskMatrix:hover {
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.15);
+}
+
+/* Size Variants */
+.riskMatrix.compact {
+  padding: 12px;
+  margin: 8px 0;
+}
+
+.riskMatrix.standard {
+  padding: 20px;
+  margin: 16px 0;
+}
+
+.riskMatrix.expanded {
+  padding: 24px;
+  margin: 20px 0;
+  max-width: none;
+}
+
+/* Loading State */
+.loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+  color: #6c757d;
+  gap: 16px;
+}
+
+.loadingSpinner {
+  width: 32px;
+  height: 32px;
+  border: 3px solid #e9ecef;
+  border-top: 3px solid #007bff;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Header */
+.matrixHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 24px;
+  gap: 16px;
+}
+
+.matrixTitle {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #1a1a2e;
+  line-height: 1.3;
+}
+
+/* Tab Navigation */
+.tabNavigation {
+  display: flex;
+  background: #f8f9fa;
+  border-radius: 12px;
+  padding: 4px;
+  margin-bottom: 20px;
+  gap: 4px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.tabNavigation::-webkit-scrollbar {
+  display: none;
+}
+
+.tabButton {
+  flex: 1;
+  min-width: 120px;
+  padding: 12px 16px;
+  border: none;
+  background: transparent;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: #6c757d;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.tabButton:hover {
+  background: #e9ecef;
+  color: #495057;
+}
+
+.tabButton.active {
+  background: #ffffff;
+  color: #1a1a2e;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Matrix Section */
+.matrixSection {
+  margin-bottom: 24px;
+}
+
+.matrixControls {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 16px;
+}
+
+.expandButton {
+  padding: 8px 16px;
+  border: 1px solid #dee2e6;
+  background: #ffffff;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #495057;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.expandButton:hover {
+  background: #f8f9fa;
+  border-color: #adb5bd;
+}
+
+/* Matrix Container */
+.matrixContainer {
+  background: #ffffff;
+  border: 1px solid #dee2e6;
+  border-radius: 12px;
+  padding: 16px;
+  overflow: hidden;
+}
+
+.matrixContainer.expanded {
+  padding: 24px;
+}
+
+/* Impact Labels (Top) */
+.impactLabels {
+  display: grid;
+  grid-template-columns: 100px repeat(5, 1fr);
+  gap: 4px;
+  margin-bottom: 8px;
+}
+
+.cornerLabel {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #6c757d;
+}
+
+.impactLabel {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 4px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #495057;
+  text-align: center;
+  background: #f8f9fa;
+  border-radius: 6px;
+}
+
+/* Matrix Grid */
+.matrixGrid {
+  display: grid;
+  grid-template-columns: 100px 1fr;
+  gap: 8px;
+}
+
+/* Probability Labels (Left) */
+.probabilityLabels {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.probabilityHeader {
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #6c757d;
+  text-align: center;
+}
+
+.probabilityLabel {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 4px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #495057;
+  text-align: center;
+  background: #f8f9fa;
+  border-radius: 6px;
+  writing-mode: horizontal-tb;
+}
+
+/* Matrix Cells */
+.matrixCells {
+  display: grid;
+  grid-template-rows: repeat(5, 1fr);
+  gap: 4px;
+}
+
+.matrixRow {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 4px;
+}
+
+.matrixCell {
+  position: relative;
+  aspect-ratio: 1;
+  min-height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: white;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+  transition: all 0.2s ease;
+  overflow: hidden;
+}
+
+.matrixCell.interactive {
+  cursor: pointer;
+}
+
+.matrixCell.interactive:hover {
+  transform: scale(1.02);
+  filter: brightness(1.1);
+}
+
+.cellScore {
+  position: relative;
+  z-index: 2;
+}
+
+.selectionIndicator {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  width: 12px;
+  height: 12px;
+  background: #1a1a2e;
+  border-radius: 50%;
+  z-index: 3;
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+/* Risk Legend */
+.riskLegend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 16px;
+  padding: 12px;
+  background: #f8f9fa;
+  border-radius: 8px;
+}
+
+.legendItem {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.legendColor {
+  width: 16px;
+  height: 16px;
+  border-radius: 4px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.legendLabel {
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: #495057;
+}
+
+/* Factors Section */
+.factorsSection {
+  margin-bottom: 24px;
+}
+
+.sectionTitle {
+  margin: 0 0 8px 0;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #1a1a2e;
+}
+
+.sectionDescription {
+  margin: 0 0 16px 0;
+  font-size: 0.9rem;
+  color: #6c757d;
+  line-height: 1.5;
+}
+
+/* Factor Categories */
+.factorCategories {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.factorCategory {
+  background: #ffffff;
+  border: 1px solid #e9ecef;
+  border-radius: 12px;
+  padding: 16px;
+}
+
+.categoryTitle {
+  margin: 0 0 12px 0;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #495057;
+  text-transform: capitalize;
+}
+
+.factorGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 12px;
+}
+
+/* Factor Cards */
+.factorCard {
+  padding: 12px;
+  border: 2px solid #e9ecef;
+  border-radius: 8px;
+  background: #ffffff;
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.factorCard.interactive {
+  cursor: pointer;
+}
+
+.factorCard.interactive:hover {
+  border-color: #007bff;
+  background: #f8f9fa;
+  transform: translateY(-1px);
+}
+
+.factorCard.active {
+  border-color: #28a745;
+  background: linear-gradient(135deg, #d4edda 0%, #ffffff 100%);
+  box-shadow: 0 2px 8px rgba(40, 167, 69, 0.2);
+}
+
+.factorHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 8px;
+  gap: 8px;
+}
+
+.factorName {
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: #495057;
+  line-height: 1.3;
+}
+
+.factorWeight {
+  font-size: 0.8rem;
+  color: #6c757d;
+  background: #f8f9fa;
+  padding: 2px 6px;
+  border-radius: 4px;
+  white-space: nowrap;
+}
+
+.factorDescription {
+  margin: 0;
+  font-size: 0.8rem;
+  color: #6c757d;
+  line-height: 1.4;
+}
+
+.activeIndicator {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: #28a745;
+  color: white;
+  font-size: 0.7rem;
+  font-weight: 600;
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+/* Recommendations Section */
+.recommendationsSection {
+  margin-bottom: 24px;
+}
+
+.recommendationCard {
+  background: #ffffff;
+  border: 1px solid #e9ecef;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.serviceRecommendation {
+  margin-bottom: 20px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #e9ecef;
+}
+
+.serviceRecommendation h5 {
+  margin: 0 0 12px 0;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #1a1a2e;
+}
+
+.protectionLevel {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.protectionBadge {
+  padding: 8px 16px;
+  background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+  color: white;
+  border-radius: 20px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.confidenceLevel {
+  padding: 4px 8px;
+  background: #f8f9fa;
+  border: 1px solid #e9ecef;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  color: #6c757d;
+}
+
+.recommendations h6 {
+  margin: 0 0 8px 0;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #495057;
+}
+
+.recommendationsList {
+  margin: 0;
+  padding-left: 20px;
+}
+
+.recommendationItem {
+  margin-bottom: 6px;
+  font-size: 0.9rem;
+  color: #495057;
+  line-height: 1.5;
+}
+
+.activeFactorsSummary {
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid #e9ecef;
+}
+
+.activeFactorsSummary h6 {
+  margin: 0 0 8px 0;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #495057;
+}
+
+.factorTags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.factorTag {
+  padding: 4px 8px;
+  background: #e3f2fd;
+  color: #1565c0;
+  border: 1px solid #bbdefb;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+/* Assessment Metadata */
+.assessmentMetadata {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px;
+  background: #f8f9fa;
+  border-radius: 8px;
+  font-size: 0.8rem;
+  color: #6c757d;
+  margin-top: 16px;
+}
+
+/* Mobile Optimizations */
+@media (max-width: 768px) {
+  .riskMatrix {
+    padding: 16px;
+    margin: 12px 0;
+  }
+
+  .matrixHeader {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .matrixTitle {
+    font-size: 1.3rem;
+  }
+
+  .tabNavigation {
+    margin-bottom: 16px;
+  }
+
+  .tabButton {
+    min-width: 100px;
+    padding: 10px 12px;
+    font-size: 0.8rem;
+  }
+
+  .impactLabels {
+    grid-template-columns: 80px repeat(5, 1fr);
+  }
+
+  .matrixGrid {
+    grid-template-columns: 80px 1fr;
+  }
+
+  .impactLabel,
+  .probabilityLabel {
+    padding: 6px 2px;
+    font-size: 0.7rem;
+  }
+
+  .matrixCell {
+    min-height: 40px;
+    font-size: 0.9rem;
+  }
+
+  .factorGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .protectionLevel {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .assessmentMetadata {
+    flex-direction: column;
+    gap: 4px;
+    text-align: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .riskMatrix {
+    padding: 12px;
+    margin: 8px 0;
+  }
+
+  .matrixContainer {
+    padding: 12px;
+  }
+
+  .impactLabels {
+    grid-template-columns: 60px repeat(5, 1fr);
+  }
+
+  .matrixGrid {
+    grid-template-columns: 60px 1fr;
+  }
+
+  .cornerLabel,
+  .probabilityHeader {
+    font-size: 0.7rem;
+  }
+
+  .impactLabel,
+  .probabilityLabel {
+    font-size: 0.6rem;
+    padding: 4px 2px;
+  }
+
+  .matrixCell {
+    min-height: 35px;
+    font-size: 0.8rem;
+  }
+
+  .riskLegend {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .legendLabel {
+    font-size: 0.7rem;
+  }
+
+  .tabButton {
+    font-size: 0.7rem;
+    padding: 8px 10px;
+  }
+}
+
+/* Animations */
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+/* Dark Theme Support */
+@media (prefers-color-scheme: dark) {
+  .riskMatrix {
+    background: linear-gradient(135deg, #2d3748 0%, #4a5568 100%);
+    border-color: #4a5568;
+    color: #f7fafc;
+  }
+
+  .matrixTitle {
+    color: #f7fafc;
+  }
+
+  .tabNavigation {
+    background: #4a5568;
+  }
+
+  .tabButton {
+    color: #a0aec0;
+  }
+
+  .tabButton:hover {
+    background: #718096;
+    color: #f7fafc;
+  }
+
+  .tabButton.active {
+    background: #2d3748;
+    color: #f7fafc;
+  }
+
+  .matrixContainer,
+  .factorCategory,
+  .recommendationCard {
+    background: #2d3748;
+    border-color: #4a5568;
+  }
+
+  .impactLabel,
+  .probabilityLabel {
+    background: #4a5568;
+    color: #f7fafc;
+  }
+
+  .riskLegend,
+  .assessmentMetadata {
+    background: #4a5568;
+  }
+
+  .factorCard {
+    background: #2d3748;
+    border-color: #4a5568;
+  }
+
+  .factorCard.active {
+    background: linear-gradient(135deg, #2f855a 0%, #2d3748 100%);
+    border-color: #38a169;
+  }
+
+  .sectionDescription,
+  .factorDescription,
+  .legendLabel {
+    color: #a0aec0;
+  }
+}
+
+/* Reduced Motion Support */
+@media (prefers-reduced-motion: reduce) {
+  .matrixCell,
+  .factorCard,
+  .tabButton,
+  .expandButton {
+    transition: none;
+  }
+
+  .matrixCell.interactive:hover,
+  .factorCard.interactive:hover {
+    transform: none;
+  }
+
+  .selectionIndicator {
+    animation: none;
+  }
+
+  .loadingSpinner {
+    animation: none;
+    border-top-color: #007bff;
+  }
+}
+
+/* High Contrast Mode */
+@media (prefers-contrast: high) {
+  .riskMatrix {
+    border-width: 3px;
+    border-color: #000000;
+  }
+
+  .matrixCell {
+    border: 2px solid #000000;
+  }
+
+  .factorCard {
+    border-width: 3px;
+  }
+
+  .protectionBadge {
+    border: 2px solid #000000;
+  }
+}

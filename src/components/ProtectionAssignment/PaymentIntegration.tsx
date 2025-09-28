@@ -171,6 +171,7 @@ export function PaymentIntegration({
       localStorage.setItem('armora_assignments', JSON.stringify(existingAssignments));
 
       // Analytics tracking
+      console.log('Booking confirmed', {
         bookingId: generatedBookingId,
         service: service.id,
         amount: intent.amount,

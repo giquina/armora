@@ -1,5 +1,9 @@
-// Minimal questionnaire data for basic app functionality
+// Professional Close Protection Questionnaire with Progressive Disclosure
 import { QuestionnaireStep } from '../types';
+import {
+  determineAssessmentPath,
+  getProtectionLevelRecommendation
+} from '../utils/progressiveDisclosure';
 
 
 // Complete 9-step questionnaire for Armora Security Transport
@@ -248,6 +252,116 @@ export const questionnaireSteps: QuestionnaireStep[] = [
     validation: { required: true, errorMessage: "Please select your travel frequency requirements" },
     helpText: "Knowing your rhythm helps us be ready when you need us. Whether daily or occasionally, we adapt to your security needs.",
     stepDescription: "How often you need protection helps us serve you better. Daily principals get familiar Protection Officers who learn your secure routes and preferences. Occasional clients get our most flexible Protection Officers who excel with new locations. It's like having a regular security team versus adaptable protection specialists."
+  },
+  {
+    id: 2.5,
+    title: "Security Risk Assessment",
+    subtitle: "Professional threat evaluation",
+    question: "To provide appropriate protection levels, we need to understand your security profile. This confidential assessment helps us match you with the right protection protocols.",
+    type: "threat_assessment",
+    threatAssessment: {
+      enabled: true,
+      questions: [
+        {
+          id: 'hasReceivedThreats',
+          question: 'Have you received any threats in the past 12 months?',
+          description: 'This includes verbal, written, digital threats, or any concerning communications directed at you personally or professionally.',
+          riskWeight: 5,
+          icon: '⚠️'
+        },
+        {
+          id: 'hasLegalProceedings',
+          question: 'Are you involved in any legal proceedings?',
+          description: 'Current litigation, court cases, disputes, or legal matters that could affect your security profile.',
+          riskWeight: 4,
+          icon: '⚖️'
+        },
+        {
+          id: 'hasPreviousIncidents',
+          question: 'Have you experienced security incidents before?',
+          description: 'Any previous security breaches, stalking, harassment, or situations requiring security intervention.',
+          riskWeight: 4,
+          icon: '🚨'
+        },
+        {
+          id: 'hasPublicProfile',
+          question: 'Do you have a public profile (media, social, professional)?',
+          description: 'Public visibility through media appearances, social media presence, professional recognition, or industry prominence.',
+          riskWeight: 3,
+          icon: '📺'
+        },
+        {
+          id: 'requiresInternationalProtection',
+          question: 'Do you travel internationally for work?',
+          description: 'Regular international business travel, particularly to regions with varying security considerations.',
+          riskWeight: 3,
+          icon: '✈️'
+        },
+        {
+          id: 'hasControversialWork',
+          question: 'Does your work involve controversial decisions?',
+          description: 'Professional responsibilities involving public policy, judicial decisions, corporate restructuring, or contentious business matters.',
+          riskWeight: 3,
+          icon: '🎯'
+        },
+        {
+          id: 'hasHighValueAssets',
+          question: 'Do you manage high-value assets or information?',
+          description: 'Responsibility for significant financial assets, confidential information, or high-value intellectual property.',
+          riskWeight: 2,
+          icon: '💎'
+        }
+      ],
+      riskLevels: {
+        GREEN: { range: [0, 4], description: 'Standard assessment', assessmentPath: 'standard' },
+        YELLOW: { range: [5, 9], description: 'Enhanced assessment', assessmentPath: 'enhanced' },
+        ORANGE: { range: [10, 16], description: 'Significant risk assessment', assessmentPath: 'significant' },
+        RED: { range: [17, 24], description: 'Critical risk - comprehensive assessment', assessmentPath: 'critical' }
+      }
+    },
+    validation: { required: true, errorMessage: "Please complete the security assessment" },
+    helpText: "This confidential assessment ensures we provide appropriate protection levels and security protocols. All information is encrypted and used exclusively for service optimization.",
+    stepDescription: "Professional security assessment helps us understand your risk profile and protection requirements. Based on your responses, we'll recommend appropriate protection levels and assign officers with relevant experience and training."
+  },
+  {
+    id: 2.6,
+    title: "Comprehensive Security Assessment",
+    subtitle: "Seven Ps professional protection framework",
+    question: "Based on your risk profile, we recommend a comprehensive security assessment using the professional Seven Ps framework.",
+    type: "seven_ps_assessment",
+    validation: { required: false, errorMessage: "Please complete the Seven Ps assessment or skip to continue" },
+    helpText: "The Seven Ps framework (People, Places, Personality, Prejudices, Personal History, Political/Religious Views, Private Lifestyle) is the gold standard for professional threat assessment used by security services worldwide.",
+    stepDescription: "This comprehensive assessment helps us understand your complete security profile and assign the most appropriate protection officers and protocols for your specific situation.",
+    progressiveDisclosure: {
+      triggerConditions: {
+        riskLevel: ['YELLOW', 'ORANGE', 'RED'],
+        professionalProfiles: ['celebrity', 'government', 'diplomat', 'high_profile'],
+        securityRequirements: ['privacy_discretion', 'security_awareness']
+      },
+      assessmentLevel: 'conditional' // Will be determined by progressive disclosure logic
+    }
+  },
+  {
+    id: 2.7,
+    title: "Enhanced Emergency Contact Information",
+    subtitle: "Comprehensive emergency contact and medical information",
+    question: "Given your security profile, we recommend providing enhanced emergency contact information including medical details for your safety.",
+    type: "enhanced_emergency_contacts",
+    validation: { required: false, errorMessage: "Please complete enhanced emergency contact information or skip to continue" },
+    helpText: "Enhanced emergency contact information helps us provide better duty of care and coordinate with medical services if needed. All information is encrypted and stored securely.",
+    stepDescription: "Professional protection services include comprehensive emergency response protocols. This information ensures we can act quickly and appropriately in any situation.",
+    progressiveDisclosure: {
+      triggerConditions: {
+        riskLevel: ['ORANGE', 'RED'],
+        securityRequirements: ['trained_professionals', 'security_awareness'],
+        specialRequirements: ['medical_considerations', 'accessibility_needs']
+      },
+      dataProtection: {
+        specialCategoryData: true,
+        encryptionLevel: 'enhanced',
+        retentionPeriod: 'assignment_duration_plus_7_years'
+      }
+    }
   },
   {
     id: 3,
@@ -546,69 +660,11 @@ export const questionnaireSteps: QuestionnaireStep[] = [
   },
   {
     id: 6,
-    title: "Safety Contact",
-    subtitle: "For your safety and peace of mind",
-    question: "Who should we contact if needed? (This is optional but helps us serve you better)",
-    type: "checkbox",
-    options: [
-      {
-        id: "primary_safety_contact",
-        label: "👪 Do you have someone who worries about your safety?",
-        value: "primary_safety_contact",
-        description: "Is there someone special who likes to know you've arrived safely? A partner, family member, or assistant who coordinates your life?",
-        examples: "*Provide their details if you'd like us to keep them informed for safety coordination."
-      },
-      {
-        id: "business_safety_contact",
-        label: "🏢 Does your company have security protocols?",
-        value: "business_safety_contact",
-        description: "Does your organization have specific procedures we should follow? A security office or HR department we should coordinate with?",
-        examples: "*Provide company contacts if corporate protocols apply to you."
-      },
-      {
-        id: "medical_alert_information",
-        label: "🏥 Medical Alert Information",
-        value: "medical_alert_information",
-        description: "Important medical information for safety coordination",
-        examples: "*Critical medical alerts (allergies, medical devices, mobility assistance needs), preferred hospital, or medical insurance information for safety coordination."
-      },
-      {
-        id: "security_coordination",
-        label: "🛡️ Security Team Coordination",
-        value: "security_coordination",
-        description: "Corporate security or protection team contacts",
-        examples: "*Company security office, personal protection team, or designated security coordinator who manages your security protocols and safety procedures."
-      },
-      {
-        id: "communication_preferences",
-        label: "📞 Priority Communication Preferences",
-        value: "communication_preferences",
-        description: "How you prefer to be contacted for urgent matters",
-        examples: "*Preferred contact methods (phone, text, email), priority communication protocols, safe words for verification, or specific instructions for urgent situations."
-      },
-      {
-        id: "family_notification",
-        label: "👨‍👩‍👧‍👦 Family Notification Protocol",
-        value: "family_notification",
-        description: "Family members who should be informed of incidents",
-        examples: "*Immediate family members, their contact details, notification preferences, and any specific family communication protocols for safety coordination."
-      },
-      {
-        id: "no_safety_contact",
-        label: "❌ No Safety Contact Required",
-        value: "no_safety_contact",
-        description: "I prefer not to provide safety contact information",
-        examples: "*Skip safety contact setup. Note: This may limit our ability to provide immediate assistance or coordination during urgent situations."
-      },
-      {
-        id: "prefer_not_to_say",
-        label: "❓ Prefer not to say",
-        value: "prefer_not_to_say",
-        description: "That's great. We'll adapt to your needs as we learn what works best for you.",
-        examples: "*Our specialists will use standard safety protocols while maintaining complete confidentiality about your personal contacts and safety preferences."
-      }
-    ],
-    validation: { required: false, minSelections: 0, maxSelections: 6, errorMessage: "Please select your safety contact preferences" },
+    title: "Emergency Contact Information",
+    subtitle: "Comprehensive emergency contact and medical information",
+    question: "Please provide emergency contact information to ensure your safety and appropriate care during protection services.",
+    type: "input",
+    validation: { required: false, errorMessage: "Please provide at least basic emergency contact information" },
     helpText: "These details help us take better care of you. All information stays completely private.",
     stepDescription: "Having someone we can contact in emergencies gives everyone peace of mind. Like having ICE contacts in your phone, but for your journeys. It's optional but recommended - just in case you ever need help."
   },
@@ -927,41 +983,430 @@ export const questionnaireSteps: QuestionnaireStep[] = [
   }
 ];
 
+// Progressive Disclosure Step Generation Functions
+
+/**
+ * Generate Seven Ps Assessment Step based on risk level
+ */
+export function createSevenPsAssessmentStep(assessmentLevel: 'basic' | 'standard' | 'comprehensive'): QuestionnaireStep {
+  const stepConfig = {
+    basic: {
+      title: "Basic Security Assessment (Seven Ps)",
+      subtitle: "Essential security planning framework",
+      question: "Complete the basic Seven Ps security assessment for enhanced protection planning.",
+      description: "Basic Seven Ps framework covering essential protection elements: People, Places, Personality, and key security considerations."
+    },
+    standard: {
+      title: "Standard Security Assessment (Seven Ps)",
+      subtitle: "Comprehensive security planning framework",
+      question: "Complete the standard Seven Ps security assessment for comprehensive protection protocols.",
+      description: "Standard Seven Ps framework covering People, Places, Personality, Prejudices, Personal History, Political considerations, and Private Lifestyle for enhanced protection planning."
+    },
+    comprehensive: {
+      title: "Comprehensive Security Assessment (Seven Ps)",
+      subtitle: "Complete security planning framework",
+      question: "Complete the comprehensive Seven Ps security assessment for maximum protection protocols.",
+      description: "Comprehensive Seven Ps framework with detailed assessment of all security dimensions for critical protection requirements."
+    }
+  };
+
+  const config = stepConfig[assessmentLevel];
+
+  return {
+    id: 2.6,
+    title: config.title,
+    subtitle: config.subtitle,
+    question: config.question,
+    type: "seven_ps_assessment",
+    validation: {
+      required: true,
+      errorMessage: "Seven Ps security assessment is required for your protection level"
+    },
+    helpText: config.description,
+    stepDescription: "The Seven Ps framework (People, Places, Personality, Prejudices, Personal History, Political, Private Lifestyle) provides comprehensive security assessment for professional close protection services."
+  };
+}
+
+/**
+ * Generate Enhanced Emergency Contacts Step
+ */
+export function createEnhancedEmergencyContactsStep(): QuestionnaireStep {
+  return {
+    id: 6.5,
+    title: "Enhanced Emergency Contacts",
+    subtitle: "Comprehensive emergency contact and medical information",
+    question: "Please provide detailed emergency contact information including next of kin, medical contacts, and secondary contacts for enhanced security protocols.",
+    type: "enhanced_emergency_contacts",
+    validation: {
+      required: true,
+      errorMessage: "Enhanced emergency contacts are required for your security level"
+    },
+    helpText: "Enhanced security protocols require comprehensive emergency contact information including primary, secondary, medical, and decision-making contacts with full contact details and authorization levels.",
+    stepDescription: "Your security assessment requires enhanced emergency contact protocols. This ensures we can coordinate appropriate response, medical care, and family communication during any security situations or emergencies."
+  };
+}
+
+/**
+ * Generate Risk Matrix Visualization Step
+ */
+export function createRiskMatrixStep(): QuestionnaireStep {
+  return {
+    id: 2.7,
+    title: "Risk Assessment Matrix",
+    subtitle: "Professional security risk visualization",
+    question: "Review your personalized risk assessment matrix and recommended protection protocols.",
+    type: "risk_matrix",
+    validation: {
+      required: false
+    },
+    helpText: "Your risk assessment has been calculated based on threat indicators, professional profile, and security requirements. This matrix shows your risk level and recommended protection services.",
+    stepDescription: "Professional security risk matrix showing probability and impact assessment with specific protection recommendations tailored to your security profile."
+  };
+}
+
+/**
+ * Generate Medical Data Collection Step
+ */
+export function createMedicalDataStep(): QuestionnaireStep {
+  return {
+    id: 8.5,
+    title: "Medical Information",
+    subtitle: "Critical medical information for emergency response",
+    question: "Please provide medical information necessary for emergency response protocols during protection services.",
+    type: "input",
+    validation: {
+      required: true,
+      errorMessage: "Medical information is required for critical security assessments"
+    },
+    helpText: "Critical security assessments require medical information to ensure appropriate emergency response, medical coordination, and proper care during protection services. This includes allergies, medications, conditions, and emergency procedures.",
+    stepDescription: "Your security level requires medical information for emergency response protocols. This ensures our Protection Officers and emergency services can provide appropriate care and coordinate medical response if needed during assignments."
+  };
+}
+
 // Note: Dynamic personalization functions have been moved to utils/dynamicPersonalization.ts
 
-export const getQuestionsForUserType = (userType: string) => questionnaireSteps;
-export const getTotalStepsForUserType = (userType: string) => 9;
+export const getQuestionsForUserType = (userType: string, userResponses?: Record<string, any>) => {
+  // Get base questionnaire steps
+  const baseSteps = [...questionnaireSteps];
+
+  // If no responses yet, return base steps
+  if (!userResponses) {
+    return baseSteps;
+  }
+
+  // Calculate progressive steps based on risk assessment
+  try {
+    const assessmentPath = determineAssessmentPath(userResponses);
+    const progressiveSteps = [...baseSteps];
+
+    // Insert Seven Ps assessment step after threat assessment (step 2.5)
+    if (assessmentPath.requiresSevenPs) {
+      const sevenPsStep = createSevenPsAssessmentStep(assessmentPath.sevenPsLevel);
+      const threatAssessmentIndex = progressiveSteps.findIndex(step => step.id === 2.5);
+      if (threatAssessmentIndex !== -1) {
+        progressiveSteps.splice(threatAssessmentIndex + 1, 0, sevenPsStep);
+      }
+    }
+
+    // Insert enhanced emergency contacts after basic emergency contacts (step 6)
+    if (assessmentPath.requiresEnhancedEmergencyContacts) {
+      const enhancedContactsStep = createEnhancedEmergencyContactsStep();
+      const emergencyContactsIndex = progressiveSteps.findIndex(step => step.id === 6);
+      if (emergencyContactsIndex !== -1) {
+        progressiveSteps.splice(emergencyContactsIndex + 1, 0, enhancedContactsStep);
+      }
+    }
+
+    // Insert medical data collection for high-risk assessments
+    if (assessmentPath.requiresMedicalData) {
+      const medicalDataStep = createMedicalDataStep();
+      const contactPrefsIndex = progressiveSteps.findIndex(step => step.id === 8);
+      if (contactPrefsIndex !== -1) {
+        progressiveSteps.splice(contactPrefsIndex + 1, 0, medicalDataStep);
+      }
+    }
+
+    // Add risk matrix visualization step if threat assessment completed
+    if (userResponses.step2_5 || userResponses.threatAssessment) {
+      const riskMatrixStep = createRiskMatrixStep();
+      const sevenPsIndex = progressiveSteps.findIndex(step => step.id === 2.6);
+      const insertIndex = sevenPsIndex !== -1 ? sevenPsIndex + 1 :
+                         progressiveSteps.findIndex(step => step.id === 2.5) + 1;
+      progressiveSteps.splice(insertIndex, 0, riskMatrixStep);
+    }
+
+    return progressiveSteps;
+
+  } catch (error) {
+    console.warn('Progressive disclosure calculation failed, returning base steps:', error);
+    return baseSteps;
+  }
+};
+export const getTotalStepsForUserType = (userType: string, userResponses?: Record<string, any>) => {
+  // Base questionnaire has 9 steps
+  let totalSteps = 9;
+
+  // If no responses provided, return base count
+  if (!userResponses) {
+    return totalSteps;
+  }
+
+  // Calculate additional steps based on risk assessment
+  try {
+    const assessmentPath = determineAssessmentPath(userResponses);
+
+    // Add Seven Ps assessment step
+    if (assessmentPath.requiresSevenPs) {
+      totalSteps += 1;
+    }
+
+    // Add enhanced emergency contacts step
+    if (assessmentPath.requiresEnhancedEmergencyContacts) {
+      totalSteps += 1;
+    }
+
+    // Add medical data step for high-risk assessments
+    if (assessmentPath.requiresMedicalData) {
+      totalSteps += 1;
+    }
+
+    // Add risk matrix visualization step if threat assessment is completed
+    if (userResponses.step2_5 || userResponses.threatAssessment) {
+      totalSteps += 1;
+    }
+
+    return totalSteps;
+
+  } catch (error) {
+    console.warn('Dynamic step calculation failed, returning base count:', error);
+    return 9;
+  }
+};
 export const shouldShowConversionPrompt = (step: number) => false;
 export const getConversionPromptForStep = (step: number) => null;
 export const calculateProgress = (currentStep: number, totalSteps: number) => (currentStep / totalSteps) * 100;
-export const validateStepData = (stepId: number, value: any) => ({ isValid: true });
+export const validateStepData = (stepId: number, value: any, responses?: Record<string, any>) => {
+  if (responses) {
+    return validateProgressiveStepData(stepId, value, responses);
+  }
+  return { isValid: true };
+};
 export const getServiceRecommendation = (responses: Record<string, any>): string => {
   // Analyze responses to recommend appropriate service level
   const professionalProfile = responses.step1 || responses.professionalProfile;
   const serviceRequirements: string[] = responses.step3 || responses.serviceRequirements || [];
   const frequency = responses.step2 || responses.travelFrequency;
-  
+  const threatAssessment = responses.step2_5 || responses.threatAssessment;
+  const sevenPsAssessment = responses.step2_6 || responses.sevenPsAssessment;
+  const riskAssessment = responses.step2_5_riskAssessment || responses.riskAssessment;
+
+  // Progressive disclosure-based recommendation
+  try {
+    const assessmentPath = determineAssessmentPath(responses);
+    const protectionLevel = getProtectionLevelRecommendation(assessmentPath);
+
+    // Map protection levels to service IDs
+    const serviceMapping: Record<string, string> = {
+      'Essential Protection': 'armora-standard',
+      'Executive Shield': 'armora-executive',
+      'Shadow Protocol': 'armora-shadow',
+      'Shadow Protocol + Enhanced Response': 'armora-shadow'
+    };
+
+    const recommendedService = serviceMapping[protectionLevel];
+    if (recommendedService) {
+      return recommendedService;
+    }
+  } catch (error) {
+    console.warn('Progressive service recommendation failed, using fallback logic:', error);
+  }
+
+  // Fallback logic - Enhanced with Seven Ps and threat assessment data
+
+  // Critical threat indicators from threat assessment
+  if (threatAssessment) {
+    const criticalIndicators = [
+      threatAssessment.hasReceivedThreats,
+      threatAssessment.hasLegalProceedings,
+      threatAssessment.hasPreviousIncidents
+    ];
+
+    if (criticalIndicators.some(indicator => indicator)) {
+      return "armora-shadow";
+    }
+  }
+
+  // Seven Ps assessment factors
+  if (sevenPsAssessment) {
+    const riskLevel = sevenPsAssessment.riskLevel;
+    if (riskLevel === 'RED' || riskLevel === 'ORANGE') {
+      return "armora-shadow";
+    }
+    if (riskLevel === 'YELLOW') {
+      return "armora-executive";
+    }
+  }
+
+  // Risk assessment matrix result
+  if (riskAssessment) {
+    const riskLevel = riskAssessment.level;
+    if (riskLevel === 'RED' || riskLevel === 'ORANGE') {
+      return "armora-shadow";
+    }
+    if (riskLevel === 'YELLOW') {
+      return "armora-executive";
+    }
+  }
+
   // High-level professional profiles that typically need Executive or Shadow
   const executiveProfiles = ['executive', 'celebrity', 'diplomat', 'government'];
   const shadowProfiles = ['security_awareness', 'privacy_discretion'];
-  
+
   // Check for executive indicators
   if (executiveProfiles.includes(professionalProfile)) {
     return serviceRequirements.includes('security_awareness') ? "armora-shadow" : "armora-executive";
   }
-  
+
   // Check for security-focused requirements
   if (serviceRequirements.some((req: string) => shadowProfiles.includes(req))) {
     return "armora-shadow";
   }
-  
+
   // Check for premium preferences
   if (serviceRequirements.includes('premium_comfort') || frequency === 'daily') {
     return "armora-executive";
   }
-  
+
   // Default to standard
   return "armora-standard";
+};
+
+/**
+ * Get the current risk level based on user responses
+ */
+export const getCurrentRiskLevel = (responses: Record<string, any>): 'GREEN' | 'YELLOW' | 'ORANGE' | 'RED' => {
+  try {
+    const assessmentPath = determineAssessmentPath(responses);
+    return assessmentPath.riskLevel;
+  } catch (error) {
+    console.warn('Risk level calculation failed, defaulting to GREEN:', error);
+    return 'GREEN';
+  }
+};
+
+/**
+ * Check if a specific step should be shown based on current responses
+ */
+export const shouldShowProgressiveStep = (stepId: number, responses: Record<string, any>): boolean => {
+  const assessmentPath = determineAssessmentPath(responses);
+
+  switch (stepId) {
+    case 2.6: // Seven Ps Assessment
+      return assessmentPath.requiresSevenPs;
+    case 2.7: // Risk Matrix Visualization
+      return !!(responses.step2_5 || responses.threatAssessment);
+    case 6.5: // Enhanced Emergency Contacts
+      return assessmentPath.requiresEnhancedEmergencyContacts;
+    case 8.5: // Medical Data
+      return assessmentPath.requiresMedicalData;
+    default:
+      return true; // Show all standard steps
+  }
+};
+
+/**
+ * Get the appropriate Seven Ps assessment level for current user
+ */
+export const getSevenPsLevel = (responses: Record<string, any>): 'basic' | 'standard' | 'comprehensive' => {
+  const riskLevel = getCurrentRiskLevel(responses);
+  return getSevenPsAssessmentLevel(riskLevel);
+};
+
+/**
+ * Check if user needs immediate security consultation
+ */
+export const needsSecurityConsultation = (responses: Record<string, any>): boolean => {
+  try {
+    const assessmentPath = determineAssessmentPath(responses);
+    return assessmentPath.riskLevel === 'RED' || assessmentPath.assessmentType === 'critical';
+  } catch (error) {
+    return false;
+  }
+};
+
+/**
+ * Get assessment completion percentage with progressive steps included
+ */
+export const getProgressiveCompletionPercentage = (currentStep: number, responses: Record<string, any>): number => {
+  const totalSteps = getTotalStepsForUserType('any', responses);
+  return Math.round((currentStep / totalSteps) * 100);
+};
+
+/**
+ * Get next step ID in progressive flow
+ */
+export const getNextProgressiveStep = (currentStepId: number, responses: Record<string, any>): number => {
+  const allSteps = getQuestionsForUserType('any', responses);
+  const currentIndex = allSteps.findIndex(step => step.id === currentStepId);
+
+  if (currentIndex !== -1 && currentIndex < allSteps.length - 1) {
+    return allSteps[currentIndex + 1].id;
+  }
+
+  return currentStepId + 1; // Fallback to sequential numbering
+};
+
+/**
+ * Get previous step ID in progressive flow
+ */
+export const getPreviousProgressiveStep = (currentStepId: number, responses: Record<string, any>): number => {
+  const allSteps = getQuestionsForUserType('any', responses);
+  const currentIndex = allSteps.findIndex(step => step.id === currentStepId);
+
+  if (currentIndex > 0) {
+    return allSteps[currentIndex - 1].id;
+  }
+
+  return currentStepId - 1; // Fallback to sequential numbering
+};
+
+/**
+ * Validate progressive step data based on step type and risk level
+ */
+export const validateProgressiveStepData = (stepId: number, value: any, responses: Record<string, any>): { isValid: boolean; errorMessage?: string } => {
+  // Enhanced validation based on progressive disclosure
+  if (!shouldShowProgressiveStep(stepId, responses)) {
+    return { isValid: true }; // Skip validation for steps that shouldn't be shown
+  }
+
+  switch (stepId) {
+    case 2.5: // Threat Assessment
+      if (!value || typeof value !== 'object') {
+        return { isValid: false, errorMessage: 'Please complete the security threat assessment' };
+      }
+      break;
+
+    case 2.6: // Seven Ps Assessment
+      const sevenPsLevel = getSevenPsLevel(responses);
+      if (sevenPsLevel === 'comprehensive' && (!value || Object.keys(value).length < 5)) {
+        return { isValid: false, errorMessage: 'Comprehensive Seven Ps assessment requires detailed information' };
+      }
+      break;
+
+    case 6.5: // Enhanced Emergency Contacts
+      if (!value || !value.nextOfKin || !value.nextOfKin.name || !value.nextOfKin.primaryPhone) {
+        return { isValid: false, errorMessage: 'Enhanced emergency contacts require next of kin information' };
+      }
+      break;
+
+    case 8.5: // Medical Data
+      if (!value || !value.emergencyProcedures) {
+        return { isValid: false, errorMessage: 'Medical information is required for your security level' };
+      }
+      break;
+  }
+
+  return { isValid: true };
 };
 
 export const serviceData = {
