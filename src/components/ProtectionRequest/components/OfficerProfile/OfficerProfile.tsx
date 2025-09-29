@@ -168,7 +168,7 @@ export function OfficerProfile({ selectedService }: OfficerProfileProps) {
         </div>
 
         {/* Arrival Process Section */}
-        <div className={styles.section}>
+        <div className={`${styles.section} ${styles.arrivalSection}`}>
           <h3 className={styles.sectionTitle}>What Happens on Arrival:</h3>
           <div className={styles.processSteps}>
             {profile.arrivalProcess.map((step, index) => (

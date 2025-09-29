@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useApp } from '../../contexts/AppContext';
+import { InstallAppButton } from '../UI/InstallAppButton';
 import styles from './AccountView.module.css';
 
 interface UserAccountData {
@@ -517,6 +518,18 @@ export function AccountView() {
             </div>
             <span className={styles.settingArrow}>→</span>
           </button>
+
+          {/* Install App Section */}
+          <div className={`${styles.settingItem} ${styles.installAppItem}`}>
+            <span className={styles.settingIcon}>📲</span>
+            <div className={styles.settingContent}>
+              <span className={styles.settingTitle}>Install App</span>
+              <span className={styles.settingDesc}>Get faster access to protection services</span>
+            </div>
+            <div className={styles.installButtonContainer}>
+              <InstallAppButton variant="compact" />
+            </div>
+          </div>
         </div>
       </div>
 

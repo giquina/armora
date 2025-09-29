@@ -3,7 +3,7 @@
   border: 2px solid #e5e7eb;
   border-radius: 12px;
   overflow: hidden;
-  margin-bottom: 24px;
+  margin-bottom: 16px;
 }
 
 .header {
@@ -35,11 +35,18 @@
 }
 
 .section {
-  margin-bottom: 28px;
+  margin-bottom: 20px;
 }
 
 .section:last-child {
   margin-bottom: 0;
+}
+
+/* Add extra spacing before the arrival section */
+.arrivalSection {
+  margin-top: 32px;
+  padding-top: 20px;
+  border-top: 1px solid #e5e7eb;
 }
 
 .sectionTitle {
@@ -55,18 +62,18 @@
   padding: 0;
   list-style: none;
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: 1fr 1fr; /* Two columns even on mobile */
   gap: 6px 16px; /* row gap, column gap */
 }
 
 .equipmentItem {
   display: flex;
   align-items: flex-start;
-  gap: 8px;
-  padding: 4px 0; /* slightly tighter for compactness */
-  font-size: 14px;
+  gap: 6px;
+  padding: 2px 0; /* tighter for compactness */
+  font-size: 13px;
   color: #374151;
-  line-height: 1.4;
+  line-height: 1.3;
 }
 
 .bullet {
@@ -82,17 +89,17 @@
 
 .qualificationGrid {
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: 1fr 1fr; /* Two columns even on mobile */
   gap: 8px;
 }
 
 .qualificationItem {
   display: flex;
   align-items: center;
-  gap: 8px;
-  padding: 8px 12px;
+  gap: 6px;
+  padding: 6px 10px;
   background: #f9fafb;
-  border-radius: 8px;
+  border-radius: 6px;
   border: 1px solid #e5e7eb;
 }
 
@@ -104,14 +111,14 @@
 }
 
 .qualificationText {
-  font-size: 14px;
+  font-size: 13px;
   color: #374151;
   font-weight: 500;
 }
 
 .processSteps {
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: 1fr 1fr; /* Two columns even on mobile */
   gap: 12px 16px;
 }
 
@@ -136,9 +143,9 @@
 }
 
 .stepDescription {
-  font-size: 14px;
+  font-size: 13px;
   color: #374151;
-  line-height: 1.4;
+  line-height: 1.3;
 }
 
 .verificationNotice {
@@ -202,15 +209,15 @@
 /* Tablet and up */
 @media (min-width: 768px) {
   .qualificationGrid {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr 1fr; /* Keep 2 columns on tablet */
   }
 
   .equipmentList {
-    grid-template-columns: 1fr 1fr; /* two per row */
+    grid-template-columns: 1fr 1fr; /* Keep 2 columns on tablet */
   }
 
   .processSteps {
-    grid-template-columns: 1fr 1fr; /* two per row */
+    grid-template-columns: 1fr 1fr 1fr; /* 3 columns on tablet for process steps */
   }
 
   .sectionRow {
@@ -222,9 +229,12 @@
 /* Desktop and up */
 @media (min-width: 1024px) {
   .qualificationGrid {
-    grid-template-columns: 1fr 1fr 1fr; /* three per row for compactness */
+    grid-template-columns: 1fr 1fr; /* Keep 2 columns - better readability */
   }
   .processSteps {
-    grid-template-columns: 1fr 1fr 1fr; /* three per row on desktop */
+    grid-template-columns: 1fr 1fr 1fr; /* 3 columns on desktop for process steps */
+  }
+  .equipmentList {
+    grid-template-columns: 1fr 1fr; /* Keep 2 columns for better readability */
   }
 }

@@ -1,4 +1,4 @@
-import { FC, memo } from 'react';
+import { FC, memo, useState } from 'react';
 import styles from '../NavigationCards.module.css';
 
 interface AnalyticsCardData {
@@ -29,7 +29,9 @@ export const AnalyticsCard: FC<AnalyticsCardProps> = memo(({
   tabId,
   ariaControls
 }) => {
-  // With 1-per-row layout, we have full width to show all data
+  const [isExpanded, setIsExpanded] = useState(false);
+  const showVisuals = screenWidth >= 320;
+  const isMobile = screenWidth <= 414;
 
   const getTrendColor = (trend: number) => {
     // For spending, negative is good (green), positive is bad (red)
@@ -42,13 +44,9 @@ export const AnalyticsCard: FC<AnalyticsCardProps> = memo(({
 
 
   return (
-    <button
+    <div
       className={`${styles.navCard} ${styles.analytics} ${isActive ? styles.active : ''}`}
-      onClick={onClick}
-      role="tab"
-      aria-selected={isActive}
-      aria-controls={ariaControls}
-      id={tabId}
+      data-type="analytics"
     >
       {/* Header */}
       <div className={styles.navCardHeader}>
@@ -159,6 +157,6 @@ export const AnalyticsCard: FC<AnalyticsCardProps> = memo(({
           </button>
         </div>
       </div>
-    </button>
+    </div>
   );
 });

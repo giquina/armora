@@ -1,4 +1,6 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
+import { CTAButton } from './CTAButton';
+import { MenuOption } from './OptionsMenu';
 import styles from './ActiveProtectionPanel.module.css';
 
 interface ActiveProtectionPanelProps {
@@ -28,6 +30,8 @@ export function ActiveProtectionPanel({ isOpen, onClose, isActive }: ActiveProte
   const [isMinimized, setIsMinimized] = useState(false);
   const [elapsedTime, setElapsedTime] = useState('0:00:00');
   const [remainingTime, setRemainingTime] = useState<string>('0m');
+  const [pendingExtensions, setPendingExtensions] = useState<Set<string>>(new Set());
+  const [extensionRequests, setExtensionRequests] = useState<string[]>([]);
 
   // Mock protection data - in real app, this would come from context/API
   const protectionData: ProtectionData = {
@@ -107,7 +111,168 @@ export function ActiveProtectionPanel({ isOpen, onClose, isActive }: ActiveProte
 
   const handleEmergencyAction = (action: string) => {
     // Emergency actions implementation placeholder
+    console.log('Emergency action:', action);
   };
+
+  // Extension request handlers
+  const handleExtensionRequest = useCallback((duration: string) => {
+    const requestId = `ext_${Date.now()}`;
+    setPendingExtensions(prev => new Set(prev).add(requestId));
+    setExtensionRequests(prev => [...prev, `${duration} extension requested`]);
+
+    // Simulate officer approval after 3 seconds
+    setTimeout(() => {
+      setPendingExtensions(prev => {
+        const newSet = new Set(prev);
+        newSet.delete(requestId);
+        return newSet;
+      });
+      setExtensionRequests(prev => prev.filter(req => !req.includes(duration)));
+    }, 3000);
+  }, []);
+
+  // Menu option definitions
+  const urgentHelpOptions: MenuOption[] = [
+    {
+      label: 'Emergency call (999)',
+      icon: '🚨',
+      action: () => handleEmergencyAction('emergency_call')
+    },
+    {
+      label: 'Silent alarm',
+      icon: '🔕',
+      action: () => handleEmergencyAction('silent_alarm')
+    },
+    {
+      label: 'Send SOS to contacts',
+      icon: '📱',
+      action: () => handleEmergencyAction('sos_contacts')
+    },
+    {
+      label: 'Emergency protocols',
+      icon: '📋',
+      action: () => handleEmergencyAction('protocols')
+    }
+  ];
+
+  const callOfficerOptions: MenuOption[] = [
+    {
+      label: 'Voice call',
+      icon: '📞',
+      action: () => handleEmergencyAction('voice_call')
+    },
+    {
+      label: 'Video call',
+      icon: '📹',
+      action: () => handleEmergencyAction('video_call')
+    },
+    {
+      label: 'Request callback',
+      icon: '📲',
+      action: () => handleEmergencyAction('callback')
+    },
+    {
+      label: 'View officer profile',
+      icon: '👤',
+      action: () => handleEmergencyAction('officer_profile')
+    }
+  ];
+
+  const extendServiceOptions: MenuOption[] = [
+    {
+      label: 'Request 30 min extension',
+      icon: '⏰',
+      action: () => handleExtensionRequest('30 minutes'),
+      requiresApproval: true
+    },
+    {
+      label: 'Request 1 hour extension',
+      icon: '⏱️',
+      action: () => handleExtensionRequest('1 hour'),
+      requiresApproval: true
+    },
+    {
+      label: 'Request 2 hours extension',
+      icon: '⏲️',
+      action: () => handleExtensionRequest('2 hours'),
+      requiresApproval: true
+    },
+    {
+      label: 'Custom duration',
+      icon: '⌚',
+      action: () => handleExtensionRequest('custom'),
+      requiresApproval: true
+    }
+  ];
+
+  const changeRouteOptions: MenuOption[] = [
+    {
+      label: 'Add waypoint',
+      icon: '📍',
+      action: () => handleEmergencyAction('add_waypoint')
+    },
+    {
+      label: 'Change destination',
+      icon: '🎯',
+      action: () => handleEmergencyAction('change_destination')
+    },
+    {
+      label: 'Optimize route',
+      icon: '🗺️',
+      action: () => handleEmergencyAction('optimize_route')
+    },
+    {
+      label: 'Report road issue',
+      icon: '⚠️',
+      action: () => handleEmergencyAction('road_issue')
+    }
+  ];
+
+  const messageOfficerOptions: MenuOption[] = [
+    {
+      label: 'Text message',
+      icon: '💬',
+      action: () => handleEmergencyAction('text_message')
+    },
+    {
+      label: 'Voice note',
+      icon: '🎤',
+      action: () => handleEmergencyAction('voice_note')
+    },
+    {
+      label: 'Share photo',
+      icon: '📷',
+      action: () => handleEmergencyAction('share_photo')
+    },
+    {
+      label: 'Request status update',
+      icon: '📊',
+      action: () => handleEmergencyAction('status_update')
+    }
+  ];
+
+  const shareLocationOptions: MenuOption[] = [
+    {
+      label: 'Share for 30 minutes',
+      icon: '⏰',
+      action: () => handleEmergencyAction('share_30min')
+    },
+    {
+      label: 'Share for 1 hour',
+      icon: '⏱️',
+      action: () => handleEmergencyAction('share_1hour')
+    },
+    {
+      label: 'Share until arrival',
+      icon: '🎯',
+      action: () => handleEmergencyAction('share_arrival')
+    },
+    {
+      label: 'Stop sharing',
+      icon: '🛑',
+      action: () => handleEmergencyAction('stop_sharing')
+    }
+  ];
 
   if (!isOpen && !isMinimized) return null;
 
@@ -115,20 +280,29 @@ export function ActiveProtectionPanel({ isOpen, onClose, isActive }: ActiveProte
     return (
       <div className={styles.miniBar} onClick={() => setIsMinimized(false)}>
         <div className={styles.miniContent}>
-          <div className={styles.miniLeft}>
-            <div className={styles.miniTags}>
-              <span className={`${styles.badge} ${styles.badgeActive}`}>Active</span>
-              <span className={`${styles.badge} ${styles.badgeService}`}>{protectionData.serviceName}</span>
+          <div className={styles.topRow}>
+            <div className={styles.officerInfo}>
+              <span className={styles.statusDot}></span>
+              <span className={styles.cpoLabel}>CPO</span>
+              <span className={styles.officerName}>{protectionData.officerName}</span>
             </div>
-            <div className={styles.miniOfficerLine}>
-              <span className={styles.miniIndicator}></span>
-              <span className={styles.miniOfficerName}>{protectionData.officerName}</span>
-              <span className={styles.bullet}>•</span>
-              <span className={styles.miniOfficerTitle}>{protectionData.officerTitle}</span>
-            </div>
+            <button
+              className={`${styles.expandArrow} ${!isMinimized ? styles.expanded : ''}`}
+              onClick={(e) => {
+                e.stopPropagation();
+                setIsMinimized(false);
+              }}
+              aria-label="Expand protection panel"
+            >
+              ↑
+            </button>
           </div>
-          <div className={styles.miniRight}>
-            <div className={styles.miniRemaining}>{remainingTime} left</div>
+          <div className={styles.bottomRow}>
+            <span>{protectionData.serviceName}</span>
+            <span className={styles.bullet}>•</span>
+            <span>{remainingTime} left</span>
+            <span className={styles.bullet}>•</span>
+            <span>£{protectionData.currentCharges.toFixed(2)}</span>
           </div>
         </div>
       </div>
@@ -136,7 +310,7 @@ export function ActiveProtectionPanel({ isOpen, onClose, isActive }: ActiveProte
   }
 
   return (
-    <div className={`${styles.activeProtectionPanel} ${isOpen ? styles.open : ''}`}>
+    <div className={`${styles.activeProtectionPanel} ${isOpen ? styles.open : ''}`} style={{maxHeight: isOpen ? '75vh' : '100vh'}}>
       {/* Mobile-First Header */}
       <div className={styles.panelHeader}>
         <div className={styles.headerTop}>
@@ -147,11 +321,11 @@ export function ActiveProtectionPanel({ isOpen, onClose, isActive }: ActiveProte
           <div className={styles.controlSection}>
             <span className={styles.timer}>{elapsedTime}</span>
             <button
-              className={styles.closeButton}
+              className={`${styles.closeButton} ${styles.expandArrow} ${!isMinimized ? styles.expanded : ''}`}
               onClick={() => setIsMinimized(true)}
               aria-label="Minimize protection panel"
             >
-              ✕
+              ↑
             </button>
           </div>
         </div>
@@ -219,31 +393,69 @@ export function ActiveProtectionPanel({ isOpen, onClose, isActive }: ActiveProte
             <h3>Security Commands</h3>
           </div>
           <div className={styles.actionsGrid}>
-            <button className={styles.actionButton} onClick={() => handleEmergencyAction('call')}>
-              <span className={styles.actionIcon}>📞</span>
-              <span>Call Officer</span>
-            </button>
-            <button className={styles.actionButton} onClick={() => extendTime(30)}>
-              <span className={styles.actionIcon}>⏰</span>
-              <span>Extend +30min</span>
-            </button>
-            <button className={styles.actionButton} onClick={() => handleEmergencyAction('location')}>
-              <span className={styles.actionIcon}>📍</span>
-              <span>Share Location</span>
-            </button>
-            <button className={styles.actionButton} onClick={() => handleEmergencyAction('destination')}>
-              <span className={styles.actionIcon}>📝</span>
-              <span>Update Route</span>
-            </button>
-            <button className={styles.actionButton} onClick={() => handleEmergencyAction('silent')}>
-              <span className={styles.actionIcon}>🔔</span>
-              <span>Silent Alert</span>
-            </button>
-            <button className={`${styles.actionButton} ${styles.emergencyButton}`} onClick={() => handleEmergencyAction('sos')}>
-              <span className={styles.actionIcon}>🚨</span>
-              <span>SOS</span>
-            </button>
+            <CTAButton
+              title="URGENT HELP"
+              icon="🚨"
+              color="emergency"
+              onMainAction={() => handleEmergencyAction('sos')}
+              menuOptions={urgentHelpOptions}
+              isFullWidth
+            />
+
+            <CTAButton
+              title="CALL OFFICER"
+              icon="📞"
+              color="primary"
+              onMainAction={() => handleEmergencyAction('call')}
+              menuOptions={callOfficerOptions}
+            />
+
+            <CTAButton
+              title="EXTEND SERVICE"
+              icon="⏰"
+              color="warning"
+              onMainAction={() => extendTime(30)}
+              menuOptions={extendServiceOptions}
+              pendingApproval={pendingExtensions.size > 0}
+            />
+
+            <CTAButton
+              title="CHANGE ROUTE"
+              icon="📝"
+              color="info"
+              onMainAction={() => handleEmergencyAction('destination')}
+              menuOptions={changeRouteOptions}
+            />
+
+            <CTAButton
+              title="MESSAGE OFFICER"
+              icon="💬"
+              color="secondary"
+              onMainAction={() => handleEmergencyAction('message')}
+              menuOptions={messageOfficerOptions}
+            />
+
+            <CTAButton
+              title="SHARE LOCATION"
+              icon="📍"
+              color="neutral"
+              onMainAction={() => handleEmergencyAction('location')}
+              menuOptions={shareLocationOptions}
+            />
           </div>
+
+          {/* Extension request status */}
+          {extensionRequests.length > 0 && (
+            <div className={styles.extensionStatus}>
+              <h4>Pending Requests</h4>
+              {extensionRequests.map((request, index) => (
+                <div key={index} className={styles.extensionRequest}>
+                  <span className={styles.requestText}>{request}</span>
+                  <span className={styles.pendingBadge}>Pending officer approval</span>
+                </div>
+              ))}
+            </div>
+          )}
 
           {/* Billing Tracker */}
           <div className={styles.billingTracker}>

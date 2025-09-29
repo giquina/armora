@@ -4,7 +4,7 @@
 export type NavigationViews = 'home' | 'services' | 'hub' | 'account';
 
 // Complete view state including navigation and flow states
-export type ViewState = 'splash' | 'welcome' | 'login' | 'signup' | 'guest-disclaimer' | 'questionnaire' | 'achievement' | 'home' | 'subscription-offer' | 'trial-setup' | 'member-dashboard' | 'services' | 'service-selection' | 'protection-assignment' | 'hub' | 'Assignments' | 'account' | 'venue-protection-welcome' | 'venue-security-questionnaire' | 'venue-protection-success' | 'about' | 'coverage-areas' | 'legacy-assignment-view' | 'protection-request' | 'assignment-confirmed' | 'protection-assignment' | 'legacy-assignment-view';
+export type ViewState = 'splash' | 'welcome' | 'login' | 'signup' | 'guest-disclaimer' | 'questionnaire' | 'achievement' | 'home' | 'subscription-offer' | 'trial-setup' | 'member-dashboard' | 'services' | 'service-selection' | 'protection-assignment' | 'active' | 'hub' | 'Assignments' | 'account' | 'venue-protection-welcome' | 'venue-security-questionnaire' | 'venue-protection-success' | 'about' | 'coverage-areas' | 'legacy-assignment-view' | 'protection-request' | 'assignment-confirmed' | 'protection-assignment' | 'legacy-assignment-view';
 
 export type UserType = 'registered' | 'google' | 'guest' | null;
 
@@ -571,6 +571,9 @@ export interface DeviceCapabilities {
   screenHeight: number;
   orientation: 'portrait' | 'landscape';
   supportsInstallPrompt: boolean;
+  deferredPrompt?: any;
+  isInstallable?: boolean;
+  isInstalled?: boolean;
 }
 
 export interface AssignmentContext {

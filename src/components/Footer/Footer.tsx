@@ -1,6 +1,8 @@
+import { useApp } from '../../contexts/AppContext';
 import styles from './Footer.module.css';
 
 export function Footer() {
+  const { navigateToView } = useApp();
   return (
     <footer className={styles.footer}>
       {/* MAIN FOOTER SECTION */}
@@ -105,15 +107,15 @@ export function Footer() {
           <div className={styles.footerBottom}>
             {/* Legal Links */}
             <div className={styles.legalLinks}>
-              <a href="#terms" className={styles.legalLink}>Terms of Service</a>
+              <button onClick={() => navigateToView('terms')} className={styles.legalLink}>Terms of Service</button>
               <span className={styles.divider}>|</span>
-              <a href="#privacy" className={styles.legalLink}>Privacy Policy</a>
+              <button onClick={() => navigateToView('privacy')} className={styles.legalLink}>Privacy Policy</button>
               <span className={styles.divider}>|</span>
-              <a href="#sia" className={styles.legalLink}>SIA Compliance</a>
+              <button onClick={() => navigateToView('sia')} className={styles.legalLink}>SIA Compliance</button>
+              <span className={styles.divider}>|</span>
+              <button onClick={() => navigateToView('gdpr')} className={styles.legalLink}>GDPR Rights</button>
               <span className={styles.divider}>|</span>
               <a href="#insurance" className={styles.legalLink}>Insurance</a>
-              <span className={styles.divider}>|</span>
-              <a href="#gdpr" className={styles.legalLink}>GDPR</a>
               <span className={styles.divider}>|</span>
               <a href="#cookies" className={styles.legalLink}>Cookies</a>
             </div>

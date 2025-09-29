@@ -1,12 +1,13 @@
 .container {
   padding: 0;
-  margin: 0 0 24px 0;
+  margin: 0 0 32px 0;
   width: 100%;
 }
 
 .header {
-  margin-bottom: 20px;
+  margin-bottom: 40px;
   text-align: center;
+  padding: 0 16px;
 }
 
 .title {
@@ -29,29 +30,140 @@
   margin: 0;
 }
 
-/* RESPONSIVE GRID LAYOUT - FULL WIDTH */
-.situationsGrid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 16px;
+/* ============================================
+   CAROUSEL LAYOUT - RESPONSIVE
+   ============================================ */
+
+/* Carousel Wrapper - Relative positioned container */
+.carouselWrapper {
+  position: relative;
   width: 100%;
+  margin: 0;
+  padding: 20px 0 0 0;
+  margin-bottom: 24px;
+}
+
+/* Navigation Arrows */
+.navArrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 40px;
+  height: 40px;
+  background: rgba(26, 35, 50, 0.8); /* Semi-transparent navy */
+  color: white;
+  border: none;
+  border-radius: 50%;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.navArrow:hover {
+  background: #c9a961; /* Gold on hover */
+  transform: translateY(-50%) scale(1.1);
+  box-shadow: 0 4px 12px rgba(201, 169, 97, 0.4);
+}
+
+.navArrow:disabled {
+  background: rgba(156, 163, 175, 0.5);
+  cursor: not-allowed;
+  transform: translateY(-50%);
+}
+
+.navArrowLeft {
+  left: -20px;
+}
+
+.navArrowRight {
+  right: -20px;
+}
+
+/* Carousel Container - Horizontal scroll container */
+.carouselContainer {
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-behavior: smooth;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE/Edge */
+  padding: 8px 24px; /* Extra top padding to prevent border cutting */
+}
+
+.carouselContainer::-webkit-scrollbar {
+  display: none; /* Chrome/Safari */
+}
+
+/* Carousel Track - Flex container for cards */
+.carouselTrack {
+  display: flex;
+  gap: 20px;
+  padding: 0;
   margin: 0;
 }
 
-/* CARD STYLING WITH ARMORA BRAND COLORS */
+/* Carousel Indicators */
+.carouselIndicators {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  margin-top: 24px;
+  padding: 0 16px;
+}
+
+.indicator {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  border: none;
+  background: #d1d5db;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  padding: 0;
+}
+
+.indicator:hover {
+  background: #9ca3af;
+  transform: scale(1.2);
+}
+
+.indicatorActive {
+  background: #1a2332; /* Navy for active */
+  transform: scale(1.3);
+}
+
+.indicatorActive:hover {
+  background: #c9a961; /* Gold on hover when active */
+}
+
+/* CARD STYLING WITH ARMORA BRAND COLORS - CAROUSEL OPTIMIZED */
 .situationCard {
   background: #FFFFFF;
   border: 1px solid #e5e7eb;
   border-radius: 12px;
-  padding: 20px 20px 16px 20px;
+  padding: 24px 20px 20px 20px;
   cursor: pointer;
-  transition: all 0.3s ease; /* Smoother transitions */
+  transition: all 0.3s ease;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
   text-align: left;
-  width: 100%;
   position: relative;
   display: flex;
   flex-direction: column;
+  scroll-snap-align: center;
+  flex-shrink: 0;
+  /* Mobile: 67% width for 1.5 card display */
+  width: calc(67vw - 32px);
+  min-width: 260px;
+  max-width: 280px;
+  min-height: 220px;
 }
 
 .situationCard:hover {
@@ -73,42 +185,51 @@
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
-  margin-bottom: 12px;
+  margin-bottom: 16px;
+  position: relative;
 }
 
+/* Icon removed - no longer needed */
 .icon {
-  font-size: 24px;
-  line-height: 1;
-  margin-right: 12px;
-  flex-shrink: 0;
+  display: none;
 }
 
-.titlePrice {
+/* New title section - vertical layout */
+.titleSection {
   display: flex;
-  align-items: center;
+  flex-direction: column;
+  align-items: flex-start;
   flex: 1;
-  justify-content: space-between;
+  gap: 6px;
+  min-width: 0;
 }
 
 .label {
   font-size: 18px;
-  font-weight: 600;
+  font-weight: 700;
   color: #1a2332; /* Navy */
   margin: 0;
+  white-space: nowrap;
+  overflow: visible;
+  text-overflow: unset;
+  min-width: 0;
+  width: 100%;
 }
 
 .price {
-  font-size: 16px;
-  font-weight: 700;
+  font-size: 13px;
+  font-weight: 600;
   color: #c9a961; /* Gold */
+  white-space: nowrap;
+  line-height: 1.2;
 }
 
 .checkmark {
   position: absolute;
-  top: 16px;
-  right: 16px;
-  width: 20px;
-  height: 20px;
+  top: 20px;
+  right: 20px;
+  width: 22px;
+  height: 22px;
   background: #c9a961; /* Gold checkmark */
   color: #1a2332; /* Navy icon */
   border-radius: 50%;
@@ -117,6 +238,7 @@
   justify-content: center;
   font-size: 12px;
   font-weight: 700;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 /* RESPONSE INFO */
@@ -124,9 +246,12 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  margin-bottom: 12px;
+  margin-bottom: 14px;
   font-size: 13px;
   color: #6b7280;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .responseTime {
@@ -249,18 +374,20 @@
 /* SELECT BUTTON STYLING */
 .selectButton {
   width: 100%;
-  padding: 12px 20px;
+  padding: 12px 16px;
   background: #1a2332; /* Navy */
   color: #FFFFFF;
   border: none;
   border-radius: 8px;
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.2s ease;
-  margin-top: auto; /* Push to bottom of card */
   text-align: center;
   min-height: 44px; /* Minimum touch target */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .selectButton:hover {
@@ -284,15 +411,34 @@
   color: #1a2332;
 }
 
+/* ============================================
+   RESPONSIVE CAROUSEL ADJUSTMENTS
+   ============================================ */
+
 /* TABLET RESPONSIVE */
 @media (min-width: 768px) {
-  .situationsGrid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 16px;
+  .situationCard {
+    width: 320px;
+    min-width: 320px;
+    max-width: 320px;
+    padding: 28px 24px 24px 24px;
+    min-height: 240px;
+  }
+
+  .carouselTrack {
+    gap: 24px;
+  }
+
+  .navArrowLeft {
+    left: -28px;
+  }
+
+  .navArrowRight {
+    right: -28px;
   }
 
   .cardHeader {
-    margin-bottom: 16px;
+    margin-bottom: 18px;
   }
 
   .icon {
@@ -300,38 +446,92 @@
   }
 
   .label {
-    font-size: 20px;
+    font-size: 19px;
+    white-space: nowrap;
   }
 
   .price {
-    font-size: 18px;
+    font-size: 14px;
+    line-height: 1.3;
+  }
+
+  .titleSection {
+    gap: 6px;
+  }
+
+  .cardActions {
+    gap: 12px;
+    padding-top: 18px;
+  }
+
+  .selectButton {
+    font-size: 14px;
+    padding: 12px 18px;
+  }
+
+  .detailsButton {
+    font-size: 13px;
+    padding: 11px 16px;
+    max-width: none;
   }
 }
 
 /* DESKTOP RESPONSIVE */
 @media (min-width: 1024px) {
-  .situationsGrid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 20px;
+  .situationCard {
+    width: 300px;
+    min-width: 300px;
+    max-width: 300px;
+  }
+
+  .carouselTrack {
+    gap: 24px;
+  }
+
+  .carouselContainer {
+    padding: 0 32px;
   }
 }
 
 /* LARGE DESKTOP */
 @media (min-width: 1280px) {
-  .situationsGrid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 24px;
+  .situationCard {
+    width: 320px;
+    min-width: 320px;
+    max-width: 320px;
+    padding: 24px;
   }
 
-  .situationCard {
-    padding: 24px;
+  .carouselTrack {
+    gap: 28px;
   }
 }
 
-/* MOBILE OPTIMIZATION - Prevent horizontal scrolling */
+/* MOBILE OPTIMIZATION - Carousel specific */
 @media (max-width: 320px) {
   .situationCard {
     padding: 16px 16px 12px 16px;
+    width: calc(67vw - 24px);
+    min-width: 240px;
+    max-width: 260px;
+  }
+
+  .carouselContainer {
+    padding: 0 16px;
+  }
+
+  .navArrowLeft {
+    left: -16px;
+  }
+
+  .navArrowRight {
+    right: -16px;
+  }
+
+  .navArrow {
+    width: 36px;
+    height: 36px;
+    font-size: 16px;
   }
 
   .titlePrice {
@@ -356,5 +556,163 @@
   .selectButton {
     padding: 10px 16px;
     font-size: 13px;
+  }
+}
+
+/* ============================================
+   COLLAPSIBLE CARD FUNCTIONALITY
+   ============================================ */
+
+/* Collapsed State - Default compact view */
+.collapsed {
+  /* Approximate height for collapsed state ~140-160px */
+  min-height: 140px;
+}
+
+/* Expanded State - Full content visible */
+.expanded {
+  /* Auto height to accommodate all content */
+  min-height: auto;
+}
+
+/* Brief Description - Only shown in collapsed state */
+.briefDescription {
+  font-size: 13px;
+  color: #6b7280;
+  margin: 8px 0 16px 0;
+  line-height: 1.4;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+/* Action Buttons Container */
+.cardActions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: auto;
+  padding-top: 16px;
+}
+
+.cardActions .selectButton {
+  flex: none;
+  width: 100%;
+  font-weight: 600;
+  min-width: 0;
+}
+
+/* Details Toggle Button */
+.detailsButton {
+  flex: none;
+  width: 100%;
+  padding: 10px 12px;
+  background: #f3f4f6;
+  color: #374151;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+  overflow: visible;
+  text-overflow: unset;
+  min-width: 0;
+  max-width: none;
+  text-align: center;
+}
+
+.detailsButton:hover {
+  background: #e5e7eb;
+  color: #1a2332;
+  border-color: #9ca3af;
+}
+
+.detailsButton:active {
+  transform: scale(0.98);
+}
+
+/* Expanded Content - Conditionally shown */
+.expandedContent {
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid #e5e7eb;
+  animation: expandContent 0.3s ease-out;
+}
+
+@keyframes expandContent {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Mobile responsive adjustments for collapsible cards */
+@media (max-width: 480px) {
+  .collapsed {
+    min-height: 200px;
+  }
+
+  .situationCard {
+    min-height: 200px;
+    padding: 20px 16px 16px 16px;
+    width: calc(67vw - 20px);
+    min-width: 280px;
+    max-width: 300px;
+  }
+
+  .cardActions {
+    flex-direction: column;
+    gap: 8px;
+    margin-top: auto;
+    padding-top: 12px;
+  }
+
+  .cardActions .selectButton {
+    flex: none;
+    width: 100%;
+    font-size: 12px;
+    padding: 10px 12px;
+  }
+
+  .detailsButton {
+    flex: none;
+    width: 100%;
+    font-size: 11px;
+    padding: 8px 12px;
+    max-width: none;
+  }
+
+  .briefDescription {
+    font-size: 12px;
+    margin: 6px 0 12px 0;
+    -webkit-line-clamp: 1;
+  }
+
+  .label {
+    font-size: 16px;
+    white-space: nowrap;
+    overflow: visible;
+  }
+
+  .price {
+    font-size: 12px;
+    line-height: 1.3;
+  }
+
+  .titleSection {
+    gap: 4px;
+  }
+
+  .responseInfo {
+    font-size: 12px;
+    margin-bottom: 12px;
   }
 }

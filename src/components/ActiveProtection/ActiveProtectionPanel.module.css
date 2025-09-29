@@ -1,24 +1,26 @@
 /* FULL-PAGE ACTIVE PROTECTION PANEL WITH CSS SCROLL SNAP */
 
-/* Root panel - full viewport coverage with space for bottom navigation */
+/* Root panel - positioned above bottom navigation bar */
 .activeProtectionPanel {
   position: fixed;
-  top: 0;
+  bottom: 56px; /* Sit above bottom navigation bar (56px height) */
   left: 0;
   width: 100vw;
-  height: 100vh; /* Full height; bottom nav overlays or content pads itself */
-  height: 100dvh; /* Dynamic viewport height for modern browsers */
+  height: calc(75vh - 56px); /* Limited to 75% viewport height minus bottom navigation */
+  max-height: calc(75vh - 56px);
   background: #1a1a2e; /* Dark armora background */
-  z-index: 999; /* Below navigation bar z-index (1000) */
+  z-index: 1020; /* Below navigation bar z-index (1030) */
   opacity: 0;
   visibility: hidden;
-  transition: all 0.3s ease-out;
+  transition: all 350ms ease;
   overflow: hidden;
 }
 
 .activeProtectionPanel.open {
   opacity: 1;
   visibility: visible;
+  height: calc(75vh - 56px);
+  max-height: calc(75vh - 56px);
 }
 
 /* Mobile-First Header Design */
@@ -26,11 +28,11 @@
   background: linear-gradient(180deg, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.2) 100%);
   border-bottom: 1px solid rgba(255, 215, 0, 0.2);
   padding: 10px 12px 8px 12px;
-  position: fixed;
-  top: 56px; /* Sit below top toolbar */
+  position: sticky;
+  top: 0; /* Stick to top of panel */
   left: 0;
   right: 0;
-  z-index: 10001;
+  z-index: 1025;
   backdrop-filter: blur(8px);
 }
 
@@ -143,16 +145,15 @@
 
 /* Scroll container with CSS scroll snap */
 .scrollContainer {
-  height: 100vh; /* Match parent height */
-  height: 100dvh;
+  height: calc(75vh - 110px); /* 75vh minus header space */
   overflow-y: auto;
   scroll-snap-type: y mandatory;
   scroll-behavior: smooth;
-  -webkit-overflow-scrolling: touch; /* iOS momentum scrolling */
-  scrollbar-width: none; /* Hide scrollbar Firefox */
-  -ms-overflow-style: none; /* Hide scrollbar IE/Edge */
-  padding-top: 110px; /* Toolbar(56) + panel header(54) */
-  padding-bottom: max(88px, env(safe-area-inset-bottom)); /* Ensure content not hidden by nav */
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  padding-top: 0; /* No top padding since header is sticky */
+  padding-bottom: max(88px, env(safe-area-inset-bottom));
 }
 
 .scrollContainer::-webkit-scrollbar {
@@ -173,8 +174,8 @@
 
 /* Section 1: Map View - Full height minus navigation */
 .scrollSection.mapSection {
-  min-height: calc(100vh - 80px); /* Header only */
-  min-height: calc(100dvh - 80px);
+  min-height: calc(75vh - 110px); /* Fit within 75vh panel minus header */
+  min-height: calc(75dvh - 110px);
   background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
 }
 
@@ -206,24 +207,24 @@
   text-align: center;
 }
 
-/* Section 2: Protection Details - 70vh minus navigation */
+/* Section 2: Protection Details - Fit within 75vh panel */
 .scrollSection.detailsSection {
-  min-height: calc(70vh - 80px); /* Header only */
-  min-height: calc(70dvh - 80px);
+  min-height: calc(60vh - 110px); /* Fit within 75vh panel minus header */
+  min-height: calc(60dvh - 110px);
   background: linear-gradient(135deg, #16213e 0%, #1a1a2e 100%);
 }
 
-/* Section 3: Security Code - 50vh minus navigation */
+/* Section 3: Security Code - Fit within 75vh panel */
 .scrollSection.securitySection {
-  min-height: calc(50vh - 80px); /* Header only */
-  min-height: calc(50dvh - 80px);
+  min-height: calc(45vh - 110px); /* Fit within 75vh panel minus header */
+  min-height: calc(45dvh - 110px);
   background: linear-gradient(135deg, #1a1a2e 0%, #0f1419 100%);
 }
 
-/* Section 4: Actions - Variable height minus navigation */
+/* Section 4: Actions - Fit within 75vh panel */
 .scrollSection.actionsSection {
-  min-height: calc(100vh - 80px); /* Header only */
-  min-height: calc(100dvh - 80px);
+  min-height: calc(75vh - 110px); /* Fit within 75vh panel minus header */
+  min-height: calc(75dvh - 110px);
   background: linear-gradient(135deg, #0f1419 0%, #1a1a2e 100%);
   padding-bottom: max(120px, calc(80px + env(safe-area-inset-bottom))); /* Space for bottom actions + nav */
 }
@@ -358,6 +359,54 @@
   margin-bottom: var(--space-xl);
 }
 
+/* Extension status section */
+.extensionStatus {
+  background: rgba(245, 158, 11, 0.1);
+  border: 1px solid rgba(245, 158, 11, 0.3);
+  border-radius: var(--radius-lg);
+  padding: var(--space-md);
+  margin-bottom: var(--space-lg);
+}
+
+.extensionStatus h4 {
+  color: #f59e0b;
+  font-size: 14px;
+  font-weight: 600;
+  margin: 0 0 var(--space-sm) 0;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.extensionRequest {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--space-sm) 0;
+  border-bottom: 1px solid rgba(245, 158, 11, 0.2);
+}
+
+.extensionRequest:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.requestText {
+  font-size: 14px;
+  color: var(--text-primary);
+  font-weight: 500;
+}
+
+.pendingBadge {
+  font-size: 12px;
+  padding: 4px 8px;
+  background: rgba(245, 158, 11, 0.2);
+  color: #f59e0b;
+  border-radius: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
 .actionButton {
   display: flex;
   flex-direction: column;
@@ -487,7 +536,7 @@
   transform: translateX(-50%);
   display: flex;
   gap: var(--space-sm);
-  z-index: 10002;
+  z-index: 1025;
 }
 
 .scrollDot {
@@ -504,21 +553,20 @@
   box-shadow: 0 0 8px rgba(255, 215, 0, 0.6);
 }
 
-/* Mini bar (collapsed state) */
+/* Mini bar (collapsed state) - Option B Design */
 .miniBar {
   position: fixed;
-  /* Flush to top edge of the bottom navigation; no gap visible */
   bottom: calc(56px + env(safe-area-inset-bottom));
-  left: var(--space-sm);
-  right: var(--space-sm);
+  left: 16px;
+  right: 16px;
   background: linear-gradient(135deg, rgba(26, 26, 46, 0.98) 0%, rgba(30, 30, 58, 0.98) 100%);
   border: 1px solid rgba(255, 215, 0, 0.6);
-  border-radius: var(--radius-lg);
-  padding: var(--space-sm) var(--space-md);
+  border-radius: 12px;
+  padding: 16px;
   backdrop-filter: blur(10px);
-  z-index: 1200; /* Above nav items but below modals */
+  z-index: 1200;
   cursor: pointer;
-  transition: all var(--transition-base);
+  transition: all 350ms ease;
   box-shadow: 0 4px 14px rgba(0, 0, 0, 0.45), 0 0 0 1px rgba(255, 215, 0, 0.15) inset;
 }
 
@@ -544,62 +592,67 @@
 
 .miniContent {
   display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.topRow {
+  display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-bottom: 8px;
 }
 
-.miniLeft {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  min-width: 0;
-}
-
-.miniTags {
+.officerInfo {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 8px;
 }
 
-.badge {
-  font-size: 11px;
-  font-weight: 800;
-  letter-spacing: 0.4px;
-  text-transform: uppercase;
-  padding: 2px 8px;
-  border-radius: 999px;
-  line-height: 1.3;
-}
-
-.badgeActive {
-  background: rgba(34, 197, 94, 0.18);
-  color: #22c55e;
-  border: 1px solid rgba(34, 197, 94, 0.35);
-}
-
-.badgeService {
-  background: rgba(255, 215, 0, 0.15);
-  color: var(--armora-gold);
-  border: 1px solid rgba(255, 215, 0, 0.35);
-}
-
-.miniOfficerLine {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  min-width: 0;
-}
-
-.miniIndicator {
+.statusDot {
   width: 8px;
   height: 8px;
-  background: #22c55e;
   border-radius: 50%;
-  animation: protectionPulse 2s ease-in-out infinite;
+  background: #10b981;
+  animation: pulse 2s ease-in-out infinite;
 }
 
-.miniOfficerName {
-  font-size: 13px;
+.cpoLabel {
+  font-size: 14px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.95);
+  letter-spacing: 0.5px;
+}
+
+.expandArrow {
+  width: 24px;
+  height: 24px;
+  min-width: 44px;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  color: #374151;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 350ms ease;
+  -webkit-tap-highlight-color: transparent;
+  border-radius: 50%;
+}
+
+.expandArrow:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.expandArrow.expanded {
+  transform: rotate(180deg);
+}
+
+.officerName {
+  font-size: 14px;
   color: rgba(255, 255, 255, 0.95);
   font-weight: 600;
   white-space: nowrap;
@@ -607,27 +660,24 @@
   text-overflow: ellipsis;
 }
 
-.bullet {
-  color: rgba(255, 255, 255, 0.5);
-}
-
-.miniOfficerTitle {
-  font-size: 12px;
-  color: rgba(255, 255, 255, 0.7);
-}
-
-.miniRight {
+.bottomRow {
   display: flex;
   align-items: center;
   gap: 8px;
+  color: #6b7280;
+  font-size: 14px;
 }
 
-.miniRemaining {
-  font-size: 13px;
-  color: var(--armora-gold);
-  font-weight: 800;
-  letter-spacing: 0.3px;
+.bullet {
+  color: rgba(255, 255, 255, 0.5);
+  font-weight: 400;
 }
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.6; }
+}
+
 
 /* Animations */
 @keyframes protectionPulse {
@@ -667,11 +717,20 @@
 
 /* Desktop/Tablet */
 @media (min-width: 768px) {
+  .activeProtectionPanel {
+    height: 75vh; /* Keep consistent with mobile 75vh limit */
+    max-height: 75vh;
+  }
+
+  .activeProtectionPanel.open {
+    height: 75vh;
+    max-height: 75vh;
+  }
+
   .panelHeader {
     padding: 14px 20px 12px 20px;
   }
 
-  /* Could switch to single-line layout on desktop if desired */
   .headerTop {
     margin-bottom: 6px;
   }

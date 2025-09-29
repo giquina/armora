@@ -22,7 +22,7 @@ export function DevNavigationPanel({ className }: DevNavigationPanelProps) {
     { id: 'home', label: 'Dashboard', icon: '📊' },
     { id: 'hub', label: 'Hub', icon: '🎯' },
     { id: 'services', label: 'Services', icon: '🛡️' },
-    { id: 'protection-assignment', label: 'Protection Assignment', icon: '📅' },
+    { id: 'protection-assignment', label: 'Protection Assignment', icon: '🚗' },
     { id: 'assignments', label: 'Protection Details', icon: '📋' },
     { id: 'account', label: 'Account', icon: '👥' },
     { id: 'profile', label: 'Profile', icon: '👤' },

@@ -118,10 +118,14 @@ export const ServiceCard = memo(function ServiceCard({
   };
 
   const handleBookNow = () => {
-    setIsBookingLoading(true);
-    setTimeout(() => {
-      onBookNow?.(service);
-    }, 300);
+    if (mode === 'preview' && onDirectBook) {
+      onDirectBook(service);
+    } else {
+      setIsBookingLoading(true);
+      setTimeout(() => {
+        onBookNow?.(service);
+      }, 300);
+    }
   };
 
 
@@ -205,29 +209,45 @@ export const ServiceCard = memo(function ServiceCard({
       )}
 
       {/* Action Buttons */}
-      <div className={styles.actionButtons}>
-        <Button
-          variant="primary"
-          onClick={(e) => {
-            e.stopPropagation();
-            handleBookNow();
-          }}
-          className={styles.requestNewButton}
-          disabled={isBookingLoading}
-        >
-          {isBookingLoading ? 'Processing...' : 'Request New'}
-        </Button>
+      <div className={`${styles.actionButtons} ${mode === 'selection' ? styles.multipleButtons : ''}`}>
+        {mode === 'preview' ? (
+          <Button
+            variant="primary"
+            onClick={(e) => {
+              e.stopPropagation();
+              handleBookNow();
+            }}
+            className={styles.requestNewButton}
+            disabled={isBookingLoading}
+          >
+            {isBookingLoading ? 'Processing...' : `Request ${config.name}`}
+          </Button>
+        ) : (
+          <>
+            <Button
+              variant="primary"
+              onClick={(e) => {
+                e.stopPropagation();
+                handleBookNow();
+              }}
+              className={styles.requestNewButton}
+              disabled={isBookingLoading}
+            >
+              {isBookingLoading ? 'Processing...' : 'Request New'}
+            </Button>
 
-        <Button
-          variant="outline"
-          onClick={(e) => {
-            e.stopPropagation();
-            // Template selection implementation placeholder
-          }}
-          className={styles.useTemplateButton}
-        >
-          Use Template
-        </Button>
+            <Button
+              variant="outline"
+              onClick={(e) => {
+                e.stopPropagation();
+                // Template selection implementation placeholder
+              }}
+              className={styles.useTemplateButton}
+            >
+              Use Template
+            </Button>
+          </>
+        )}
       </div>
     </div>
   );

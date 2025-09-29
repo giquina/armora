@@ -2,8 +2,8 @@
 
 .panel {
   position: fixed;
-  /* Sit above the bottom navigation (keep nav visible and clickable) */
-  bottom: calc(60px + env(safe-area-inset-bottom));
+  /* Sit above the bottom navigation bar */
+  bottom: 56px; /* 56px is the bottom navigation bar height */
   left: 0;
   right: 0;
   /* Enhanced glassmorphism background */
@@ -16,18 +16,17 @@
     0 -8px 32px rgba(0, 0, 0, 0.12),
     0 -16px 64px rgba(0, 0, 0, 0.08),
     0 -2px 8px rgba(0, 0, 0, 0.04),
-    inset 0 1px 0 rgba(255, 255, 255, 0.5),
-    inset 0 -1px 0 rgba(0, 0, 0, 0.05);
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  /* Below bottom navigation (var(--z-fixed) = 1030) so nav stays on top */
+    inset 0 1px 0 rgba(255, 255, 255, 0.5);
+  transition: all 350ms ease;
+  /* High z-index since no bottom navigation to stay above */
   z-index: 1020;
   border: 1px solid rgba(255, 255, 255, 0.3);
   border-bottom: none;
   overflow: hidden;
   /* Ensure panel is always visible and sticky */
   display: block !important;
-  /* Internal padding only; nav sits outside */
-  padding-bottom: 8px;
+  /* No bottom padding - panel goes to screen edge */
+  padding-bottom: 0;
 }
 
 .panel::before {
@@ -49,8 +48,9 @@
 /* Panel States */
 .panel.collapsed {
   transform: translateY(0);
-  height: 112px; /* Compact collapsed preview */
+  height: 140px; /* Taller collapsed preview with more info */
   /* Only show the status bar in collapsed state */
+  z-index: 1020; /* Below navigation when collapsed */
 }
 
 .panel.dragging {
@@ -91,8 +91,11 @@
 
 .panel.full {
   transform: translateY(0);
-  height: 75vh;
-  /* Panel takes up 3/4 of the screen */
+  height: calc(75vh - 56px);
+  max-height: calc(75vh - 56px);
+  overflow-y: auto; /* Add scroll if content exceeds height */
+  /* Panel limited to 75% screen height minus bottom navigation offset */
+  z-index: 1040; /* Above bottom navigation */
 }
 
 /* Drag Handle - Perfectly Centered */
@@ -122,15 +125,14 @@
 
 /* Collapsed Preview Content */
 .collapsedPreview {
-  padding: 12px 16px;
-  background: rgba(0, 0, 0, 0.02);
-  border-radius: 8px;
-  margin: 16px 20px 0 20px;
-  border: 1px solid rgba(0, 0, 0, 0.08);
-  min-height: 80px;
+  padding: 16px;
+  background: white;
+  border-top: 1px solid #e5e7eb;
+  margin: 0;
+  min-height: auto;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  gap: 8px;
 }
 
 .topRow {
@@ -148,9 +150,11 @@
 }
 
 .statusDot {
-  color: #10B981;
-  font-size: 10px;
-  line-height: 1;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #10b981; /* Green for active */
+  display: inline-block;
 }
 
 .statusText {
@@ -172,13 +176,47 @@
 }
 
 .bottomRow {
-  padding-left: 16px;
+  color: #6b7280;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.bullet {
+  color: #6b7280;
+  font-weight: bold;
+}
+
+.expandArrow {
+  color: #1a1a1a;
+  font-size: 24px;
+  background: none;
+  border: none;
+  padding: 10px;
+  min-width: 44px;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: transform 350ms ease;
+}
+
+.expandArrow.expanded {
+  transform: rotate(180deg);
 }
 
 .officerInfo {
   display: flex;
-  flex-direction: column;
-  gap: 2px;
+  align-items: center;
+  gap: 8px;
+}
+
+.cpoLabel {
+  font-size: 14px;
+  font-weight: 600;
+  color: #374151;
 }
 
 .officerName {
@@ -419,14 +457,14 @@
 
 /* Panel Content */
 .panelContent {
-  padding: 0 16px 0 16px; /* Remove bottom padding to prevent cutoff */
+  padding: 0 8px 0 8px;
   overflow-y: auto;
   flex: 1;
   display: flex;
   flex-direction: column;
   height: 100%;
-  /* Ensure content fits within the panel height and accounts for navigation */
-  max-height: calc(100% - 70px - 68px); /* Account for status bar + navigation padding */
+  /* Fill all available space in the corrected panel */
+  max-height: calc(75vh - 176px); /* Panel height minus status and bottom offset */
   box-sizing: border-box;
 }
 
@@ -498,58 +536,23 @@
   font-weight: 600;
 }
 
-/* Action Buttons Grid - 3x2 layout with prominent URGENT HELP */
+/* Action Buttons Grid - 2x3 layout with BIG buttons for full-screen takeover */
 .actionGrid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: repeat(2, 1fr);
-  gap: 6px; /* Reduced gap */
-  margin-bottom: 0; /* Remove bottom margin to prevent cutoff */
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  gap: 16px;
+  margin-bottom: 0;
   flex: 1;
   width: 100%;
-  /* Ensure grid fits within available space and is visible */
+  /* Take up available space in 75vh panel */
+  height: calc(75vh - 296px); /* Account for status bar, progress section, and bottom offset (240px + 56px) */
+  min-height: 400px;
   overflow: visible;
-  align-content: start;
-  /* Add margin-top to ensure spacing from progress */
-  margin-top: 4px;
+  align-content: stretch;
+  padding: 20px;
+  margin-top: 0;
 }
-
-/* URGENT HELP button - same size as others but prominent styling */
-.actionButton.panic {
-  background: linear-gradient(135deg, #ff4458, #ff1744);
-  box-shadow: 0 6px 20px rgba(255, 23, 68, 0.5);
-  font-size: 14px;
-  font-weight: 700;
-  border: 2px solid rgba(255, 255, 255, 0.2);
-  position: relative;
-  animation: urgentPulse 3s ease-in-out infinite;
-}
-
-@keyframes urgentPulse {
-  0%, 100% {
-    transform: scale(1);
-    box-shadow: 0 6px 20px rgba(255, 23, 68, 0.5);
-  }
-  50% {
-    transform: scale(1.02);
-    box-shadow: 0 8px 28px rgba(255, 23, 68, 0.7);
-  }
-}
-
-/* Reorganize grid to accommodate panic button at BOTTOM (same size) */
-.actionGrid {
-  grid-template-areas:
-    "call extend route"
-    "message location panic";
-  grid-template-rows: auto auto;
-}
-
-.actionButton.panic { grid-area: panic; }
-.actionButton.call { grid-area: call; }
-.actionButton.extend { grid-area: extend; }
-.actionButton.route { grid-area: route; }
-.actionButton.message { grid-area: message; }
-.actionButton.location { grid-area: location; }
 
 /* 3x2 grid in half state for optimal space usage */
 .panel.half .panelContent .actionGrid {
@@ -562,53 +565,16 @@
   margin-bottom: 10px; /* Add some buffer from navigation */
 }
 
-.actionButton {
-  min-height: 65px;
-  height: 65px;
-  border-radius: 10px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 4px;
-  font-weight: 600;
-  text-align: center;
-  cursor: pointer;
-  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-  border: none;
-  color: white;
-  position: relative;
-  overflow: hidden;
-  width: 100%;
-  min-width: 0;
-  padding: 12px 8px;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
-  aspect-ratio: 1.2 / 1;
-}
+/* Remove .actionButton styles to allow CTAButton component styles to work */
+/* The CTAButton component now handles all button styling */
 
-/* Optimize CTA buttons for 3x2 grid in half state */
-.panel.half .panelContent .actionButton {
-  min-height: 65px;
-  height: 65px;
-  padding: 12px 8px;
-  /* Maintain touch targets while fitting 3 columns */
-}
+/* Styles removed - CTAButton component handles its own styling */
 
-.panel.half .panelContent .buttonIcon {
-  font-size: 20px;
-}
-
-.panel.half .panelContent .buttonLabel {
-  font-size: 13px;
-  line-height: 1.2;
-  word-break: break-word;
-}
-
-/* Optimized content padding for buttons in half state */
-.panel.half .panelContent {
-  padding: 0 12px 20px 12px; /* Add bottom padding for navigation clearance */
-  /* Ensure content fits without being cut off by navigation */
-  max-height: calc(50vh - 50px); /* Reduced to fit within visible area */
+/* Optimized content padding for buttons in full state */
+.panel.full .panelContent {
+  padding: 0 12px 0 12px; /* No bottom padding - panel goes to bottom edge */
+  /* Ensure content fits within corrected panel height */
+  max-height: calc(75vh - 206px); /* Panel height minus header space and bottom offset */
 }
 
 /* Optimize spacing around progress for bigger buttons in half state */
@@ -619,8 +585,8 @@
 }
 
 .actionButton:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  transform: scale(1.03);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
 }
 
 .actionButton:active {
@@ -628,25 +594,29 @@
 }
 
 .buttonIcon {
-  font-size: 20px;
+  font-size: 32px;
   line-height: 1;
-  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
-  margin-bottom: 2px;
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
+  margin-bottom: 8px;
 }
 
 .buttonLabel {
-  font-size: 13px;
-  font-weight: 600;
+  font-size: 16px;
+  font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.2px;
-  line-height: 1.2;
+  letter-spacing: 0.5px;
+  line-height: 1.1;
   margin: 0;
   text-align: center;
   word-break: break-word;
 }
 
 .buttonSubtext {
-  display: none;
+  font-size: 12px;
+  font-weight: 400;
+  opacity: 0.9;
+  margin-top: 2px;
+  line-height: 1.1;
 }
 
 /* Button Color Themes */
@@ -725,7 +695,7 @@
   flex-direction: column;
   gap: 16px;
   overflow-y: auto;
-  max-height: calc(75vh - 140px); /* Account for status bar and progress section */
+  max-height: calc(75vh - 196px); /* Account for status bar, progress section, and bottom offset (140px + 56px) */
 }
 
 .sectionTitle {
@@ -951,21 +921,21 @@
   }
 
   .actionButton {
-    min-height: 63px;
-    height: 63px;
-    padding: 10px 12px;
+    min-height: 100%;
+    height: 100%;
+    padding: 12px 8px;
   }
 
   .buttonIcon {
-    font-size: 20px;
+    font-size: 36px;
   }
 
   .buttonLabel {
-    font-size: 12px;
+    font-size: 16px;
   }
 
   .panelContent {
-    padding: 0 12px 12px 12px;
+    padding: 0 12px 0 12px;
   }
 
   .actionGrid {
@@ -1011,17 +981,17 @@
   }
 
   .actionButton {
-    min-height: 40px;
-    height: 40px;
-    padding: 6px 4px;
+    min-height: 100%;
+    height: 100%;
+    padding: 10px 6px;
   }
 
   .buttonIcon {
-    font-size: 14px;
+    font-size: 28px;
   }
 
   .buttonLabel {
-    font-size: 9px;
+    font-size: 13px;
   }
 
   /* Optimized spacing for bigger buttons on 320px screens */
@@ -1052,22 +1022,26 @@
 
 @media (min-width: 414px) {
   .actionGrid {
-    grid-template-columns: repeat(3, 1fr); /* Keep 3 columns on larger screens */
-    grid-template-rows: repeat(2, 1fr);
+    grid-template-columns: repeat(2, 1fr); /* Keep 2 columns for bigger buttons */
+    grid-template-rows: repeat(3, 1fr);
   }
 
   .actionButton {
-    min-height: 70px;
-    height: 70px;
-    padding: 14px 12px;
+    min-height: 100%;
+    height: 100%;
+    padding: 16px 12px;
   }
 
   .buttonIcon {
-    font-size: 22px;
+    font-size: 44px;
   }
 
   .buttonLabel {
-    font-size: 14px;
+    font-size: 18px;
+  }
+
+  .buttonSubtext {
+    font-size: 13px;
   }
 }
 
@@ -1161,21 +1135,24 @@
   .actionGrid {
     grid-template-columns: repeat(2, 1fr) !important;
     grid-template-rows: repeat(3, 1fr) !important;
-    gap: 6px;
+    gap: 8px;
   }
 
   .actionButton {
-    min-height: 60px;
-    height: 60px;
+    min-height: 100%;
+    height: 100%;
     padding: 10px 6px;
-    aspect-ratio: auto;
   }
 
   .buttonIcon {
-    font-size: 18px;
+    font-size: 32px;
   }
 
   .buttonLabel {
+    font-size: 14px;
+  }
+
+  .buttonSubtext {
     font-size: 11px;
   }
 }
@@ -1204,5 +1181,178 @@
 @media (prefers-color-scheme: dark) {
   .panel {
     background: #FFFFFF;
+  }
+}
+
+/* Improved Collapsed State Styling */
+.progressIndicator {
+  background: rgba(34, 197, 94, 0.1);
+  color: #22c55e;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 11px;
+  font-weight: 600;
+  margin-left: 8px;
+}
+
+.etaSection {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 2px;
+}
+
+.etaTime {
+  font-size: 12px;
+  font-weight: 600;
+  color: #1a1a2e;
+}
+
+.cost {
+  font-size: 11px;
+  color: #666;
+  font-weight: 500;
+}
+
+.expandHint {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  opacity: 0.6;
+}
+
+.tapText {
+  font-size: 10px;
+  color: #666;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-weight: 500;
+}
+
+.expandIcon {
+  font-size: 14px;
+  color: #1a1a2e;
+  font-weight: bold;
+  animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-3px);
+  }
+  60% {
+    transform: translateY(-2px);
+  }
+}
+
+/* Enhanced Collapsed Preview Layout */
+.middleRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 4px 0;
+}
+
+.costSection {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 2px;
+}
+
+.timeRemaining {
+  font-size: 11px;
+  color: #666;
+  font-weight: 500;
+}
+
+.locationInfo,
+.etaInfo {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.locationLabel,
+.etaLabel {
+  font-size: 11px;
+  color: #666;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+.locationText {
+  font-size: 12px;
+  color: #1a1a2e;
+  font-weight: 500;
+}
+
+/* Arrow Indicators */
+.actionIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  background: rgba(34, 197, 94, 0.1);
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.upArrow {
+  font-size: 18px;
+  color: #22c55e;
+  font-weight: bold;
+  animation: pulseUp 2s ease-in-out infinite;
+}
+
+.expandedActions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.collapseIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  background: rgba(107, 114, 128, 0.1);
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.downArrow {
+  font-size: 18px;
+  color: #6b7280;
+  font-weight: bold;
+  animation: pulseDown 2s ease-in-out infinite;
+}
+
+@keyframes pulseUp {
+  0%, 100% {
+    transform: translateY(0);
+    opacity: 0.7;
+  }
+  50% {
+    transform: translateY(-2px);
+    opacity: 1;
+  }
+}
+
+@keyframes pulseDown {
+  0%, 100% {
+    transform: translateY(0);
+    opacity: 0.7;
+  }
+  50% {
+    transform: translateY(2px);
+    opacity: 1;
   }
 }

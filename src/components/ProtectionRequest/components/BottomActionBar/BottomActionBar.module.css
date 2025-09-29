@@ -15,13 +15,17 @@
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
 
-  /* Full width on mobile */
+  /* Full width edge-to-edge - no margins */
   width: 100vw;
+  margin: 0;
+  padding: 0;
 }
 
 /* Pricing Summary */
 .pricingSummary {
-  padding: 16px 16px 12px;
+  padding: 16px 20px 12px;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 /* Compact Pricing Design */
@@ -60,16 +64,201 @@
   line-height: 1.4;
 }
 
-/* Initial State Styles - Full SIA-Compliant Implementation */
+/* Initial State Styles - Simplified */
 .initialState {
   padding: 12px 16px;
   background: #ffffff;
   transition: all 300ms ease-in-out;
+  width: 100vw;
+  margin-left: calc(-50vw + 50%);
+  box-sizing: border-box;
+}
+
+.complianceLine {
+  text-align: center;
+  font-size: 13px;
+  color: #6b7280;
+  font-weight: 500;
+  padding: 8px 0;
+  background: #f8fafc;
+  border-top: 1px solid #e2e8f0;
+  border-bottom: 1px solid #e2e8f0;
+  margin: 8px 0;
+}
+
+/* Dynamic Service Details */
+.serviceDetails {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 12px 16px;
+  margin: 12px 0;
+}
+
+.serviceRate {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.rateLabel {
+  font-size: 14px;
+  color: #374151;
+  font-weight: 500;
+}
+
+.rateValue {
+  font-size: 16px;
+  color: #1a2332;
+  font-weight: 700;
+}
+
+.deploymentInfo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  background: #f0f9ff;
+  border: 1px solid #bae6fd;
+  border-radius: 6px;
+  margin-top: 8px;
+}
+
+.deploymentIcon {
+  font-size: 16px;
+  flex-shrink: 0;
+}
+
+.deploymentText {
+  font-size: 13px;
+  color: #1a2332;
+  font-weight: 500;
+  flex: 1;
+}
+
+/* Simplified Price Display - Less visual weight */
+.dynamicPriceDisplay {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  padding: 12px 16px;
+  margin-bottom: 12px;
+}
+
+.priceHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.serviceName {
+  font-size: 16px;
+  font-weight: 700;
+  color: #1a2332;
+}
+
+.rateInfo {
+  font-size: 14px;
+  color: #6b7280;
+  font-weight: 500;
+}
+
+.priceBreakdown {
+  margin-bottom: 12px;
+}
+
+.discountLine {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 14px;
+  margin-bottom: 4px;
+  color: #374151;
+}
+
+.discountAmount {
+  color: #059669;
+  font-weight: 600;
+}
+
+.totalLine {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+  border-top: 1px solid #e5e7eb;
+  margin-top: 8px;
+}
+
+.totalLabel {
+  font-size: 16px;
+  font-weight: 700;
+  color: #1a2332;
+}
+
+.totalPrice {
+  font-size: 20px;
+  font-weight: 800;
+  color: #1a2332;
+}
+
+.savingsNote {
+  text-align: center;
+  font-size: 12px;
+  color: #059669;
+  font-weight: 600;
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  border-radius: 4px;
+  padding: 6px 8px;
+}
+
+/* Simplified Pricing Styles */
+.discountedPriceRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.regularPriceRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.finalPriceLabel {
+  font-size: 16px;
+  font-weight: 600;
+  color: #374151;
+}
+
+.priceWithDiscount {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.originalPrice {
+  font-size: 14px;
+  color: #9ca3af;
+  text-decoration: line-through;
+}
+
+.finalPrice {
+  font-size: 20px;
+  font-weight: 700;
+  color: #1a2332;
 }
 
 .initialHeader {
   margin-bottom: 12px;
-  text-align: center;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .initialTitle {
@@ -78,116 +267,32 @@
   color: #1a2332;
   margin: 0;
   line-height: 1.3;
-}
-
-.securityDetailInitial {
-  margin-bottom: 16px;
-  padding: 12px;
-  background: #f8fafc;
-  border: 1px solid #e2e8f0;
-  border-radius: 8px;
-}
-
-.securityFeaturesCompact {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-
-.featureRow {
-  display: flex;
-  gap: 16px;
-  flex-wrap: wrap;
-}
-
-.featureRow .securityFeature {
   flex: 1;
-  min-width: 140px;
 }
 
-.processSteps {
-  margin-bottom: 16px;
+/* Removed old verbose styles - simplified approach */
+
+/* Removed old siaCompliance - replaced with complianceLine */
+
+/* Minimized Action Container - Simplified */
+.minimizedActionContainer {
+  padding: 12px 0;
+  width: 100vw;
+  margin-left: calc(-50vw + 50%);
+  box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  gap: 12px;
-}
-
-.processStepsCompact {
-  margin-bottom: 12px;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.stepRow {
-  display: flex;
-  gap: 16px;
-  flex-wrap: wrap;
-}
-
-.stepRow .processStep {
-  flex: 1;
-  min-width: 120px;
-}
-
-.processStep {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  font-size: 14px;
-  color: #374151;
-}
-
-.stepNumber {
-  display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 24px;
-  height: 24px;
-  background: #e5e7eb;
-  color: #1a2332;
-  border-radius: 50%;
-  font-weight: 600;
-  font-size: 12px;
-  flex-shrink: 0;
 }
 
-.stepText {
-  line-height: 1.4;
-}
-
-.siaCompliance {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  font-size: 13px;
-  color: #6b7280;
-  font-style: italic;
-  padding: 8px 0 0 0;
-  border-top: 1px solid #e5e7eb;
-  margin-top: 12px;
-  gap: 12px;
-}
-
-.siaComplianceRow {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 8px 0 0 0;
-  border-top: 1px solid #e5e7eb;
-  margin-top: 12px;
-  gap: 16px;
-}
-
-.siaText {
-  font-size: 13px;
-  color: #6b7280;
-  font-style: italic;
-  flex: 1;
-}
+/* Removed old siaComplianceText - simplified to complianceLine */
 
 .buttonContainer {
   flex-shrink: 0;
+  width: 100%;
+  padding: 0 16px;
+  box-sizing: border-box;
 }
 
 .buttonContainer .primaryButton {
@@ -195,6 +300,89 @@
   height: 48px;
   font-size: 16px;
   padding: 12px 16px;
+}
+
+/* Disabled Button Container for Initial State */
+.disabledButtonContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  padding: 12px 20px;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.disabledText {
+  font-size: 14px;
+  font-weight: 600;
+  color: #6b7280;
+  text-align: center;
+}
+
+.instructionText {
+  font-size: 12px;
+  color: #9ca3af;
+  text-align: center;
+  font-style: italic;
+  white-space: nowrap;
+  width: 100%;
+}
+
+/* Selected Action Container */
+.selectedActionContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+}
+
+/* Price Display for Selected State */
+.priceDisplay {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 16px;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+}
+
+.priceLabel {
+  font-size: 14px;
+  font-weight: 500;
+  color: #6b7280;
+}
+
+.priceValue {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.originalPrice {
+  font-size: 16px;
+  color: #9ca3af;
+  text-decoration: line-through;
+}
+
+.finalPrice {
+  font-size: 24px;
+  font-weight: 700;
+  color: #1a2332;
+}
+
+.discountNote {
+  font-size: 12px;
+  color: #059669;
+  font-weight: 500;
+  text-align: center;
 }
 
 /* Initial state button styling */
@@ -551,7 +739,13 @@
 .actionButtons {
   display: flex;
   gap: var(--space-3, 12px);
-  padding: 0 var(--mobile-content-padding, 16px) var(--space-3, 12px);
+  padding: 0;
+  width: 100%;
+}
+
+/* Compact padding for better space usage */
+.pricingSummary {
+  padding: 12px 16px 8px;
 }
 
 .secondaryButton {
@@ -855,42 +1049,165 @@
    MINIMIZE/COLLAPSE FUNCTIONALITY
    ========================================== */
 
-/* Minimize Button */
-.minimizeButton {
+/* Minimized Header - Always visible when minimized */
+.minimizedHeader {
+  padding: 12px 16px;
+  background: #ffffff;
+  border-bottom: 1px solid #e5e7eb;
+  width: 100vw;
+  margin-left: calc(-50vw + 50%);
+  box-sizing: border-box;
+}
+
+.expandButton {
   display: flex;
   align-items: center;
-  justify-content: center;
-  gap: 8px;
-  width: 100%;
+  justify-content: space-between;
+  width: calc(100% - 32px);
+  max-width: none;
+  margin: 0 auto;
   padding: 12px 16px;
-  background: transparent;
+  background: linear-gradient(135deg, #1a2332, #2d3748);
+  color: white;
   border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(26, 35, 50, 0.3);
+}
+
+.expandButton:hover {
+  background: linear-gradient(135deg, #c9a961, #d4b96a);
+  color: #1a2332;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(201, 169, 97, 0.4);
+}
+
+.expandButton:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 8px rgba(201, 169, 97, 0.3);
+}
+
+.expandIcon {
+  font-size: 18px;
+  flex-shrink: 0;
+}
+
+.expandText {
+  flex: 1;
+  text-align: center;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+.expandChevron {
+  font-size: 16px;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+/* CTA Button Styling - Professional and Prominent */
+.ctaButton {
+  width: calc(100vw - 32px);
+  max-width: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 16px 20px;
+  background: linear-gradient(135deg, #1a2332, #2d3748);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-size: 18px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 6px 20px rgba(26, 35, 50, 0.4);
+  min-height: 80px;
+  position: relative;
+  overflow: hidden;
+  margin: 0 auto;
+}
+
+.ctaButton::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+  transition: left 0.5s ease;
+}
+
+.ctaButton:hover:not(.disabled)::before {
+  left: 100%;
+}
+
+.ctaButton:hover:not(.disabled) {
+  background: linear-gradient(135deg, #c9a961, #d4b96a);
+  color: #1a2332;
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px rgba(201, 169, 97, 0.5);
+}
+
+.ctaButton:active:not(.disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 16px rgba(201, 169, 97, 0.4);
+}
+
+.ctaButton.disabled {
+  background: linear-gradient(135deg, #f3f4f6, #e5e7eb);
   color: #6b7280;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.ctaButtonText {
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.ctaButtonSubtext {
+  font-size: 12px;
+  font-weight: 500;
+  opacity: 0.8;
+  text-transform: none;
+  letter-spacing: 0.25px;
+}
+
+/* ==========================================
+   ORIGINAL MINIMIZE/COLLAPSE FUNCTIONALITY
+   ========================================== */
+
+/* Hide Details Button - Inline with Header */
+.hideDetailsButton {
+  background: none;
+  border: none;
+  color: #3b82f6;
   font-size: 14px;
   font-weight: 500;
   cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 4px;
   transition: all 200ms ease;
-  border-bottom: 1px solid #e5e7eb;
+  flex-shrink: 0;
 }
 
-.minimizeButton:hover {
-  background: #f9fafb;
-  color: #374151;
+.hideDetailsButton:hover {
+  color: #2563eb;
+  background: #f1f5f9;
 }
 
-.minimizeButton:active {
-  background: #f3f4f6;
-}
-
-.minimizeIcon {
-  font-size: 16px;
-  transition: transform 200ms ease;
-}
-
-.minimizeText {
-  font-size: 13px;
-  font-weight: 500;
-  letter-spacing: 0.02em;
+.hideDetailsButton:active {
+  background: #e2e8f0;
 }
 
 /* Minimized State */
@@ -902,12 +1219,7 @@
 
 .actionButtons.minimizedActions {
   /* Show only the primary action when minimized */
-  padding: 12px 16px 0;
-}
-
-.actionButtons.minimizedActions .siaComplianceRow {
-  /* Ensure SIA compliance row is still visible when minimized */
-  margin-bottom: 8px;
+  padding: 0;
 }
 
 /* Smooth transitions for minimize/expand */
@@ -925,18 +1237,54 @@
   margin-bottom: 0;
 }
 
-/* Mobile optimization for minimize button */
+/* Mobile optimization for hide button */
 @media (max-width: 480px) {
-  .minimizeButton {
-    padding: 10px 16px;
+  .hideDetailsButton {
     font-size: 13px;
+    padding: 3px 6px;
   }
 
-  .minimizeIcon {
+  .initialTitle {
+    font-size: 16px;
+  }
+
+  .minimizedHeader {
+    padding: 8px 12px;
+    width: 100vw;
+    margin-left: calc(-50vw + 50%);
+  }
+
+  .expandButton {
+    padding: 10px 12px;
+    font-size: 15px;
+    min-height: 48px;
+    width: calc(100% - 24px);
+  }
+
+  .expandText {
     font-size: 14px;
   }
 
-  .minimizeText {
-    font-size: 12px;
+  .expandIcon {
+    font-size: 16px;
+  }
+
+  .expandChevron {
+    font-size: 14px;
+  }
+
+  .ctaButton {
+    padding: 14px 16px;
+    min-height: 70px;
+    border-radius: 10px;
+    width: calc(100vw - 24px);
+  }
+
+  .ctaButtonText {
+    font-size: 16px;
+  }
+
+  .ctaButtonSubtext {
+    font-size: 11px;
   }
 }

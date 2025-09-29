@@ -22,7 +22,7 @@ interface EnhancedProtectionPanelProps {
   onSwipeDown?: () => void;
 }
 
-type PanelState = 'collapsed' | 'half' | 'full';
+type PanelState = 'collapsed' | 'full';
 
 export function EnhancedProtectionPanel({
   officer,
@@ -42,7 +42,6 @@ export function EnhancedProtectionPanel({
   const [isLocationEnabled, setIsLocationEnabled] = useState(isLocationSharing);
   const [isDraggingState, setIsDraggingState] = useState(false);
   const [panicModeActive, setPanicModeActive] = useState(false);
-  const tapTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   const panelRef = useRef<HTMLDivElement>(null);
   const startY = useRef(0);
@@ -61,9 +60,6 @@ export function EnhancedProtectionPanel({
     if (!isDragging.current) return;
 
     currentY.current = e.touches[0].clientY;
-    const deltaY = currentY.current - startY.current;
-
-
     // Prevent default scrolling when dragging panel
     e.preventDefault();
   };
@@ -77,21 +73,12 @@ export function EnhancedProtectionPanel({
 
     if (Math.abs(deltaY) > threshold) {
       if (deltaY > 0) {
-        // Swipe down
-        if (panelState === 'full') {
-          setPanelState('half');
-        } else if (panelState === 'half') {
-          setPanelState('collapsed');
-        }
+        // Swipe down - always go to collapsed
+        setPanelState('collapsed');
       } else {
-        // Swipe up
-        if (panelState === 'collapsed') {
-          setPanelState('half');
-        } else if (panelState === 'half') {
-          setPanelState('full');
-        }
+        // Swipe up - always go to full
+        setPanelState('full');
       }
-    } else {
     }
 
     isDragging.current = false;
@@ -102,34 +89,22 @@ export function EnhancedProtectionPanel({
     // Prevent event bubbling
     if (e) {
       e.stopPropagation();
+      e.preventDefault();
     }
 
+    // Prevent rapid multiple clicks
+    if (isDragging.current) {
+      return;
+    }
 
-    // Cycle through: collapsed -> half -> full -> collapsed
+    // Toggle between: collapsed <-> full
     if (panelState === 'collapsed') {
-      setPanelState('half');
-    } else if (panelState === 'half') {
       setPanelState('full');
     } else {
       setPanelState('collapsed');
     }
   };
 
-  // Triple-tap panic mode handler
-  const handleTripleTap = () => {
-    // Simple implementation for panic mode activation
-    setPanicModeActive(true);
-
-    // Strong vibration pattern for panic
-    if ('vibrate' in navigator) {
-      navigator.vibrate([200, 100, 200, 100, 200]);
-    }
-
-    // Auto-deactivate after 30 seconds
-    setTimeout(() => {
-      setPanicModeActive(false);
-    }, 30000);
-  };
 
   // Action handlers
   const handlePanicAlert = () => {
@@ -211,7 +186,7 @@ export function EnhancedProtectionPanel({
         onTouchStart={handleTouchStart}
         onTouchMove={handleTouchMove}
         onTouchEnd={handleTouchEnd}
-        onClick={handleTripleTap}
+        onClick={handlePanelToggle}
       >
         {/* Drag Handle */}
         <div
@@ -219,31 +194,38 @@ export function EnhancedProtectionPanel({
           onClick={handlePanelToggle}
         />
 
-        {/* Collapsed Preview - Only when collapsed */}
+        {/* Collapsed Preview - Option B Design */}
         {panelState === 'collapsed' && (
           <div className={styles.collapsedPreview}>
             <div className={styles.topRow}>
-              <div className={styles.statusSection}>
-                <span className={styles.statusDot}>●</span>
-                <span className={styles.statusText}>
-                  {panicModeActive ? 'URGENT RESPONDING' : 'ACTIVE'}
-                </span>
+              <div className={styles.officerInfo}>
+                <span className={styles.statusDot}></span>
+                <span className={styles.cpoLabel}>CPO</span>
+                <span className={styles.officerName}>{officer.name}</span>
               </div>
-              <div className={styles.etaSection}>
-                ETA {statusInfo.eta} • {statusInfo.progress}% Complete
-              </div>
+              <button
+                className={`${styles.expandArrow} ${panelState === 'full' ? styles.expanded : ''}`}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handlePanelToggle(e);
+                }}
+                aria-label="Expand protection panel"
+              >
+                ↑
+              </button>
             </div>
             <div className={styles.bottomRow}>
-              <div className={styles.officerInfo}>
-                <div className={styles.officerName}>{officer.name}</div>
-                <div className={styles.serviceName}>{statusInfo.protectionLevel} Detail</div>
-              </div>
+              <span>{statusInfo.protectionLevel}</span>
+              <span className={styles.bullet}>•</span>
+              <span>{statusInfo.timeRemaining} left</span>
+              <span className={styles.bullet}>•</span>
+              <span>{statusInfo.cost}</span>
             </div>
           </div>
         )}
 
         {/* Status Bar - Visible when expanded */}
-        {(panelState === 'half' || panelState === 'full') && (
+        {panelState === 'full' && (
           <div className={styles.statusBar}>
             {/* Fixed CPO Profile Section - Inline layout as required */}
             <div className={styles.expandedOfficerSection}>
@@ -261,20 +243,25 @@ export function EnhancedProtectionPanel({
               </div>
             </div>
 
-            <div
-              className={styles.quickCall}
-              onClick={(e) => {
-                e.stopPropagation();
-                onOfficerCall();
-              }}
-            >
-              📞
+            <div className={styles.expandedActions}>
+              <div
+                className={styles.quickCall}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onOfficerCall();
+                }}
+              >
+                📞
+              </div>
+              <div className={styles.collapseIcon}>
+                <span className={styles.downArrow}>↓</span>
+              </div>
             </div>
           </div>
         )}
 
         {/* Main Content - Visible when expanded */}
-        {(panelState === 'half' || panelState === 'full') && (
+        {panelState === 'full' && (
           <div className={styles.panelContent}>
             {/* Progress Section */}
             <div className={styles.progressSection}>
@@ -373,91 +360,6 @@ export function EnhancedProtectionPanel({
               </button>
             </div>
 
-            {/* Enhanced Features - Only visible in full mode */}
-            {panelState === 'full' && (
-              <div className={styles.fullModeContent}>
-                {/* CPO Verification Badges */}
-                <div className={styles.verificationSection}>
-                  <h4 className={styles.sectionTitle}>CPO Verification & Credentials</h4>
-                  <div className={styles.badgeGrid}>
-                    <div className={styles.verificationBadge}>
-                      <span className={styles.badgeIcon}>✓</span>
-                      <span className={styles.badgeText}>SIA Verified</span>
-                    </div>
-                    <div className={styles.verificationBadge}>
-                      <span className={styles.badgeIcon}>✓</span>
-                      <span className={styles.badgeText}>Background Checked</span>
-                    </div>
-                    <div className={styles.verificationBadge}>
-                      <span className={styles.badgeIcon}>✓</span>
-                      <span className={styles.badgeText}>Medical Trained</span>
-                    </div>
-                    <div className={styles.verificationBadge}>
-                      <span className={styles.badgeIcon}>⭐</span>
-                      <span className={styles.badgeText}>4.9★ Rating</span>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Vehicle & Protection Details */}
-                <div className={styles.vehicleSection}>
-                  <h4 className={styles.sectionTitle}>Vehicle & Protection Details</h4>
-                  <div className={styles.detailsList}>
-                    <div className={styles.detailItem}>
-                      <span className={styles.detailLabel}>Vehicle:</span>
-                      <span className={styles.detailValue}>Black Range Rover • ABC 123</span>
-                    </div>
-                    <div className={styles.detailItem}>
-                      <span className={styles.detailLabel}>Protection Level:</span>
-                      <span className={styles.detailValue}>{statusInfo.protectionLevel}</span>
-                    </div>
-                    <div className={styles.detailItem}>
-                      <span className={styles.detailLabel}>Insurance:</span>
-                      <span className={styles.detailValue}>£10M Coverage Active</span>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Activity Feed */}
-                <div className={styles.activitySection}>
-                  <h4 className={styles.sectionTitle}>Live Activity Feed</h4>
-                  <div className={styles.activityFeed}>
-                    <div className={styles.activityItem}>
-                      <span className={styles.activityTime}>14:32</span>
-                      <span className={styles.activityText}>CPO departed operations center</span>
-                    </div>
-                    <div className={styles.activityItem}>
-                      <span className={styles.activityTime}>14:45</span>
-                      <span className={styles.activityText}>Route optimized for traffic</span>
-                    </div>
-                    <div className={styles.activityItem}>
-                      <span className={styles.activityTime}>14:50</span>
-                      <span className={styles.activityText}>Approaching your location</span>
-                    </div>
-                    <div className={styles.activityItem}>
-                      <span className={styles.activityTime}>14:55</span>
-                      <span className={styles.activityText}>CPO 5 minutes away</span>
-                    </div>
-                    <div className={styles.activityItem}>
-                      <span className={styles.activityTime}>15:00</span>
-                      <span className={styles.activityText}>CPO has arrived</span>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Mini-Map Placeholder */}
-                <div className={styles.miniMapSection}>
-                  <h4 className={styles.sectionTitle}>Live Tracking</h4>
-                  <div className={styles.miniMapPlaceholder}>
-                    <div className={styles.mapContent}>
-                      <div className={styles.mapIcon}>🗺️</div>
-                      <span className={styles.mapText}>Real-time tracking map</span>
-                      <span className={styles.mapSubtext}>CPO location • Route • ETA updates</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            )}
           </div>
         )}
       </div>

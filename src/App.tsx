@@ -14,6 +14,7 @@ import AchievementBanner from './components/Achievement/AchievementBanner';
 import { Dashboard } from './components/Dashboard';
 import { ServicesPage } from './components/Services/ServicesPage';
 import { Hub } from './components/Hub';
+import { ActiveProtectionPanel } from './components/ActiveProtection';
 import { SubscriptionOffer } from './components/Subscription/SubscriptionOffer';
 // Removed unused imports
 import { ServiceSelection } from './components/ServiceSelection/ServiceSelection';
@@ -26,6 +27,10 @@ import { VenueProtectionSuccess } from './components/VenueProtection/VenueProtec
 import { About } from './components/About/About';
 import { CoverageAreas } from './components/CoverageAreas/CoverageAreas';
 import { ProtectionRequest, AssignmentConfirmed } from './components/ProtectionRequest';
+import { PrivacyPolicy } from './components/Legal/PrivacyPolicy/PrivacyPolicy';
+import { TermsOfService } from './components/Legal/TermsOfService/TermsOfService';
+import { GDPRNotice } from './components/Legal/GDPRNotice/GDPRNotice';
+import { SIACompliance } from './components/Legal/SIACompliance/SIACompliance';
 import './styles/globals.css';
 import './styles/disable-infinite-animations.css'; /* CRITICAL FIX: Stop infinite animations causing flashing */
 
@@ -157,6 +162,12 @@ function AppRouter() {
         return <Dashboard />;
       case 'service-selection':
         return <ServiceSelection />;
+      case 'active':
+        return (
+          <div style={{ padding: '20px' }}>
+            <ActiveProtectionPanel isOpen={true} onClose={() => navigateToView('home')} isActive={true} />
+          </div>
+        );
       case 'hub':
       case 'Assignments':
         return <Hub />;
@@ -186,6 +197,14 @@ function AppRouter() {
             onNewAssignment={() => navigateToView('protection-request')}
           />
         );
+      case 'privacy':
+        return <PrivacyPolicy />;
+      case 'terms':
+        return <TermsOfService />;
+      case 'gdpr':
+        return <GDPRNotice />;
+      case 'sia':
+        return <SIACompliance />;
       default:
         return <SplashScreen />;
     }

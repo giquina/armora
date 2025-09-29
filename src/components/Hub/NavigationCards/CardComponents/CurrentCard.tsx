@@ -50,7 +50,7 @@ export const CurrentCard: FC<CurrentCardProps> = memo(({
   tabId,
   ariaControls
 }) => {
-  const [showDetails, setShowDetails] = useState(false);
+  const [isExpanded, setIsExpanded] = useState(false);
   const showFullData = screenWidth >= 768; // Only show all details on desktop
   const isMobile = screenWidth <= 414;
 
@@ -65,13 +65,9 @@ export const CurrentCard: FC<CurrentCardProps> = memo(({
 
 
   return (
-    <button
+    <div
       className={`${styles.navCard} ${styles.current} ${isActive ? styles.active : ''}`}
-      onClick={onClick}
-      role="tab"
-      aria-selected={isActive}
-      aria-controls={ariaControls}
-      id={tabId}
+      data-type="current"
     >
       {/* Left accent bar applied via CSS */}
 
@@ -85,155 +81,94 @@ export const CurrentCard: FC<CurrentCardProps> = memo(({
         {isActive && <span className={styles.activeIndicator}>●</span>}
       </div>
 
-      {/* Enhanced Content */}
+      {/* Compact Content - Always Visible */}
       {data.count > 0 && (
         <div className={styles.cardContent}>
-          {/* Status Bar with Service Tier Badge */}
-          <div className={styles.statusBar}>
+          {/* Essential Info Row */}
+          <div className={styles.essentialInfo}>
             <div className={styles.statusSection}>
               <span className={styles.pulseIndicator}>●</span>
-              <span className={styles.statusText}>PROTECTION ACTIVE</span>
+              <span className={styles.statusText}>ACTIVE</span>
             </div>
-            <div
-              className={styles.serviceTierBadge}
-              style={{
-                background: `linear-gradient(90deg, ${getTierColor(data.serviceTier)}, #FFA500)`,
-                color: '#1a1a2e'
+            <div className={styles.keyStats}>
+              <span className={styles.officerName}>CPO {data.assignmentData?.officerName?.split(' ')[1] || 'N/A'}</span>
+              <span className={styles.bullet}>•</span>
+              <span className={styles.timeRemaining}>{data.timeRemaining}</span>
+              <span className={styles.bullet}>•</span>
+              <span className={styles.investment}>{data.runningFare}</span>
+            </div>
+            <button
+              className={styles.expandButton}
+              onClick={(e) => {
+                e.stopPropagation();
+                setIsExpanded(!isExpanded);
               }}
+              aria-label={isExpanded ? 'Collapse details' : 'Expand details'}
             >
-              {data.serviceTier.toUpperCase()}
-            </div>
+              {isExpanded ? '−' : '+'}
+            </button>
           </div>
 
-          {/* Officer Trust Section - Simplified for Mobile */}
-          {data.assignmentData && (
-            <div className={styles.officerTrustSection}>
-              <div className={styles.officerPhotoSection}>
-                <div className={styles.officerPhoto}>
-                  <span className={styles.officerInitials}>
-                    {data.assignmentData.officerName.split(' ').map(n => n[0]).join('')}
-                  </span>
-                  <div className={styles.verificationBadge}>✓</div>
-                </div>
-              </div>
-              <div className={styles.officerCredentials}>
-                <div className={styles.officerName}>CPO {data.assignmentData.officerName}</div>
-                <div className={styles.siaLicense}>
-                  ★★★★★ 4.9 | <span className={styles.siaVerified}>SIA ✓</span>
-                </div>
-                <div className={styles.officerRating}>12 Years Experience</div>
-                {/* Specializations only show on desktop or when expanded */}
-                {(showFullData || showDetails) && (
-                  <div className={styles.specializations}>
-                    <span className={styles.specBadge}>Executive</span>
-                    <span className={styles.specBadge}>Diplomatic</span>
-                    <span className={styles.specBadge}>VIP Events</span>
+          {/* Expandable Details */}
+          {isExpanded && (
+            <div className={styles.expandedDetails}>
+              {/* Officer Section */}
+              {data.assignmentData && (
+                <div className={styles.officerSection}>
+                  <div className={styles.officerInfo}>
+                    <div className={styles.officerPhoto}>
+                      <span className={styles.officerInitials}>
+                        {data.assignmentData.officerName.split(' ').map(n => n[0]).join('')}
+                      </span>
+                    </div>
+                    <div className={styles.officerDetails}>
+                      <div className={styles.officerName}>CPO {data.assignmentData.officerName}</div>
+                      <div className={styles.officerCredentials}>★★★★★ 4.9 • SIA ✓ • 12 Years</div>
+                    </div>
                   </div>
-                )}
-                {/* Show more details toggle on mobile */}
-                {isMobile && !showDetails && (
-                  <button
-                    className={styles.expandButton}
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      setShowDetails(true);
-                    }}
-                  >
-                    View Officer Details
-                  </button>
-                )}
+                </div>
+              )}
+
+              {/* Journey Progress */}
+              <div className={styles.journeySection}>
+                <div className={styles.locationRow}>
+                  <span className={styles.locationFrom}>
+                    📍 {data.assignmentData?.location.start.split(',')[0] || 'Kensington'}
+                  </span>
+                  <span className={styles.locationTo}>
+                    🏢 {data.assignmentData?.location.end.split(',')[0] || 'Canary Wharf'}
+                  </span>
+                </div>
+                <div className={styles.progressBar}>
+                  <div className={styles.progressFill} style={{ width: `${data.progressPercent}%` }} />
+                </div>
+                <div className={styles.progressText}>45 minutes remaining</div>
+              </div>
+
+              {/* Quick Actions */}
+              <div className={styles.quickActions}>
+                <button className={styles.actionBtn} onClick={(e) => e.stopPropagation()}>
+                  📞 Call
+                </button>
+                <button className={styles.actionBtn} onClick={(e) => e.stopPropagation()}>
+                  🛡️ Support
+                </button>
+                <button className={styles.actionBtn} onClick={(e) => e.stopPropagation()}>
+                  📍 Track
+                </button>
               </div>
             </div>
           )}
-
-          {/* Journey Progress Section */}
-          <div className={styles.journeyProgress}>
-            <div className={styles.progressTimeline}>
-              <div className={styles.startPoint}>
-                <span className={styles.locationIcon}>📍</span>
-                <span className={styles.locationText}>
-                  {data.assignmentData ? data.assignmentData.location.start.split(',')[0] : 'Kensington'}
-                </span>
-              </div>
-              <div className={styles.progressBarContainer}>
-                <div className={styles.progressBar}>
-                  <div
-                    className={styles.progressFill}
-                    style={{ width: `${data.progressPercent}%` }}
-                  />
-                  <div className={styles.movingIndicator} style={{ left: `${data.progressPercent}%` }} />
-                </div>
-              </div>
-              <div className={styles.endPoint}>
-                <span className={styles.locationIcon}>🏢</span>
-                <span className={styles.locationText}>
-                  {data.assignmentData ? data.assignmentData.location.end.split(',')[0] : 'Canary Wharf'}
-                </span>
-              </div>
-            </div>
-            <div className={styles.timeRemaining}>45 minutes remaining</div>
-          </div>
-
-          {/* Service Details Grid */}
-          <div className={styles.serviceDetailsGrid}>
-            <div className={styles.detailColumn}>
-              <div className={styles.detailLabel}>Protection Duration</div>
-              <div className={styles.detailValue}>{data.timeRemaining}</div>
-            </div>
-            <div className={styles.detailColumn}>
-              <div className={styles.detailLabel}>Arrival Time</div>
-              <div className={styles.detailValue}>{data.eta}</div>
-            </div>
-          </div>
-
-          {/* Investment Section */}
-          <div className={styles.investmentSection}>
-            <div className={styles.investmentLabel}>Protection Investment</div>
-            <div className={styles.investmentAmount}>{data.runningFare}</div>
-            <div className={styles.serviceDescription}>Executive Protection Service</div>
-            <div className={styles.serviceIncludes}>Includes secure transport + close protection</div>
-          </div>
-
-          {/* Action Buttons with Labels */}
-          <div className={styles.actionButtons}>
-            <button
-              className={styles.actionButton}
-              onClick={(e) => {
-                e.stopPropagation();
-              }}
-            >
-              <span className={styles.buttonIcon}>📞</span>
-              <span className={styles.buttonLabel}>Contact Officer</span>
-            </button>
-            <button
-              className={styles.actionButton}
-              onClick={(e) => {
-                e.stopPropagation();
-              }}
-            >
-              <span className={styles.buttonIcon}>🛡️</span>
-              <span className={styles.buttonLabel}>Security Support</span>
-            </button>
-            <button
-              className={styles.actionButton}
-              onClick={(e) => {
-                e.stopPropagation();
-              }}
-            >
-              <span className={styles.buttonIcon}>📍</span>
-              <span className={styles.buttonLabel}>Track Protection</span>
-            </button>
-          </div>
         </div>
       )}
 
       {/* Empty State */}
       {data.count === 0 && (
-        <div className={styles.emptyCardState}>
-          <div className={styles.emptyText}>No active protection</div>
-          <div className={styles.emptySubtext}>Request immediate service</div>
+        <div className={styles.emptyState}>
+          <span className={styles.emptyIcon}>🛡️</span>
+          <span className={styles.emptyText}>No active protection</span>
         </div>
       )}
-    </button>
+    </div>
   );
 });

@@ -27,6 +27,9 @@ const initialState: AppState = {
     screenHeight: typeof window !== 'undefined' ? window.innerHeight : 768,
     orientation: typeof window !== 'undefined' ? (window.innerWidth > window.innerHeight ? 'landscape' : 'portrait') : 'landscape',
     supportsInstallPrompt: typeof navigator !== 'undefined' ? 'serviceWorker' in navigator : false,
+    deferredPrompt: null,
+    isInstallable: false,
+    isInstalled: false,
   },
   subscription: null,
   selectedServiceForProtectionAssignment: undefined,
@@ -193,6 +196,7 @@ interface AppContextType {
   dispatch: React.Dispatch<AppAction>;
   // Convenience actions
   navigateToView: (view: ViewState) => void;
+  startProtectionRequest: (preselectedService?: 'essential' | 'executive' | 'shadow' | 'client-vehicle', source?: 'home' | 'services' | 'toolbar' | 'hamburger') => void;
   setUser: (user: User | null) => void;
   updateQuestionnaireData: (data: PersonalizationData) => void;
   setUserProfileSelection: (profileSelection: string | undefined) => void;
@@ -223,6 +227,9 @@ interface AppContextType {
   startAssignment: (context: AssignmentContext) => void;
   endAssignment: () => void;
   updateLastKnownLocation: (location: { lat: number; lng: number; address: string }) => void;
+  // PWA Install actions
+  showInstallPrompt: () => Promise<boolean>;
+  canInstall: () => boolean;
 }
 
 // Create context
@@ -259,6 +266,29 @@ export function AppProvider({ children }: { children: ReactNode }) {
       }
     } catch (e) {
       // no-op if hash cannot be set (e.g., SSR or restricted env)
+    }
+  }, []);
+
+  const startProtectionRequest = useCallback((preselectedService?: 'essential' | 'executive' | 'shadow' | 'client-vehicle', source?: 'home' | 'services' | 'toolbar' | 'hamburger') => {
+    // Set the assignment context with preselected service
+    if (preselectedService) {
+      dispatch({
+        type: 'START_ASSIGNMENT',
+        payload: {
+          preselectedService,
+          source: source || 'home'
+        }
+      });
+    }
+    // Navigate to protection request view
+    dispatch({ type: 'SET_VIEW', payload: 'protection-request' });
+    // Keep URL hash in sync
+    try {
+      if (typeof window !== 'undefined') {
+        window.location.hash = 'protection-request';
+      }
+    } catch (e) {
+      // no-op if hash cannot be set
     }
   }, []);
 
@@ -692,14 +722,70 @@ export function AppProvider({ children }: { children: ReactNode }) {
       });
     };
 
+    // PWA install prompt handling
+    const handleBeforeInstallPrompt = (e: any) => {
+      console.log('[PWA] beforeinstallprompt event fired');
+      e.preventDefault(); // Prevent the mini-infobar from appearing
+
+      dispatch({
+        type: 'UPDATE_DEVICE_CAPABILITIES',
+        payload: {
+          deferredPrompt: e,
+          isInstallable: true,
+        },
+      });
+    };
+
+    const handleAppInstalled = () => {
+      console.log('[PWA] App was installed');
+
+      dispatch({
+        type: 'UPDATE_DEVICE_CAPABILITIES',
+        payload: {
+          deferredPrompt: null,
+          isInstallable: false,
+          isInstalled: true,
+        },
+      });
+    };
+
+    // Check if already installed
+    const checkIfInstalled = () => {
+      if (window.matchMedia && window.matchMedia('(display-mode: standalone)').matches) {
+        dispatch({
+          type: 'UPDATE_DEVICE_CAPABILITIES',
+          payload: {
+            isInstalled: true,
+            isInstallable: false,
+          },
+        });
+      } else if ((window.navigator as any).standalone === true) {
+        // iOS Safari standalone mode
+        dispatch({
+          type: 'UPDATE_DEVICE_CAPABILITIES',
+          payload: {
+            isInstalled: true,
+            isInstallable: false,
+          },
+        });
+      }
+    };
+
     window.addEventListener('resize', handleResize);
     window.addEventListener('online', handleOnlineStatus);
     window.addEventListener('offline', handleOnlineStatus);
+    window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
+    window.addEventListener('appinstalled', handleAppInstalled);
+
+    // Check install status on load
+    checkIfInstalled();
 
     return () => {
       window.removeEventListener('resize', handleResize);
       window.removeEventListener('online', handleOnlineStatus);
       window.removeEventListener('offline', handleOnlineStatus);
+      window.removeEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
+      window.removeEventListener('appinstalled', handleAppInstalled);
     };
   }, []);
 
@@ -764,10 +850,58 @@ export function AppProvider({ children }: { children: ReactNode }) {
     }
   }, [state.questionnaireData]);
 
+  // PWA Install functions
+  const showInstallPrompt = useCallback(async (): Promise<boolean> => {
+    const deferredPrompt = state.deviceCapabilities.deferredPrompt;
+
+    if (!deferredPrompt) {
+      console.log('[PWA] No deferred prompt available');
+      return false;
+    }
+
+    try {
+      // Show the install prompt
+      deferredPrompt.prompt();
+
+      // Wait for the user to respond to the prompt
+      const { outcome } = await deferredPrompt.userChoice;
+
+      console.log(`[PWA] User choice: ${outcome}`);
+
+      if (outcome === 'accepted') {
+        console.log('[PWA] User accepted the install prompt');
+
+        // Clear the deferred prompt
+        dispatch({
+          type: 'UPDATE_DEVICE_CAPABILITIES',
+          payload: {
+            deferredPrompt: null,
+            isInstallable: false,
+          },
+        });
+
+        return true;
+      } else {
+        console.log('[PWA] User dismissed the install prompt');
+        return false;
+      }
+    } catch (error) {
+      console.error('[PWA] Error showing install prompt:', error);
+      return false;
+    }
+  }, [state.deviceCapabilities.deferredPrompt]);
+
+  const canInstall = useCallback((): boolean => {
+    return state.deviceCapabilities.isInstallable &&
+           !state.deviceCapabilities.isInstalled &&
+           !!state.deviceCapabilities.deferredPrompt;
+  }, [state.deviceCapabilities]);
+
   const value: AppContextType = {
     state,
     dispatch,
     navigateToView,
+    startProtectionRequest,
     setUser,
     updateQuestionnaireData,
     setUserProfileSelection,
@@ -830,6 +964,9 @@ export function AppProvider({ children }: { children: ReactNode }) {
     updateLastKnownLocation,
     startAssignment,
     endAssignment,
+    // PWA Install functions
+    showInstallPrompt,
+    canInstall,
   };
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;

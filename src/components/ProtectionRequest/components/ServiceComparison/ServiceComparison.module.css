@@ -1,9 +1,9 @@
 .container {
-  margin: 0 0 24px 0;
+  margin: 0 0 8px 0;
   position: relative;
   max-width: 100%;
   overflow-x: hidden;
-  padding-bottom: 320px; /* Add space for fixed bottom panel */
+  padding-bottom: 0;
 }
 
 .header {
@@ -80,11 +80,14 @@
   font-size: 14px;
   font-weight: 600;
   color: #1a2332;
-  padding: 12px;
+  padding: 12px 0;
   background: #f0f9ff;
   border: 1px solid #bae6fd;
   border-radius: 8px;
-  margin-top: 16px;
+  margin: 16px 0 0 0;
+  width: 100vw;
+  margin-left: calc(-50vw + 50%);
+  box-sizing: border-box;
 }
 
 .tabContainer {
@@ -234,7 +237,8 @@
 
 /* Conversational Content Styles */
 .conversationalSection {
-  margin-bottom: 20px;
+  margin-bottom: 28px;
+  padding-bottom: 4px;
 }
 
 .tagline {
@@ -277,8 +281,8 @@
 }
 
 .customerQuote {
-  margin: 8px 0 16px 0;
-  padding: 16px;
+  margin: 16px 0 24px 0;
+  padding: 20px;
   background: linear-gradient(135deg, #f8f9fa, #ffffff);
   border-radius: 8px;
   border-left: 4px solid #c9a961;
@@ -305,20 +309,33 @@
 }
 
 .keyBenefits {
-  margin-top: 16px;
+  margin-top: 24px;
 }
 
 .benefitsGrid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 8px 16px;
-  margin-top: 12px;
+  gap: 16px 20px;
+  margin-top: 20px;
 }
 
 .benefitItem {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 12px;
+  padding: 16px;
+  background: #f8fafc;
+  border: 2px solid #e2e8f0;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+  min-height: 56px;
+}
+
+.benefitItem:hover {
+  border-color: #c9a961;
+  background: #fffef7;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(201, 169, 97, 0.15);
 }
 
 .benefitIcon {
@@ -326,13 +343,22 @@
   color: #c9a961;
   font-weight: 700;
   flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #fff;
+  border-radius: 4px;
+  border: 1px solid #c9a961;
 }
 
 .benefitText {
-  font-size: 13px;
+  font-size: 14px;
   color: #374151;
   font-weight: 500;
-  line-height: 1.3;
+  line-height: 1.4;
+  flex: 1;
 }
 
 .detailsGrid {
@@ -394,11 +420,17 @@
 }
 
 .section {
-  margin-bottom: 20px;
+  margin-bottom: 32px;
+  padding: 20px 0;
 }
 
 .section:last-child {
   margin-bottom: 0;
+}
+
+.section:not(:first-child) {
+  border-top: 1px solid #e5e7eb;
+  padding-top: 24px;
 }
 
 .sectionTitle {
@@ -451,6 +483,80 @@
   font-weight: 700;
   flex-shrink: 0;
   margin-top: 1px;
+}
+
+/* Why Choose Section */
+.whyChooseSection {
+  margin: 20px 0;
+  border-top: 1px solid #e5e7eb;
+  padding-top: 16px;
+}
+
+.whyChooseDetails {
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.whyChooseSummary {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 16px;
+  background: #f8fafc;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  color: #374151;
+  border: none;
+  outline: none;
+  list-style: none;
+}
+
+.whyChooseSummary::-webkit-details-marker {
+  display: none;
+}
+
+.expandIcon {
+  font-size: 12px;
+  color: #6b7280;
+  transition: transform 0.2s ease;
+}
+
+.whyChooseDetails[open] .expandIcon {
+  transform: rotate(180deg);
+}
+
+.whyChooseContent {
+  padding: 16px;
+  background: #ffffff;
+  border-top: 1px solid #e5e7eb;
+}
+
+.whyChooseText {
+  font-size: 14px;
+  color: #374151;
+  line-height: 1.5;
+  margin: 0 0 12px 0;
+}
+
+.keyBenefitsList {
+  font-size: 13px;
+  color: #1a2332;
+  font-weight: 600;
+}
+
+.benefitsList {
+  margin: 8px 0 0 16px;
+  padding: 0;
+}
+
+.benefitItem {
+  font-size: 13px;
+  color: #374151;
+  font-weight: 400;
+  margin-bottom: 4px;
+  line-height: 1.4;
 }
 
 .selectButtonContainer {
@@ -674,7 +780,12 @@
 
   .benefitsGrid {
     grid-template-columns: 1fr;
-    gap: 6px;
+    gap: 12px;
+  }
+
+  .benefitItem {
+    padding: 14px;
+    min-height: 52px;
   }
 
   .featureParagraph {
@@ -991,6 +1102,490 @@
 
 .proceedButton:active {
   transform: translateY(1px);
+}
+
+/* ============================================
+   COLLAPSIBLE SERVICE CARDS
+   ============================================ */
+
+/* Comparison Toggle */
+.comparisonToggle {
+  text-align: center;
+  margin-bottom: 16px;
+}
+
+.toggleButton {
+  padding: 8px 16px;
+  background: #f3f4f6;
+  color: #374151;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.toggleButton:hover {
+  background: #e5e7eb;
+  color: #1a2332;
+}
+
+/* Comparison Grid */
+.comparisonGrid {
+  margin-bottom: 24px;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  overflow: hidden;
+  animation: expandGrid 0.3s ease-out;
+}
+
+@keyframes expandGrid {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.comparisonHeader {
+  display: grid;
+  grid-template-columns: 1fr repeat(4, 1fr);
+  background: #1a2332;
+  color: white;
+  font-weight: 600;
+  font-size: 12px;
+  text-align: center;
+}
+
+.comparisonLabel {
+  padding: 12px 8px;
+  border-right: 1px solid rgba(255,255,255,0.1);
+}
+
+.comparisonColumn {
+  padding: 12px 8px;
+  border-right: 1px solid rgba(255,255,255,0.1);
+}
+
+.comparisonColumn:last-child {
+  border-right: none;
+}
+
+.comparisonRow {
+  display: grid;
+  grid-template-columns: 1fr repeat(4, 1fr);
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.comparisonRow:last-child {
+  border-bottom: none;
+}
+
+.comparisonRow .comparisonLabel {
+  font-weight: 600;
+  color: #1a2332;
+  background: #f1f5f9;
+  border-right: 1px solid #e2e8f0;
+}
+
+.comparisonCell {
+  padding: 10px 8px;
+  text-align: center;
+  font-size: 12px;
+  color: #374151;
+  border-right: 1px solid #e2e8f0;
+}
+
+.comparisonCell:last-child {
+  border-right: none;
+}
+
+/* Service Cards Grid - Always One Per Row */
+.serviceCards {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 8px;
+}
+
+/* Individual Service Card */
+.serviceCard {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 20px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.serviceCard:hover {
+  background: #f9fafb;
+  border-color: #c9a961;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+  transform: translateY(-2px);
+}
+
+.selectedCard {
+  border: 2px solid #1a2332;
+  background: #f8fafc;
+  box-shadow: 0 0 0 1px #1a2332;
+}
+
+/* Collapsed and Expanded States */
+.collapsedCard {
+  min-height: 160px;
+}
+
+.expandedCard {
+  min-height: auto;
+}
+
+/* Card Header */
+.cardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 12px;
+}
+
+.serviceTitleSection {
+  flex: 1;
+}
+
+.serviceNamePrice {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.serviceName {
+  font-size: 16px;
+  font-weight: 600;
+  color: #1a2332;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.popularBadge {
+  font-size: 10px;
+  font-weight: 700;
+  color: #059669;
+  background: rgba(5, 150, 105, 0.1);
+  padding: 2px 6px;
+  border-radius: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.preselectedBadge {
+  font-size: 10px;
+  font-weight: 600;
+  color: white;
+  background: #10b981;
+  padding: 2px 6px;
+  border-radius: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-left: 8px;
+}
+
+.servicePrice {
+  font-size: 16px;
+  font-weight: 700;
+  color: #c9a961;
+}
+
+.uniqueSellingPoint {
+  font-size: 12px;
+  color: #6b7280;
+  font-style: italic;
+  margin-bottom: 8px;
+  line-height: 1.3;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.selectedCheckmark {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 20px;
+  height: 20px;
+  background: #c9a961;
+  color: #1a2332;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+/* Quick Stats */
+.quickStats {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 16px;
+  font-size: 11px;
+  color: #6b7280;
+  line-height: 1.2;
+}
+
+.stat {
+  color: #6b7280;
+}
+
+.statSeparator {
+  color: #6b7280;
+}
+
+/* Card Actions */
+.cardActions {
+  display: flex;
+  gap: 8px;
+  margin-top: auto;
+}
+
+.selectButton {
+  flex: 2;
+  padding: 12px 16px;
+  background: #1a2332;
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: center;
+  min-height: 44px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.selectButton:hover {
+  background: #c9a961;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(201, 169, 97, 0.3);
+}
+
+.selectedButton {
+  background: #c9a961;
+  color: #1a2332;
+}
+
+.selectedButton:hover {
+  background: #b8956b;
+  color: #1a2332;
+}
+
+.detailsButton {
+  flex: 1;
+  padding: 10px 8px;
+  background: #f3f4f6;
+  color: #374151;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 11px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-align: center;
+}
+
+.detailsButton:hover {
+  background: #e5e7eb;
+  color: #1a2332;
+  border-color: #9ca3af;
+}
+
+/* Expanded Content */
+.expandedContent {
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid #e5e7eb;
+  animation: expandContent 0.3s ease-out;
+}
+
+@keyframes expandContent {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Customer Quote Section */
+.customerQuoteSection {
+  margin-bottom: 16px;
+}
+
+.quoteLabel {
+  font-size: 12px;
+  font-weight: 600;
+  color: #1a2332;
+  margin-bottom: 6px;
+}
+
+.customerQuote {
+  font-size: 13px;
+  color: #4b5563;
+  font-style: italic;
+  line-height: 1.4;
+  padding: 12px;
+  background: #f8f9fa;
+  border-radius: 6px;
+  border-left: 3px solid #c9a961;
+}
+
+/* Feature Grid */
+.featureGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.featureColumn {
+  display: flex;
+  flex-direction: column;
+}
+
+.featureTitle {
+  font-size: 13px;
+  font-weight: 600;
+  color: #1a2332;
+  margin: 0 0 8px 0;
+}
+
+.featureList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.featureItem {
+  font-size: 12px;
+  color: #4b5563;
+  line-height: 1.4;
+  margin-bottom: 4px;
+}
+
+/* Key Benefits */
+.keyBenefits {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.benefitBadge {
+  font-size: 11px;
+  font-weight: 500;
+  color: #1a2332;
+  background: #f1f5f9;
+  padding: 4px 8px;
+  border-radius: 4px;
+  white-space: nowrap;
+  border: 1px solid #e2e8f0;
+}
+
+/* Mobile Responsive for Service Cards */
+@media (max-width: 768px) {
+  .serviceCards {
+    gap: 12px;
+  }
+
+  .serviceCard {
+    padding: 16px;
+  }
+
+  .serviceName {
+    font-size: 15px;
+  }
+
+  .servicePrice {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .serviceCards {
+    gap: 12px;
+  }
+
+  .collapsedCard {
+    min-height: 150px;
+  }
+
+  .cardActions {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .selectButton,
+  .detailsButton {
+    flex: none;
+    width: 100%;
+  }
+
+  .detailsButton {
+    font-size: 11px;
+    padding: 8px 10px;
+  }
+
+  .featureGrid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .keyBenefits {
+    gap: 4px;
+  }
+
+  .benefitBadge {
+    font-size: 10px;
+    padding: 3px 6px;
+  }
+
+  /* Comparison Grid Mobile */
+  .comparisonGrid {
+    font-size: 10px;
+  }
+
+  .comparisonHeader,
+  .comparisonRow {
+    grid-template-columns: 80px repeat(4, 1fr);
+  }
+
+  .comparisonLabel,
+  .comparisonColumn,
+  .comparisonCell {
+    padding: 8px 4px;
+  }
 }
 
 /* Mobile Optimizations */

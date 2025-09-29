@@ -50,8 +50,9 @@ export const UpcomingCard: FC<UpcomingCardProps> = memo(({
   tabId,
   ariaControls
 }) => {
-  // With 1-per-row layout, we have full width to show all data
+  const [isExpanded, setIsExpanded] = useState(false);
   const showVisuals = screenWidth >= 320;
+  const isMobile = screenWidth <= 414;
 
   // Live countdown state
   const [liveCountdown, setLiveCountdown] = useState(data.countdown);
@@ -68,13 +69,9 @@ export const UpcomingCard: FC<UpcomingCardProps> = memo(({
 
 
   return (
-    <button
+    <div
       className={`${styles.navCard} ${styles.upcoming} ${isActive ? styles.active : ''}`}
-      onClick={onClick}
-      role="tab"
-      aria-selected={isActive}
-      aria-controls={ariaControls}
-      id={tabId}
+      data-type="upcoming"
     >
       {/* Header */}
       <div className={styles.navCardHeader}>
@@ -86,83 +83,95 @@ export const UpcomingCard: FC<UpcomingCardProps> = memo(({
         {isActive && <span className={styles.activeIndicator}>●</span>}
       </div>
 
-      {/* Enhanced Content */}
+      {/* Compact Content - Always Visible */}
       {data.count > 0 && (
         <div className={styles.cardContent}>
-          {/* Header with Amber Indicator */}
-          <div className={styles.upcomingHeader}>
+          {/* Essential Info Row */}
+          <div className={styles.essentialInfo}>
             <div className={styles.statusSection}>
               <span className={styles.amberIndicator}>●</span>
-              <span className={styles.statusText}>NEXT PROTECTION</span>
+              <span className={styles.statusText}>NEXT</span>
             </div>
-            <div className={styles.nextDateTime}>Tomorrow 09:00</div>
+            <div className={styles.keyStats}>
+              <span className={styles.nextTime}>Tomorrow 09:00</span>
+              <span className={styles.bullet}>•</span>
+              <span className={styles.serviceTier}>Executive</span>
+              <span className={styles.bullet}>•</span>
+              <span className={styles.timeUntil}>{liveCountdown}</span>
+            </div>
+            <button
+              className={styles.expandButton}
+              onClick={(e) => {
+                e.stopPropagation();
+                setIsExpanded(!isExpanded);
+              }}
+              aria-label={isExpanded ? 'Collapse details' : 'Expand details'}
+            >
+              {isExpanded ? '−' : '+'}
+            </button>
           </div>
 
-          {/* Service Details - NO officer name */}
-          <div className={styles.serviceDetails}>
-            <div className={styles.serviceStatus}>
-              <span className={styles.checkmark}>✓</span>
-              <span className={styles.statusText}>Executive Protection Assigned</span>
-            </div>
-            <div className={styles.routeDisplay}>
-              <span className={styles.routeText}>
-                {data.assignmentData ? data.assignmentData.location.start.split(',')[0] : 'Mayfair'} → {data.assignmentData ? data.assignmentData.location.end.split(',')[0] : 'Heathrow Airport'}
-              </span>
-            </div>
-            <div className={styles.durationDisplay}>
-              6 hours coverage
-            </div>
-            <div className={styles.confirmationStatus}>
-              <span className={styles.checkmark}>✓</span>
-              <span className={styles.statusText}>Officer Confirmed</span>
-            </div>
-          </div>
-
-          {/* Countdown Timer */}
-          <div className={styles.countdownSection}>
-            <div className={styles.countdown}>
-              <span className={styles.countdownTime}>{liveCountdown}</span>
-              <span className={styles.countdownLabel}>until protection begins</span>
-            </div>
-            {data.favoriteTimeSlot && (
-              <div className={styles.favoriteSlot} title="Matches your usual time preference">
-                ⭐
+          {/* Expandable Details */}
+          {isExpanded && (
+            <div className={styles.expandedDetails}>
+              {/* Service Details */}
+              <div className={styles.serviceSection}>
+                <div className={styles.serviceInfo}>
+                  <div className={styles.serviceStatus}>
+                    <span className={styles.checkmark}>✓</span>
+                    <span className={styles.statusText}>Executive Protection Assigned</span>
+                  </div>
+                  <div className={styles.routeDisplay}>
+                    <span className={styles.routeText}>
+                      📍 {data.assignmentData ? data.assignmentData.location.start.split(',')[0] : 'Mayfair'} → 🏢 {data.assignmentData ? data.assignmentData.location.end.split(',')[0] : 'Heathrow Airport'}
+                    </span>
+                  </div>
+                  <div className={styles.durationDisplay}>6 hours coverage</div>
+                  <div className={styles.confirmationStatus}>
+                    <span className={styles.checkmark}>✓</span>
+                    <span className={styles.statusText}>Officer Confirmed</span>
+                  </div>
+                </div>
               </div>
-            )}
-          </div>
 
-          {/* Action Buttons */}
-          <div className={styles.actionButtons}>
-            <button
-              className={styles.actionButton}
-              onClick={(e) => {
-                e.stopPropagation();
-              }}
-            >
-              <span className={styles.buttonIcon}>📋</span>
-              <span className={styles.buttonLabel}>View Details</span>
-            </button>
-            <button
-              className={styles.actionButton}
-              onClick={(e) => {
-                e.stopPropagation();
-              }}
-            >
-              <span className={styles.buttonIcon}>⚙️</span>
-              <span className={styles.buttonLabel}>Modify Protection</span>
-            </button>
-          </div>
+              {/* Countdown Details */}
+              <div className={styles.countdownSection}>
+                <div className={styles.countdown}>
+                  <span className={styles.countdownTime}>{liveCountdown}</span>
+                  <span className={styles.countdownLabel}>until protection begins</span>
+                </div>
+                {data.favoriteTimeSlot && (
+                  <div className={styles.favoriteSlot} title="Matches your usual time preference">
+                    ⭐ Favorite time slot
+                  </div>
+                )}
+              </div>
 
-          {/* Mini Calendar - Keep for visual reference */}
-          {showVisuals && (
-            <div className={styles.calendarSection}>
-              <div className={styles.calendarLabel}>Next 7 days</div>
-              <MiniCalendar
-                days={7}
-                bookedDays={data.miniCalendar}
-                highlight="tomorrow"
-                className={styles.miniCalendar}
-              />
+              {/* Quick Actions */}
+              <div className={styles.quickActions}>
+                <button className={styles.actionBtn} onClick={(e) => e.stopPropagation()}>
+                  📋 Details
+                </button>
+                <button className={styles.actionBtn} onClick={(e) => e.stopPropagation()}>
+                  ⚙️ Modify
+                </button>
+                <button className={styles.actionBtn} onClick={(e) => e.stopPropagation()}>
+                  📞 Contact
+                </button>
+              </div>
+
+              {/* Mini Calendar */}
+              {showVisuals && (
+                <div className={styles.calendarSection}>
+                  <div className={styles.calendarLabel}>Next 7 days</div>
+                  <MiniCalendar
+                    days={7}
+                    bookedDays={data.miniCalendar}
+                    highlight="tomorrow"
+                    className={styles.miniCalendar}
+                  />
+                </div>
+              )}
             </div>
           )}
         </div>
@@ -175,6 +184,6 @@ export const UpcomingCard: FC<UpcomingCardProps> = memo(({
           <div className={styles.emptySubtext}>Schedule your next service</div>
         </div>
       )}
-    </button>
+    </div>
   );
 });

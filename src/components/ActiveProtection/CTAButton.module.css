@@ -1,0 +1,304 @@
+/* CTA Button Container */
+.ctaButtonContainer {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Main CTA Button */
+.ctaButton {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 16px 12px;
+  border: 1px solid;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 200ms ease;
+  min-height: 80px;
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+  font-family: inherit;
+  outline: none;
+  overflow: hidden;
+}
+
+/* Button states */
+.ctaButton:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.ctaButton:focus {
+  outline: 2px solid #FFD700;
+  outline-offset: 2px;
+}
+
+.ctaButton:active {
+  transform: translateY(0);
+}
+
+.ctaButton:disabled {
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+/* Color variants */
+.ctaButton.emergency {
+  background: rgba(239, 68, 68, 0.1);
+  border-color: rgba(239, 68, 68, 0.3);
+  color: #ef4444;
+}
+
+.ctaButton.emergency:hover {
+  background: rgba(239, 68, 68, 0.2);
+  border-color: #ef4444;
+  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
+}
+
+.ctaButton.primary {
+  background: rgba(34, 197, 94, 0.1);
+  border-color: rgba(34, 197, 94, 0.3);
+  color: #22c55e;
+}
+
+.ctaButton.primary:hover {
+  background: rgba(34, 197, 94, 0.2);
+  border-color: #22c55e;
+  box-shadow: 0 4px 12px rgba(34, 197, 94, 0.3);
+}
+
+.ctaButton.warning {
+  background: rgba(245, 158, 11, 0.1);
+  border-color: rgba(245, 158, 11, 0.3);
+  color: #f59e0b;
+}
+
+.ctaButton.warning:hover {
+  background: rgba(245, 158, 11, 0.2);
+  border-color: #f59e0b;
+  box-shadow: 0 4px 12px rgba(245, 158, 11, 0.3);
+}
+
+.ctaButton.info {
+  background: rgba(59, 130, 246, 0.1);
+  border-color: rgba(59, 130, 246, 0.3);
+  color: #3b82f6;
+}
+
+.ctaButton.info:hover {
+  background: rgba(59, 130, 246, 0.2);
+  border-color: #3b82f6;
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+}
+
+.ctaButton.secondary {
+  background: rgba(147, 51, 234, 0.1);
+  border-color: rgba(147, 51, 234, 0.3);
+  color: #9333ea;
+}
+
+.ctaButton.secondary:hover {
+  background: rgba(147, 51, 234, 0.2);
+  border-color: #9333ea;
+  box-shadow: 0 4px 12px rgba(147, 51, 234, 0.3);
+}
+
+.ctaButton.neutral {
+  background: rgba(107, 114, 128, 0.1);
+  border-color: rgba(107, 114, 128, 0.3);
+  color: #6b7280;
+}
+
+.ctaButton.neutral:hover {
+  background: rgba(107, 114, 128, 0.2);
+  border-color: #6b7280;
+  box-shadow: 0 4px 12px rgba(107, 114, 128, 0.3);
+}
+
+/* Full width variant */
+.ctaButton.fullWidth {
+  grid-column: span 2;
+}
+
+/* Pending state */
+.ctaButton.pending {
+  pointer-events: none;
+  position: relative;
+}
+
+.pendingOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border-radius: 12px;
+  color: white;
+}
+
+.pendingText {
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.pendingSpinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-top: 2px solid white;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Button content */
+.buttonIcon {
+  font-size: 1.8rem;
+  line-height: 1;
+}
+
+.buttonText {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  text-align: center;
+}
+
+.buttonTitle {
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+.buttonSubtitle {
+  font-size: 12px;
+  opacity: 0.8;
+  line-height: 1.2;
+}
+
+/* Options button */
+.optionsButton {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 32px;
+  height: 32px;
+  padding: 8px; /* Total 44px touch target */
+  background: rgba(0, 0, 0, 0.1);
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 150ms ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: currentColor;
+  opacity: 0.7;
+}
+
+.optionsButton:hover {
+  background: rgba(0, 0, 0, 0.2);
+  opacity: 1;
+  transform: scale(1.1);
+}
+
+.optionsButton:focus {
+  outline: 2px solid currentColor;
+  outline-offset: 2px;
+  opacity: 1;
+}
+
+.optionsButton:active {
+  transform: scale(0.95);
+}
+
+/* Responsive design */
+@media (max-width: 480px) {
+  .ctaButton {
+    min-height: 72px;
+    padding: 12px 8px;
+  }
+
+  .buttonIcon {
+    font-size: 1.6rem;
+  }
+
+  .buttonTitle {
+    font-size: 13px;
+  }
+
+  .buttonSubtitle {
+    font-size: 11px;
+  }
+
+  .optionsButton {
+    width: 28px;
+    height: 28px;
+    padding: 6px;
+  }
+}
+
+/* Dark theme */
+@media (prefers-color-scheme: dark) {
+  .ctaButton {
+    background: #2a2a3e;
+    color: white;
+    border-color: rgba(255, 255, 255, 0.2);
+  }
+
+  .optionsButton {
+    background: rgba(255, 255, 255, 0.1);
+  }
+
+  .optionsButton:hover {
+    background: rgba(255, 255, 255, 0.2);
+  }
+}
+
+/* High contrast mode */
+@media (prefers-contrast: high) {
+  .ctaButton {
+    border-width: 2px;
+  }
+
+  .optionsButton {
+    border: 1px solid currentColor;
+  }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .ctaButton,
+  .optionsButton,
+  .pendingSpinner {
+    transition: none;
+    animation: none;
+  }
+
+  .ctaButton:hover,
+  .ctaButton:active {
+    transform: none;
+  }
+
+  .optionsButton:hover,
+  .optionsButton:active {
+    transform: none;
+  }
+}

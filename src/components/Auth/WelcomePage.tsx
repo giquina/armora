@@ -9,6 +9,7 @@ import { ArmoraLogo } from '../UI/ArmoraLogo';
 import { CredentialsModal } from '../UI/CredentialsModal';
 import SafeAssignmentFundCTA from '../SafeAssignmentFund/SafeAssignmentFundCTA';
 import SafeAssignmentFundModal from '../SafeAssignmentFund/SafeAssignmentFundModal';
+import { InstallAppButton } from '../UI/InstallAppButton';
 // import SafeAssignmentFundBanner from '../SafeAssignmentFund/SafeAssignmentFundBanner';
 // Removed DevNavigationPanel import
 // Removed Clerk imports - using Supabase only
@@ -202,6 +203,14 @@ export function WelcomePage() {
 
           <div className={styles.divider}>
             <span className={styles.dividerText}>or</span>
+          </div>
+
+          {/* Install App Button */}
+          <div className={styles.installButtonSection}>
+            <InstallAppButton
+              variant="secondary"
+              className={styles.installAppButton}
+            />
           </div>
 
           {/* Guest + Dev Buttons Row */}

@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState } from 'react';
 import styles from './ServiceComparison.module.css';
 
 export interface ServiceTier {
@@ -113,8 +113,10 @@ const SERVICE_TIERS: ServiceTier[] = [
 
 interface ServiceComparisonProps {
   selectedServiceId: string | null;
-  onServiceSelect: (service: ServiceTier) => void;
+  onServiceSelect: (service: ServiceTier | null) => void;
   recommendedService?: string;
+  preselectedServiceId?: string;
+  source?: 'home' | 'services' | 'toolbar' | 'hamburger';
 }
 
 const getCustomerQuote = (serviceId: string): string => {
@@ -127,15 +129,6 @@ const getCustomerQuote = (serviceId: string): string => {
   return quotes[serviceId as keyof typeof quotes] || '';
 };
 
-const getServiceDescription = (serviceId: string): string => {
-  const descriptions = {
-    'essential': 'Your everyday protection solution. Professional, reliable, and discrete. The Nissan Leaf EV is comfortable and environmentally conscious without being flashy. Your protection officer knows all the safe routes and you feel secure without drawing attention. Perfect for daily life at just £50/hour.',
-    'executive': 'When your position demands premium security. Arrive with confidence in a luxury BMW X5. Your senior protection officer has corporate experience and understands executive needs. Professional presence that commands respect while keeping you completely safe.',
-    'shadow': 'Complete protection, completely invisible. No one will know you have a protection officer. Our ex-military specialists use unmarked vehicles and advanced techniques. Ultimate discretion for high-profile individuals who value their privacy above all.',
-    'client-vehicle': 'Your vehicle, our expertise. Familiar comfort with professional security. Our protection officer drives your own car while providing the same level of security. No mileage charges, complete privacy, and the comfort of your familiar vehicle.'
-  };
-  return descriptions[serviceId as keyof typeof descriptions] || '';
-};
 
 const getKeyBenefits = (serviceId: string): string[] => {
   const benefits = {
@@ -150,31 +143,36 @@ const getKeyBenefits = (serviceId: string): string[] => {
 export function ServiceComparison({
   selectedServiceId,
   onServiceSelect,
-  recommendedService
+  recommendedService,
+  preselectedServiceId,
+  source
 }: ServiceComparisonProps) {
-  const [activeTab, setActiveTab] = useState<string>('essential');
-  const [isDetailsEntering, setIsDetailsEntering] = useState(false);
-  const detailsRef = useRef<HTMLDivElement>(null);
+  const [expandedCard, setExpandedCard] = useState<string | null>(null);
 
-  // Remove auto-selection - users must explicitly choose
-  useEffect(() => {
-    // No automatic service selection - user must choose
-  }, []);
+  const toggleExpand = (cardId: string) => {
+    setExpandedCard(expandedCard === cardId ? null : cardId);
+  };
 
-  const activeService = SERVICE_TIERS.find(s => s.id === activeTab) || SERVICE_TIERS[0];
-
-  const handleTabClick = (service: ServiceTier) => {
-    if (activeTab !== service.id) {
-      setIsDetailsEntering(true);
-      setActiveTab(service.id);
+  const handleServiceSelect = (service: ServiceTier) => {
+    // If this service is already selected, deselect it (pass null)
+    // Otherwise, select this service
+    if (selectedServiceId === service.id) {
+      onServiceSelect(null);
+    } else {
       onServiceSelect(service);
-
-      // Reset animation after it completes
-      setTimeout(() => {
-        setIsDetailsEntering(false);
-      }, 350);
     }
   };
+
+  const getUniqueSellingPoint = (service: ServiceTier): string => {
+    const usps = {
+      'essential': 'Eco-friendly EV • No frills protection • Most affordable',
+      'executive': 'BMW luxury • Threat assessment • Corporate presence',
+      'shadow': 'Unmarked vehicle • Counter-surveillance • Invisible protection',
+      'client-vehicle': 'Use your vehicle • No mileage charges • Complete privacy'
+    };
+    return usps[service.id as keyof typeof usps] || '';
+  };
+
 
   return (
     <div className={styles.container}>
@@ -183,153 +181,99 @@ export function ServiceComparison({
         <p className={styles.subtitle}>Select your protection tier</p>
       </div>
 
-      {/* Guidance Content - Shows when no service selected */}
-      {!selectedServiceId && (
-        <div className={styles.guidanceContent}>
-          <div className={styles.securityDetail}>
-            <p className={styles.securityDescription}>Your security detail includes:</p>
-            <div className={styles.securityFeatures}>
-              <div className={styles.securityFeature}>• SIA-licensed protection officer</div>
-              <div className={styles.securityFeature}>• Secure vehicle with professional driver</div>
-              <div className={styles.securityFeature}>• Door-to-door close protection</div>
-            </div>
-          </div>
 
-          <div className={styles.requirements}>
-            <div className={styles.requirement}>✓ Select your protection level below</div>
-            <div className={styles.requirement}>✓ Specify journey requirements</div>
-            <div className={styles.requirement}>✓ Confirm your assignment</div>
-          </div>
+      {/* Collapsible Service Cards */}
+      <div className={styles.serviceCards}>
+        {SERVICE_TIERS.map((service) => {
+          const isSelected = selectedServiceId === service.id;
+          const isExpanded = expandedCard === service.id;
+          const isPreselected = preselectedServiceId === service.id;
 
-          <div className={styles.siaCompliance}>
-            All officers hold valid SIA licenses
-          </div>
-        </div>
-      )}
-
-      {/* Tab Navigation */}
-      <div className={styles.tabContainer}>
-        <div className={styles.tabs}>
-          {SERVICE_TIERS.map((service) => (
-            <button
+          return (
+            <div
               key={service.id}
-              className={`${styles.tab} ${activeTab === service.id ? styles.activeTab : ''} ${selectedServiceId === service.id ? styles.selectedTab : ''}`}
-              onClick={() => handleTabClick(service)}
-              aria-pressed={activeTab === service.id}
-              data-service={service.id}
+              className={`${styles.serviceCard} ${isSelected ? styles.selectedCard : ''} ${isExpanded ? styles.expandedCard : styles.collapsedCard}`}
             >
-              {service.icon && <span className={styles.tabIcon}>{service.icon}</span>}
-              <span className={styles.tabLabel}>{service.shortName}</span>
-              {service.badge && (
-                <span className={styles.tabBadge}>{service.badge}</span>
-              )}
-              {recommendedService === service.id && (
-                <span className={styles.recommendedDot} aria-label="Recommended" />
-              )}
-            </button>
-          ))}
-        </div>
-      </div>
-
-      {/* Service Details */}
-      <div
-        ref={detailsRef}
-        className={`${styles.serviceDetails} ${isDetailsEntering ? styles.entering : ''}`}
-      >
-        <div className={styles.serviceHeader}>
-          <div className={styles.serviceName}>
-            {activeService.icon && <span className={styles.serviceIcon}>{activeService.icon}</span>}
-            <h3>{activeService.name}</h3>
-          </div>
-          <div className={styles.serviceRate}>{activeService.rate}</div>
-        </div>
-
-        <div className={styles.conversationalSection}>
-          <p className={styles.tagline}>"{activeService.training}"</p>
-
-          <div className={styles.benefitsGrid}>
-            <div className={styles.benefitItem}>
-              <span className={styles.benefitIcon}>•</span>
-              <span className={styles.benefitText}>
-                <strong>Response:</strong> {activeService.responseTime}
-              </span>
-            </div>
-            <div className={styles.benefitItem}>
-              <span className={styles.benefitIcon}>•</span>
-              <span className={styles.benefitText}>
-                <strong>Vehicle:</strong> {activeService.officerLevel}{activeService.id === 'essential' ? ' for discreet journeys' : ''}
-              </span>
-            </div>
-          </div>
-        </div>
-
-        <div className={styles.benefitsGrid}>
-          <div className={styles.benefitItem}>
-            <span className={styles.benefitIcon}>•</span>
-            <span className={styles.benefitText}>
-              Threat Assessment: {activeService.threatAssessment ? '✓ Yes' : '✗ No'}
-            </span>
-          </div>
-          <div className={styles.benefitItem}>
-            <span className={styles.benefitIcon}>•</span>
-            <span className={styles.benefitText}>
-              Counter-Surveillance: {activeService.counterSurveillance ? '✓ Yes' : '✗ No'}
-            </span>
-          </div>
-        </div>
-
-        <div className={styles.section}>
-          <h4 className={styles.sectionTitle}>Perfect when you need:</h4>
-          <div className={styles.customerQuote}>
-            <em>"{getCustomerQuote(activeService.id)}"</em>
-          </div>
-          <div className={styles.benefitsGrid}>
-            {activeService.bestFor.map((item, index) => (
-              <div key={index} className={styles.benefitItem}>
-                <span className={styles.benefitIcon}>•</span>
-                <span className={styles.benefitText}>{item}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        <div className={styles.section}>
-          <h4 className={styles.sectionTitle}>Why clients choose {activeService.shortName}:</h4>
-          <div className={styles.conversationalFeatures}>
-            <p className={styles.featureParagraph}>
-              {getServiceDescription(activeService.id)}
-            </p>
-            <div className={styles.keyBenefits}>
-              <div className={styles.benefitsGrid}>
-                {getKeyBenefits(activeService.id).map((benefit, index) => (
-                  <div key={index} className={styles.benefitItem}>
-                    <span className={styles.benefitIcon}>•</span>
-                    <span className={styles.benefitText}>{benefit}</span>
+              {/* Collapsed View - Always Visible */}
+              <div className={styles.cardHeader}>
+                <div className={styles.serviceTitleSection}>
+                  <div className={styles.serviceNamePrice}>
+                    <h3 className={styles.serviceName}>
+                      {service.shortName}
+                      {service.badge && <span className={styles.popularBadge}>{service.badge}</span>}
+                      {isPreselected && <span className={styles.preselectedBadge}>Selected from {source === 'home' ? 'Home' : 'Services'}</span>}
+                    </h3>
+                    <span className={styles.servicePrice}>{service.rate}</span>
                   </div>
-                ))}
+                  <div className={styles.uniqueSellingPoint}>{getUniqueSellingPoint(service)}</div>
+                </div>
+                {isSelected && <span className={styles.selectedCheckmark}>✓</span>}
               </div>
-            </div>
-          </div>
-        </div>
 
-        {/* CTA Button to Select Service */}
-        <div className={styles.selectButtonContainer}>
-          {selectedServiceId === activeService.id ? (
-            <div className={styles.selectedIndicator}>
-              <span className={styles.selectedIcon}>✓</span>
-              Selected Service
+              <div className={styles.quickStats}>
+                <span className={styles.stat}>⚡ {service.responseTime}</span>
+                <span className={styles.statSeparator}>•</span>
+                <span className={styles.stat}>🚗 {service.officerLevel}</span>
+                <span className={styles.statSeparator}>•</span>
+                <span className={styles.stat}>⏱️ 2hr min</span>
+              </div>
+
+              {/* Action Buttons - Always Visible */}
+              <div className={styles.cardActions}>
+                <button
+                  className={`${styles.selectButton} ${isSelected ? styles.selectedButton : ''}`}
+                  onClick={() => handleServiceSelect(service)}
+                  aria-label={isSelected ? `Deselect ${service.shortName} protection service` : `Select ${service.shortName} protection service`}
+                >
+                  {isSelected ? 'Selected ✓' : 'Select'}
+                </button>
+                <button
+                  className={styles.detailsButton}
+                  onClick={() => toggleExpand(service.id)}
+                >
+                  {isExpanded ? 'Less ↑' : 'Why? ↓'}
+                </button>
+              </div>
+
+              {/* Expanded Content - Conditionally Visible */}
+              {isExpanded && (
+                <div className={styles.expandedContent}>
+                  <div className={styles.customerQuoteSection}>
+                    <div className={styles.quoteLabel}>Customer says:</div>
+                    <div className={styles.customerQuote}>"{getCustomerQuote(service.id)}"</div>
+                  </div>
+
+                  <div className={styles.featureGrid}>
+                    <div className={styles.featureColumn}>
+                      <h4 className={styles.featureTitle}>What you get:</h4>
+                      <ul className={styles.featureList}>
+                        {service.features.slice(0, 3).map((feature, index) => (
+                          <li key={index} className={styles.featureItem}>✓ {feature}</li>
+                        ))}
+                      </ul>
+                    </div>
+                    <div className={styles.featureColumn}>
+                      <h4 className={styles.featureTitle}>Best for:</h4>
+                      <ul className={styles.featureList}>
+                        {service.bestFor.slice(0, 3).map((use, index) => (
+                          <li key={index} className={styles.featureItem}>• {use}</li>
+                        ))}
+                      </ul>
+                    </div>
+                  </div>
+
+                  <div className={styles.keyBenefits}>
+                    {getKeyBenefits(service.id).map((benefit, index) => (
+                      <span key={index} className={styles.benefitBadge}>{benefit}</span>
+                    ))}
+                  </div>
+                </div>
+              )}
             </div>
-          ) : (
-            <button
-              className={styles.selectButton}
-              onClick={() => handleTabClick(activeService)}
-              type="button"
-            >
-              Select {activeService.shortName} Secure Transport
-            </button>
-          )}
-        </div>
+          );
+        })}
       </div>
+
 
 
     </div>

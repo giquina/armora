@@ -417,6 +417,23 @@
   transform: translateX(4px);
 }
 
+/* Install App Item Specific Styling */
+.installAppItem {
+  background: rgba(233, 69, 96, 0.05);
+  border: 1px solid rgba(233, 69, 96, 0.1);
+}
+
+.installAppItem:hover {
+  background: rgba(233, 69, 96, 0.08);
+  border-color: rgba(233, 69, 96, 0.2);
+  transform: translateX(2px);
+}
+
+.installButtonContainer {
+  flex-shrink: 0;
+  min-width: 100px;
+}
+
 .settingIcon {
   font-size: var(--font-xl);
   flex-shrink: 0;

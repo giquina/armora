@@ -41,7 +41,7 @@ const convertToServiceLevel = (): ServiceLevel[] => {
 const ARMORA_SERVICES: ServiceLevel[] = convertToServiceLevel();
 
 export function Dashboard() {
-  const { state, navigateToView } = useApp();
+  const { state, navigateToView, startProtectionRequest } = useApp();
   const { user: legacyUser, questionnaireData, deviceCapabilities } = state;
 
   // Development mode - mock auth data
@@ -85,8 +85,8 @@ export function Dashboard() {
   }, [navigateToView, legacyUser?.userType, user]);
 
   const handleDirectBooking = useCallback((service: ServiceLevel) => {
-    // Navigate to protection request view
-    navigateToView('protection-request');
+    // Navigate to protection request view with preselected service
+    startProtectionRequest(service.id as 'essential' | 'executive' | 'shadow' | 'client-vehicle', 'home');
 
     // Analytics for direct protection assignment from dashboard cards
     console.log('Direct booking:', {
@@ -95,7 +95,7 @@ export function Dashboard() {
       userType: legacyUser?.userType || (user ? 'registered' : 'guest'),
       source: 'dashboard_card'
     });
-  }, [navigateToView, legacyUser?.userType, user]);
+  }, [startProtectionRequest, legacyUser?.userType, user]);
 
   // CPO-related handlers
   const handleRequestOfficer = useCallback((cpoId: string) => {

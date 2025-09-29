@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback, useMemo } from 'react';
 import { useApp } from '../../contexts/AppContext';
 import { SituationSelector } from './components/SituationSelector';
-import { ServiceComparison } from './components/ServiceComparison';
+import { ServiceComparison, SERVICE_TIERS } from './components/ServiceComparison';
 import { WhatYouGet } from './components/WhatYouGet';
 import { OfficerProfile } from './components/OfficerProfile';
 import { LocationInput } from './components/LocationInput';
@@ -67,6 +67,10 @@ export function ProtectionRequest({ onAssignmentRequested, className }: Protecti
   const { state, navigateToView } = useApp();
   const [selectedSituation, setSelectedSituation] = useState<Situation | null>(null);
   const [selectedService, setSelectedService] = useState<ServiceTier | null>(null);
+
+  // Check for preselected service from context
+  const preselectedServiceId = state.assignmentContext?.preselectedService;
+  const source = state.assignmentContext?.source;
   const [pickupLocation, setPickupLocation] = useState('');
   const [secureDestination, setSecureDestination] = useState('');
   const [commencementTime, setCommencementTime] = useState('now');
@@ -76,6 +80,16 @@ export function ProtectionRequest({ onAssignmentRequested, className }: Protecti
   // Generate time options with current time
   const timeOptions = useMemo(() => generateTimeOptions(), []);
 
+  // Handle preselected service from context
+  useEffect(() => {
+    if (preselectedServiceId && !selectedService) {
+      const preselectedService = SERVICE_TIERS.find(tier => tier.id === preselectedServiceId);
+      if (preselectedService) {
+        setSelectedService(preselectedService);
+      }
+    }
+  }, [preselectedServiceId, selectedService]);
+
   // Terms acceptance state
   const [terms, setTerms] = useState({
     understandService: false,
@@ -84,12 +98,12 @@ export function ProtectionRequest({ onAssignmentRequested, className }: Protecti
   });
 
   // Handle situation selection
-  const handleSituationSelect = useCallback((situation: Situation) => {
+  const handleSituationSelect = useCallback((situation: Situation | null) => {
     setSelectedSituation(situation);
   }, []);
 
-  // Handle service selection
-  const handleServiceSelect = useCallback((service: ServiceTier) => {
+  // Handle service selection with toggle functionality
+  const handleServiceSelect = useCallback((service: ServiceTier | null) => {
     setSelectedService(service);
   }, []);
 
@@ -124,6 +138,22 @@ export function ProtectionRequest({ onAssignmentRequested, className }: Protecti
     const cleanLocation = location.replace(/📍|🏢|🏠/, '').trim().replace(' (Saved)', '');
     setSecureDestination(cleanLocation);
   }, []);
+
+  // Dynamic page titles based on preselected service
+  const getPageTitle = useMemo(() => {
+    if (preselectedServiceId && source) {
+      const serviceName = SERVICE_TIERS.find(tier => tier.id === preselectedServiceId)?.shortName || 'Protection';
+      return `Request ${serviceName} Protection`;
+    }
+    return 'Arrange Protection Services';
+  }, [preselectedServiceId, source]);
+
+  const getPageSubtitle = useMemo(() => {
+    if (preselectedServiceId && source === 'home') {
+      return `Selected from Home • SIA-licensed professionals across England & Wales`;
+    }
+    return 'Professional security officers across England & Wales';
+  }, [preselectedServiceId, source]);
 
   // Calculate service fee (minimum 2 hours) - memoized to prevent re-computation
   const serviceFeeCalculation = useMemo(() => {
@@ -169,8 +199,8 @@ export function ProtectionRequest({ onAssignmentRequested, className }: Protecti
 
 
   const handleChangeSelection = useCallback(() => {
-    // Scroll to situation selector
-    const element = document.querySelector('[data-section="situation-selector"]');
+    // Scroll to service comparison section
+    const element = document.querySelector('[data-section="service-comparison"]');
     if (element) {
       element.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
@@ -207,7 +237,7 @@ export function ProtectionRequest({ onAssignmentRequested, className }: Protecti
 
   // Format deployment time - memoized to prevent re-computation
   const deploymentInfo = useMemo(() => {
-    if (!selectedService) return 'Select protection service';
+    if (!selectedService) return undefined;
 
     if (commencementTime === 'now') {
       return `CPO deployment: ${selectedService.responseTime || '2-4 min'}`;
@@ -236,8 +266,8 @@ export function ProtectionRequest({ onAssignmentRequested, className }: Protecti
       {/* Header */}
       <div className={styles.header}>
         <div className={styles.statusLine}>🟢 Officers Available Now</div>
-        <h1 className={styles.title}>Arrange Protection Services</h1>
-        <p className={styles.subtitle}>Professional security officers across England & Wales</p>
+        <h1 className={styles.title}>{getPageTitle}</h1>
+        <p className={styles.subtitle}>{getPageSubtitle}</p>
         <div className={styles.trustBadges}>
           <span className={styles.badge}>⚡ Fast response</span>
           <span className={styles.badge}>📍 Nationwide coverage</span>
@@ -246,18 +276,8 @@ export function ProtectionRequest({ onAssignmentRequested, className }: Protecti
       </div>
 
       <div className={styles.contentWrapper}>
-        {/* Section 1: Journey Location & Time - MOVED TO FIRST */}
-        <div className={styles.locationTimeSection}>
-          <div className={styles.journeyHeader}>
-            <div className={styles.journeyHeaderIcon}>🛡️</div>
-            <div className={styles.journeyHeaderContent}>
-              <h2 className={styles.journeyTitle}>Plan Your Protection</h2>
-              <p className={styles.journeySubtitle}>
-                Professional CPO with secure vehicle • Door-to-door service
-              </p>
-            </div>
-          </div>
-
+        {/* SECTION 2: LOCATION INPUT - Move to top */}
+        <div className={styles.locationSection}>
           <LocationInput
             value={secureDestination}
             onChange={setSecureDestination}
@@ -284,61 +304,59 @@ export function ProtectionRequest({ onAssignmentRequested, className }: Protecti
               <p className={styles.journeyNote}>✓ Your protection officer will drive you safely between these locations</p>
             </div>
           )}
-
-          <TimeSelection
-            timeOptions={timeOptions}
-            selectedTime={commencementTime}
-            onTimeChange={setCommencementTime}
-            scheduledDateTime={scheduledDateTime}
-            onScheduledDateTimeChange={setScheduledDateTime}
-          />
         </div>
 
-        {/* Section 2: Situation Selector - NOW SHOWS AFTER JOURNEY ENTERED */}
-        {pickupLocation.trim() && secureDestination.trim() && (
-          <div data-section="situation-selector">
-            <div className={styles.journeyContext}>
-              <p className={styles.journeyContextText}>
-                🛡️ <strong>Your protection journey:</strong><br />
-                📍 {pickupLocation} → {secureDestination}
-                {commencementTime === 'now' && ' • Immediate protection'}
-                {commencementTime !== 'now' && commencementTime !== 'schedule' && ` • In ${commencementTime === '30min' ? '30 minutes' : '1 hour'}`}
-                {commencementTime === 'schedule' && scheduledDateTime && ` • ${new Date(scheduledDateTime).toLocaleString('en-GB')}`}
-              </p>
-              <p className={styles.journeySubtext}>Select protection for your journey:</p>
+        {/* SECTION 3: SITUATION SELECTOR */}
+        <div className={styles.situationSection}>
+          <SituationSelector
+            selectedSituation={selectedSituation?.id || null}
+            onSituationSelect={handleSituationSelect}
+          />
+          {!selectedSituation && (
+            <div className={styles.skipOption}>
+              <button
+                className={styles.skipButton}
+                onClick={() => document.querySelector('[data-section="service-comparison"]')?.scrollIntoView({ behavior: 'smooth' })}
+                type="button"
+              >
+                Skip to service selection →
+              </button>
             </div>
-            <SituationSelector
-              selectedSituation={selectedSituation?.id || null}
-              onSituationSelect={handleSituationSelect}
+          )}
+        </div>
+
+        {/* SECTION 3: SERVICE COMPARISON - Move before location */}
+        <div data-section="service-comparison">
+          <ServiceComparison
+            selectedServiceId={selectedService?.id || null}
+            onServiceSelect={handleServiceSelect}
+            recommendedService={selectedSituation?.recommended}
+            preselectedServiceId={preselectedServiceId}
+            source={source}
+          />
+        </div>
+        {/* SECTION 4: TIME SELECTION - Show when service selected */}
+        {selectedService && (
+          <div className={styles.timeSelectionSection}>
+            <div className={styles.sectionHeader}>
+              <div className={styles.sectionHeaderIcon}>⏰</div>
+              <div className={styles.sectionHeaderContent}>
+                <h2 className={styles.sectionTitle}>When do you need protection?</h2>
+                <p className={styles.sectionSubtitle}>Choose your preferred start time</p>
+              </div>
+            </div>
+
+            <TimeSelection
+              timeOptions={timeOptions}
+              selectedTime={commencementTime}
+              onTimeChange={setCommencementTime}
+              scheduledDateTime={scheduledDateTime}
+              onScheduledDateTimeChange={setScheduledDateTime}
             />
           </div>
         )}
 
-        {/* Section 3: Journey Benefits - SHOWS AFTER SITUATION SELECTED */}
-        {selectedSituation && (
-          <div className={styles.journeyDetailsSection}>
-            <h2 className={styles.sectionTitle}>🛡️ What's included in your protection service</h2>
-            <div className={styles.journeyInfo}>
-              <p className={styles.journeyDescription}>
-                Your protection officer will provide secure transport in a professional vehicle as part of your protection service.
-              </p>
-              <div className={styles.journeyBenefits}>
-                <span className={styles.benefit}>✓ Secure vehicle provided</span>
-                <span className={styles.benefit}>✓ Protection officer drives you safely</span>
-                <span className={styles.benefit}>✓ Door-to-door security service</span>
-              </div>
-            </div>
-          </div>
-        )}
-
-        {/* Section 3: Service Comparison */}
-        <ServiceComparison
-          selectedServiceId={selectedService?.id || null}
-          onServiceSelect={handleServiceSelect}
-          recommendedService={selectedSituation?.recommended}
-        />
-
-        {/* Section 3: What You Get */}
+        {/* What You Get */}
         {selectedSituation && selectedService && (
           <WhatYouGet
             situation={selectedSituation.id}
@@ -346,57 +364,85 @@ export function ProtectionRequest({ onAssignmentRequested, className }: Protecti
           />
         )}
 
-        {/* Section 4: Officer Profile */}
+        {/* Officer Profile */}
         {selectedService && (
           <OfficerProfile selectedService={selectedService.id} />
         )}
 
-
-        {/* Section 6: Terms & Conditions */}
+        {/* SECTION 5: CONFIRMATION DETAILS */}
         {selectedService && secureDestination && (
-          <div className={styles.termsSection}>
-            <h2 className={styles.sectionTitle}>Terms & Conditions</h2>
+          <div className={styles.confirmationSection}>
+            <h2 className={styles.sectionTitle}>Confirmation Details</h2>
 
-            <label className={styles.termItem}>
-              <input
-                type="checkbox"
-                checked={terms.understandService}
-                onChange={() => handleTermChange('understandService')}
-                className={styles.checkbox}
-              />
-              <span className={styles.termText}>
-                I understand this is a 2-hour minimum security service
-              </span>
-            </label>
+            {/* Selected Options Summary */}
+            <div className={styles.selectionSummary}>
+              {selectedSituation && (
+                <div className={styles.summaryRow}>
+                  <span className={styles.summaryLabel}>Protection Type:</span>
+                  <span className={styles.summaryValue}>{selectedSituation.label}</span>
+                </div>
+              )}
+              <div className={styles.summaryRow}>
+                <span className={styles.summaryLabel}>Service Tier:</span>
+                <span className={styles.summaryValue}>{selectedService.name}</span>
+              </div>
+              <div className={styles.summaryRow}>
+                <span className={styles.summaryLabel}>Service Fee:</span>
+                <span className={styles.summaryValue}>£{finalFee.toFixed(2)}</span>
+              </div>
+              {pickupLocation && secureDestination && (
+                <div className={styles.summaryRow}>
+                  <span className={styles.summaryLabel}>Journey:</span>
+                  <span className={styles.summaryValue}>{pickupLocation} → {secureDestination}</span>
+                </div>
+              )}
+            </div>
 
-            <label className={styles.termItem}>
-              <input
-                type="checkbox"
-                checked={terms.agreeVerification}
-                onChange={() => handleTermChange('agreeVerification')}
-                className={styles.checkbox}
-              />
-              <span className={styles.termText}>
-                I agree to officer ID verification on arrival
-              </span>
-            </label>
+            {/* Terms & Conditions */}
+            <div className={styles.termsSection}>
+              <h3 className={styles.termsTitle}>Terms & Conditions</h3>
 
-            <label className={styles.termItem}>
-              <input
-                type="checkbox"
-                checked={terms.acceptTerms}
-                onChange={() => handleTermChange('acceptTerms')}
-                className={styles.checkbox}
-              />
-              <span className={styles.termText}>
-                I accept the terms of service
-              </span>
-            </label>
+              <label className={styles.termItem}>
+                <input
+                  type="checkbox"
+                  checked={terms.understandService}
+                  onChange={() => handleTermChange('understandService')}
+                  className={styles.checkbox}
+                />
+                <span className={styles.termText}>
+                  I understand this is a 2-hour minimum security service
+                </span>
+              </label>
+
+              <label className={styles.termItem}>
+                <input
+                  type="checkbox"
+                  checked={terms.agreeVerification}
+                  onChange={() => handleTermChange('agreeVerification')}
+                  className={styles.checkbox}
+                />
+                <span className={styles.termText}>
+                  I agree to officer ID verification on arrival
+                </span>
+              </label>
+
+              <label className={styles.termItem}>
+                <input
+                  type="checkbox"
+                  checked={terms.acceptTerms}
+                  onChange={() => handleTermChange('acceptTerms')}
+                  className={styles.checkbox}
+                />
+                <span className={styles.termText}>
+                  I accept the terms of service
+                </span>
+              </label>
+            </div>
           </div>
         )}
       </div>
 
-      {/* SIA-Compliant Smart Bottom Panel */}
+      {/* SECTION 6: BOTTOM ACTION BAR - Fixed positioning */}
       <BottomActionBar
         isValid={!selectedService ? false : isReadyToRequest}
         pricing={selectedService ? {
@@ -415,10 +461,10 @@ export function ProtectionRequest({ onAssignmentRequested, className }: Protecti
         } : undefined}
         primaryButtonText={
           !selectedService
-            ? 'Select Protection Level to Begin ↑'
+            ? 'Select Protection Level Above'
             : !Object.values(terms).every(v => v)
-            ? `Proceed to Assignment Details - £${finalFee.toFixed(2)}`
-            : `Accept Terms & Pay - £${finalFee.toFixed(2)}`
+            ? `Request ${selectedService.shortName || selectedService.name} - £${finalFee.toFixed(2)}`
+            : `Request ${selectedService.shortName || selectedService.name} - £${finalFee.toFixed(2)}`
         }
         onPrimaryAction={!selectedService ? undefined : handleRequestProtection}
         onChangeSelection={selectedService ? handleChangeSelection : undefined}

@@ -70,21 +70,21 @@ export const BottomActionBar: React.FC<BottomActionBarProps> = ({
 
   return (
     <div className={`${styles.bottomActionBar} ${className} ${!hasSelection && isMinimized ? styles.minimized : ''}`}>
-      {/* Minimize/Expand Button - Only show when no selection */}
-      {!hasSelection && (
-        <button
-          className={styles.minimizeButton}
-          onClick={() => setIsMinimized(!isMinimized)}
-          type="button"
-          aria-label={isMinimized ? 'Expand protection details' : 'Minimize protection details'}
-        >
-          <span className={styles.minimizeIcon}>
-            {isMinimized ? '🔼' : '🔽'}
-          </span>
-          <span className={styles.minimizeText}>
-            {isMinimized ? 'Show Details' : 'Hide Details'}
-          </span>
-        </button>
+
+      {/* Always show header for expand/minimize functionality */}
+      {!hasSelection && isMinimized && (
+        <div className={styles.minimizedHeader}>
+          <button
+            className={styles.expandButton}
+            onClick={() => setIsMinimized(false)}
+            type="button"
+            aria-label="Show details"
+          >
+            <span className={styles.expandIcon}>🛡️</span>
+            <span className={styles.expandText}>Request Protection</span>
+            <span className={styles.expandChevron}>↑</span>
+          </button>
+        </div>
       )}
 
       {/* Pricing Summary */}
@@ -92,48 +92,23 @@ export const BottomActionBar: React.FC<BottomActionBarProps> = ({
         <div className={styles.pricingCompact}>
 
           {!hasSelection ? (
-            /* INITIAL STATE - Full SIA-Compliant Content */
+            /* SIMPLIFIED INITIAL STATE */
             <>
               <div className={styles.initialState}>
                 <div className={styles.initialHeader}>
-                  <h3 className={styles.initialTitle}>🛡️ Request Protection Services</h3>
+                  <h3 className={styles.initialTitle}>Protection Services</h3>
+                  <button
+                    className={styles.hideDetailsButton}
+                    onClick={() => setIsMinimized(!isMinimized)}
+                    type="button"
+                    aria-label="Hide Details"
+                  >
+                    ↓
+                  </button>
                 </div>
 
-                <div className={styles.securityDetailInitial}>
-                  <p className={styles.securityDescription}>Your security detail includes:</p>
-                  <div className={styles.securityFeaturesCompact}>
-                    <div className={styles.featureRow}>
-                      <span className={styles.securityFeature}>• SIA-licensed protection officer</span>
-                      <span className={styles.securityFeature}>• Secure vehicle with driver</span>
-                    </div>
-                    <div className={styles.featureRow}>
-                      <span className={styles.securityFeature}>• Door-to-door close protection</span>
-                      <span className={styles.securityFeature}>• Nationwide coverage</span>
-                    </div>
-                  </div>
-                </div>
-
-                <div className={styles.processStepsCompact}>
-                  <div className={styles.stepRow}>
-                    <div className={styles.processStep}>
-                      <span className={styles.stepNumber}>①</span>
-                      <span className={styles.stepText}>Select protection level</span>
-                    </div>
-                    <div className={styles.processStep}>
-                      <span className={styles.stepNumber}>②</span>
-                      <span className={styles.stepText}>Set journey details</span>
-                    </div>
-                  </div>
-                  <div className={styles.stepRow}>
-                    <div className={styles.processStep}>
-                      <span className={styles.stepNumber}>③</span>
-                      <span className={styles.stepText}>Confirm assignment</span>
-                    </div>
-                    <div className={styles.processStep}>
-                      <span className={styles.stepNumber}>✓</span>
-                      <span className={styles.stepText}>Fast response</span>
-                    </div>
-                  </div>
+                <div className={styles.complianceLine}>
+                  ✓ SIA-licensed • Nationwide coverage
                 </div>
               </div>
             </>
@@ -162,26 +137,19 @@ export const BottomActionBar: React.FC<BottomActionBarProps> = ({
                 )}
               </div>
 
-              <div className={styles.securityDetailSelected}>
-                <div className={styles.featureRow}>
-                  <div className={styles.securityFeature}>• SIA Level 3 Protection Officer</div>
-                  <div className={styles.securityFeature}>• 2-hour minimum engagement</div>
+              {/* Deployment Info Only - Remove redundant rate */}
+              {additionalInfo && (
+                <div className={styles.deploymentInfo}>
+                  <span className={styles.deploymentIcon}>🚁</span>
+                  <span className={styles.deploymentText}>{additionalInfo}</span>
                 </div>
-                <div className={styles.featureRow}>
-                  <div className={styles.securityFeature}>• Licensed professionals only</div>
-                  <div className={styles.securityFeature}>• 1-hour cancellation policy</div>
-                </div>
-              </div>
+              )}
             </>
           )}
 
         </div>
 
-        {additionalInfo && (
-          <div className={styles.additionalInfo}>
-            {additionalInfo}
-          </div>
-        )}
+        {/* Additional info now shown in service details when selected */}
 
         {/* Error Message */}
         {error && (
@@ -196,14 +164,48 @@ export const BottomActionBar: React.FC<BottomActionBarProps> = ({
         )}
       </div>
 
-      {/* Action Buttons */}
-      <div className={`${styles.actionButtons} ${!hasSelection && isMinimized ? styles.minimizedActions : ''}`}>
-        {!hasSelection && (
-          <div className={styles.siaComplianceRow}>
-            <span className={styles.siaText}>All officers hold valid SIA licenses</span>
-            <div className={styles.buttonContainer}>
+      {/* Action Buttons - Only show when expanded or when service selected */}
+      {!isMinimized && (
+        <div className={styles.actionButtons}>
+          {!hasSelection && (
+            <div className={styles.minimizedActionContainer}>
+              <div className={styles.buttonContainer}>
+                <button
+                  className={`${styles.ctaButton} ${styles.disabled}`}
+                  disabled={true}
+                  type="button"
+                  aria-label="Select protection level above"
+                >
+                  <span className={styles.ctaButtonText}>Select Protection Level Above</span>
+                  <span className={styles.ctaButtonSubtext}>↑ Choose from options above</span>
+                </button>
+              </div>
+            </div>
+          )}
+          {hasSelection && (
+            <div className={styles.selectedActionContainer}>
+              {/* Simplified Price Display - Just the final price */}
+              <div className={styles.dynamicPriceDisplay}>
+                <div className={styles.priceBreakdown}>
+                  {pricing?.hasDiscount ? (
+                    <div className={styles.discountedPriceRow}>
+                      <span className={styles.finalPriceLabel}>Total:</span>
+                      <div className={styles.priceWithDiscount}>
+                        <span className={styles.originalPrice}>£{pricing.originalPrice?.toFixed(2)}</span>
+                        <span className={styles.finalPrice}>£{pricing.finalPrice.toFixed(2)}</span>
+                      </div>
+                    </div>
+                  ) : (
+                    <div className={styles.regularPriceRow}>
+                      <span className={styles.finalPriceLabel}>Total:</span>
+                      <span className={styles.finalPrice}>£{pricing?.finalPrice.toFixed(2) || '0.00'}</span>
+                    </div>
+                  )}
+                </div>
+              </div>
+
               <button
-                className={`${styles.primaryButton} ${styles.initialState} ${!isValid ? styles.disabled : ''}`}
+                className={`${styles.primaryButton} ${styles.fullWidth} ${!isValid ? styles.disabled : ''}`}
                 onClick={onPrimaryAction}
                 disabled={(!hasSelection && !onPrimaryAction) || (!isValid && hasSelection) || isLoading}
                 type="button"
@@ -235,43 +237,9 @@ export const BottomActionBar: React.FC<BottomActionBarProps> = ({
                 )}
               </button>
             </div>
-          </div>
-        )}
-        {hasSelection && (
-          <button
-            className={`${styles.primaryButton} ${styles.fullWidth} ${!isValid ? styles.disabled : ''}`}
-            onClick={onPrimaryAction}
-            disabled={(!hasSelection && !onPrimaryAction) || (!isValid && hasSelection) || isLoading}
-            type="button"
-            aria-label={primaryButtonText}
-          >
-            {isLoading ? (
-              <>
-                <div className={styles.spinner} role="status" aria-label="Processing">
-                  <svg className={styles.spinnerSvg} viewBox="0 0 24 24">
-                    <circle
-                      cx="12"
-                      cy="12"
-                      r="10"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      fill="none"
-                      strokeLinecap="round"
-                      strokeDasharray="32"
-                      strokeDashoffset="32"
-                    />
-                  </svg>
-                </div>
-                <span>Processing...</span>
-              </>
-            ) : (
-              <>
-                {primaryButtonText}
-              </>
-            )}
-          </button>
-        )}
-      </div>
+          )}
+        </div>
+      )}
 
       {/* Trust Indicators - removed to reduce redundancy */}
 

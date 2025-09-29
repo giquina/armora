@@ -3,7 +3,6 @@ import { useApp } from '../../contexts/AppContext';
 import { ArmoraLogo } from '../UI/ArmoraLogo';
 import { Footer } from '../Footer';
 import { TopToolbar } from '../Navigation/TopToolbar';
-import { ActiveProtectionPanel } from '../ActiveProtection';
 import { NotificationsPanel } from '../Notifications/NotificationsPanel';
 import { getDisplayName } from '../../utils/nameUtils';
 import { getLogoProps } from '../../styles/brandConstants';
@@ -29,14 +28,11 @@ export function AppLayout({
   const { state, navigateToView } = useApp();
   const { currentView, user } = state;
 
-  // Active Protection Panel state
-  const [isActiveProtectionOpen, setIsActiveProtectionOpen] = useState(false);
-  const [hasActiveProtection] = useState(false); // Active protection state placeholder
   const [isNotificationsOpen, setIsNotificationsOpen] = useState(false);
 
   // Disable header completely - user requested removal
   const shouldShowHeader = false;
-  // Show bottom navigation on all pages (including guests) per request
+  // Hide bottom navigation only on splash page
   const shouldShowNav = showNavigation && currentView !== 'splash';
 
   const getHeaderInfo = () => {
@@ -55,6 +51,7 @@ export function AppLayout({
       };
       case 'services': return { title: 'Services', subtitle: 'Choose your protection', showServices: false };
       case 'protection-assignment': return { title: '', subtitle: 'Secure Transport', showServices: false };
+      case 'active': return { title: 'Active Protection', subtitle: 'Live Security Status', showServices: false };
       case 'hub':
       case 'Assignments': return { title: 'Your Hub', subtitle: 'Transport & Security', showServices: false };
       case 'account': return { title: 'Your Account', subtitle: 'Settings & Preferences', showServices: false };
@@ -86,6 +83,9 @@ export function AppLayout({
         break;
       case 'protection-assignment':
         navigateToView('services');
+        break;
+      case 'active':
+        navigateToView('home');
         break;
       case 'hub':
         navigateToView('home');
@@ -266,24 +266,17 @@ export function AppLayout({
             </button>
 
             <button
-              className={`${styles.navButton} ${isActiveProtectionOpen ? styles.navButtonActive : ''} ${styles.activeButton}`}
-              onClick={() => {
-                if (hasActiveProtection) {
-                  setIsActiveProtectionOpen(true);
-                } else {
-                  // For demo purposes, let's show the panel anyway
-                  setIsActiveProtectionOpen(true);
-                }
-              }}
+              className={`${styles.navButton} ${currentView === 'active' ? styles.navButtonActive : ''} ${styles.activeButton}`}
+              onClick={() => navigateToView('active')}
               aria-label="Active Protection"
             >
               <div className={styles.activeIconContainer}>
-                <div className={`${styles.activeIcon} ${hasActiveProtection ? styles.activePulsing : styles.activeDisabled}`}>
-                  {hasActiveProtection ? '🟢' : '🔴'}
+                <div className={`${styles.activeIcon} ${styles.activePulsing}`}>
+                  🟢
                 </div>
               </div>
-              <span className={styles.navLabel} style={{ color: hasActiveProtection ? '#22c55e' : '#ef4444' }}>
-                {hasActiveProtection ? 'Active' : 'Inactive'}
+              <span className={styles.navLabel} style={{ color: '#22c55e' }}>
+                Active
               </span>
             </button>
 
@@ -317,13 +310,6 @@ export function AppLayout({
           </div>
         </nav>
       )}
-
-      {/* Active Protection Panel */}
-      <ActiveProtectionPanel
-        isOpen={isActiveProtectionOpen}
-        onClose={() => setIsActiveProtectionOpen(false)}
-        isActive={hasActiveProtection}
-      />
 
       {/* Notifications Drawer */}
       <NotificationsPanel isOpen={isNotificationsOpen} onClose={() => setIsNotificationsOpen(false)} />

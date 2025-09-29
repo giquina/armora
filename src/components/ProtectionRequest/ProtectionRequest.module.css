@@ -751,6 +751,48 @@
   box-shadow: 0 1px 3px rgba(0,0,0,0.1);
 }
 
+/* Situation Section */
+.situationSection {
+  margin: 32px 0;
+  padding: 20px;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.skipOption {
+  margin-top: 16px;
+  text-align: center;
+}
+
+.skipButton {
+  background: transparent;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 12px 20px;
+  color: #6b7280;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.skipButton:hover {
+  border-color: #c9a961;
+  color: #c9a961;
+  background: rgba(201, 169, 97, 0.05);
+}
+
+/* Journey Planning Section */
+.journeyPlanningSection {
+  margin: 32px 0;
+  padding: 20px;
+  background: #f9fafb;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+}
+
 /* Journey Details Section */
 .journeyDetailsSection {
   margin: 32px 0 80px 0; /* Extra bottom margin in case this is last section */
@@ -816,13 +858,56 @@
   line-height: 1.5;
 }
 
-/* Terms Section */
-.termsSection {
+/* Confirmation Section */
+.confirmationSection {
   margin: 32px 0 120px 0; /* Much more bottom margin for sticky bar */
   padding: 20px;
   background: #ffffff;
   border: 2px solid #e5e7eb;
   border-radius: 12px;
+}
+
+.selectionSummary {
+  margin-bottom: 24px;
+  padding: 16px;
+  background: #f8fafc;
+  border-radius: 8px;
+  border: 1px solid #e2e8f0;
+}
+
+.summaryRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.summaryRow:last-child {
+  margin-bottom: 0;
+}
+
+.summaryLabel {
+  font-size: 14px;
+  color: #6b7280;
+  font-weight: 500;
+}
+
+.summaryValue {
+  font-size: 14px;
+  color: #1a2332;
+  font-weight: 600;
+}
+
+/* Terms Section */
+.termsSection {
+  margin-top: 24px;
+}
+
+.termsTitle {
+  font-size: 16px;
+  font-weight: 600;
+  color: #1a2332;
+  margin: 0 0 16px 0;
 }
 
 .termItem {
@@ -868,8 +953,18 @@
     padding: 16px;
   }
 
-  .termsSection {
+  .confirmationSection {
     margin: 24px 0 120px 0; /* Much more bottom margin for mobile sticky bar */
+    padding: 16px;
+  }
+
+  .situationSection {
+    margin: 24px 0;
+    padding: 16px;
+  }
+
+  .journeyPlanningSection {
+    margin: 24px 0;
     padding: 16px;
   }
 }
@@ -916,5 +1011,149 @@
   .requestButton {
     padding: var(--space-md) var(--space-lg);
     font-size: 1.1rem;
+  }
+}
+
+/* ============================================
+   NEW SECTION STYLES FOR IMPROVED LAYOUT
+   ============================================ */
+
+/* Location Section - Now at top */
+.locationSection {
+  margin: 24px 0;
+  padding: 0 16px;
+}
+
+/* Time Selection Section */
+.timeSelectionSection {
+  margin: 24px 0;
+  padding: 0 16px;
+}
+
+.sectionHeader {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+  padding: 16px;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+}
+
+.sectionHeaderIcon {
+  font-size: 24px;
+  flex-shrink: 0;
+}
+
+.sectionHeaderContent {
+  flex: 1;
+}
+
+.sectionTitle {
+  font-size: 18px;
+  font-weight: 700;
+  color: #1a2332;
+  margin: 0 0 4px 0;
+}
+
+.sectionSubtitle {
+  font-size: 14px;
+  color: #6b7280;
+  margin: 0;
+}
+
+/* Journey Summary Styles - Reused from original */
+.journeySummary {
+  margin: 16px 0;
+  padding: 16px;
+  background: #f0f9ff;
+  border: 1px solid #bae6fd;
+  border-radius: 8px;
+}
+
+.journeyRoute {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 8px;
+  flex-wrap: wrap;
+}
+
+.routeItem {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex: 1;
+  min-width: 120px;
+}
+
+.routeIcon {
+  font-size: 16px;
+  flex-shrink: 0;
+}
+
+.routeText {
+  font-size: 14px;
+  color: #1a2332;
+  font-weight: 500;
+  word-break: break-word;
+}
+
+.routeArrow {
+  font-size: 18px;
+  color: #6b7280;
+  flex-shrink: 0;
+}
+
+.journeyNote {
+  font-size: 12px;
+  color: #059669;
+  margin: 0;
+  font-weight: 500;
+}
+
+/* Mobile responsive for new sections */
+@media (max-width: 480px) {
+  .locationSection,
+  .timeSelectionSection {
+    margin: 16px 0;
+    padding: 0 12px;
+  }
+
+  .sectionHeader {
+    padding: 12px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .sectionHeaderIcon {
+    font-size: 20px;
+  }
+
+  .sectionTitle {
+    font-size: 16px;
+  }
+
+  .sectionSubtitle {
+    font-size: 13px;
+  }
+
+  .journeyRoute {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .routeItem {
+    flex: none;
+    min-width: auto;
+    width: 100%;
+  }
+
+  .routeArrow {
+    align-self: center;
+    transform: rotate(90deg);
   }
 }

@@ -1,121 +1,150 @@
 /* ASSIGNMENTS PAGE - PROTECTION PANEL DESIGN SYSTEM */
 
-/* Main Container - Improved spacing and section organization */
+/* Main Container - Connected Flow Design */
 .hubContainer {
-  background: #1a1a2e;
+  background: linear-gradient(180deg, #1a1a2e 0%, #151526 50%, #1a1a2e 100%);
   min-height: calc(100vh - 120px);
   padding: 20px 16px;
-  /* Reserve space for the fixed EnhancedProtectionPanel when collapsed */
-  padding-bottom: calc(180px + env(safe-area-inset-bottom));
+  /* Reserve space for the fixed EnhancedProtectionPanel + bottom navigation */
+  padding-bottom: calc(240px + env(safe-area-inset-bottom)); /* 180px for protection panel + 60px for bottom nav */
   color: white;
   display: flex;
   flex-direction: column;
-  gap: 24px; /* Consistent spacing between all major sections */
+  gap: 16px; /* Tighter spacing for better connection */
+  position: relative;
+  overflow-x: hidden;
 }
 
-/* Header Section - Improved section wrapper */
+/* Flow Connectors - Visual lines that connect sections */
+.hubContainer::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: linear-gradient(180deg,
+    transparent 0%,
+    rgba(255, 215, 0, 0.1) 10%,
+    rgba(255, 215, 0, 0.3) 50%,
+    rgba(255, 215, 0, 0.1) 90%,
+    transparent 100%
+  );
+  transform: translateX(-50%);
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* Removed decorative flow connectors */
+
+/* Header Section - Connected Design */
 .headerSection {
   text-align: center;
-  margin-bottom: 0; /* Remove margin since we're using gap */
-  padding: 16px;
-  background: rgba(255, 255, 255, 0.03);
-  border-radius: 12px;
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  margin-bottom: 0;
+  padding: 24px 0;
+  position: relative;
+  z-index: 1;
 }
 
+/* Removed decorative connection indicators */
+
 .pageTitle {
-  font-size: 28px; /* Increased for better visibility */
-  font-weight: 700;
-  color: #ffd700;
-  letter-spacing: 1px;
-  text-transform: uppercase;
+  font-size: 32px;
+  font-weight: 600;
+  color: white;
+  letter-spacing: 0;
+  text-transform: none;
   margin-bottom: 8px;
 }
 
 .subtitle {
-  font-size: 18px; /* Increased for better readability */
-  color: rgba(255, 255, 255, 0.7);
+  font-size: 16px;
+  color: rgba(255, 255, 255, 0.6);
   font-weight: 400;
-  letter-spacing: 0.3px;
   margin: 0;
 }
 
 .quickStatus {
   display: flex;
   justify-content: center;
-  gap: 16px;
-  margin-top: 8px;
+  gap: 12px;
+  margin-top: 16px;
   flex-wrap: wrap;
 }
 
 .statusPill {
   display: flex;
   align-items: center;
-  gap: 8px;
-  font-size: 14px;
-  font-weight: 600;
-  padding: 8px 16px;
-  border-radius: 20px;
-  border: 1px solid;
-  text-transform: uppercase;
-  letter-spacing: 0.3px;
+  gap: 6px;
+  font-size: 13px;
+  font-weight: 500;
+  padding: 6px 12px;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
 }
 
 .statusPill.active {
   color: #00FF88;
-  background: rgba(0, 255, 136, 0.1);
-  border-color: rgba(0, 255, 136, 0.3);
+  background: rgba(0, 255, 136, 0.15);
+  border-color: rgba(0, 255, 136, 0.4);
 }
 
 .statusPill.scheduled {
   color: #FFD700;
-  background: rgba(255, 215, 0, 0.1);
-  border-color: rgba(255, 215, 0, 0.3);
+  background: rgba(255, 215, 0, 0.15);
+  border-color: rgba(255, 215, 0, 0.4);
 }
 
 .statusPill.inactive {
-  color: rgba(255, 255, 255, 0.6);
-  background: rgba(255, 255, 255, 0.05);
-  border-color: rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.7);
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.2);
 }
 
 .pulseIndicator {
-  animation: pulse 2s ease-in-out infinite;
   color: #00FF88;
 }
 
 .amberIndicator {
-  animation: pulse 2s ease-in-out infinite;
   color: #FFD700;
 }
 
-/* Navigation Cards - Vertical Stack */
+/* Navigation Cards - Connected Flow */
 .navigationCards {
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  margin-bottom: 24px;
+  gap: 8px;
+  margin-bottom: 16px;
+  position: relative;
 }
+
+/* Removed decorative connection flow */
 
 .navCard {
   width: 100%;
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 12px;
-  padding: 14px 16px;
+  padding: 16px;
   text-align: left;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.2s ease;
   position: relative;
 }
+
+/* Removed decorative connection points */
+
+/* Removed excessive card type colors */
 
 .navCard:active {
   transform: scale(0.99);
 }
 
 .navCard.active {
-  background: rgba(255, 215, 0, 0.08);
-  border-color: rgba(255, 215, 0, 0.3);
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.2);
 }
 
 .navCardHeader {
@@ -139,11 +168,9 @@
 }
 
 .navCardTitle {
-  font-size: 16px;
-  font-weight: 600;
+  font-size: 15px;
+  font-weight: 500;
   color: white;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
   white-space: nowrap;
 }
 
@@ -156,29 +183,23 @@
 }
 
 .navCardBadge {
-  font-size: 13px;
-  padding: 3px 7px;
-  background: rgba(255, 215, 0, 0.2);
-  color: #ffd700;
+  font-size: 12px;
+  padding: 2px 6px;
+  background: rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.7);
   border-radius: 4px;
-  text-transform: uppercase;
-  font-weight: 600;
-  letter-spacing: 0.5px;
+  font-weight: 500;
   white-space: nowrap;
   flex-shrink: 0;
 }
 
 .activeIndicator {
-  color: #ffd700;
-  font-size: 14px;
-  animation: pulse 2s ease-in-out infinite;
+  color: #00FF88;
+  font-size: 12px;
   flex-shrink: 0;
 }
 
-@keyframes pulse {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.5; }
-}
+/* Removed pulse animation */
 
 .navCardInfo {
   padding-left: 26px; /* Align with title */
@@ -244,13 +265,14 @@
   }
 }
 
-/* Stats Section - Improved wrapper */
+/* Stats Section - Clean Design */
 .statsSection {
-  background: rgba(255, 255, 255, 0.03);
-  border-radius: 12px;
-  padding: 16px;
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  margin-bottom: 24px;
 }
+
+/* Removed decorative section header */
+
+/* Removed decorative connection line */
 
 /* Stats Grid - 2x2 Layout */
 .statsGrid {
@@ -260,17 +282,17 @@
   margin: 0; /* Remove margin since we're using section wrapper */
 }
 
-/* Sticky navigation wrapper */
+/* Sticky navigation wrapper - Clean Design */
 .stickyNav {
   position: sticky;
   top: 0;
   z-index: 3;
-  background: linear-gradient(180deg, rgba(26,26,46,0.98) 70%, rgba(26,26,46,0));
-  padding-top: 6px;
-  margin: -6px -16px 8px -16px; /* stretch background edge-to-edge */
-  padding-left: 16px;
-  padding-right: 16px;
+  background: #1a1a2e;
+  padding: 16px 0;
+  margin: 0 0 24px 0;
 }
+
+/* Removed navigation connection indicators */
 
 /* Filters Section - Clean organized layout */
 .filtersSection {
@@ -471,11 +493,10 @@
 
 /* Section header to separate lists */
 .sectionHeader {
-  color: rgba(255, 255, 255, 0.7);
-  font-weight: 700;
-  letter-spacing: 0.5px;
-  margin: 8px 0 6px 2px;
-  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.5);
+  font-weight: 500;
+  font-size: 13px;
+  margin: 0 0 12px 0;
 }
 
 /* Loading skeletons for cards */
@@ -506,22 +527,19 @@
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 12px;
-  padding: 12px;
+  padding: 16px;
   display: flex;
   align-items: center;
-  gap: 10px;
-  min-height: 80px;
-  cursor: pointer;
+  gap: 12px;
+  min-height: 72px;
   transition: all 0.2s ease;
-  -webkit-tap-highlight-color: rgba(255, 215, 0, 0.2);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 }
 
+/* Removed decorative borders and lines */
+
 .statCard:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
   background: rgba(255, 255, 255, 0.08);
-  border-color: rgba(255, 215, 0, 0.3);
+  border-color: rgba(255, 255, 255, 0.15);
 }
 
 .statCard:active {
@@ -530,10 +548,7 @@
 }
 
 .statIcon {
-  font-size: 24px;
-  width: 28px;
-  flex-shrink: 0;
-  text-align: center;
+  display: none;
 }
 
 .statContent {
@@ -542,28 +557,27 @@
 }
 
 .statValue {
-  font-size: 18px;
-  font-weight: 700;
+  font-size: 20px;
+  font-weight: 600;
   color: white;
   line-height: 1;
-  margin-bottom: 2px;
+  margin-bottom: 4px;
 }
 
 .statLabel {
-  font-size: 14px;
-  color: rgba(255, 255, 255, 0.6);
-  text-transform: uppercase;
-  letter-spacing: 0.3px;
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.5);
   line-height: 1.2;
 }
 
-/* Assignments Section Wrapper */
+/* Assignments Section - Clean Design */
 .assignmentsSection {
-  background: rgba(255, 255, 255, 0.03);
-  border-radius: 12px;
-  padding: 16px;
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  margin-top: 24px;
 }
+
+/* Removed dynamic section headers */
+
+/* Removed connection indicator */
 
 /* Assignment Cards - Compact Design with proper spacing */
 .assignmentsList {
@@ -771,63 +785,60 @@
   font-weight: 500;
 }
 
-/* Quick Actions Section - Improved wrapper with minimal spacing */
+/* Quick Actions Section - Clean Design */
 .quickActionsSection {
-  background: rgba(255, 255, 255, 0.03);
-  border-radius: 12px;
-  padding: 8px; /* Reduced padding for tighter layout */
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  margin-top: 24px;
 }
+
+/* Removed command center header */
+
+/* Removed connection indicator */
 
 /* Quick Actions - 2 Per Row Grid Layout with minimal spacing */
 .quickActions {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 4px; /* Reduced from 12px to minimal spacing */
-  margin: 0; /* Remove margin since we're using section wrapper */
-  /* Ensure buttons are in normal document flow */
-  position: relative;
-  z-index: 1;
+  gap: 12px;
+  margin: 0;
 }
 
 .quickActions .actionButton {
   background: rgba(255, 255, 255, 0.05);
-  border: 3px solid rgba(255, 255, 255, 0.3); /* Much thicker border */
-  border-radius: 16px; /* Larger border radius for thicker outline */
-  padding: 16px 12px; /* Increased padding for wider buttons */
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 16px;
   color: white;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 8px; /* Slightly increased gap */
-  transition: all 0.3s ease;
+  gap: 8px;
+  transition: all 0.2s ease;
   cursor: pointer;
-  min-height: 90px; /* Increased height for wider appearance */
-  width: 100%; /* Force full width within grid */
+  min-height: 80px;
+  width: 100%;
   justify-content: center;
   position: relative;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  box-sizing: border-box;
-  font-weight: 600; /* Bolder text */
 }
+
+/* Removed hover glow effects */
+
+/* Removed individual button color themes */
 
 .badge {
   position: absolute;
   top: 8px;
   right: 8px;
-  background: #FFD700;
-  color: #1a1a2e;
-  font-size: 12px;
-  font-weight: 600;
-  padding: 2px 6px;
-  border-radius: 10px;
-  min-width: 18px;
-  height: 18px;
+  background: rgba(255, 255, 255, 0.15);
+  color: white;
+  font-size: 11px;
+  font-weight: 500;
+  padding: 2px 5px;
+  border-radius: 8px;
+  min-width: 16px;
+  height: 16px;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 .quickActions .actionButton:active {
@@ -836,28 +847,21 @@
 }
 
 .quickActions .actionButton:hover {
-  background: rgba(255, 255, 255, 0.1);
-  border-color: rgba(255, 215, 0, 0.6); /* Stronger gold border on hover */
-  transform: translateY(-2px); /* More lift on hover */
-  box-shadow: 0 4px 16px rgba(255, 215, 0, 0.25); /* Stronger glow */
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.15);
 }
 
 .quickActions .actionIcon {
-  font-size: 28px; /* Larger icons for wider buttons */
-  color: #ffd700;
+  font-size: 24px;
+  color: rgba(255, 255, 255, 0.8);
 }
 
 .quickActions .actionText {
-  font-size: 14px; /* Larger text */
-  font-weight: 600; /* Bolder text */
+  font-size: 13px;
+  font-weight: 500;
   text-align: center;
   line-height: 1.2;
-  word-wrap: break-word;
-  overflow-wrap: break-word;
-  hyphens: auto;
-  max-width: 100%;
-  white-space: normal;
-  letter-spacing: 0.3px; /* Better letter spacing */
+  color: rgba(255, 255, 255, 0.9);
 }
 
 /* Analytics Content */
@@ -937,13 +941,49 @@
   box-shadow: 0 4px 12px rgba(255, 215, 0, 0.3);
 }
 
+/* Enhanced touch interactions and accessibility */
+.hubContainer * {
+  -webkit-tap-highlight-color: rgba(255, 215, 0, 0.2);
+}
+
+/* Improved scroll behavior */
+.hubContainer {
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Section transition indicators */
+.assignmentsSection[data-section] {
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Removed colored section borders */
+
+/* Removed hover effects on sections */
+
 /* Mobile Responsiveness - Improved Spacing */
 @media (max-width: 768px) {
   .hubContainer {
     padding: 14px 10px; /* Slightly reduced */
     gap: 18px; /* Better breathing room */
     /* Keep reserved space for the fixed panel on small screens */
-    padding-bottom: calc(180px + env(safe-area-inset-bottom));
+    padding-bottom: calc(240px + env(safe-area-inset-bottom)); /* 180px for protection panel + 60px for bottom nav */
+  }
+
+  /* Enhanced touch targets */
+  .navCard {
+    min-height: 60px;
+    touch-action: manipulation;
+  }
+
+  .quickActions .actionButton {
+    min-height: 80px;
+    touch-action: manipulation;
+  }
+
+  .statCard {
+    min-height: 70px;
+    touch-action: manipulation;
   }
 
   .statsSection,
@@ -1048,7 +1088,7 @@
   .hubContainer {
     padding: 12px 8px;
     /* Keep reserved space for the fixed panel on very small screens */
-    padding-bottom: calc(180px + env(safe-area-inset-bottom)); /* Increased for better spacing */
+    padding-bottom: calc(240px + env(safe-area-inset-bottom)); /* 180px for protection panel + 60px for bottom nav */ /* Increased for better spacing */
   }
 
   .pageTitle {
@@ -1094,7 +1134,7 @@
   }
 }
 
-/* Animation for smooth transitions */
+/* Enhanced animations for connected flow */
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -1106,9 +1146,42 @@
   }
 }
 
-.assignmentCard {
-  animation: fadeIn 0.3s ease-out;
+@keyframes slideInFromLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
+
+@keyframes slideInFromRight {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Removed card animations for cleaner feel */
+
+/* Removed section animations for cleaner feel */
 
 /* Accessibility */
 @media (prefers-reduced-motion: reduce) {
@@ -1327,6 +1400,86 @@
   .quickActions .actionText {
     font-size: 12px;
     line-height: 1.2;
+  }
+}
+
+/* Contextual Information Sections */
+.contextualStatus {
+  margin-top: 12px;
+  padding: 8px 0;
+}
+
+.statusMessage {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.8);
+  font-style: italic;
+  text-align: center;
+  display: block;
+}
+
+.navigationHeader {
+  text-align: left;
+  margin-bottom: 12px;
+}
+
+.navTitle {
+  font-size: 14px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.7);
+  display: block;
+  margin-bottom: 2px;
+}
+
+.navSubtitle {
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.5);
+  font-weight: 400;
+  display: block;
+}
+
+.contextualInfo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+  padding: 8px 0;
+  gap: 16px;
+}
+
+.contextualStat {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.6);
+  flex: 1;
+  min-width: 0;
+}
+
+.contextIcon {
+  font-size: 14px;
+  flex-shrink: 0;
+}
+
+.contextualStat span:last-child {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Mobile adjustments for contextual info */
+@media (max-width: 480px) {
+  .contextualInfo {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+  }
+
+  .contextualStat {
+    justify-content: center;
+    padding: 6px;
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 6px;
   }
 }
 

@@ -235,6 +235,17 @@
 .actionButtons {
   display: flex;
   gap: 12px;
+  justify-content: center;
+}
+
+/* When there are multiple buttons, space them apart */
+.actionButtons:has(> *:nth-child(2)) {
+  justify-content: space-between;
+}
+
+/* Fallback for browsers that don't support :has() */
+.actionButtons.multipleButtons {
+  justify-content: space-between;
 }
 
 .bookButton {

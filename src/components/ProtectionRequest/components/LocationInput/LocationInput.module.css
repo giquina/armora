@@ -2,13 +2,16 @@
 /* Enhanced location input with search, recent locations, and mobile optimization */
 
 .locationInput {
-  /* Clean white section - no edge-to-edge breakout */
-  width: 100%;
+  /* Clean white section - full-width edge-to-edge design */
+  width: 100vw;
   background: #ffffff;
-  padding: 16px;
+  padding: 16px 16px;
   margin-bottom: 16px;
-  border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  margin-left: calc(-50vw + 50%);
+  border-radius: 0;
+  box-shadow: none;
+  border: none;
+  box-sizing: border-box;
 }
 
 .sectionHeader {
@@ -51,10 +54,10 @@
   width: 100%;
   height: var(--touch-large, 56px);
   padding: var(--space-4, 16px);
-  padding-right: calc(var(--space-12, 48px) + 64px); /* Space for icon and edit button */
-  background: var(--bg-elevated, #ffffff);
-  border: 2px solid var(--border-medium, #cbd5e0);
-  border-radius: var(--radius-lg, 12px);
+  padding-right: calc(var(--space-12, 48px) + 24px);
+  background: transparent;
+  border: 2px solid #000000;
+  border-radius: 8px;
   color: var(--text-primary, #1a1a2e);
   font-size: var(--text-base, 16px);
   font-weight: var(--font-normal, 400);
@@ -70,23 +73,12 @@
   transform: translateZ(0);
 }
 
-/* Read-only detected address: ellipsis for long address */
-.inputReadOnly {
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
 .input:focus {
   outline: none;
-  border-color: var(--accent-primary, #FFD700);
-  box-shadow: 0 0 0 3px rgba(255, 215, 0, 0.1);
 }
 
-.input.error {
-  border-color: var(--error, #ef4444);
-  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
-}
+
+
 
 .input::placeholder {
   color: var(--text-muted, #718096);
@@ -108,39 +100,7 @@
   height: 24px;
 }
 
-/* Inline Edit Button inside input */
-.editButton {
-  position: absolute;
-  right: calc(var(--space-4, 16px) + 28px);
-  top: 50%;
-  transform: translateY(-50%);
-  height: 36px; /* ≥44px visual target with padding */
-  padding: 0 12px;
-  border-radius: 8px;
-  border: 1px solid var(--border-light, #e2e8f0);
-  background: #f8fafc; /* lighter to blend with input */
-  color: #1a2332;
-  font-size: 13px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 150ms ease;
-  box-shadow: 0 1px 2px rgba(0,0,0,0.04);
-}
 
-.editButton:hover {
-  background: #eef2f7;
-  border-color: #d1d5db;
-}
-
-.editButton:active {
-  transform: translateY(-50%) scale(0.98);
-}
-
-/* Auto-detected badge (inline in meta row) */
-.detectedBadge {
-  font-size: 12px;
-  color: #64748b;
-}
 
 /* Spinner Animation */
 .spinner {
@@ -210,7 +170,7 @@
   gap: var(--space-2, 8px);
   padding: var(--space-2, 8px) var(--space-3, 12px);
   background: var(--bg-secondary, #f7fafc);
-  border: 1px solid var(--border-light, #e2e8f0);
+  border: 2px solid #000000;
   border-radius: var(--radius-lg, 12px);
   color: var(--text-primary, #1a1a2e);
   font-size: var(--text-sm, 14px);
@@ -253,13 +213,13 @@
   left: 0;
   right: 0;
   background: var(--bg-elevated, #ffffff);
-  border: 1px solid var(--border-light, #e2e8f0);
-  border-radius: 0 0 var(--radius-lg, 12px) var(--radius-lg, 12px);
+  border: 2px solid #000000;
+  border-radius: 0 0 8px 8px;
   box-shadow: var(--shadow-lg, 0 10px 15px rgba(0, 0, 0, 0.1));
   z-index: var(--z-popover, 1020);
   max-height: 400px;
   overflow-y: auto;
-  margin-top: 1px;
+  margin-top: 2px;
 
   /* Smooth scrolling on mobile */
   -webkit-overflow-scrolling: touch;
@@ -370,58 +330,234 @@
   margin: 0;
 }
 
-/* Security Messaging */
-.securityMessage {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 8px;
+/* Main Location Container - Simplified */
+.locationInputContainer {
+  background: white;
+  border: 2px solid #000000;
+  border-radius: 8px;
+  padding: 16px;
+  position: relative;
+  transition: all 0.2s ease;
   margin-bottom: 16px;
-  padding: 12px 14px;
-  background: #fff9ef; /* high contrast subtle panel */
-  border-radius: 10px;
-  border: 1px solid #fde68a;
+  width: 100%;
 }
 
-.securityItem {
+.locationInputContainer:focus-within {
+  border-color: var(--accent-primary, #FFD700);
+  box-shadow: 0 0 0 2px rgba(255, 215, 0, 0.2);
+}
+
+/* Address Display (for detected addresses) */
+.addressDisplay {
+  width: 100%;
+}
+
+.addressDisplayBox {
+  background: #f8fafc;
+  border: 1px solid #000000;
+  border-radius: 6px;
+  padding: 12px;
+}
+
+.addressRow {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.addressMeta {
   display: flex;
   align-items: center;
-  gap: 8px;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 8px;
 }
 
-.securityIcon {
+.addressContent {
+  flex: 1;
+  min-width: 0;
+}
+
+.addressPrimary {
   font-size: 16px;
+  font-weight: 500;
+  color: #111827;
+  line-height: 1.3;
+  margin-bottom: 4px;
+}
+
+.addressSecondary {
+  font-size: 14px;
+  color: #6b7280;
+  line-height: 1.4;
+}
+
+/* Auto-detect Badge - Inline */
+.autoDetectBadgeInline {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 8px;
+  background: #10b981;
+  color: white;
+  border-radius: 12px;
+  font-size: 10px;
+  font-weight: 600;
+  white-space: nowrap;
   flex-shrink: 0;
 }
 
-.securityText {
-  font-size: 13px;
-  color: #111827;
-  line-height: 1.4;
+/* Auto-detect Badge - Original (for compatibility) */
+.autoDetectBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 6px 10px;
+  background: #10b981;
+  color: white;
+  border-radius: 16px;
+  font-size: 11px;
   font-weight: 600;
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 
-/* Meta row under input for detected state */
-.metaRow {
+.checkIcon {
+  font-size: 10px;
+  font-weight: bold;
+}
+
+/* Address Actions */
+.addressActions {
   display: flex;
   align-items: center;
-  gap: 12px;
-  margin-top: 6px;
+  gap: 8px;
 }
 
-.viewFullLink {
-  appearance: none;
-  background: transparent;
-  border: 0;
-  padding: 0;
-  font-size: 12px;
-  color: var(--accent-primary, #FFD700);
+.editButton {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 12px;
+  background: #f3f4f6;
+  border: 2px solid #000000;
+  border-radius: 6px;
+  color: #374151;
+  font-size: 13px;
+  font-weight: 500;
   cursor: pointer;
-  text-decoration: underline;
+  transition: all 0.15s ease;
 }
 
-.viewFullLink:hover {
-  text-decoration: none;
+.editButtonInline {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 6px 10px;
+  background: #f3f4f6;
+  border: 2px solid #000000;
+  border-radius: 6px;
+  color: #374151;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  flex-shrink: 0;
 }
+
+.editButton:hover {
+  background: #e5e7eb;
+  border-color: #000000;
+}
+
+.editButtonInline:hover {
+  background: #e5e7eb;
+  border-color: #000000;
+}
+
+.editIcon {
+  font-size: 12px;
+}
+
+.expandButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  background: #f9fafb;
+  border: 2px solid #000000;
+  border-radius: 6px;
+  color: #6b7280;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.expandButton:hover {
+  background: #f3f4f6;
+  color: #374151;
+  border-color: #000000;
+}
+
+.expandIcon {
+  font-size: 14px;
+}
+
+/* Security Footer */
+.securityFooter {
+  text-align: center;
+  margin-top: 12px;
+  padding: 8px 0;
+}
+
+.securityText {
+  font-size: 12px;
+  color: #6b7280;
+  line-height: 1.4;
+}
+
+/* Mobile Optimization */
+@media (max-width: 480px) {
+  .addressRow {
+    flex-direction: column;
+    gap: 8px;
+    align-items: flex-start;
+  }
+
+  .addressMeta {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .autoDetectBadge,
+  .autoDetectBadgeInline {
+    align-self: flex-start;
+  }
+
+  .addressActions {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .editButton,
+  .editButtonInline {
+    flex: 1;
+    justify-content: center;
+    margin-right: 8px;
+  }
+
+  .securityText {
+    font-size: 11px;
+  }
+
+  .locationInputContainer {
+    padding: 12px;
+  }
+}
+
 
 /* Full address popover */
 .fullAddressPopover {
@@ -523,17 +659,17 @@
 /* Responsive Design - Tablet */
 @media (min-width: 768px) {
   .locationInput {
-    width: auto;
-    margin-left: 0;
-    padding: var(--space-6, 24px);
-    border-radius: var(--radius-lg, 12px);
-    border: 1px solid var(--border-light, #e2e8f0);
-    border-bottom: 1px solid var(--border-light, #e2e8f0);
-    margin-bottom: var(--space-4, 16px);
+    width: 100vw;
+    margin-left: calc(-50vw + 50%);
+    padding: 24px 24px;
+    border-radius: 0;
+    border: none;
+    margin-bottom: 16px;
+    box-sizing: border-box;
   }
 
   .sectionHeader {
-    padding: 0 0 var(--space-5, 20px);
+    padding: 0 0 20px 0;
   }
 
   .inputContainer {
@@ -543,10 +679,32 @@
   .sectionTitle {
     font-size: var(--text-2xl, 24px);
   }
+
+  .locationInputContainer {
+    padding: 20px;
+  }
+
+  .addressRow {
+    gap: 16px;
+  }
+
+  .editButton {
+    padding: 10px 16px;
+    font-size: 14px;
+  }
+
+  .expandButton {
+    width: 36px;
+    height: 36px;
+  }
 }
 
 /* Responsive Design - Desktop */
 @media (min-width: 1024px) {
+  .locationInput {
+    padding: 32px 32px;
+  }
+
   .sectionTitle {
     font-size: var(--text-3xl, 30px);
   }
@@ -558,6 +716,28 @@
   .input {
     font-size: var(--text-lg, 18px);
     height: 60px;
+  }
+
+  .locationInputContainer {
+    padding: 24px;
+  }
+
+  .addressPrimary {
+    font-size: 18px;
+  }
+
+  .addressSecondary {
+    font-size: 16px;
+  }
+
+  .editButton {
+    padding: 12px 20px;
+    font-size: 15px;
+  }
+
+  .expandButton {
+    width: 40px;
+    height: 40px;
   }
 }
 
@@ -585,7 +765,10 @@
 @media (prefers-reduced-motion: reduce) {
   .input,
   .savedLocationButton,
-  .dropdownItem {
+  .dropdownItem,
+  .editButton,
+  .expandButton,
+  .locationInputContainer {
     transition: none;
   }
 

@@ -22,7 +22,6 @@
   border-radius: 12px; /* Smaller radius for mobile-first */
   padding: 12px; /* Mobile-first compact padding */
   text-align: left;
-  cursor: pointer;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   position: relative;
   overflow: visible;
@@ -46,21 +45,7 @@
 .navCard.completed::before { background: #00FF88; }
 .navCard.analytics::before { background: #FF6B6B; }
 
-/* Enhanced hover effects */
-.navCard:hover::before {
-  width: 6px;
-}
-
-.navCard:hover {
-  transform: translateY(-2px);
-  box-shadow:
-    0 8px 32px rgba(0, 0, 0, 0.16),
-    inset 0 1px 0 rgba(255, 255, 255, 0.2);
-}
-
-.navCard:active {
-  transform: scale(0.98);
-}
+/* Removed hover effects - cards are not clickable, only serve as section selectors */
 
 /* Enhanced active state with full border glow */
 .navCard.active {
@@ -713,37 +698,174 @@
   color: rgba(255, 255, 255, 0.4);
 }
 
-/* Quick Actions - COMPACT */
+/* Quick Actions - Full Width Layout */
 .quickActions {
-  display: flex;
-  gap: 2px; /* REDUCED gap */
-  margin-top: 2px; /* REDUCED margin */
-  opacity: 0;
-  transition: opacity 0.3s ease;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 8px;
+  margin-top: 12px;
+  opacity: 1;
 }
 
 .navCard:hover .quickActions {
   opacity: 1;
 }
 
-.quickAction {
-  min-width: 44px;
+.actionBtn {
+  width: 100% !important;
   min-height: 44px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  color: white;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 12px 16px;
+  display: flex !important;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: left;
+  white-space: nowrap !important;
+}
+
+.actionBtn:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.15);
+}
+
+/* New Compact Card Structure */
+.essentialInfo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+  margin-bottom: 8px;
+}
+
+.statusSection {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.keyStats {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.8);
+  flex: 1;
+  justify-content: center;
+}
+
+.bullet {
+  color: rgba(255, 255, 255, 0.4);
+  font-weight: bold;
+}
+
+.investment {
+  color: #FFD700;
+  font-weight: 600;
+}
+
+.expandButton {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
   background: rgba(255, 255, 255, 0.1);
   border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 4px;
+  color: white;
+  font-size: 14px;
+  font-weight: 600;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
   transition: all 0.2s ease;
-  -webkit-tap-highlight-color: rgba(255, 215, 0, 0.2);
 }
 
-.quickAction:hover {
-  background: rgba(255, 255, 255, 0.2);
-  border-color: rgba(255, 215, 0, 0.5);
+.expandButton:hover {
+  background: rgba(255, 255, 255, 0.15);
   transform: scale(1.1);
+}
+
+.expandedDetails {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.officerSection {
+  padding: 12px;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 8px;
+}
+
+.officerInfo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.officerDetails {
+  flex: 1;
+}
+
+.officerCredentials {
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.7);
+  margin-top: 2px;
+}
+
+.journeySection {
+  padding: 10px;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 8px;
+}
+
+.locationRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+  font-size: 12px;
+}
+
+.locationFrom, .locationTo {
+  color: rgba(255, 255, 255, 0.8);
+  font-weight: 500;
+}
+
+.progressText {
+  text-align: center;
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.7);
+  margin-top: 6px;
+}
+
+.emptyState {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  text-align: center;
+}
+
+.emptyIcon {
+  font-size: 24px;
+  margin-bottom: 8px;
+  opacity: 0.5;
+}
+
+.emptyText {
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 14px;
 }
 
 .quickAction .actionIcon {
@@ -1234,46 +1356,55 @@
   color: rgba(255, 255, 255, 0.6);
 }
 
-/* Action Buttons */
-.actionButtons {
-  display: flex;
+/* Action Buttons - Full Width Layout - High Specificity */
+.navCard .actionButtons {
+  display: flex !important;
+  flex-direction: column !important;
   gap: 8px;
   margin-top: 12px;
+  width: 100%;
 }
 
-.actionButton {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
+.navCard .actionButtons .actionButton {
+  width: 100% !important;
+  min-height: 44px;
+  display: flex !important;
+  flex-direction: row !important;
   align-items: center;
-  gap: 4px;
-  padding: 12px 8px;
+  gap: 10px;
+  padding: 12px 16px;
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 8px;
   color: white;
-  font-size: 10px;
+  font-size: 13px;
   font-weight: 500;
   cursor: pointer;
   transition: all 0.2s ease;
-  min-height: 60px;
+  justify-content: flex-start;
+  text-align: left;
 }
 
-.actionButton:hover {
-  background: rgba(255, 255, 255, 0.1);
-  border-color: rgba(255, 215, 0, 0.3);
-  transform: translateY(-1px);
+.navCard .actionButtons .actionButton:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.15);
 }
 
-.buttonIcon {
-  font-size: 18px;
-  color: #FFD700;
+.navCard .actionButtons .actionButton .buttonIcon {
+  font-size: 16px;
+  color: rgba(255, 255, 255, 0.7);
+  flex-shrink: 0 !important;
 }
 
-.buttonLabel {
-  text-align: center;
+.navCard .actionButtons .actionButton .buttonLabel {
+  text-align: left;
   line-height: 1.2;
   color: rgba(255, 255, 255, 0.9);
+  white-space: nowrap !important;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  flex: 1;
+  width: auto;
 }
 
 /* UPCOMING CARD STYLES */
@@ -1809,35 +1940,30 @@
     font-size: 11px; /* Consistent small text */
   }
 
-  /* ACTION BUTTONS FULL WIDTH */
-  .actionButtons {
-    flex-direction: column;
-    gap: 8px; /* Reduced gap for mobile */
-    margin-top: 6px;
+  /* Mobile-specific action button adjustments - High Specificity */
+  .navCard .actionButtons {
+    margin-top: 8px;
+    display: flex !important;
+    flex-direction: column !important;
   }
 
-  .actionButton {
-    width: 100%; /* Full width */
-    min-height: 44px; /* Standard touch target */
-    padding: 10px 12px; /* Compact padding */
-    flex-direction: row; /* Horizontal layout */
-    justify-content: center;
-    align-items: center;
-    gap: 6px;
-    border-radius: 6px;
-    font-size: 13px; /* Compact but readable */
-    font-weight: 600;
+  .navCard .actionButtons .actionButton {
+    padding: 12px;
+    font-size: 14px;
+    width: 100% !important;
+    display: flex !important;
+    flex-direction: row !important;
+    justify-content: flex-start;
   }
 
-  .buttonIcon {
-    font-size: 14px; /* Compact icon size */
-    flex-shrink: 0;
+  .navCard .actionButtons .actionButton .buttonIcon {
+    font-size: 14px;
+    flex-shrink: 0 !important;
   }
 
-  .buttonLabel {
-    font-size: 13px; /* Prevent text wrapping */
-    font-weight: 600;
-    white-space: nowrap; /* Prevent wrapping */
+  .navCard .actionButtons .actionButton .buttonLabel {
+    font-size: 14px;
+    white-space: nowrap !important;
     overflow: hidden;
     text-overflow: ellipsis;
   }
@@ -2068,18 +2194,23 @@
     font-size: 8px;
   }
 
-  .actionButton {
+  .navCard .actionButtons .actionButton {
     min-height: 40px; /* Slightly smaller but still accessible */
     padding: 10px;
     font-size: 12px;
+    width: 100% !important;
+    display: flex !important;
+    flex-direction: row !important;
   }
 
-  .buttonIcon {
+  .navCard .actionButtons .actionButton .buttonIcon {
     font-size: 12px;
+    flex-shrink: 0 !important;
   }
 
-  .buttonLabel {
+  .navCard .actionButtons .actionButton .buttonLabel {
     font-size: 12px;
+    white-space: nowrap !important;
   }
 
   .investmentAmount {
@@ -2128,9 +2259,12 @@
     font-size: 14px;
   }
 
-  .actionButton {
+  .navCard .actionButtons .actionButton {
     min-height: 42px; /* Progressive increase */
     padding: 11px;
+    width: 100% !important;
+    display: flex !important;
+    flex-direction: row !important;
   }
 
   .cardContent {

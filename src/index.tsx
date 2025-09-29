@@ -61,21 +61,30 @@ root.render(
   </StrictMode>
 );
 
-// Service worker registration removed to avoid stale cached chunks causing ChunkLoadError.
-// Proactively unregister any existing service workers and clear caches (best-effort, non-blocking).
+// Service Worker registration for PWA functionality
 if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.getRegistrations().then(registrations => {
-    registrations.forEach(r => r.unregister());
-    if (registrations.length > 0) {
-    }
-  }).catch(err => console.warn('[SW] Unregister failed:', err));
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/sw.js')
+      .then((registration) => {
+        console.log('SW registered: ', registration);
 
-  // Clear runtime caches that may still hold old chunks
-  if ('caches' in window) {
-    caches.keys().then(keys => {
-      return Promise.all(keys.map(k => caches.delete(k)));
-    }).catch(err => console.warn('[SW] Cache clear failed:', err));
-  }
+        // Handle updates
+        registration.addEventListener('updatefound', () => {
+          const newWorker = registration.installing;
+          if (newWorker) {
+            newWorker.addEventListener('statechange', () => {
+              if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                // New content available
+                console.log('New content available; please refresh.');
+              }
+            });
+          }
+        });
+      })
+      .catch((registrationError) => {
+        console.log('SW registration failed: ', registrationError);
+      });
+  });
 }
 
 // If you want to start measuring performance in your app, pass a function

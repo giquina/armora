@@ -188,17 +188,13 @@ export function Hub() {
   }, []);
 
   // Enhanced feature handlers
-
   const handleDirectCall = useCallback(() => {
     // In real app: initiate call to assigned officer
   }, []);
 
-
-
   const handleLocationToggle = useCallback(() => {
     setIsLocationSharing(!isLocationSharing);
   }, [isLocationSharing]);
-
 
   const handleViewFinancialDetails = useCallback(() => {
     setShowFinancialTracker(!showFinancialTracker);
@@ -400,8 +396,45 @@ export function Hub() {
     }
 
     return (
-      <div className={styles.assignmentsSection}>
+      <div className={styles.assignmentsSection} data-section={activeSection}>
         <div className={styles.sectionHeader}>{activeSection.toUpperCase()}</div>
+        {/* Contextual Stats for Current Section */}
+        {activeSection === 'current' && currentAssignments.length > 0 && (
+          <div className={styles.contextualInfo}>
+            <div className={styles.contextualStat}>
+              <span className={styles.contextIcon}>⏱️</span>
+              <span>Total Active Time: {currentAssignments.reduce((acc, a) => acc + parseFloat(a.duration.split(' ')[0]) || 0, 0)}h</span>
+            </div>
+            <div className={styles.contextualStat}>
+              <span className={styles.contextIcon}>💷</span>
+              <span>Active Investment: £{currentAssignments.reduce((acc, a) => acc + a.totalCost, 0)}</span>
+            </div>
+          </div>
+        )}
+        {activeSection === 'upcoming' && upcomingAssignments.length > 0 && (
+          <div className={styles.contextualInfo}>
+            <div className={styles.contextualStat}>
+              <span className={styles.contextIcon}>📅</span>
+              <span>Next: {upcomingAssignments[0]?.date} at {upcomingAssignments[0]?.time}</span>
+            </div>
+            <div className={styles.contextualStat}>
+              <span className={styles.contextIcon}>🛡️</span>
+              <span>Scheduled: {upcomingAssignments.length} protection{upcomingAssignments.length !== 1 ? 's' : ''}</span>
+            </div>
+          </div>
+        )}
+        {activeSection === 'completed' && completedAssignments.length > 0 && (
+          <div className={styles.contextualInfo}>
+            <div className={styles.contextualStat}>
+              <span className={styles.contextIcon}>⭐</span>
+              <span>Avg Rating: {(completedAssignments.reduce((acc, a) => acc + (a.rating || 0), 0) / completedAssignments.filter(a => a.rating).length || 0).toFixed(1)}</span>
+            </div>
+            <div className={styles.contextualStat}>
+              <span className={styles.contextIcon}>📊</span>
+              <span>Total Completed: {completedAssignments.length}</span>
+            </div>
+          </div>
+        )}
         {isLoading ? (
           <div className={styles.assignmentsList} role="tabpanel" aria-busy>
             <div className={styles.skeletonCard} />
@@ -442,6 +475,17 @@ export function Hub() {
             </span>
           )}
         </div>
+
+        {/* Contextual Status Message */}
+        <div className={styles.contextualStatus}>
+          {currentAssignments.length > 0 ? (
+            <span className={styles.statusMessage}>Your protection is currently active. Monitor progress below.</span>
+          ) : upcomingAssignments.length > 0 ? (
+            <span className={styles.statusMessage}>Next protection starts {upcomingAssignments[0]?.date} at {upcomingAssignments[0]?.time}</span>
+          ) : (
+            <span className={styles.statusMessage}>Ready to request your next protection service</span>
+          )}
+        </div>
       </div>
 
       {/* Financial Tracker */}
@@ -457,6 +501,10 @@ export function Hub() {
 
       {/* Enhanced Navigation Cards */}
       <div className={styles.stickyNav}>
+        <div className={styles.navigationHeader}>
+          <span className={styles.navTitle}>Protection Overview</span>
+          <span className={styles.navSubtitle}>Tap to view details</span>
+        </div>
         <NavigationCards
           activeSection={activeSection}
           setActiveSection={setActiveSection}
@@ -469,7 +517,6 @@ export function Hub() {
           upcomingAssignments={upcomingAssignments}
           completedAssignments={completedAssignments}
         />
-
       </div>
 
       {/* Quick Stats Cards */}
@@ -532,7 +579,7 @@ export function Hub() {
         </div>
       </div>
 
-      {/* Enhanced Protection Panel - Always show for testing */}
+      {/* Enhanced Protection Panel - White sliding panel for active protection */}
       <EnhancedProtectionPanel
         officer={mockOfficer}
         assignment={currentAssignments[0] || {

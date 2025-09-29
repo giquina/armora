@@ -1,0 +1,599 @@
+/* Inherit base styles from PrivacyPolicy and add specific styling */
+.container {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+  color: #ffffff;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+}
+
+.content {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 40px 20px;
+  line-height: 1.6;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 40px;
+  padding-bottom: 20px;
+  border-bottom: 2px solid rgba(233, 69, 96, 0.3);
+}
+
+.header h1 {
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 12px;
+  background: linear-gradient(135deg, #ffffff 0%, #e94560 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.lastUpdated {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 14px;
+}
+
+.criticalNotice {
+  background: linear-gradient(135deg, rgba(220, 53, 69, 0.15) 0%, rgba(233, 69, 96, 0.15) 100%);
+  border: 3px solid #dc3545;
+  border-radius: 12px;
+  padding: 32px;
+  margin-bottom: 40px;
+  position: relative;
+}
+
+.criticalNotice::before {
+  content: '🚨';
+  font-size: 32px;
+  position: absolute;
+  top: 16px;
+  right: 16px;
+}
+
+.criticalNotice h2 {
+  color: #dc3545;
+  font-size: 24px;
+  margin-bottom: 20px;
+  font-weight: 800;
+}
+
+.noticeContent p {
+  font-size: 16px;
+  margin-bottom: 12px;
+  line-height: 1.5;
+}
+
+.noticeContent p:first-child {
+  font-size: 18px;
+  color: #ffffff;
+}
+
+.tableOfContents {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  padding: 24px;
+  margin-bottom: 32px;
+}
+
+.tableOfContents h3 {
+  margin-bottom: 16px;
+  color: #e94560;
+}
+
+.tableOfContents ul {
+  list-style: none;
+  padding: 0;
+}
+
+.tableOfContents li {
+  margin-bottom: 8px;
+}
+
+.tableOfContents a {
+  color: rgba(255, 255, 255, 0.8);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.tableOfContents a:hover {
+  color: #e94560;
+}
+
+.section {
+  margin-bottom: 40px;
+  scroll-margin-top: 20px;
+}
+
+.section h2 {
+  color: #e94560;
+  font-size: 24px;
+  margin-bottom: 20px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid rgba(233, 69, 96, 0.2);
+}
+
+.section h3 {
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 18px;
+  margin: 20px 0 12px 0;
+}
+
+.section h4 {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 16px;
+  margin: 16px 0 8px 0;
+}
+
+.section h5 {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 14px;
+  margin: 12px 0 6px 0;
+}
+
+.section p {
+  margin-bottom: 16px;
+  font-size: 16px;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.section ul {
+  margin-bottom: 16px;
+  padding-left: 20px;
+}
+
+.section li {
+  margin-bottom: 8px;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.agreement {
+  background: rgba(233, 69, 96, 0.1);
+  border: 1px solid rgba(233, 69, 96, 0.3);
+  border-radius: 8px;
+  padding: 20px;
+  margin-top: 16px;
+}
+
+.serviceDetails {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  padding: 24px;
+  margin-bottom: 24px;
+}
+
+.serviceDetails h3 {
+  color: #e94560;
+  margin-bottom: 16px;
+}
+
+.serviceTypes {
+  margin-top: 24px;
+}
+
+.tierList {
+  display: grid;
+  gap: 16px;
+  margin-top: 16px;
+}
+
+.tier {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(233, 69, 96, 0.2);
+  border-radius: 8px;
+  padding: 16px;
+  border-left: 4px solid #e94560;
+}
+
+.tier h4 {
+  color: #e94560;
+  margin-bottom: 8px;
+  font-size: 16px;
+}
+
+.tier p {
+  margin: 0;
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.emphasisBox {
+  background: linear-gradient(135deg, rgba(220, 53, 69, 0.1) 0%, rgba(233, 69, 96, 0.1) 100%);
+  border: 2px solid rgba(220, 53, 69, 0.5);
+  border-radius: 12px;
+  padding: 24px;
+  margin: 24px 0;
+}
+
+.emphasisBox h3 {
+  color: #dc3545;
+  font-size: 20px;
+  margin-bottom: 16px;
+}
+
+.clarificationGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+  margin: 20px 0;
+}
+
+.clarificationItem {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+  padding: 16px;
+}
+
+.clarificationItem h4 {
+  margin-bottom: 12px;
+  font-size: 16px;
+}
+
+.clarificationItem:first-child h4 {
+  color: #dc3545;
+}
+
+.clarificationItem:last-child h4 {
+  color: #28a745;
+}
+
+.regulation {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+  padding: 16px;
+  margin-top: 20px;
+  border-left: 4px solid #ffc107;
+}
+
+.eligibilityRequirements {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.registrationTypes {
+  margin-top: 24px;
+}
+
+.accountTypes {
+  display: grid;
+  gap: 16px;
+  margin-top: 16px;
+}
+
+.accountType {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+  padding: 16px;
+  border-left: 4px solid #e94560;
+}
+
+.accountType h5 {
+  color: #e94560;
+  margin-bottom: 8px;
+}
+
+.accountType p {
+  margin: 0;
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.requirements {
+  display: grid;
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.requirement {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+  padding: 20px;
+  border-left: 4px solid #e94560;
+}
+
+.requirement h4 {
+  color: #e94560;
+  margin-bottom: 12px;
+}
+
+.pricingStructure {
+  margin-top: 20px;
+}
+
+.feeStructure {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+  margin: 20px 0;
+}
+
+.feeItem {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+  padding: 16px;
+  text-align: center;
+  border-top: 3px solid #e94560;
+}
+
+.feeItem h4 {
+  color: #e94560;
+  margin-bottom: 8px;
+  font-size: 14px;
+}
+
+.feeItem p {
+  margin: 0;
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.paymentTerms {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+  padding: 20px;
+  margin-top: 20px;
+}
+
+.cancellationGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+  margin: 20px 0;
+}
+
+.cancellationRule {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+  padding: 16px;
+  text-align: center;
+  border-top: 3px solid #ffc107;
+}
+
+.cancellationRule h4 {
+  color: #ffc107;
+  margin-bottom: 8px;
+  font-size: 14px;
+}
+
+.cancellationRule p {
+  margin: 0;
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.emergencyCancellation {
+  background: rgba(40, 167, 69, 0.1);
+  border: 1px solid rgba(40, 167, 69, 0.3);
+  border-radius: 8px;
+  padding: 16px;
+  margin-top: 20px;
+}
+
+.emergencyCancellation h4 {
+  color: #28a745;
+  margin-bottom: 8px;
+}
+
+.standards {
+  margin-top: 20px;
+}
+
+.standards h3 {
+  color: #e94560;
+  margin-bottom: 16px;
+}
+
+.standards ul {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.responsibilities {
+  margin-top: 20px;
+}
+
+.responsibilities h3 {
+  color: #e94560;
+  margin-bottom: 16px;
+}
+
+.responsibilities ul {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.liability {
+  margin-top: 20px;
+}
+
+.liability h3 {
+  color: #e94560;
+  margin-bottom: 16px;
+}
+
+.limitationBox {
+  background: rgba(255, 193, 7, 0.1);
+  border: 1px solid rgba(255, 193, 7, 0.3);
+  border-radius: 8px;
+  padding: 20px;
+  margin-top: 16px;
+}
+
+.disputeProcess {
+  margin-top: 20px;
+}
+
+.processSteps {
+  display: grid;
+  gap: 16px;
+  margin-top: 20px;
+}
+
+.step {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+  padding: 16px;
+  border-left: 4px solid #17a2b8;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.step h4 {
+  color: #17a2b8;
+  margin: 0;
+  min-width: 120px;
+}
+
+.step p {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.termination {
+  margin-top: 20px;
+}
+
+.termination h3 {
+  color: #e94560;
+  margin-bottom: 16px;
+}
+
+.governingLaw {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+  padding: 20px;
+  margin-top: 20px;
+}
+
+.governingLaw h3 {
+  color: #e94560;
+  margin: 20px 0 16px 0;
+}
+
+.footer {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  padding: 32px;
+  margin-top: 40px;
+}
+
+.contactInfo h3 {
+  color: #e94560;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.contactDetails {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+  margin-bottom: 24px;
+}
+
+.contactDetails div {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+  padding: 16px;
+  text-align: center;
+}
+
+.contactDetails h4 {
+  color: #e94560;
+  margin-bottom: 8px;
+  font-size: 14px;
+}
+
+.contactDetails p {
+  margin: 4px 0;
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.finalNotice {
+  text-align: center;
+  padding-top: 20px;
+  border-top: 1px solid rgba(233, 69, 96, 0.3);
+}
+
+.finalNotice p {
+  margin-bottom: 8px;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.finalNotice p:first-child {
+  color: #e94560;
+  font-weight: 600;
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+  .content {
+    padding: 20px 16px;
+  }
+
+  .header h1 {
+    font-size: 24px;
+  }
+
+  .criticalNotice {
+    padding: 24px;
+  }
+
+  .criticalNotice::before {
+    font-size: 24px;
+    top: 12px;
+    right: 12px;
+  }
+
+  .clarificationGrid,
+  .feeStructure,
+  .cancellationGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .contactDetails {
+    grid-template-columns: 1fr;
+  }
+
+  .processSteps .step {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .step h4 {
+    min-width: auto;
+  }
+}
+
+/* Print styles */
+@media print {
+  .container {
+    background: white;
+    color: black;
+  }
+
+  .header h1,
+  .section h2,
+  .criticalNotice h2 {
+    color: #000 !important;
+  }
+
+  .criticalNotice,
+  .emphasisBox {
+    border: 2px solid #ccc;
+    background: #f9f9f9;
+  }
+
+  .criticalNotice::before {
+    display: none;
+  }
+}

@@ -201,48 +201,77 @@ export const LocationInput: React.FC<LocationInputProps> = ({
     }, 200);
   }, []);
 
-  // Default suggested locations for demo
-  const defaultLocations = [
-    'Heathrow Airport, London',
-    'Canary Wharf, London',
-    'Kings Cross Station, London',
-    'Birmingham Airport',
-    'Manchester Airport',
-    'Cardiff Central Station'
-  ];
-
-  const displayLocations = recentLocations.length > 0 ? recentLocations : defaultLocations;
+  // Only show recent locations if available
+  const displayLocations = recentLocations;
 
   return (
     <div className={`${styles.locationInput} ${className}`}>
-      {/* Security Message at Top */}
-      <div className={styles.securityMessage}>
-        <div className={styles.securityItem}>
-          <span className={styles.securityIcon}>🔒</span>
-          <span className={styles.securityText}>Your addresses are encrypted & deleted after service</span>
-        </div>
-        <div className={styles.securityItem}>
-          <span className={styles.securityIcon}>📍</span>
-          <span className={styles.securityText}>Used only to assign nearest protection officer</span>
-        </div>
-      </div>
 
       {/* Pickup Location */}
       <div className={styles.inputGroup}>
         <h3 className={styles.inputLabel}>📍 Where does your protection begin?</h3>
-        <div className={styles.inputWrapper}>
-          <input
-            ref={pickupInputRef}
-            type="text"
-            value={isPickupEditable ? (pickupSearchQuery || pickupLocation) : (pickupSearchQuery || pickupLocation)}
-            onChange={handlePickupChange}
-            onFocus={handlePickupFocus}
-            onBlur={handleBlur}
-            placeholder={isDetecting ? 'Detecting your current location…' : 'Protection commencement point'}
-            className={`${styles.input} ${isPickupDetected && !isPickupEditable ? styles.inputReadOnly : ''}`}
-            readOnly={isPickupDetected && !isPickupEditable}
-            title={isPickupDetected && (pickupSearchQuery || pickupLocation) ? (pickupSearchQuery || pickupLocation) : undefined}
-          />
+        <div className={styles.locationInputContainer}>
+          {/* Address Display */}
+          {isPickupDetected && !isPickupEditable ? (
+            <div className={styles.addressDisplay}>
+              {(() => {
+                const { primary, secondary } = parseAddressLines(pickupSearchQuery || pickupLocation);
+                return (
+                  <>
+                    <div className={styles.addressDisplayBox}>
+                      <div className={styles.addressContent}>
+                        <div className={styles.addressPrimary}>{primary}</div>
+                        {secondary && <div className={styles.addressSecondary}>{secondary}</div>}
+                      </div>
+                      <div className={styles.addressMeta}>
+                        <div className={styles.autoDetectBadgeInline}>
+                          <span className={styles.checkIcon}>✓</span>
+                          <span>Auto-detected</span>
+                        </div>
+                        <button
+                          className={styles.editButtonInline}
+                          type="button"
+                          onClick={() => {
+                            setIsPickupEditable(true);
+                            setTimeout(() => pickupInputRef.current?.focus(), 0);
+                          }}
+                          aria-label="Edit commencement address"
+                        >
+                          <span className={styles.editIcon}>✏️</span>
+                          Edit
+                        </button>
+                      </div>
+                    </div>
+                  </>
+                );
+              })()}
+            </div>
+          ) : (
+            /* Input Field */
+            <div className={styles.inputWrapper}>
+              <input
+                ref={pickupInputRef}
+                type="text"
+                value={isPickupEditable ? (pickupSearchQuery || pickupLocation) : (pickupSearchQuery || pickupLocation)}
+                onChange={handlePickupChange}
+                onFocus={handlePickupFocus}
+                onBlur={handleBlur}
+                placeholder={isDetecting ? 'Detecting your current location…' : 'Protection commencement point'}
+                className={styles.input}
+              />
+              {isDetecting && (
+                <div className={styles.inputIcon} aria-label="Detecting current location">
+                  <div className={styles.spinner}>
+                    <svg className={styles.spinnerSvg} viewBox="0 0 24 24">
+                      <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeDasharray="32" strokeDashoffset="32" />
+                    </svg>
+                  </div>
+                </div>
+              )}
+            </div>
+          )}
+
+          {/* Full Address Popover */}
           {showFullAddress && (
             <div
               ref={fullAddrRef}
@@ -252,7 +281,7 @@ export const LocationInput: React.FC<LocationInputProps> = ({
               aria-label="Full commencement address"
             >
               <div className={styles.fullAddressHeader}>
-                <span>Commencement address</span>
+                <span>Complete Address</span>
                 <button
                   type="button"
                   className={styles.closePopover}
@@ -275,43 +304,9 @@ export const LocationInput: React.FC<LocationInputProps> = ({
                     }
                   }}
                 >
-                  Copy
+                  Copy Address
                 </button>
               </div>
-            </div>
-          )}
-          {isDetecting && (
-            <div className={styles.inputIcon} aria-label="Detecting current location">
-              <div className={styles.spinner}>
-                <svg className={styles.spinnerSvg} viewBox="0 0 24 24">
-                  <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeDasharray="32" strokeDashoffset="32" />
-                </svg>
-              </div>
-            </div>
-          )}
-          {isPickupDetected && !isPickupEditable && (
-            <button
-              className={styles.editButton}
-              type="button"
-              onClick={() => {
-                setIsPickupEditable(true);
-                setTimeout(() => pickupInputRef.current?.focus(), 0);
-              }}
-              aria-label="Edit commencement address"
-            >
-              Edit
-            </button>
-          )}
-          {isPickupDetected && !isPickupEditable && (
-            <div className={styles.metaRow}>
-              <span className={styles.detectedBadge} aria-label="Auto-detected address">Auto‑detected</span>
-              <button
-                type="button"
-                className={styles.viewFullLink}
-                onClick={() => setShowFullAddress(true)}
-              >
-                View full address
-              </button>
             </div>
           )}
         </div>
@@ -334,11 +329,11 @@ export const LocationInput: React.FC<LocationInputProps> = ({
         </div>
       </div>
 
-      {/* Dropdown Menu */}
-      {(isOpen || isPickupOpen) && (
+      {/* Dropdown Menu - Only show if there are recent locations */}
+      {(isOpen || isPickupOpen) && displayLocations.length > 0 && (
         <div ref={dropdownRef} className={styles.dropdown}>
           <div className={styles.dropdownSection}>
-            <h3 className={styles.dropdownHeader}>Suggested Locations</h3>
+            <h3 className={styles.dropdownHeader}>Recent Locations</h3>
             {displayLocations.map((location, index) => (
               <button
                 key={`${location}-${index}`}
@@ -354,6 +349,7 @@ export const LocationInput: React.FC<LocationInputProps> = ({
           </div>
         </div>
       )}
+
     </div>
   );
 };
