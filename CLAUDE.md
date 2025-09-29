@@ -45,7 +45,7 @@ npm run port3002   # Force port 3002 (optimized)
 
 ### Development Infrastructure
 ```bash
-# Hooks System (9 automated tools)
+# Hooks System (7 active tools)
 npm run hooks:start        # Start all development hooks
 npm run hooks:stop         # Stop all hooks
 npm run hooks:status       # Check hooks status
@@ -55,10 +55,13 @@ npm run suggest            # Get AI task suggestions
 npm run select-suggestion  # Interactive task selector
 npm run add-task          # Add new task
 npm run complete-task     # Mark task complete
+npm run start-task        # Start a task
+npm run task-status       # View current task progress
 
-# Specialized Agents
+# Specialized Agents (6 agents)
 npm run agents:start      # Start agent orchestration
-npm run orchestrate:status # View active agents
+npm run agents:status     # View active agents status
+npm run agents:file       # Trigger agents for specific file
 ```
 
 ## Architecture
@@ -116,12 +119,14 @@ src/
 
 ## Development Tools
 
-### Automated Hooks (9 tools in `dev-tools/hooks/`)
+### Automated Hooks (7 active tools in `dev-tools/hooks/`)
 - **mobile-viewport-tester.js**: Prevents horizontal scrolling (320px+)
 - **armora-brand-compliance.js**: Enforces professional standards
 - **dev-server-monitor.js**: Auto-restart on issues
 - **auto-github-saver.js**: Automated Git operations
 - **codebase-reviewer-suggester.js**: AI-powered suggestions
+- **file-structure-organizer.js**: Keeps project files organized
+- **subagent-manager.js**: Manages AI subagents and coordination
 
 ### Specialized Agents (`.claude/agents/`)
 Auto-activate based on context:
@@ -204,7 +209,7 @@ When updating UI text:
 - TypeScript optimization (clean compilation)
 - Supabase-only authentication (Clerk removed)
 - Mobile-first responsive design
-- Advanced development tooling with 9 hooks + 6 agents
+- Advanced development tooling with 7 hooks + 6 agents
 
 ⚠️ **Remaining Tasks**:
 - Test coverage expansion
@@ -218,4 +223,4 @@ When updating UI text:
 - `martynsLawCompliance.ts`: Regulatory compliance
 - `venueSecurityCalculator.ts`: Venue protection requirements
 
-Last updated: 2025-09-28T16:54:06.100Z
+Last updated: 2025-09-29T09:43:08.880Z

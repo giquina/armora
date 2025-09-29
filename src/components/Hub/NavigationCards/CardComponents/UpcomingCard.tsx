@@ -67,49 +67,146 @@ export const UpcomingCard: FC<UpcomingCardProps> = memo(({
     return () => clearInterval(interval);
   }, [data.countdown]);
 
+  // Get service tier styling
+  const getServiceTierStyle = (tier: string) => {
+    switch (tier) {
+      case 'Essential': return { color: '#00D4FF', background: 'rgba(0, 212, 255, 0.1)' };
+      case 'Executive': return { color: '#FFD700', background: 'rgba(255, 215, 0, 0.1)' };
+      case 'Shadow': return { color: '#FF6B6B', background: 'rgba(255, 107, 107, 0.1)' };
+      default: return { color: '#A0A0A0', background: 'rgba(160, 160, 160, 0.1)' };
+    }
+  };
+
+  // Get vehicle icon
+  const getVehicleIcon = (vehicleType: string) => {
+    if (vehicleType.includes('BMW')) return '🚗';
+    if (vehicleType.includes('Range Rover')) return '🚙';
+    if (vehicleType.includes('Mercedes')) return '🚘';
+    return '🚗';
+  };
+
 
   return (
     <div
-      className={`${styles.navCard} ${styles.upcoming} ${isActive ? styles.active : ''}`}
+      className={`${styles.navCard} ${styles.upcoming} ${styles.primaryCard} ${isActive ? styles.active : ''}`}
       data-type="upcoming"
     >
-      {/* Header */}
+      {/* Header with Enhanced Priority Styling */}
       <div className={styles.navCardHeader}>
         <div className={styles.navCardLeft}>
           <span className={styles.navCardIcon}>📅</span>
-          <span className={styles.navCardTitle}>Upcoming</span>
+          <span className={styles.navCardTitle}>Next Protection</span>
           <span className={styles.navCardCount}>({data.count})</span>
+          {data.count > 0 && (
+            <span className={styles.priorityBadge}>PRIORITY</span>
+          )}
         </div>
         {isActive && <span className={styles.activeIndicator}>●</span>}
       </div>
 
-      {/* Compact Content - Always Visible */}
+      {/* Enhanced Compact Content - Always Visible */}
       {data.count > 0 && (
         <div className={styles.cardContent}>
-          {/* Essential Info Row */}
-          <div className={styles.essentialInfo}>
-            <div className={styles.statusSection}>
-              <span className={styles.amberIndicator}>●</span>
-              <span className={styles.statusText}>NEXT</span>
+          {/* CPO Information with Photo */}
+          {data.assignmentData && (
+            <div className={styles.cpoSection}>
+              <div className={styles.cpoInfo}>
+                <div className={styles.cpoPhoto}>
+                  <img
+                    src={`/images/officers/${data.assignmentData.officerName.toLowerCase().replace(' ', '-')}.jpg`}
+                    alt={data.assignmentData.officerName}
+                    className={styles.officerImage}
+                    onError={(e) => {
+                      // Fallback to initials if photo fails to load
+                      e.currentTarget.style.display = 'none';
+                      const initialsEl = e.currentTarget.nextElementSibling as HTMLElement;
+                      if (initialsEl) initialsEl.style.display = 'flex';
+                    }}
+                  />
+                  <div className={styles.officerInitials} style={{ display: 'none' }}>
+                    {data.assignmentData.officerName.split(' ').map(n => n[0]).join('')}
+                  </div>
+                  <div className={styles.cpoStatus}>
+                    <span className={styles.onlineIndicator}>●</span>
+                  </div>
+                </div>
+                <div className={styles.cpoDetails}>
+                  <div className={styles.cpoName}>{data.assignmentData.officerName}</div>
+                  <div className={styles.cpoCredentials}>SIA License: {data.assignmentData.officerSIA}</div>
+                  <div
+                    className={styles.serviceTierBadge}
+                    style={getServiceTierStyle(data.assignmentData.serviceTier)}
+                  >
+                    {data.assignmentData.serviceTier} Protection
+                  </div>
+                </div>
+              </div>
             </div>
-            <div className={styles.keyStats}>
-              <span className={styles.nextTime}>Tomorrow 09:00</span>
-              <span className={styles.bullet}>•</span>
-              <span className={styles.serviceTier}>Executive</span>
-              <span className={styles.bullet}>•</span>
-              <span className={styles.timeUntil}>{liveCountdown}</span>
+          )}
+
+          {/* Assignment Overview */}
+          <div className={styles.assignmentOverview}>
+            <div className={styles.timeSection}>
+              <div className={styles.scheduledTime}>
+                <span className={styles.timeLabel}>Scheduled</span>
+                <span className={styles.timeValue}>
+                  {data.assignmentData?.date} at {data.assignmentData?.time}
+                </span>
+              </div>
+              <div className={styles.countdown}>
+                <span className={styles.countdownValue}>{liveCountdown}</span>
+                <span className={styles.countdownLabel}>until protection begins</span>
+              </div>
             </div>
-            <button
-              className={styles.expandButton}
-              onClick={(e) => {
-                e.stopPropagation();
-                setIsExpanded(!isExpanded);
-              }}
-              aria-label={isExpanded ? 'Collapse details' : 'Expand details'}
-            >
-              {isExpanded ? '−' : '+'}
-            </button>
+
+            {/* Route Information */}
+            <div className={styles.routeSection}>
+              <div className={styles.routeDisplay}>
+                <span className={styles.routeIcon}>📍</span>
+                <span className={styles.routeText}>
+                  {data.assignmentData?.location.start.split(',')[0]} → {data.assignmentData?.location.end.split(',')[0]}
+                </span>
+                <span className={styles.vehicleIcon}>
+                  {data.assignmentData && getVehicleIcon(data.assignmentData.vehicleType)}
+                </span>
+              </div>
+              <div className={styles.durationCost}>
+                <span className={styles.duration}>{data.assignmentData?.duration} coverage</span>
+                <span className={styles.bullet}>•</span>
+                <span className={styles.cost}>£{data.assignmentData?.totalCost}</span>
+              </div>
+            </div>
           </div>
+
+          {/* Status Indicators */}
+          <div className={styles.statusIndicators}>
+            <div className={styles.statusItem}>
+              <span className={styles.checkmark}>✓</span>
+              <span className={styles.statusText}>CPO Confirmed</span>
+            </div>
+            <div className={styles.statusItem}>
+              <span className={styles.checkmark}>✓</span>
+              <span className={styles.statusText}>Route Optimized</span>
+            </div>
+            {data.favoriteTimeSlot && (
+              <div className={styles.statusItem}>
+                <span className={styles.favoriteIcon}>⭐</span>
+                <span className={styles.statusText}>Favorite Time Slot</span>
+              </div>
+            )}
+          </div>
+
+          {/* Expand Button */}
+          <button
+            className={styles.expandButton}
+            onClick={(e) => {
+              e.stopPropagation();
+              setIsExpanded(!isExpanded);
+            }}
+            aria-label={isExpanded ? 'Collapse details' : 'Expand details'}
+          >
+            {isExpanded ? 'Show Less' : 'Show More'}
+          </button>
 
           {/* Expandable Details */}
           {isExpanded && (

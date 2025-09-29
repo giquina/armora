@@ -81,92 +81,53 @@ export const CurrentCard: FC<CurrentCardProps> = memo(({
         {isActive && <span className={styles.activeIndicator}>●</span>}
       </div>
 
-      {/* Compact Content - Always Visible */}
+      {/* Simplified Active State - When protection is active */}
       {data.count > 0 && (
         <div className={styles.cardContent}>
-          {/* Essential Info Row */}
-          <div className={styles.essentialInfo}>
-            <div className={styles.statusSection}>
+          <div className={styles.activeProtectionState}>
+            <div className={styles.activeStatusLine}>
               <span className={styles.pulseIndicator}>●</span>
-              <span className={styles.statusText}>ACTIVE</span>
+              <span className={styles.activeStatusText}>PROTECTION ACTIVE</span>
             </div>
-            <div className={styles.keyStats}>
-              <span className={styles.officerName}>CPO {data.assignmentData?.officerName?.split(' ')[1] || 'N/A'}</span>
+            <div className={styles.activeTierLine}>
+              <span className={styles.activeCpoName}>CPO {data.assignmentData?.officerName?.split(' ')[1] || 'Davis'}</span>
               <span className={styles.bullet}>•</span>
-              <span className={styles.timeRemaining}>{data.timeRemaining}</span>
-              <span className={styles.bullet}>•</span>
-              <span className={styles.investment}>{data.runningFare}</span>
+              <span
+                className={styles.activeServiceTier}
+                style={{ color: getTierColor(data.serviceTier) }}
+              >
+                {data.serviceTier}
+              </span>
             </div>
             <button
-              className={styles.expandButton}
+              className={styles.viewLiveProtectionBtn}
               onClick={(e) => {
                 e.stopPropagation();
-                setIsExpanded(!isExpanded);
+                // Navigate to Active view
               }}
-              aria-label={isExpanded ? 'Collapse details' : 'Expand details'}
             >
-              {isExpanded ? '−' : '+'}
+              <span className={styles.liveIcon}>📡</span>
+              View Live Protection
+              <span className={styles.arrowIcon}>→</span>
             </button>
           </div>
-
-          {/* Expandable Details */}
-          {isExpanded && (
-            <div className={styles.expandedDetails}>
-              {/* Officer Section */}
-              {data.assignmentData && (
-                <div className={styles.officerSection}>
-                  <div className={styles.officerInfo}>
-                    <div className={styles.officerPhoto}>
-                      <span className={styles.officerInitials}>
-                        {data.assignmentData.officerName.split(' ').map(n => n[0]).join('')}
-                      </span>
-                    </div>
-                    <div className={styles.officerDetails}>
-                      <div className={styles.officerName}>CPO {data.assignmentData.officerName}</div>
-                      <div className={styles.officerCredentials}>★★★★★ 4.9 • SIA ✓ • 12 Years</div>
-                    </div>
-                  </div>
-                </div>
-              )}
-
-              {/* Journey Progress */}
-              <div className={styles.journeySection}>
-                <div className={styles.locationRow}>
-                  <span className={styles.locationFrom}>
-                    📍 {data.assignmentData?.location.start.split(',')[0] || 'Kensington'}
-                  </span>
-                  <span className={styles.locationTo}>
-                    🏢 {data.assignmentData?.location.end.split(',')[0] || 'Canary Wharf'}
-                  </span>
-                </div>
-                <div className={styles.progressBar}>
-                  <div className={styles.progressFill} style={{ width: `${data.progressPercent}%` }} />
-                </div>
-                <div className={styles.progressText}>45 minutes remaining</div>
-              </div>
-
-              {/* Quick Actions */}
-              <div className={styles.quickActions}>
-                <button className={styles.actionBtn} onClick={(e) => e.stopPropagation()}>
-                  📞 Call
-                </button>
-                <button className={styles.actionBtn} onClick={(e) => e.stopPropagation()}>
-                  🛡️ Support
-                </button>
-                <button className={styles.actionBtn} onClick={(e) => e.stopPropagation()}>
-                  📍 Track
-                </button>
-              </div>
-            </div>
-          )}
         </div>
       )}
 
-      {/* Empty State */}
+      {/* Enhanced Empty State with Next Assignment Preview */}
       {data.count === 0 && (
         <div className={styles.emptyState}>
-          <span className={styles.emptyIcon}>🛡️</span>
-          <span className={styles.emptyText}>No active protection</span>
+          <div className={styles.emptyContent}>
+            <span className={styles.emptyIcon}>🛡️</span>
+            <div className={styles.emptyTextGroup}>
+              <span className={styles.emptyTitle}>No Active Protection</span>
+              <span className={styles.emptySubtext}>Next scheduled: Today 4:30 PM</span>
+            </div>
+          </div>
+          <button className={styles.requestProtectionBtn}>
+            <span className={styles.requestIcon}>➕</span>
+            Request Protection
+          </button>
         </div>
       )}
     </div>

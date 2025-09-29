@@ -51,6 +51,19 @@
   height: 140px; /* Taller collapsed preview with more info */
   /* Only show the status bar in collapsed state */
   z-index: 1020; /* Below navigation when collapsed */
+  /* Slide-up animation when panel appears */
+  animation: slideUpPanel 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes slideUpPanel {
+  from {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
 }
 
 .panel.dragging {

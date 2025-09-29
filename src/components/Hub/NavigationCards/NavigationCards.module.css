@@ -92,18 +92,20 @@
 .navCardHeader {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: center; /* Ensures perfect vertical alignment */
   margin-bottom: 8px; /* Reduced for mobile */
   padding-bottom: 6px; /* Reduced padding */
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  min-height: 24px; /* Consistent height for alignment */
 }
 
 .navCardLeft {
   display: flex;
-  align-items: center;
+  align-items: center; /* Perfect vertical alignment */
   gap: 6px; /* Reduced gap for mobile */
   flex: 1;
   min-width: 0;
+  line-height: 1; /* Prevent text from jumping */
 }
 
 .navCardIcon {
@@ -118,6 +120,8 @@
   text-transform: uppercase;
   letter-spacing: 0.3px; /* Reduced letter spacing */
   white-space: nowrap;
+  line-height: 1; /* Consistent baseline alignment */
+  vertical-align: baseline; /* Ensure proper alignment */
 }
 
 .navCardCount {
@@ -133,6 +137,10 @@
   font-size: 13px;
   animation: pulse 2s ease-in-out infinite;
   flex-shrink: 0;
+  line-height: 1; /* Consistent alignment */
+  vertical-align: middle; /* Center vertically without affecting baseline */
+  display: inline-flex;
+  align-items: center;
 }
 
 .newBadge {
@@ -772,24 +780,29 @@
 }
 
 .expandButton {
-  width: 24px;
-  height: 24px;
-  border-radius: 50%;
+  width: auto;
+  min-width: 100px;
+  height: 32px;
+  padding: 8px 16px;
+  border-radius: 6px;
   background: rgba(255, 255, 255, 0.1);
   border: 1px solid rgba(255, 255, 255, 0.2);
   color: white;
-  font-size: 14px;
-  font-weight: 600;
+  font-size: 13px;
+  font-weight: 500;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
   transition: all 0.2s ease;
+  text-align: center;
+  white-space: nowrap;
 }
 
 .expandButton:hover {
-  background: rgba(255, 255, 255, 0.15);
-  transform: scale(1.1);
+  background: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.3);
+  transform: translateY(-1px);
 }
 
 .expandedDetails {
@@ -799,6 +812,29 @@
   margin-top: 12px;
   padding-top: 12px;
   border-top: 1px solid rgba(255, 255, 255, 0.1);
+  max-width: 100%;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+/* Ensure all children within expanded details respect width constraints */
+.expandedDetails > * {
+  max-width: 100%;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+/* Specific fixes for common overflow sources */
+.expandedDetails .searchFilterSection,
+.expandedDetails .assignmentsList,
+.expandedDetails .summaryStats,
+.expandedDetails .quickActions,
+.expandedDetails .enhancedMetricsGrid,
+.expandedDetails .protectionPatternsSection,
+.expandedDetails .interactiveActions {
+  max-width: 100%;
+  overflow: hidden;
+  box-sizing: border-box;
 }
 
 .officerSection {
@@ -875,6 +911,18 @@
 /* Smart Insights - HIDDEN FOR COMPACTNESS */
 .smartInsight {
   display: none !important; /* Hide non-essential insight messages for 50% height reduction */
+}
+
+/* Hide verbose navigation subtitle on mobile */
+.navSubtitle {
+  display: none;
+}
+
+/* Show subtitle only on larger screens */
+@media (min-width: 768px) {
+  .navSubtitle {
+    display: block;
+  }
 }
 
 /* Empty States */
@@ -1718,6 +1766,263 @@
   border-radius: 4px;
 }
 
+/* ENHANCED ANALYTICS CARD STYLES */
+.timeRangeFilters {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 16px;
+  padding: 4px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+}
+
+.timeRangeBtn {
+  flex: 1;
+  padding: 6px 8px;
+  background: transparent;
+  border: none;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 11px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.timeRangeBtn.active {
+  background: rgba(255, 107, 107, 0.2);
+  color: #FF6B6B;
+  font-weight: 600;
+}
+
+.timeRangeBtn:hover:not(.active) {
+  background: rgba(255, 255, 255, 0.05);
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.enhancedMetricsGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.metricCard {
+  padding: 12px;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.metricHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 4px;
+}
+
+.metricNumber {
+  font-size: 16px;
+  font-weight: 700;
+  color: #FFD700;
+  line-height: 1;
+}
+
+.metricLabel {
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.6);
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+.ratingCount {
+  font-size: 10px;
+  color: rgba(255, 255, 255, 0.5);
+  margin-left: 4px;
+}
+
+.statusPoints {
+  font-size: 10px;
+  color: rgba(255, 255, 255, 0.5);
+  margin-left: 4px;
+}
+
+.protectionPatternsSection {
+  margin-bottom: 16px;
+}
+
+.sectionHeader {
+  margin-bottom: 12px;
+}
+
+.sectionTitle {
+  font-size: 13px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.9);
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+.patternsGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.patternInsight {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px;
+  background: rgba(255, 255, 255, 0.02);
+  border-radius: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.patternIcon {
+  font-size: 14px;
+  flex-shrink: 0;
+}
+
+.patternContent {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.patternLabel {
+  font-size: 10px;
+  color: rgba(255, 255, 255, 0.6);
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  line-height: 1;
+}
+
+.patternValue {
+  font-size: 12px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.9);
+  line-height: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.behavioralInsights {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.interactiveActions {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.primaryActionBtn {
+  width: 100%;
+  min-height: 40px;
+  padding: 10px 16px;
+  background: linear-gradient(135deg, rgba(255, 107, 107, 0.15), rgba(255, 107, 107, 0.05));
+  border: 1px solid rgba(255, 107, 107, 0.3);
+  border-radius: 8px;
+  color: #FF6B6B;
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+.primaryActionBtn:hover {
+  background: linear-gradient(135deg, rgba(255, 107, 107, 0.25), rgba(255, 107, 107, 0.1));
+  border-color: rgba(255, 107, 107, 0.5);
+  transform: translateY(-1px);
+}
+
+.secondaryActions {
+  display: flex;
+  gap: 6px;
+}
+
+.secondaryActions .actionBtn {
+  flex: 1;
+  min-height: 36px;
+  padding: 8px 12px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 6px;
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 11px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.secondaryActions .actionBtn:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.15);
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.exportOptions {
+  margin-top: 12px;
+  padding: 12px;
+  background: rgba(255, 255, 255, 0.02);
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.exportHeader {
+  font-size: 12px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.8);
+  margin-bottom: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+.exportButtons {
+  display: flex;
+  gap: 6px;
+}
+
+.exportBtn {
+  flex: 1;
+  padding: 8px 10px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 6px;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 10px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.exportBtn:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.15);
+  color: rgba(255, 255, 255, 0.9);
+}
+
 /* MOBILE-FIRST REDESIGN - IMPROVED CRAMPED LAYOUT */
 
 /* Base mobile styles (320px+) */
@@ -1814,21 +2119,31 @@
     color: rgba(255, 255, 255, 0.7);
   }
 
-  /* Expand button for progressive disclosure */
+  /* Expand button for progressive disclosure - consistent rectangular design */
   .expandButton {
+    width: auto;
+    min-width: 90px;
+    height: 30px;
+    padding: 6px 12px;
     margin-top: 6px;
-    padding: 4px 8px;
     background: rgba(255, 215, 0, 0.1);
     border: 1px solid rgba(255, 215, 0, 0.3);
     color: #FFD700;
-    border-radius: 4px;
-    font-size: 11px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     cursor: pointer;
     transition: all 0.2s ease;
+    text-align: center;
+    white-space: nowrap;
   }
 
   .expandButton:hover {
     background: rgba(255, 215, 0, 0.2);
+    border-color: rgba(255, 215, 0, 0.4);
     transform: translateY(-1px);
   }
 
@@ -2144,6 +2459,104 @@
     margin-top: 6px;
     padding: 5px 6px;
   }
+
+  /* ENHANCED ANALYTICS MOBILE RESPONSIVE */
+  .timeRangeFilters {
+    gap: 3px;
+    margin-bottom: 12px;
+    padding: 3px;
+  }
+
+  .timeRangeBtn {
+    padding: 5px 6px;
+    font-size: 10px;
+  }
+
+  .enhancedMetricsGrid {
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin-bottom: 12px;
+  }
+
+  .metricCard {
+    padding: 8px;
+    gap: 4px;
+  }
+
+  .metricHeader {
+    margin-bottom: 2px;
+  }
+
+  .metricNumber {
+    font-size: 14px;
+  }
+
+  .metricLabel {
+    font-size: 10px;
+  }
+
+  .ratingCount,
+  .statusPoints {
+    font-size: 9px;
+  }
+
+  .protectionPatternsSection {
+    margin-bottom: 12px;
+  }
+
+  .sectionTitle {
+    font-size: 11px;
+  }
+
+  .patternsGrid {
+    grid-template-columns: 1fr;
+    gap: 6px;
+    margin-bottom: 10px;
+  }
+
+  .patternInsight {
+    padding: 6px;
+    gap: 4px;
+  }
+
+  .patternIcon {
+    font-size: 12px;
+  }
+
+  .patternLabel {
+    font-size: 9px;
+  }
+
+  .patternValue {
+    font-size: 11px;
+  }
+
+  .primaryActionBtn {
+    min-height: 36px;
+    padding: 8px 12px;
+    font-size: 11px;
+  }
+
+  .secondaryActions .actionBtn {
+    min-height: 32px;
+    padding: 6px 8px;
+    font-size: 10px;
+  }
+
+  .exportOptions {
+    padding: 8px;
+    margin-top: 8px;
+  }
+
+  .exportHeader {
+    font-size: 10px;
+    margin-bottom: 6px;
+  }
+
+  .exportBtn {
+    padding: 6px 8px;
+    font-size: 9px;
+  }
 }
 
 /* Extra small screens (320px) - further optimizations */
@@ -2269,5 +2682,190 @@
 
   .cardContent {
     gap: 9px;
+  }
+}
+
+/* NEW SIMPLIFIED CURRENT CARD STYLES */
+
+/* Simplified Active Protection State */
+.activeProtectionState {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  text-align: center;
+  padding: 4px 0;
+}
+
+.activeStatusLine {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 4px;
+}
+
+.activeStatusText {
+  font-size: 14px;
+  font-weight: 700;
+  color: #FFD700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.activeTierLine {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  margin-bottom: 12px;
+}
+
+.activeCpoName {
+  font-size: 15px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.activeServiceTier {
+  font-size: 14px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+.viewLiveProtectionBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  min-height: 44px;
+  padding: 12px 16px;
+  background: linear-gradient(135deg, rgba(255, 215, 0, 0.15), rgba(255, 215, 0, 0.05));
+  border: 1px solid rgba(255, 215, 0, 0.3);
+  border-radius: 8px;
+  color: #FFD700;
+  font-size: 14px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.viewLiveProtectionBtn:hover {
+  background: linear-gradient(135deg, rgba(255, 215, 0, 0.25), rgba(255, 215, 0, 0.1));
+  border-color: rgba(255, 215, 0, 0.5);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(255, 215, 0, 0.2);
+}
+
+.liveIcon {
+  font-size: 16px;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+.arrowIcon {
+  font-size: 16px;
+  font-weight: 700;
+  opacity: 0.8;
+}
+
+/* Enhanced Empty State */
+.emptyState {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 16px 8px;
+  text-align: center;
+  gap: 12px;
+}
+
+.emptyContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.emptyTextGroup {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+
+.emptyTitle {
+  font-size: 14px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.emptySubtext {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.requestProtectionBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  width: 100%;
+  min-height: 40px;
+  padding: 10px 16px;
+  background: rgba(0, 212, 255, 0.1);
+  border: 1px solid rgba(0, 212, 255, 0.3);
+  border-radius: 8px;
+  color: #00D4FF;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.requestProtectionBtn:hover {
+  background: rgba(0, 212, 255, 0.15);
+  border-color: rgba(0, 212, 255, 0.4);
+  transform: translateY(-1px);
+}
+
+.requestIcon {
+  font-size: 14px;
+  font-weight: 700;
+}
+
+/* Responsive adjustments for simplified current card */
+@media (max-width: 414px) {
+  .activeStatusText {
+    font-size: 13px;
+  }
+
+  .activeCpoName {
+    font-size: 14px;
+  }
+
+  .activeServiceTier {
+    font-size: 13px;
+  }
+
+  .viewLiveProtectionBtn {
+    font-size: 13px;
+    padding: 10px 14px;
+    min-height: 40px;
+  }
+
+  .emptyTitle {
+    font-size: 13px;
+  }
+
+  .emptySubtext {
+    font-size: 11px;
+  }
+
+  .requestProtectionBtn {
+    font-size: 12px;
+    min-height: 36px;
+    padding: 8px 14px;
   }
 }

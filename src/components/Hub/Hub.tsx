@@ -3,6 +3,9 @@ import { useApp } from '../../contexts/AppContext';
 import { NavigationCards } from './NavigationCards/NavigationCards';
 import { EnhancedProtectionPanel } from './EnhancedProtectionPanel/EnhancedProtectionPanel';
 import { FinancialTracker } from './FinancialTracker/FinancialTracker';
+import { FavoriteCPOs } from './FavoriteCPOs/FavoriteCPOs';
+import { usePullToRefresh } from '../../hooks/usePullToRefresh';
+import { useLazyLoading } from '../../hooks/useLazyLoading';
 import { IFinancialTracker } from '../../types';
 import styles from './Hub.module.css';
 
@@ -115,6 +118,7 @@ export function Hub() {
   const [activeSection, setActiveSection] = useState<AssignmentStatus>('current');
   const [showTemplates, setShowTemplates] = useState(false);
   const [showFinancialTracker, setShowFinancialTracker] = useState(false);
+  const [showFavoriteCPOs, setShowFavoriteCPOs] = useState(false);
   const [isLocationSharing, setIsLocationSharing] = useState(false);
   const [isLoading] = useState(false);
   const [sortBy] = useState<'time' | 'cost' | 'tier'>('time');
@@ -208,6 +212,37 @@ export function Hub() {
     // In real app: process points claim
   }, []);
 
+  const handleBookWithCPO = useCallback((cpoId: string) => {
+    // In real app: navigate to booking with pre-selected CPO
+    console.log('Booking with CPO:', cpoId);
+    navigateToView('protection-request'); // Navigate to booking with CPO pre-selected
+  }, [navigateToView]);
+
+  const handleViewCPOProfile = useCallback((cpoId: string) => {
+    // In real app: show CPO profile modal or navigate to profile page
+    console.log('Viewing CPO profile:', cpoId);
+  }, []);
+
+  // Pull-to-refresh functionality
+  const handleRefresh = useCallback(async () => {
+    // Simulate API refresh
+    await new Promise(resolve => setTimeout(resolve, 1000));
+    // In real app: refresh assignments, data, etc.
+    console.log('Refreshing assignments data...');
+  }, []);
+
+  const {
+    containerRef,
+    isPulling,
+    isRefreshing,
+    pullDistance,
+    refreshIndicatorStyle,
+    shouldShowIndicator,
+  } = usePullToRefresh(handleRefresh, {
+    threshold: 80,
+    enabled: true,
+  });
+
 
 
   const renderAssignmentCard = useCallback((assignment: Assignment) => {
@@ -286,31 +321,59 @@ export function Hub() {
     );
   }, [getServiceTierBadge]);
 
-  // Memoized empty states configuration
+  // Enhanced empty states configuration with contextual messages
   const emptyStates = useMemo(() => ({
     current: {
       icon: '🛡️',
       title: 'No Active Protection',
-      description: 'Request protection now for immediate service',
-      buttonText: 'Request Protection'
+      description: 'You don\'t have any active protection details right now.',
+      helpText: 'Our SIA-licensed CPOs are available 24/7 for immediate deployment.',
+      buttonText: 'Request Protection',
+      secondaryText: 'Response time: ~12 minutes',
+      suggestions: [
+        '🚀 Emergency protection available',
+        '📱 One-tap booking process',
+        '⭐ 98% customer satisfaction'
+      ]
     },
     upcoming: {
       icon: '📅',
-      title: 'No Upcoming Assignments',
-      description: 'Schedule your next protection service',
-      buttonText: 'Request Protection'
+      title: 'No Scheduled Protection',
+      description: 'You don\'t have any upcoming protection assignments.',
+      helpText: 'Book in advance for better availability and preferred officers.',
+      buttonText: 'Schedule Protection',
+      secondaryText: 'Plan ahead for peace of mind',
+      suggestions: [
+        '🗓️ Schedule recurring protection',
+        '👤 Request preferred CPO',
+        '💼 Business trip protection'
+      ]
     },
     completed: {
       icon: '✅',
-      title: 'No Completed Assignments',
-      description: 'Your completed assignments will appear here',
-      buttonText: 'Request Protection'
+      title: 'No Protection History',
+      description: 'Your completed protection assignments will appear here.',
+      helpText: 'Start your protection journey and build a secure history.',
+      buttonText: 'Start Your First Assignment',
+      secondaryText: 'Join thousands of protected principals',
+      suggestions: [
+        '📊 Track your protection patterns',
+        '⭐ Rate and review your CPOs',
+        '🏆 Earn loyalty rewards'
+      ]
     },
     analytics: {
       icon: '📊',
-      title: 'No Data Available',
-      description: 'Analytics will be available after your first assignment',
-      buttonText: 'View Sample Report'
+      title: 'No Analytics Data',
+      description: 'Analytics will be available after your first protection assignment.',
+      helpText: 'Get insights into your protection patterns, spending, and safety metrics.',
+      buttonText: 'Request Protection to Start',
+      secondaryText: 'Data-driven security insights',
+      suggestions: [
+        '📈 Spending and budget tracking',
+        '🛡️ Safety pattern analysis',
+        '📋 Monthly protection reports'
+      ]
     }
   }), []);
 
@@ -334,26 +397,51 @@ export function Hub() {
     const hasFilters = filters.ratedOnly || filters.execOnly || search || dateFrom || dateTo;
 
     return (
-      <div className={styles.emptyState}>
-        <div className={styles.emptyIcon}>{state.icon}</div>
-        <h3 className={styles.emptyTitle}>{state.title}</h3>
-        <p className={styles.emptyDescription}>
-          {hasFilters ? 'No results match your filters.' : state.description}
-        </p>
-        {hasFilters && (
-          <button
-            className={styles.emptyAction}
-            onClick={clearFilters}
-          >
-            Clear filters
-          </button>
+      <div className={styles.enhancedEmptyState}>
+        <div className={styles.emptyStateHeader}>
+          <div className={styles.emptyIcon}>{state.icon}</div>
+          <h3 className={styles.emptyTitle}>{state.title}</h3>
+          <p className={styles.emptyDescription}>
+            {hasFilters ? 'No results match your current filters.' : state.description}
+          </p>
+          {!hasFilters && (
+            <p className={styles.emptyHelpText}>{state.helpText}</p>
+          )}
+        </div>
+
+        {!hasFilters && (
+          <div className={styles.emptySuggestions}>
+            {state.suggestions.map((suggestion, index) => (
+              <div key={index} className={styles.suggestionItem}>
+                <span className={styles.suggestionText}>{suggestion}</span>
+              </div>
+            ))}
+          </div>
         )}
-        <button
-          className={styles.emptyAction}
-          onClick={() => handleEmptyStateAction(type)}
-        >
-          {type === 'analytics' ? '📊' : '➕'} {state.buttonText}
-        </button>
+
+        <div className={styles.emptyStateActions}>
+          {hasFilters && (
+            <button
+              className={styles.secondaryEmptyAction}
+              onClick={clearFilters}
+            >
+              🔍 Clear filters
+            </button>
+          )}
+
+          <button
+            className={styles.primaryEmptyAction}
+            onClick={() => handleEmptyStateAction(type)}
+          >
+            {type === 'analytics' ? '📊' : '🛡️'} {state.buttonText}
+          </button>
+
+          {!hasFilters && (
+            <p className={styles.emptySecondaryText}>
+              {state.secondaryText}
+            </p>
+          )}
+        </div>
       </div>
     );
   }, [emptyStates, filters, search, dateFrom, dateTo, clearFilters, handleEmptyStateAction]);
@@ -450,41 +538,155 @@ export function Hub() {
   };
 
   return (
-    <div className={styles.hubContainer}>
+    <div className={styles.hubContainer} ref={containerRef}>
+      {/* Pull-to-refresh indicator */}
+      {shouldShowIndicator && (
+        <div
+          className={styles.refreshIndicator}
+          style={refreshIndicatorStyle}
+        >
+          <div className={styles.refreshIcon}>
+            {isRefreshing ? '🔄' : '⬇️'}
+          </div>
+          <span className={styles.refreshText}>
+            {isRefreshing ? 'Refreshing...' : isPulling ? 'Release to refresh' : 'Pull to refresh'}
+          </span>
+        </div>
+      )}
 
-      {/* Header Section */}
+      {/* Enhanced Header Section */}
       <div className={styles.headerSection}>
-        <h1 className={styles.pageTitle}>PROTECTION HUB</h1>
-        <p className={styles.subtitle}>Your Secure Transport Command Center</p>
+        {/* Time and Greeting Row */}
+        <div className={styles.greetingRow}>
+          <div className={styles.greetingSection}>
+            <h1 className={styles.greetingText}>
+              {(() => {
+                const hour = new Date().getHours();
+                const userName = "Principal"; // In real app: get from AuthContext
+                if (hour < 12) return `Good morning, ${userName}`;
+                if (hour < 17) return `Good afternoon, ${userName}`;
+                return `Good evening, ${userName}`;
+              })()}
+            </h1>
+            <div className={styles.dateTimeInfo}>
+              <span className={styles.currentDate}>
+                {new Date().toLocaleDateString('en-GB', {
+                  weekday: 'long',
+                  year: 'numeric',
+                  month: 'long',
+                  day: 'numeric'
+                })}
+              </span>
+              <span className={styles.currentTime}>
+                {new Date().toLocaleTimeString('en-GB', {
+                  hour: '2-digit',
+                  minute: '2-digit',
+                  hour12: false
+                })}
+              </span>
+            </div>
+          </div>
+
+          {/* Weather and Security Info */}
+          <div className={styles.statusSection}>
+            <div className={styles.weatherInfo}>
+              <span className={styles.weatherIcon}>☀</span>
+              <div className={styles.weatherDetails}>
+                <span className={styles.temperature}>22°C</span>
+                <span className={styles.weatherCondition}>Clear</span>
+                <span className={styles.securityNote}>Optimal protection conditions</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Main Title */}
+        <div className={styles.titleSection}>
+          <h2 className={styles.pageTitle}>PROTECTION HUB</h2>
+          <p className={styles.subtitle}>Your Secure Transport Command Center</p>
+        </div>
+
+        {/* Status Pills */}
         <div className={styles.quickStatus}>
           {currentAssignments.length > 0 && (
             <span className={`${styles.statusPill} ${styles.active}`}>
               <span className={styles.pulseIndicator}>●</span>
-              {currentAssignments.length} Active
+              {currentAssignments.length} Active Protection Detail{currentAssignments.length > 1 ? 's' : ''}
             </span>
           )}
           {upcomingAssignments.length > 0 && (
             <span className={`${styles.statusPill} ${styles.scheduled}`}>
               <span className={styles.amberIndicator}>●</span>
-              {upcomingAssignments.length} Scheduled
+              {upcomingAssignments.length} Scheduled Assignment{upcomingAssignments.length > 1 ? 's' : ''}
             </span>
           )}
           {currentAssignments.length === 0 && upcomingAssignments.length === 0 && (
             <span className={`${styles.statusPill} ${styles.inactive}`}>
+              <span className={styles.inactiveIndicator}>●</span>
               No Active Protection
             </span>
           )}
         </div>
 
-        {/* Contextual Status Message */}
+        {/* Enhanced Contextual Status */}
         <div className={styles.contextualStatus}>
           {currentAssignments.length > 0 ? (
-            <span className={styles.statusMessage}>Your protection is currently active. Monitor progress below.</span>
+            <div className={styles.activeStatusDetails}>
+              <span className={styles.statusMessage}>
+                Protection Detail Active - Monitor real-time progress below
+              </span>
+              <div className={styles.activeMetrics}>
+                <span className={styles.metric}>
+                  ETA: {currentAssignments[0]?.time}
+                </span>
+                <span className={styles.metric}>
+                  Running cost: £{currentAssignments[0]?.totalCost}
+                </span>
+                <span className={styles.metric}>
+                  CPO: {currentAssignments[0]?.officerName}
+                </span>
+              </div>
+            </div>
           ) : upcomingAssignments.length > 0 ? (
-            <span className={styles.statusMessage}>Next protection starts {upcomingAssignments[0]?.date} at {upcomingAssignments[0]?.time}</span>
+            <div className={styles.upcomingStatusDetails}>
+              <span className={styles.statusMessage}>
+                Next protection detail: {upcomingAssignments[0]?.date} at {upcomingAssignments[0]?.time}
+              </span>
+              <div className={styles.upcomingMetrics}>
+                <span className={styles.metric}>
+                  Service: {upcomingAssignments[0]?.serviceTier}
+                </span>
+                <span className={styles.metric}>
+                  CPO: {upcomingAssignments[0]?.officerName}
+                </span>
+                <span className={styles.metric}>
+                  Route: {upcomingAssignments[0]?.location.start.split(',')[0]} → {upcomingAssignments[0]?.location.end.split(',')[0]}
+                </span>
+              </div>
+            </div>
           ) : (
-            <span className={styles.statusMessage}>Ready to request your next protection service</span>
+            <div className={styles.readyStatusDetails}>
+              <span className={styles.statusMessage}>
+                Ready to request your next protection service
+              </span>
+              <div className={styles.readyMetrics}>
+                <span className={styles.metric}>Response time: ~12 minutes</span>
+                <span className={styles.metric}>24/7 availability</span>
+                <span className={styles.metric}>98% satisfaction rate</span>
+              </div>
+            </div>
           )}
+        </div>
+
+        {/* Security Alert Banner */}
+        <div className={styles.securityBanner}>
+          <div className={styles.securityAlert}>
+            <span className={styles.securityIcon}>🔒</span>
+            <span className={styles.securityText}>
+              Enhanced security protocols active
+            </span>
+            <span className={styles.securityLevel}>Level 3 SIA Compliance</span>
+          </div>
         </div>
       </div>
 
@@ -553,51 +755,76 @@ export function Hub() {
         </div>
       </div>
 
+      {/* Favorite CPOs Section */}
+      {(currentAssignments.length === 0 && upcomingAssignments.length === 0) || showFavoriteCPOs ? (
+        <FavoriteCPOs
+          onBookWithCPO={handleBookWithCPO}
+          onViewProfile={handleViewCPOProfile}
+          className={styles.favoriteCPOsSection}
+        />
+      ) : null}
+
       {/* Assignment List */}
       {renderSectionContent()}
 
-      {/* Enhanced Quick Actions */}
+      {/* Enhanced Quick Actions - Reordered by usage frequency */}
       <div className={styles.quickActionsSection}>
         <div className={styles.quickActions}>
+          {/* 1. Most used - Request Protection */}
           <button className={styles.actionButton} onClick={() => navigateToView('protection-request')}>
             <span className={styles.actionIcon}>🛡️</span>
             <span className={styles.actionText}>Request Protection</span>
           </button>
-          <button className={styles.actionButton} onClick={handleViewFinancialDetails}>
-            <span className={styles.actionIcon}>💷</span>
-            <span className={styles.actionText}>{showFinancialTracker ? 'Hide' : 'Show'} Finances</span>
-          </button>
+
+          {/* 2. Second most used - Show Saved Routes */}
           <button className={styles.actionButton} onClick={() => setShowTemplates(!showTemplates)}>
             <span className={styles.actionIcon}>📍</span>
             <span className={styles.actionText}>{showTemplates ? 'Hide' : 'Show'} Saved Routes</span>
             <span className={styles.badge}>3</span>
           </button>
+
+          {/* 3. Third most used - Favorite CPOs */}
+          <button className={styles.actionButton} onClick={() => setShowFavoriteCPOs(!showFavoriteCPOs)}>
+            <span className={styles.actionIcon}>👤</span>
+            <span className={styles.actionText}>{showFavoriteCPOs ? 'Hide' : 'Show'} Favorite CPOs</span>
+            <span className={styles.badge}>3</span>
+          </button>
+
+          {/* 4. Fourth most used - Analytics Report */}
           <button className={styles.actionButton}>
             <span className={styles.actionIcon}>📊</span>
             <span className={styles.actionText}>Analytics Report</span>
           </button>
+
+          {/* 5. Least used - Show Finances */}
+          <button className={styles.actionButton} onClick={handleViewFinancialDetails}>
+            <span className={styles.actionIcon}>💷</span>
+            <span className={styles.actionText}>{showFinancialTracker ? 'Hide' : 'Show'} Finances</span>
+          </button>
         </div>
       </div>
 
-      {/* Enhanced Protection Panel - White sliding panel for active protection */}
-      <EnhancedProtectionPanel
-        officer={mockOfficer}
-        assignment={currentAssignments[0] || {
-          id: 'ASG-001',
-          status: 'current',
-          progress: 75,
-          timeRemaining: '1h 23m',
-          eta: '16:45',
-          cost: '£245.50',
-          serviceLevel: 'Executive Shield',
-          currentLocation: 'Near Mayfair'
-        }}
-        isLocationSharing={isLocationSharing}
-        onLocationToggle={handleLocationToggle}
-        onOfficerCall={handleDirectCall}
-        assignmentId={currentAssignments[0]?.id || 'ASG-001'}
-        currentRate={95} // Executive Shield rate
-      />
+      {/* Enhanced Protection Panel - Only show when protection is active */}
+      {currentAssignments.length > 0 && (
+        <EnhancedProtectionPanel
+          officer={mockOfficer}
+          assignment={currentAssignments[0] || {
+            id: 'ASG-001',
+            status: 'current',
+            progress: 75,
+            timeRemaining: '1h 23m',
+            eta: '16:45',
+            cost: '£245.50',
+            serviceLevel: 'Executive Shield',
+            currentLocation: 'Near Mayfair'
+          }}
+          isLocationSharing={isLocationSharing}
+          onLocationToggle={handleLocationToggle}
+          onOfficerCall={handleDirectCall}
+          assignmentId={currentAssignments[0]?.id || 'ASG-001'}
+          currentRate={95} // Executive Shield rate
+        />
+      )}
     </div>
   );
 }

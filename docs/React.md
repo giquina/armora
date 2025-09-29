@@ -1,5 +1,5 @@
 # React Development Standards - Armora Security Transport
-Last updated: 2025-09-28T16:54:06.342Z
+Last updated: 2025-09-29T09:43:09.469Z
 
 ## Mobile-First Component Architecture
 
@@ -954,4 +954,4 @@ const GuestDisclaimer: React.FC<GuestFlowProps> = ({
 
 ---
 
-Last updated: 2025-09-28T16:54:06.342Z
+Last updated: 2025-09-29T09:43:09.469Z

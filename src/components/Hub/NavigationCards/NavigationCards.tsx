@@ -3,6 +3,7 @@ import { CurrentCard } from './CardComponents/CurrentCard';
 import { UpcomingCard } from './CardComponents/UpcomingCard';
 import { CompletedCard } from './CardComponents/CompletedCard';
 import { AnalyticsCard } from './CardComponents/AnalyticsCard';
+import { useSwipeGesture } from '../../../hooks/useSwipeGesture';
 import styles from './NavigationCards.module.css';
 
 type AssignmentStatus = 'current' | 'upcoming' | 'completed' | 'analytics';
@@ -144,7 +145,38 @@ export const NavigationCards: FC<NavigationCardsProps> = ({
     reportStatus: "Ready" as const,
     lastUpdated: "2 hours ago",
     hasNewReport: true,
-    savingsAchieved: 245 // Added missing savingsAchieved property
+    savingsAchieved: 245, // Added missing savingsAchieved property
+    // Enhanced analytics data
+    totalHours: 127,
+    totalInvestment: 8450,
+    avgRating: 4.9,
+    statusProgress: 76, // Progress to Platinum status (230/300)
+    weeklyData: [
+      { label: 'Mon', value: 8 },
+      { label: 'Tue', value: 12 },
+      { label: 'Wed', value: 6 },
+      { label: 'Thu', value: 15 },
+      { label: 'Fri', value: 9 },
+      { label: 'Sat', value: 4 },
+      { label: 'Sun', value: 3 }
+    ],
+    monthlyTrend: 12, // percentage increase in monthly investment
+    favoriteRoutes: [
+      { route: 'Home ↔ Office', frequency: 65 },
+      { route: 'Office ↔ Airport', frequency: 22 },
+      { route: 'Home ↔ Restaurant', frequency: 13 }
+    ],
+    peakTimes: [
+      { time: 'Weekday evenings', percentage: 45 },
+      { time: 'Monday mornings', percentage: 28 },
+      { time: 'Friday afternoons', percentage: 18 }
+    ],
+    protectionPatterns: {
+      mostUsedTier: 'Executive',
+      averageAssignmentDuration: 3.2,
+      frequentDestinations: ['Central London', 'Canary Wharf', 'Heathrow Airport'],
+      weekdayVsWeekend: { weekday: 78, weekend: 22 }
+    }
   }), []);
 
   // Keyboard navigation across tabs
@@ -175,12 +207,34 @@ export const NavigationCards: FC<NavigationCardsProps> = ({
     }
   }, [activeSection, setActiveSection]);
 
+  // Swipe navigation between sections
+  const sections: AssignmentStatus[] = ['current', 'upcoming', 'completed', 'analytics'];
+  const navigateSection = useCallback((direction: 'next' | 'prev') => {
+    const currentIndex = sections.indexOf(activeSection);
+    if (currentIndex === -1) return;
+
+    const nextIndex = direction === 'next'
+      ? (currentIndex + 1) % sections.length
+      : (currentIndex - 1 + sections.length) % sections.length;
+
+    setActiveSection(sections[nextIndex]);
+  }, [activeSection, setActiveSection]);
+
+  const { swipeProps } = useSwipeGesture({
+    onSwipeLeft: () => navigateSection('next'),
+    onSwipeRight: () => navigateSection('prev'),
+  }, {
+    threshold: 50,
+    prevent: false,
+  });
+
   return (
     <div
       className={styles.navigationGrid}
       role="tablist"
       aria-label="Assignment sections"
       onKeyDown={onKeyDown}
+      {...swipeProps}
     >
       <CurrentCard
         data={currentData}
