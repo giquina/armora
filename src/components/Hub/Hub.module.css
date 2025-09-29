@@ -3,7 +3,6 @@
 /* EMOJI RENDERING FIX */
 /* Ensure proper emoji display across all browsers and devices */
 .hubContainer *,
-.weatherIcon,
 .securityIcon,
 .pulseIndicator,
 .amberIndicator,
@@ -82,100 +81,50 @@
 }
 
 .greetingText {
-  font-size: 42px;
+  font-size: 52px;
   font-weight: 800;
-  color: white;
-  margin: 0;
+  color: #FFFFFF;
+  margin: 0 0 20px 0;
   line-height: 1.1;
-  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
-  letter-spacing: -0.8px;
+  letter-spacing: -1px;
   text-align: center;
+  text-transform: none;
+  text-shadow: 0 3px 12px rgba(0, 0, 0, 0.4);
 }
 
 .dateTimeInfo {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
   text-align: center;
 }
 
 .currentDate {
-  font-size: 18px;
-  color: rgba(255, 255, 255, 0.75);
-  font-weight: 500;
-  line-height: 1.2;
-  letter-spacing: -0.2px;
+  font-size: 16px;
+  color: #FFD700;
+  font-weight: 600;
+  line-height: 1.4;
+  letter-spacing: 0.8px;
   text-align: center;
+  text-transform: uppercase;
 }
 
 .currentTime {
-  font-size: 16px;
-  color: rgba(255, 255, 255, 0.65);
-  font-weight: 400;
-  letter-spacing: 0.4px;
+  font-size: 22px;
+  color: rgba(255, 255, 255, 0.85);
+  font-weight: 600;
+  letter-spacing: 0.5px;
   text-align: center;
 }
 
-/* Weather Section - Centered Elegant Design */
+/* Status Section - Placeholder for NextAssignmentCard */
 .statusSection {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 12px;
   text-align: center;
-}
-
-.weatherInfo {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 16px;
-  padding: 20px 32px;
-  background: rgba(255, 255, 255, 0.05);
-  border-radius: 16px;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-}
-
-.weatherIcon {
-  font-size: 42px;
-  text-shadow: 0 3px 6px rgba(0, 0, 0, 0.25);
-  line-height: 1;
-}
-
-.weatherDetails {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 8px;
-  text-align: center;
-}
-
-.temperature {
-  font-size: 32px;
-  font-weight: 700;
-  color: white;
-  line-height: 1;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
-  letter-spacing: -0.8px;
-}
-
-.weatherCondition {
-  font-size: 20px;
-  color: rgba(255, 255, 255, 0.9);
-  font-weight: 500;
-  line-height: 1.2;
-  letter-spacing: -0.3px;
-}
-
-.securityNote {
-  font-size: 16px;
-  color: rgba(255, 255, 255, 0.75);
-  font-style: italic;
-  margin-top: 4px;
-  font-weight: 400;
-  letter-spacing: 0.3px;
 }
 
 /* Title Section */
@@ -185,9 +134,9 @@
 
 /* Contextual Status Messages - Centered Design */
 .contextualStatus {
-  width: calc(100% + 32px);
-  margin: 28px -16px 28px -16px;
-  padding: 0 16px;
+  width: 100%;
+  margin: 20px 0;
+  padding: 0;
   display: flex;
   justify-content: center;
 }
@@ -198,24 +147,24 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 20px;
-  padding: 24px 32px;
-  background: rgba(255, 255, 255, 0.06);
+  gap: 16px;
+  padding: 20px 24px;
+  background: linear-gradient(135deg, rgba(255, 215, 0, 0.12) 0%, rgba(255, 215, 0, 0.06) 100%);
   border-radius: 16px;
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-  max-width: 600px;
+  border: 2px solid rgba(255, 215, 0, 0.3);
+  box-shadow: 0 6px 16px rgba(255, 215, 0, 0.15), 0 2px 8px rgba(0, 0, 0, 0.2);
+  max-width: calc(100vw - 32px);
   width: 100%;
   text-align: center;
 }
 
 .statusMessage {
-  font-size: 22px;
-  color: rgba(255, 255, 255, 0.95);
-  font-weight: 600;
+  font-size: 18px;
+  color: #FFFFFF;
+  font-weight: 700;
   text-align: center;
   line-height: 1.4;
-  letter-spacing: -0.4px;
+  letter-spacing: 0.3px;
 }
 
 .activeMetrics,
@@ -223,14 +172,14 @@
 .readyMetrics {
   display: flex;
   justify-content: center;
-  gap: 36px;
+  gap: 20px;
   flex-wrap: wrap;
 }
 
 .metric {
-  font-size: 17px;
-  color: rgba(255, 255, 255, 0.85);
-  font-weight: 500;
+  font-size: 15px;
+  color: #FFD700;
+  font-weight: 600;
   white-space: nowrap;
   letter-spacing: 0.3px;
 }
@@ -1021,16 +970,7 @@
   font-weight: 500;
 }
 
-/* Quick Actions Section - Clean Design */
-.quickActionsSection {
-  margin-top: 24px;
-}
-
-/* Removed command center header */
-
-/* Removed connection indicator */
-
-/* Quick Actions - 2 Per Row Grid Layout with minimal spacing */
+/* Legacy Quick Actions Grid (deprecated) */
 .quickActions {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -1288,33 +1228,14 @@
   }
 
   .greetingText {
-    font-size: 18px;
-    margin-bottom: 6px;
+    font-size: 42px;
+    margin-bottom: 16px;
+    font-weight: 800;
+    letter-spacing: -1px;
   }
 
   .statusSection {
     text-align: left;
-  }
-
-  .weatherInfo {
-    justify-content: flex-start;
-    padding: 6px 10px;
-  }
-
-  .weatherIcon {
-    font-size: 18px;
-  }
-
-  .temperature {
-    font-size: 14px;
-  }
-
-  .weatherCondition {
-    font-size: 11px;
-  }
-
-  .securityNote {
-    font-size: 9px;
   }
 
   .titleSection {
@@ -1392,10 +1313,6 @@
   .headerSection,
   .filtersSection {
     padding: 14px; /* Slightly more than before */
-  }
-
-  .quickActionsSection {
-    padding: 8px; /* Better than 6px */
   }
 
   /* Header improvements */
@@ -2100,9 +2017,10 @@
   }
 
   .greetingText {
-    font-size: 36px;
-    font-weight: 800;
+    font-size: 52px;
+    font-weight: 900;
     text-align: center;
+    letter-spacing: -1.2px;
   }
 
   .currentDate {
@@ -2115,27 +2033,6 @@
     text-align: center;
   }
 
-  .weatherInfo {
-    padding: 16px 20px;
-    gap: 12px;
-    align-items: center;
-  }
-
-  .weatherIcon {
-    font-size: 36px;
-  }
-
-  .temperature {
-    font-size: 26px;
-  }
-
-  .weatherCondition {
-    font-size: 17px;
-  }
-
-  .securityNote {
-    font-size: 14px;
-  }
 
   .statusMessage {
     font-size: 18px;
@@ -2204,8 +2101,10 @@
   }
 
   .greetingText {
-    font-size: 38px;
+    font-size: 48px;
+    font-weight: 900;
     text-align: center;
+    letter-spacing: -1px;
   }
 
   .currentDate {
@@ -2218,26 +2117,6 @@
     text-align: center;
   }
 
-  .weatherInfo {
-    padding: 18px 24px;
-    gap: 14px;
-  }
-
-  .weatherIcon {
-    font-size: 38px;
-  }
-
-  .temperature {
-    font-size: 28px;
-  }
-
-  .weatherCondition {
-    font-size: 18px;
-  }
-
-  .securityNote {
-    font-size: 15px;
-  }
 
   .statusMessage {
     font-size: 20px;

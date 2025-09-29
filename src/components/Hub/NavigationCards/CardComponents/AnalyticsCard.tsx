@@ -69,48 +69,91 @@ export const AnalyticsCard: FC<AnalyticsCardProps> = memo(({
       {/* Header */}
       <div className={styles.navCardHeader}>
         <div className={styles.navCardLeft}>
-          <span className={styles.navCardIcon}>📊</span>
-          <span className={styles.navCardTitle}>Analytics</span>
+          <span className={styles.navCardTitle}>ANALYTICS</span>
           {data.hasNewReport && (
             <span className={styles.newBadge}>NEW</span>
           )}
         </div>
-        {isActive && <span className={styles.activeIndicator}>●</span>}
       </div>
 
       {/* Compact Content - Always Visible */}
       <div className={styles.cardContent}>
-        {/* Essential Info Row - Improved Typography */}
-        <div className={styles.essentialInfo}>
-          <div className={styles.statusRow}>
-            <div className={styles.statusSection}>
-              <span className={styles.analyticsIcon}>📊</span>
-              <span className={styles.statusText}>INSIGHTS</span>
+        {/* Time Period Header */}
+        <div className={styles.timePeriodHeader}>LAST 30 DAYS</div>
+
+        {/* Empty State */}
+        {data.totalHours === 0 ? (
+          <>
+            <div className={styles.analyticsEmptyState}>
+              No protection assignments in the last 30 days. Your usage insights will appear here after your next assignment.
             </div>
             <button
-              className={styles.expandButton}
+              className={styles.requestProtectionButton}
               onClick={(e) => {
                 e.stopPropagation();
-                setIsExpanded(!isExpanded);
+                console.log('Navigate to where-when booking');
               }}
-              aria-label={isExpanded ? 'Collapse details' : 'Expand details'}
             >
-              {isExpanded ? 'Show Less' : 'Show More'}
+              Request Protection
             </button>
+          </>
+        ) : (
+          <>
+            {/* Primary Metrics Group */}
+            <div className={styles.primaryMetricsGroup}>
+          <div className={styles.primaryMetric} style={{ color: '#22D3EE' }}>
+            {data.totalHours}h coverage
           </div>
-          <div className={styles.keyStats}>
-            <span className={styles.coverageHours}>127h coverage</span>
-            <span className={styles.bullet}>•</span>
-            <span className={styles.investmentAmount}>£2,450</span>
-            <span className={styles.bullet}>•</span>
-            <span className={styles.trendIndicator} style={{ color: getTrendColor(data.spendTrend) }}>
-              {getTrendIcon(data.spendTrend)} 18%
-            </span>
+          <div className={styles.primaryMetric} style={{ color: '#D4AF37' }}>
+            £{data.totalInvestment.toLocaleString()} invested
+          </div>
+          <div className={styles.primaryMetric} style={{
+            color: data.monthlyTrend > 0 ? '#10B981' : data.monthlyTrend < 0 ? '#EF4444' : 'rgba(255, 255, 255, 0.65)'
+          }}>
+            {data.monthlyTrend > 0 ? '↑' : data.monthlyTrend < 0 ? '↓' : '→'} {Math.abs(data.monthlyTrend)}% vs previous month
           </div>
         </div>
 
+        {/* Supporting Metrics Group */}
+        <div className={styles.supportingMetricsGroup}>
+          <div className={styles.supportingMetric}>
+            {Math.round(data.totalHours / data.protectionPatterns.averageAssignmentDuration)} assignments completed
+          </div>
+          <div className={styles.supportingMetric}>
+            Average {data.protectionPatterns.averageAssignmentDuration}h per assignment
+          </div>
+        </div>
+
+        {/* Usage Pattern */}
+        <div className={styles.usagePattern}>
+          Most used: <span className={styles.tierBadge} style={{
+            backgroundColor: data.protectionPatterns.mostUsedTier === 'Executive' ? 'rgba(212, 175, 55, 0.1)' :
+                              data.protectionPatterns.mostUsedTier === 'Shadow' ? 'rgba(168, 85, 247, 0.1)' :
+                              'rgba(59, 130, 246, 0.1)',
+            color: data.protectionPatterns.mostUsedTier === 'Executive' ? '#D4AF37' :
+                   data.protectionPatterns.mostUsedTier === 'Shadow' ? '#A855F7' :
+                   '#3B82F6'
+          }}>
+            {data.protectionPatterns.mostUsedTier} Protection
+          </span>
+        </div>
+
+        {/* Show More Button */}
+        <button
+          className={styles.showMoreButton}
+          onClick={(e) => {
+            e.stopPropagation();
+            setIsExpanded(!isExpanded);
+          }}
+          aria-label={isExpanded ? 'Collapse details' : 'Expand details'}
+        >
+          {isExpanded ? 'Show Less' : 'Show More'}
+        </button>
+          </>
+        )}
+
         {/* Expandable Details */}
-        {isExpanded && (
+        {isExpanded && data.totalHours > 0 && (
           <div className={styles.expandedDetails}>
             {/* Time Range Filters */}
             <div className={styles.timeRangeFilters}>

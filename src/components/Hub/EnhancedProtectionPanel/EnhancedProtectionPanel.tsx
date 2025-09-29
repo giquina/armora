@@ -162,17 +162,21 @@ export function EnhancedProtectionPanel({
   const getStatusInfo = () => {
     const defaultStatus = {
       location: 'Near Mayfair',
+      routeStart: 'Kensington',
+      routeEnd: 'Canary Wharf',
       progress: 75,
       timeRemaining: '1h 23m',
       eta: '16:45',
       cost: '£245.50',
-      protectionLevel: 'Executive Shield'
+      protectionLevel: 'Executive Protection'
     };
 
     if (!assignment) return defaultStatus;
 
     return {
       location: assignment.currentLocation || defaultStatus.location,
+      routeStart: assignment.location?.start || defaultStatus.routeStart,
+      routeEnd: assignment.location?.end || defaultStatus.routeEnd,
       progress: assignment.progress || defaultStatus.progress,
       timeRemaining: assignment.timeRemaining || defaultStatus.timeRemaining,
       eta: assignment.eta || defaultStatus.eta,
@@ -224,12 +228,12 @@ export function EnhancedProtectionPanel({
 
             {/* Line 2: CPO Information */}
             <div className={styles.cpoLine}>
-              <span className={styles.cpoInfo}>CPO: {officer.name} • SIA #{officer.designation || 'L3-VERIFIED'} • Level 3</span>
+              <span className={styles.cpoInfo}>CPO: {officer.name} • SIA #{officer.designation || 'L3-VERIFIED'}</span>
             </div>
 
             {/* Line 3: Journey Details */}
             <div className={styles.journeyLine}>
-              <span className={styles.journeyInfo}>To: {statusInfo.location} • {statusInfo.timeRemaining} remaining • {statusInfo.cost}</span>
+              <span className={styles.journeyInfo}>Route: {statusInfo.routeStart} → {statusInfo.routeEnd} • {statusInfo.timeRemaining} • {statusInfo.cost}</span>
             </div>
           </div>
         )}

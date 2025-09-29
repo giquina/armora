@@ -195,7 +195,6 @@ export const CompletedCard: FC<CompletedCardProps> = memo(({
           <span className={styles.navCardTitle}>Completed</span>
           <span className={styles.navCardCount}>({data.count})</span>
         </div>
-        {isActive && <span className={styles.activeIndicator}>●</span>}
         {data.pendingRatings > 0 && (
           <div className={styles.pendingBadge}>{data.pendingRatings}</div>
         )}
@@ -222,17 +221,72 @@ export const CompletedCard: FC<CompletedCardProps> = memo(({
                 {isExpanded ? 'Show Less' : 'Show More'}
               </button>
             </div>
-            <div className={styles.keyStats}>
-              <span className={styles.completedCount}>{filteredAssignments.length} protection details</span>
-              <span className={styles.bullet}>•</span>
-              <span className={styles.averageRating}>{data.averageRating}★</span>
-              <span className={styles.bullet}>•</span>
-              <span className={styles.spentAmount}>{data.spentThisMonth}</span>
+
+            {/* Protection History Section */}
+            <div className={styles.protectionHistory}>PROTECTION HISTORY</div>
+
+            {/* Statistics Grid */}
+            <div className={styles.statsGrid}>
+              {/* Total Hours Protected */}
+              <div className={styles.statCard}>
+                <div className={styles.statValue} style={{ color: '#22D3EE' }}>
+                  {filteredAssignments.reduce((total, a) => {
+                    const hours = parseInt(a.duration.split(' ')[0]) || 0;
+                    return total + hours;
+                  }, 0)}h
+                </div>
+                <div className={styles.statLabel}>
+                  Total Hours<br/>Protected
+                </div>
+              </div>
+
+              {/* Average Rating */}
+              <div className={styles.statCard}>
+                <div className={styles.statValue} style={{ color: '#F59E0B' }}>
+                  {filteredAssignments.filter(a => a.rating).length > 0
+                    ? (filteredAssignments.reduce((sum, a) => sum + (a.rating || 0), 0) /
+                        filteredAssignments.filter(a => a.rating).length).toFixed(1) + '★'
+                    : '—'}
+                </div>
+                <div className={styles.statLabel}>
+                  Avg Rating<br/>Given
+                </div>
+              </div>
+
+              {/* Total Invested */}
+              <div className={styles.statCard}>
+                <div className={styles.statValue} style={{ color: '#D4AF37' }}>
+                  £{filteredAssignments.reduce((sum, a) => sum + a.totalCost, 0).toLocaleString()}
+                </div>
+                <div className={styles.statLabel}>
+                  Total<br/>Invested
+                </div>
+              </div>
+
+              {/* Member Status */}
+              <div className={styles.statCard}>
+                <div className={styles.statValue} style={{
+                  color: filteredAssignments.reduce((sum, a) => sum + a.totalCost, 0) >= 5000
+                    ? '#D4AF37'
+                    : filteredAssignments.reduce((sum, a) => sum + a.totalCost, 0) >= 1000
+                      ? '#C0C0C0'
+                      : '#FFFFFF'
+                }}>
+                  {filteredAssignments.reduce((sum, a) => sum + a.totalCost, 0) >= 5000
+                    ? 'Gold'
+                    : filteredAssignments.reduce((sum, a) => sum + a.totalCost, 0) >= 1000
+                      ? 'Silver'
+                      : 'Guest'}
+                </div>
+                <div className={styles.statLabel}>
+                  Member<br/>Status
+                </div>
+              </div>
             </div>
           </div>
 
           {/* Expandable Details */}
-          {isExpanded && (
+          {isExpanded && filteredAssignments.length > 0 && (
             <div className={styles.expandedDetails}>
               {/* Search and Filter Controls */}
               <div className={styles.searchFilterSection}>
@@ -405,14 +459,37 @@ export const CompletedCard: FC<CompletedCardProps> = memo(({
               </div>
             </div>
           )}
+
+          {/* Expanded Empty State Message */}
+          {isExpanded && filteredAssignments.length === 0 && (
+            <div className={styles.expandedEmptyState}>
+              <div className={styles.expandedEmptyText}>
+                No completed assignments yet. Book your first protection service to start building your history.
+              </div>
+            </div>
+          )}
         </div>
       )}
 
       {/* Empty State */}
       {data.count === 0 && (
-        <div className={styles.emptyCardState}>
-          <div className={styles.emptyText}>No completed assignments</div>
-          <div className={styles.emptySubtext}>History will appear here</div>
+        <div className={styles.cardContent}>
+          <div className={styles.protectionHistory}>PROTECTION HISTORY</div>
+          <div className={styles.emptyCardState}>
+            <div className={styles.emptyText}>
+              No completed protection assignments yet. Your history will appear here after your first assignment.
+            </div>
+          </div>
+          <button
+            className={styles.requestProtectionButton}
+            onClick={(e) => {
+              e.stopPropagation();
+              // Navigate to booking flow - this would be passed via props or context
+              console.log('Navigate to where-when booking');
+            }}
+          >
+            Request Protection
+          </button>
         </div>
       )}
     </div>

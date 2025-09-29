@@ -4,8 +4,8 @@ import { NavigationCards } from './NavigationCards/NavigationCards';
 import { EnhancedProtectionPanel } from './EnhancedProtectionPanel/EnhancedProtectionPanel';
 import { FinancialTracker } from './FinancialTracker/FinancialTracker';
 import { FavoriteCPOs } from './FavoriteCPOs/FavoriteCPOs';
+import { NextAssignmentCard } from './NextAssignmentCard';
 import { usePullToRefresh } from '../../hooks/usePullToRefresh';
-import { useLazyLoading } from '../../hooks/useLazyLoading';
 import { IFinancialTracker } from '../../types';
 import styles from './Hub.module.css';
 
@@ -222,6 +222,25 @@ export function Hub() {
     // In real app: show CPO profile modal or navigate to profile page
     console.log('Viewing CPO profile:', cpoId);
   }, []);
+
+  const handleNextAssignmentClick = useCallback(() => {
+    if (upcomingAssignments.length > 0) {
+      // Scroll to existing NEXT PROTECTION section
+      const nextProtectionSection = document.getElementById('next-protection-section');
+      if (nextProtectionSection) {
+        nextProtectionSection.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start'
+        });
+      } else {
+        // Fallback: scroll to upcoming section
+        setActiveSection('upcoming');
+      }
+    } else {
+      // Navigate to booking flow
+      navigateToView('protection-request');
+    }
+  }, [upcomingAssignments, navigateToView]);
 
   // Pull-to-refresh functionality
   const handleRefresh = useCallback(async () => {
@@ -587,17 +606,17 @@ export function Hub() {
             </div>
           </div>
 
-          {/* Weather and Security Info */}
-          <div className={styles.statusSection}>
-            <div className={styles.weatherInfo}>
-              <span className={styles.weatherIcon}>☀</span>
-              <div className={styles.weatherDetails}>
-                <span className={styles.temperature}>22°C</span>
-                <span className={styles.weatherCondition}>Clear</span>
-                <span className={styles.securityNote}>Optimal protection conditions</span>
-              </div>
-            </div>
-          </div>
+          {/* Next Assignment Preview Card */}
+          <NextAssignmentCard
+            assignment={upcomingAssignments.length > 0 ? {
+              id: upcomingAssignments[0].id,
+              scheduledDateTime: new Date(`${upcomingAssignments[0].date}T${upcomingAssignments[0].time}`),
+              cpoName: upcomingAssignments[0].officerName,
+              protectionLevel: upcomingAssignments[0].serviceTier as 'Essential' | 'Executive' | 'Shadow',
+              cpoSiaLicense: upcomingAssignments[0].officerSIA
+            } : null}
+            onClick={handleNextAssignmentClick}
+          />
         </div>
 
         {/* Main Title */}
@@ -721,39 +740,6 @@ export function Hub() {
         />
       </div>
 
-      {/* Quick Stats Cards */}
-      <div className={styles.statsSection}>
-        <div className={styles.statsGrid}>
-          <div className={styles.statCard}>
-            <div className={styles.statIcon}>🛡️</div>
-            <div className={styles.statContent}>
-              <div className={styles.statValue}>127</div>
-              <div className={styles.statLabel}>Total Hours Protected</div>
-            </div>
-          </div>
-          <div className={styles.statCard}>
-            <div className={styles.statIcon}>💷</div>
-            <div className={styles.statContent}>
-              <div className={styles.statValue}>£8,450</div>
-              <div className={styles.statLabel}>Total Invested</div>
-            </div>
-          </div>
-          <div className={styles.statCard}>
-            <div className={styles.statIcon}>⭐</div>
-            <div className={styles.statContent}>
-              <div className={styles.statValue}>4.9</div>
-              <div className={styles.statLabel}>Average Rating Given</div>
-            </div>
-          </div>
-          <div className={styles.statCard}>
-            <div className={styles.statIcon}>🏆</div>
-            <div className={styles.statContent}>
-              <div className={styles.statValue}>Gold</div>
-              <div className={styles.statLabel}>Member Status</div>
-            </div>
-          </div>
-        </div>
-      </div>
 
       {/* Favorite CPOs Section */}
       {(currentAssignments.length === 0 && upcomingAssignments.length === 0) || showFavoriteCPOs ? (
@@ -766,43 +752,6 @@ export function Hub() {
 
       {/* Assignment List */}
       {renderSectionContent()}
-
-      {/* Enhanced Quick Actions - Reordered by usage frequency */}
-      <div className={styles.quickActionsSection}>
-        <div className={styles.quickActions}>
-          {/* 1. Most used - Request Protection */}
-          <button className={styles.actionButton} onClick={() => navigateToView('protection-request')}>
-            <span className={styles.actionIcon}>🛡️</span>
-            <span className={styles.actionText}>Request Protection</span>
-          </button>
-
-          {/* 2. Second most used - Show Saved Routes */}
-          <button className={styles.actionButton} onClick={() => setShowTemplates(!showTemplates)}>
-            <span className={styles.actionIcon}>📍</span>
-            <span className={styles.actionText}>{showTemplates ? 'Hide' : 'Show'} Saved Routes</span>
-            <span className={styles.badge}>3</span>
-          </button>
-
-          {/* 3. Third most used - Favorite CPOs */}
-          <button className={styles.actionButton} onClick={() => setShowFavoriteCPOs(!showFavoriteCPOs)}>
-            <span className={styles.actionIcon}>👤</span>
-            <span className={styles.actionText}>{showFavoriteCPOs ? 'Hide' : 'Show'} Favorite CPOs</span>
-            <span className={styles.badge}>3</span>
-          </button>
-
-          {/* 4. Fourth most used - Analytics Report */}
-          <button className={styles.actionButton}>
-            <span className={styles.actionIcon}>📊</span>
-            <span className={styles.actionText}>Analytics Report</span>
-          </button>
-
-          {/* 5. Least used - Show Finances */}
-          <button className={styles.actionButton} onClick={handleViewFinancialDetails}>
-            <span className={styles.actionIcon}>💷</span>
-            <span className={styles.actionText}>{showFinancialTracker ? 'Hide' : 'Show'} Finances</span>
-          </button>
-        </div>
-      </div>
 
       {/* Enhanced Protection Panel - Only show when protection is active */}
       {currentAssignments.length > 0 && (

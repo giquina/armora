@@ -18,7 +18,7 @@
   box-shadow:
     0 4px 24px rgba(0, 0, 0, 0.12),
     inset 0 1px 0 rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  border: 2px solid rgba(255, 215, 0, 0.4);
   border-radius: 12px; /* Smaller radius for mobile-first */
   padding: 12px; /* Mobile-first compact padding */
   text-align: left;
@@ -29,21 +29,7 @@
   height: auto;
 }
 
-/* Enhanced left accent bars */
-.navCard::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 0;
-  bottom: 0;
-  width: 2px;
-  transition: width 0.3s ease;
-}
-
-.navCard.current::before { background: #FFD700; }
-.navCard.upcoming::before { background: #00D4FF; }
-.navCard.completed::before { background: #00FF88; }
-.navCard.analytics::before { background: #FF6B6B; }
+/* Removed left accent bars for cleaner design */
 
 /* Hover effects removed for simplified desktop/tablet interaction */
 
@@ -57,9 +43,6 @@
     inset 0 1px 0 rgba(255, 215, 0, 0.1);
 }
 
-.navCard.active::before {
-  width: 3px;
-}
 
 /* Color-specific active states */
 .navCard.active.current {
@@ -1435,8 +1418,8 @@
 
 .detailValue {
   font-size: 18px;
-  font-weight: 700;
-  color: white;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.9);
 }
 
 /* Investment Section */
@@ -2971,8 +2954,8 @@
 
 .cpoName {
   font-size: 18px;
-  font-weight: 700;
-  color: white;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.9);
   line-height: 1.2;
   margin-bottom: 2px;
 }
@@ -3267,5 +3250,496 @@
     font-size: 12px;
     min-height: 36px;
     padding: 8px 14px;
+  }
+}
+/* ====================================
+   UNIFIED TEXT-BASED HIERARCHY STYLES
+   ====================================*/
+
+/* Section Headers */
+.sectionHeader {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: rgba(255, 255, 255, 0.5);
+  margin-bottom: 12px;
+  margin-top: 24px;
+}
+
+.sectionHeader:first-of-type {
+  margin-top: 0;
+}
+
+/* Section 1: Assigned Protection Officer */
+.officerSection {
+  margin-top: 0;
+}
+
+.officerName {
+  font-size: 16px;
+  font-weight: 700;
+  color: #FFFFFF;
+  margin-bottom: 4px;
+}
+
+.siaLicense {
+  font-size: 14px;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.85);
+  margin-bottom: 8px;
+}
+
+.tierBadge {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-top: 4px;
+}
+
+/* Section 2: Scheduled */
+.scheduledSection {
+  margin-top: 24px;
+}
+
+.dateTime {
+  font-size: 16px;
+  font-weight: 700;
+  color: #22D3EE;
+  margin-bottom: 8px;
+}
+
+.countdown {
+  font-size: 18px;
+  font-weight: 800;
+  color: #F59E0B;
+  margin-bottom: 4px;
+}
+
+.countdownLabel {
+  font-size: 13px;
+  font-weight: 400;
+  text-transform: lowercase;
+  letter-spacing: 0.5px;
+  color: rgba(255, 255, 255, 0.65);
+}
+
+/* Section 3: Assignment Details */
+.detailsSection {
+  margin-top: 24px;
+}
+
+.detailRow {
+  font-size: 14px;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.85);
+  margin-bottom: 4px;
+  line-height: 1.6;
+}
+
+.detailLabel {
+  color: rgba(255, 255, 255, 0.65);
+}
+
+.feeValue {
+  color: #D4AF37;
+  font-weight: 600;
+}
+
+/* Section 4: Status */
+.statusSection {
+  margin-top: 24px;
+}
+
+.statusItem {
+  font-size: 14px;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.75);
+  margin-bottom: 8px;
+}
+
+.statusItem:last-child {
+  margin-bottom: 0;
+}
+
+/* Protection History Section Header */
+.protectionHistory {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: rgba(255, 255, 255, 0.5);
+  margin-top: 16px;
+  margin-bottom: 16px;
+  text-align: left;
+}
+
+/* Statistics Grid */
+.statsGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+/* Individual Stat Card */
+.statCard {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  padding: 16px 12px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Stat Value (Numbers) */
+.statValue {
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: 4px;
+}
+
+/* Stat Label (Text below numbers) */
+.statLabel {
+  font-size: 11px;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: rgba(255, 255, 255, 0.65);
+  line-height: 1.4;
+  max-width: 90%;
+}
+
+/* Expanded Content Sections */
+.expandedSection {
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 1px solid rgba(255, 215, 0, 0.2);
+}
+
+.expandedHeader {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: rgba(255, 215, 0, 0.8);
+  margin-bottom: 14px;
+}
+
+/* CPO Profile Expanded */
+.cpoProfileExpanded {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.profileRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.profileLabel {
+  font-size: 13px;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.6);
+  flex-shrink: 0;
+}
+
+.profileValue {
+  font-size: 13px;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.9);
+  text-align: right;
+}
+
+/* Route Details */
+.routeDetails {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.routeRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.routeLabel {
+  font-size: 13px;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.6);
+  flex-shrink: 0;
+}
+
+.routeValue {
+  font-size: 13px;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.9);
+  text-align: right;
+}
+
+/* Additional Details */
+.additionalDetails {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* Empty State Styling for Completed Card */
+.emptyCardState {
+  font-size: 14px;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.6);
+  text-align: center;
+  padding: 24px 16px;
+  line-height: 1.6;
+}
+
+/* Expanded Empty State (when Show More is clicked but no data) */
+.expandedEmptyState {
+  margin-top: 20px;
+  padding: 32px 20px;
+  background: rgba(255, 255, 255, 0.02);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.expandedEmptyText {
+  font-size: 14px;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.65);
+  text-align: center;
+  line-height: 1.6;
+}
+
+/* Request Protection Button */
+.requestProtectionButton {
+  width: 100%;
+  min-height: 44px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.75);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.requestProtectionButton:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.2);
+  color: rgba(255, 255, 255, 0.9);
+}
+
+/* Time Period Header for Analytics */
+.timePeriodHeader {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: rgba(255, 255, 255, 0.5);
+  margin-top: 16px;
+  margin-bottom: 16px;
+  text-align: left;
+}
+
+/* Primary Metrics Group */
+.primaryMetricsGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 16px;
+}
+
+.primaryMetric {
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+/* Supporting Metrics Group */
+.supportingMetricsGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 12px;
+  padding-top: 16px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.supportingMetric {
+  font-size: 14px;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.75);
+  line-height: 1.6;
+}
+
+/* Usage Pattern */
+.usagePattern {
+  font-size: 14px;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.75);
+  margin-top: 12px;
+  margin-bottom: 16px;
+}
+
+.usagePattern .tierBadge {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 500;
+  margin-left: 6px;
+}
+
+/* Analytics Empty State */
+.analyticsEmptyState {
+  font-size: 14px;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.6);
+  text-align: center;
+  padding: 24px 16px;
+  line-height: 1.6;
+}
+
+/* NEW Badge */
+.newBadge {
+  display: inline-block;
+  background: #F59E0B;
+  color: #1A1A1A;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  padding: 4px 8px;
+  border-radius: 4px;
+  letter-spacing: 0.5px;
+  margin-left: 8px;
+}
+
+/* Show More Button */
+.showMoreButton {
+  width: 100%;
+  min-height: 44px;
+  margin-top: 24px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.75);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  padding: 12px 20px;
+}
+
+.showMoreButton:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.2);
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.showMoreButton:active {
+  transform: scale(0.98);
+}
+
+/* Priority Badge Update */
+.priorityBadge {
+  background: #DC2626;
+  color: #FFFFFF;
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-left: 8px;
+}
+
+/* Mobile-first responsive */
+@media (max-width: 320px) {
+  .statsGrid {
+    gap: 8px;
+  }
+
+  .statCard {
+    padding: 14px 10px;
+  }
+
+  .statValue {
+    font-size: 20px; /* Maintain size for readability */
+  }
+
+  .statLabel {
+    font-size: 10px;
+  }
+
+  .protectionHistory {
+    font-size: 10px;
+  }
+
+  .timePeriodHeader {
+    font-size: 10px;
+    margin-top: 12px;
+    margin-bottom: 12px;
+  }
+
+  .primaryMetric {
+    font-size: 16px; /* Maintain for readability */
+  }
+
+  .supportingMetric {
+    font-size: 14px; /* Maintain for readability */
+  }
+
+  .usagePattern {
+    font-size: 14px; /* Maintain for readability */
+  }
+
+  .primaryMetricsGroup {
+    gap: 2px;
+  }
+
+  .supportingMetricsGroup {
+    gap: 2px;
+    padding-top: 12px;
+    margin-bottom: 8px;
+  }
+
+  .sectionHeader {
+    font-size: 10px;
+  }
+
+  .officerName {
+    font-size: 15px;
+  }
+
+  .dateTime {
+    font-size: 15px;
+  }
+
+  .countdown {
+    font-size: 16px;
+  }
+
+  .detailRow {
+    font-size: 13px;
+  }
+
+  .showMoreButton {
+    font-size: 13px;
   }
 }

@@ -221,11 +221,12 @@
 }
 
 .cpoInfo {
-  color: #666;
-  font-weight: 400;
+  color: #1a1a2e;
+  font-weight: 500;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  letter-spacing: 0.01em;
 }
 
 /* Line 3: Journey Details */
@@ -238,11 +239,12 @@
 }
 
 .journeyInfo {
-  color: #666;
-  font-weight: 400;
+  color: #1a1a2e;
+  font-weight: 500;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  letter-spacing: 0.01em;
 }
 
 /* Text Selection Styling */

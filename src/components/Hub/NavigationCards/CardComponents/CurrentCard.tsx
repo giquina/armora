@@ -78,7 +78,6 @@ export const CurrentCard: FC<CurrentCardProps> = memo(({
           <span className={styles.navCardTitle}>Current</span>
           <span className={styles.navCardCount}>({data.count})</span>
         </div>
-        {isActive && <span className={styles.activeIndicator}>●</span>}
       </div>
 
       {/* Simplified Active State - When protection is active */}

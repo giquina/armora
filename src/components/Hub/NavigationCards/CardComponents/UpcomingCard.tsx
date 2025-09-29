@@ -77,13 +77,6 @@ export const UpcomingCard: FC<UpcomingCardProps> = memo(({
     }
   };
 
-  // Get vehicle icon
-  const getVehicleIcon = (vehicleType: string) => {
-    if (vehicleType.includes('BMW')) return '🚗';
-    if (vehicleType.includes('Range Rover')) return '🚙';
-    if (vehicleType.includes('Mercedes')) return '🚘';
-    return '🚗';
-  };
 
 
   return (
@@ -94,111 +87,144 @@ export const UpcomingCard: FC<UpcomingCardProps> = memo(({
       {/* Header with Enhanced Priority Styling */}
       <div className={styles.navCardHeader}>
         <div className={styles.navCardLeft}>
-          <span className={styles.navCardIcon}>📅</span>
-          <span className={styles.navCardTitle}>Next Protection</span>
+          <span className={styles.navCardTitle}>UPCOMING</span>
           <span className={styles.navCardCount}>({data.count})</span>
           {data.count > 0 && (
             <span className={styles.priorityBadge}>PRIORITY</span>
           )}
         </div>
-        {isActive && <span className={styles.activeIndicator}>●</span>}
       </div>
 
       {/* Enhanced Compact Content - Always Visible */}
       {data.count > 0 && (
         <div className={styles.cardContent}>
-          {/* CPO Information with Photo */}
+          {/* Section 1: Assigned Protection Officer */}
           {data.assignmentData && (
-            <div className={styles.cpoSection}>
-              <div className={styles.cpoInfo}>
-                <div className={styles.cpoPhoto}>
-                  <img
-                    src={`/images/officers/${data.assignmentData.officerName.toLowerCase().replace(' ', '-')}.jpg`}
-                    alt={data.assignmentData.officerName}
-                    className={styles.officerImage}
-                    onError={(e) => {
-                      // Fallback to initials if photo fails to load
-                      e.currentTarget.style.display = 'none';
-                      const initialsEl = e.currentTarget.nextElementSibling as HTMLElement;
-                      if (initialsEl) initialsEl.style.display = 'flex';
-                    }}
-                  />
-                  <div className={styles.officerInitials} style={{ display: 'none' }}>
-                    {data.assignmentData.officerName.split(' ').map(n => n[0]).join('')}
-                  </div>
-                  <div className={styles.cpoStatus}>
-                    <span className={styles.onlineIndicator}>●</span>
-                  </div>
-                </div>
-                <div className={styles.cpoDetails}>
-                  <div className={styles.cpoName}>{data.assignmentData.officerName}</div>
-                  <div className={styles.cpoCredentials}>SIA License: {data.assignmentData.officerSIA}</div>
-                  <div
-                    className={styles.serviceTierBadge}
-                    style={getServiceTierStyle(data.assignmentData.serviceTier)}
-                  >
-                    {data.assignmentData.serviceTier} Protection
-                  </div>
-                </div>
+            <div className={styles.officerSection}>
+              <div className={styles.sectionHeader}>ASSIGNED PROTECTION OFFICER</div>
+              <div className={styles.officerName}>{data.assignmentData.officerName}</div>
+              <div className={styles.siaLicense}>SIA License: {data.assignmentData.officerSIA}</div>
+              <div
+                className={styles.tierBadge}
+                style={{
+                  backgroundColor: getServiceTierStyle(data.assignmentData.serviceTier).color,
+                  color: data.assignmentData.serviceTier === 'Executive' ? '#1A1A1A' : '#FFFFFF'
+                }}
+              >
+                {data.assignmentData.serviceTier.toUpperCase()} PROTECTION
               </div>
             </div>
           )}
 
-          {/* Assignment Overview */}
-          <div className={styles.assignmentOverview}>
-            <div className={styles.timeSection}>
-              <div className={styles.scheduledTime}>
-                <span className={styles.timeLabel}>Scheduled</span>
-                <span className={styles.timeValue}>
-                  {data.assignmentData?.date} at {data.assignmentData?.time}
-                </span>
-              </div>
-              <div className={styles.countdown}>
-                <span className={styles.countdownValue}>{liveCountdown}</span>
-                <span className={styles.countdownLabel}>until protection begins</span>
-              </div>
+          {/* Section 2: Scheduled */}
+          <div className={styles.scheduledSection}>
+            <div className={styles.sectionHeader}>SCHEDULED</div>
+            <div className={styles.dateTime}>
+              {data.assignmentData?.date} at {data.assignmentData?.time}
             </div>
+            <div className={styles.countdown}>{liveCountdown}</div>
+            <div className={styles.countdownLabel}>until protection begins</div>
+          </div>
 
-            {/* Route Information */}
-            <div className={styles.routeSection}>
-              <div className={styles.routeDisplay}>
-                <span className={styles.routeIcon}>📍</span>
-                <span className={styles.routeText}>
-                  {data.assignmentData?.location.start.split(',')[0]} → {data.assignmentData?.location.end.split(',')[0]}
-                </span>
-                <span className={styles.vehicleIcon}>
-                  {data.assignmentData && getVehicleIcon(data.assignmentData.vehicleType)}
-                </span>
-              </div>
-              <div className={styles.durationCost}>
-                <span className={styles.duration}>{data.assignmentData?.duration} coverage</span>
-                <span className={styles.bullet}>•</span>
-                <span className={styles.cost}>£{data.assignmentData?.totalCost}</span>
-              </div>
+          {/* Section 3: Assignment Details */}
+          <div className={styles.detailsSection}>
+            <div className={styles.sectionHeader}>ASSIGNMENT DETAILS</div>
+            <div className={styles.detailRow}>
+              <span className={styles.detailLabel}>Protection commencement:</span> {data.assignmentData?.location.start}
+            </div>
+            <div className={styles.detailRow}>
+              <span className={styles.detailLabel}>Secure destination:</span> {data.assignmentData?.location.end}
+            </div>
+            <div className={styles.detailRow}>
+              <span className={styles.detailLabel}>Coverage duration:</span> {data.assignmentData?.duration}
+            </div>
+            <div className={styles.detailRow}>
+              <span className={styles.detailLabel}>Service fee:</span> <span className={styles.feeValue}>£{data.assignmentData?.totalCost}</span>
             </div>
           </div>
 
-          {/* Status Indicators */}
-          <div className={styles.statusIndicators}>
-            <div className={styles.statusItem}>
-              <span className={styles.checkmark}>✓</span>
-              <span className={styles.statusText}>CPO Confirmed</span>
-            </div>
-            <div className={styles.statusItem}>
-              <span className={styles.checkmark}>✓</span>
-              <span className={styles.statusText}>Route Optimized</span>
-            </div>
+          {/* Section 4: Status */}
+          <div className={styles.statusSection}>
+            <div className={styles.statusItem}>✓ Protection officer confirmed</div>
+            <div className={styles.statusItem}>✓ Route optimized</div>
             {data.favoriteTimeSlot && (
-              <div className={styles.statusItem}>
-                <span className={styles.favoriteIcon}>⭐</span>
-                <span className={styles.statusText}>Favorite Time Slot</span>
-              </div>
+              <div className={styles.statusItem}>★ Favorite time slot</div>
             )}
           </div>
 
-          {/* Expand Button */}
+          {/* Expanded Content */}
+          {isExpanded && (
+            <>
+              {/* CPO Profile Section */}
+              <div className={styles.expandedSection}>
+                <div className={styles.expandedHeader}>CPO PROFILE</div>
+                <div className={styles.cpoProfileExpanded}>
+                  <div className={styles.profileRow}>
+                    <span className={styles.profileLabel}>Experience:</span>
+                    <span className={styles.profileValue}>8+ years close protection</span>
+                  </div>
+                  <div className={styles.profileRow}>
+                    <span className={styles.profileLabel}>Specialization:</span>
+                    <span className={styles.profileValue}>Executive & VIP security</span>
+                  </div>
+                  <div className={styles.profileRow}>
+                    <span className={styles.profileLabel}>Certifications:</span>
+                    <span className={styles.profileValue}>SIA Level 3, First Aid, Counter-Surveillance</span>
+                  </div>
+                  <div className={styles.profileRow}>
+                    <span className={styles.profileLabel}>Rating:</span>
+                    <span className={styles.profileValue}>⭐ 4.9/5.0 (127 assignments)</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Route Information Section */}
+              <div className={styles.expandedSection}>
+                <div className={styles.expandedHeader}>ROUTE DETAILS</div>
+                <div className={styles.routeDetails}>
+                  <div className={styles.routeRow}>
+                    <span className={styles.routeLabel}>Estimated travel time:</span>
+                    <span className={styles.routeValue}>45 minutes</span>
+                  </div>
+                  <div className={styles.routeRow}>
+                    <span className={styles.routeLabel}>Distance:</span>
+                    <span className={styles.routeValue}>18.3 miles</span>
+                  </div>
+                  <div className={styles.routeRow}>
+                    <span className={styles.routeLabel}>Route type:</span>
+                    <span className={styles.routeValue}>Optimized for security & efficiency</span>
+                  </div>
+                  <div className={styles.routeRow}>
+                    <span className={styles.routeLabel}>Traffic conditions:</span>
+                    <span className={styles.routeValue}>Light (expected)</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Additional Assignment Details Section */}
+              <div className={styles.expandedSection}>
+                <div className={styles.expandedHeader}>ADDITIONAL DETAILS</div>
+                <div className={styles.additionalDetails}>
+                  <div className={styles.detailRow}>
+                    <span className={styles.detailLabel}>Vehicle type:</span>
+                    <span className={styles.detailValue}>{data.assignmentData?.vehicleType || 'Executive sedan'}</span>
+                  </div>
+                  <div className={styles.detailRow}>
+                    <span className={styles.detailLabel}>Equipment:</span>
+                    <span className={styles.detailValue}>Standard security kit</span>
+                  </div>
+                  <div className={styles.detailRow}>
+                    <span className={styles.detailLabel}>Special instructions:</span>
+                    <span className={styles.detailValue}>Airport terminal drop-off</span>
+                  </div>
+                </div>
+              </div>
+            </>
+          )}
+
+          {/* Show More/Less Button */}
           <button
-            className={styles.expandButton}
+            className={styles.showMoreButton}
             onClick={(e) => {
               e.stopPropagation();
               setIsExpanded(!isExpanded);
@@ -208,69 +234,6 @@ export const UpcomingCard: FC<UpcomingCardProps> = memo(({
             {isExpanded ? 'Show Less' : 'Show More'}
           </button>
 
-          {/* Expandable Details */}
-          {isExpanded && (
-            <div className={styles.expandedDetails}>
-              {/* Service Details */}
-              <div className={styles.serviceSection}>
-                <div className={styles.serviceInfo}>
-                  <div className={styles.serviceStatus}>
-                    <span className={styles.checkmark}>✓</span>
-                    <span className={styles.statusText}>Executive Protection Assigned</span>
-                  </div>
-                  <div className={styles.routeDisplay}>
-                    <span className={styles.routeText}>
-                      📍 {data.assignmentData ? data.assignmentData.location.start.split(',')[0] : 'Mayfair'} → 🏢 {data.assignmentData ? data.assignmentData.location.end.split(',')[0] : 'Heathrow Airport'}
-                    </span>
-                  </div>
-                  <div className={styles.durationDisplay}>6 hours coverage</div>
-                  <div className={styles.confirmationStatus}>
-                    <span className={styles.checkmark}>✓</span>
-                    <span className={styles.statusText}>Officer Confirmed</span>
-                  </div>
-                </div>
-              </div>
-
-              {/* Countdown Details */}
-              <div className={styles.countdownSection}>
-                <div className={styles.countdown}>
-                  <span className={styles.countdownTime}>{liveCountdown}</span>
-                  <span className={styles.countdownLabel}>until protection begins</span>
-                </div>
-                {data.favoriteTimeSlot && (
-                  <div className={styles.favoriteSlot} title="Matches your usual time preference">
-                    ⭐ Favorite time slot
-                  </div>
-                )}
-              </div>
-
-              {/* Quick Actions */}
-              <div className={styles.quickActions}>
-                <button className={styles.actionBtn} onClick={(e) => e.stopPropagation()}>
-                  📋 Details
-                </button>
-                <button className={styles.actionBtn} onClick={(e) => e.stopPropagation()}>
-                  ⚙️ Modify
-                </button>
-                <button className={styles.actionBtn} onClick={(e) => e.stopPropagation()}>
-                  📞 Contact
-                </button>
-              </div>
-
-              {/* Mini Calendar */}
-              {showVisuals && (
-                <div className={styles.calendarSection}>
-                  <div className={styles.calendarLabel}>Next 7 days</div>
-                  <MiniCalendar
-                    days={7}
-                    bookedDays={data.miniCalendar}
-                    highlight="tomorrow"
-                    className={styles.miniCalendar}
-                  />
-                </div>
-              )}
-            </div>
-          )}
         </div>
       )}
 
