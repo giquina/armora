@@ -115,7 +115,7 @@ export function PanicAlertHandler({ className }: PanicAlertHandlerProps) {
       // Escalate alert if not acknowledged
       handleEscalateAlert();
     }
-  }, [activeAlert, isAcknowledged, countdown, handleEscalateAlert]);
+  }, [activeAlert, isAcknowledged, countdown]);
 
   const showDesktopNotification = (alert: PanicAlert) => {
     const notification = new Notification('🚨 PANIC ALERT - IMMEDIATE RESPONSE REQUIRED', {

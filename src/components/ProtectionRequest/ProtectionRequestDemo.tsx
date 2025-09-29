@@ -26,7 +26,9 @@ const SERVICE_TIERS: ServiceTier[] = [
     responseTime: '2-4 min',
     features: ['SIA Level 2 licensed', 'Real-time tracking', '24/7 support'],
     badge: 'MOST POPULAR',
-    popular: true
+    popular: true,
+    officerProfile: ['SIA Level 2 certified', 'Professional security training', 'Vetted background'],
+    idealFor: ['Daily security needs', 'Business meetings', 'Local travel']
   },
   {
     id: 'executive',
@@ -36,7 +38,9 @@ const SERVICE_TIERS: ServiceTier[] = [
     hourlyRate: 95,
     description: 'Premium security detail for high-profile clients',
     responseTime: '3-5 min',
-    features: ['SIA Level 3 licensed', 'Threat assessment', 'Discrete surveillance']
+    features: ['SIA Level 3 licensed', 'Threat assessment', 'Discrete surveillance'],
+    officerProfile: ['SIA Level 3 certified', 'Corporate security specialist', 'Executive protection trained'],
+    idealFor: ['High-profile clients', 'Corporate executives', 'VIP events']
   },
   {
     id: 'shadow',
@@ -46,7 +50,9 @@ const SERVICE_TIERS: ServiceTier[] = [
     hourlyRate: 125,
     description: 'Special Forces trained protection specialists',
     responseTime: '5-8 min',
-    features: ['Military-grade training', 'Covert operations', 'Counter-surveillance']
+    features: ['Military-grade training', 'Covert operations', 'Counter-surveillance'],
+    officerProfile: ['Special Forces background', 'Advanced tactical training', 'Counter-surveillance expert'],
+    idealFor: ['Maximum security needs', 'Threat environments', 'International travel']
   },
   {
     id: 'client-vehicle',
@@ -56,7 +62,9 @@ const SERVICE_TIERS: ServiceTier[] = [
     hourlyRate: 55,
     description: 'Security-trained CPO for your vehicle',
     responseTime: '4-6 min',
-    features: ['Your vehicle', 'No mileage charges', 'Enhanced privacy']
+    features: ['Your vehicle', 'No mileage charges', 'Enhanced privacy'],
+    officerProfile: ['SIA licensed', 'Advanced driving certified', 'Security driver trained'],
+    idealFor: ['Personal vehicle use', 'Cost-effective security', 'Familiar vehicle preference']
   }
 ];
 
@@ -175,7 +183,6 @@ export const ProtectionRequestDemo: React.FC<ProtectionRequestDemoProps> = ({
         <LocationInput
           value={formData.destination}
           onChange={updateDestination}
-          placeholder="Enter your destination..."
           onLocationSelect={handleLocationSelect}
           error={validation.errors.destination}
           savedLocations={{

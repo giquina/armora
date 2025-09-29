@@ -80,11 +80,23 @@ export const AnalyticsCard: FC<AnalyticsCardProps> = memo(({
 
       {/* Compact Content - Always Visible */}
       <div className={styles.cardContent}>
-        {/* Essential Info Row */}
+        {/* Essential Info Row - Improved Typography */}
         <div className={styles.essentialInfo}>
-          <div className={styles.statusSection}>
-            <span className={styles.analyticsIcon}>📊</span>
-            <span className={styles.statusText}>INSIGHTS</span>
+          <div className={styles.statusRow}>
+            <div className={styles.statusSection}>
+              <span className={styles.analyticsIcon}>📊</span>
+              <span className={styles.statusText}>INSIGHTS</span>
+            </div>
+            <button
+              className={styles.expandButton}
+              onClick={(e) => {
+                e.stopPropagation();
+                setIsExpanded(!isExpanded);
+              }}
+              aria-label={isExpanded ? 'Collapse details' : 'Expand details'}
+            >
+              {isExpanded ? 'Show Less' : 'Show More'}
+            </button>
           </div>
           <div className={styles.keyStats}>
             <span className={styles.coverageHours}>127h coverage</span>
@@ -95,16 +107,6 @@ export const AnalyticsCard: FC<AnalyticsCardProps> = memo(({
               {getTrendIcon(data.spendTrend)} 18%
             </span>
           </div>
-          <button
-            className={styles.expandButton}
-            onClick={(e) => {
-              e.stopPropagation();
-              setIsExpanded(!isExpanded);
-            }}
-            aria-label={isExpanded ? 'Collapse details' : 'Expand details'}
-          >
-            {isExpanded ? 'Show Less' : 'Show More'}
-          </button>
         </div>
 
         {/* Expandable Details */}

@@ -26,7 +26,7 @@ Armora is a React 19.1.1 TypeScript application for premium close protection and
 ### Essential Commands
 ```bash
 npm run dev        # RECOMMENDED: Full dev environment with hooks & agents
-npm start          # Development server on port 3002 (primary)
+npm start          # Development server (defaults to port 3000, specify with PORT=XXXX)
 npm run fresh      # Clean reset and start (fixes any issues)
 npm run build      # Production build with TypeScript checking (NO separate lint command)
 npm test           # Jest watch mode
@@ -38,10 +38,10 @@ npm test:e2e       # Playwright end-to-end tests
 npm run health     # Comprehensive health check
 npm run reset      # Reset server state and cache
 npm run clean      # Clean cache only
-npm run port3002   # Force port 3002 (optimized)
+PORT=3003 npm start  # Start on specific port (no hardcoded ports)
 ```
 
-**PORT CONFIGURATION**: Port 3002 is the primary development port with webpack optimization. Port 3000 available as fallback.
+**PORT CONFIGURATION**: Development ports are no longer hardcoded. Use `PORT=XXXX npm start` to specify any port. Default is 3000. Service Worker is disabled in development to prevent caching issues.
 
 ### Development Infrastructure
 ```bash
@@ -149,10 +149,14 @@ Auto-activate based on context:
 - Google OAuth integration via Supabase
 
 ### Professional Hub (`src/components/Hub/`)
-- **NavigationCards**: Interactive assignment status cards
-- **ActiveProtectionPanel**: Real-time monitoring with scroll-snap UX
+- **NavigationCards**: Interactive assignment status cards (single column layout, full-width)
+- **EnhancedProtectionPanel**: Real-time monitoring panel with three states:
+  - **Collapsed** (82px): Left-aligned 3-line layout - Status • CPO info • Journey details
+  - **Half** (50vh): Compact view with 3x2 button grid
+  - **Full** (75vh): 2x3 button grid with no scroll, buttons display icon/title/description on separate lines
 - CPO credentials with SIA licenses
 - Security-focused status messages
+- No decorative borders or gold lines (removed per design cleanup)
 
 ## Testing Strategy
 ```bash
@@ -189,6 +193,10 @@ npm run health     # Diagnostics
 pkill -f "react-scripts start"  # Kill stuck processes
 ```
 
+### Caching Issues (Chrome/Browser)
+**Problem**: Changes not appearing without hard refresh + cache clear
+**Solution**: Service Worker is now disabled in development mode. Close browser completely and reopen. Check DevTools → Application → Service Workers shows "None".
+
 ### Mobile Testing
 Enable hooks system: `npm run hooks:start` for automatic viewport testing
 
@@ -210,10 +218,14 @@ When updating UI text:
 - Supabase-only authentication (Clerk removed)
 - Mobile-first responsive design
 - Advanced development tooling with 7 hooks + 6 agents
+- EnhancedProtectionPanel with left-aligned collapsed state
+- Flexible port configuration (no hardcoded ports)
+- Service Worker disabled in development (prevents caching issues)
+- Hub design improvements (single-column layout, removed decorative elements)
 
 ⚠️ **Remaining Tasks**:
 - Test coverage expansion
-- PWA service worker implementation
+- PWA service worker implementation (only for production)
 - Payment integration completion
 
 ## Key Utilities
@@ -223,4 +235,19 @@ When updating UI text:
 - `martynsLawCompliance.ts`: Regulatory compliance
 - `venueSecurityCalculator.ts`: Venue protection requirements
 
-Last updated: 2025-09-29T09:43:08.880Z
+## Important CSS Guidelines
+
+### EnhancedProtectionPanel Button Styling
+When styling action buttons in the protection panel:
+- Each button must have three text elements: icon (28px), label (13px bold), subtext (11px)
+- Use `display: block` on all text elements to force line breaks
+- Button class names: `.panic` (red), `.call` (green), `.extend` (amber), `.route` (blue), `.message` (purple), `.location` (gray/green when active)
+- Always include gradient backgrounds and box-shadows for each button type
+- Min height: 110px per button for proper spacing
+
+### Hub Header Font Hierarchy
+- Greeting text: **42px, weight 800** (most prominent)
+- Date: **18px, weight 500, 75% opacity** (secondary)
+- Time: **16px, weight 400, 65% opacity** (tertiary)
+
+Last updated: 2025-09-29T19:30:00.000Z

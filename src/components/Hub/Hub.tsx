@@ -538,7 +538,7 @@ export function Hub() {
   };
 
   return (
-    <div className={styles.hubContainer} ref={containerRef}>
+    <div className={styles.hubContainer} ref={containerRef as React.RefObject<HTMLDivElement>}>
       {/* Pull-to-refresh indicator */}
       {shouldShowIndicator && (
         <div

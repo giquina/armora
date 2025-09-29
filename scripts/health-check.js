@@ -177,17 +177,17 @@ class ArmoraHealthChecker {
             this.addCheck('Port 3000 accessible', true, 'Not running (good - avoids cache issues)');
         }
 
-        // Check port 3001 (recommended)
-        const port3001 = await this.checkPort(3001);
-        if (port3001.accessible) {
-            if (port3001.statusCode === 200 && port3001.html.includes('<div id="root">')) {
-                this.addCheck('Port 3001 (recommended)', true, 'Running and healthy');
+        // Check port 3002 (recommended)
+        const port3002 = await this.checkPort(3002);
+        if (port3002.accessible) {
+            if (port3002.statusCode === 200 && port3002.html.includes('<div id="root">')) {
+                this.addCheck('Port 3002 (primary)', true, 'Running and healthy');
             } else {
-                this.addCheck('Port 3001 (recommended)', false, `Status: ${port3001.statusCode}`);
+                this.addCheck('Port 3002 (primary)', false, `Status: ${port3002.statusCode}`);
             }
         } else {
-            this.addCheck('Port 3001 (recommended)', false, 'Not running');
-            this.addRecommendation('Start server on port 3001: PORT=3001 npm start');
+            this.addCheck('Port 3002 (primary)', false, 'Not running');
+            this.addRecommendation('Start server: npm start (defaults to port 3002)');
         }
     }
 
@@ -285,7 +285,7 @@ class ArmoraHealthChecker {
         // Check if in Codespaces
         if (process.env.CODESPACES) {
             this.addCheck('GitHub Codespaces', true, 'Running in Codespaces');
-            this.addRecommendation('Use port 3001 for best Codespaces compatibility');
+            this.addRecommendation('Port 3002 configured as primary development port');
         }
     }
 

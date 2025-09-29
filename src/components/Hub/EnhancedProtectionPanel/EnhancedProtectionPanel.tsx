@@ -48,10 +48,16 @@ export function EnhancedProtectionPanel({
   const currentY = useRef(0);
   const isDragging = useRef(false);
 
-  // Touch handlers for smooth drag gestures
+  // Enhanced touch handlers with improved swipe detection
   const handleTouchStart = (e: React.TouchEvent) => {
+    // Only handle touch events on the drag handle, not text areas
+    const target = e.target as HTMLElement;
+    if (!target.closest(`.${styles.dragHandle}`)) {
+      return;
+    }
+
     startY.current = e.touches[0].clientY;
-    currentY.current = startY.current; // Initialize currentY
+    currentY.current = startY.current;
     isDragging.current = true;
     setIsDraggingState(true);
   };
@@ -68,8 +74,7 @@ export function EnhancedProtectionPanel({
     if (!isDragging.current) return;
 
     const deltaY = currentY.current - startY.current;
-    const threshold = 50;
-
+    const threshold = 50; // 50px minimum distance as required
 
     if (Math.abs(deltaY) > threshold) {
       if (deltaY > 0) {
@@ -186,40 +191,45 @@ export function EnhancedProtectionPanel({
         onTouchStart={handleTouchStart}
         onTouchMove={handleTouchMove}
         onTouchEnd={handleTouchEnd}
-        onClick={handlePanelToggle}
       >
         {/* Drag Handle */}
         <div
           className={styles.dragHandle}
-          onClick={handlePanelToggle}
+          onClick={(e) => {
+            e.stopPropagation();
+            handlePanelToggle(e);
+          }}
         />
 
-        {/* Collapsed Preview - Option B Design */}
+        {/* Left-Aligned Collapsed State */}
         {panelState === 'collapsed' && (
           <div className={styles.collapsedPreview}>
-            <div className={styles.topRow}>
-              <div className={styles.officerInfo}>
-                <span className={styles.statusDot}></span>
-                <span className={styles.cpoLabel}>CPO</span>
-                <span className={styles.officerName}>{officer.name}</span>
-              </div>
+            {/* Line 1: Status + Service Tier */}
+            <div className={styles.statusLine}>
+              <span className={styles.statusDot}></span>
+              <span className={styles.statusText}>PROTECTION ACTIVE • {statusInfo.protectionLevel}</span>
               <button
-                className={`${styles.expandArrow} ${panelState === 'full' ? styles.expanded : ''}`}
+                className={styles.expandArrow}
                 onClick={(e) => {
                   e.stopPropagation();
                   handlePanelToggle(e);
                 }}
                 aria-label="Expand protection panel"
               >
-                ↑
+                <svg className={styles.chevronIcon} viewBox="0 0 24 24" width="20" height="20">
+                  <path d="m7 14 5-5 5 5" stroke="currentColor" strokeWidth="2.5" fill="none" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
               </button>
             </div>
-            <div className={styles.bottomRow}>
-              <span>{statusInfo.protectionLevel}</span>
-              <span className={styles.bullet}>•</span>
-              <span>{statusInfo.timeRemaining} left</span>
-              <span className={styles.bullet}>•</span>
-              <span>{statusInfo.cost}</span>
+
+            {/* Line 2: CPO Information */}
+            <div className={styles.cpoLine}>
+              <span className={styles.cpoInfo}>CPO: {officer.name} • SIA #{officer.designation || 'L3-VERIFIED'} • Level 3</span>
+            </div>
+
+            {/* Line 3: Journey Details */}
+            <div className={styles.journeyLine}>
+              <span className={styles.journeyInfo}>To: {statusInfo.location} • {statusInfo.timeRemaining} remaining • {statusInfo.cost}</span>
             </div>
           </div>
         )}
@@ -232,7 +242,6 @@ export function EnhancedProtectionPanel({
               <div className={styles.officerProfile}>
                 <div className={styles.officerAvatar}>
                   <span className={styles.initials}>{officer.initials}</span>
-                  <div className={styles.onlineIndicator} />
                 </div>
                 <div className={styles.officerNameInline}>
                   CPO {officer.name} • SIA CLOSE PROTECTION OFFICER

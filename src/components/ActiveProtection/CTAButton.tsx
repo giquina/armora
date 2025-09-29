@@ -106,7 +106,7 @@ export function CTAButton({
             onClose={handleCloseMenu}
             options={menuOptions}
             position={menuPosition}
-            buttonRef={buttonRef}
+            buttonRef={buttonRef as React.RefObject<HTMLElement>}
           />
         )}
       </button>

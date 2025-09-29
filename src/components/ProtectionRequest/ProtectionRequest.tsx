@@ -444,14 +444,18 @@ export function ProtectionRequest({ onAssignmentRequested, className }: Protecti
 
       {/* SECTION 6: BOTTOM ACTION BAR - Fixed positioning */}
       <BottomActionBar
-        isValid={!selectedService ? false : isReadyToRequest}
+        isValid={isReadyToRequest}
         pricing={selectedService ? {
           basePrice: originalFee,
           discountAmount: hasDiscount ? savings : undefined,
           finalPrice: finalFee,
-          hasDiscount,
+          hasDiscount: hasDiscount,
           originalPrice: hasDiscount ? originalFee : undefined
-        } : undefined}
+        } : {
+          basePrice: 0,
+          finalPrice: 0,
+          hasDiscount: false
+        }}
         serviceInfo={selectedService ? {
           name: selectedService.name,
           rate: selectedService.rate,
@@ -466,7 +470,7 @@ export function ProtectionRequest({ onAssignmentRequested, className }: Protecti
             ? `Request ${selectedService.shortName || selectedService.name} - £${finalFee.toFixed(2)}`
             : `Request ${selectedService.shortName || selectedService.name} - £${finalFee.toFixed(2)}`
         }
-        onPrimaryAction={!selectedService ? undefined : handleRequestProtection}
+        onPrimaryAction={handleRequestProtection}
         onChangeSelection={selectedService ? handleChangeSelection : undefined}
         additionalInfo={deploymentInfo}
       />

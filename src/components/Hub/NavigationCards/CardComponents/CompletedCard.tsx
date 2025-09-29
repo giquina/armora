@@ -204,11 +204,23 @@ export const CompletedCard: FC<CompletedCardProps> = memo(({
       {/* Compact Content - Always Visible */}
       {data.count > 0 && (
         <div className={styles.cardContent}>
-          {/* Essential Info Row */}
+          {/* Essential Info Row - Improved Typography */}
           <div className={styles.essentialInfo}>
-            <div className={styles.statusSection}>
-              <span className={styles.greenIndicator}>✓</span>
-              <span className={styles.statusText}>COMPLETED</span>
+            <div className={styles.statusRow}>
+              <div className={styles.statusSection}>
+                <span className={styles.greenIndicator}>✓</span>
+                <span className={styles.statusText}>COMPLETED</span>
+              </div>
+              <button
+                className={styles.expandButton}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setIsExpanded(!isExpanded);
+                }}
+                aria-label={isExpanded ? 'Collapse details' : 'Expand details'}
+              >
+                {isExpanded ? 'Show Less' : 'Show More'}
+              </button>
             </div>
             <div className={styles.keyStats}>
               <span className={styles.completedCount}>{filteredAssignments.length} protection details</span>
@@ -217,16 +229,6 @@ export const CompletedCard: FC<CompletedCardProps> = memo(({
               <span className={styles.bullet}>•</span>
               <span className={styles.spentAmount}>{data.spentThisMonth}</span>
             </div>
-            <button
-              className={styles.expandButton}
-              onClick={(e) => {
-                e.stopPropagation();
-                setIsExpanded(!isExpanded);
-              }}
-              aria-label={isExpanded ? 'Collapse details' : 'Expand details'}
-            >
-              {isExpanded ? 'Show Less' : 'Show More'}
-            </button>
           </div>
 
           {/* Expandable Details */}

@@ -53,12 +53,12 @@ export function QuestionnaireFlow({ onComplete }: QuestionnaireFlowProps) {
     if (step.id === 2.6) { // Seven Ps Assessment
       const riskAssessment = currentRiskAssessment;
       if (!riskAssessment) return false;
-      return shouldShowSevenPs(riskAssessment.matrix.level, responses.step1_transportProfile);
+      return shouldShowSevenPs(riskAssessment.matrix.level, responses.step1_transportProfile || '');
     }
     if (step.id === 2.7) { // Enhanced Emergency Contacts
       const riskAssessment = currentRiskAssessment;
       if (!riskAssessment) return false;
-      return shouldShowEnhancedEmergencyContacts(riskAssessment.matrix.level);
+      return shouldShowEnhancedEmergencyContacts(riskAssessment.matrix.level || 'Low');
     }
     return true; // Show all other steps
   });

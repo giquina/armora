@@ -4,7 +4,7 @@
 export type NavigationViews = 'home' | 'services' | 'hub' | 'account';
 
 // Complete view state including navigation and flow states
-export type ViewState = 'splash' | 'welcome' | 'login' | 'signup' | 'guest-disclaimer' | 'questionnaire' | 'achievement' | 'home' | 'subscription-offer' | 'trial-setup' | 'member-dashboard' | 'services' | 'service-selection' | 'protection-assignment' | 'active' | 'hub' | 'Assignments' | 'account' | 'venue-protection-welcome' | 'venue-security-questionnaire' | 'venue-protection-success' | 'about' | 'coverage-areas' | 'legacy-assignment-view' | 'protection-request' | 'assignment-confirmed' | 'protection-assignment' | 'legacy-assignment-view';
+export type ViewState = 'splash' | 'welcome' | 'login' | 'signup' | 'guest-disclaimer' | 'questionnaire' | 'achievement' | 'home' | 'subscription-offer' | 'trial-setup' | 'member-dashboard' | 'services' | 'service-selection' | 'protection-assignment' | 'active' | 'hub' | 'Assignments' | 'account' | 'venue-protection-welcome' | 'venue-security-questionnaire' | 'venue-protection-success' | 'about' | 'coverage-areas' | 'legacy-assignment-view' | 'protection-request' | 'assignment-confirmed' | 'protection-assignment' | 'legacy-assignment-view' | 'privacy' | 'terms' | 'gdpr' | 'sia';
 
 export type UserType = 'registered' | 'google' | 'guest' | null;
 
@@ -72,7 +72,7 @@ export interface CustomAnswerValue {
   value: string;
 }
 
-export type QuestionnaireAnswer = string | string[] | CustomAnswerValue;
+export type QuestionnaireAnswer = string | string[] | CustomAnswerValue | ISevenPsAssessment | IEnhancedEmergencyInfo | { threatData: IThreatIndicatorData; riskAssessment: IRiskAssessment } | null;
 
 export interface SimilarClientExample {
   type: string;
@@ -205,6 +205,7 @@ export interface IRiskAssessment {
   description: string;
   recommendedProtection: string;
   assessmentPath: 'standard' | 'enhanced' | 'significant' | 'critical';
+  matrix: RiskMatrix;
 }
 
 // Seven Ps Framework Interfaces for Professional Close Protection Assessment
