@@ -236,9 +236,13 @@ export function EnhancedProtectionPanel({
               <span className={styles.journeyInfo}>Route: {statusInfo.routeStart} → {statusInfo.routeEnd}</span>
             </div>
 
-            {/* Line 4: Time and Cost */}
+            {/* Line 4: Time and Cost with animated meter */}
             <div className={styles.timeLine}>
-              <span className={styles.timeInfo}>Duration: {statusInfo.timeRemaining} • Cost: {statusInfo.cost}</span>
+              <span className={styles.timeInfo}>Duration: {statusInfo.timeRemaining}</span>
+              <div className={styles.costMeter}>
+                <div className={styles.costMeterFill}></div>
+                <span className={styles.costText}>{statusInfo.cost}</span>
+              </div>
             </div>
           </div>
         )}

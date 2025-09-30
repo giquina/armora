@@ -254,23 +254,75 @@
   letter-spacing: 0.02em;
 }
 
-/* Line 4: Time and Cost */
+/* Line 4: Time and Cost with Animated Meter */
 .timeLine {
   display: flex;
   align-items: center;
-  font-size: 13px; /* Increased from 11px */
+  font-size: 13px;
   line-height: 1.4;
   padding-right: 44px; /* Space for chevron */
-  gap: 6px; /* Space between elements */
+  gap: 12px; /* More space for meter */
+  justify-content: space-between;
 }
 
 .timeInfo {
   color: #6b7280; /* Gray for time/cost info */
   font-weight: var(--weight-medium);
   white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
   letter-spacing: 0.02em;
+  flex-shrink: 0;
+}
+
+/* Animated Cost Meter */
+.costMeter {
+  position: relative;
+  flex: 1;
+  height: 18px;
+  background: linear-gradient(90deg, rgba(255, 215, 0, 0.1) 0%, rgba(255, 215, 0, 0.05) 100%);
+  border-radius: 9px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 215, 0, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-right: 8px;
+  min-width: 100px;
+  max-width: 140px;
+}
+
+.costMeterFill {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  background: linear-gradient(90deg,
+    rgba(255, 215, 0, 0.3) 0%,
+    rgba(255, 215, 0, 0.2) 50%,
+    rgba(255, 215, 0, 0.3) 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 2s ease-in-out infinite;
+  width: 75%; /* Cost accumulation progress */
+  border-radius: 9px 0 0 9px;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.costText {
+  position: relative;
+  z-index: 1;
+  color: #d97706; /* Amber/gold color */
+  font-weight: var(--weight-bold);
+  font-size: 12px;
+  letter-spacing: 0.02em;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
 }
 
 /* Color-coded bullet separators for visual interest */
