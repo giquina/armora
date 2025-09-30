@@ -233,7 +233,12 @@ export function EnhancedProtectionPanel({
 
             {/* Line 3: Journey Details */}
             <div className={styles.journeyLine}>
-              <span className={styles.journeyInfo}>Traveling from {statusInfo.routeStart} to {statusInfo.routeEnd} • {statusInfo.timeRemaining} remaining • {statusInfo.cost}</span>
+              <span className={styles.journeyInfo}>Traveling from {statusInfo.routeStart} to {statusInfo.routeEnd}</span>
+            </div>
+
+            {/* Line 4: Time and Cost */}
+            <div className={styles.timeLine}>
+              <span className={styles.timeInfo}>{statusInfo.timeRemaining} remaining {statusInfo.cost}</span>
             </div>
           </div>
         )}
