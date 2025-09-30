@@ -81,12 +81,12 @@
 }
 
 .greetingText {
-  font-size: 52px;
-  font-weight: 800;
+  font-size: var(--font-heading-hero); /* 48px → 32px mobile */
+  font-weight: var(--weight-extrabold);
   color: #FFFFFF;
   margin: 0 0 20px 0;
-  line-height: 1.1;
-  letter-spacing: -1px;
+  line-height: var(--line-tight);
+  letter-spacing: var(--tracking-tight);
   text-align: center;
   text-transform: none;
   text-shadow: 0 3px 12px rgba(0, 0, 0, 0.4);
@@ -101,20 +101,20 @@
 }
 
 .currentDate {
-  font-size: 16px;
+  font-size: var(--font-base); /* 16px */
   color: #FFD700;
-  font-weight: 600;
-  line-height: 1.4;
-  letter-spacing: 0.8px;
+  font-weight: var(--weight-semibold);
+  line-height: var(--line-base);
+  letter-spacing: var(--tracking-wider);
   text-align: center;
   text-transform: uppercase;
 }
 
 .currentTime {
-  font-size: 22px;
+  font-size: var(--font-lg); /* 24px */
   color: rgba(255, 255, 255, 0.85);
-  font-weight: 600;
-  letter-spacing: 0.5px;
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-normal);
   text-align: center;
 }
 
@@ -159,12 +159,12 @@
 }
 
 .statusMessage {
-  font-size: 20px;
+  font-size: var(--font-md); /* 20px */
   color: #FFFFFF;
-  font-weight: 700;
+  font-weight: var(--weight-bold);
   text-align: center;
-  line-height: 1.4;
-  letter-spacing: 0.3px;
+  line-height: var(--line-base);
+  letter-spacing: var(--tracking-normal);
 }
 
 .activeMetrics,
@@ -177,11 +177,11 @@
 }
 
 .metric {
-  font-size: 17px;
+  font-size: var(--font-md); /* 20px */
   color: #FFD700;
-  font-weight: 600;
+  font-weight: var(--weight-semibold);
   white-space: nowrap;
-  letter-spacing: 0.3px;
+  letter-spacing: var(--tracking-normal);
 }
 
 /* Security Banner */
@@ -202,28 +202,28 @@
 }
 
 .securityIcon {
-  font-size: 16px;
+  font-size: var(--font-base); /* 16px */
   color: #00FF88;
 }
 
 .securityText {
-  font-size: 15px;
+  font-size: var(--font-base); /* 16px */
   color: rgba(255, 255, 255, 0.8);
-  font-weight: 500;
+  font-weight: var(--weight-medium);
 }
 
 .securityLevel {
-  font-size: 14px;
+  font-size: var(--font-sm); /* 14px */
   color: #00FF88;
-  font-weight: 600;
+  font-weight: var(--weight-semibold);
   text-transform: uppercase;
-  letter-spacing: 0.3px;
+  letter-spacing: var(--tracking-wider);
 }
 
 /* Removed decorative connection indicators */
 
 .pageTitle {
-  font-size: 32px;
+  font-size: var(--font-xl); /* 32px */
   font-weight: 600;
   color: white;
   letter-spacing: 0;
@@ -239,7 +239,7 @@
 /* Show subtitle only on larger screens */
 @media (min-width: 768px) {
   .subtitle {
-    font-size: 16px;
+    font-size: var(--font-base); /* 16px */
     color: rgba(255, 255, 255, 0.6);
     font-weight: 400;
     margin: 0;
@@ -259,7 +259,7 @@
   display: flex;
   align-items: center;
   gap: 6px;
-  font-size: 13px;
+  font-size: var(--font-sm); /* 14px - was 13px */
   font-weight: 500;
   padding: 6px 12px;
   border-radius: 16px;
@@ -347,19 +347,19 @@
 }
 
 .navCardIcon {
-  font-size: 20px;
+  font-size: var(--font-md); /* 20px */
   flex-shrink: 0;
 }
 
 .navCardTitle {
-  font-size: 15px;
+  font-size: var(--font-base); /* 16px - was 15px */
   font-weight: 500;
   color: white;
   white-space: nowrap;
 }
 
 .navCardCount {
-  font-size: 15px;
+  font-size: var(--font-base); /* 16px - was 15px */
   color: rgba(255, 255, 255, 0.5);
   font-weight: 400;
   white-space: nowrap;
@@ -367,7 +367,7 @@
 }
 
 .navCardBadge {
-  font-size: 12px;
+  font-size: var(--font-xs); /* 12px */
   padding: 2px 6px;
   background: rgba(255, 255, 255, 0.1);
   color: rgba(255, 255, 255, 0.7);
@@ -379,7 +379,7 @@
 
 .activeIndicator {
   color: #00FF88;
-  font-size: 12px;
+  font-size: var(--font-xs); /* 12px */
   flex-shrink: 0;
 }
 
@@ -390,7 +390,7 @@
 }
 
 .navCardPrimary {
-  font-size: 14px;
+  font-size: var(--font-sm); /* 14px */
   color: rgba(255, 255, 255, 0.9);
   margin-bottom: 4px;
   font-weight: 500;
@@ -400,7 +400,7 @@
 }
 
 .navCardSecondary {
-  font-size: 13px;
+  font-size: var(--font-sm); /* 14px - was 13px */
   color: rgba(255, 255, 255, 0.5);
   font-weight: 400;
   white-space: nowrap;
@@ -421,15 +421,15 @@
   }
 
   .navCardTitle {
-    font-size: 15px;
+    font-size: var(--font-base); /* 16px - was 15px */
   }
 
   .navCardPrimary {
-    font-size: 15px;
+    font-size: var(--font-base); /* 16px - was 15px */
   }
 
   .navCardSecondary {
-    font-size: 14px;
+    font-size: var(--font-sm); /* 14px */
   }
 }
 
@@ -489,7 +489,7 @@
 
 .filtersHeader {
   color: rgba(255, 255, 255, 0.9);
-  font-size: 13px;
+  font-size: var(--font-sm); /* 14px - was 13px */
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.5px;
@@ -525,7 +525,7 @@
 
 .searchLabel {
   color: rgba(255, 255, 255, 0.7);
-  font-size: 11px;
+  font-size: var(--font-xs); /* 12px - was 11px */
   font-weight: 500;
   text-transform: uppercase;
   letter-spacing: 0.3px;
@@ -549,7 +549,7 @@
   color: rgba(255, 255, 255, 0.9);
   border-radius: 999px;
   padding: 6px 10px;
-  font-size: 12px;
+  font-size: var(--font-xs); /* 12px */
   cursor: pointer;
 }
 
@@ -560,7 +560,7 @@
 }
 
 .sortSelectLabel {
-  font-size: 12px;
+  font-size: var(--font-xs); /* 12px */
   color: rgba(255, 255, 255, 0.7);
   display: flex;
   align-items: center;
@@ -574,7 +574,7 @@
   color: white;
   border-radius: 8px;
   padding: 6px 8px;
-  font-size: 12px;
+  font-size: var(--font-xs); /* 12px */
 }
 
 /* Search and date range controls - Fixed layout */
@@ -604,7 +604,7 @@
   color: white;
   border-radius: 10px;
   padding: 8px 10px;
-  font-size: 13px;
+  font-size: var(--font-sm); /* 14px - was 13px */
 }
 
 .dateRangeControls {
@@ -615,7 +615,7 @@
 
 .dateRangeLabel {
   color: rgba(255, 255, 255, 0.7);
-  font-size: 11px;
+  font-size: var(--font-xs); /* 12px - was 11px */
   font-weight: 500;
   text-transform: uppercase;
   letter-spacing: 0.3px;
@@ -636,7 +636,7 @@
   color: white;
   border-radius: 8px;
   padding: 10px 12px;
-  font-size: 12px;
+  font-size: var(--font-xs); /* 12px */
   flex: 1;
   min-width: 120px;
   transition: border-color 0.2s ease;
@@ -650,7 +650,7 @@
 .dateDivider {
   color: rgba(255, 255, 255, 0.6);
   font-weight: 600;
-  font-size: 14px;
+  font-size: var(--font-sm); /* 14px */
 }
 
 .clearFiltersBtn {
@@ -659,7 +659,7 @@
   color: #ffd700;
   border-radius: 8px;
   padding: 10px 16px;
-  font-size: 11px;
+  font-size: var(--font-xs); /* 12px - was 11px */
   font-weight: 600;
   cursor: pointer;
   transition: all 0.2s ease;
@@ -679,7 +679,7 @@
 .sectionHeader {
   color: rgba(255, 255, 255, 0.5);
   font-weight: 500;
-  font-size: 13px;
+  font-size: var(--font-sm); /* 14px - was 13px */
   margin: 0 0 12px 0;
 }
 
@@ -703,7 +703,7 @@
   color: #374151;
   border: 1px solid rgba(0,0,0,0.1);
   border-radius: 6px;
-  font-size: 12px;
+  font-size: var(--font-xs); /* 12px */
   padding: 6px 8px;
 }
 
@@ -742,7 +742,7 @@
 }
 
 .statValue {
-  font-size: 20px;
+  font-size: var(--font-md); /* 20px */
   font-weight: 600;
   color: white;
   line-height: 1;
@@ -750,7 +750,7 @@
 }
 
 .statLabel {
-  font-size: 13px;
+  font-size: var(--font-sm); /* 14px - was 13px */
   color: rgba(255, 255, 255, 0.5);
   line-height: 1.2;
 }
@@ -801,14 +801,14 @@
 }
 
 .assignmentDate {
-  font-size: 12px;
+  font-size: var(--font-xs); /* 12px */
   color: #6B7280;
   font-weight: 500;
   display: none;
 }
 
 .assignmentStatus {
-  font-size: 10px;
+  font-size: var(--font-xs); /* 12px - was 10px */
   padding: 2px 6px;
   border-radius: 4px;
   font-weight: 600;
@@ -835,7 +835,7 @@
 }
 
 .detailLabel {
-  font-size: 9px;
+  font-size: var(--font-xs); /* 12px - was 9px */
   color: rgba(26, 26, 46, 0.5);
   text-transform: uppercase;
   letter-spacing: 0.3px;
@@ -845,7 +845,7 @@
 }
 
 .detailValue {
-  font-size: 12px;
+  font-size: var(--font-xs); /* 12px */
   color: #1A1A2E;
   font-weight: 500;
   overflow: hidden;
@@ -898,7 +898,7 @@
 }
 
 .progressText {
-  font-size: 10px;
+  font-size: var(--font-xs); /* 12px - was 10px */
   color: #6B7280;
   font-weight: 500;
   min-width: 40px;
@@ -918,14 +918,14 @@
 }
 
 .totalCost {
-  font-size: 14px;
+  font-size: var(--font-sm); /* 14px */
   font-weight: 600;
   color: #10B981;
 }
 
 .rating {
   color: #ffd700;
-  font-size: 10px;
+  font-size: var(--font-xs); /* 12px - was 10px */
 }
 
 .assignmentActions {
@@ -940,7 +940,7 @@
   border: 1px solid rgba(0, 0, 0, 0.1);
   border-radius: 4px;
   color: #374151;
-  font-size: 11px;
+  font-size: var(--font-xs); /* 12px - was 11px */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -961,12 +961,12 @@
 }
 
 .actionIcon {
-  font-size: 12px;
+  font-size: var(--font-xs); /* 12px */
   color: #6B7280;
 }
 
 .actionText {
-  font-size: 10px;
+  font-size: var(--font-xs); /* 12px - was 10px */
   font-weight: 500;
 }
 
@@ -1007,7 +1007,7 @@
   right: 8px;
   background: rgba(255, 255, 255, 0.15);
   color: white;
-  font-size: 11px;
+  font-size: var(--font-xs); /* 12px - was 11px */
   font-weight: 500;
   padding: 2px 5px;
   border-radius: 8px;
@@ -1029,12 +1029,12 @@
 }
 
 .quickActions .actionIcon {
-  font-size: 24px;
+  font-size: var(--font-lg); /* 24px */
   color: rgba(255, 255, 255, 0.8);
 }
 
 .quickActions .actionText {
-  font-size: 13px;
+  font-size: var(--font-sm); /* 14px - was 13px */
   font-weight: 500;
   text-align: center;
   line-height: 1.2;
@@ -1056,14 +1056,14 @@
 }
 
 .analyticsTitle {
-  font-size: 20px;
+  font-size: var(--font-md); /* 20px */
   font-weight: 700;
   color: #ffd700;
   margin: 0 0 12px 0;
 }
 
 .analyticsDescription {
-  font-size: 16px;
+  font-size: var(--font-base); /* 16px */
   color: rgba(255, 255, 255, 0.7);
   margin: 0;
   line-height: 1.5;
@@ -1081,20 +1081,20 @@
 }
 
 .emptyIcon {
-  font-size: 48px;
+  font-size: var(--font-heading-hero); /* 48px → 32px mobile */
   margin-bottom: 16px;
   opacity: 0.5;
 }
 
 .emptyTitle {
-  font-size: 20px;
+  font-size: var(--font-md); /* 20px */
   font-weight: 700;
   color: white;
   margin: 0 0 8px 0;
 }
 
 .emptyDescription {
-  font-size: 16px;
+  font-size: var(--font-base); /* 16px */
   color: rgba(255, 255, 255, 0.6);
   margin: 0 0 24px 0;
   line-height: 1.5;
@@ -1106,7 +1106,7 @@
   border: 1px solid rgba(255, 215, 0, 0.3);
   color: #ffd700;
   border-radius: 12px;
-  font-size: 16px;
+  font-size: var(--font-base); /* 16px */
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
@@ -1165,12 +1165,12 @@
 }
 
 .refreshIcon {
-  font-size: 24px;
+  font-size: var(--font-lg); /* 24px */
   animation: spin 1s linear infinite;
 }
 
 .refreshText {
-  font-size: 14px;
+  font-size: var(--font-sm); /* 14px */
   font-weight: 500;
   color: rgba(255, 255, 255, 0.8);
 }
@@ -1228,7 +1228,7 @@
   }
 
   .greetingText {
-    font-size: 42px;
+    font-size: var(--font-heading-hero); /* 48px → 32px mobile - was 42px */
     margin-bottom: 16px;
     font-weight: 800;
     letter-spacing: -1px;
@@ -1255,7 +1255,7 @@
   }
 
   .statusMessage {
-    font-size: 13px;
+    font-size: var(--font-sm); /* 14px - was 13px */
   }
 
   .activeMetrics,
@@ -1265,7 +1265,7 @@
   }
 
   .metric {
-    font-size: 11px;
+    font-size: var(--font-xs); /* 12px - was 11px */
   }
 
   .securityBanner {
@@ -1278,15 +1278,15 @@
   }
 
   .securityIcon {
-    font-size: 12px;
+    font-size: var(--font-xs); /* 12px */
   }
 
   .securityText {
-    font-size: 11px;
+    font-size: var(--font-xs); /* 12px - was 11px */
   }
 
   .securityLevel {
-    font-size: 10px;
+    font-size: var(--font-xs); /* 12px - was 10px */
   }
 
   /* Enhanced touch targets - minimum 48px */
@@ -1317,17 +1317,17 @@
 
   /* Header improvements */
   .pageTitle {
-    font-size: 24px; /* Slightly smaller on mobile */
+    font-size: var(--font-lg); /* 24px */ /* Slightly smaller on mobile */
   }
 
   .subtitle {
-    font-size: 16px;
+    font-size: var(--font-base); /* 16px */
   }
 
   /* Status pill improvements */
   .statusPill {
     padding: 6px 12px; /* Better mobile padding */
-    font-size: 12px;
+    font-size: var(--font-xs); /* 12px */
     gap: 6px;
   }
 
@@ -1338,11 +1338,11 @@
 
   .tab {
     padding: 10px 12px;
-    font-size: 13px;
+    font-size: var(--font-sm); /* 14px - was 13px */
   }
 
   .tabLabel {
-    font-size: 13px;
+    font-size: var(--font-sm); /* 14px - was 13px */
   }
 
   .statsGrid {
@@ -1371,11 +1371,11 @@
   }
 
   .quickActions .actionIcon {
-    font-size: 24px; /* Maintain large icons on mobile */
+    font-size: var(--font-lg); /* 24px */ /* Maintain large icons on mobile */
   }
 
   .quickActions .actionText {
-    font-size: 12px; /* Larger mobile text */
+    font-size: var(--font-xs); /* 12px */ /* Larger mobile text */
     font-weight: 600;
     line-height: 1.2;
     letter-spacing: 0.2px;
@@ -1410,11 +1410,11 @@
   }
 
   .pageTitle {
-    font-size: 16px;
+    font-size: var(--font-base); /* 16px */
   }
 
   .subtitle {
-    font-size: 13px;
+    font-size: var(--font-sm); /* 14px - was 13px */
   }
 
   .tab {
@@ -1423,11 +1423,11 @@
   }
 
   .tabIcon {
-    font-size: 14px;
+    font-size: var(--font-sm); /* 14px */
   }
 
   .tabLabel {
-    font-size: 13px;
+    font-size: var(--font-sm); /* 14px - was 13px */
   }
 
   .statCard {
@@ -1435,7 +1435,7 @@
   }
 
   .statValue {
-    font-size: 16px;
+    font-size: var(--font-base); /* 16px */
   }
 
   .assignmentCard {
@@ -1515,52 +1515,52 @@
 /* Responsive Breakpoints - Enhanced for readability */
 @media (max-width: 374px) {
   .pageTitle {
-    font-size: 24px; /* Larger for small screens */
+    font-size: var(--font-lg); /* 24px */ /* Larger for small screens */
   }
   .subtitle {
-    font-size: 16px; /* Larger for small screens */
+    font-size: var(--font-base); /* 16px */ /* Larger for small screens */
   }
 
   .statValue {
-    font-size: 20px; /* Increased for visibility */
+    font-size: var(--font-md); /* 20px */ /* Increased for visibility */
   }
 
   .statLabel {
-    font-size: 14px; /* Increased for readability */
+    font-size: var(--font-sm); /* 14px */ /* Increased for readability */
   }
 
   .actionText {
-    font-size: 15px; /* Increased for touch targets */
+    font-size: var(--font-base); /* 16px - was 15px */ /* Increased for touch targets */
   }
 
   .navCardTitle {
-    font-size: 16px; /* Increased for navigation */
+    font-size: var(--font-base); /* 16px */ /* Increased for navigation */
   }
 
   .navCardPrimary {
-    font-size: 15px; /* Increased for content */
+    font-size: var(--font-base); /* 16px - was 15px */ /* Increased for content */
   }
 
   .navCardSecondary {
-    font-size: 14px; /* Increased for details */
+    font-size: var(--font-sm); /* 14px */ /* Increased for details */
   }
 }
 
 @media (min-width: 375px) {
   .pageTitle {
-    font-size: 26px; /* Progressive increase */
+    font-size: var(--font-lg); /* 24px - was 26px */ /* Progressive increase */
   }
   .subtitle {
-    font-size: 17px; /* Progressive increase */
+    font-size: var(--font-md); /* 20px - was 17px */ /* Progressive increase */
   }
 }
 
 @media (min-width: 768px) {
   .pageTitle {
-    font-size: 28px; /* Maintain large size on desktop */
+    font-size: var(--font-lg); /* 24px - was 28px */ /* Maintain large size on desktop */
   }
   .subtitle {
-    font-size: 18px; /* Maintain large size on desktop */
+    font-size: var(--font-md); /* 20px - was 18px */ /* Maintain large size on desktop */
   }
 
   .quickActions {
@@ -1581,11 +1581,11 @@
 
 @media (max-width: 320px) {
   .pageTitle {
-    font-size: 20px;
+    font-size: var(--font-md); /* 20px */
   }
 
   .subtitle {
-    font-size: 14px;
+    font-size: var(--font-sm); /* 14px */
   }
 
   .navigationCards {
@@ -1597,15 +1597,15 @@
   }
 
   .navCardTitle {
-    font-size: 14px;
+    font-size: var(--font-sm); /* 14px */
   }
 
   .navCardPrimary {
-    font-size: 15px;
+    font-size: var(--font-base); /* 16px - was 15px */
   }
 
   .navCardSecondary {
-    font-size: 14px;
+    font-size: var(--font-sm); /* 14px */
   }
 
   .navCardInfo {
@@ -1622,16 +1622,16 @@
   }
 
   .statIcon {
-    font-size: 20px;
+    font-size: var(--font-md); /* 20px */
     width: 28px;
   }
 
   .statValue {
-    font-size: 16px;
+    font-size: var(--font-base); /* 16px */
   }
 
   .statLabel {
-    font-size: 12px;
+    font-size: var(--font-xs); /* 12px */
   }
 
   /* Improved assignment cards for small screens */
@@ -1646,7 +1646,7 @@
   }
 
   .searchInput {
-    font-size: 16px; /* Prevent zoom on iOS */
+    font-size: var(--font-base); /* 16px */ /* Prevent zoom on iOS */
     min-height: 44px;
   }
 
@@ -1657,7 +1657,7 @@
 
   .dateInput {
     min-height: 44px;
-    font-size: 16px; /* Prevent zoom on iOS */
+    font-size: var(--font-base); /* 16px */ /* Prevent zoom on iOS */
   }
 
   .clearFiltersBtn {
@@ -1668,18 +1668,18 @@
   }
 
   .assignmentStatus {
-    font-size: 8px;
+    font-size: var(--font-xs); /* 12px - was 8px */
     padding: 1px 4px;
     top: 6px;
     right: 6px;
   }
 
   .detailValue {
-    font-size: 11px;
+    font-size: var(--font-xs); /* 12px - was 11px */
   }
 
   .detailLabel {
-    font-size: 8px;
+    font-size: var(--font-xs); /* 12px - was 8px */
     min-width: 24px;
   }
 
@@ -1693,7 +1693,7 @@
   }
 
   .progressText {
-    font-size: 9px;
+    font-size: var(--font-xs); /* 12px - was 9px */
     min-width: 35px;
   }
 
@@ -1704,19 +1704,19 @@
   }
 
   .actionIcon {
-    font-size: 10px;
+    font-size: var(--font-xs); /* 12px - was 10px */
   }
 
   .totalCost {
-    font-size: 12px;
+    font-size: var(--font-xs); /* 12px */
   }
 
   .rating {
-    font-size: 9px;
+    font-size: var(--font-xs); /* 12px - was 9px */
   }
 
   .quickActions .actionText {
-    font-size: 12px;
+    font-size: var(--font-xs); /* 12px */
     line-height: 1.2;
   }
 }
@@ -1728,7 +1728,7 @@
 }
 
 .statusMessage {
-  font-size: 13px;
+  font-size: var(--font-sm); /* 14px - was 13px */
   color: rgba(255, 255, 255, 0.8);
   font-style: italic;
   text-align: center;
@@ -1741,7 +1741,7 @@
 }
 
 .navTitle {
-  font-size: 14px;
+  font-size: var(--font-sm); /* 14px */
   font-weight: 500;
   color: rgba(255, 255, 255, 0.7);
   display: block;
@@ -1749,7 +1749,7 @@
 }
 
 .navSubtitle {
-  font-size: 11px;
+  font-size: var(--font-xs); /* 12px - was 11px */
   color: rgba(255, 255, 255, 0.5);
   font-weight: 400;
   display: block;
@@ -1768,14 +1768,14 @@
   display: flex;
   align-items: center;
   gap: 6px;
-  font-size: 12px;
+  font-size: var(--font-xs); /* 12px */
   color: rgba(255, 255, 255, 0.6);
   flex: 1;
   min-width: 0;
 }
 
 .contextIcon {
-  font-size: 14px;
+  font-size: var(--font-sm); /* 14px */
   flex-shrink: 0;
 }
 
@@ -1821,7 +1821,7 @@
 }
 
 .statValue {
-  font-size: 20px;
+  font-size: var(--font-md); /* 20px */
   font-weight: 600;
   color: white;
   line-height: 1;
@@ -1832,7 +1832,7 @@
 }
 
 .statLabel {
-  font-size: 13px;
+  font-size: var(--font-sm); /* 14px - was 13px */
   color: rgba(255, 255, 255, 0.5);
   line-height: 1.2;
   display: flex;
@@ -1846,7 +1846,7 @@
   display: inline-flex;
   align-items: center;
   gap: 4px;
-  font-size: 11px;
+  font-size: var(--font-xs); /* 12px - was 11px */
   font-weight: 600;
   padding: 2px 6px;
   border-radius: 12px;
@@ -1869,7 +1869,7 @@
 }
 
 .trendArrow {
-  font-size: 10px;
+  font-size: var(--font-xs); /* 12px - was 10px */
   font-weight: 700;
 }
 
@@ -1887,14 +1887,14 @@
 
 /* Percentage change indicator */
 .percentageChange {
-  font-size: 10px;
+  font-size: var(--font-xs); /* 12px - was 10px */
   font-weight: 600;
   margin-left: 2px;
 }
 
 /* Monthly summary in stat label */
 .monthlyMetric {
-  font-size: 11px;
+  font-size: var(--font-xs); /* 12px - was 11px */
   color: rgba(255, 255, 255, 0.4);
   font-weight: 400;
 }
@@ -1945,13 +1945,13 @@
   }
 
   .pageTitle {
-    font-size: 20px;
+    font-size: var(--font-md); /* 20px */
     margin-bottom: 4px;
   }
 
   .statusPill {
     padding: 4px 8px;
-    font-size: 11px;
+    font-size: var(--font-xs); /* 12px - was 11px */
     gap: 4px;
   }
 
@@ -1962,7 +1962,7 @@
   .quickActions .actionButton {
     min-height: 48px;
     padding: 12px 8px;
-    font-size: 12px;
+    font-size: var(--font-xs); /* 12px */
   }
 
   .statsGrid {
@@ -1975,11 +1975,11 @@
   }
 
   .statValue {
-    font-size: 16px;
+    font-size: var(--font-base); /* 16px */
   }
 
   .statLabel {
-    font-size: 11px;
+    font-size: var(--font-xs); /* 12px - was 11px */
   }
 
   .refreshIndicator {
@@ -1988,11 +1988,11 @@
   }
 
   .refreshIcon {
-    font-size: 20px;
+    font-size: var(--font-md); /* 20px */
   }
 
   .refreshText {
-    font-size: 12px;
+    font-size: var(--font-xs); /* 12px */
   }
 
   /* Header Section Mobile - Centered Design */
@@ -2017,30 +2017,30 @@
   }
 
   .greetingText {
-    font-size: 52px;
+    font-size: var(--font-heading-hero); /* 48px → 32px mobile - was 52px */
     font-weight: 900;
     text-align: center;
     letter-spacing: -1.2px;
   }
 
   .currentDate {
-    font-size: 16px;
+    font-size: var(--font-base); /* 16px */
     text-align: center;
   }
 
   .currentTime {
-    font-size: 14px;
+    font-size: var(--font-sm); /* 14px */
     text-align: center;
   }
 
 
   .statusMessage {
-    font-size: 18px;
+    font-size: var(--font-md); /* 20px - was 18px */
     text-align: center;
   }
 
   .metric {
-    font-size: 15px;
+    font-size: var(--font-base); /* 16px - was 15px */
   }
 
   .contextualStatus {
@@ -2061,20 +2061,20 @@
   }
 
   .pageTitle {
-    font-size: 22px;
+    font-size: var(--font-lg); /* 24px - was 22px */
     margin-bottom: 6px;
   }
 
   .statusPill {
     padding: 5px 10px;
-    font-size: 12px;
+    font-size: var(--font-xs); /* 12px */
     gap: 5px;
   }
 
   .quickActions .actionButton {
     min-height: 48px;
     padding: 14px 10px;
-    font-size: 13px;
+    font-size: var(--font-sm); /* 14px - was 13px */
   }
 
   .statCard {
@@ -2083,11 +2083,11 @@
   }
 
   .statValue {
-    font-size: 18px;
+    font-size: var(--font-md); /* 20px - was 18px */
   }
 
   .statLabel {
-    font-size: 12px;
+    font-size: var(--font-xs); /* 12px */
   }
 
   /* Header Section Standard Mobile - Centered Design */
@@ -2101,30 +2101,30 @@
   }
 
   .greetingText {
-    font-size: 48px;
+    font-size: var(--font-heading-hero); /* 48px → 32px mobile */
     font-weight: 900;
     text-align: center;
     letter-spacing: -1px;
   }
 
   .currentDate {
-    font-size: 17px;
+    font-size: var(--font-md); /* 20px - was 17px */
     text-align: center;
   }
 
   .currentTime {
-    font-size: 15px;
+    font-size: var(--font-base); /* 16px - was 15px */
     text-align: center;
   }
 
 
   .statusMessage {
-    font-size: 20px;
+    font-size: var(--font-md); /* 20px */
     text-align: center;
   }
 
   .metric {
-    font-size: 16px;
+    font-size: var(--font-base); /* 16px */
   }
 
   .contextualStatus {
@@ -2145,20 +2145,20 @@
   }
 
   .pageTitle {
-    font-size: 24px;
+    font-size: var(--font-lg); /* 24px */
     margin-bottom: 8px;
   }
 
   .statusPill {
     padding: 6px 12px;
-    font-size: 13px;
+    font-size: var(--font-sm); /* 14px - was 13px */
     gap: 6px;
   }
 
   .quickActions .actionButton {
     min-height: 48px;
     padding: 16px 12px;
-    font-size: 14px;
+    font-size: var(--font-sm); /* 14px */
   }
 
   .statCard {
@@ -2167,11 +2167,11 @@
   }
 
   .statValue {
-    font-size: 20px;
+    font-size: var(--font-md); /* 20px */
   }
 
   .statLabel {
-    font-size: 13px;
+    font-size: var(--font-sm); /* 14px - was 13px */
   }
 }
 
@@ -2196,14 +2196,14 @@
 }
 
 .emptyIcon {
-  font-size: 48px;
+  font-size: var(--font-heading-hero); /* 48px → 32px mobile */
   margin-bottom: 8px;
   opacity: 0.7;
   filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.2));
 }
 
 .emptyTitle {
-  font-size: 20px;
+  font-size: var(--font-md); /* 20px */
   font-weight: 700;
   color: rgba(255, 255, 255, 0.9);
   margin: 0;
@@ -2211,14 +2211,14 @@
 }
 
 .emptyDescription {
-  font-size: 15px;
+  font-size: var(--font-base); /* 16px - was 15px */
   color: rgba(255, 255, 255, 0.7);
   margin: 0;
   line-height: 1.4;
 }
 
 .emptyHelpText {
-  font-size: 13px;
+  font-size: var(--font-sm); /* 14px - was 13px */
   color: rgba(255, 255, 255, 0.5);
   margin: 0;
   line-height: 1.4;
@@ -2250,7 +2250,7 @@
 }
 
 .suggestionText {
-  font-size: 13px;
+  font-size: var(--font-sm); /* 14px - was 13px */
   color: rgba(255, 255, 255, 0.8);
   font-weight: 500;
   line-height: 1.3;
@@ -2273,7 +2273,7 @@
   border: 2px solid rgba(0, 212, 255, 0.3);
   border-radius: 12px;
   color: #00D4FF;
-  font-size: 15px;
+  font-size: var(--font-base); /* 16px - was 15px */
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.5px;
@@ -2298,7 +2298,7 @@
   border: 1px solid rgba(255, 255, 255, 0.15);
   border-radius: 8px;
   color: rgba(255, 255, 255, 0.8);
-  font-size: 13px;
+  font-size: var(--font-sm); /* 14px - was 13px */
   font-weight: 500;
   cursor: pointer;
   transition: all 0.2s ease;
@@ -2315,7 +2315,7 @@
 }
 
 .emptySecondaryText {
-  font-size: 12px;
+  font-size: var(--font-xs); /* 12px */
   color: rgba(255, 255, 255, 0.4);
   margin: 0;
   font-weight: 500;
@@ -2335,19 +2335,19 @@
   }
 
   .emptyTitle {
-    font-size: 18px;
+    font-size: var(--font-md); /* 20px - was 18px */
   }
 
   .emptyDescription {
-    font-size: 14px;
+    font-size: var(--font-sm); /* 14px */
   }
 
   .emptyHelpText {
-    font-size: 12px;
+    font-size: var(--font-xs); /* 12px */
   }
 
   .suggestionText {
-    font-size: 12px;
+    font-size: var(--font-xs); /* 12px */
   }
 
   .suggestionItem {
@@ -2357,15 +2357,15 @@
   .primaryEmptyAction {
     min-height: 44px;
     padding: 12px 20px;
-    font-size: 14px;
+    font-size: var(--font-sm); /* 14px */
   }
 
   .secondaryEmptyAction {
     padding: 8px 16px;
-    font-size: 12px;
+    font-size: var(--font-xs); /* 12px */
   }
 
   .emptySecondaryText {
-    font-size: 11px;
+    font-size: var(--font-xs); /* 12px - was 11px */
   }
 }

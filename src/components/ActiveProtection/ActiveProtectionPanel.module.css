@@ -45,8 +45,8 @@
 }
 
 .panelTitle {
-  font-size: 13px;
-  font-weight: 700;
+  font-size: var(--font-sm); /* 14px - was 13px */
+  font-weight: var(--weight-bold);
   color: #22D3EE;
   margin: 0;
   letter-spacing: 1px;
@@ -55,9 +55,9 @@
 }
 
 .timer {
-  font-size: 16px;
+  font-size: var(--font-base); /* 16px */
   color: #F59E0B;
-  font-weight: 700;
+  font-weight: var(--weight-bold);
   font-variant-numeric: tabular-nums;
   letter-spacing: 0.5px;
   min-width: 64px;
@@ -73,15 +73,15 @@
 }
 
 .fieldLabel {
-  font-size: 11px;
-  font-weight: 600;
+  font-size: var(--font-xs); /* 12px - was 11px */
+  font-weight: var(--weight-semibold);
   text-transform: uppercase;
   color: rgba(255, 255, 255, 0.5);
 }
 
 .fieldValue {
-  font-size: 15px;
-  font-weight: 600;
+  font-size: var(--font-base); /* 16px - was 15px */
+  font-weight: var(--weight-semibold);
   color: #FFFFFF;
 }
 
@@ -94,8 +94,8 @@
 }
 
 .serviceTierValue {
-  font-size: 14px;
-  font-weight: 500;
+  font-size: var(--font-sm); /* 14px */
+  font-weight: var(--weight-medium);
 }
 
 /* Row 4: Progress Bar */
@@ -123,8 +123,8 @@
 }
 
 .progressText {
-  font-size: 13px;
-  font-weight: 600;
+  font-size: var(--font-sm); /* 14px - was 13px */
+  font-weight: var(--weight-semibold);
   color: rgba(255, 255, 255, 0.75);
   white-space: nowrap;
   min-width: 90px;
@@ -140,8 +140,8 @@
 }
 
 .statusValue {
-  font-size: 14px;
-  font-weight: 500;
+  font-size: var(--font-sm); /* 14px */
+  font-weight: var(--weight-medium);
   color: #22D3EE;
 }
 
@@ -234,7 +234,7 @@
 
 .sectionHeader h3 {
   font-size: var(--font-xl);
-  font-weight: 700;
+  font-weight: var(--weight-bold);
   color: var(--text-primary);
   margin: 0;
   text-align: left; /* Explicitly left align */
@@ -242,7 +242,7 @@
 
 .sectionHeader h4 {
   font-size: var(--font-lg);
-  font-weight: 600;
+  font-weight: var(--weight-semibold);
   color: var(--text-primary);
   margin: 0 0 var(--space-md) 0;
 }
@@ -252,7 +252,7 @@
   padding: var(--space-sm) var(--space-md);
   border-radius: var(--radius-full);
   font-size: var(--font-sm);
-  font-weight: 600;
+  font-weight: var(--weight-semibold);
   text-transform: uppercase;
   letter-spacing: 0.5px;
 }
@@ -296,8 +296,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 20px;
-  font-weight: 700;
+  font-size: var(--font-md); /* 20px */
+  font-weight: var(--weight-bold);
   color: #1a1a2e;
   flex-shrink: 0;
   box-shadow: 0 4px 12px rgba(255, 215, 0, 0.3);
@@ -311,24 +311,24 @@
 }
 
 .cpoName {
-  font-size: 18px;
-  font-weight: 700;
+  font-size: var(--font-md); /* 20px - was 18px */
+  font-weight: var(--weight-bold);
   color: var(--text-primary);
   line-height: 1.2;
 }
 
 .cpoRole {
-  font-size: 13px;
+  font-size: var(--font-sm); /* 14px - was 13px */
   color: var(--text-secondary);
-  font-weight: 500;
+  font-weight: var(--weight-medium);
   text-transform: uppercase;
   letter-spacing: 0.3px;
 }
 
 .cpoLicense {
-  font-size: 12px;
+  font-size: var(--font-xs); /* 12px */
   color: #FFD700;
-  font-weight: 600;
+  font-weight: var(--weight-semibold);
   font-family: 'Courier New', monospace;
   letter-spacing: 0.5px;
 }
@@ -352,9 +352,9 @@
 }
 
 .detailLabel {
-  font-size: 13px;
+  font-size: var(--font-sm); /* 14px - was 13px */
   color: var(--text-secondary);
-  font-weight: 600;
+  font-weight: var(--weight-semibold);
   display: flex;
   align-items: center;
   gap: 6px;
@@ -363,7 +363,7 @@
 .detailValue {
   font-size: var(--font-base);
   color: var(--text-primary);
-  font-weight: 600;
+  font-weight: var(--weight-semibold);
 }
 
 /* Security code section */
@@ -383,12 +383,12 @@
   text-transform: uppercase;
   letter-spacing: 2px;
   margin-bottom: var(--space-md);
-  font-weight: 600;
+  font-weight: var(--weight-semibold);
 }
 
 .securityValue {
   font-size: 2.5rem;
-  font-weight: 900;
+  font-weight: var(--weight-extrabold);
   color: var(--armora-gold);
   font-family: 'Courier New', monospace;
   letter-spacing: 4px;
@@ -423,8 +423,8 @@
 
 .extensionStatus h4 {
   color: #f59e0b;
-  font-size: 14px;
-  font-weight: 600;
+  font-size: var(--font-sm); /* 14px */
+  font-weight: var(--weight-semibold);
   margin: 0 0 var(--space-sm) 0;
   text-transform: uppercase;
   letter-spacing: 0.5px;
@@ -444,18 +444,18 @@
 }
 
 .requestText {
-  font-size: 14px;
+  font-size: var(--font-sm); /* 14px */
   color: var(--text-primary);
-  font-weight: 500;
+  font-weight: var(--weight-medium);
 }
 
 .pendingBadge {
-  font-size: 12px;
+  font-size: var(--font-xs); /* 12px */
   padding: 4px 8px;
   background: rgba(245, 158, 11, 0.2);
   color: #f59e0b;
   border-radius: 12px;
-  font-weight: 600;
+  font-weight: var(--weight-semibold);
   text-transform: uppercase;
   letter-spacing: 0.3px;
 }
@@ -473,7 +473,7 @@
   cursor: pointer;
   transition: all var(--transition-base);
   min-height: 80px;
-  font-weight: 600;
+  font-weight: var(--weight-semibold);
 }
 
 .actionButton:hover {
@@ -527,7 +527,7 @@
 }
 
 .billingRow.total {
-  font-weight: 700;
+  font-weight: var(--weight-bold);
   font-size: var(--font-base);
   color: var(--armora-gold);
   border-top: 2px solid var(--armora-gold);
@@ -549,7 +549,7 @@
   background: transparent;
   color: var(--text-secondary);
   border-radius: var(--radius-lg);
-  font-weight: 600;
+  font-weight: var(--weight-semibold);
   cursor: pointer;
   transition: all var(--transition-base);
   font-size: var(--font-base);
@@ -568,7 +568,7 @@
   background: rgba(239, 68, 68, 0.1);
   color: #ef4444;
   border-radius: var(--radius-lg);
-  font-weight: 600;
+  font-weight: var(--weight-semibold);
   cursor: pointer;
   transition: all var(--transition-base);
   font-size: var(--font-base);
@@ -594,26 +594,26 @@
   }
 
   .panelTitle {
-    font-size: 14px;
+    font-size: var(--font-sm); /* 14px */
   }
 
   .timer {
-    font-size: 15px;
+    font-size: var(--font-base); /* 16px - was 15px */
     min-width: 64px;
   }
 
   .closeButton {
     width: 32px;
     height: 32px;
-    font-size: 18px;
+    font-size: var(--font-md); /* 20px - was 18px */
   }
 
   .officerName {
-    font-size: 14px;
+    font-size: var(--font-sm); /* 14px */
   }
 
   .protectionType {
-    font-size: 12px;
+    font-size: var(--font-xs); /* 12px */
   }
 }
 
@@ -638,15 +638,15 @@
   }
 
   .panelTitle {
-    font-size: 16px;
+    font-size: var(--font-base); /* 16px */
   }
 
   .timer {
-    font-size: 16px;
+    font-size: var(--font-base); /* 16px */
   }
 
   .officerName {
-    font-size: 15px;
+    font-size: var(--font-base); /* 16px - was 15px */
   }
 }
 
@@ -657,11 +657,11 @@
   }
 
   .panelTitle {
-    font-size: 12px;
+    font-size: var(--font-xs); /* 12px */
   }
 
   .timer {
-    font-size: 13px;
+    font-size: var(--font-sm); /* 14px - was 13px */
   }
 }
 
@@ -672,34 +672,34 @@
   }
 
   .panelTitle {
-    font-size: 12px;
+    font-size: var(--font-xs); /* 12px */
     letter-spacing: 0.8px;
   }
 
   .timer {
-    font-size: 14px;
+    font-size: var(--font-sm); /* 14px */
     min-width: 56px;
   }
 
   .fieldLabel {
-    font-size: 10px;
+    font-size: var(--font-xs); /* 12px - was 10px */
   }
 
   .fieldValue {
-    font-size: 14px;
+    font-size: var(--font-sm); /* 14px */
   }
 
   .serviceTierValue {
-    font-size: 13px;
+    font-size: var(--font-sm); /* 14px - was 13px */
   }
 
   .progressText {
-    font-size: 12px;
+    font-size: var(--font-xs); /* 12px */
     min-width: 80px;
   }
 
   .statusValue {
-    font-size: 13px;
+    font-size: var(--font-sm); /* 14px - was 13px */
   }
 
   .headerRow1 {

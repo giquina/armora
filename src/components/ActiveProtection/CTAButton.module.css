@@ -171,21 +171,21 @@
 }
 
 .buttonTitle {
-  font-size: 15px;
-  font-weight: 700;
-  line-height: 1.2;
+  font-size: var(--font-base); /* 16px - was 15px */
+  font-weight: var(--weight-bold);
+  line-height: var(--line-button);
   text-transform: uppercase;
-  letter-spacing: 0.3px;
+  letter-spacing: var(--tracking-wide);
   display: flex;
   align-items: center;
   gap: 12px;
 }
 
 .buttonSubtitle {
-  font-size: 13px;
+  font-size: var(--font-sm); /* 14px - was 13px */
   opacity: 0.75;
-  line-height: 1.4;
-  font-weight: 400;
+  line-height: var(--line-base);
+  font-weight: var(--weight-normal);
   text-align: left; /* Explicitly left align */
   width: 100%; /* Full width for proper alignment */
 }

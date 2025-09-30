@@ -1,0 +1,164 @@
+/* ARMORA TYPOGRAPHY SYSTEM - Professional 8pt Grid Scale */
+
+:root {
+  /* ========================================
+     CORE TYPOGRAPHY SCALE (8pt Grid System)
+     ======================================== */
+
+  /* Primary Scale - Desktop & Tablet */
+  --font-xs: 12px;      /* Fine print, captions, badges */
+  --font-sm: 14px;      /* Labels, metadata, tertiary actions */
+  --font-base: 16px;    /* Body text, buttons, primary content */
+  --font-md: 20px;      /* Emphasized text, data values */
+  --font-lg: 24px;      /* Small headings, section titles */
+  --font-xl: 32px;      /* Major headings, page sections */
+  --font-xxl: 48px;     /* Hero text, page titles */
+
+  /* Mobile Scale (320px - 767px) */
+  --font-xs-mobile: 12px;
+  --font-sm-mobile: 14px;
+  --font-base-mobile: 16px;
+  --font-md-mobile: 18px;
+  --font-lg-mobile: 20px;
+  --font-xl-mobile: 28px;
+  --font-xxl-mobile: 32px;
+
+  /* ========================================
+     LINE HEIGHTS
+     ======================================== */
+  --line-tight: 1.2;    /* Large headings, titles */
+  --line-base: 1.5;     /* Body text, readable content */
+  --line-loose: 1.6;    /* Long-form reading */
+  --line-button: 1.3;   /* Button text, compact */
+
+  /* ========================================
+     FONT WEIGHTS
+     ======================================== */
+  --weight-normal: 400;
+  --weight-medium: 500;
+  --weight-semibold: 600;
+  --weight-bold: 700;
+  --weight-extrabold: 800;
+
+  /* ========================================
+     LETTER SPACING
+     ======================================== */
+  --tracking-tight: -0.02em;    /* Large headings */
+  --tracking-normal: 0;          /* Body text */
+  --tracking-wide: 0.02em;       /* Small text */
+  --tracking-wider: 0.05em;      /* Uppercase labels */
+
+  /* ========================================
+     USAGE PATTERNS (Component-Specific)
+     ======================================== */
+
+  /* Headings */
+  --font-heading-hero: var(--font-xxl);
+  --font-heading-page: var(--font-xl);
+  --font-heading-section: var(--font-lg);
+  --font-heading-subsection: var(--font-md);
+
+  /* Body Text */
+  --font-body-large: var(--font-md);
+  --font-body: var(--font-base);
+  --font-body-small: var(--font-sm);
+
+  /* UI Elements */
+  --font-button-primary: var(--font-base);
+  --font-button-secondary: var(--font-sm);
+  --font-label: var(--font-sm);
+  --font-badge: var(--font-xs);
+  --font-caption: var(--font-xs);
+
+  /* Data Display */
+  --font-data-value: var(--font-md);
+  --font-data-label: var(--font-sm);
+  --font-metric: var(--font-md);
+  --font-status: var(--font-base);
+}
+
+/* ========================================
+   RESPONSIVE TYPOGRAPHY
+   ======================================== */
+
+/* Mobile First - Apply mobile scale by default on small screens */
+@media (max-width: 767px) {
+  :root {
+    --font-heading-hero: var(--font-xxl-mobile);
+    --font-heading-page: var(--font-xl-mobile);
+    --font-heading-section: var(--font-lg-mobile);
+    --font-heading-subsection: var(--font-md-mobile);
+  }
+}
+
+/* Tablet & Desktop - Use full scale */
+@media (min-width: 768px) {
+  :root {
+    --font-heading-hero: var(--font-xxl);
+    --font-heading-page: var(--font-xl);
+    --font-heading-section: var(--font-lg);
+    --font-heading-subsection: var(--font-md);
+  }
+}
+
+/* ========================================
+   UTILITY CLASSES
+   ======================================== */
+
+.text-xs { font-size: var(--font-xs); }
+.text-sm { font-size: var(--font-sm); }
+.text-base { font-size: var(--font-base); }
+.text-md { font-size: var(--font-md); }
+.text-lg { font-size: var(--font-lg); }
+.text-xl { font-size: var(--font-xl); }
+.text-xxl { font-size: var(--font-xxl); }
+
+.font-normal { font-weight: var(--weight-normal); }
+.font-medium { font-weight: var(--weight-medium); }
+.font-semibold { font-weight: var(--weight-semibold); }
+.font-bold { font-weight: var(--weight-bold); }
+
+.leading-tight { line-height: var(--line-tight); }
+.leading-base { line-height: var(--line-base); }
+.leading-loose { line-height: var(--line-loose); }
+
+/* ========================================
+   TYPOGRAPHY GUIDELINES
+   ======================================== */
+
+/*
+USAGE GUIDE:
+
+Page Structure:
+- Hero/Greeting: var(--font-xxl) / 48px → 32px mobile
+- Page Title: var(--font-xl) / 32px → 28px mobile
+- Section Heading: var(--font-lg) / 24px → 20px mobile
+- Subsection: var(--font-md) / 20px → 18px mobile
+
+Content:
+- Emphasized Body: var(--font-md) / 20px
+- Body Text: var(--font-base) / 16px
+- Small Body: var(--font-sm) / 14px
+
+UI Components:
+- Primary Buttons: var(--font-base) / 16px
+- Secondary Buttons: var(--font-sm) / 14px
+- Labels: var(--font-sm) / 14px
+- Badges/Captions: var(--font-xs) / 12px
+
+Data Display:
+- Data Value: var(--font-md) / 20px
+- Data Label: var(--font-sm) / 14px
+- Status Text: var(--font-base) / 16px
+- Metadata: var(--font-xs) / 12px
+
+MINIMUM SIZES:
+- Desktop: 12px (--font-xs)
+- Mobile: 12px (--font-xs)
+- Touch Targets: 16px minimum in buttons
+
+NEVER USE:
+- Sizes below 12px
+- Random sizes (13px, 15px, 17px, 19px, etc.)
+- Inconsistent sizing for same elements
+*/

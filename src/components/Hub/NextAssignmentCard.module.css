@@ -62,12 +62,12 @@
 
 /* Header Label */
 .header {
-  font-size: 14px;
+  font-size: var(--font-sm); /* 14px */
   text-transform: uppercase;
-  letter-spacing: 1px;
+  letter-spacing: var(--tracking-wider);
   color: rgba(255, 215, 0, 0.7);
   margin-bottom: 12px;
-  font-weight: 600;
+  font-weight: var(--weight-semibold);
 }
 
 /* Content Section */
@@ -80,11 +80,11 @@
 
 /* Date/Time */
 .dateTime {
-  font-size: 26px;
-  font-weight: 700;
+  font-size: var(--font-lg); /* 24px - was 26px */
+  font-weight: var(--weight-bold);
   color: #FFD700;
   margin-bottom: 4px;
-  letter-spacing: -0.5px;
+  letter-spacing: var(--tracking-tight);
   display: flex;
   align-items: center;
   gap: 8px;
@@ -93,7 +93,7 @@
 
 .dateTime::before {
   content: "📅";
-  font-size: 24px;
+  font-size: var(--font-lg); /* 24px */
 }
 
 /* CPO Info Row */
@@ -114,27 +114,27 @@
 }
 
 .cpoName {
-  font-size: 20px;
-  font-weight: 600;
+  font-size: var(--font-md); /* 20px */
+  font-weight: var(--weight-semibold);
   color: #FFFFFF;
 }
 
 .cpoDesignation {
-  font-size: 15px;
-  font-weight: 400;
+  font-size: var(--font-base); /* 16px - was 15px */
+  font-weight: var(--weight-normal);
   color: rgba(255, 255, 255, 0.6);
   font-style: italic;
 }
 
 .separator {
-  font-size: 15px;
+  font-size: var(--font-base); /* 16px - was 15px */
   color: rgba(255, 255, 255, 0.4);
 }
 
 /* Protection Tier Badge */
 .tierBadge {
-  font-size: 16px;
-  font-weight: 500;
+  font-size: var(--font-base); /* 16px */
+  font-weight: var(--weight-medium);
   padding: 6px 12px;
   border-radius: 8px;
   display: inline-block;
@@ -142,8 +142,8 @@
 
 /* SIA License */
 .siaLicense {
-  font-size: 16px;
-  font-weight: 400;
+  font-size: var(--font-base); /* 16px */
+  font-weight: var(--weight-normal);
   color: rgba(255, 255, 255, 0.7);
   margin-top: 8px;
   display: flex;
@@ -153,7 +153,7 @@
 
 .siaLicense::before {
   content: "🛡️";
-  font-size: 16px;
+  font-size: var(--font-base); /* 16px */
 }
 
 /* Status Items */
@@ -169,8 +169,8 @@
 }
 
 .statusItem {
-  font-size: 15px;
-  font-weight: 400;
+  font-size: var(--font-base); /* 16px - was 15px */
+  font-weight: var(--weight-normal);
   color: rgba(255, 255, 255, 0.7);
   display: flex;
   align-items: center;
@@ -180,8 +180,8 @@
 
 /* Action Link */
 .action {
-  font-size: 16px;
-  font-weight: 700;
+  font-size: var(--font-base); /* 16px */
+  font-weight: var(--weight-bold);
   color: #1a1a2e;
   margin-top: auto;
   padding-top: 16px;
@@ -214,8 +214,8 @@
 }
 
 .emptyMessage {
-  font-size: 18px;
-  font-weight: 500;
+  font-size: var(--font-md); /* 20px - was 18px */
+  font-weight: var(--weight-medium);
   color: rgba(255, 255, 255, 0.8);
   text-align: left;
 }
@@ -247,11 +247,11 @@
   }
 
   .dateTime {
-    font-size: 18px;
+    font-size: var(--font-md); /* 20px - was 18px */
   }
 
   .cpoName {
-    font-size: 15px;
+    font-size: var(--font-base); /* 16px - was 15px */
   }
 
   .cpoInfo {

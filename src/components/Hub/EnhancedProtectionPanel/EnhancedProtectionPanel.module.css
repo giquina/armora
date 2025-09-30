@@ -168,8 +168,8 @@
 }
 
 .statusText {
-  font-size: 14px;
-  font-weight: 600;
+  font-size: var(--font-sm); /* 14px */
+  font-weight: var(--weight-semibold);
   color: #1a1a2e;
   letter-spacing: 0.3px;
   line-height: 1.3;
@@ -215,14 +215,14 @@
 .cpoLine {
   display: flex;
   align-items: center;
-  font-size: 13px;
+  font-size: var(--font-sm); /* 14px - was 13px */
   line-height: 1.3;
   padding-right: 44px; /* Space for chevron */
 }
 
 .cpoInfo {
   color: #1a1a2e;
-  font-weight: 500;
+  font-weight: var(--weight-medium);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -233,14 +233,14 @@
 .journeyLine {
   display: flex;
   align-items: center;
-  font-size: 13px;
+  font-size: var(--font-sm); /* 14px - was 13px */
   line-height: 1.3;
   padding-right: 44px; /* Space for chevron */
 }
 
 .journeyInfo {
   color: #1a1a2e;
-  font-weight: 500;
+  font-weight: var(--weight-medium);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -276,7 +276,7 @@
 
 .collapsedPreview:hover .cost {
   color: #0f172a;
-  font-weight: 700;
+  font-weight: var(--weight-bold);
 }
 
 /* Clean Chevron Arrow Design */
@@ -319,20 +319,20 @@
 }
 
 .cpoLabel {
-  font-size: 14px;
-  font-weight: 600;
+  font-size: var(--font-sm); /* 14px */
+  font-weight: var(--weight-semibold);
   color: #374151;
 }
 
 .officerName {
-  font-size: 15px;
-  font-weight: 600;
+  font-size: var(--font-base); /* 16px - was 15px */
+  font-weight: var(--weight-semibold);
   color: #1A1A2E;
   line-height: 1.2;
 }
 
 .serviceName {
-  font-size: 14px;
+  font-size: var(--font-sm); /* 14px */
   color: #4B5563;
   line-height: 1.2;
 }
@@ -366,8 +366,8 @@
 }
 
 .officerNameInline {
-  font-size: 17px;
-  font-weight: 700;
+  font-size: var(--font-base); /* 16px - was 17px */
+  font-weight: var(--weight-bold);
   color: #1A1A2E;
   line-height: 1.3;
   text-transform: uppercase;
@@ -377,9 +377,9 @@
 
 .locationTimeSection {
   padding-left: 76px; /* 60px avatar + 16px gap */
-  font-size: 14px;
+  font-size: var(--font-sm); /* 14px */
   color: #374151;
-  font-weight: 600;
+  font-weight: var(--weight-semibold);
   line-height: 1.2;
 }
 
@@ -398,7 +398,7 @@
 .panel.half .quickCall {
   width: 40px;
   height: 40px;
-  font-size: 16px;
+  font-size: var(--font-base); /* 16px */
 }
 
 .officerInfo {
@@ -412,7 +412,7 @@
 /* Removed duplicate - enhanced version below */
 
 .initials {
-  font-size: 14px;
+  font-size: var(--font-sm); /* 14px */
   font-weight: 800;
   letter-spacing: 0.5px;
 }
@@ -429,9 +429,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  font-weight: 700;
+  font-weight: var(--weight-bold);
   color: #1a1a2e;
-  font-size: 15px;
+  font-size: var(--font-base); /* 16px - was 15px */
   box-shadow: 0 3px 12px rgba(255, 215, 0, 0.25);
   flex-shrink: 0;
   /* Enhanced status ring */
@@ -485,8 +485,8 @@
 }
 
 .officerName {
-  font-size: 17px;
-  font-weight: 700;
+  font-size: var(--font-base); /* 16px - was 17px */
+  font-weight: var(--weight-bold);
   color: #1A1A2E;
   line-height: 1.3;
   text-transform: uppercase;
@@ -496,7 +496,7 @@
 }
 
 .officerRole {
-  font-size: 14px;
+  font-size: var(--font-sm); /* 14px */
   color: #6B7280;
   margin: 0;
   text-transform: uppercase;
@@ -513,15 +513,15 @@
 }
 
 .location {
-  font-size: 14px;
+  font-size: var(--font-sm); /* 14px */
   color: #374151;
-  font-weight: 600;
+  font-weight: var(--weight-semibold);
 }
 
 .timeRemaining {
-  font-size: 16px;
+  font-size: var(--font-base); /* 16px */
   color: #059669;
-  font-weight: 700;
+  font-weight: var(--weight-bold);
   line-height: 1;
 }
 
@@ -533,7 +533,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 18px;
+  font-size: var(--font-md); /* 20px - was 18px */
   cursor: pointer;
   transition: all 0.2s ease;
   box-shadow: 0 2px 8px rgba(0, 200, 83, 0.3);
@@ -580,9 +580,9 @@
 }
 
 .protectionLevel {
-  font-size: 14px;
+  font-size: var(--font-sm); /* 14px */
   color: #FFC107;
-  font-weight: 600;
+  font-weight: var(--weight-semibold);
   text-transform: uppercase;
   letter-spacing: 0.5px;
   background: #1A1A2E;
@@ -592,9 +592,9 @@
 }
 
 .currentCost {
-  font-size: 18px;
+  font-size: var(--font-md); /* 20px - was 18px */
   color: #1A1A2E;
-  font-weight: 700;
+  font-weight: var(--weight-bold);
 }
 
 .progressBar {
@@ -617,17 +617,17 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-size: 12px;
+  font-size: var(--font-xs); /* 12px */
 }
 
 .eta {
   color: #374151;
-  font-weight: 600;
+  font-weight: var(--weight-semibold);
 }
 
 .progress {
   color: #059669;
-  font-weight: 600;
+  font-weight: var(--weight-semibold);
 }
 
 /* Action Buttons Grid - 2x3 layout with BIG buttons for full-screen takeover */
@@ -701,15 +701,15 @@
 }
 
 .buttonIcon {
-  font-size: 28px;
+  font-size: var(--font-lg); /* 24px - was 28px */
   line-height: 1;
   filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
   display: block;
 }
 
 .buttonLabel {
-  font-size: 15px;
-  font-weight: 700;
+  font-size: var(--font-base); /* 16px - was 15px */
+  font-weight: var(--weight-bold);
   text-transform: uppercase;
   letter-spacing: 0.3px;
   line-height: 1.2;
@@ -719,8 +719,8 @@
 }
 
 .buttonSubtext {
-  font-size: 13px;
-  font-weight: 400;
+  font-size: var(--font-sm); /* 14px - was 13px */
+  font-weight: var(--weight-normal);
   opacity: 0.85;
   line-height: 1.2;
   text-align: center;
@@ -819,8 +819,8 @@
 }
 
 .sectionTitle {
-  font-size: 14px;
-  font-weight: 700;
+  font-size: var(--font-sm); /* 14px */
+  font-weight: var(--weight-bold);
   color: #1A1A2E;
   margin-bottom: 8px;
   text-transform: uppercase;
@@ -853,13 +853,13 @@
 
 .badgeIcon {
   color: #10B981;
-  font-weight: 700;
-  font-size: 15px;
+  font-weight: var(--weight-bold);
+  font-size: var(--font-base); /* 16px - was 15px */
 }
 
 .badgeText {
-  font-size: 15px;
-  font-weight: 600;
+  font-size: var(--font-base); /* 16px - was 15px */
+  font-weight: var(--weight-semibold);
   color: #1A1A2E;
 }
 
@@ -890,15 +890,15 @@
 }
 
 .detailLabel {
-  font-size: 15px;
+  font-size: var(--font-base); /* 16px - was 15px */
   color: #6B7280;
-  font-weight: 600;
+  font-weight: var(--weight-semibold);
 }
 
 .detailValue {
-  font-size: 15px;
+  font-size: var(--font-base); /* 16px - was 15px */
   color: #1A1A2E;
-  font-weight: 600;
+  font-weight: var(--weight-semibold);
   text-align: right;
 }
 
@@ -928,15 +928,15 @@
 }
 
 .activityTime {
-  font-size: 14px;
+  font-size: var(--font-sm); /* 14px */
   color: #6B7280;
-  font-weight: 600;
+  font-weight: var(--weight-semibold);
   flex-shrink: 0;
   width: 36px;
 }
 
 .activityText {
-  font-size: 15px;
+  font-size: var(--font-base); /* 16px - was 15px */
   color: #374151;
   line-height: 1.3;
 }
@@ -968,18 +968,18 @@
 }
 
 .mapIcon {
-  font-size: 24px;
+  font-size: var(--font-lg); /* 24px */
   margin-bottom: 4px;
 }
 
 .mapText {
-  font-size: 14px;
-  font-weight: 600;
+  font-size: var(--font-sm); /* 14px */
+  font-weight: var(--weight-semibold);
   color: #1A1A2E;
 }
 
 .mapSubtext {
-  font-size: 14px;
+  font-size: var(--font-sm); /* 14px */
   color: #6B7280;
 }
 
@@ -997,11 +997,11 @@
   .officerAvatar {
     width: 40px;
     height: 40px;
-    font-size: 14px;
+    font-size: var(--font-sm); /* 14px */
   }
 
   .officerName {
-    font-size: 15px;
+    font-size: var(--font-base); /* 16px - was 15px */
     letter-spacing: 0.3px;
   }
 
@@ -1017,15 +1017,15 @@
   }
 
   .statusText {
-    font-size: 11px;
+    font-size: var(--font-xs); /* 12px - was 11px */
   }
 
   .etaSection {
-    font-size: 12px;
+    font-size: var(--font-xs); /* 12px */
   }
 
   .serviceName {
-    font-size: 13px;
+    font-size: var(--font-sm); /* 14px - was 13px */
   }
 
   .bottomRow {
@@ -1033,11 +1033,11 @@
   }
 
   .officerRole {
-    font-size: 11px;
+    font-size: var(--font-xs); /* 12px - was 11px */
   }
 
   .timeRemaining {
-    font-size: 14px;
+    font-size: var(--font-sm); /* 14px */
   }
 
   .actionButton {
@@ -1051,7 +1051,7 @@
   }
 
   .buttonLabel {
-    font-size: 16px;
+    font-size: var(--font-base); /* 16px */
   }
 
   .panelContent {
@@ -1071,7 +1071,7 @@
   .officerAvatar {
     width: 36px;
     height: 36px;
-    font-size: 12px;
+    font-size: var(--font-xs); /* 12px */
   }
 
   .collapsedPreview {
@@ -1085,15 +1085,15 @@
   }
 
   .etaSection {
-    font-size: 11px;
+    font-size: var(--font-xs); /* 12px - was 11px */
   }
 
   .officerName {
-    font-size: 13px;
+    font-size: var(--font-sm); /* 14px - was 13px */
   }
 
   .serviceName {
-    font-size: 12px;
+    font-size: var(--font-xs); /* 12px */
   }
 
   .bottomRow {
@@ -1107,11 +1107,11 @@
   }
 
   .buttonIcon {
-    font-size: 28px;
+    font-size: var(--font-lg); /* 24px - was 28px */
   }
 
   .buttonLabel {
-    font-size: 13px;
+    font-size: var(--font-sm); /* 14px - was 13px */
   }
 
   /* Optimized spacing for bigger buttons on 320px screens */
@@ -1157,11 +1157,11 @@
   }
 
   .buttonLabel {
-    font-size: 18px;
+    font-size: var(--font-md); /* 20px - was 18px */
   }
 
   .buttonSubtext {
-    font-size: 13px;
+    font-size: var(--font-sm); /* 14px - was 13px */
   }
 }
 
@@ -1178,15 +1178,15 @@
   .officerAvatar {
     width: 48px;
     height: 48px;
-    font-size: 16px;
+    font-size: var(--font-base); /* 16px */
   }
 
   .officerName {
-    font-size: 18px;
+    font-size: var(--font-md); /* 20px - was 18px */
   }
 
   .officerRole {
-    font-size: 12px;
+    font-size: var(--font-xs); /* 12px */
   }
 }
 
@@ -1203,7 +1203,7 @@
   .officerAvatar {
     width: 50px;
     height: 50px;
-    font-size: 17px;
+    font-size: var(--font-base); /* 16px - was 17px */
   }
 
   .officerName {
@@ -1211,7 +1211,7 @@
   }
 
   .officerRole {
-    font-size: 12px;
+    font-size: var(--font-xs); /* 12px */
   }
 
   .panel.half .statusBar {
@@ -1242,11 +1242,11 @@
   }
 
   .panel.half .panelContent .buttonIcon {
-    font-size: 16px;
+    font-size: var(--font-base); /* 16px */
   }
 
   .panel.half .panelContent .buttonLabel {
-    font-size: 11px;
+    font-size: var(--font-xs); /* 12px - was 11px */
   }
 }
 
@@ -1269,11 +1269,11 @@
   }
 
   .buttonLabel {
-    font-size: 14px;
+    font-size: var(--font-sm); /* 14px */
   }
 
   .buttonSubtext {
-    font-size: 11px;
+    font-size: var(--font-xs); /* 12px - was 11px */
   }
 }
 
@@ -1310,8 +1310,8 @@
   color: #22c55e;
   padding: 2px 6px;
   border-radius: 4px;
-  font-size: 11px;
-  font-weight: 600;
+  font-size: var(--font-xs); /* 12px - was 11px */
+  font-weight: var(--weight-semibold);
   margin-left: 8px;
 }
 
@@ -1323,15 +1323,15 @@
 }
 
 .etaTime {
-  font-size: 12px;
-  font-weight: 600;
+  font-size: var(--font-xs); /* 12px */
+  font-weight: var(--weight-semibold);
   color: #1a1a2e;
 }
 
 .cost {
-  font-size: 11px;
+  font-size: var(--font-xs); /* 12px - was 11px */
   color: #666;
-  font-weight: 500;
+  font-weight: var(--weight-medium);
 }
 
 .expandHint {
@@ -1347,11 +1347,11 @@
   color: #666;
   text-transform: uppercase;
   letter-spacing: 0.5px;
-  font-weight: 500;
+  font-weight: var(--weight-medium);
 }
 
 .expandIcon {
-  font-size: 14px;
+  font-size: var(--font-sm); /* 14px */
   color: #1a1a2e;
   font-weight: bold;
   animation: bounce 2s infinite;
@@ -1385,9 +1385,9 @@
 }
 
 .timeRemaining {
-  font-size: 11px;
+  font-size: var(--font-xs); /* 12px - was 11px */
   color: #666;
-  font-weight: 500;
+  font-weight: var(--weight-medium);
 }
 
 .locationInfo,
@@ -1399,17 +1399,17 @@
 
 .locationLabel,
 .etaLabel {
-  font-size: 11px;
+  font-size: var(--font-xs); /* 12px - was 11px */
   color: #666;
-  font-weight: 600;
+  font-weight: var(--weight-semibold);
   text-transform: uppercase;
   letter-spacing: 0.3px;
 }
 
 .locationText {
-  font-size: 12px;
+  font-size: var(--font-xs); /* 12px */
   color: #1a1a2e;
-  font-weight: 500;
+  font-weight: var(--weight-medium);
 }
 
 /* Arrow Indicators */
@@ -1425,7 +1425,7 @@
 }
 
 .upArrow {
-  font-size: 18px;
+  font-size: var(--font-md); /* 20px - was 18px */
   color: #22c55e;
   font-weight: bold;
   animation: pulseUp 2s ease-in-out infinite;
@@ -1449,7 +1449,7 @@
 }
 
 .downArrow {
-  font-size: 18px;
+  font-size: var(--font-md); /* 20px - was 18px */
   color: #6b7280;
   font-weight: bold;
   animation: pulseDown 2s ease-in-out infinite;
