@@ -94,13 +94,13 @@
 }
 
 .navCardIcon {
-  font-size: 18px; /* Smaller for mobile */
+  font-size: var(--font-md); /* 20px - was 18px */ /* Smaller for mobile */
   flex-shrink: 0;
 }
 
 .navCardTitle {
-  font-size: 15px; /* Optimized for mobile */
-  font-weight: 700;
+  font-size: var(--font-base); /* 16px - was 15px */ /* Optimized for mobile */
+  font-weight: var(--weight-bold);
   color: white;
   text-transform: uppercase;
   letter-spacing: 0.3px; /* Reduced letter spacing */
@@ -110,16 +110,16 @@
 }
 
 .navCardCount {
-  font-size: 13px;
+  font-size: var(--font-sm); /* 14px - was 13px */
   color: rgba(255, 255, 255, 0.5);
-  font-weight: 400;
+  font-weight: var(--weight-normal);
   white-space: nowrap;
   margin-left: 2px;
 }
 
 .activeIndicator {
   color: #ffd700;
-  font-size: 14px;
+  font-size: var(--font-sm); /* 14px */
   animation: pulse 2s ease-in-out infinite;
   flex-shrink: 0;
   line-height: 1;
@@ -135,27 +135,27 @@
 }
 
 .newBadge {
-  font-size: 12px;
+  font-size: var(--font-xs); /* 12px */
   padding: 3px 5px;
   background: rgba(255, 215, 0, 0.2);
   color: #ffd700;
   border-radius: 4px;
   text-transform: uppercase;
-  font-weight: 600;
+  font-weight: var(--weight-semibold);
   letter-spacing: 0.3px;
   white-space: nowrap;
   flex-shrink: 0;
 }
 
 .priorityBadge {
-  font-size: 10px;
+  font-size: var(--font-xs); /* 12px - was 10px */
   padding: 4px 8px;
   background: rgba(255, 107, 107, 0.2);
   color: #FF6B6B;
   border: 1px solid rgba(255, 107, 107, 0.4);
   border-radius: 8px;
   text-transform: uppercase;
-  font-weight: 700;
+  font-weight: var(--weight-bold);
   letter-spacing: 0.4px;
   white-space: nowrap;
   flex-shrink: 0;
@@ -166,10 +166,10 @@
 .pendingBadge {
   background: #FF6B6B;
   color: white;
-  font-size: 12px;
+  font-size: var(--font-xs); /* 12px */
   padding: 3px 7px;
   border-radius: 50%;
-  font-weight: 600;
+  font-weight: var(--weight-semibold);
   min-width: 20px;
   height: 20px;
   display: flex;
@@ -188,7 +188,7 @@
   display: flex;
   flex-direction: column;
   gap: 10px; /* Mobile-optimized spacing */
-  font-size: 13px; /* Mobile-first compact font size */
+  font-size: var(--font-sm); /* 14px - was 13px */ /* Mobile-first compact font size */
   line-height: 1.2; /* Tighter line height for mobile */
 }
 
@@ -217,8 +217,8 @@
 
 .assignmentLabel {
   color: rgba(255, 255, 255, 0.6);
-  font-size: 13px;
-  font-weight: 500;
+  font-size: var(--font-sm); /* 14px - was 13px */
+  font-weight: var(--weight-medium);
   text-transform: uppercase;
   letter-spacing: 0.3px;
   min-width: 80px;
@@ -226,16 +226,16 @@
 
 .assignmentValue {
   color: rgba(255, 255, 255, 0.9);
-  font-size: 15px;
-  font-weight: 600;
+  font-size: var(--font-base); /* 16px - was 15px */
+  font-weight: var(--weight-semibold);
   text-align: right;
   flex: 1;
 }
 
 .assignmentValue.highlight {
   color: #FFD700;
-  font-weight: 700;
-  font-size: 16px;
+  font-weight: var(--weight-bold);
+  font-size: var(--font-base); /* 16px */
 }
 
 .routeInfo {
@@ -246,13 +246,13 @@
 
 .routeText {
   color: rgba(255, 255, 255, 0.85);
-  font-size: 14px;
-  font-weight: 500;
+  font-size: var(--font-sm); /* 14px */
+  font-weight: var(--weight-medium);
 }
 
 .routeArrow {
   color: #FFD700;
-  font-weight: 700;
+  font-weight: var(--weight-bold);
   margin: 0 8px;
 }
 
@@ -300,9 +300,9 @@
 }
 
 .statusText {
-  font-size: 16px; /* Larger for better visibility */
+  font-size: var(--font-base); /* 16px */ /* Larger for better visibility */
   color: rgba(255, 255, 255, 0.95);
-  font-weight: 600;
+  font-weight: var(--weight-semibold);
 }
 
 .liveIndicator {
@@ -327,11 +327,11 @@
 }
 
 .statusLabel {
-  font-size: 13px; /* Slightly larger */
+  font-size: var(--font-sm); /* 14px - was 13px */ /* Slightly larger */
   color: rgba(255, 255, 255, 0.7);
   text-transform: uppercase;
   letter-spacing: 0.3px;
-  font-weight: 500;
+  font-weight: var(--weight-medium);
 }
 
 .progressRow {
@@ -345,17 +345,17 @@
 }
 
 .timeRemaining {
-  font-size: 16px; /* Larger for better visibility */
+  font-size: var(--font-base); /* 16px */ /* Larger for better visibility */
   color: #FFD700;
-  font-weight: 700;
+  font-weight: var(--weight-bold);
   line-height: 1.2;
 }
 
 .eta {
-  font-size: 14px; /* Larger for better readability */
+  font-size: var(--font-sm); /* 14px */ /* Larger for better readability */
   color: rgba(255, 255, 255, 0.7);
   margin-top: 4px;
-  font-weight: 500;
+  font-weight: var(--weight-medium);
 }
 
 .progressRing {
@@ -369,15 +369,15 @@
 }
 
 .officerName {
-  font-size: 15px; /* Larger for better visibility */
+  font-size: var(--font-base); /* 16px - was 15px */ /* Larger for better visibility */
   color: rgba(255, 255, 255, 0.9);
-  font-weight: 600;
+  font-weight: var(--weight-semibold);
 }
 
 .currentLocation {
-  font-size: 14px; /* Larger for better readability */
+  font-size: var(--font-sm); /* 14px */ /* Larger for better readability */
   color: rgba(255, 255, 255, 0.7);
-  font-weight: 500;
+  font-weight: var(--weight-medium);
 }
 
 .bottomRow {
@@ -387,25 +387,25 @@
 }
 
 .serviceTier {
-  font-size: 14px; /* Larger for better visibility */
+  font-size: var(--font-sm); /* 14px */ /* Larger for better visibility */
   padding: 6px 10px; /* More padding */
   border-radius: 6px;
-  font-weight: 700;
+  font-weight: var(--weight-bold);
   text-transform: uppercase;
   letter-spacing: 0.5px;
 }
 
 .runningFee {
-  font-size: 19px; /* Larger for better visibility */
+  font-size: var(--font-md); /* 20px - was 19px */ /* Larger for better visibility */
   color: #FFD700;
-  font-weight: 700;
+  font-weight: var(--weight-bold);
   display: flex;
   align-items: center;
   gap: 4px;
 }
 
 .feeIcon {
-  font-size: 15px;
+  font-size: var(--font-base); /* 16px - was 15px */
   animation: bounce 2s ease-in-out infinite;
 }
 
@@ -422,20 +422,20 @@
 }
 
 .assignmentTime {
-  font-size: 15px;
+  font-size: var(--font-base); /* 16px - was 15px */
   color: #00D4FF;
-  font-weight: 600;
+  font-weight: var(--weight-semibold);
   display: flex;
   align-items: center;
   gap: 4px;
 }
 
 .weatherIcon {
-  font-size: 16px;
+  font-size: var(--font-base); /* 16px */
 }
 
 .dayOfWeek {
-  font-size: 14px;
+  font-size: var(--font-sm); /* 14px */
   color: rgba(255, 255, 255, 0.5);
 }
 
@@ -451,19 +451,19 @@
 }
 
 .countdownTime {
-  font-size: 16px;
+  font-size: var(--font-base); /* 16px */
   color: #FFD700;
-  font-weight: 600;
+  font-weight: var(--weight-semibold);
   line-height: 1;
 }
 
 .countdownLabel {
-  font-size: 13px;
+  font-size: var(--font-sm); /* 14px - was 13px */
   color: rgba(255, 255, 255, 0.5);
 }
 
 .favoriteSlot {
-  font-size: 14px;
+  font-size: var(--font-sm); /* 14px */
   animation: twinkle 3s ease-in-out infinite;
 }
 
@@ -480,7 +480,7 @@
 
 .assignedOfficer,
 .totalScheduled {
-  font-size: 14px;
+  font-size: var(--font-sm); /* 14px */
   color: rgba(255, 255, 255, 0.6);
 }
 
@@ -491,7 +491,7 @@
 }
 
 .calendarLabel {
-  font-size: 13px;
+  font-size: var(--font-sm); /* 14px - was 13px */
   color: rgba(255, 255, 255, 0.5);
   text-transform: uppercase;
   letter-spacing: 0.3px;
@@ -515,15 +515,15 @@
 }
 
 .progressLabel {
-  font-size: 13px;
+  font-size: var(--font-sm); /* 14px - was 13px */
   color: rgba(255, 255, 255, 0.6);
   text-transform: uppercase;
 }
 
 .progressValue {
-  font-size: 13px;
+  font-size: var(--font-sm); /* 14px - was 13px */
   color: rgba(255, 255, 255, 0.8);
-  font-weight: 600;
+  font-weight: var(--weight-semibold);
 }
 
 .progressBar {
@@ -551,14 +551,14 @@
 }
 
 .statNumber {
-  font-size: 18px;
+  font-size: var(--font-md); /* 20px - was 18px */
   color: #00FF88;
-  font-weight: 700;
+  font-weight: var(--weight-bold);
   line-height: 1;
 }
 
 .statLabel {
-  font-size: 12px;
+  font-size: var(--font-xs); /* 12px */
   color: rgba(255, 255, 255, 0.5);
   text-transform: uppercase;
 }
@@ -576,7 +576,7 @@
 
 .lastAssignment,
 .monthlySavings {
-  font-size: 14px;
+  font-size: var(--font-sm); /* 14px */
   color: rgba(255, 255, 255, 0.6);
 }
 
@@ -593,13 +593,13 @@
 }
 
 .loyaltyPoints {
-  font-size: 14px;
+  font-size: var(--font-sm); /* 14px */
   color: #FFD700;
-  font-weight: 600;
+  font-weight: var(--weight-semibold);
 }
 
 .loyaltyNext {
-  font-size: 12px;
+  font-size: var(--font-xs); /* 12px */
   color: rgba(255, 255, 255, 0.5);
 }
 
@@ -617,25 +617,25 @@
 }
 
 .spendAmount {
-  font-size: 16px;
+  font-size: var(--font-base); /* 16px */
   color: white;
-  font-weight: 700;
+  font-weight: var(--weight-bold);
 }
 
 .spendTrend {
   display: flex;
   align-items: center;
   gap: 2px;
-  font-size: 13px;
-  font-weight: 600;
+  font-size: var(--font-sm); /* 14px - was 13px */
+  font-weight: var(--weight-semibold);
 }
 
 .trendIcon {
-  font-size: 14px;
+  font-size: var(--font-sm); /* 14px */
 }
 
 .spendLabel {
-  font-size: 12px;
+  font-size: var(--font-xs); /* 12px */
   color: rgba(255, 255, 255, 0.5);
 }
 
@@ -646,7 +646,7 @@
 }
 
 .chartLabel {
-  font-size: 12px;
+  font-size: var(--font-xs); /* 12px */
   color: rgba(255, 255, 255, 0.5);
   text-transform: uppercase;
 }
@@ -656,9 +656,9 @@
 }
 
 .topStat {
-  font-size: 14px;
+  font-size: var(--font-sm); /* 14px */
   color: #FFD700;
-  font-weight: 600;
+  font-weight: var(--weight-semibold);
 }
 
 .savingsSection {
@@ -668,13 +668,13 @@
 }
 
 .savingsAmount {
-  font-size: 15px;
+  font-size: var(--font-base); /* 16px - was 15px */
   color: #00FF88;
-  font-weight: 600;
+  font-weight: var(--weight-semibold);
 }
 
 .savingsLabel {
-  font-size: 12px;
+  font-size: var(--font-xs); /* 12px */
   color: rgba(255, 255, 255, 0.5);
 }
 
@@ -691,12 +691,12 @@
 }
 
 .statusText {
-  font-size: 13px;
+  font-size: var(--font-sm); /* 14px - was 13px */
   color: rgba(255, 255, 255, 0.8);
 }
 
 .lastUpdated {
-  font-size: 12px;
+  font-size: var(--font-xs); /* 12px */
   color: rgba(255, 255, 255, 0.4);
 }
 
@@ -718,8 +718,8 @@
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 8px;
   color: white;
-  font-size: 14px;
-  font-weight: 500;
+  font-size: var(--font-sm); /* 14px */
+  font-weight: var(--weight-medium);
   padding: 12px 16px;
   display: flex !important;
   align-items: center;
@@ -764,9 +764,9 @@
   display: flex;
   align-items: center;
   gap: 12px;
-  font-size: 14px;
+  font-size: var(--font-sm); /* 14px */
   color: rgba(255, 255, 255, 0.9);
-  font-weight: 600;
+  font-weight: var(--weight-semibold);
   line-height: 1.3;
   margin: 6px 0;
 }
@@ -777,36 +777,36 @@
 
 .bullet {
   color: rgba(255, 255, 255, 0.5);
-  font-weight: 700;
-  font-size: 12px;
+  font-weight: var(--weight-bold);
+  font-size: var(--font-xs); /* 12px */
   margin: 0 2px;
 }
 
 .investment {
   color: #FFD700;
-  font-weight: 600;
+  font-weight: var(--weight-semibold);
 }
 
 /* ANALYTICS CARD SPECIFIC STYLES */
 .analyticsIcon {
-  font-size: 16px;
+  font-size: var(--font-base); /* 16px */
   color: #FF6B6B;
 }
 
 .coverageHours {
   color: rgba(255, 255, 255, 0.95);
-  font-weight: 700;
+  font-weight: var(--weight-bold);
 }
 
 .investmentAmount {
   color: #FFD700;
-  font-weight: 700;
+  font-weight: var(--weight-bold);
   text-shadow: 0 0 4px rgba(255, 215, 0, 0.2);
 }
 
 .trendIndicator {
-  font-weight: 700;
-  font-size: 13px;
+  font-weight: var(--weight-bold);
+  font-size: var(--font-sm); /* 14px - was 13px */
   display: flex;
   align-items: center;
   gap: 2px;
@@ -815,26 +815,26 @@
 /* COMPLETED CARD SPECIFIC STYLES */
 .greenIndicator {
   color: #00FF88;
-  font-size: 16px;
-  font-weight: 800;
+  font-size: var(--font-base); /* 16px */
+  font-weight: var(--weight-extrabold);
   text-shadow: 0 0 4px rgba(0, 255, 136, 0.3);
 }
 
 .completedCount {
   color: rgba(255, 255, 255, 0.95);
-  font-weight: 700;
+  font-weight: var(--weight-bold);
 }
 
 .averageRating {
   color: #FFD700;
-  font-weight: 700;
-  font-size: 15px;
+  font-weight: var(--weight-bold);
+  font-size: var(--font-base); /* 16px - was 15px */
   text-shadow: 0 0 4px rgba(255, 215, 0, 0.2);
 }
 
 .spentAmount {
   color: #00FF88;
-  font-weight: 700;
+  font-weight: var(--weight-bold);
   text-shadow: 0 0 4px rgba(0, 255, 136, 0.2);
 }
 
@@ -847,8 +847,8 @@
   background: rgba(255, 255, 255, 0.1);
   border: 1px solid rgba(255, 255, 255, 0.2);
   color: white;
-  font-size: 13px;
-  font-weight: 500;
+  font-size: var(--font-sm); /* 14px - was 13px */
+  font-weight: var(--weight-medium);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -909,7 +909,7 @@
 }
 
 .officerCredentials {
-  font-size: 11px;
+  font-size: var(--font-xs); /* 12px - was 11px */
   color: rgba(255, 255, 255, 0.7);
   margin-top: 2px;
 }
@@ -925,17 +925,17 @@
   justify-content: space-between;
   align-items: center;
   margin-bottom: 8px;
-  font-size: 12px;
+  font-size: var(--font-xs); /* 12px */
 }
 
 .locationFrom, .locationTo {
   color: rgba(255, 255, 255, 0.8);
-  font-weight: 500;
+  font-weight: var(--weight-medium);
 }
 
 .progressText {
   text-align: center;
-  font-size: 12px;
+  font-size: var(--font-xs); /* 12px */
   color: rgba(255, 255, 255, 0.7);
   margin-top: 6px;
 }
@@ -949,18 +949,18 @@
 }
 
 .emptyIcon {
-  font-size: 24px;
+  font-size: var(--font-lg); /* 24px */
   margin-bottom: 8px;
   opacity: 0.5;
 }
 
 .emptyText {
   color: rgba(255, 255, 255, 0.6);
-  font-size: 14px;
+  font-size: var(--font-sm); /* 14px */
 }
 
 .quickAction .actionIcon {
-  font-size: 14px;
+  font-size: var(--font-sm); /* 14px */
 }
 
 /* Smart Insights - HIDDEN FOR COMPACTNESS */
@@ -991,14 +991,14 @@
 }
 
 .emptyText {
-  font-size: 14px;
+  font-size: var(--font-sm); /* 14px */
   color: rgba(255, 255, 255, 0.6);
-  font-weight: 500;
+  font-weight: var(--weight-medium);
   margin-bottom: 2px;
 }
 
 .emptySubtext {
-  font-size: 12px;
+  font-size: var(--font-xs); /* 12px */
   color: rgba(255, 255, 255, 0.4);
 }
 
@@ -1010,12 +1010,12 @@
   }
 
   .navCardTitle {
-    font-size: 14px; /* REDUCED for compactness */
+    font-size: var(--font-sm); /* 14px */ /* REDUCED for compactness */
   }
 
   .cardContent {
     gap: 14px; /* Better spacing for mobile */
-    font-size: 14px; /* Readable font size */
+    font-size: var(--font-sm); /* 14px */ /* Readable font size */
     line-height: 1.3; /* Better line height */
   }
 
@@ -1024,43 +1024,43 @@
   }
 
   .smartInsight {
-    font-size: 14px; /* Increased for readability */
+    font-size: var(--font-sm); /* 14px */ /* Increased for readability */
   }
 
   .statusText {
-    font-size: 15px; /* Increased for better visibility */
+    font-size: var(--font-base); /* 16px - was 15px */ /* Increased for better visibility */
   }
 
   .timeRemaining {
-    font-size: 16px; /* Increased - important information */
+    font-size: var(--font-base); /* 16px */ /* Increased - important information */
   }
 
   .officerName {
-    font-size: 14px; /* Increased for readability */
+    font-size: var(--font-sm); /* 14px */ /* Increased for readability */
   }
 
   .runningFee {
-    font-size: 17px; /* Increased - important cost information */
+    font-size: var(--font-md); /* 20px - was 17px */ /* Increased - important cost information */
   }
 
   .assignmentTime {
-    font-size: 15px; /* Increased for better visibility */
+    font-size: var(--font-base); /* 16px - was 15px */ /* Increased for better visibility */
   }
 
   .countdownTime {
-    font-size: 17px; /* Increased - critical timing information */
+    font-size: var(--font-md); /* 20px - was 17px */ /* Increased - critical timing information */
   }
 
   .statNumber {
-    font-size: 20px; /* Increased for better visibility */
+    font-size: var(--font-md); /* 20px */ /* Increased for better visibility */
   }
 
   .spendAmount {
-    font-size: 18px; /* Increased for financial clarity */
+    font-size: var(--font-md); /* 20px - was 18px */ /* Increased for financial clarity */
   }
 
   .loyaltyPoints {
-    font-size: 16px; /* Increased for better readability */
+    font-size: var(--font-base); /* 16px */ /* Increased for better readability */
   }
 }
 
@@ -1071,11 +1071,11 @@
   }
 
   .navCardTitle {
-    font-size: 14px; /* REDUCED for compactness */
+    font-size: var(--font-sm); /* 14px */ /* REDUCED for compactness */
   }
 
   .cardContent {
-    font-size: 15px; /* Good font size */
+    font-size: var(--font-base); /* 16px - was 15px */ /* Good font size */
     gap: 15px; /* Better spacing */
     line-height: 1.4; /* Better line height */
   }
@@ -1085,35 +1085,35 @@
   }
 
   .statusText {
-    font-size: 15px; /* Increased for better visibility */
+    font-size: var(--font-base); /* 16px - was 15px */ /* Increased for better visibility */
   }
 
   .timeRemaining {
-    font-size: 17px; /* Increased - important timing info */
+    font-size: var(--font-md); /* 20px - was 17px */ /* Increased - important timing info */
   }
 
   .officerName {
-    font-size: 14px; /* Increased for readability */
+    font-size: var(--font-sm); /* 14px */ /* Increased for readability */
   }
 
   .runningFee {
-    font-size: 18px; /* Increased - important cost info */
+    font-size: var(--font-md); /* 20px - was 18px */ /* Increased - important cost info */
   }
 
   .assignmentTime {
-    font-size: 16px; /* Increased for better visibility */
+    font-size: var(--font-base); /* 16px */ /* Increased for better visibility */
   }
 
   .countdownTime {
-    font-size: 17px; /* Increased - critical timing */
+    font-size: var(--font-md); /* 20px - was 17px */ /* Increased - critical timing */
   }
 
   .statNumber {
-    font-size: 20px; /* Increased for clarity */
+    font-size: var(--font-md); /* 20px */ /* Increased for clarity */
   }
 
   .spendAmount {
-    font-size: 18px; /* Increased for financial clarity */
+    font-size: var(--font-md); /* 20px - was 18px */ /* Increased for financial clarity */
   }
 }
 
@@ -1124,11 +1124,11 @@
   }
 
   .navCardTitle {
-    font-size: 14px; /* REDUCED for compactness */
+    font-size: var(--font-sm); /* 14px */ /* REDUCED for compactness */
   }
 
   .cardContent {
-    font-size: 15px; /* Good font size */
+    font-size: var(--font-base); /* 16px - was 15px */ /* Good font size */
     gap: 16px; /* Proper spacing */
     line-height: 1.4; /* Better line height */
   }
@@ -1138,27 +1138,27 @@
   }
 
   .statusText {
-    font-size: 14px;
+    font-size: var(--font-sm); /* 14px */
   }
 
   .timeRemaining {
-    font-size: 15px;
+    font-size: var(--font-base); /* 16px - was 15px */
   }
 
   .officerName {
-    font-size: 13px;
+    font-size: var(--font-sm); /* 14px - was 13px */
   }
 
   .runningFee {
-    font-size: 15px;
+    font-size: var(--font-base); /* 16px - was 15px */
   }
 
   .assignmentTime {
-    font-size: 14px;
+    font-size: var(--font-sm); /* 14px */
   }
 
   .countdownTime {
-    font-size: 15px;
+    font-size: var(--font-base); /* 16px - was 15px */
   }
 }
 
@@ -1219,8 +1219,8 @@
 .serviceTierBadge {
   padding: 4px 12px;
   border-radius: 20px;
-  font-weight: 600;
-  font-size: 12px;
+  font-weight: var(--weight-semibold);
+  font-size: var(--font-xs); /* 12px */
   text-transform: uppercase;
   letter-spacing: 0.5px;
 }
@@ -1249,14 +1249,14 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 24px;
-  font-weight: 700;
+  font-size: var(--font-lg); /* 24px */
+  font-weight: var(--weight-bold);
   color: #1a1a2e;
 }
 
 .officerInitials {
-  font-size: 24px;
-  font-weight: 700;
+  font-size: var(--font-lg); /* 24px */
+  font-weight: var(--weight-bold);
   color: #1a1a2e;
 }
 
@@ -1271,7 +1271,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 14px;
+  font-size: var(--font-sm); /* 14px */
   color: white;
   border: 2px solid #1a1a2e;
 }
@@ -1284,20 +1284,20 @@
 }
 
 .officerName {
-  font-size: 16px;
-  font-weight: 700;
+  font-size: var(--font-base); /* 16px */
+  font-weight: var(--weight-bold);
   color: white;
   line-height: 1.2;
 }
 
 .siaLicense {
-  font-size: 14px;
+  font-size: var(--font-sm); /* 14px */
   color: #00FF88;
-  font-weight: 500;
+  font-weight: var(--weight-medium);
 }
 
 .officerRating {
-  font-size: 13px;
+  font-size: var(--font-sm); /* 14px - was 13px */
   color: rgba(255, 255, 255, 0.8);
   margin: 2px 0;
 }
@@ -1310,7 +1310,7 @@
 }
 
 .specBadge {
-  font-size: 10px;
+  font-size: var(--font-xs); /* 12px - was 10px */
   padding: 2px 6px;
   background: rgba(255, 215, 0, 0.2);
   color: #FFD700;
@@ -1318,7 +1318,7 @@
   border: 1px solid rgba(255, 215, 0, 0.3);
   text-transform: uppercase;
   letter-spacing: 0.3px;
-  font-weight: 500;
+  font-weight: var(--weight-medium);
 }
 
 /* Journey Progress Section */
@@ -1342,11 +1342,11 @@
 }
 
 .locationIcon {
-  font-size: 16px;
+  font-size: var(--font-base); /* 16px */
 }
 
 .locationText {
-  font-size: 11px;
+  font-size: var(--font-xs); /* 12px - was 11px */
   color: rgba(255, 255, 255, 0.7);
   text-align: center;
   line-height: 1.2;
@@ -1386,9 +1386,9 @@
 
 .timeRemaining {
   text-align: center;
-  font-size: 14px;
+  font-size: var(--font-sm); /* 14px */
   color: rgba(255, 255, 255, 0.8);
-  font-weight: 500;
+  font-weight: var(--weight-medium);
   margin-top: 8px;
 }
 
@@ -1409,7 +1409,7 @@
 }
 
 .detailLabel {
-  font-size: 12px;
+  font-size: var(--font-xs); /* 12px */
   color: rgba(255, 255, 255, 0.6);
   text-transform: uppercase;
   letter-spacing: 0.3px;
@@ -1417,8 +1417,8 @@
 }
 
 .detailValue {
-  font-size: 18px;
-  font-weight: 400;
+  font-size: var(--font-md); /* 20px - was 18px */
+  font-weight: var(--weight-normal);
   color: rgba(255, 255, 255, 0.9);
 }
 
@@ -1434,7 +1434,7 @@
 }
 
 .investmentLabel {
-  font-size: 12px;
+  font-size: var(--font-xs); /* 12px */
   color: rgba(255, 255, 255, 0.7);
   text-transform: uppercase;
   letter-spacing: 0.3px;
@@ -1442,22 +1442,22 @@
 }
 
 .investmentAmount {
-  font-size: 24px;
-  font-weight: 700;
+  font-size: var(--font-lg); /* 24px */
+  font-weight: var(--weight-bold);
   color: #FFD700;
   line-height: 1;
   margin-bottom: 4px;
 }
 
 .serviceDescription {
-  font-size: 14px;
+  font-size: var(--font-sm); /* 14px */
   color: white;
-  font-weight: 600;
+  font-weight: var(--weight-semibold);
   margin-bottom: 2px;
 }
 
 .serviceIncludes {
-  font-size: 11px;
+  font-size: var(--font-xs); /* 12px - was 11px */
   color: rgba(255, 255, 255, 0.6);
 }
 
@@ -1482,8 +1482,8 @@
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 8px;
   color: white;
-  font-size: 13px;
-  font-weight: 500;
+  font-size: var(--font-sm); /* 14px - was 13px */
+  font-weight: var(--weight-medium);
   cursor: pointer;
   transition: all 0.2s ease;
   justify-content: flex-start;
@@ -1493,7 +1493,7 @@
 /* Action buttons hover effects removed */
 
 .navCard .actionButtons .actionButton .buttonIcon {
-  font-size: 16px;
+  font-size: var(--font-base); /* 16px */
   color: rgba(255, 255, 255, 0.7);
   flex-shrink: 0 !important;
 }
@@ -1520,8 +1520,8 @@
 }
 
 .nextDateTime {
-  font-size: 16px;
-  font-weight: 700;
+  font-size: var(--font-base); /* 16px */
+  font-weight: var(--weight-bold);
   color: #00D4FF;
 }
 
@@ -1543,18 +1543,18 @@
 
 .checkmark {
   color: #00FF88;
-  font-size: 14px;
+  font-size: var(--font-sm); /* 14px */
 }
 
 .routeDisplay {
-  font-size: 15px;
-  font-weight: 600;
+  font-size: var(--font-base); /* 16px - was 15px */
+  font-weight: var(--weight-semibold);
   color: rgba(255, 255, 255, 0.9);
   padding: 4px 0;
 }
 
 .durationDisplay {
-  font-size: 14px;
+  font-size: var(--font-sm); /* 14px */
   color: rgba(255, 255, 255, 0.7);
 }
 
@@ -1575,12 +1575,12 @@
 
 .greenIndicator {
   color: #00FF88;
-  font-size: 16px;
+  font-size: var(--font-base); /* 16px */
 }
 
 .summaryTitle {
-  font-size: 14px;
-  font-weight: 600;
+  font-size: var(--font-sm); /* 14px */
+  font-weight: var(--weight-semibold);
   color: rgba(255, 255, 255, 0.9);
 }
 
@@ -1598,13 +1598,13 @@
 }
 
 .statNumber {
-  font-size: 20px;
-  font-weight: 700;
+  font-size: var(--font-md); /* 20px */
+  font-weight: var(--weight-bold);
   color: #00FF88;
 }
 
 .statLabel {
-  font-size: 13px;
+  font-size: var(--font-sm); /* 14px - was 13px */
   color: rgba(255, 255, 255, 0.7);
   text-align: right;
 }
@@ -1621,13 +1621,13 @@
 
 .safetyBadge {
   color: #00FF88;
-  font-size: 16px;
+  font-size: var(--font-base); /* 16px */
 }
 
 .safetyText {
   color: #00FF88;
-  font-weight: 600;
-  font-size: 14px;
+  font-weight: var(--weight-semibold);
+  font-size: var(--font-sm); /* 14px */
 }
 
 .valueStatement {
@@ -1645,24 +1645,24 @@
 }
 
 .investmentLabel, .responseLabel {
-  font-size: 13px;
+  font-size: var(--font-sm); /* 14px - was 13px */
   color: rgba(255, 255, 255, 0.7);
 }
 
 .investmentAmount {
-  font-size: 18px;
-  font-weight: 700;
+  font-size: var(--font-md); /* 20px - was 18px */
+  font-weight: var(--weight-bold);
   color: #FFD700;
 }
 
 .responseValue {
-  font-size: 16px;
-  font-weight: 600;
+  font-size: var(--font-base); /* 16px */
+  font-weight: var(--weight-semibold);
   color: #00FF88;
 }
 
 .ratingLabel {
-  font-size: 12px;
+  font-size: var(--font-xs); /* 12px */
   color: rgba(255, 255, 255, 0.6);
   margin-left: 8px;
 }
@@ -1678,11 +1678,11 @@
 }
 
 .analyticsIcon {
-  font-size: 18px;
+  font-size: var(--font-md); /* 20px - was 18px */
 }
 
 .periodSelector {
-  font-size: 12px;
+  font-size: var(--font-xs); /* 12px */
   color: rgba(255, 255, 255, 0.7);
   text-transform: uppercase;
   letter-spacing: 0.3px;
@@ -1702,13 +1702,13 @@
 }
 
 .metricNumber {
-  font-size: 20px;
-  font-weight: 700;
+  font-size: var(--font-md); /* 20px */
+  font-weight: var(--weight-bold);
   color: #FFD700;
 }
 
 .metricLabel {
-  font-size: 13px;
+  font-size: var(--font-sm); /* 14px - was 13px */
   color: rgba(255, 255, 255, 0.7);
   text-align: right;
   flex: 1;
@@ -1725,7 +1725,7 @@
 }
 
 .investmentLabel {
-  font-size: 13px;
+  font-size: var(--font-sm); /* 14px - was 13px */
   color: rgba(255, 255, 255, 0.7);
 }
 
@@ -1733,7 +1733,7 @@
   display: flex;
   align-items: center;
   gap: 6px;
-  font-size: 12px;
+  font-size: var(--font-xs); /* 12px */
 }
 
 .trendText {
@@ -1746,7 +1746,7 @@
 }
 
 .heatMapLabel {
-  font-size: 12px;
+  font-size: var(--font-xs); /* 12px */
   color: rgba(255, 255, 255, 0.7);
   text-transform: uppercase;
   letter-spacing: 0.3px;
@@ -1779,7 +1779,7 @@
 .heatMapLegend {
   display: flex;
   gap: 12px;
-  font-size: 10px;
+  font-size: var(--font-xs); /* 12px - was 10px */
   color: rgba(255, 255, 255, 0.6);
 }
 
@@ -1805,15 +1805,15 @@
 }
 
 .insightItem {
-  font-size: 12px;
+  font-size: var(--font-xs); /* 12px */
   color: rgba(255, 255, 255, 0.7);
   margin-bottom: 4px;
 }
 
 .recommendation {
-  font-size: 12px;
+  font-size: var(--font-xs); /* 12px */
   color: #00FF88;
-  font-weight: 600;
+  font-weight: var(--weight-semibold);
   margin-top: 8px;
   padding: 6px 8px;
   background: rgba(0, 255, 136, 0.05);
@@ -1836,8 +1836,8 @@
   background: transparent;
   border: none;
   color: rgba(255, 255, 255, 0.6);
-  font-size: 11px;
-  font-weight: 500;
+  font-size: var(--font-xs); /* 12px - was 11px */
+  font-weight: var(--weight-medium);
   text-transform: uppercase;
   letter-spacing: 0.3px;
   border-radius: 4px;
@@ -1848,7 +1848,7 @@
 .timeRangeBtn.active {
   background: rgba(255, 107, 107, 0.2);
   color: #FF6B6B;
-  font-weight: 600;
+  font-weight: var(--weight-semibold);
 }
 
 /* Time range button hover effects removed */
@@ -1878,27 +1878,27 @@
 }
 
 .metricNumber {
-  font-size: 16px;
-  font-weight: 700;
+  font-size: var(--font-base); /* 16px */
+  font-weight: var(--weight-bold);
   color: #FFD700;
   line-height: 1;
 }
 
 .metricLabel {
-  font-size: 11px;
+  font-size: var(--font-xs); /* 12px - was 11px */
   color: rgba(255, 255, 255, 0.6);
   text-transform: uppercase;
   letter-spacing: 0.3px;
 }
 
 .ratingCount {
-  font-size: 10px;
+  font-size: var(--font-xs); /* 12px - was 10px */
   color: rgba(255, 255, 255, 0.5);
   margin-left: 4px;
 }
 
 .statusPoints {
-  font-size: 10px;
+  font-size: var(--font-xs); /* 12px - was 10px */
   color: rgba(255, 255, 255, 0.5);
   margin-left: 4px;
 }
@@ -1912,8 +1912,8 @@
 }
 
 .sectionTitle {
-  font-size: 13px;
-  font-weight: 600;
+  font-size: var(--font-sm); /* 14px - was 13px */
+  font-weight: var(--weight-semibold);
   color: rgba(255, 255, 255, 0.9);
   text-transform: uppercase;
   letter-spacing: 0.3px;
@@ -1937,7 +1937,7 @@
 }
 
 .patternIcon {
-  font-size: 14px;
+  font-size: var(--font-sm); /* 14px */
   flex-shrink: 0;
 }
 
@@ -1949,7 +1949,7 @@
 }
 
 .patternLabel {
-  font-size: 10px;
+  font-size: var(--font-xs); /* 12px - was 10px */
   color: rgba(255, 255, 255, 0.6);
   text-transform: uppercase;
   letter-spacing: 0.3px;
@@ -1957,8 +1957,8 @@
 }
 
 .patternValue {
-  font-size: 12px;
-  font-weight: 600;
+  font-size: var(--font-xs); /* 12px */
+  font-weight: var(--weight-semibold);
   color: rgba(255, 255, 255, 0.9);
   line-height: 1;
   white-space: nowrap;
@@ -1986,8 +1986,8 @@
   border: 1px solid rgba(255, 107, 107, 0.3);
   border-radius: 8px;
   color: #FF6B6B;
-  font-size: 13px;
-  font-weight: 600;
+  font-size: var(--font-sm); /* 14px - was 13px */
+  font-weight: var(--weight-semibold);
   text-transform: uppercase;
   letter-spacing: 0.3px;
   cursor: pointer;
@@ -2013,8 +2013,8 @@
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 6px;
   color: rgba(255, 255, 255, 0.8);
-  font-size: 11px;
-  font-weight: 500;
+  font-size: var(--font-xs); /* 12px - was 11px */
+  font-weight: var(--weight-medium);
   cursor: pointer;
   transition: all 0.2s ease;
   text-align: center;
@@ -2032,8 +2032,8 @@
 }
 
 .exportHeader {
-  font-size: 12px;
-  font-weight: 600;
+  font-size: var(--font-xs); /* 12px */
+  font-weight: var(--weight-semibold);
   color: rgba(255, 255, 255, 0.8);
   margin-bottom: 8px;
   text-transform: uppercase;
@@ -2052,8 +2052,8 @@
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 6px;
   color: rgba(255, 255, 255, 0.7);
-  font-size: 10px;
-  font-weight: 500;
+  font-size: var(--font-xs); /* 12px - was 10px */
+  font-weight: var(--weight-medium);
   cursor: pointer;
   transition: all 0.2s ease;
   text-align: center;
@@ -2084,12 +2084,12 @@
   }
 
   .statusText {
-    font-size: 13px; /* Increased from smaller sizes */
-    font-weight: 600;
+    font-size: var(--font-sm); /* 14px - was 13px */ /* Increased from smaller sizes */
+    font-weight: var(--weight-semibold);
   }
 
   .serviceTierBadge {
-    font-size: 10px;
+    font-size: var(--font-xs); /* 12px - was 10px */
     padding: 3px 8px;
   }
 
@@ -2105,18 +2105,18 @@
   .officerPhoto {
     width: 40px; /* Even smaller for mobile */
     height: 40px;
-    font-size: 14px; /* Proportionally smaller */
+    font-size: var(--font-sm); /* 14px */ /* Proportionally smaller */
     flex-shrink: 0;
   }
 
   .officerInitials {
-    font-size: 16px; /* Proportionally smaller */
+    font-size: var(--font-base); /* 16px */ /* Proportionally smaller */
   }
 
   .verificationBadge {
     width: 18px; /* Smaller verification badge */
     height: 18px;
-    font-size: 10px;
+    font-size: var(--font-xs); /* 12px - was 10px */
     bottom: -1px;
     right: -1px;
   }
@@ -2129,9 +2129,9 @@
   }
 
   .officerName {
-    font-size: 14px; /* Smaller to prevent wrapping */
+    font-size: var(--font-sm); /* 14px */ /* Smaller to prevent wrapping */
     line-height: 1.1; /* Tighter line height */
-    font-weight: 600; /* Maintain readability with weight */
+    font-weight: var(--weight-semibold); /* Maintain readability with weight */
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -2139,7 +2139,7 @@
   }
 
   .siaLicense {
-    font-size: 11px; /* Smaller to prevent wrapping */
+    font-size: var(--font-xs); /* 12px - was 11px */ /* Smaller to prevent wrapping */
     line-height: 1.1; /* Tighter line height */
     white-space: nowrap;
     overflow: hidden;
@@ -2149,11 +2149,11 @@
 
   .siaVerified {
     color: #00FF88;
-    font-weight: 600;
+    font-weight: var(--weight-semibold);
   }
 
   .officerRating {
-    font-size: 12px; /* Consistent with SIA license */
+    font-size: var(--font-xs); /* 12px */ /* Consistent with SIA license */
     margin: 1px 0;
     color: rgba(255, 255, 255, 0.7);
   }
@@ -2162,7 +2162,7 @@
   .activeIndicator {
     width: 14px;
     height: 14px;
-    font-size: 12px;
+    font-size: var(--font-xs); /* 12px */
     box-shadow: 0 0 6px rgba(255, 215, 0, 0.4);
   }
 
@@ -2177,8 +2177,8 @@
     border: 1px solid rgba(255, 215, 0, 0.3);
     color: #FFD700;
     border-radius: 6px;
-    font-size: 12px;
-    font-weight: 500;
+    font-size: var(--font-xs); /* 12px */
+    font-weight: var(--weight-medium);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -2215,11 +2215,11 @@
   }
 
   .locationIcon {
-    font-size: 12px; /* Smaller icon */
+    font-size: var(--font-xs); /* 12px */ /* Smaller icon */
   }
 
   .locationText {
-    font-size: 10px; /* Compact text */
+    font-size: var(--font-xs); /* 12px - was 10px */ /* Compact text */
     white-space: nowrap;
     text-align: center;
     overflow: hidden;
@@ -2243,7 +2243,7 @@
   }
 
   .timeRemaining {
-    font-size: 13px; /* Increased from 14px for consistency */
+    font-size: var(--font-sm); /* 14px - was 13px */ /* Increased from 14px for consistency */
     margin-top: 6px;
   }
 
@@ -2264,12 +2264,12 @@
   }
 
   .detailLabel {
-    font-size: 10px; /* Smaller text */
+    font-size: var(--font-xs); /* 12px - was 10px */ /* Smaller text */
     margin-bottom: 0;
   }
 
   .detailValue {
-    font-size: 14px; /* Compact but readable */
+    font-size: var(--font-sm); /* 14px */ /* Compact but readable */
     line-height: 1.1;
   }
 
@@ -2280,22 +2280,22 @@
   }
 
   .investmentLabel {
-    font-size: 11px;
+    font-size: var(--font-xs); /* 12px - was 11px */
     margin-bottom: 3px;
   }
 
   .investmentAmount {
-    font-size: 20px; /* Reduced from 24px */
+    font-size: var(--font-md); /* 20px */ /* Reduced from 24px */
     margin-bottom: 3px;
   }
 
   .serviceDescription {
-    font-size: 13px; /* Reduced from 14px */
+    font-size: var(--font-sm); /* 14px - was 13px */ /* Reduced from 14px */
     margin-bottom: 1px;
   }
 
   .serviceIncludes {
-    font-size: 11px; /* Consistent small text */
+    font-size: var(--font-xs); /* 12px - was 11px */ /* Consistent small text */
   }
 
   /* Mobile-specific action button adjustments - High Specificity */
@@ -2307,7 +2307,7 @@
 
   .navCard .actionButtons .actionButton {
     padding: 12px;
-    font-size: 14px;
+    font-size: var(--font-sm); /* 14px */
     width: 100% !important;
     display: flex !important;
     flex-direction: row !important;
@@ -2315,12 +2315,12 @@
   }
 
   .navCard .actionButtons .actionButton .buttonIcon {
-    font-size: 14px;
+    font-size: var(--font-sm); /* 14px */
     flex-shrink: 0 !important;
   }
 
   .navCard .actionButtons .actionButton .buttonLabel {
-    font-size: 14px;
+    font-size: var(--font-sm); /* 14px */
     white-space: nowrap !important;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -2333,7 +2333,7 @@
   }
 
   .nextDateTime {
-    font-size: 15px; /* Slightly smaller */
+    font-size: var(--font-base); /* 16px - was 15px */ /* Slightly smaller */
   }
 
   .serviceDetails {
@@ -2343,16 +2343,16 @@
   }
 
   .checkmark {
-    font-size: 12px;
+    font-size: var(--font-xs); /* 12px */
   }
 
   .routeDisplay {
-    font-size: 14px; /* Slightly smaller */
+    font-size: var(--font-sm); /* 14px */ /* Slightly smaller */
     padding: 3px 0;
   }
 
   .durationDisplay {
-    font-size: 13px; /* Consistent sizing */
+    font-size: var(--font-sm); /* 14px - was 13px */ /* Consistent sizing */
   }
 
   .countdownSection {
@@ -2360,11 +2360,11 @@
   }
 
   .countdownTime {
-    font-size: 15px; /* Slightly smaller */
+    font-size: var(--font-base); /* 16px - was 15px */ /* Slightly smaller */
   }
 
   .countdownLabel {
-    font-size: 12px; /* Increased from smaller */
+    font-size: var(--font-xs); /* 12px */ /* Increased from smaller */
   }
 
   /* COMPLETED CARD IMPROVEMENTS */
@@ -2374,11 +2374,11 @@
   }
 
   .greenIndicator {
-    font-size: 14px;
+    font-size: var(--font-sm); /* 14px */
   }
 
   .summaryTitle {
-    font-size: 13px;
+    font-size: var(--font-sm); /* 14px - was 13px */
   }
 
   .safetyStats {
@@ -2387,15 +2387,15 @@
   }
 
   .statNumber {
-    font-size: 18px; /* Slightly smaller from 20px */
+    font-size: var(--font-md); /* 20px - was 18px */ /* Slightly smaller from 20px */
   }
 
   .statLabel {
-    font-size: 12px; /* Consistent sizing */
+    font-size: var(--font-xs); /* 12px */ /* Consistent sizing */
   }
 
   .safetyText {
-    font-size: 13px; /* Slightly smaller */
+    font-size: var(--font-sm); /* 14px - was 13px */ /* Slightly smaller */
   }
 
   .valueStatement {
@@ -2408,19 +2408,19 @@
   }
 
   .investmentLabel, .responseLabel {
-    font-size: 12px; /* Consistent sizing */
+    font-size: var(--font-xs); /* 12px */ /* Consistent sizing */
   }
 
   .investmentAmount {
-    font-size: 16px; /* Reduced from 18px */
+    font-size: var(--font-base); /* 16px */ /* Reduced from 18px */
   }
 
   .responseValue {
-    font-size: 15px; /* Slightly smaller */
+    font-size: var(--font-base); /* 16px - was 15px */ /* Slightly smaller */
   }
 
   .ratingLabel {
-    font-size: 11px;
+    font-size: var(--font-xs); /* 12px - was 11px */
   }
 
   /* ANALYTICS CARD IMPROVEMENTS */
@@ -2430,11 +2430,11 @@
   }
 
   .analyticsIcon {
-    font-size: 16px;
+    font-size: var(--font-base); /* 16px */
   }
 
   .periodSelector {
-    font-size: 11px;
+    font-size: var(--font-xs); /* 12px - was 11px */
   }
 
   .primaryMetrics {
@@ -2443,11 +2443,11 @@
   }
 
   .metricNumber {
-    font-size: 18px; /* Slightly smaller */
+    font-size: var(--font-md); /* 20px - was 18px */ /* Slightly smaller */
   }
 
   .metricLabel {
-    font-size: 12px; /* Consistent sizing */
+    font-size: var(--font-xs); /* 12px */ /* Consistent sizing */
   }
 
   .investmentMetric {
@@ -2455,7 +2455,7 @@
   }
 
   .trendText {
-    font-size: 11px;
+    font-size: var(--font-xs); /* 12px - was 11px */
   }
 
   .heatMapSection {
@@ -2463,7 +2463,7 @@
   }
 
   .heatMapLabel {
-    font-size: 11px;
+    font-size: var(--font-xs); /* 12px - was 11px */
     margin-bottom: 6px;
   }
 
@@ -2480,7 +2480,7 @@
 
   .heatMapLegend {
     gap: 8px;
-    font-size: 10px;
+    font-size: var(--font-xs); /* 12px - was 10px */
   }
 
   .legendColor {
@@ -2493,12 +2493,12 @@
   }
 
   .insightItem {
-    font-size: 11px;
+    font-size: var(--font-xs); /* 12px - was 11px */
     margin-bottom: 3px;
   }
 
   .recommendation {
-    font-size: 11px;
+    font-size: var(--font-xs); /* 12px - was 11px */
     margin-top: 6px;
     padding: 5px 6px;
   }
@@ -2512,7 +2512,7 @@
 
   .timeRangeBtn {
     padding: 5px 6px;
-    font-size: 10px;
+    font-size: var(--font-xs); /* 12px - was 10px */
   }
 
   .enhancedMetricsGrid {
@@ -2531,11 +2531,11 @@
   }
 
   .metricNumber {
-    font-size: 14px;
+    font-size: var(--font-sm); /* 14px */
   }
 
   .metricLabel {
-    font-size: 10px;
+    font-size: var(--font-xs); /* 12px - was 10px */
   }
 
   .ratingCount,
@@ -2548,7 +2548,7 @@
   }
 
   .sectionTitle {
-    font-size: 11px;
+    font-size: var(--font-xs); /* 12px - was 11px */
   }
 
   .patternsGrid {
@@ -2563,7 +2563,7 @@
   }
 
   .patternIcon {
-    font-size: 12px;
+    font-size: var(--font-xs); /* 12px */
   }
 
   .patternLabel {
@@ -2571,19 +2571,19 @@
   }
 
   .patternValue {
-    font-size: 11px;
+    font-size: var(--font-xs); /* 12px - was 11px */
   }
 
   .primaryActionBtn {
     min-height: 36px;
     padding: 8px 12px;
-    font-size: 11px;
+    font-size: var(--font-xs); /* 12px - was 11px */
   }
 
   .secondaryActions .actionBtn {
     min-height: 32px;
     padding: 6px 8px;
-    font-size: 10px;
+    font-size: var(--font-xs); /* 12px - was 10px */
   }
 
   .exportOptions {
@@ -2592,7 +2592,7 @@
   }
 
   .exportHeader {
-    font-size: 10px;
+    font-size: var(--font-xs); /* 12px - was 10px */
     margin-bottom: 6px;
   }
 
@@ -2619,29 +2619,29 @@
   }
 
   .navCardIcon {
-    font-size: 16px;
+    font-size: var(--font-base); /* 16px */
   }
 
   .navCardTitle {
-    font-size: 14px;
+    font-size: var(--font-sm); /* 14px */
   }
 
   .navCardCount {
-    font-size: 12px;
+    font-size: var(--font-xs); /* 12px */
   }
 
   .officerPhoto {
     width: 36px; /* Even smaller on tiny screens */
     height: 36px;
-    font-size: 12px;
+    font-size: var(--font-xs); /* 12px */
   }
 
   .officerInitials {
-    font-size: 12px;
+    font-size: var(--font-xs); /* 12px */
   }
 
   .officerName {
-    font-size: 13px;
+    font-size: var(--font-sm); /* 14px - was 13px */
   }
 
   .verificationBadge {
@@ -2653,28 +2653,28 @@
   .navCard .actionButtons .actionButton {
     min-height: 40px; /* Slightly smaller but still accessible */
     padding: 10px;
-    font-size: 12px;
+    font-size: var(--font-xs); /* 12px */
     width: 100% !important;
     display: flex !important;
     flex-direction: row !important;
   }
 
   .navCard .actionButtons .actionButton .buttonIcon {
-    font-size: 12px;
+    font-size: var(--font-xs); /* 12px */
     flex-shrink: 0 !important;
   }
 
   .navCard .actionButtons .actionButton .buttonLabel {
-    font-size: 12px;
+    font-size: var(--font-xs); /* 12px */
     white-space: nowrap !important;
   }
 
   .investmentAmount {
-    font-size: 16px;
+    font-size: var(--font-base); /* 16px */
   }
 
   .detailValue {
-    font-size: 13px;
+    font-size: var(--font-sm); /* 14px - was 13px */
   }
 
   .cardContent {
@@ -2698,21 +2698,21 @@
   }
 
   .navCardIcon {
-    font-size: 17px;
+    font-size: var(--font-md); /* 20px - was 17px */
   }
 
   .navCardTitle {
-    font-size: 15px;
+    font-size: var(--font-base); /* 16px - was 15px */
   }
 
   .officerPhoto {
     width: 38px; /* Progressive increase */
     height: 38px;
-    font-size: 13px;
+    font-size: var(--font-sm); /* 14px - was 13px */
   }
 
   .officerName {
-    font-size: 14px;
+    font-size: var(--font-sm); /* 14px */
   }
 
   .navCard .actionButtons .actionButton {
@@ -2749,15 +2749,15 @@
 
 .pulseIndicator {
   color: #00FF88;
-  font-size: 12px;
+  font-size: var(--font-xs); /* 12px */
   animation: pulse 2s ease-in-out infinite;
   text-shadow: 0 0 8px rgba(0, 255, 136, 0.5);
   margin-right: 4px;
 }
 
 .activeStatusText {
-  font-size: 14px;
-  font-weight: 700;
+  font-size: var(--font-sm); /* 14px */
+  font-weight: var(--weight-bold);
   color: #FFD700;
   text-transform: uppercase;
   letter-spacing: 0.5px;
@@ -2772,14 +2772,14 @@
 }
 
 .activeCpoName {
-  font-size: 15px;
-  font-weight: 600;
+  font-size: var(--font-base); /* 16px - was 15px */
+  font-weight: var(--weight-semibold);
   color: rgba(255, 255, 255, 0.9);
 }
 
 .activeServiceTier {
-  font-size: 14px;
-  font-weight: 700;
+  font-size: var(--font-sm); /* 14px */
+  font-weight: var(--weight-bold);
   text-transform: uppercase;
   letter-spacing: 0.3px;
 }
@@ -2796,8 +2796,8 @@
   border: 1px solid rgba(255, 215, 0, 0.3);
   border-radius: 8px;
   color: #FFD700;
-  font-size: 14px;
-  font-weight: 600;
+  font-size: var(--font-sm); /* 14px */
+  font-weight: var(--weight-semibold);
   text-transform: uppercase;
   letter-spacing: 0.3px;
   cursor: pointer;
@@ -2807,13 +2807,13 @@
 /* View live protection button hover effects removed */
 
 .liveIcon {
-  font-size: 16px;
+  font-size: var(--font-base); /* 16px */
   animation: pulse 2s ease-in-out infinite;
 }
 
 .arrowIcon {
-  font-size: 16px;
-  font-weight: 700;
+  font-size: var(--font-base); /* 16px */
+  font-weight: var(--weight-bold);
   opacity: 0.8;
 }
 
@@ -2842,13 +2842,13 @@
 }
 
 .emptyTitle {
-  font-size: 14px;
-  font-weight: 600;
+  font-size: var(--font-sm); /* 14px */
+  font-weight: var(--weight-semibold);
   color: rgba(255, 255, 255, 0.7);
 }
 
 .emptySubtext {
-  font-size: 12px;
+  font-size: var(--font-xs); /* 12px */
   color: rgba(255, 255, 255, 0.5);
 }
 
@@ -2864,8 +2864,8 @@
   border: 1px solid rgba(0, 212, 255, 0.3);
   border-radius: 8px;
   color: #00D4FF;
-  font-size: 13px;
-  font-weight: 500;
+  font-size: var(--font-sm); /* 14px - was 13px */
+  font-weight: var(--weight-medium);
   cursor: pointer;
   transition: all 0.2s ease;
 }
@@ -2873,8 +2873,8 @@
 /* Request protection button hover effects removed */
 
 .requestIcon {
-  font-size: 14px;
-  font-weight: 700;
+  font-size: var(--font-sm); /* 14px */
+  font-weight: var(--weight-bold);
 }
 
 /* UPCOMING CARD PROFESSIONAL STYLES - IMPROVED TYPOGRAPHY */
@@ -2919,8 +2919,8 @@
 }
 
 .officerInitials {
-  font-size: 20px;
-  font-weight: 800;
+  font-size: var(--font-md); /* 20px */
+  font-weight: var(--weight-extrabold);
   color: #1a1a2e;
 }
 
@@ -2940,7 +2940,7 @@
 
 .onlineIndicator {
   color: #00FF88;
-  font-size: 10px;
+  font-size: var(--font-xs); /* 12px - was 10px */
   animation: pulse 2s ease-in-out infinite;
 }
 
@@ -2953,25 +2953,25 @@
 }
 
 .cpoName {
-  font-size: 18px;
-  font-weight: 400;
+  font-size: var(--font-md); /* 20px - was 18px */
+  font-weight: var(--weight-normal);
   color: rgba(255, 255, 255, 0.9);
   line-height: 1.2;
   margin-bottom: 2px;
 }
 
 .cpoCredentials {
-  font-size: 13px;
+  font-size: var(--font-sm); /* 14px - was 13px */
   color: #00FF88;
-  font-weight: 600;
+  font-weight: var(--weight-semibold);
   line-height: 1.2;
 }
 
 .serviceTierBadge {
-  font-size: 11px;
+  font-size: var(--font-xs); /* 12px - was 11px */
   padding: 6px 12px;
   border-radius: 16px;
-  font-weight: 700;
+  font-weight: var(--weight-bold);
   text-transform: uppercase;
   letter-spacing: 0.5px;
   margin-top: 6px;
@@ -3006,17 +3006,17 @@
 }
 
 .timeLabel {
-  font-size: 11px;
+  font-size: var(--font-xs); /* 12px - was 11px */
   color: rgba(255, 255, 255, 0.6);
   text-transform: uppercase;
   letter-spacing: 0.5px;
-  font-weight: 600;
+  font-weight: var(--weight-semibold);
 }
 
 .timeValue {
-  font-size: 17px;
+  font-size: var(--font-md); /* 20px - was 17px */
   color: #00D4FF;
-  font-weight: 800;
+  font-weight: var(--weight-extrabold);
   line-height: 1.2;
 }
 
@@ -3028,17 +3028,17 @@
 }
 
 .countdownValue {
-  font-size: 20px;
+  font-size: var(--font-md); /* 20px */
   color: #FFD700;
-  font-weight: 800;
+  font-weight: var(--weight-extrabold);
   line-height: 1.1;
   text-shadow: 0 0 8px rgba(255, 215, 0, 0.3);
 }
 
 .countdownLabel {
-  font-size: 12px;
+  font-size: var(--font-xs); /* 12px */
   color: rgba(255, 255, 255, 0.6);
-  font-weight: 500;
+  font-weight: var(--weight-medium);
   text-transform: uppercase;
   letter-spacing: 0.3px;
 }
@@ -3060,15 +3060,15 @@
   align-items: center;
   justify-content: center;
   gap: 16px;
-  font-size: 18px;
-  font-weight: 700;
+  font-size: var(--font-md); /* 20px - was 18px */
+  font-weight: var(--weight-bold);
   color: rgba(255, 255, 255, 0.95);
   margin-bottom: 12px;
   width: 100%;
 }
 
 .routeIcon {
-  font-size: 18px;
+  font-size: var(--font-md); /* 20px - was 18px */
   color: #FFD700;
   flex-shrink: 0;
 }
@@ -3080,7 +3080,7 @@
 }
 
 .vehicleIcon {
-  font-size: 20px;
+  font-size: var(--font-md); /* 20px */
   flex-shrink: 0;
   opacity: 0.8;
 }
@@ -3089,26 +3089,26 @@
   display: flex;
   align-items: center;
   gap: 12px;
-  font-size: 14px;
+  font-size: var(--font-sm); /* 14px */
   color: rgba(255, 255, 255, 0.8);
-  font-weight: 600;
+  font-weight: var(--weight-semibold);
 }
 
 .duration {
-  font-weight: 700;
+  font-weight: var(--weight-bold);
   color: rgba(255, 255, 255, 0.9);
 }
 
 .bullet {
   color: rgba(255, 255, 255, 0.5);
-  font-weight: 700;
-  font-size: 12px;
+  font-weight: var(--weight-bold);
+  font-size: var(--font-xs); /* 12px */
 }
 
 .cost {
   color: #FFD700;
-  font-weight: 800;
-  font-size: 15px;
+  font-weight: var(--weight-extrabold);
+  font-size: var(--font-base); /* 16px - was 15px */
   text-shadow: 0 0 6px rgba(255, 215, 0, 0.2);
 }
 
@@ -3131,28 +3131,28 @@
   display: flex;
   align-items: center;
   gap: 10px;
-  font-size: 14px;
+  font-size: var(--font-sm); /* 14px */
   line-height: 1.3;
 }
 
 .checkmark {
   color: #00FF88;
-  font-size: 16px;
-  font-weight: 800;
+  font-size: var(--font-base); /* 16px */
+  font-weight: var(--weight-extrabold);
   flex-shrink: 0;
   text-shadow: 0 0 4px rgba(0, 255, 136, 0.3);
 }
 
 .statusText {
   color: rgba(255, 255, 255, 0.95);
-  font-weight: 600;
+  font-weight: var(--weight-semibold);
   flex: 1;
   letter-spacing: 0.2px;
 }
 
 .favoriteIcon {
   color: #FFD700;
-  font-size: 16px;
+  font-size: var(--font-base); /* 16px */
   flex-shrink: 0;
   animation: twinkle 3s ease-in-out infinite;
   text-shadow: 0 0 6px rgba(255, 215, 0, 0.4);
@@ -3183,27 +3183,27 @@
   }
 
   .officerInitials {
-    font-size: 16px;
+    font-size: var(--font-base); /* 16px */
   }
 
   .cpoName {
-    font-size: 16px;
+    font-size: var(--font-base); /* 16px */
   }
 
   .cpoCredentials {
-    font-size: 12px;
+    font-size: var(--font-xs); /* 12px */
   }
 
   .countdownValue {
-    font-size: 18px;
+    font-size: var(--font-md); /* 20px - was 18px */
   }
 
   .timeValue {
-    font-size: 16px;
+    font-size: var(--font-base); /* 16px */
   }
 
   .routeDisplay {
-    font-size: 15px;
+    font-size: var(--font-base); /* 16px - was 15px */
     gap: 8px;
   }
 
@@ -3214,40 +3214,40 @@
   }
 
   .checkmark {
-    font-size: 14px;
+    font-size: var(--font-sm); /* 14px */
   }
 }
 
 /* Responsive adjustments for simplified current card */
 @media (max-width: 414px) {
   .activeStatusText {
-    font-size: 13px;
+    font-size: var(--font-sm); /* 14px - was 13px */
   }
 
   .activeCpoName {
-    font-size: 14px;
+    font-size: var(--font-sm); /* 14px */
   }
 
   .activeServiceTier {
-    font-size: 13px;
+    font-size: var(--font-sm); /* 14px - was 13px */
   }
 
   .viewLiveProtectionBtn {
-    font-size: 13px;
+    font-size: var(--font-sm); /* 14px - was 13px */
     padding: 10px 14px;
     min-height: 40px;
   }
 
   .emptyTitle {
-    font-size: 13px;
+    font-size: var(--font-sm); /* 14px - was 13px */
   }
 
   .emptySubtext {
-    font-size: 11px;
+    font-size: var(--font-xs); /* 12px - was 11px */
   }
 
   .requestProtectionBtn {
-    font-size: 12px;
+    font-size: var(--font-xs); /* 12px */
     min-height: 36px;
     padding: 8px 14px;
   }
@@ -3258,8 +3258,8 @@
 
 /* Section Headers */
 .sectionHeader {
-  font-size: 11px;
-  font-weight: 600;
+  font-size: var(--font-xs); /* 12px - was 11px */
+  font-weight: var(--weight-semibold);
   text-transform: uppercase;
   letter-spacing: 1.5px;
   color: rgba(255, 255, 255, 0.5);
@@ -3277,15 +3277,15 @@
 }
 
 .officerName {
-  font-size: 16px;
-  font-weight: 700;
+  font-size: var(--font-base); /* 16px */
+  font-weight: var(--weight-bold);
   color: #FFFFFF;
   margin-bottom: 4px;
 }
 
 .siaLicense {
-  font-size: 14px;
-  font-weight: 400;
+  font-size: var(--font-sm); /* 14px */
+  font-weight: var(--weight-normal);
   color: rgba(255, 255, 255, 0.85);
   margin-bottom: 8px;
 }
@@ -3294,8 +3294,8 @@
   display: inline-block;
   padding: 4px 12px;
   border-radius: 12px;
-  font-size: 13px;
-  font-weight: 600;
+  font-size: var(--font-sm); /* 14px - was 13px */
+  font-weight: var(--weight-semibold);
   text-transform: uppercase;
   letter-spacing: 0.5px;
   margin-top: 4px;
@@ -3307,22 +3307,22 @@
 }
 
 .dateTime {
-  font-size: 16px;
-  font-weight: 700;
+  font-size: var(--font-base); /* 16px */
+  font-weight: var(--weight-bold);
   color: #22D3EE;
   margin-bottom: 8px;
 }
 
 .countdown {
-  font-size: 18px;
-  font-weight: 800;
+  font-size: var(--font-md); /* 20px - was 18px */
+  font-weight: var(--weight-extrabold);
   color: #F59E0B;
   margin-bottom: 4px;
 }
 
 .countdownLabel {
-  font-size: 13px;
-  font-weight: 400;
+  font-size: var(--font-sm); /* 14px - was 13px */
+  font-weight: var(--weight-normal);
   text-transform: lowercase;
   letter-spacing: 0.5px;
   color: rgba(255, 255, 255, 0.65);
@@ -3334,8 +3334,8 @@
 }
 
 .detailRow {
-  font-size: 14px;
-  font-weight: 400;
+  font-size: var(--font-sm); /* 14px */
+  font-weight: var(--weight-normal);
   color: rgba(255, 255, 255, 0.85);
   margin-bottom: 4px;
   line-height: 1.6;
@@ -3347,7 +3347,7 @@
 
 .feeValue {
   color: #D4AF37;
-  font-weight: 600;
+  font-weight: var(--weight-semibold);
 }
 
 /* Section 4: Status */
@@ -3356,8 +3356,8 @@
 }
 
 .statusItem {
-  font-size: 14px;
-  font-weight: 400;
+  font-size: var(--font-sm); /* 14px */
+  font-weight: var(--weight-normal);
   color: rgba(255, 255, 255, 0.75);
   margin-bottom: 8px;
 }
@@ -3368,8 +3368,8 @@
 
 /* Protection History Section Header */
 .protectionHistory {
-  font-size: 11px;
-  font-weight: 600;
+  font-size: var(--font-xs); /* 12px - was 11px */
+  font-weight: var(--weight-semibold);
   text-transform: uppercase;
   letter-spacing: 1.5px;
   color: rgba(255, 255, 255, 0.5);
@@ -3402,16 +3402,16 @@
 
 /* Stat Value (Numbers) */
 .statValue {
-  font-size: 20px;
-  font-weight: 700;
+  font-size: var(--font-md); /* 20px */
+  font-weight: var(--weight-bold);
   line-height: 1.2;
   margin-bottom: 4px;
 }
 
 /* Stat Label (Text below numbers) */
 .statLabel {
-  font-size: 11px;
-  font-weight: 400;
+  font-size: var(--font-xs); /* 12px - was 11px */
+  font-weight: var(--weight-normal);
   text-transform: uppercase;
   letter-spacing: 0.5px;
   color: rgba(255, 255, 255, 0.65);
@@ -3427,8 +3427,8 @@
 }
 
 .expandedHeader {
-  font-size: 11px;
-  font-weight: 600;
+  font-size: var(--font-xs); /* 12px - was 11px */
+  font-weight: var(--weight-semibold);
   text-transform: uppercase;
   letter-spacing: 1.5px;
   color: rgba(255, 215, 0, 0.8);
@@ -3450,15 +3450,15 @@
 }
 
 .profileLabel {
-  font-size: 13px;
-  font-weight: 400;
+  font-size: var(--font-sm); /* 14px - was 13px */
+  font-weight: var(--weight-normal);
   color: rgba(255, 255, 255, 0.6);
   flex-shrink: 0;
 }
 
 .profileValue {
-  font-size: 13px;
-  font-weight: 400;
+  font-size: var(--font-sm); /* 14px - was 13px */
+  font-weight: var(--weight-normal);
   color: rgba(255, 255, 255, 0.9);
   text-align: right;
 }
@@ -3478,15 +3478,15 @@
 }
 
 .routeLabel {
-  font-size: 13px;
-  font-weight: 400;
+  font-size: var(--font-sm); /* 14px - was 13px */
+  font-weight: var(--weight-normal);
   color: rgba(255, 255, 255, 0.6);
   flex-shrink: 0;
 }
 
 .routeValue {
-  font-size: 13px;
-  font-weight: 400;
+  font-size: var(--font-sm); /* 14px - was 13px */
+  font-weight: var(--weight-normal);
   color: rgba(255, 255, 255, 0.9);
   text-align: right;
 }
@@ -3500,8 +3500,8 @@
 
 /* Empty State Styling for Completed Card */
 .emptyCardState {
-  font-size: 14px;
-  font-weight: 400;
+  font-size: var(--font-sm); /* 14px */
+  font-weight: var(--weight-normal);
   color: rgba(255, 255, 255, 0.6);
   text-align: center;
   padding: 24px 16px;
@@ -3518,8 +3518,8 @@
 }
 
 .expandedEmptyText {
-  font-size: 14px;
-  font-weight: 400;
+  font-size: var(--font-sm); /* 14px */
+  font-weight: var(--weight-normal);
   color: rgba(255, 255, 255, 0.65);
   text-align: center;
   line-height: 1.6;
@@ -3532,8 +3532,8 @@
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 8px;
-  font-size: 14px;
-  font-weight: 500;
+  font-size: var(--font-sm); /* 14px */
+  font-weight: var(--weight-medium);
   color: rgba(255, 255, 255, 0.75);
   cursor: pointer;
   transition: all 0.2s ease;
@@ -3547,8 +3547,8 @@
 
 /* Time Period Header for Analytics */
 .timePeriodHeader {
-  font-size: 11px;
-  font-weight: 600;
+  font-size: var(--font-xs); /* 12px - was 11px */
+  font-weight: var(--weight-semibold);
   text-transform: uppercase;
   letter-spacing: 1.5px;
   color: rgba(255, 255, 255, 0.5);
@@ -3566,8 +3566,8 @@
 }
 
 .primaryMetric {
-  font-size: 16px;
-  font-weight: 600;
+  font-size: var(--font-base); /* 16px */
+  font-weight: var(--weight-semibold);
   line-height: 1.5;
 }
 
@@ -3582,16 +3582,16 @@
 }
 
 .supportingMetric {
-  font-size: 14px;
-  font-weight: 400;
+  font-size: var(--font-sm); /* 14px */
+  font-weight: var(--weight-normal);
   color: rgba(255, 255, 255, 0.75);
   line-height: 1.6;
 }
 
 /* Usage Pattern */
 .usagePattern {
-  font-size: 14px;
-  font-weight: 400;
+  font-size: var(--font-sm); /* 14px */
+  font-weight: var(--weight-normal);
   color: rgba(255, 255, 255, 0.75);
   margin-top: 12px;
   margin-bottom: 16px;
@@ -3601,15 +3601,15 @@
   display: inline-block;
   padding: 4px 10px;
   border-radius: 8px;
-  font-size: 13px;
-  font-weight: 500;
+  font-size: var(--font-sm); /* 14px - was 13px */
+  font-weight: var(--weight-medium);
   margin-left: 6px;
 }
 
 /* Analytics Empty State */
 .analyticsEmptyState {
-  font-size: 14px;
-  font-weight: 400;
+  font-size: var(--font-sm); /* 14px */
+  font-weight: var(--weight-normal);
   color: rgba(255, 255, 255, 0.6);
   text-align: center;
   padding: 24px 16px;
@@ -3621,8 +3621,8 @@
   display: inline-block;
   background: #F59E0B;
   color: #1A1A1A;
-  font-size: 10px;
-  font-weight: 700;
+  font-size: var(--font-xs); /* 12px - was 10px */
+  font-weight: var(--weight-bold);
   text-transform: uppercase;
   padding: 4px 8px;
   border-radius: 4px;
@@ -3638,8 +3638,8 @@
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 8px;
-  font-size: 14px;
-  font-weight: 500;
+  font-size: var(--font-sm); /* 14px */
+  font-weight: var(--weight-medium);
   color: rgba(255, 255, 255, 0.75);
   cursor: pointer;
   transition: all 0.2s ease;
@@ -3662,8 +3662,8 @@
   color: #FFFFFF;
   padding: 4px 12px;
   border-radius: 12px;
-  font-size: 11px;
-  font-weight: 600;
+  font-size: var(--font-xs); /* 12px - was 11px */
+  font-weight: var(--weight-semibold);
   text-transform: uppercase;
   letter-spacing: 0.5px;
   margin-left: 8px;
@@ -3680,33 +3680,33 @@
   }
 
   .statValue {
-    font-size: 20px; /* Maintain size for readability */
+    font-size: var(--font-md); /* 20px */ /* Maintain size for readability */
   }
 
   .statLabel {
-    font-size: 10px;
+    font-size: var(--font-xs); /* 12px - was 10px */
   }
 
   .protectionHistory {
-    font-size: 10px;
+    font-size: var(--font-xs); /* 12px - was 10px */
   }
 
   .timePeriodHeader {
-    font-size: 10px;
+    font-size: var(--font-xs); /* 12px - was 10px */
     margin-top: 12px;
     margin-bottom: 12px;
   }
 
   .primaryMetric {
-    font-size: 16px; /* Maintain for readability */
+    font-size: var(--font-base); /* 16px */ /* Maintain for readability */
   }
 
   .supportingMetric {
-    font-size: 14px; /* Maintain for readability */
+    font-size: var(--font-sm); /* 14px */ /* Maintain for readability */
   }
 
   .usagePattern {
-    font-size: 14px; /* Maintain for readability */
+    font-size: var(--font-sm); /* 14px */ /* Maintain for readability */
   }
 
   .primaryMetricsGroup {
@@ -3720,26 +3720,26 @@
   }
 
   .sectionHeader {
-    font-size: 10px;
+    font-size: var(--font-xs); /* 12px - was 10px */
   }
 
   .officerName {
-    font-size: 15px;
+    font-size: var(--font-base); /* 16px - was 15px */
   }
 
   .dateTime {
-    font-size: 15px;
+    font-size: var(--font-base); /* 16px - was 15px */
   }
 
   .countdown {
-    font-size: 16px;
+    font-size: var(--font-base); /* 16px */
   }
 
   .detailRow {
-    font-size: 13px;
+    font-size: var(--font-sm); /* 14px - was 13px */
   }
 
   .showMoreButton {
-    font-size: 13px;
+    font-size: var(--font-sm); /* 14px - was 13px */
   }
 }
