@@ -76,7 +76,7 @@
 }
 
 .trustLabel {
-  font-size: 11px;
+  font-size: var(--font-xs); /* 12px - was 11px */
   color: var(--text-secondary);
   text-transform: uppercase;
   letter-spacing: 0.8px;
@@ -285,7 +285,7 @@
   }
 
   .trustLabel {
-    font-size: 10px;
+    font-size: var(--font-xs); /* 12px - was 10px */
     letter-spacing: 0.5px;
   }
 
@@ -317,7 +317,7 @@
   }
 
   .trustLabel {
-    font-size: 9px;
+    font-size: var(--font-xs); /* 12px - was 9px */
   }
 }
 

@@ -33,8 +33,8 @@
 }
 
 .backButton span {
-  font-size: 18px;
-  font-weight: 600;
+  font-size: var(--font-md); /* 20px - was 18px */
+  font-weight: var(--weight-semibold);
   color: #1a2332; /* Navy */
   line-height: 1;
 }
@@ -96,22 +96,22 @@
 }
 
 .statusLine {
-  font-size: 14px;
-  font-weight: 500;
+  font-size: var(--font-sm); /* 14px */
+  font-weight: var(--weight-medium);
   color: #059669;
   margin: 0 0 12px 0;
 }
 
 .title {
-  font-size: 32px;
-  font-weight: 700;
+  font-size: var(--font-xl); /* 32px */
+  font-weight: var(--weight-bold);
   color: #000000;
   margin: 0 0 8px 0;
 }
 
 .subtitle {
-  font-size: 18px;
-  font-weight: 400;
+  font-size: var(--font-md); /* 20px - was 18px */
+  font-weight: var(--weight-normal);
   color: #374151;
   margin: 0 0 16px 0;
 }
@@ -125,8 +125,8 @@
 }
 
 .badge {
-  font-size: 12px;
-  font-weight: 400;
+  font-size: var(--font-xs); /* 12px */
+  font-weight: var(--weight-normal);
   color: #6b7280;
   white-space: nowrap;
 }
@@ -146,15 +146,15 @@
   }
 
   .title {
-    font-size: 28px;
+    font-size: var(--font-lg); /* 24px - was 28px */
   }
 
   .subtitle {
-    font-size: 16px;
+    font-size: var(--font-base); /* 16px */
   }
 
   .badge {
-    font-size: 11px;
+    font-size: var(--font-xs); /* 12px - was 11px */
   }
 }
 
@@ -165,14 +165,14 @@
   }
 
   .badge {
-    font-size: 10px;
+    font-size: var(--font-xs); /* 12px - was 10px */
   }
 }
 
 /* Section Headers */
 .sectionTitle {
-  font-size: 20px;
-  font-weight: 700;
+  font-size: var(--font-md); /* 20px */
+  font-weight: var(--weight-bold);
   color: #000000;
   margin: 32px 0 16px 0;
 }
@@ -204,13 +204,13 @@
 }
 
 .routeIcon {
-  font-size: 16px;
+  font-size: var(--font-base); /* 16px */
   flex-shrink: 0;
 }
 
 .routeText {
-  font-size: 14px;
-  font-weight: 500;
+  font-size: var(--font-sm); /* 14px */
+  font-weight: var(--weight-medium);
   color: #1a2332;
   line-height: 1.3;
   overflow: hidden;
@@ -219,7 +219,7 @@
 }
 
 .routeArrow {
-  font-size: 18px;
+  font-size: var(--font-md); /* 20px - was 18px */
   font-weight: bold;
   color: #c9a961;
   flex-shrink: 0;
@@ -227,11 +227,11 @@
 }
 
 .journeyNote {
-  font-size: 13px;
+  font-size: var(--font-sm); /* 14px - was 13px */
   color: #4a5568;
   margin: 0;
   text-align: center;
-  font-weight: 500;
+  font-weight: var(--weight-medium);
 }
 
 .journeyContext {
@@ -243,17 +243,17 @@
 }
 
 .journeyContextText {
-  font-size: 14px;
+  font-size: var(--font-sm); /* 14px */
   color: #1a2332;
   margin: 0 0 8px 0;
   line-height: 1.5;
 }
 
 .journeySubtext {
-  font-size: 13px;
+  font-size: var(--font-sm); /* 14px - was 13px */
   color: #6b7280;
   margin: 0;
-  font-weight: 500;
+  font-weight: var(--weight-medium);
 }
 
 /* Journey Header */
@@ -269,7 +269,7 @@
 }
 
 .journeyHeaderIcon {
-  font-size: 32px;
+  font-size: var(--font-xl); /* 32px */
   flex-shrink: 0;
 }
 
@@ -278,14 +278,14 @@
 }
 
 .journeyTitle {
-  font-size: 20px;
-  font-weight: 700;
+  font-size: var(--font-md); /* 20px */
+  font-weight: var(--weight-bold);
   color: white;
   margin: 0 0 4px 0;
 }
 
 .journeySubtitle {
-  font-size: 14px;
+  font-size: var(--font-sm); /* 14px */
   color: rgba(255, 255, 255, 0.8);
   margin: 0;
   line-height: 1.4;
@@ -312,7 +312,7 @@
   left: 16px;
   top: 50%;
   transform: translateY(-50%);
-  font-size: 20px;
+  font-size: var(--font-md); /* 20px */
   pointer-events: none;
   z-index: 1;
 }
@@ -332,8 +332,8 @@
   background: white;
   border: 2px solid #e0e0e0;
   color: #1a1a2e;
-  font-size: 16px;
-  font-weight: 600;
+  font-size: var(--font-base); /* 16px */
+  font-weight: var(--weight-semibold);
   cursor: pointer;
   appearance: none;
   background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23e0e0e0' stroke-width='2'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
@@ -377,7 +377,7 @@
 .responseTime {
   font-size: 0.9rem;
   color: #10b981;
-  font-weight: 600;
+  font-weight: var(--weight-semibold);
   background: rgba(16, 185, 129, 0.1);
   padding: 4px 8px;
   border-radius: 4px;
@@ -386,7 +386,7 @@
 }
 
 .features {
-  font-size: 16px;
+  font-size: var(--font-base); /* 16px */
   color: #2d3748; /* Dark charcoal for body text */
   line-height: 1.5;
 }
@@ -456,7 +456,7 @@
   background: #f8f9fa;
   color: #333;
   font-size: 0.8rem;
-  font-weight: 600;
+  font-weight: var(--weight-semibold);
   text-transform: uppercase;
   border-bottom: 1px solid #e0e0e0;
 }
@@ -500,7 +500,7 @@
   border-radius: var(--radius-md);
   color: #1a1a2e;
   font-size: 0.9rem;
-  font-weight: 600;
+  font-weight: var(--weight-semibold);
   cursor: pointer;
   transition: all 0.2s;
   min-height: var(--touch-target);
@@ -592,7 +592,7 @@
 
 .timeLabel {
   font-size: 1rem;
-  font-weight: 700;
+  font-weight: var(--weight-bold);
   color: #1a1a2e;
   display: flex;
   align-items: center;
@@ -604,7 +604,7 @@
   background: #10b981;
   color: white;
   font-size: 0.7rem;
-  font-weight: 700;
+  font-weight: var(--weight-bold);
   padding: 2px 6px;
   border-radius: 4px;
   line-height: 1;
@@ -646,8 +646,8 @@
 
 /* Price Display */
 .priceDisplay {
-  font-size: 32px;
-  font-weight: 700;
+  font-size: var(--font-xl); /* 32px */
+  font-weight: var(--weight-bold);
   color: #FFD700;
 }
 
@@ -673,14 +673,14 @@
 }
 
 .summaryLabel {
-  font-size: 16px;
+  font-size: var(--font-base); /* 16px */
   color: #000000; /* Pure black for labels */
-  font-weight: 600;
+  font-weight: var(--weight-semibold);
 }
 
 .summaryValue {
-  font-size: 32px;
-  font-weight: 700;
+  font-size: var(--font-xl); /* 32px */
+  font-weight: var(--weight-bold);
   color: #FFD700;
   text-shadow: 0 2px 4px rgba(0,0,0,0.1);
   display: flex;
@@ -691,19 +691,19 @@
 .originalFee {
   text-decoration: line-through;
   color: var(--color-text-secondary);
-  font-weight: 400;
+  font-weight: var(--weight-normal);
   font-size: 0.9rem;
 }
 
 .discountLabel {
   font-size: 0.9rem;
   color: var(--color-success);
-  font-weight: 600;
+  font-weight: var(--weight-semibold);
 }
 
 .discountValue {
   font-size: 1rem;
-  font-weight: 700;
+  font-weight: var(--weight-bold);
   color: var(--color-success);
 }
 
@@ -714,8 +714,8 @@
   border: none;
   border-radius: var(--radius-md);
   padding: 20px;
-  font-size: 18px;
-  font-weight: 700;
+  font-size: var(--font-md); /* 20px - was 18px */
+  font-weight: var(--weight-bold);
   cursor: pointer;
   transition: all 0.3s;
   margin-bottom: var(--space-lg);
@@ -745,7 +745,7 @@
   padding: var(--space-md);
   text-align: center;
   font-size: 0.9rem;
-  font-weight: 500;
+  font-weight: var(--weight-medium);
   color: #1a1a2e;
   margin-top: auto;
   box-shadow: 0 1px 3px rgba(0,0,0,0.1);
@@ -772,8 +772,8 @@
   border-radius: 8px;
   padding: 12px 20px;
   color: #6b7280;
-  font-size: 14px;
-  font-weight: 500;
+  font-size: var(--font-sm); /* 14px */
+  font-weight: var(--weight-medium);
   cursor: pointer;
   transition: all 0.2s ease;
 }
@@ -808,7 +808,7 @@
 }
 
 .journeyDescription {
-  font-size: 16px;
+  font-size: var(--font-base); /* 16px */
   color: #374151;
   margin: 0 0 16px 0;
   line-height: 1.5;
@@ -821,9 +821,9 @@
 }
 
 .benefit {
-  font-size: 14px;
+  font-size: var(--font-sm); /* 14px */
   color: #1a2332; /* Navy */
-  font-weight: 500;
+  font-weight: var(--weight-medium);
 }
 
 /* Mobile responsive for journey details */
@@ -838,7 +838,7 @@
   }
 
   .benefit {
-    font-size: 13px;
+    font-size: var(--font-sm); /* 14px - was 13px */
   }
 }
 
@@ -852,7 +852,7 @@
 }
 
 .locationDescription {
-  font-size: 15px;
+  font-size: var(--font-base); /* 16px - was 15px */
   color: #374151;
   margin: 16px 0 20px 0;
   line-height: 1.5;
@@ -887,15 +887,15 @@
 }
 
 .summaryLabel {
-  font-size: 14px;
+  font-size: var(--font-sm); /* 14px */
   color: #6b7280;
-  font-weight: 500;
+  font-weight: var(--weight-medium);
 }
 
 .summaryValue {
-  font-size: 14px;
+  font-size: var(--font-sm); /* 14px */
   color: #1a2332;
-  font-weight: 600;
+  font-weight: var(--weight-semibold);
 }
 
 /* Terms Section */
@@ -904,8 +904,8 @@
 }
 
 .termsTitle {
-  font-size: 16px;
-  font-weight: 600;
+  font-size: var(--font-base); /* 16px */
+  font-weight: var(--weight-semibold);
   color: #1a2332;
   margin: 0 0 16px 0;
 }
@@ -933,7 +933,7 @@
 }
 
 .termText {
-  font-size: 16px;
+  font-size: var(--font-base); /* 16px */
   color: #374151;
   line-height: 1.5;
 }
@@ -1051,14 +1051,14 @@
 }
 
 .sectionTitle {
-  font-size: 18px;
-  font-weight: 700;
+  font-size: var(--font-md); /* 20px - was 18px */
+  font-weight: var(--weight-bold);
   color: #1a2332;
   margin: 0 0 4px 0;
 }
 
 .sectionSubtitle {
-  font-size: 14px;
+  font-size: var(--font-sm); /* 14px */
   color: #6b7280;
   margin: 0;
 }
@@ -1089,28 +1089,28 @@
 }
 
 .routeIcon {
-  font-size: 16px;
+  font-size: var(--font-base); /* 16px */
   flex-shrink: 0;
 }
 
 .routeText {
-  font-size: 14px;
+  font-size: var(--font-sm); /* 14px */
   color: #1a2332;
-  font-weight: 500;
+  font-weight: var(--weight-medium);
   word-break: break-word;
 }
 
 .routeArrow {
-  font-size: 18px;
+  font-size: var(--font-md); /* 20px - was 18px */
   color: #6b7280;
   flex-shrink: 0;
 }
 
 .journeyNote {
-  font-size: 12px;
+  font-size: var(--font-xs); /* 12px */
   color: #059669;
   margin: 0;
-  font-weight: 500;
+  font-weight: var(--weight-medium);
 }
 
 /* Mobile responsive for new sections */
@@ -1129,15 +1129,15 @@
   }
 
   .sectionHeaderIcon {
-    font-size: 20px;
+    font-size: var(--font-md); /* 20px */
   }
 
   .sectionTitle {
-    font-size: 16px;
+    font-size: var(--font-base); /* 16px */
   }
 
   .sectionSubtitle {
-    font-size: 13px;
+    font-size: var(--font-sm); /* 14px - was 13px */
   }
 
   .journeyRoute {
