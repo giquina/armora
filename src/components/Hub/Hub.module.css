@@ -159,7 +159,7 @@
 }
 
 .statusMessage {
-  font-size: 18px;
+  font-size: 20px;
   color: #FFFFFF;
   font-weight: 700;
   text-align: center;
@@ -177,7 +177,7 @@
 }
 
 .metric {
-  font-size: 15px;
+  font-size: 17px;
   color: #FFD700;
   font-weight: 600;
   white-space: nowrap;
@@ -202,18 +202,18 @@
 }
 
 .securityIcon {
-  font-size: 14px;
+  font-size: 16px;
   color: #00FF88;
 }
 
 .securityText {
-  font-size: 12px;
+  font-size: 15px;
   color: rgba(255, 255, 255, 0.8);
   font-weight: 500;
 }
 
 .securityLevel {
-  font-size: 11px;
+  font-size: 14px;
   color: #00FF88;
   font-weight: 600;
   text-transform: uppercase;

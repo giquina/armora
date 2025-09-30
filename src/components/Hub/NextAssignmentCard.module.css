@@ -62,7 +62,7 @@
 
 /* Header Label */
 .header {
-  font-size: 11px;
+  font-size: 14px;
   text-transform: uppercase;
   letter-spacing: 1px;
   color: rgba(255, 215, 0, 0.7);
@@ -80,7 +80,7 @@
 
 /* Date/Time */
 .dateTime {
-  font-size: 22px;
+  font-size: 26px;
   font-weight: 700;
   color: #FFD700;
   margin-bottom: 4px;
@@ -93,7 +93,7 @@
 
 .dateTime::before {
   content: "📅";
-  font-size: 20px;
+  font-size: 24px;
 }
 
 /* CPO Info Row */
@@ -114,13 +114,13 @@
 }
 
 .cpoName {
-  font-size: 17px;
+  font-size: 20px;
   font-weight: 600;
   color: #FFFFFF;
 }
 
 .cpoDesignation {
-  font-size: 12px;
+  font-size: 15px;
   font-weight: 400;
   color: rgba(255, 255, 255, 0.6);
   font-style: italic;
@@ -133,16 +133,16 @@
 
 /* Protection Tier Badge */
 .tierBadge {
-  font-size: 13px;
+  font-size: 16px;
   font-weight: 500;
-  padding: 4px 10px;
+  padding: 6px 12px;
   border-radius: 8px;
   display: inline-block;
 }
 
 /* SIA License */
 .siaLicense {
-  font-size: 13px;
+  font-size: 16px;
   font-weight: 400;
   color: rgba(255, 255, 255, 0.7);
   margin-top: 8px;
@@ -153,7 +153,7 @@
 
 .siaLicense::before {
   content: "🛡️";
-  font-size: 14px;
+  font-size: 16px;
 }
 
 /* Status Items */
@@ -169,7 +169,7 @@
 }
 
 .statusItem {
-  font-size: 12px;
+  font-size: 15px;
   font-weight: 400;
   color: rgba(255, 255, 255, 0.7);
   display: flex;
@@ -180,7 +180,7 @@
 
 /* Action Link */
 .action {
-  font-size: 15px;
+  font-size: 16px;
   font-weight: 700;
   color: #1a1a2e;
   margin-top: auto;
@@ -196,7 +196,6 @@
   transition: all 0.3s ease;
   box-shadow: 0 4px 12px rgba(255, 215, 0, 0.3);
   text-transform: uppercase;
-  font-size: 13px;
 }
 
 .action:hover {
@@ -215,7 +214,7 @@
 }
 
 .emptyMessage {
-  font-size: 15px;
+  font-size: 18px;
   font-weight: 500;
   color: rgba(255, 255, 255, 0.8);
   text-align: left;

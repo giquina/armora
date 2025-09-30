@@ -627,12 +627,13 @@
 }
 
 .sectionDescription {
-  font-size: var(--font-base);
-  color: var(--text-secondary);
+  font-size: 18px;
+  color: #4a5568;
   margin: 0 auto 32px auto; /* Better spacing after descriptions */
   text-align: center;
-  line-height: var(--line-base);
+  line-height: 1.6;
   max-width: 500px;
+  font-weight: 500;
 }
 
 /* ========================================
@@ -3562,10 +3563,10 @@
 }
 
 .cpoCtaSubtext {
-  color: var(--text-secondary);
-  font-size: var(--font-sm);
+  color: #4a5568;
+  font-size: 16px;
   margin-top: var(--space-sm);
-  font-weight: 400;
+  font-weight: 500;
 }
 
 /* Tablet styles */
