@@ -168,12 +168,13 @@
 }
 
 .statusText {
-  font-size: var(--font-sm); /* 14px */
-  font-weight: var(--weight-semibold);
-  color: #1a1a2e;
-  letter-spacing: 0.3px;
+  font-size: 11px; /* Smaller for collapsed view */
+  font-weight: var(--weight-bold);
+  color: #059669; /* Green for active status */
+  letter-spacing: 0.5px;
   line-height: 1.3;
   flex: 1;
+  text-transform: uppercase;
 }
 
 .expandArrow {
@@ -215,36 +216,68 @@
 .cpoLine {
   display: flex;
   align-items: center;
-  font-size: var(--font-sm); /* 14px - was 13px */
+  font-size: 11px; /* Smaller for collapsed view */
   line-height: 1.3;
   padding-right: 44px; /* Space for chevron */
+  gap: 6px; /* Space between elements */
 }
 
 .cpoInfo {
-  color: #1a1a2e;
-  font-weight: var(--weight-medium);
+  color: #6366f1; /* Indigo/Purple for CPO info */
+  font-weight: var(--weight-semibold);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  letter-spacing: 0.01em;
+  letter-spacing: 0.02em;
 }
 
 /* Line 3: Journey Details */
 .journeyLine {
   display: flex;
   align-items: center;
-  font-size: var(--font-sm); /* 14px - was 13px */
+  font-size: 11px; /* Smaller for collapsed view */
   line-height: 1.3;
   padding-right: 44px; /* Space for chevron */
+  gap: 6px; /* Space between elements */
 }
 
 .journeyInfo {
-  color: #1a1a2e;
+  color: #dc2626; /* Red for route/journey urgency */
   font-weight: var(--weight-medium);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  letter-spacing: 0.01em;
+  letter-spacing: 0.02em;
+}
+
+/* Color-coded bullet separators for visual interest */
+.statusText::before,
+.cpoInfo::before,
+.journeyInfo::before {
+  content: '';
+  display: inline-block;
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  margin: 0 6px;
+  vertical-align: middle;
+}
+
+.statusText::before {
+  background: #10b981; /* Green bullet for status */
+}
+
+.cpoInfo::before {
+  background: #8b5cf6; /* Purple bullet for CPO */
+}
+
+.journeyInfo::before {
+  background: #f59e0b; /* Amber bullet for journey */
+}
+
+/* Remove first bullet */
+.statusLine .statusText::before {
+  display: none;
 }
 
 /* Text Selection Styling */
