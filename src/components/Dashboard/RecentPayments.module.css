@@ -1,0 +1,65 @@
+/* Recent Payments Dashboard Widget Styles */
+
+.container {
+  background: #1e1e1e;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+}
+
+.title {
+  font-size: 20px;
+  font-weight: 700;
+  color: #D4AF37;
+  margin: 0;
+}
+
+.viewAllButton {
+  padding: 8px 16px;
+  background: transparent;
+  border: 1px solid rgba(212, 175, 55, 0.3);
+  border-radius: 8px;
+  color: #D4AF37;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.viewAllButton:hover {
+  background: rgba(212, 175, 55, 0.1);
+  border-color: #D4AF37;
+  transform: translateX(4px);
+}
+
+.content {
+  /* PaymentHistory component handles its own styling */
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+  .container {
+    padding: 16px;
+  }
+
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .viewAllButton {
+    width: 100%;
+    text-align: center;
+  }
+}

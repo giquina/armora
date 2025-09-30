@@ -24,10 +24,14 @@
 }
 
 .instruction {
-  font-size: 14px;
-  font-weight: 500;
-  color: #1a2332; /* Navy */
+  font-size: 15px;
+  font-weight: 400;
+  color: #4b5563;
   margin: 0;
+  line-height: 1.6;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 /* ============================================
@@ -163,7 +167,7 @@
   width: calc(67vw - 32px);
   min-width: 260px;
   max-width: 280px;
-  min-height: 220px;
+  min-height: 260px;
 }
 
 .situationCard:hover {
@@ -214,6 +218,14 @@
   text-overflow: unset;
   min-width: 0;
   width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.labelIcon {
+  font-size: 22px;
+  line-height: 1;
 }
 
 .price {
@@ -565,8 +577,8 @@
 
 /* Collapsed State - Default compact view */
 .collapsed {
-  /* Approximate height for collapsed state ~140-160px */
-  min-height: 140px;
+  /* Approximate height for collapsed state ~260px to accommodate new content */
+  min-height: 260px;
 }
 
 /* Expanded State - Full content visible */
@@ -586,6 +598,50 @@
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
+}
+
+/* Use Cases List */
+.useCasesList {
+  font-size: 13px;
+  color: #4b5563;
+  margin: 12px 0 14px 0;
+  line-height: 1.5;
+  font-weight: 400;
+}
+
+/* Trust Indicators */
+.trustIndicators {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 12px 0;
+  flex-wrap: wrap;
+}
+
+.bookingCount {
+  font-size: 12px;
+  color: #6b7280;
+  font-weight: 500;
+}
+
+.ratingDisplay {
+  font-size: 12px;
+  color: #1a2332;
+  font-weight: 600;
+}
+
+.ratingDisplay::before {
+  content: '•';
+  margin-right: 12px;
+  color: #d1d5db;
+}
+
+/* Duration Hint */
+.durationHint {
+  font-size: 12px;
+  color: #9ca3af;
+  margin: 8px 0 12px 0;
+  font-weight: 500;
 }
 
 /* Action Buttons Container */
@@ -657,11 +713,11 @@
 /* Mobile responsive adjustments for collapsible cards */
 @media (max-width: 480px) {
   .collapsed {
-    min-height: 200px;
+    min-height: 280px;
   }
 
   .situationCard {
-    min-height: 200px;
+    min-height: 280px;
     padding: 20px 16px 16px 16px;
     width: calc(67vw - 20px);
     min-width: 280px;

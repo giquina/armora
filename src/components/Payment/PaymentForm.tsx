@@ -17,6 +17,7 @@ import {
 } from '../../types';
 import { Button } from '../UI/Button';
 import { LoadingSpinner } from '../UI/LoadingSpinner';
+import { supabase } from '../../lib/supabase';
 import styles from './PaymentForm.module.css';
 
 // Initialize Stripe (in production, use environment variable)
@@ -159,18 +160,62 @@ function PaymentFormContent({
     onPaymentError(paymentError);
   }, [onPaymentError]);
 
-  // Mock payment intent creation (in production, this would be a backend API call)
+  // Create payment intent via Supabase Edge Function
   const createPaymentIntent = async (flow: PaymentFlow): Promise<PaymentIntent> => {
-    // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 500));
+    try {
+      // Get current session
+      const { data: { session }, error: sessionError } = await supabase.auth.getSession();
 
-    return {
-      id: `pi_${Date.now()}`,
-      amount: flow.amount,
-      currency: flow.currency,
-      status: 'requires_payment_method',
-      clientSecret: `pi_${Date.now()}_secret_${Math.random().toString(36).substring(2)}`
-    };
+      if (sessionError || !session) {
+        throw new Error('Authentication required. Please sign in to continue.');
+      }
+
+      // Get Supabase URL from environment
+      const supabaseUrl = process.env.REACT_APP_SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL;
+
+      if (!supabaseUrl) {
+        throw new Error('Supabase configuration missing');
+      }
+
+      // Call Edge Function to create payment intent
+      const response = await fetch(`${supabaseUrl}/functions/v1/create-payment-intent`, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${session.access_token}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          amount: flow.amount,
+          currency: flow.currency,
+          assignmentId: flow.protectionAssignmentDetails.user?.id,
+          metadata: {
+            serviceType: flow.metadata?.serviceType || 'protection_assignment',
+            route: flow.metadata?.route || '',
+            scheduledTime: flow.metadata?.scheduledTime || '',
+            corporateAssignment: flow.metadata?.corporateAssignment || false,
+            principalId: session.user.id,
+          },
+        }),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || 'Failed to create payment intent');
+      }
+
+      const data = await response.json();
+
+      return {
+        id: data.paymentIntentId,
+        amount: data.amount,
+        currency: data.currency,
+        status: 'requires_payment_method',
+        clientSecret: data.clientSecret,
+      };
+    } catch (error: any) {
+      console.error('Error creating payment intent:', error);
+      throw new Error(error.message || 'Failed to initialize payment. Please try again.');
+    }
   };
 
   // Handle express payment (Apple Pay, Google Pay)

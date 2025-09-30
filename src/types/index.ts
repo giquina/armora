@@ -8,6 +8,17 @@ export type ViewState = 'splash' | 'welcome' | 'login' | 'signup' | 'guest-discl
 
 export type UserType = 'registered' | 'google' | 'guest' | null;
 
+export interface SavedAddress {
+  id: string;
+  label: 'home' | 'work' | 'custom';
+  customLabel?: string; // e.g., "Mum's house", "Gym"
+  address: string;
+  latitude?: number;
+  longitude?: number;
+  createdAt: Date;
+  lastUsed?: Date;
+}
+
 export interface User {
   id?: string;
   email: string;
@@ -25,6 +36,8 @@ export interface User {
   hasCompletedQuestionnaire?: boolean;
   hasUnlockedReward?: boolean;
   createdAt?: Date;
+  savedAddresses?: SavedAddress[];
+  recentAddresses?: string[]; // Last 5 used addresses
 }
 
 export interface ServiceLevel {

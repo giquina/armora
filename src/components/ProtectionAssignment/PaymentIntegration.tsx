@@ -143,14 +143,44 @@ export function PaymentIntegration({
     setCurrentStep('processing');
 
     try {
-      // Generate protection assignment ID
-      const generatedBookingId = `ARV-${Date.now().toString().slice(-6)}`;
+      // Call confirm-payment Edge Function to finalize assignment
+      const supabaseUrl = process.env.REACT_APP_SUPABASE_URL || 'https://jmzvrqwjmlnvxojculee.supabase.co';
+      const response = await fetch(`${supabaseUrl}/functions/v1/confirm-payment`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${process.env.REACT_APP_SUPABASE_ANON_KEY}`,
+        },
+        body: JSON.stringify({
+          paymentIntentId: intent.id,
+          userId: user?.id,
+          assignmentData: {
+            pickupLocation: commencementPoint,
+            pickupCoordinates: protectionAssignmentData.pickupCoordinates,
+            dropoffLocation: secureDestination,
+            dropoffCoordinates: protectionAssignmentData.dropoffCoordinates,
+            serviceType: service.id,
+            scheduledTime: protectionAssignmentData.scheduledDateTime || new Date().toISOString(),
+            estimatedDuration,
+            estimatedDistance,
+            specialRequirements: additionalRequirements,
+          },
+        }),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || 'Failed to confirm assignment');
+      }
+
+      const confirmationData = await response.json();
+      console.log('✅ Protection assignment confirmed:', confirmationData);
+
+      // Set booking ID from server response
+      const generatedBookingId = confirmationData.assignment?.id || `ARV-${Date.now().toString().slice(-6)}`;
       setBookingId(generatedBookingId);
 
-      // Simulate protection assignment confirmation process
-      await new Promise(resolve => setTimeout(resolve, 2000));
-
-      // Store protection assignment data with payment information
+      // Store locally for offline access
       const bookingRecord = {
         id: generatedBookingId,
         userId: user?.id,
@@ -162,10 +192,10 @@ export function PaymentIntegration({
         createdAt: new Date(),
         status: 'confirmed' as const,
         paymentIntentId: intent.id,
-        paymentStatus: intent.status
+        paymentStatus: intent.status,
+        assignmentId: confirmationData.assignment?.id,
       };
 
-      // Store in localStorage (in production, send to backend)
       const existingAssignments = JSON.parse(localStorage.getItem('armora_assignments') || '[]');
       existingAssignments.push(bookingRecord);
       localStorage.setItem('armora_assignments', JSON.stringify(existingAssignments));
@@ -182,13 +212,13 @@ export function PaymentIntegration({
 
       setCurrentStep('success');
 
-    } catch (error) {
+    } catch (error: any) {
       console.error('Assignment confirmation failed:', error);
       setPaymentError({
         code: 'booking_failed',
-        message: 'Assignment confirmation failed. Please contact support.',
+        message: error.message || 'Assignment confirmation failed. Please contact support.',
         type: 'network_error',
-        suggestedAction: 'Contact support with your payment reference',
+        suggestedAction: 'Contact support with your payment reference: ' + intent.id,
         retryable: false
       });
       setCurrentStep('error');

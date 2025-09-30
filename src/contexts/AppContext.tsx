@@ -798,6 +798,43 @@ export function AppProvider({ children }: { children: ReactNode }) {
     if (savedUser) {
       try {
         const user = JSON.parse(savedUser);
+
+        // Add mock saved addresses for testing if none exist
+        if (!user.savedAddresses || user.savedAddresses.length === 0) {
+          user.savedAddresses = [
+            {
+              id: 'home-001',
+              label: 'home',
+              address: '10 Downing Street, Westminster, London SW1A 2AA',
+              createdAt: new Date('2024-01-15'),
+              lastUsed: new Date('2024-09-28')
+            },
+            {
+              id: 'work-001',
+              label: 'work',
+              address: 'Canary Wharf, London E14 5AB',
+              createdAt: new Date('2024-01-20'),
+              lastUsed: new Date('2024-09-29')
+            },
+            {
+              id: 'custom-001',
+              label: 'custom',
+              customLabel: "Mum's House",
+              address: '221B Baker Street, Marylebone, London NW1 6XE',
+              createdAt: new Date('2024-02-10')
+            }
+          ];
+        }
+
+        // Add mock recent addresses if none exist
+        if (!user.recentAddresses || user.recentAddresses.length === 0) {
+          user.recentAddresses = [
+            'Heathrow Airport, Hounslow TW6 1AP',
+            'The Shard, 32 London Bridge Street, London SE1 9SG',
+            'Harrods, 87-135 Brompton Road, Knightsbridge, London SW1X 7XL'
+          ];
+        }
+
         setUser(user);
       } catch (error) {
         console.error('Failed to parse saved user data:', error);

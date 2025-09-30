@@ -49,6 +49,35 @@
   align-items: center;
 }
 
+/* Saved Address Button */
+.savedAddressButton {
+  width: 100%;
+  padding: 10px 16px;
+  background: #f9fafb;
+  border: 1px dashed #c9a961;
+  border-radius: 8px;
+  color: #1a2332;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin-top: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+.savedAddressButton:hover {
+  background: #fff;
+  border-color: #1a2332;
+  box-shadow: 0 2px 6px rgba(201, 169, 97, 0.15);
+}
+
+.savedAddressButton:active {
+  transform: scale(0.98);
+}
+
 /* Main Input Field */
 .input {
   width: 100%;

@@ -1,4 +1,6 @@
 import React, { useState, useRef, useCallback, useEffect } from 'react';
+import { SavedAddress } from '../../../../types';
+import { SavedAddressList } from '../SavedAddressList/SavedAddressList';
 import styles from './LocationInput.module.css';
 
 interface LocationInputProps {
@@ -12,6 +14,8 @@ interface LocationInputProps {
   onPickupChange?: (location: string) => void;
   /** Recent locations to display */
   recentLocations?: string[];
+  /** Saved addresses */
+  savedAddresses?: SavedAddress[];
   /** Location selection handler */
   onLocationSelect?: (location: string) => void;
   /** Additional CSS classes */
@@ -41,6 +45,7 @@ export const LocationInput: React.FC<LocationInputProps> = ({
   pickupLocation = '',
   onPickupChange,
   recentLocations = [],
+  savedAddresses = [],
   onLocationSelect,
   className = ''
 }) => {
@@ -52,6 +57,8 @@ export const LocationInput: React.FC<LocationInputProps> = ({
   const [isDetecting, setIsDetecting] = useState(false);
   const [isPickupDetected, setIsPickupDetected] = useState(false);
   const [isPickupEditable, setIsPickupEditable] = useState(false);
+  const [showPickupSaved, setShowPickupSaved] = useState(false);
+  const [showDestinationSaved, setShowDestinationSaved] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
   const pickupInputRef = useRef<HTMLInputElement>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -207,9 +214,9 @@ export const LocationInput: React.FC<LocationInputProps> = ({
   return (
     <div className={`${styles.locationInput} ${className}`}>
 
-      {/* Pickup Location */}
+      {/* Protection Commencement Point */}
       <div className={styles.inputGroup}>
-        <h3 className={styles.inputLabel}>📍 Where does your protection begin?</h3>
+        <h3 className={styles.inputLabel}>📍 Protection Commencement Point</h3>
         <div className={styles.locationInputContainer}>
           {/* Address Display */}
           {isPickupDetected && !isPickupEditable ? (
@@ -309,23 +316,77 @@ export const LocationInput: React.FC<LocationInputProps> = ({
               </div>
             </div>
           )}
+
+          {/* Use Saved Address Button for Pickup */}
+          {!showPickupSaved && (savedAddresses.length > 0 || recentLocations.length > 0) && (
+            <button
+              className={styles.savedAddressButton}
+              onClick={() => setShowPickupSaved(true)}
+              type="button"
+            >
+              📍 Use saved address
+            </button>
+          )}
+
+          {/* Saved Addresses List for Pickup */}
+          {showPickupSaved && (
+            <SavedAddressList
+              savedAddresses={savedAddresses}
+              recentAddresses={recentLocations}
+              onSelectAddress={(address) => {
+                if (onPickupChange) {
+                  onPickupChange(address);
+                }
+                setPickupSearchQuery(address);
+                setIsPickupDetected(false);
+                setIsPickupEditable(false);
+              }}
+              onClose={() => setShowPickupSaved(false)}
+            />
+          )}
         </div>
       </div>
 
-      {/* Destination Location */}
+      {/* Secure Destination */}
       <div className={styles.inputGroup}>
-        <h3 className={styles.inputLabel}>📍 Where are you going?</h3>
-        <div className={styles.inputWrapper}>
-          <input
-            ref={inputRef}
-            type="text"
-            value={searchQuery || value}
-            onChange={handleDestinationChange}
-            onFocus={handleDestinationFocus}
-            onBlur={handleBlur}
-            placeholder="Secure destination"
-            className={styles.input}
-          />
+        <h3 className={styles.inputLabel}>📍 Secure Destination</h3>
+        <div className={styles.locationInputContainer}>
+          <div className={styles.inputWrapper}>
+            <input
+              ref={inputRef}
+              type="text"
+              value={searchQuery || value}
+              onChange={handleDestinationChange}
+              onFocus={handleDestinationFocus}
+              onBlur={handleBlur}
+              placeholder="Secure destination"
+              className={styles.input}
+            />
+          </div>
+
+          {/* Use Saved Address Button for Destination */}
+          {!showDestinationSaved && (savedAddresses.length > 0 || recentLocations.length > 0) && (
+            <button
+              className={styles.savedAddressButton}
+              onClick={() => setShowDestinationSaved(true)}
+              type="button"
+            >
+              📍 Use saved address
+            </button>
+          )}
+
+          {/* Saved Addresses List for Destination */}
+          {showDestinationSaved && (
+            <SavedAddressList
+              savedAddresses={savedAddresses}
+              recentAddresses={recentLocations}
+              onSelectAddress={(address) => {
+                onChange(address);
+                setSearchQuery(address);
+              }}
+              onClose={() => setShowDestinationSaved(false)}
+            />
+          )}
         </div>
       </div>
 

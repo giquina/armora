@@ -1,0 +1,210 @@
+.container {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  margin-top: 12px;
+  overflow: hidden;
+  animation: slideDown 0.2s ease-out;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px;
+  border-bottom: 1px solid #e5e7eb;
+  background: #f9fafb;
+}
+
+.title {
+  font-size: 16px;
+  font-weight: 600;
+  color: #1a2332;
+  margin: 0;
+}
+
+.closeButton {
+  width: 32px;
+  height: 32px;
+  border: none;
+  background: transparent;
+  color: #6b7280;
+  font-size: 24px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+  line-height: 1;
+  padding: 0;
+}
+
+.closeButton:hover {
+  background: #e5e7eb;
+  color: #1a2332;
+}
+
+.content {
+  max-height: 400px;
+  overflow-y: auto;
+  padding: 12px;
+}
+
+/* Section */
+.section {
+  margin-bottom: 20px;
+}
+
+.section:last-child {
+  margin-bottom: 0;
+}
+
+.sectionTitle {
+  font-size: 12px;
+  font-weight: 600;
+  color: #6b7280;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin: 0 0 8px 8px;
+}
+
+/* Address Card */
+.addressCard {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin-bottom: 8px;
+  text-align: left;
+}
+
+.addressCard:hover {
+  background: #f9fafb;
+  border-color: #c9a961;
+  box-shadow: 0 2px 8px rgba(201, 169, 97, 0.15);
+  transform: translateX(2px);
+}
+
+.addressCard:active {
+  transform: translateX(0);
+}
+
+.addressIcon {
+  font-size: 24px;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.addressInfo {
+  flex: 1;
+  min-width: 0;
+}
+
+.addressLabel {
+  font-size: 13px;
+  font-weight: 600;
+  color: #1a2332;
+  margin-bottom: 2px;
+}
+
+.addressText {
+  font-size: 13px;
+  color: #6b7280;
+  line-height: 1.4;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.selectIcon {
+  font-size: 18px;
+  color: #9ca3af;
+  flex-shrink: 0;
+  transition: all 0.2s ease;
+}
+
+.addressCard:hover .selectIcon {
+  color: #c9a961;
+  transform: translateX(2px);
+}
+
+/* Empty State */
+.emptyState {
+  text-align: center;
+  padding: 40px 20px;
+}
+
+.emptyIcon {
+  font-size: 48px;
+  margin-bottom: 16px;
+  opacity: 0.5;
+}
+
+.emptyTitle {
+  font-size: 16px;
+  font-weight: 600;
+  color: #1a2332;
+  margin: 0 0 8px 0;
+}
+
+.emptyText {
+  font-size: 14px;
+  color: #6b7280;
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* Mobile Responsive */
+@media (max-width: 480px) {
+  .content {
+    max-height: 300px;
+  }
+
+  .addressCard {
+    padding: 10px 12px;
+    gap: 10px;
+  }
+
+  .addressIcon {
+    font-size: 20px;
+  }
+
+  .addressLabel {
+    font-size: 12px;
+  }
+
+  .addressText {
+    font-size: 12px;
+  }
+
+  .selectIcon {
+    font-size: 16px;
+  }
+
+  .header {
+    padding: 12px 16px;
+  }
+
+  .title {
+    font-size: 14px;
+  }
+}

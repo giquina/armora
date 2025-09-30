@@ -97,15 +97,33 @@ export function ProtectionRequest({ onAssignmentRequested, className }: Protecti
     acceptTerms: false
   });
 
+  // Auto-scroll helper function
+  const scrollToSection = useCallback((sectionSelector: string) => {
+    setTimeout(() => {
+      const element = document.querySelector(sectionSelector);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }, 300);
+  }, []);
+
   // Handle situation selection
   const handleSituationSelect = useCallback((situation: Situation | null) => {
     setSelectedSituation(situation);
-  }, []);
+    // Auto-scroll to service selection after choosing situation
+    if (situation) {
+      scrollToSection('[data-section="service-comparison"]');
+    }
+  }, [scrollToSection]);
 
   // Handle service selection with toggle functionality
   const handleServiceSelect = useCallback((service: ServiceTier | null) => {
     setSelectedService(service);
-  }, []);
+    // Auto-scroll to time selection after choosing service
+    if (service && secureDestination.trim()) {
+      scrollToSection('.timeSelectionSection');
+    }
+  }, [scrollToSection, secureDestination]);
 
   // Handle terms changes
   const handleTermChange = useCallback((term: keyof typeof terms) => {
@@ -138,6 +156,14 @@ export function ProtectionRequest({ onAssignmentRequested, className }: Protecti
     const cleanLocation = location.replace(/📍|🏢|🏠/, '').trim().replace(' (Saved)', '');
     setSecureDestination(cleanLocation);
   }, []);
+
+  // Auto-scroll when destination is entered
+  useEffect(() => {
+    if (secureDestination.trim() && pickupLocation.trim()) {
+      // Both locations entered, scroll to situation selector
+      scrollToSection('.situationSection');
+    }
+  }, [secureDestination, pickupLocation, scrollToSection]);
 
   // Dynamic page titles based on preselected service
   const getPageTitle = useMemo(() => {
@@ -252,6 +278,117 @@ export function ProtectionRequest({ onAssignmentRequested, className }: Protecti
     return 'Select commencement time';
   }, [commencementTime, selectedService, scheduledDateTime]);
 
+  // Contextual guidance message based on user progress
+  const getContextualGuidance = useMemo(() => {
+    const hasLocation = (pickupLocation.trim() || secureDestination.trim());
+    const hasBothLocations = pickupLocation.trim() && secureDestination.trim();
+    const hasSituation = !!selectedSituation;
+    const hasService = !!selectedService;
+    const termsAccepted = Object.values(terms).every(v => v === true);
+
+    // State 1: Nothing selected
+    if (!hasLocation && !hasSituation && !hasService) {
+      return {
+        message: '👋 Welcome! Start by entering your location above',
+        hint: '↑ Scroll up to begin',
+        showScrollHint: true
+      };
+    }
+
+    // State 2: Location only (partial or complete)
+    if (hasLocation && !hasSituation && !hasService) {
+      if (!hasBothLocations) {
+        return {
+          message: '✓ Almost there! Enter both protection commencement point and secure destination',
+          hint: '↑ Complete locations',
+          showScrollHint: true
+        };
+      }
+      return {
+        message: '✓ Protection route set • Next: Choose your journey type below',
+        hint: '↓ Scroll down',
+        showScrollHint: true
+      };
+    }
+
+    // State 3: Situation only
+    if (!hasLocation && hasSituation && !hasService) {
+      return {
+        message: `✓ ${selectedSituation.label} selected • Next: Enter your location above`,
+        hint: '↑ Scroll up',
+        showScrollHint: true
+      };
+    }
+
+    // State 4: Service only
+    if (!hasLocation && !hasSituation && hasService) {
+      return {
+        message: `✓ ${selectedService.name} selected • Next: Enter your location above`,
+        hint: '↑ Scroll up',
+        showScrollHint: true
+      };
+    }
+
+    // State 5: Location + Situation
+    if (hasBothLocations && hasSituation && !hasService) {
+      return {
+        message: '✓ Location & journey type set • Next: Select your protection level below',
+        hint: '↓ Choose service',
+        showScrollHint: true
+      };
+    }
+
+    // State 6: Location + Service
+    if (hasBothLocations && !hasSituation && hasService) {
+      if (!termsAccepted) {
+        return {
+          message: '✓ Almost ready! Choose your time and accept terms below',
+          hint: '↓ Scroll down',
+          showScrollHint: true
+        };
+      }
+      return {
+        message: '✅ Ready to request protection',
+        hint: '',
+        showScrollHint: false
+      };
+    }
+
+    // State 7: Situation + Service
+    if (!hasBothLocations && hasSituation && hasService) {
+      return {
+        message: `✓ ${selectedSituation.label} & ${selectedService.shortName} selected • Next: Enter location`,
+        hint: '↑ Scroll up',
+        showScrollHint: true
+      };
+    }
+
+    // State 8: Almost complete (all except terms)
+    if (hasBothLocations && hasService && !termsAccepted) {
+      return {
+        message: '⚠️ Almost there! Accept terms below to continue',
+        hint: '↓ Scroll down',
+        showScrollHint: true
+      };
+    }
+
+    // State 9: Everything complete
+    if (hasBothLocations && hasService && termsAccepted) {
+      return {
+        message: '✅ Ready to request protection',
+        hint: '',
+        showScrollHint: false
+      };
+    }
+
+    // Default fallback
+    return {
+      message: 'Select protection level above',
+      hint: '↑ Choose options above',
+      showScrollHint: true
+    };
+  }, [pickupLocation, secureDestination, selectedSituation, selectedService, terms]);
+
   return (
     <div className={`${styles.protectionRequest} ${className || ''}`}>
       {/* Back Button */}
@@ -284,6 +421,7 @@ export function ProtectionRequest({ onAssignmentRequested, className }: Protecti
             pickupLocation={pickupLocation}
             onPickupChange={setPickupLocation}
             recentLocations={recentLocations}
+            savedAddresses={state.user?.savedAddresses || []}
             onLocationSelect={selectLocation}
           />
 
@@ -465,7 +603,7 @@ export function ProtectionRequest({ onAssignmentRequested, className }: Protecti
         } : undefined}
         primaryButtonText={
           !selectedService
-            ? 'Select Protection Level Above'
+            ? getContextualGuidance.message
             : !Object.values(terms).every(v => v)
             ? `Request ${selectedService.shortName || selectedService.name} - £${finalFee.toFixed(2)}`
             : `Request ${selectedService.shortName || selectedService.name} - £${finalFee.toFixed(2)}`
@@ -473,6 +611,7 @@ export function ProtectionRequest({ onAssignmentRequested, className }: Protecti
         onPrimaryAction={handleRequestProtection}
         onChangeSelection={selectedService ? handleChangeSelection : undefined}
         additionalInfo={deploymentInfo}
+        contextualHint={getContextualGuidance.hint}
       />
     </div>
   );

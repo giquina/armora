@@ -19,9 +19,15 @@
 }
 
 .subtitle {
-  font-size: 16px;
-  color: #374151;
+  font-size: 15px;
+  font-weight: 400;
+  color: #4b5563;
   margin: 0;
+  line-height: 1.6;
+  max-width: 650px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0 16px;
 }
 
 /* Guidance Content Styles */
@@ -1437,6 +1443,45 @@
     opacity: 1;
     transform: translateY(0);
   }
+}
+
+/* Security Scenario Box */
+.securityScenario {
+  background: linear-gradient(135deg, #1a2332 0%, #2d3748 100%);
+  color: #ffffff;
+  padding: 20px;
+  border-radius: 12px;
+  margin-bottom: 20px;
+  border: 2px solid #c9a961;
+  box-shadow: 0 4px 12px rgba(26, 35, 50, 0.15);
+}
+
+.scenarioClassification {
+  display: inline-block;
+  background: #c9a961;
+  color: #1a2332;
+  padding: 5px 12px;
+  border-radius: 6px;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+  margin-bottom: 14px;
+}
+
+.scenarioTitle {
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 12px;
+  color: #c9a961;
+}
+
+.scenarioText {
+  font-size: 14px;
+  line-height: 1.7;
+  color: #e2e8f0;
 }
 
 /* Customer Quote Section */

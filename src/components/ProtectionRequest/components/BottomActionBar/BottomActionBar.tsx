@@ -40,6 +40,8 @@ interface BottomActionBarProps {
   error?: string;
   /** Additional information to display */
   additionalInfo?: string;
+  /** Contextual hint for user guidance (e.g., "↑ Scroll up") */
+  contextualHint?: string;
   /** Additional CSS classes */
   className?: string;
 }
@@ -56,6 +58,7 @@ export const BottomActionBar: React.FC<BottomActionBarProps> = ({
   isLoading = false,
   error,
   additionalInfo,
+  contextualHint,
   className = ''
 }) => {
   const hasSelection = !!(serviceInfo && pricing);
@@ -176,8 +179,8 @@ export const BottomActionBar: React.FC<BottomActionBarProps> = ({
                   type="button"
                   aria-label="Select protection level above"
                 >
-                  <span className={styles.ctaButtonText}>Select Protection Level Above</span>
-                  <span className={styles.ctaButtonSubtext}>↑ Choose from options above</span>
+                  <span className={styles.ctaButtonText}>{primaryButtonText}</span>
+                  {contextualHint && <span className={styles.ctaButtonSubtext}>{contextualHint}</span>}
                 </button>
               </div>
             </div>
