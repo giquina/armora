@@ -228,17 +228,17 @@ export function EnhancedProtectionPanel({
 
             {/* Line 2: CPO Information */}
             <div className={styles.cpoLine}>
-              <span className={styles.cpoInfo}>{officer.name} is protecting you under {statusInfo.protectionLevel}</span>
+              <span className={styles.cpoInfo}>Protection Officer: {officer.name} • {statusInfo.protectionLevel}</span>
             </div>
 
             {/* Line 3: Journey Details */}
             <div className={styles.journeyLine}>
-              <span className={styles.journeyInfo}>Traveling from {statusInfo.routeStart} to {statusInfo.routeEnd}</span>
+              <span className={styles.journeyInfo}>Route: {statusInfo.routeStart} → {statusInfo.routeEnd}</span>
             </div>
 
             {/* Line 4: Time and Cost */}
             <div className={styles.timeLine}>
-              <span className={styles.timeInfo}>{statusInfo.timeRemaining} remaining {statusInfo.cost}</span>
+              <span className={styles.timeInfo}>Duration: {statusInfo.timeRemaining} • Cost: {statusInfo.cost}</span>
             </div>
           </div>
         )}
