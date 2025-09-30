@@ -180,27 +180,31 @@
 .expandArrow {
   background: none;
   border: none;
-  padding: 12px;
+  padding: 8px;
   min-width: 44px;
   min-height: 44px;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  color: #333;
-  transition: all 0.2s ease;
+  color: #6b7280;
+  transition: all 0.25s ease;
   position: absolute;
-  right: -12px;
+  right: 4px;
   top: 50%;
   transform: translateY(-50%);
+  border-radius: 8px;
 }
 
 .expandArrow:hover {
   color: #000;
+  background: rgba(107, 114, 128, 0.08);
+  transform: translateY(-50%); /* Keep vertical centering on hover */
 }
 
 .expandArrow:active {
-  transform: translateY(-50%) scale(0.95);
+  transform: translateY(-50%) scale(0.95); /* Keep vertical centering on active */
+  background: rgba(107, 114, 128, 0.12);
 }
 
 .chevronIcon {
@@ -312,38 +316,7 @@
   font-weight: var(--weight-bold);
 }
 
-/* Clean Chevron Arrow Design */
-.expandArrow {
-  background: none;
-  border: none;
-  padding: 12px;
-  min-width: 48px;
-  min-height: 48px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  border-radius: 50%;
-  transition: all 0.3s ease;
-  color: #6b7280;
-}
-
-.expandArrow:hover {
-  background: rgba(107, 114, 128, 0.1);
-  transform: scale(1.05);
-}
-
-.expandArrow:active {
-  transform: scale(0.95);
-}
-
-.chevronIcon {
-  transition: transform 0.3s ease;
-}
-
-.panel.full .chevronIcon {
-  transform: rotate(180deg);
-}
+/* Duplicate chevron styles removed - merged above with proper positioning */
 
 .officerInfo {
   display: flex;
