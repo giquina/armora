@@ -163,11 +163,7 @@ function AppRouter() {
       case 'service-selection':
         return <ServiceSelection />;
       case 'active':
-        return (
-          <div style={{ padding: '20px' }}>
-            <ActiveProtectionPanel isOpen={true} onClose={() => navigateToView('home')} isActive={true} />
-          </div>
-        );
+        return <ActiveProtectionPanel isOpen={true} onClose={() => navigateToView('home')} isActive={true} />;
       case 'hub':
       case 'Assignments':
         return <Hub />;

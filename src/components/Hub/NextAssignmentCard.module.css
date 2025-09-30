@@ -107,10 +107,23 @@
   border-bottom: 1px solid rgba(255, 215, 0, 0.2);
 }
 
+.cpoNameRow {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
 .cpoName {
   font-size: 17px;
-  font-weight: 400;
+  font-weight: 600;
   color: #FFFFFF;
+}
+
+.cpoDesignation {
+  font-size: 12px;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.6);
+  font-style: italic;
 }
 
 .separator {

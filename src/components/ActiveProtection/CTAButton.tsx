@@ -71,11 +71,11 @@ export function CTAButton({
         disabled={pendingApproval}
         aria-label={subtitle ? `${title} - ${subtitle}` : title}
       >
-        <span className={styles.buttonIcon}>{icon}</span>
-        <span className={styles.buttonText}>
-          <span className={styles.buttonTitle}>{title}</span>
-          {subtitle && <span className={styles.buttonSubtitle}>{subtitle}</span>}
+        <span className={styles.buttonTitle}>
+          <span className={styles.buttonIcon}>{icon}</span>
+          {title}
         </span>
+        {subtitle && <span className={styles.buttonSubtitle}>{subtitle}</span>}
 
         {pendingApproval && (
           <div className={styles.pendingOverlay}>

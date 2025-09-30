@@ -1,15 +1,15 @@
 /* FULL-PAGE ACTIVE PROTECTION PANEL WITH CSS SCROLL SNAP */
 
-/* Root panel - positioned above bottom navigation bar */
+/* Root panel - full page layout positioned at top (no top toolbar on this view) */
 .activeProtectionPanel {
   position: fixed;
-  bottom: 56px; /* Sit above bottom navigation bar (56px height) */
+  top: 0; /* Start from top of viewport */
   left: 0;
   width: 100vw;
-  height: calc(75vh - 56px); /* Limited to 75% viewport height minus bottom navigation */
-  max-height: calc(75vh - 56px);
+  height: calc(100vh - 56px); /* Full viewport height minus bottom nav */
+  max-height: calc(100vh - 56px);
   background: #1a1a2e; /* Dark armora background */
-  z-index: 1020; /* Below navigation bar z-index (1030) */
+  z-index: 1020;
   opacity: 0;
   visibility: hidden;
   transition: all 350ms ease;
@@ -19,164 +19,161 @@
 .activeProtectionPanel.open {
   opacity: 1;
   visibility: visible;
-  height: calc(75vh - 56px);
-  max-height: calc(75vh - 56px);
+  height: calc(100vh - 56px);
+  max-height: calc(100vh - 56px);
 }
 
-/* Mobile-First Header Design */
+/* Mobile-First Header Design - 5 Row Structure */
 .panelHeader {
-  background: linear-gradient(180deg, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.2) 100%);
-  border-bottom: 1px solid rgba(255, 215, 0, 0.2);
-  padding: 10px 12px 8px 12px;
+  background: rgba(26, 26, 46, 0.95);
+  border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+  padding: 20px 16px;
   position: sticky;
-  top: 0; /* Stick to top of panel */
+  top: 0;
   left: 0;
   right: 0;
   z-index: 1025;
   backdrop-filter: blur(8px);
 }
 
-.headerTop {
+/* Row 1: Title + Timer */
+.headerRow1 {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 4px;
-}
-
-.titleSection {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  flex: 1;
-}
-
-.statusDot {
-  font-size: 10px;
-  animation: pulse 2s ease-in-out infinite;
-}
-
-@keyframes pulse {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.6; }
+  margin-bottom: 16px;
 }
 
 .panelTitle {
   font-size: 13px;
   font-weight: 700;
-  color: #ffd700;
+  color: #22D3EE;
   margin: 0;
-  letter-spacing: 0.5px;
+  letter-spacing: 1px;
   text-transform: uppercase;
   line-height: 1;
 }
 
-.controlSection {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
 .timer {
-  font-size: 14px;
-  color: #ffd700;
-  font-weight: 600;
+  font-size: 16px;
+  color: #F59E0B;
+  font-weight: 700;
   font-variant-numeric: tabular-nums;
   letter-spacing: 0.5px;
-  min-width: 56px; /* Prevents layout shift */
+  min-width: 64px;
   text-align: right;
 }
 
-.headerBottom {
+/* Row 2: Protection Officer */
+.headerRow2 {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  padding-top: 2px;
+  gap: 8px;
+  margin-bottom: 8px;
 }
 
-.officerName {
-  font-size: 13px;
-  color: rgba(255, 255, 255, 0.95);
-  font-weight: 500;
-  letter-spacing: 0.2px;
-}
-
-.protectionType {
+.fieldLabel {
   font-size: 11px;
-  color: rgba(255, 255, 255, 0.6);
-  font-weight: 400;
-  letter-spacing: 0.3px;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.5);
 }
 
-.closeButton {
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  color: rgba(255, 255, 255, 0.9);
+.fieldValue {
+  font-size: 15px;
+  font-weight: 600;
+  color: #FFFFFF;
+}
+
+/* Row 3: Service Tier */
+.headerRow3 {
   display: flex;
   align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  padding: 0;
-  font-size: 16px;
-  font-weight: 400;
-  line-height: 1;
-  -webkit-tap-highlight-color: transparent; /* Remove tap highlight on mobile */
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.serviceTierValue {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+/* Row 4: Progress Bar */
+.headerRow4 {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.progressBarContainer {
+  flex: 1;
+  height: 8px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+  overflow: hidden;
   position: relative;
 }
 
-.closeButton:active {
-  transform: scale(0.92);
-  background: rgba(255, 255, 255, 0.12);
+.progressBar {
+  height: 100%;
+  border-radius: 4px;
+  transition: width 0.3s ease, background 0.3s ease;
+  min-width: 2px;
 }
 
-/* Invisible expanded touch target */
-.closeButton::before {
-  content: '';
-  position: absolute;
-  top: -8px;
-  left: -8px;
-  right: -8px;
-  bottom: -8px;
-  /* Invisible expanded touch target */
+.progressText {
+  font-size: 13px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.75);
+  white-space: nowrap;
+  min-width: 90px;
+  text-align: right;
 }
 
-/* Scroll container with CSS scroll snap */
+/* Row 5: Status Line */
+.headerRow5 {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 0;
+}
+
+.statusValue {
+  font-size: 14px;
+  font-weight: 500;
+  color: #22D3EE;
+}
+
+/* Scroll container - natural flow without snap */
 .scrollContainer {
-  height: calc(75vh - 110px); /* 75vh minus header space */
+  height: calc(100vh - 56px); /* Full viewport height minus bottom nav */
   overflow-y: auto;
-  scroll-snap-type: y mandatory;
   scroll-behavior: smooth;
   -webkit-overflow-scrolling: touch;
   scrollbar-width: none;
   -ms-overflow-style: none;
-  padding-top: 0; /* No top padding since header is sticky */
-  padding-bottom: max(88px, env(safe-area-inset-bottom));
+  padding-top: 0;
+  padding-bottom: 20px; /* Small bottom padding for content breathing room */
 }
 
 .scrollContainer::-webkit-scrollbar {
-  display: none; /* Hide scrollbar Chrome/Safari */
+  display: none;
 }
 
-/* Base scroll section */
+/* Base scroll section - natural sizing */
 .scrollSection {
-  scroll-snap-align: start;
-  scroll-snap-stop: always;
   width: 100%;
   padding: var(--space-lg);
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  justify-content: center;
 }
 
-/* Section 1: Map View - Full height minus navigation */
+/* Section 1: Map View */
 .scrollSection.mapSection {
-  min-height: calc(75vh - 110px); /* Fit within 75vh panel minus header */
-  min-height: calc(75dvh - 110px);
   background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+  padding-bottom: var(--space-xl);
 }
 
 .mapPlaceholder {
@@ -207,32 +204,28 @@
   text-align: center;
 }
 
-/* Section 2: Protection Details - Fit within 75vh panel */
+/* Section 2: Protection Details */
 .scrollSection.detailsSection {
-  min-height: calc(60vh - 110px); /* Fit within 75vh panel minus header */
-  min-height: calc(60dvh - 110px);
   background: linear-gradient(135deg, #16213e 0%, #1a1a2e 100%);
+  padding-bottom: var(--space-xl);
 }
 
-/* Section 3: Security Code - Fit within 75vh panel */
+/* Section 3: Security Code */
 .scrollSection.securitySection {
-  min-height: calc(45vh - 110px); /* Fit within 75vh panel minus header */
-  min-height: calc(45dvh - 110px);
   background: linear-gradient(135deg, #1a1a2e 0%, #0f1419 100%);
+  padding-bottom: var(--space-xl);
 }
 
-/* Section 4: Actions - Fit within 75vh panel */
+/* Section 4: Actions */
 .scrollSection.actionsSection {
-  min-height: calc(75vh - 110px); /* Fit within 75vh panel minus header */
-  min-height: calc(75dvh - 110px);
   background: linear-gradient(135deg, #0f1419 0%, #1a1a2e 100%);
-  padding-bottom: max(120px, calc(80px + env(safe-area-inset-bottom))); /* Space for bottom actions + nav */
+  padding-bottom: var(--space-xl); /* Normal spacing - no bottom nav on active page */
 }
 
 /* Section headers */
 .sectionHeader {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start; /* Left align */
   align-items: center;
   margin-bottom: var(--space-lg);
   padding-bottom: var(--space-md);
@@ -244,6 +237,7 @@
   font-weight: 700;
   color: var(--text-primary);
   margin: 0;
+  text-align: left; /* Explicitly left align */
 }
 
 .sectionHeader h4 {
@@ -282,11 +276,69 @@
 }
 
 /* Details grid */
+/* Primary CPO Info */
+.primaryInfo {
+  display: flex;
+  align-items: center;
+  gap: var(--space-lg);
+  padding: var(--space-lg);
+  background: linear-gradient(135deg, rgba(255, 215, 0, 0.1) 0%, rgba(255, 215, 0, 0.05) 100%);
+  border: 1px solid rgba(255, 215, 0, 0.3);
+  border-radius: var(--radius-lg);
+  margin-bottom: var(--space-lg);
+}
+
+.cpoAvatar {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #FFD700, #FFA500);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  font-weight: 700;
+  color: #1a1a2e;
+  flex-shrink: 0;
+  box-shadow: 0 4px 12px rgba(255, 215, 0, 0.3);
+}
+
+.cpoDetails {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+  flex: 1;
+}
+
+.cpoName {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text-primary);
+  line-height: 1.2;
+}
+
+.cpoRole {
+  font-size: 13px;
+  color: var(--text-secondary);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+.cpoLicense {
+  font-size: 12px;
+  color: #FFD700;
+  font-weight: 600;
+  font-family: 'Courier New', monospace;
+  letter-spacing: 0.5px;
+}
+
+/* Details Grid */
 .detailsGrid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: var(--space-lg);
-  margin-bottom: var(--space-xl);
+  gap: var(--space-md);
+  margin-bottom: var(--space-lg);
 }
 
 .detailItem {
@@ -300,11 +352,12 @@
 }
 
 .detailLabel {
-  font-size: var(--font-xs);
+  font-size: 13px;
   color: var(--text-secondary);
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  font-weight: 500;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 6px;
 }
 
 .detailValue {
@@ -354,7 +407,7 @@
 /* Security Commands grid */
 .actionsGrid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: 1fr; /* 1 button per row */
   gap: var(--space-md);
   margin-bottom: var(--space-xl);
 }
@@ -528,157 +581,6 @@
   box-shadow: 0 4px 12px rgba(239, 68, 68, 0.4);
 }
 
-/* Scroll progress indicator */
-.scrollIndicator {
-  position: fixed;
-  bottom: max(100px, calc(80px + env(safe-area-inset-bottom))); /* Above bottom nav */
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  gap: var(--space-sm);
-  z-index: 1025;
-}
-
-.scrollDot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.3);
-  transition: all var(--transition-base);
-}
-
-.scrollDot.active {
-  background: var(--armora-gold);
-  transform: scale(1.5);
-  box-shadow: 0 0 8px rgba(255, 215, 0, 0.6);
-}
-
-/* Mini bar (collapsed state) - Option B Design */
-.miniBar {
-  position: fixed;
-  bottom: calc(56px + env(safe-area-inset-bottom));
-  left: 16px;
-  right: 16px;
-  background: linear-gradient(135deg, rgba(26, 26, 46, 0.98) 0%, rgba(30, 30, 58, 0.98) 100%);
-  border: 1px solid rgba(255, 215, 0, 0.6);
-  border-radius: 12px;
-  padding: 16px;
-  backdrop-filter: blur(10px);
-  z-index: 1200;
-  cursor: pointer;
-  transition: all 350ms ease;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.45), 0 0 0 1px rgba(255, 215, 0, 0.15) inset;
-}
-
-.miniBar::after {
-  content: '';
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: -6px; /* Soft overlap to avoid any visible gap */
-  height: 8px;
-  background: linear-gradient(135deg, rgba(26, 26, 46, 0.98) 0%, rgba(30, 30, 58, 0.98) 100%);
-  border-left: 1px solid rgba(255, 215, 0, 0.3);
-  border-right: 1px solid rgba(255, 215, 0, 0.3);
-  border-bottom-left-radius: var(--radius-lg);
-  border-bottom-right-radius: var(--radius-lg);
-  pointer-events: none; /* Do not block nav interactions */
-}
-
-.miniBar:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 4px 16px rgba(255, 215, 0, 0.4);
-}
-
-.miniContent {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.topRow {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 8px;
-}
-
-.officerInfo {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.statusDot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: #10b981;
-  animation: pulse 2s ease-in-out infinite;
-}
-
-.cpoLabel {
-  font-size: 14px;
-  font-weight: 600;
-  color: rgba(255, 255, 255, 0.95);
-  letter-spacing: 0.5px;
-}
-
-.expandArrow {
-  width: 24px;
-  height: 24px;
-  min-width: 44px;
-  min-height: 44px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: transparent;
-  border: none;
-  color: #374151;
-  font-size: 16px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: transform 350ms ease;
-  -webkit-tap-highlight-color: transparent;
-  border-radius: 50%;
-}
-
-.expandArrow:hover {
-  background: rgba(255, 255, 255, 0.1);
-}
-
-.expandArrow.expanded {
-  transform: rotate(180deg);
-}
-
-.officerName {
-  font-size: 14px;
-  color: rgba(255, 255, 255, 0.95);
-  font-weight: 600;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.bottomRow {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  color: #6b7280;
-  font-size: 14px;
-}
-
-.bullet {
-  color: rgba(255, 255, 255, 0.5);
-  font-weight: 400;
-}
-
-@keyframes pulse {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.6; }
-}
-
-
 /* Animations */
 @keyframes protectionPulse {
   0%, 100% { opacity: 1; transform: scale(1); }
@@ -718,13 +620,13 @@
 /* Desktop/Tablet */
 @media (min-width: 768px) {
   .activeProtectionPanel {
-    height: 75vh; /* Keep consistent with mobile 75vh limit */
-    max-height: 75vh;
+    height: calc(100vh - 56px); /* Full viewport minus bottom nav */
+    max-height: calc(100vh - 56px);
   }
 
   .activeProtectionPanel.open {
-    height: 75vh;
-    max-height: 75vh;
+    height: calc(100vh - 56px);
+    max-height: calc(100vh - 56px);
   }
 
   .panelHeader {
@@ -763,19 +665,65 @@
   }
 }
 
+/* Mobile responsiveness for 320px screens */
+@media (max-width: 320px) {
+  .panelHeader {
+    padding: 16px 12px;
+  }
+
+  .panelTitle {
+    font-size: 12px;
+    letter-spacing: 0.8px;
+  }
+
+  .timer {
+    font-size: 14px;
+    min-width: 56px;
+  }
+
+  .fieldLabel {
+    font-size: 10px;
+  }
+
+  .fieldValue {
+    font-size: 14px;
+  }
+
+  .serviceTierValue {
+    font-size: 13px;
+  }
+
+  .progressText {
+    font-size: 12px;
+    min-width: 80px;
+  }
+
+  .statusValue {
+    font-size: 13px;
+  }
+
+  .headerRow1 {
+    margin-bottom: 14px;
+  }
+
+  .headerRow3,
+  .headerRow4 {
+    margin-bottom: 14px;
+  }
+}
+
 /* Accessibility */
 @media (prefers-reduced-motion: reduce) {
   .scrollContainer {
     scroll-behavior: auto;
   }
 
-  .miniIndicator {
-    animation: none;
+  .activeProtectionPanel,
+  .actionButton {
+    transition: none;
   }
 
-  .activeProtectionPanel,
-  .actionButton,
-  .scrollDot {
+  .progressBar {
     transition: none;
   }
 }

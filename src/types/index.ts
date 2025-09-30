@@ -1071,8 +1071,16 @@ export interface PersonalizationAnalytics {
   };
 }
 
-// Assignment and Security Types
-export type AssignmentStatus = 'scheduled' | 'active' | 'in_progress' | 'completed' | 'cancelled';
+// Assignment and Security Types - SIA-compliant status values
+export type AssignmentStatus =
+  | 'assigned'                    // Protection officer assigned
+  | 'officer_en_route'           // Officer en route to principal
+  | 'officer_arrived'            // Officer arrived at commencement point
+  | 'protection_active'          // Protection detail active
+  | 'en_route_to_destination'    // En route to secure destination
+  | 'arriving_at_destination'    // Approaching secure destination
+  | 'completed'                  // Protection service completed
+  | 'cancelled';                 // Assignment cancelled
 
 export interface Assignment {
   id: string;

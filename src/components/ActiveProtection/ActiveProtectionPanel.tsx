@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import { CTAButton } from './CTAButton';
 import { MenuOption } from './OptionsMenu';
+import { AssignmentStatus } from '../../types';
 import styles from './ActiveProtectionPanel.module.css';
 
 interface ActiveProtectionPanelProps {
@@ -16,18 +17,17 @@ interface ProtectionData {
   vehicleModel: string;
   vehicleRegistration: string;
   securityCode: string;
-  status: 'En Route' | 'On Location' | 'Protection Active' | 'Awaiting Assignment';
+  status: AssignmentStatus;
   eta?: string;
   startTime: Date;
   expectedEndTime: Date;
-  serviceName: 'Executive' | 'Standard' | 'Shadow' | string;
+  serviceName: 'Executive' | 'Essential' | 'Shadow' | string;
   currentRate: number;
   mileageRate: number;
   currentCharges: number;
 }
 
 export function ActiveProtectionPanel({ isOpen, onClose, isActive }: ActiveProtectionPanelProps) {
-  const [isMinimized, setIsMinimized] = useState(false);
   const [elapsedTime, setElapsedTime] = useState('0:00:00');
   const [remainingTime, setRemainingTime] = useState<string>('0m');
   const [pendingExtensions, setPendingExtensions] = useState<Set<string>>(new Set());
@@ -36,18 +36,78 @@ export function ActiveProtectionPanel({ isOpen, onClose, isActive }: ActiveProte
   // Mock protection data - in real app, this would come from context/API
   const protectionData: ProtectionData = {
     officerName: 'James Mitchell',
-    officerTitle: 'Close Protection Officer',
+    officerTitle: 'Executive Protection Specialist',
     siaLicense: 'SIA-1234567',
     vehicleModel: 'BMW X5 Executive',
     vehicleRegistration: 'AR23 ORA',
     securityCode: 'SEC-789',
-    status: 'Protection Active',
+    status: 'en_route_to_destination',
     startTime: new Date(Date.now() - 2 * 60 * 60 * 1000), // Started 2 hours ago
     expectedEndTime: new Date(Date.now() + 1.5 * 60 * 60 * 1000), // 1.5 hours remaining (demo)
     serviceName: 'Executive',
-    currentRate: 75,
+    currentRate: 95,
     mileageRate: 2.50,
-    currentCharges: 165.50
+    currentCharges: 195.50
+  };
+
+  // Helper function to get status display text
+  const getStatusText = (status: AssignmentStatus): string => {
+    switch (status) {
+      case 'assigned':
+        return 'Protection officer assigned';
+      case 'officer_en_route':
+        return 'Protection officer en route';
+      case 'officer_arrived':
+        return 'Protection officer has arrived';
+      case 'protection_active':
+        return 'Protection detail active';
+      case 'en_route_to_destination':
+        return 'En route to secure destination';
+      case 'arriving_at_destination':
+        return 'Approaching secure destination';
+      case 'completed':
+        return 'Protection service completed';
+      case 'cancelled':
+        return 'Assignment cancelled';
+      default:
+        return 'Protection detail in progress';
+    }
+  };
+
+  // Helper function to calculate progress percentage
+  const getProgressPercentage = (status: AssignmentStatus): number => {
+    switch (status) {
+      case 'assigned':
+        return 5;
+      case 'officer_en_route':
+        return 20;
+      case 'officer_arrived':
+        return 35;
+      case 'protection_active':
+        return 50;
+      case 'en_route_to_destination':
+        return 75;
+      case 'arriving_at_destination':
+        return 90;
+      case 'completed':
+        return 100;
+      default:
+        return 0;
+    }
+  };
+
+  // Helper function to get service tier color
+  const getServiceTierColor = (serviceName: string): string => {
+    switch (serviceName) {
+      case 'Executive':
+        return '#D4AF37'; // Gold
+      case 'Shadow':
+        return '#A855F7'; // Purple
+      case 'Essential':
+        return '#3B82F6'; // Blue
+      default:
+        return '#22D3EE'; // Cyan
+    }
   };
 
   // Calculate elapsed time
@@ -75,35 +135,6 @@ export function ActiveProtectionPanel({ isOpen, onClose, isActive }: ActiveProte
     const interval = setInterval(updateTime, 1000);
     return () => clearInterval(interval);
   }, [isActive, protectionData.startTime, protectionData.expectedEndTime]);
-
-  // Handle scroll indicator updates
-  useEffect(() => {
-    if (!isOpen) return;
-
-    const scrollContainer = document.querySelector(`.${styles.scrollContainer}`);
-    const scrollDots = document.querySelectorAll(`.${styles.scrollDot}`);
-
-    if (!scrollContainer || !scrollDots.length) return;
-
-    const handleScroll = () => {
-      const scrollTop = scrollContainer.scrollTop;
-      const scrollHeight = scrollContainer.scrollHeight - scrollContainer.clientHeight;
-      const scrollPercentage = scrollTop / scrollHeight;
-
-      // Update active dot based on scroll position
-      const sectionIndex = Math.floor(scrollPercentage * 4);
-      scrollDots.forEach((dot, index) => {
-        if (index === Math.min(sectionIndex, 3)) {
-          dot.classList.add(styles.active);
-        } else {
-          dot.classList.remove(styles.active);
-        }
-      });
-    };
-
-    scrollContainer.addEventListener('scroll', handleScroll);
-    return () => scrollContainer.removeEventListener('scroll', handleScroll);
-  }, [isOpen]);
 
   const extendTime = (minutes: number) => {
     // Time extension implementation placeholder
@@ -274,67 +305,10 @@ export function ActiveProtectionPanel({ isOpen, onClose, isActive }: ActiveProte
     }
   ];
 
-  if (!isOpen && !isMinimized) return null;
-
-  if (isMinimized) {
-    return (
-      <div className={styles.miniBar} onClick={() => setIsMinimized(false)}>
-        <div className={styles.miniContent}>
-          <div className={styles.topRow}>
-            <div className={styles.officerInfo}>
-              <span className={styles.statusDot}></span>
-              <span className={styles.cpoLabel}>CPO</span>
-              <span className={styles.officerName}>{protectionData.officerName}</span>
-            </div>
-            <button
-              className={`${styles.expandArrow} ${!isMinimized ? styles.expanded : ''}`}
-              onClick={(e) => {
-                e.stopPropagation();
-                setIsMinimized(false);
-              }}
-              aria-label="Expand protection panel"
-            >
-              ↑
-            </button>
-          </div>
-          <div className={styles.bottomRow}>
-            <span>{protectionData.serviceName}</span>
-            <span className={styles.bullet}>•</span>
-            <span>{remainingTime} left</span>
-            <span className={styles.bullet}>•</span>
-            <span>£{protectionData.currentCharges.toFixed(2)}</span>
-          </div>
-        </div>
-      </div>
-    );
-  }
+  if (!isOpen) return null;
 
   return (
-    <div className={`${styles.activeProtectionPanel} ${isOpen ? styles.open : ''}`} style={{maxHeight: isOpen ? '75vh' : '100vh'}}>
-      {/* Mobile-First Header */}
-      <div className={styles.panelHeader}>
-        <div className={styles.headerTop}>
-          <div className={styles.titleSection}>
-            <span className={styles.statusDot}>🟢</span>
-            <h2 className={styles.panelTitle}>ACTIVE PROTECTION</h2>
-          </div>
-          <div className={styles.controlSection}>
-            <span className={styles.timer}>{elapsedTime}</span>
-            <button
-              className={`${styles.closeButton} ${styles.expandArrow} ${!isMinimized ? styles.expanded : ''}`}
-              onClick={() => setIsMinimized(true)}
-              aria-label="Minimize protection panel"
-            >
-              ↑
-            </button>
-          </div>
-        </div>
-        <div className={styles.headerBottom}>
-          <span className={styles.officerName}>{protectionData.officerName}</span>
-          <span className={styles.protectionType}>Executive Protection</span>
-        </div>
-      </div>
-
+    <div className={`${styles.activeProtectionPanel} ${isOpen ? styles.open : ''}`}>
       {/* Scroll Container */}
       <div className={styles.scrollContainer}>
         {/* Section 1: Map View */}
@@ -350,26 +324,31 @@ export function ActiveProtectionPanel({ isOpen, onClose, isActive }: ActiveProte
         <div className={`${styles.scrollSection} ${styles.detailsSection}`}>
           <div className={styles.sectionHeader}>
             <h3>Protection Details</h3>
-            <div className={`${styles.statusBadge} ${styles[protectionData.status.toLowerCase().replace(' ', '')]}`}>
-              {protectionData.status}
+            <div className={`${styles.statusBadge} ${styles[protectionData.status.toLowerCase().replace(/[_\s]/g, '')]}`}>
+              {getStatusText(protectionData.status)}
             </div>
           </div>
 
+          {/* Primary Info - CPO */}
+          <div className={styles.primaryInfo}>
+            <div className={styles.cpoAvatar}>
+              {protectionData.officerName.split(' ').map(n => n[0]).join('')}
+            </div>
+            <div className={styles.cpoDetails}>
+              <span className={styles.cpoName}>{protectionData.officerName}</span>
+              <span className={styles.cpoRole}>Close Protection Officer</span>
+              <span className={styles.cpoLicense}>SIA: {protectionData.siaLicense}</span>
+            </div>
+          </div>
+
+          {/* Secondary Info - Vehicle */}
           <div className={styles.detailsGrid}>
             <div className={styles.detailItem}>
-              <span className={styles.detailLabel}>CPO</span>
-              <span className={styles.detailValue}>{protectionData.officerName}</span>
-            </div>
-            <div className={styles.detailItem}>
-              <span className={styles.detailLabel}>SIA License</span>
-              <span className={styles.detailValue}>{protectionData.siaLicense}</span>
-            </div>
-            <div className={styles.detailItem}>
-              <span className={styles.detailLabel}>Vehicle</span>
+              <span className={styles.detailLabel}>🚗 Vehicle</span>
               <span className={styles.detailValue}>{protectionData.vehicleModel}</span>
             </div>
             <div className={styles.detailItem}>
-              <span className={styles.detailLabel}>Registration</span>
+              <span className={styles.detailLabel}>🔢 Registration</span>
               <span className={styles.detailValue}>{protectionData.vehicleRegistration}</span>
             </div>
           </div>
@@ -395,6 +374,7 @@ export function ActiveProtectionPanel({ isOpen, onClose, isActive }: ActiveProte
           <div className={styles.actionsGrid}>
             <CTAButton
               title="URGENT HELP"
+              subtitle="Activate emergency protocols including silent alarm, emergency services dispatch, and immediate notification to your emergency contacts. For life-threatening situations only."
               icon="🚨"
               color="emergency"
               onMainAction={() => handleEmergencyAction('sos')}
@@ -404,6 +384,7 @@ export function ActiveProtectionPanel({ isOpen, onClose, isActive }: ActiveProte
 
             <CTAButton
               title="CALL OFFICER"
+              subtitle="Connect directly with your assigned Close Protection Officer via secure voice or video call. Available 24/7 for immediate communication during your protection detail."
               icon="📞"
               color="primary"
               onMainAction={() => handleEmergencyAction('call')}
@@ -412,6 +393,7 @@ export function ActiveProtectionPanel({ isOpen, onClose, isActive }: ActiveProte
 
             <CTAButton
               title="EXTEND SERVICE"
+              subtitle="Request additional protection time beyond your scheduled service window. Extensions require officer availability and approval. Billing adjustments apply automatically."
               icon="⏰"
               color="warning"
               onMainAction={() => extendTime(30)}
@@ -421,6 +403,7 @@ export function ActiveProtectionPanel({ isOpen, onClose, isActive }: ActiveProte
 
             <CTAButton
               title="CHANGE ROUTE"
+              subtitle="Modify your destination, add intermediate waypoints, or request route optimization. Your CPO will review and implement changes for maximum security."
               icon="📝"
               color="info"
               onMainAction={() => handleEmergencyAction('destination')}
@@ -429,6 +412,7 @@ export function ActiveProtectionPanel({ isOpen, onClose, isActive }: ActiveProte
 
             <CTAButton
               title="MESSAGE OFFICER"
+              subtitle="Send secure messages to your CPO including text, voice recordings, or photos. All communications are encrypted and logged for your security records."
               icon="💬"
               color="secondary"
               onMainAction={() => handleEmergencyAction('message')}
@@ -437,6 +421,7 @@ export function ActiveProtectionPanel({ isOpen, onClose, isActive }: ActiveProte
 
             <CTAButton
               title="SHARE LOCATION"
+              subtitle="Share your real-time GPS location with designated emergency contacts or trusted parties. Control sharing duration and recipients with full privacy control."
               icon="📍"
               color="neutral"
               onMainAction={() => handleEmergencyAction('location')}
@@ -486,14 +471,6 @@ export function ActiveProtectionPanel({ isOpen, onClose, isActive }: ActiveProte
             <button className={styles.endButton}>End Protection</button>
           </div>
         </div>
-      </div>
-
-      {/* Scroll Progress Indicator */}
-      <div className={styles.scrollIndicator}>
-        <div className={styles.scrollDot}></div>
-        <div className={styles.scrollDot}></div>
-        <div className={styles.scrollDot}></div>
-        <div className={styles.scrollDot}></div>
       </div>
     </div>
   );

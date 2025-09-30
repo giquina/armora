@@ -118,8 +118,8 @@ export function AppLayout({
 
   return (
     <div className={layoutClasses}>
-  {/* Top toolbar should NOT appear on protection assignment flow to allow full-screen focus */}
-  {currentView !== 'protection-assignment' && (
+  {/* Top toolbar should NOT appear on protection assignment or active protection to allow full-screen focus */}
+  {currentView !== 'protection-assignment' && currentView !== 'active' && (
     <TopToolbar
       onToggleNotifications={() => setIsNotificationsOpen(!isNotificationsOpen)}
       isNotificationsOpen={isNotificationsOpen}

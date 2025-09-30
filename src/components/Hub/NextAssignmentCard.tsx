@@ -5,6 +5,7 @@ interface ProtectionAssignment {
   id: string;
   scheduledDateTime: Date | string;
   cpoName: string;
+  cpoDesignation?: string; // Professional title (e.g., "Executive Protection Specialist")
   protectionLevel: 'Essential' | 'Executive' | 'Shadow' | 'Client Vehicle';
   cpoSiaLicense: string;
 }
@@ -99,8 +100,12 @@ export function NextAssignmentCard({ assignment, onClick }: NextAssignmentCardPr
           <div className={styles.dateTime}>{formattedDateTime}</div>
 
           <div className={styles.cpoInfo}>
-            <span className={styles.cpoName}>{assignment.cpoName}</span>
-            <span className={styles.separator}>•</span>
+            <div className={styles.cpoNameRow}>
+              <span className={styles.cpoName}>{assignment.cpoName}</span>
+              {assignment.cpoDesignation && (
+                <span className={styles.cpoDesignation}>{assignment.cpoDesignation}</span>
+              )}
+            </div>
             <span
               className={styles.tierBadge}
               style={{ backgroundColor: `${tierInfo?.color}15`, color: tierInfo?.color }}

@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
+import { createPortal } from 'react-dom';
 import styles from './OptionsMenu.module.css';
 
 export interface MenuOption {
@@ -19,6 +20,9 @@ interface OptionsMenuProps {
 export function OptionsMenu({ isOpen, onClose, options, position, buttonRef }: OptionsMenuProps) {
   const menuRef = useRef<HTMLDivElement>(null);
   const [isMobile, setIsMobile] = useState(false);
+  const [menuPosition, setMenuPosition] = useState({ top: 0, left: 0 });
+  const [startY, setStartY] = useState(0);
+  const [currentY, setCurrentY] = useState(0);
 
   useEffect(() => {
     const checkMobile = () => {
@@ -29,6 +33,30 @@ export function OptionsMenu({ isOpen, onClose, options, position, buttonRef }: O
     window.addEventListener('resize', checkMobile);
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
+
+  // Calculate menu position relative to viewport when button ref changes
+  useEffect(() => {
+    if (!buttonRef.current || isMobile) return;
+
+    const updatePosition = () => {
+      const rect = buttonRef.current?.getBoundingClientRect();
+      if (rect) {
+        setMenuPosition({
+          top: position === 'bottom' ? rect.bottom + 4 : rect.top - 4,
+          left: rect.right - 180, // Align right edge with button
+        });
+      }
+    };
+
+    updatePosition();
+    window.addEventListener('scroll', updatePosition, true);
+    window.addEventListener('resize', updatePosition);
+
+    return () => {
+      window.removeEventListener('scroll', updatePosition, true);
+      window.removeEventListener('resize', updatePosition);
+    };
+  }, [buttonRef, position, isMobile, isOpen]);
 
   useEffect(() => {
     if (!isOpen) return;
@@ -59,15 +87,50 @@ export function OptionsMenu({ isOpen, onClose, options, position, buttonRef }: O
     onClose();
   };
 
+  // Handle for closing mobile sheet
+  const handleHandleClick = () => {
+    if (isMobile) {
+      onClose();
+    }
+  };
+
+  // Touch handlers for swipe-to-close on mobile
+  const handleTouchStart = (e: React.TouchEvent) => {
+    if (!isMobile) return;
+    setStartY(e.touches[0].clientY);
+  };
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    if (!isMobile) return;
+    setCurrentY(e.touches[0].clientY);
+  };
+
+  const handleTouchEnd = () => {
+    if (!isMobile) return;
+    const diff = currentY - startY;
+    // If swiped down more than 100px, close the sheet
+    if (diff > 100) {
+      onClose();
+    }
+    setStartY(0);
+    setCurrentY(0);
+  };
+
   if (!isOpen) return null;
 
-  // Mobile bottom sheet
+  // Mobile bottom sheet - also render via portal
   if (isMobile) {
-    return (
+    return createPortal(
       <>
         <div className={styles.backdrop} onClick={onClose} />
-        <div className={styles.bottomSheet} ref={menuRef}>
-          <div className={styles.bottomSheetHeader}>
+        <div
+          className={styles.bottomSheet}
+          ref={menuRef}
+          onTouchStart={handleTouchStart}
+          onTouchMove={handleTouchMove}
+          onTouchEnd={handleTouchEnd}
+        >
+          <div className={styles.bottomSheetHeader} onClick={handleHandleClick}>
             <div className={styles.bottomSheetHandle} />
           </div>
           <div className={styles.bottomSheetContent}>
@@ -86,24 +149,22 @@ export function OptionsMenu({ isOpen, onClose, options, position, buttonRef }: O
             ))}
           </div>
         </div>
-      </>
+      </>,
+      document.body
     );
   }
 
-  // Desktop dropdown
-  return (
+  // Desktop dropdown - render via portal to document body
+  return createPortal(
     <>
       <div className={styles.backdrop} onClick={onClose} />
       <div
         className={`${styles.dropdownMenu} ${styles[position]}`}
         ref={menuRef}
         style={{
-          position: 'absolute',
-          top: position === 'bottom' ? '100%' : 'auto',
-          bottom: position === 'top' ? '100%' : 'auto',
-          right: 0,
-          marginTop: position === 'bottom' ? '4px' : '0',
-          marginBottom: position === 'top' ? '4px' : '0',
+          position: 'fixed',
+          top: `${menuPosition.top}px`,
+          left: `${menuPosition.left}px`,
         }}
       >
         {options.map((option, index) => (
@@ -120,6 +181,7 @@ export function OptionsMenu({ isOpen, onClose, options, position, buttonRef }: O
           </button>
         ))}
       </div>
-    </>
+    </>,
+    document.body
   );
 }

@@ -3,6 +3,7 @@
   position: relative;
   display: flex;
   flex-direction: column;
+  isolation: isolate; /* Create stacking context */
 }
 
 /* Main CTA Button */
@@ -10,19 +11,20 @@
   position: relative;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: 8px;
-  padding: 16px 12px;
+  align-items: flex-start; /* Left align everything */
+  gap: 12px;
+  padding: 16px 48px 16px 16px; /* Extra right padding for 3-dot menu */
   border: 1px solid;
   border-radius: 12px;
   cursor: pointer;
   transition: all 200ms ease;
-  min-height: 80px;
+  min-height: 90px;
   background: var(--bg-secondary);
   color: var(--text-primary);
   font-family: inherit;
   outline: none;
-  overflow: hidden;
+  overflow: visible; /* Allow menu to overflow button */
+  width: 100%;
 }
 
 /* Button states */
@@ -45,11 +47,12 @@
   opacity: 0.7;
 }
 
-/* Color variants */
+/* Color variants - Branded theme */
+/* Emergency - Keep red for critical actions */
 .ctaButton.emergency {
   background: rgba(239, 68, 68, 0.1);
   border-color: rgba(239, 68, 68, 0.3);
-  color: #ef4444;
+  color: #ffffff; /* White text for emergency */
 }
 
 .ctaButton.emergency:hover {
@@ -58,64 +61,48 @@
   box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
 }
 
-.ctaButton.primary {
-  background: rgba(34, 197, 94, 0.1);
-  border-color: rgba(34, 197, 94, 0.3);
-  color: #22c55e;
+.ctaButton.emergency .buttonTitle,
+.ctaButton.emergency .buttonSubtitle {
+  color: #ffffff; /* White text for all emergency button text */
 }
 
-.ctaButton.primary:hover {
-  background: rgba(34, 197, 94, 0.2);
-  border-color: #22c55e;
-  box-shadow: 0 4px 12px rgba(34, 197, 94, 0.3);
-}
-
-.ctaButton.warning {
-  background: rgba(245, 158, 11, 0.1);
-  border-color: rgba(245, 158, 11, 0.3);
-  color: #f59e0b;
-}
-
-.ctaButton.warning:hover {
-  background: rgba(245, 158, 11, 0.2);
-  border-color: #f59e0b;
-  box-shadow: 0 4px 12px rgba(245, 158, 11, 0.3);
-}
-
-.ctaButton.info {
-  background: rgba(59, 130, 246, 0.1);
-  border-color: rgba(59, 130, 246, 0.3);
-  color: #3b82f6;
-}
-
-.ctaButton.info:hover {
-  background: rgba(59, 130, 246, 0.2);
-  border-color: #3b82f6;
-  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
-}
-
-.ctaButton.secondary {
-  background: rgba(147, 51, 234, 0.1);
-  border-color: rgba(147, 51, 234, 0.3);
-  color: #9333ea;
-}
-
-.ctaButton.secondary:hover {
-  background: rgba(147, 51, 234, 0.2);
-  border-color: #9333ea;
-  box-shadow: 0 4px 12px rgba(147, 51, 234, 0.3);
-}
-
+/* All other buttons - Consistent gold/dark theme */
+.ctaButton.primary,
+.ctaButton.warning,
+.ctaButton.info,
+.ctaButton.secondary,
 .ctaButton.neutral {
-  background: rgba(107, 114, 128, 0.1);
-  border-color: rgba(107, 114, 128, 0.3);
-  color: #6b7280;
+  background: rgba(255, 215, 0, 0.08);
+  border-color: rgba(255, 215, 0, 0.25);
+  color: #e0e0e0;
 }
 
+.ctaButton.primary:hover,
+.ctaButton.warning:hover,
+.ctaButton.info:hover,
+.ctaButton.secondary:hover,
 .ctaButton.neutral:hover {
-  background: rgba(107, 114, 128, 0.2);
-  border-color: #6b7280;
-  box-shadow: 0 4px 12px rgba(107, 114, 128, 0.3);
+  background: rgba(255, 215, 0, 0.15);
+  border-color: rgba(255, 215, 0, 0.4);
+  box-shadow: 0 4px 12px rgba(255, 215, 0, 0.2);
+}
+
+/* Title color changes to gold on hover */
+.ctaButton.primary:hover .buttonTitle,
+.ctaButton.warning:hover .buttonTitle,
+.ctaButton.info:hover .buttonTitle,
+.ctaButton.secondary:hover .buttonTitle,
+.ctaButton.neutral:hover .buttonTitle {
+  color: #FFD700;
+}
+
+/* Icon color for non-emergency buttons */
+.ctaButton.primary .buttonIcon,
+.ctaButton.warning .buttonIcon,
+.ctaButton.info .buttonIcon,
+.ctaButton.secondary .buttonIcon,
+.ctaButton.neutral .buttonIcon {
+  filter: grayscale(0.3) brightness(1.2);
 }
 
 /* Full width variant */
@@ -169,28 +156,38 @@
 
 /* Button content */
 .buttonIcon {
-  font-size: 1.8rem;
+  font-size: 1.5rem;
   line-height: 1;
+  flex-shrink: 0;
 }
 
 .buttonText {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: 2px;
-  text-align: center;
+  align-items: flex-start; /* Left align text */
+  gap: 6px;
+  text-align: left;
+  width: 100%;
 }
 
 .buttonTitle {
-  font-size: 14px;
-  font-weight: 600;
+  font-size: 15px;
+  font-weight: 700;
   line-height: 1.2;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
 }
 
 .buttonSubtitle {
-  font-size: 12px;
-  opacity: 0.8;
-  line-height: 1.2;
+  font-size: 13px;
+  opacity: 0.75;
+  line-height: 1.4;
+  font-weight: 400;
+  text-align: left; /* Explicitly left align */
+  width: 100%; /* Full width for proper alignment */
 }
 
 /* Options button */

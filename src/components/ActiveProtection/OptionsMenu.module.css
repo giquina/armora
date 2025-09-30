@@ -90,6 +90,12 @@
   justify-content: center;
   padding: 12px;
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  cursor: pointer; /* Show it's clickable */
+  user-select: none;
+}
+
+.bottomSheetHeader:active {
+  background: rgba(0, 0, 0, 0.05);
 }
 
 .bottomSheetHandle {
@@ -97,6 +103,11 @@
   height: 4px;
   background: rgba(0, 0, 0, 0.2);
   border-radius: 2px;
+  transition: background 150ms ease;
+}
+
+.bottomSheetHeader:hover .bottomSheetHandle {
+  background: rgba(0, 0, 0, 0.4);
 }
 
 .bottomSheetContent {

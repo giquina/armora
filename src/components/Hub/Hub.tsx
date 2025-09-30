@@ -612,6 +612,9 @@ export function Hub() {
               id: upcomingAssignments[0].id,
               scheduledDateTime: new Date(`${upcomingAssignments[0].date}T${upcomingAssignments[0].time}`),
               cpoName: upcomingAssignments[0].officerName,
+              cpoDesignation: upcomingAssignments[0].serviceTier === 'Shadow' ? 'Special Forces Protection Specialist' :
+                              upcomingAssignments[0].serviceTier === 'Executive' ? 'Executive Protection Specialist' :
+                              'Close Protection Officer',
               protectionLevel: upcomingAssignments[0].serviceTier as 'Essential' | 'Executive' | 'Shadow',
               cpoSiaLicense: upcomingAssignments[0].officerSIA
             } : null}
