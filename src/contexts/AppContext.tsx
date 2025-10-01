@@ -751,7 +751,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
 
     // Check if already installed
     const checkIfInstalled = () => {
-      if (window.matchMedia && window.matchMedia('(display-mode: standalone)').matches) {
+      if (window.matchMedia && window.matchMedia('(display-mode: standalone)')?.matches) {
         dispatch({
           type: 'UPDATE_DEVICE_CAPABILITIES',
           payload: {

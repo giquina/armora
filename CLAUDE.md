@@ -14,11 +14,12 @@ Armora is a React 19.1.1 TypeScript application for premium close protection and
 ## Core Stack & Dependencies
 - **React 19.1.1** with new JSX Transform
 - **TypeScript 4.9.5** in strict mode
-- **react-scripts 5.0.1** (CRA) with CRACO customization
+- **react-scripts 5.0.1** (CRA) with CRACO customization (optimized hot reload, cache busting)
 - **CSS Modules** for styling (no CSS-in-JS)
 - **Supabase**: Backend, auth, real-time (@supabase/supabase-js)
 - **Stripe**: Payments (@stripe/react-stripe-js)
 - **React-Leaflet**: Maps and location services
+- **Google Maps API**: Geocoding and location services
 - **Playwright**: E2E testing framework
 
 ## Development Commands
@@ -174,6 +175,7 @@ npm test -- src/components/[Component]/__tests__/[Component].test.tsx  # Specifi
 - Target: ES2018
 - JSX: react-jsx (React 19 transform)
 - Module: ESNext with Node resolution
+- Lib: dom, dom.iterable, esnext, webworker (for PWA support)
 
 ## Common Troubleshooting
 
@@ -270,9 +272,9 @@ When styling action buttons in the protection panel:
 
 ### Android App Package
 - **Package Name**: com.armora.protection
-- **AAB File**: app-release-bundle.aab (1.9M)
+- **AAB File**: app-release-bundle.aab (1.9M, local only)
 - **Keystore**: android.keystore (local only, not in repo)
-- **Keystore Password**: Armora2025Secure
+- **Keystore Credentials**: Stored securely (not in documentation for security)
 - **SHA-256 Fingerprint**: 19:45:2B:F1:4A:AC:90:49:29:31:BC:F7:8F:B8:AD:EF:AA:EA:A2:77:E5:78:E5:37:2E:CA:70:66:AB:EA:FB:D2
 
 ### Build Commands for Android
@@ -287,13 +289,23 @@ bubblewrap update
 bubblewrap build
 ```
 
-### Environment Variables (Vercel)
-```
+### Environment Variables (Vercel & Local Development)
+Required in `.env.local` for development and Vercel environment variables for production:
+```bash
+# Firebase (Cloud Messaging)
 REACT_APP_FIREBASE_API_KEY=AIzaSyCByrZaVECC1n3mebfrRqEHdLxjAO86TEU
 REACT_APP_FIREBASE_AUTH_DOMAIN=armora-protection.firebaseapp.com
 REACT_APP_FIREBASE_PROJECT_ID=armora-protection
+
+# Supabase (Backend & Auth)
 REACT_APP_SUPABASE_URL=[from Supabase dashboard]
 REACT_APP_SUPABASE_ANON_KEY=[from Supabase dashboard]
+
+# Stripe (Payments)
+REACT_APP_STRIPE_PUBLISHABLE_KEY=[from Stripe dashboard]
+
+# Google Maps (Geocoding & Maps)
+REACT_APP_GOOGLE_MAPS_API_KEY=[from Google Cloud Console]
 ```
 
-Last updated: 2025-10-01T08:50:00.000Z
+Last updated: 2025-10-01T09:25:00.000Z

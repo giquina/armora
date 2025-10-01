@@ -181,7 +181,7 @@ export function StreamlinedBookingModal({
     setErrors(prev => ({ ...prev, secureDestination: undefined }));
   }, []);
 
-  const useCurrentLocationForPickup = () => {
+  const useCurrentLocationForCommencement = () => {
     if (currentLocation) {
       handlePickupLocationSelect(currentLocation);
     } else {
@@ -307,7 +307,7 @@ export function StreamlinedBookingModal({
               onLocationSelect={handlePickupLocationSelect}
               currentLocation={currentLocation}
               isLoadingCurrentLocation={isLoadingLocation}
-              onUseCurrentLocation={useCurrentLocationForPickup}
+              onUseCurrentLocation={useCurrentLocationForCommencement}
               error={errors.commencementPoint}
               recentLocations={userProfile?.recentLocations}
             />

@@ -150,11 +150,11 @@ export function LiveTrackingMap({
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
 
-        {/* Pickup Location */}
+        {/* Commencement Point */}
         <Marker position={[pickupLocation.lat, pickupLocation.lng]} icon={pickupIcon}>
           <Popup>
             <div className={styles.popupContent}>
-              <strong>Pickup Location</strong>
+              <strong>Commencement Point</strong>
               <p>Starting point</p>
             </div>
           </Popup>

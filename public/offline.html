@@ -1,196 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0, viewport-fit=cover">
-    <meta name="theme-color" content="#1a1a2e">
-    <title>Offline - Armora Security</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Armora - Offline</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-            color: #ffffff;
-            height: 100vh;
+            background: #1a1a2e;
+            color: white;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
             display: flex;
             flex-direction: column;
-            justify-content: center;
             align-items: center;
-            padding: 20px;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
             text-align: center;
         }
-
-        .logo {
-            width: 120px;
-            height: 120px;
-            background: linear-gradient(135deg, #0f3460 0%, #e94560 100%);
-            border-radius: 24px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 32px;
-            box-shadow: 0 8px 32px rgba(233, 69, 96, 0.3);
-        }
-
-        .logo::before {
-            content: "🛡️";
-            font-size: 48px;
-        }
-
-        .title {
-            font-size: 28px;
-            font-weight: 700;
-            margin-bottom: 16px;
-            background: linear-gradient(135deg, #ffffff 0%, #e94560 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .message {
-            font-size: 18px;
-            color: rgba(255, 255, 255, 0.8);
-            margin-bottom: 8px;
-            max-width: 400px;
-            line-height: 1.5;
-        }
-
-        .submessage {
-            font-size: 16px;
-            color: rgba(255, 255, 255, 0.6);
-            margin-bottom: 32px;
-            max-width: 400px;
-        }
-
-        .retry-btn {
-            background: linear-gradient(135deg, #e94560 0%, #0f3460 100%);
-            color: white;
+        h1 { color: #FFD700; margin-bottom: 20px; }
+        button {
+            background: #FFD700;
+            color: #1a1a2e;
             border: none;
-            padding: 16px 32px;
-            border-radius: 12px;
+            padding: 12px 24px;
             font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 16px rgba(233, 69, 96, 0.4);
-            min-height: 44px;
-        }
-
-        .retry-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(233, 69, 96, 0.5);
-        }
-
-        .retry-btn:active {
-            transform: translateY(0);
-        }
-
-        .status-indicator {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-top: 24px;
-            padding: 12px 20px;
-            background: rgba(255, 255, 255, 0.1);
             border-radius: 8px;
-            border: 1px solid rgba(233, 69, 96, 0.3);
-        }
-
-        .status-dot {
-            width: 8px;
-            height: 8px;
-            background: #e94560;
-            border-radius: 50%;
-            margin-right: 8px;
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.5; }
-        }
-
-        .status-text {
-            font-size: 14px;
-            color: rgba(255, 255, 255, 0.7);
-        }
-
-        @media (max-width: 480px) {
-            .title {
-                font-size: 24px;
-            }
-
-            .message {
-                font-size: 16px;
-            }
-
-            .logo {
-                width: 100px;
-                height: 100px;
-            }
-
-            .logo::before {
-                font-size: 40px;
-            }
+            cursor: pointer;
+            margin-top: 20px;
+            font-weight: 600;
         }
     </style>
 </head>
 <body>
-    <div class="logo"></div>
-
-    <h1 class="title">You're Offline</h1>
-
-    <p class="message">Protection services require an internet connection to ensure real-time security coordination.</p>
-
-    <p class="submessage">Please check your connection and try again.</p>
-
-    <button class="retry-btn" onclick="window.location.reload()">
-        Try Again
-    </button>
-
-    <div class="status-indicator">
-        <div class="status-dot"></div>
-        <span class="status-text">Waiting for connection...</span>
-    </div>
-
-    <script>
-        // Auto-retry when connection is restored
-        function checkConnection() {
-            if (navigator.onLine) {
-                window.location.reload();
-            }
-        }
-
-        // Listen for connection restoration
-        window.addEventListener('online', checkConnection);
-
-        // Periodic check every 5 seconds
-        setInterval(checkConnection, 5000);
-
-        // Update status indicator based on connection
-        function updateStatus() {
-            const statusText = document.querySelector('.status-text');
-            const statusDot = document.querySelector('.status-dot');
-
-            if (navigator.onLine) {
-                statusText.textContent = 'Connection restored!';
-                statusDot.style.background = '#4ade80';
-                setTimeout(() => window.location.reload(), 1000);
-            } else {
-                statusText.textContent = 'Waiting for connection...';
-                statusDot.style.background = '#e94560';
-            }
-        }
-
-        // Check status on page load and when connection changes
-        updateStatus();
-        window.addEventListener('online', updateStatus);
-        window.addEventListener('offline', updateStatus);
-    </script>
+    <h1>🛡️ Armora Protection Services</h1>
+    <p>You're currently offline. Protection services require an active connection.</p>
+    <button onclick="window.location.reload()">Reconnect</button>
 </body>
 </html>

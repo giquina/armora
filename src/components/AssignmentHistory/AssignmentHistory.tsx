@@ -345,10 +345,10 @@ export function AssignmentHistory({
             <div className={styles.detailSection}>
               <h3>Route</h3>
               <p>
-                <strong>From:</strong> {selectedAssignment.pickup_location}
+                <strong>Commencement:</strong> {selectedAssignment.pickup_location}
               </p>
               <p>
-                <strong>To:</strong> {selectedAssignment.dropoff_location}
+                <strong>Destination:</strong> {selectedAssignment.dropoff_location}
               </p>
               <p>
                 <strong>Duration:</strong>{' '}
