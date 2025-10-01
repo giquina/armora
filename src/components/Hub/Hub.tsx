@@ -3,7 +3,6 @@ import { useApp } from '../../contexts/AppContext';
 import { NavigationCards } from './NavigationCards/NavigationCards';
 import { EnhancedProtectionPanel } from './EnhancedProtectionPanel/EnhancedProtectionPanel';
 import { FinancialTracker } from './FinancialTracker/FinancialTracker';
-import { FavoriteCPOs } from './FavoriteCPOs/FavoriteCPOs';
 import { NextAssignmentCard } from './NextAssignmentCard';
 import { usePullToRefresh } from '../../hooks/usePullToRefresh';
 import { IFinancialTracker } from '../../types';
@@ -118,7 +117,6 @@ export function Hub() {
   const [activeSection, setActiveSection] = useState<AssignmentStatus>('current');
   const [showTemplates, setShowTemplates] = useState(false);
   const [showFinancialTracker, setShowFinancialTracker] = useState(false);
-  const [showFavoriteCPOs, setShowFavoriteCPOs] = useState(false);
   const [isLocationSharing, setIsLocationSharing] = useState(false);
   const [isLoading] = useState(false);
   const [sortBy] = useState<'time' | 'cost' | 'tier'>('time');
@@ -210,17 +208,6 @@ export function Hub() {
 
   const handleClaimPoints = useCallback(() => {
     // In real app: process points claim
-  }, []);
-
-  const handleBookWithCPO = useCallback((cpoId: string) => {
-    // In real app: navigate to booking with pre-selected CPO
-    console.log('Booking with CPO:', cpoId);
-    navigateToView('protection-request'); // Navigate to booking with CPO pre-selected
-  }, [navigateToView]);
-
-  const handleViewCPOProfile = useCallback((cpoId: string) => {
-    // In real app: show CPO profile modal or navigate to profile page
-    console.log('Viewing CPO profile:', cpoId);
   }, []);
 
   const handleNextAssignmentClick = useCallback(() => {
@@ -742,16 +729,6 @@ export function Hub() {
           completedAssignments={completedAssignments}
         />
       </div>
-
-
-      {/* Favorite CPOs Section */}
-      {(currentAssignments.length === 0 && upcomingAssignments.length === 0) || showFavoriteCPOs ? (
-        <FavoriteCPOs
-          onBookWithCPO={handleBookWithCPO}
-          onViewProfile={handleViewCPOProfile}
-          className={styles.favoriteCPOsSection}
-        />
-      ) : null}
 
       {/* Assignment List */}
       {renderSectionContent()}
