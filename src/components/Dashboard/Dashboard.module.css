@@ -620,7 +620,7 @@
 .sectionTitle {
   font-size: var(--font-lg);
   font-weight: var(--weight-semibold);
-  color: var(--text-primary);
+  color: #ffffff;
   margin: 0 0 20px 0; /* Better spacing after section titles */
   text-align: center;
   line-height: var(--line-tight);
@@ -628,7 +628,7 @@
 
 .sectionDescription {
   font-size: var(--font-md); /* 20px - was 18px */
-  color: #4a5568;
+  color: #ffffff;
   margin: 0 auto 32px auto; /* Better spacing after descriptions */
   text-align: center;
   line-height: 1.6;
@@ -3574,7 +3574,7 @@
 }
 
 .cpoCtaSubtext {
-  color: #4a5568;
+  color: #ffffff;
   font-size: var(--font-base); /* 16px */
   margin-top: var(--space-sm);
   font-weight: var(--weight-medium);
