@@ -5,29 +5,29 @@ export const SERVICES_DATA: ServiceData[] = [
     id: 'standard',
     icon: '🛡️',
     name: 'Essential Protection',
-    tagline: 'Professional protection for everyday security',
-    vehicle: 'Nissan Leaf EV • Eco-friendly, discrete',
-    price: 'From £50/hour',
+    tagline: 'Professional close protection for everyday security needs',
+    vehicle: 'Secure transport vehicles • Professional appearance',
+    price: 'From £50/hour + £2.50/mile',
     protectionRate: '£50',
     transportRate: '£2.50',
     rating: '⭐⭐⭐⭐⭐ 4.8',
-    totalRides: '(2,847 assignments)',
+    totalRides: '(2,847 protection details)',
     collapsedFeatures: [
-      'Certified Close Protection Officers',
-      'Background verified & insured',
-      'Personal Protection Officers'
+      '1 SIA-Licensed Protection Officer',
+      'Background verified & fully insured',
+      '2-hour minimum service'
     ],
     collapsedReview: {
-      snippet: 'Been using for 6 months now and honestly can\'t fault it',
+      snippet: 'Professional security without being over the top',
       author: 'Emma, Marketing Manager'
     },
-    personalizedMessage: 'Based on your profile as a [USER_PROFESSION], this service offers reliable protection without being flashy, available 24/7 for your schedule',
+    personalizedMessage: 'Based on your profile as a [USER_PROFESSION], this service provides reliable protection with a single officer, ideal for business meetings and personal security',
     whatYouGet: [
-      'Door-to-door Close Protection service',
-      '24/7 availability across London',
-      'Government licensed security professionals',
-      'Eco-friendly discrete vehicles',
-      'Real-time journey monitoring'
+      'Single SIA-licensed Close Protection Officer',
+      'Security assessment and route planning',
+      'Door-to-door protection service',
+      'Real-time tracking and 24/7 support',
+      'Perfect for: Business meetings, property viewings, medical appointments'
     ],
     officerDescription: {
       general: 'All our Close Protection Officers hold both security and private hire licenses, ensuring legal compliance and professional standards. Each officer undergoes enhanced DBS checks, defensive driving training, and conflict resolution certification. They\'re not just transport - they\'re your personal security team.',
@@ -61,25 +61,25 @@ export const SERVICES_DATA: ServiceData[] = [
     ],
     caseStudies: [
       {
-        title: 'Healthcare Professional',
-        situation: 'Doctor working late shifts at hospital',
-        solution: 'Same trusted Protection Officer for every shift',
-        result: 'My family loves knowing I have professional protection',
-        userType: 'healthcare'
-      },
-      {
-        title: 'Young Professional',
-        situation: 'Marketing executive wanting to feel special',
-        solution: 'Regular morning Close Protection Officer',
-        result: 'I arrive at work feeling like a VIP every day',
+        title: 'Business Meeting in Central London',
+        situation: 'Corporate executive needed protection for client meeting',
+        solution: 'Single CPO provided door-to-door security with route briefing',
+        result: 'Professional arrival, officer waited with vehicle during meeting, secure return journey',
         userType: 'business'
       },
       {
-        title: 'International Student',
-        situation: 'Studying in London, parents concerned',
-        solution: 'Professional Protection Officer for evening classes',
-        result: 'Parents thrilled I have my own security team',
-        userType: 'student'
+        title: 'Property Viewing in Unfamiliar Area',
+        situation: 'High-value property viewing in unknown neighborhood',
+        solution: 'CPO conducted area assessment and accompanied principal',
+        result: 'Complete peace of mind viewing properties in any location',
+        userType: 'property'
+      },
+      {
+        title: 'Medical Appointment',
+        situation: 'Private medical consultation requiring discretion',
+        solution: 'Professional CPO with medical privacy protocols',
+        result: 'Discreet protection maintained confidentiality throughout',
+        userType: 'healthcare'
       }
     ],
     trustSignals: [
@@ -96,28 +96,30 @@ export const SERVICES_DATA: ServiceData[] = [
   {
     id: 'executive',
     icon: '👔',
-    name: 'Executive Shield',
-    tagline: 'Executive Protection Specialists for business leaders',
-    vehicle: 'BMW 5 Series',
-    price: 'From £95/hour',
+    name: 'Executive Protection',
+    tagline: 'Enhanced security protocols for high-profile principals',
+    vehicle: 'BMW 5 Series • Mercedes S-Class',
+    price: 'From £75/hour + £3.50/mile',
+    protectionRate: '£75',
+    transportRate: '£3.50',
     rating: '⭐⭐⭐⭐⭐ 4.9',
-    totalRides: '(1,653 services)',
+    totalRides: '(1,653 protection details)',
     collapsedFeatures: [
-      'Ex-military/police officers',
-      'Advanced driving certified',
-      'Corporate protection specialists'
+      '1-2 SIA Protection Officers (scalable)',
+      'Advance reconnaissance available',
+      'Ex-military/police background'
     ],
     collapsedReview: {
-      snippet: 'The difference is noticeable immediately',
+      snippet: 'Advance planning and professional coordination',
       author: 'Richard, Investment Director'
     },
-    personalizedMessage: 'As a [USER_ROLE], you\'ll appreciate the board-appropriate presentation, corporate confidentiality, and flexibility for last-minute changes',
+    personalizedMessage: 'As a [USER_ROLE], you\'ll appreciate the advance security planning, multiple officer coordination, and corporate-appropriate presentation',
     whatYouGet: [
-      'Former military and police Close Protection',
-      'Premium BMW vehicles maintained to luxury standards',
-      'Corporate protocol and confidentiality training',
-      'Priority protection assignment and dedicated support',
-      'Meeting point security assessments'
+      '1-2 Protection Officers (depending on requirements)',
+      'Advance venue reconnaissance (24hrs prior)',
+      'Premium vehicle fleet with enhanced security',
+      'Coordinated team protection when needed',
+      'Perfect for: VIP events, high-value meetings, public appearances'
     ],
     officerDescription: {
       general: 'Our Executive Protection Specialists come from military or law enforcement backgrounds with additional training in corporate security protocols. They understand boardroom confidentiality and maintain the professional image your position demands.',
@@ -151,25 +153,25 @@ export const SERVICES_DATA: ServiceData[] = [
     ],
     caseStudies: [
       {
-        title: 'Banking Executive',
-        situation: 'Daily travel between City offices',
-        solution: 'Dedicated Executive Protection Specialist',
-        result: 'Clients impressed by my professional arrival every time',
-        userType: 'finance'
+        title: 'High-Profile Restaurant Reservation',
+        situation: 'VIP client requiring protection at public venue',
+        solution: 'Advance reconnaissance 24hrs prior, 2-officer team deployed - one maintained vehicle security, second provided close protection inside',
+        result: 'Coordinated security with flexible routing, professional protection throughout dining experience',
+        userType: 'vip'
       },
       {
-        title: 'Law Firm Partner',
-        situation: 'Needed appropriate transport for client meetings',
-        solution: 'BMW with ex-military Protection Officer',
-        result: 'Enhanced my professional image significantly',
-        userType: 'legal'
+        title: 'Corporate Negotiations',
+        situation: 'High-value business deal requiring enhanced security',
+        solution: '2 CPOs with advance planning and route assessment',
+        result: 'Security briefing before departure, coordinated team protection, impressive professional arrival',
+        userType: 'corporate'
       },
       {
-        title: 'Tech CEO',
-        situation: 'Multiple meetings across London daily',
-        solution: 'Executive protection with premium vehicle',
-        result: 'Can work during travel, arrive refreshed and prepared',
-        userType: 'tech'
+        title: 'Public Appearance',
+        situation: 'Public figure attending high-visibility event',
+        solution: 'Multiple officers coordinated entry and exit security',
+        result: 'Seamless protection with advance route planning and flexible response',
+        userType: 'public-figure'
       }
     ],
     trustSignals: [
@@ -186,28 +188,30 @@ export const SERVICES_DATA: ServiceData[] = [
   {
     id: 'shadow',
     icon: '🕴️',
-    name: 'Shadow Protocol',
-    tagline: 'Elite Close Protection with complete discretion',
-    vehicle: 'Unmarked vehicles (changes regularly)',
-    price: 'From £125/hour',
+    name: 'Shadow Protection',
+    tagline: 'Covert protection with maximum scalability and discretion',
+    vehicle: 'Unmarked vehicles • Plain clothes officers',
+    price: 'From £65/hour + £3.00/mile',
+    protectionRate: '£65',
+    transportRate: '£3.00',
     rating: '⭐⭐⭐⭐⭐ 5.0',
-    totalRides: '(892 services)',
+    totalRides: '(892 protection details)',
     collapsedFeatures: [
-      'Elite Close Protection team',
-      'Counter-surveillance specialists',
-      'Threat assessment certified'
+      '1-6 Officers (fully scalable)',
+      'Special Forces trained specialists',
+      'Covert layered security protocols'
     ],
     collapsedReview: {
-      snippet: 'Can\'t say much but if you need invisible security',
-      author: 'Public Figure'
+      snippet: 'Invisible protection that scales to threat level',
+      author: 'High-Net-Worth Individual'
     },
-    personalizedMessage: 'For your high-profile situation, this provides complete discretion with specialist operatives and constantly varied routes',
+    personalizedMessage: 'For elevated threat scenarios, Shadow Protection scales from solo covert work to coordinated multi-officer protection teams',
     whatYouGet: [
-      'Covert protection that blends into background',
-      'Multiple vehicle options to avoid patterns',
-      'Counter-surveillance capabilities',
-      'Zero visible security presence',
-      'Constantly varied routes'
+      '1-6 Protection Officers (scalable based on threat assessment)',
+      'Plain clothes covert operations',
+      'Layered perimeter security (20-30 meter distance)',
+      'Coordinated radio contact between team members',
+      'Perfect for: High-threat situations, complete anonymity, HNW individuals'
     ],
     officerDescription: {
       general: 'Shadow Protocol operatives are elite Close Protection specialists trained in covert operations. Coming from special forces and intelligence backgrounds, they provide maximum security with zero visibility. Perfect for those who need serious protection without anyone knowing.',
@@ -241,25 +245,25 @@ export const SERVICES_DATA: ServiceData[] = [
     ],
     caseStudies: [
       {
-        title: 'Celebrity Discretion',
-        situation: 'Public figure wanting normal life',
-        solution: 'Unmarked vehicles, plain-clothes officers',
-        result: 'Finally able to enjoy London like everyone else',
-        userType: 'celebrity'
+        title: 'Private Shopping in Mayfair',
+        situation: 'HNW individual requiring invisible protection during shopping',
+        solution: 'Lead CPO drove personal vehicle, 3 additional officers positioned 20-30m perimeter in plain clothes, coordinated radio contact, rotating positions',
+        result: 'Layered covert security with zero visible presence, complete anonymity maintained',
+        userType: 'hnw'
       },
       {
-        title: 'High-Profile Executive',
-        situation: 'Preferred complete privacy',
-        solution: 'Covert specialist team, varied approaches',
-        result: 'Complete discretion, exactly what I needed',
-        userType: 'executive'
+        title: 'Elevated Threat Assessment',
+        situation: 'Principal with credible threat requiring maximum protection',
+        solution: '6-officer team deployed with advance/follow vehicles, perimeter security, counter-surveillance protocols',
+        result: 'Multi-layered protection adapted to threat level, principal felt completely secure',
+        userType: 'threat'
       },
       {
-        title: 'International VIP',
-        situation: 'Visiting London, needed invisible protection',
-        solution: 'Full counter-surveillance protocols',
-        result: 'Perfect Protection Detail, felt completely relaxed',
-        userType: 'international'
+        title: 'Private Occasion Requiring Anonymity',
+        situation: 'Confidential meeting at sensitive location',
+        solution: '4 covert officers with layered positioning, no visible security presence',
+        result: 'Complete discretion maintained, security invisible to all parties',
+        userType: 'confidential'
       }
     ],
     trustSignals: [

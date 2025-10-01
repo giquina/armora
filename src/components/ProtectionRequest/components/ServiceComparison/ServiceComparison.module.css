@@ -1447,19 +1447,19 @@
 
 /* Security Scenario Box */
 .securityScenario {
-  background: linear-gradient(135deg, #1a2332 0%, #2d3748 100%);
-  color: #ffffff;
+  background: #ffffff;
+  color: #1e3a5f;
   padding: 20px;
   border-radius: 12px;
   margin-bottom: 20px;
-  border: 2px solid #c9a961;
-  box-shadow: 0 4px 12px rgba(26, 35, 50, 0.15);
+  border: 2px solid #d4af37;
+  box-shadow: 0 4px 12px rgba(212, 175, 55, 0.15);
 }
 
 .scenarioClassification {
   display: inline-block;
-  background: #c9a961;
-  color: #1a2332;
+  background: #d4af37;
+  color: #0f1f3d;
   padding: 5px 12px;
   border-radius: 6px;
   font-size: 10px;
@@ -1475,13 +1475,14 @@
   text-transform: uppercase;
   letter-spacing: 1px;
   margin-bottom: 12px;
-  color: #c9a961;
+  color: #d4af37;
 }
 
 .scenarioText {
   font-size: 14px;
   line-height: 1.7;
-  color: #e2e8f0;
+  color: #1e3a5f;
+  white-space: pre-line;
 }
 
 /* Customer Quote Section */

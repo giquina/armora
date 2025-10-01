@@ -11,15 +11,15 @@ const SERVICE_CONFIG = {
     transportRate: '£2.50',
     rating: 4.8,
     reviews: '2,847',
-    vehicle: 'Nissan Leaf EV • Eco-friendly, discrete',
+    vehicle: 'Secure transport vehicles',
     icon: '🛡️',
-    tagline: 'Professional security with secure transport',
-    credentials: 'SIA-licensed protection officer',
+    tagline: 'Professional close protection for everyday security',
+    credentials: '1 SIA-licensed Protection Officer',
     features: [
-      'Threat assessment and route planning',
-      'Professional close protection training',
-      'Real-time tracking and support',
-      'Ideal for: Business meetings, personal security, medical appointments'
+      'Single CPO for door-to-door security',
+      'Security assessment and route planning',
+      'Real-time tracking and 24/7 support',
+      'Perfect for: Business meetings, property viewings, medical appointments'
     ]
   },
   'client-vehicle': {
@@ -30,47 +30,47 @@ const SERVICE_CONFIG = {
     reviews: '2,156',
     vehicle: 'Your personal vehicle',
     icon: '🔑',
-    tagline: 'Security-trained professional for your own vehicle',
-    credentials: 'Protection officer operates your personal transport',
+    tagline: 'SIA-trained officer operates your personal vehicle',
+    credentials: 'Protection officer for your vehicle',
     features: [
-      'Security assessment with familiar vehicle comfort',
-      'Professional driving and protection skills',
-      'Compatible with any vehicle type',
-      'Ideal for: Using your own car, family vehicles, regular commutes'
+      'Officer arrives and operates your car',
+      'No mileage charges for your vehicle',
+      'Complete privacy and familiarity',
+      'Perfect for: Using your car, family vehicles, regular commutes'
     ]
   },
   executive: {
     name: 'Executive Protection',
     protectionRate: '£75',
-    transportRate: '£2.50',
+    transportRate: '£3.50',
     rating: 4.9,
     reviews: '1,326',
-    vehicle: 'Mercedes S-Class • Ultimate luxury',
+    vehicle: 'BMW 5 Series • Mercedes S-Class',
     icon: '👔',
-    tagline: 'Enhanced security protocols for high-profile clients',
-    credentials: 'Senior protection officer with advanced training',
+    tagline: 'Enhanced security with advance reconnaissance',
+    credentials: '1-2 Protection Officers (scalable)',
     features: [
-      'Comprehensive threat assessment and advance planning',
-      'Premium vehicle fleet with enhanced security',
-      'Route reconnaissance and security briefings',
-      'Ideal for: Corporate executives, public figures, sensitive meetings'
+      '1-2 CPOs depending on requirements',
+      'Advance venue reconnaissance (24hrs prior)',
+      'Coordinated team protection when needed',
+      'Perfect for: VIP events, high-value meetings, public appearances'
     ]
   },
   shadow: {
-    name: 'Shadow Protocol',
+    name: 'Shadow Protection',
     protectionRate: '£65',
-    transportRate: '£2.50',
+    transportRate: '£3.00',
     rating: 4.7,
     reviews: '1,892',
-    vehicle: 'Unmarked premium vehicles • Maximum discretion',
+    vehicle: 'Unmarked vehicles • Plain clothes',
     icon: '🕵️',
-    tagline: 'Discreet, plainclothes protection services',
-    credentials: 'Special Forces trained protection specialists',
+    tagline: 'Covert protection with maximum scalability',
+    credentials: '1-6 Officers (fully scalable)',
     features: [
-      'Covert security operations with surveillance detection',
-      'Plainclothes officers blend seamlessly',
-      'Advanced counter-surveillance techniques',
-      'Ideal for: Confidential meetings, personal privacy, threat situations'
+      '1-6 CPOs scalable based on threat assessment',
+      'Plain clothes covert layered security',
+      'Special Forces trained specialists',
+      'Perfect for: High-threat situations, complete anonymity, HNW individuals'
     ]
   }
 };

@@ -30,18 +30,16 @@ const SERVICE_TIERS: ServiceTier[] = [
     hourlyRate: 50,
     mileageRate: 2.50,
     responseTime: '2-4 minutes',
-    officerLevel: 'Nissan Leaf EV',
-    experience: 'SIA Level 2 CPO',
-    training: 'Your everyday secure transport',
+    officerLevel: '1 Protection Officer',
+    experience: 'SIA-Licensed CPO',
+    training: 'Professional close protection',
     threatAssessment: false,
     counterSurveillance: false,
-    bestFor: ['Daily activities', 'Shopping visits', 'Medical appointments', 'Social events'],
+    bestFor: ['Business meetings', 'Property viewings', 'Medical appointments'],
     features: [
-      'SIA Level 2 licensed Close Protection Officer',
-      'Secure vehicle included (Nissan Leaf EV)',
-      'Perfect for everyday journeys',
-      'Discrete - looks like any executive car',
-      'Most affordable protection option'
+      'Real-time GPS tracking throughout journey',
+      'Secure communication with operations center',
+      'Officer flexibility - inside or vehicle standby'
     ],
     badge: 'MOST BOOKED'
   },
@@ -50,45 +48,41 @@ const SERVICE_TIERS: ServiceTier[] = [
     name: 'Executive Protection',
     shortName: 'Executive',
     icon: '',
-    rate: '£95/hr + £2.50/mile',
-    hourlyRate: 95,
-    mileageRate: 2.50,
+    rate: '£75/hr + £3.50/mile',
+    hourlyRate: 75,
+    mileageRate: 3.50,
     responseTime: '3-5 minutes',
-    officerLevel: 'BMW X5 SUV',
+    officerLevel: '1-2 Protection Officers',
     experience: 'SIA Level 3 CPO',
-    training: 'Premium security transport',
+    training: 'Enhanced executive security',
     threatAssessment: true,
     counterSurveillance: false,
-    bestFor: ['Important business meetings', 'Corporate events', 'High-profile appointments', 'Airport transfers'],
+    bestFor: ['VIP events', 'High-value negotiations', 'Public appearances'],
     features: [
-      'SIA Level 3 licensed CPO with 5+ years experience',
-      'Secure premium vehicle (BMW X5 with tinted windows)',
-      'Advanced threat assessment training',
-      'Corporate-trained for professional presence',
-      'Perfect for executives and VIPs'
+      'Pre-event venue security assessment',
+      'Dual-officer coordination protocols',
+      'Premium secure vehicle fleet included'
     ]
   },
   {
     id: 'shadow',
-    name: 'Shadow Protocol',
+    name: 'Shadow Protection',
     shortName: 'Shadow',
     icon: '',
-    rate: '£125/hr + £2.50/mile',
-    hourlyRate: 125,
-    mileageRate: 2.50,
+    rate: '£65/hr + £3.00/mile',
+    hourlyRate: 65,
+    mileageRate: 3.00,
     responseTime: '5-8 minutes',
-    officerLevel: 'Unmarked Vehicle',
-    experience: 'Military-Trained CPO',
-    training: 'Invisible excellence',
+    officerLevel: '1-6 Officers (Scalable)',
+    experience: 'Special Forces Trained',
+    training: 'Covert layered security',
     threatAssessment: true,
     counterSurveillance: true,
-    bestFor: ['High-profile individuals', 'Sensitive meetings', 'Celebrity transport', 'Privacy-critical journeys'],
+    bestFor: ['HNW individuals', 'Elevated threats', 'Complete anonymity'],
     features: [
-      'Military/Special Forces trained CPO',
-      'Secure unmarked vehicles that rotate regularly',
-      'Counter-surveillance and threat detection expertise',
-      'Covert operations - invisible protection',
-      'Ultimate discretion for high-profile clients'
+      'Counter-surveillance detection systems',
+      'Encrypted team communication network',
+      'Rotating officer positions for pattern avoidance'
     ]
   },
   {
@@ -105,13 +99,11 @@ const SERVICE_TIERS: ServiceTier[] = [
     training: 'Your car, our expertise',
     threatAssessment: false,
     counterSurveillance: false,
-    bestFor: ['Love your own car', 'Familiar comfort', 'No mileage costs', 'Personal vehicle preference'],
+    bestFor: ['Own luxury vehicle', 'Familiar comfort', 'Cost savings'],
     features: [
-      'SIA-licensed security-trained driver',
-      'CPO drives your vehicle safely',
-      'No mileage charges (you provide vehicle)',
-      'Familiar comfort of your own car',
-      'Most economical protection option'
+      'Comprehensive vehicle insurance coverage',
+      'Respect for personal vehicle settings',
+      'Zero mileage or fuel surcharges'
     ]
   }
 ];
@@ -126,10 +118,10 @@ interface ServiceComparisonProps {
 
 const getCustomerQuote = (serviceId: string): string => {
   const quotes = {
-    'essential': 'I need safe transport for daily activities - shopping, appointments, visiting friends. Nothing flashy, just reliable protection.',
-    'executive': 'I need to arrive with authority. My safety and image matter equally. This is for important meetings and high-profile events.',
-    'shadow': 'I don\'t want anyone knowing I have protection. Complete discretion is essential. Blend in, stay safe.',
-    'client-vehicle': 'I love my car and want to use it, but I need professional security driving. Best of both worlds.'
+    'essential': 'I need professional protection for business meetings and appointments. Single officer provides security without being over the top.',
+    'executive': 'Multiple officers for coordinated security at high-profile events. Advance planning gives me complete confidence.',
+    'shadow': 'Invisible protection that scales with threat level. Up to 6 officers in plain clothes - nobody knows they\'re there.',
+    'client-vehicle': 'I prefer using my own vehicle. Having a security-trained officer drive means no mileage charges and complete privacy.'
   };
   return quotes[serviceId as keyof typeof quotes] || '';
 };
@@ -146,13 +138,63 @@ const getSecurityClassification = (serviceId: string): string => {
 
 const getRealLifeScenario = (serviceId: string): string => {
   const scenarios = {
-    'essential': "You're visiting family in Kensington and need to stop at Waitrose. Your SIA Level 2 Close Protection Officer arrives in a secure Nissan Leaf EV. They provide protective transport through London, maintaining situational awareness throughout. At Waitrose, your CPO maintains visual contact while you shop, ensuring your security. Your protection detail then continues to your family's residence. You have government-licensed security for everyday life - professional, discrete, and always alert.",
+    'essential': `**Real Example: Business Meeting in Central London**
 
-    'executive': "You have a critical board meeting in Canary Wharf at 9am. Your SIA Level 3 CPO arrives at 8:15am in a secure BMW X5. They've completed advance route reconnaissance and threat assessment. During transit, you work confidently knowing your security detail is handling all protection protocols. Your CPO positions strategically near the venue, monitoring for any concerns. When your meeting concludes, your protection team is ready for immediate secure departure. This is executive-level personal security - the kind that C-suite executives and government officials rely on.",
+How it works:
+1. Single CPO arrives at your location at agreed time
+2. Security check and route briefing conducted
+3. Protected travel to your destination
+4. Officer accompanies you inside OR waits with vehicle (your choice)
+5. Secure return journey completed
 
-    'shadow': "You're a high-profile individual attending a private dinner in Mayfair. Your military-trained CPO operates from an unmarked vehicle that rotates weekly. Your protection detail positions you 50 meters from the venue - no obvious security presence. Throughout the evening, your CPO maintains overwatch from a strategic position, running counter-surveillance protocols. When you're ready to depart, a discreet signal brings your security team to the entrance. To observers, you arrived independently. This is invisible protection - the same covert security used by celebrities and diplomats.",
+Why clients choose this:
+• Affordable professional protection for daily activities
+• Discrete security presence without drawing attention
+• Flexibility - officer adapts to your preferences`,
 
-    'client-vehicle': "You've just acquired a new Porsche Cayenne but require secure transport for tonight's charity gala. Your government-licensed security driver arrives at your Chelsea residence. They provide expert protective driving in YOUR vehicle, maintaining security protocols throughout transit to the V&A Museum. You retain the comfort and privacy of your personal vehicle while your SIA-licensed CPO handles all security and navigation. After the event, your protection detail ensures safe return to your residence. Your vehicle remains under your control with professional security at the wheel."
+    'executive': `**Real Example: High-Profile Restaurant Reservation**
+
+How it works:
+1. Advance reconnaissance of venue 24 hours prior
+2. Team arrives 15 minutes early for security briefing
+3. Protected travel in premium secure vehicle
+4. One officer maintains vehicle security throughout
+5. Second officer provides close protection inside venue
+6. Coordinated secure departure with flexible routing
+
+Why clients choose this:
+• Multiple officers provide layered security coverage
+• Advance planning eliminates surprises and risks
+• Professional coordination impresses clients and colleagues`,
+
+    'shadow': `**Real Example: Private Shopping in Mayfair**
+
+How it works:
+1. Lead CPO picks you up (can drive your personal vehicle)
+2. Additional officers positioned strategically around 20-30m perimeter
+3. Plain clothes team maintains covert monitoring via radio
+4. Officers rotate positions to avoid pattern recognition
+5. Zero visible security presence maintained
+6. Discreet departure with advance/follow vehicles if needed
+
+Why clients choose this:
+• Completely invisible protection - nobody knows you're secured
+• Scales from 1 to 6 officers based on actual threat level
+• Military-grade covert operations for maximum discretion`,
+
+    'client-vehicle': `**Real Example: Evening Gala in Your Personal Vehicle**
+
+How it works:
+1. SIA-licensed officer arrives at your location
+2. Officer professionally operates YOUR vehicle
+3. Expert protective driving while you relax
+4. No mileage charges (you provide the vehicle)
+5. Secure return to your location after event
+
+Why clients choose this:
+• Use your own luxury car with professional security driving
+• Most economical option - no vehicle rental or mileage fees
+• Complete privacy and familiar comfort throughout`
   };
   return scenarios[serviceId as keyof typeof scenarios] || '';
 };
@@ -160,10 +202,10 @@ const getRealLifeScenario = (serviceId: string): string => {
 
 const getKeyBenefits = (serviceId: string): string[] => {
   const benefits = {
-    'essential': ['SIA Level 2', 'Nissan Leaf EV', '2-4 min response', '2-hour minimum', 'Secure vehicle', '£50/hr + £2.50/mile'],
-    'executive': ['SIA Level 3', 'BMW X5 SUV', '3-5 min response', 'Corporate trained', 'Premium security', '£95/hr + £2.50/mile'],
-    'shadow': ['Military-trained', 'Unmarked vehicle', '5-8 min response', 'Counter-surveillance', 'Covert ops', '£125/hr + £2.50/mile'],
-    'client-vehicle': ['SIA-licensed', 'Your vehicle', '4-6 min response', 'No mileage fees', 'Your comfort', '£55/hr only']
+    'essential': ['1 Protection Officer', 'SIA-Licensed', '2-4 min response', '2-hour minimum', 'Door-to-door security', '£50/hr + £2.50/mile'],
+    'executive': ['1-2 Officers (scalable)', 'Advance reconnaissance', '3-5 min response', 'Coordinated security', 'Premium vehicles', '£75/hr + £3.50/mile'],
+    'shadow': ['1-6 Officers (scalable)', 'Plain clothes', '5-8 min response', 'Layered perimeter', 'Covert operations', '£65/hr + £3.00/mile'],
+    'client-vehicle': ['SIA-licensed officer', 'Your vehicle', '4-6 min response', 'No mileage fees', 'Your comfort', '£55/hr only']
   };
   return benefits[serviceId as keyof typeof benefits] || [];
 };
@@ -193,10 +235,10 @@ export function ServiceComparison({
 
   const getUniqueSellingPoint = (service: ServiceTier): string => {
     const usps = {
-      'essential': 'Safe, reliable transport for daily life • Perfect for shopping, appointments & errands',
-      'executive': 'Arrive with confidence & authority • Premium BMW for business meetings & VIP events',
-      'shadow': 'Total invisibility & discretion • Elite protection for celebrities & high-profile clients',
-      'client-vehicle': 'Your own car + expert security driving • Most economical, no vehicle rental fees'
+      'essential': 'Single officer for professional protection • Perfect for meetings, appointments & daily security',
+      'executive': '1-2 officers with advance planning • Coordinated security for high-profile occasions',
+      'shadow': '1-6 officers in plain clothes • Scalable covert protection for elevated threat levels',
+      'client-vehicle': 'Security officer operates your vehicle • No mileage fees, complete privacy'
     };
     return usps[service.id as keyof typeof usps] || '';
   };
@@ -205,8 +247,8 @@ export function ServiceComparison({
   return (
     <div className={styles.container}>
       <div className={styles.header}>
-        <h2 className={styles.title}>Choose Your Protection Level</h2>
-        <p className={styles.subtitle}>All officers are SIA-licensed and background-checked. We'll match you with the right CPO based on your needs and provide a secure vehicle. Pick the level that feels right for your journey.</p>
+        <h2 className={styles.title}>Select Your Protection Service</h2>
+        <p className={styles.subtitle}>All officers are SIA-licensed Close Protection Officers with enhanced background checks. Select the service level based on your security requirements and threat assessment.</p>
       </div>
 
 

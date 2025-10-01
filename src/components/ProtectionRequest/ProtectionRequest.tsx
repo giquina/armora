@@ -406,13 +406,19 @@ export function ProtectionRequest({ onAssignmentRequested, className }: Protecti
         <h1 className={styles.title}>{getPageTitle}</h1>
         <p className={styles.subtitle}>{getPageSubtitle}</p>
         <div className={styles.trustBadges}>
-          <span className={styles.badge}>⚡ Fast response</span>
-          <span className={styles.badge}>📍 Nationwide coverage</span>
-          <span className={styles.badge}>✓ SIA & Government licensed</span>
+          <span className={styles.badge}>🛡️ SIA-Licensed Close Protection</span>
+          <span className={styles.badge}>🚗 Secure Protected Transport</span>
+          <span className={styles.badge}>⚡ Rapid CPO Deployment</span>
         </div>
       </div>
 
       <div className={styles.contentWrapper}>
+        {/* STEP 1: WHERE & WHEN */}
+        <div className={styles.stepIndicator}>
+          <span className={styles.stepNumber}>STEP 1</span>
+          <span className={styles.stepTitle}>WHERE & WHEN</span>
+        </div>
+
         {/* SECTION 2: LOCATION INPUT - Move to top */}
         <div className={styles.locationSection}>
           <LocationInput
@@ -444,6 +450,12 @@ export function ProtectionRequest({ onAssignmentRequested, className }: Protecti
           )}
         </div>
 
+        {/* STEP 2: PROTECTION TYPE */}
+        <div className={styles.stepIndicator}>
+          <span className={styles.stepNumber}>STEP 2</span>
+          <span className={styles.stepTitle}>WHAT PROTECTION</span>
+        </div>
+
         {/* SECTION 3: SITUATION SELECTOR */}
         <div className={styles.situationSection}>
           <SituationSelector
@@ -461,6 +473,12 @@ export function ProtectionRequest({ onAssignmentRequested, className }: Protecti
               </button>
             </div>
           )}
+        </div>
+
+        {/* STEP 3: SERVICE LEVEL */}
+        <div className={styles.stepIndicator}>
+          <span className={styles.stepNumber}>STEP 3</span>
+          <span className={styles.stepTitle}>SERVICE LEVEL</span>
         </div>
 
         {/* SECTION 3: SERVICE COMPARISON - Move before location */}

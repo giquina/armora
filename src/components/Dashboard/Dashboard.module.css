@@ -2840,7 +2840,7 @@
 .whyChooseTitle {
   font-size: var(--font-xxl);
   font-weight: var(--weight-bold);
-  color: var(--text-primary);
+  color: var(--armora-gold);
   text-align: center;
   margin: 0 0 var(--space-xl) 0;
   line-height: 1.2;
@@ -2865,20 +2865,23 @@
 }
 
 .whyChooseCard {
-  background: var(--bg-primary);
-  border: 1px solid var(--border-subtle);
+  background: #2a2a3e;
+  border: 2px solid rgba(255, 215, 0, 0.2);
   border-radius: var(--radius-lg);
   padding: var(--space-lg);
   text-align: center;
-  transition: all 0.3s ease;
+  transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
   position: relative;
   overflow: hidden;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
 }
 
 .whyChooseCard:hover {
   border-color: var(--accent-primary);
   transform: translateY(-4px);
-  box-shadow: 0 8px 25px rgba(255, 215, 0, 0.15);
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.25), 0 0 40px rgba(255, 215, 0, 0.2);
+  background: #2a2a3e;
 }
 
 .whyChooseCard::before {
@@ -2993,19 +2996,21 @@
 }
 
 .stepCard {
-  background: linear-gradient(135deg, var(--bg-secondary), rgba(255, 215, 0, 0.03));
-  border: 1px solid var(--border-subtle);
+  background: #2a2a3e;
+  border: 2px solid rgba(255, 215, 0, 0.2);
   border-radius: var(--radius-lg);
   padding: var(--space-xl);
   position: relative;
-  transition: all 0.3s ease;
+  transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
   overflow: hidden;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
 }
 
 .stepCard:hover {
   border-color: var(--accent-primary);
   transform: translateY(-4px);
-  box-shadow: 0 12px 30px rgba(255, 215, 0, 0.15);
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.25), 0 0 40px rgba(255, 215, 0, 0.2);
 }
 
 .stepCard::before {
@@ -3184,18 +3189,20 @@
 }
 
 .verificationCard {
-  background: var(--bg-primary);
-  border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-md);
+  background: #2a2a3e;
+  border: 2px solid rgba(255, 215, 0, 0.2);
+  border-radius: var(--radius-lg);
   padding: var(--space-lg);
   text-align: center;
-  transition: all 0.3s ease;
+  transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
 }
 
 .verificationCard:hover {
   border-color: var(--accent-primary);
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(255, 215, 0, 0.1);
+  transform: translateY(-4px);
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.25), 0 0 40px rgba(255, 215, 0, 0.2);
 }
 
 .verificationType {
@@ -3209,6 +3216,7 @@
   list-style: none;
   padding: 0;
   margin: 0;
+  text-align: left;
 }
 
 .verificationList li {
@@ -3217,6 +3225,7 @@
   margin-bottom: var(--space-xs);
   position: relative;
   padding-left: var(--space-md);
+  text-align: left;
 }
 
 .verificationList li:before {
@@ -3350,20 +3359,22 @@
 }
 
 .phaseCard {
-  background: linear-gradient(135deg, var(--bg-secondary), rgba(255, 215, 0, 0.03));
-  border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-md);
+  background: #2a2a3e;
+  border: 2px solid rgba(255, 215, 0, 0.2);
+  border-radius: var(--radius-lg);
   padding: var(--space-lg);
   text-align: center;
-  transition: all 0.3s ease;
+  transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
   position: relative;
   overflow: hidden;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
 }
 
 .phaseCard:hover {
   border-color: var(--accent-primary);
-  transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(255, 215, 0, 0.15);
+  transform: translateY(-4px);
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.25), 0 0 40px rgba(255, 215, 0, 0.2);
 }
 
 .phaseCard::before {
@@ -3536,8 +3547,8 @@
 }
 
 .viewAllCPOsButton {
-  background: linear-gradient(135deg, var(--primary-gold), #ffed4a);
-  color: var(--text-dark);
+  background: linear-gradient(135deg, var(--armora-gold), #ffed4a);
+  color: #000000;
   border: none;
   border-radius: 12px;
   padding: var(--space-md) var(--space-xl);
@@ -3555,7 +3566,7 @@
 .viewAllCPOsButton:hover {
   transform: translateY(-2px);
   box-shadow: 0 8px 30px rgba(255, 215, 0, 0.4);
-  background: linear-gradient(135deg, #ffed4a, var(--primary-gold));
+  background: linear-gradient(135deg, #ffed4a, var(--armora-gold));
 }
 
 .viewAllCPOsButton:active {

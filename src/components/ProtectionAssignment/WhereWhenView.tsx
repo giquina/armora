@@ -27,32 +27,32 @@ const SERVICE_OPTIONS: ServiceOption[] = [
   {
     id: 'standard',
     name: 'Essential Protection',
-    price: '£50/hour',
-    description: 'Professional protection for everyday security',
+    price: '£50/hour + £2.50/mile',
+    description: '1 SIA-licensed Protection Officer for professional security',
     icon: '🛡️',
-    features: ['SIA-licensed officers', 'Real-time tracking', '24/7 support']
+    features: ['Single CPO', 'Security assessment', '2-hour minimum']
   },
   {
     id: 'executive',
     name: 'Executive Protection',
-    price: '£75/hour',
-    description: 'Premium security for high-profile clients',
+    price: '£75/hour + £3.50/mile',
+    description: '1-2 Officers with advance reconnaissance and coordination',
     icon: '👔',
-    features: ['Advanced threat assessment', 'Discrete surveillance', 'Emergency protocols']
+    features: ['1-2 CPOs scalable', 'Advance planning', 'Ex-military background']
   },
   {
     id: 'shadow',
-    name: 'Shadow Protocol',
-    price: '£65/hour',
-    description: 'Special Forces trained, covert protection specialists',
+    name: 'Shadow Protection',
+    price: '£65/hour + £3.00/mile',
+    description: '1-6 Officers, covert layered security for elevated threats',
     icon: '🕴️',
-    features: ['Military-grade training', 'Covert operations', 'Counter-surveillance']
+    features: ['1-6 CPOs scalable', 'Plain clothes', 'Special Forces trained']
   },
   {
     id: 'client-vehicle',
     name: 'Client Vehicle Service',
     price: '£55/hour',
-    description: 'Security-trained Protection Officer for your vehicle',
+    description: 'SIA-trained Protection Officer operates your personal vehicle',
     icon: '🔑',
     features: ['Your vehicle', 'No mileage charges', 'Enhanced privacy']
   }
