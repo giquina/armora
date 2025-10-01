@@ -367,7 +367,7 @@
   padding: 16px;
   position: relative;
   transition: all 0.2s ease;
-  margin-bottom: 16px;
+  margin-bottom: 0;
   width: 100%;
 }
 
@@ -649,9 +649,34 @@
   filter: brightness(0.95);
 }
 
+/* Unified Location Wrapper - Connected Design */
+.locationInputWrapper {
+  background: rgba(255, 255, 255, 0.5);
+  border: 2px solid #c9a961;
+  border-radius: 12px;
+  padding: 0;
+  box-shadow: 0 2px 8px rgba(201, 169, 97, 0.2);
+  backdrop-filter: blur(8px);
+  overflow: hidden;
+}
+
 /* Input Groups */
 .inputGroup {
-  margin-bottom: 20px;
+  margin-bottom: 0;
+  padding: 20px;
+  background: white;
+}
+
+/* First Input Group - Top rounded corners */
+.inputGroupFirst {
+  border-radius: 12px 12px 0 0;
+  border-bottom: 1px solid #c9a961;
+}
+
+/* Last Input Group - Bottom rounded corners */
+.inputGroupLast {
+  border-radius: 0 0 12px 12px;
+  border-top: none;
 }
 
 .inputLabel {
@@ -659,6 +684,36 @@
   font-weight: 600;
   color: #1a2332;
   margin: 0 0 10px 0;
+}
+
+/* Route Connector - Visual journey indicator */
+.routeConnector {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 0;
+  background: linear-gradient(to bottom, #ffffff 0%, #f9fafb 50%, #ffffff 100%);
+  border-top: 1px solid #e5e7eb;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.routeLine {
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(to right, transparent, #c9a961, transparent);
+}
+
+.routeIcon {
+  font-size: 18px;
+  color: #c9a961;
+  font-weight: 700;
+  padding: 0 12px;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: translateY(0); }
+  50% { opacity: 0.6; transform: translateY(2px); }
 }
 
 /* Current Location Button */

@@ -7,6 +7,7 @@ import { OfficerProfile } from './components/OfficerProfile';
 import { LocationInput } from './components/LocationInput';
 import { TimeSelection } from './components/TimeSelection';
 import { BottomActionBar } from './components/BottomActionBar';
+import { PaymentModal } from './components/PaymentModal';
 import type { Situation } from './components/SituationSelector';
 import type { ServiceTier } from './components/ServiceComparison';
 import styles from './ProtectionRequest.module.css';
@@ -96,6 +97,9 @@ export function ProtectionRequest({ onAssignmentRequested, className }: Protecti
     agreeVerification: false,
     acceptTerms: false
   });
+
+  // Payment modal state
+  const [showPaymentModal, setShowPaymentModal] = useState(false);
 
   // Auto-scroll helper function
   const scrollToSection = useCallback((sectionSelector: string) => {
@@ -232,19 +236,26 @@ export function ProtectionRequest({ onAssignmentRequested, className }: Protecti
     }
   }, []);
 
-  // Handle protection request
-  const handleRequestProtection = useCallback(() => {
+  // Handle proceed to payment - opens payment modal
+  const handleProceedToPayment = useCallback(() => {
     if (!isReadyToRequest || !selectedService) return;
 
     // Save destination to recent locations
     saveDestination(secureDestination);
 
-    // Store assignment data
+    // Open payment modal
+    setShowPaymentModal(true);
+  }, [isReadyToRequest, selectedService, saveDestination, secureDestination]);
+
+  // Handle payment success
+  const handlePaymentSuccess = useCallback((paymentIntentId: string) => {
+    // Store assignment data with payment confirmation
     const assignmentData = {
       selectedSituation: selectedSituation?.id || 'general',
-      selectedService: selectedService.id,
-      serviceName: selectedService.name,
-      serviceRate: selectedService.rate,
+      selectedService: selectedService?.id,
+      serviceName: selectedService?.name,
+      serviceRate: selectedService?.rate,
+      pickupLocation: pickupLocation.trim(),
       secureDestination: secureDestination.trim(),
       commencementTime,
       scheduledDateTime: commencementTime === 'schedule' ? scheduledDateTime : null,
@@ -253,13 +264,67 @@ export function ProtectionRequest({ onAssignmentRequested, className }: Protecti
       originalServiceFee: originalFee,
       discountApplied: hasDiscount,
       discountAmount: savings,
+      paymentIntentId,
+      paymentStatus: 'completed',
       createdAt: new Date().toISOString(),
       user: state.user
     };
 
     localStorage.setItem('armora_assignment_data', JSON.stringify(assignmentData));
+    localStorage.setItem('armora_payment_confirmed', paymentIntentId);
+
+    // Close modal and navigate to confirmation
+    setShowPaymentModal(false);
     onAssignmentRequested();
-  }, [isReadyToRequest, saveDestination, secureDestination, selectedSituation, selectedService, commencementTime, scheduledDateTime, finalFee, originalFee, hasDiscount, savings, state.user, onAssignmentRequested]);
+  }, [selectedSituation, selectedService, pickupLocation, secureDestination, commencementTime, scheduledDateTime, finalFee, originalFee, hasDiscount, savings, state.user, onAssignmentRequested]);
+
+  // Handle payment error
+  const handlePaymentError = useCallback((error: string) => {
+    console.error('Payment failed:', error);
+    // Error is displayed in modal, user can retry
+    // Modal stays open
+  }, []);
+
+  // Smart scroll to first incomplete step
+  const handleScrollToIncompleteStep = useCallback(() => {
+    const hasBothLocations = pickupLocation.trim() && secureDestination.trim();
+    const hasSituation = !!selectedSituation;
+    const hasService = !!selectedService;
+    const hasTime = commencementTime && (commencementTime !== 'schedule' || scheduledDateTime);
+    const termsAccepted = Object.values(terms).every(v => v === true);
+
+    // STEP 1: Locations not complete
+    if (!hasBothLocations) {
+      scrollToSection('.locationSection');
+      return;
+    }
+
+    // STEP 2: Situation not selected
+    if (!hasSituation) {
+      scrollToSection('.situationSection');
+      return;
+    }
+
+    // STEP 3: Service not selected
+    if (!hasService) {
+      scrollToSection('[data-section="service-comparison"]');
+      return;
+    }
+
+    // STEP 4: Time not selected
+    if (!hasTime) {
+      scrollToSection('.timeSelectionSection');
+      return;
+    }
+
+    // STEP 5: Terms not accepted
+    if (!termsAccepted) {
+      scrollToSection('.termsSection');
+      return;
+    }
+
+    // All complete - do nothing (panel will handle expanding)
+  }, [pickupLocation, secureDestination, selectedSituation, selectedService, commencementTime, scheduledDateTime, terms, scrollToSection]);
 
   // Format deployment time - memoized to prevent re-computation
   const deploymentInfo = useMemo(() => {
@@ -284,110 +349,134 @@ export function ProtectionRequest({ onAssignmentRequested, className }: Protecti
     const hasBothLocations = pickupLocation.trim() && secureDestination.trim();
     const hasSituation = !!selectedSituation;
     const hasService = !!selectedService;
+    const hasTime = commencementTime && (commencementTime !== 'schedule' || scheduledDateTime);
     const termsAccepted = Object.values(terms).every(v => v === true);
 
-    // State 1: Nothing selected
-    if (!hasLocation && !hasSituation && !hasService) {
-      return {
-        message: '👋 Welcome! Start by entering your location above',
-        hint: '↑ Scroll up to begin',
-        showScrollHint: true
-      };
-    }
+    // Calculate current step and progress
+    let currentStep = 1;
+    let stepTitle = '';
+    let stepStatus = '';
+    let progressText = '';
+    let panelTitle = '';
+    let panelSubtitle = '';
 
-    // State 2: Location only (partial or complete)
-    if (hasLocation && !hasSituation && !hasService) {
-      if (!hasBothLocations) {
-        return {
-          message: '✓ Almost there! Enter both protection commencement point and secure destination',
-          hint: '↑ Complete locations',
-          showScrollHint: true
-        };
+    // STEP 1: Locations
+    if (!hasBothLocations) {
+      currentStep = 1;
+      stepTitle = 'STEP 1 of 5 INCOMPLETE';
+      panelTitle = 'Configure Protection Detail';
+      panelSubtitle = '✓ SIA-licensed security • Nationwide coverage';
+      if (!hasLocation) {
+        stepStatus = 'Complete your locations to continue';
+        progressText = 'Enter commencement point and destination';
+      } else {
+        stepStatus = 'STEP 1 of 5 - Almost Complete';
+        progressText = hasLocation && !pickupLocation.trim() ? 'Enter commencement point' : 'Enter destination';
       }
       return {
-        message: '✓ Protection route set • Next: Choose your journey type below',
-        hint: '↓ Scroll down',
-        showScrollHint: true
+        message: stepTitle,
+        hint: stepStatus,
+        progressText,
+        panelTitle,
+        panelSubtitle,
+        showScrollHint: true,
+        currentStep: 1
       };
     }
 
-    // State 3: Situation only
-    if (!hasLocation && hasSituation && !hasService) {
-      return {
-        message: `✓ ${selectedSituation.label} selected • Next: Enter your location above`,
-        hint: '↑ Scroll up',
-        showScrollHint: true
-      };
-    }
-
-    // State 4: Service only
-    if (!hasLocation && !hasSituation && hasService) {
-      return {
-        message: `✓ ${selectedService.name} selected • Next: Enter your location above`,
-        hint: '↑ Scroll up',
-        showScrollHint: true
-      };
-    }
-
-    // State 5: Location + Situation
-    if (hasBothLocations && hasSituation && !hasService) {
-      return {
-        message: '✓ Location & journey type set • Next: Select your protection level below',
-        hint: '↓ Choose service',
-        showScrollHint: true
-      };
-    }
-
-    // State 6: Location + Service
-    if (hasBothLocations && !hasSituation && hasService) {
-      if (!termsAccepted) {
-        return {
-          message: '✓ Almost ready! Choose your time and accept terms below',
-          hint: '↓ Scroll down',
-          showScrollHint: true
-        };
+    // STEP 2: Situation (optional, can skip) or STEP 3: Service
+    if (hasBothLocations && !hasService) {
+      currentStep = 2;
+      panelTitle = 'Protection Detail Setup';
+      panelSubtitle = '✓ Enhanced-vetted CPOs • Professional security';
+      if (!hasSituation) {
+        stepTitle = 'STEP 2 of 5 - Choose Protection Scenario';
+        stepStatus = 'Select your situation type above';
+        progressText = '✓ Locations confirmed • Next: Select scenario';
+      } else {
+        stepTitle = 'STEP 3 of 5 - Select Protection Level';
+        stepStatus = 'Choose your service tier above';
+        progressText = '✓ Scenario selected • Next: Choose service level';
+        currentStep = 3;
       }
       return {
-        message: '✅ Ready to request protection',
-        hint: '',
-        showScrollHint: false
+        message: stepTitle,
+        hint: stepStatus,
+        progressText,
+        panelTitle,
+        panelSubtitle,
+        showScrollHint: true,
+        currentStep
       };
     }
 
-    // State 7: Situation + Service
-    if (!hasBothLocations && hasSituation && hasService) {
+    // STEP 4: Time selection
+    if (hasBothLocations && hasService && !hasTime) {
+      currentStep = 4;
+      stepTitle = 'STEP 4 of 5 - Choose Commencement Time';
+      stepStatus = 'Select when you need protection to begin';
+      progressText = '✓ Service selected • Next: Choose time';
+      panelTitle = 'Protection Detail Setup';
+      panelSubtitle = '✓ Enhanced-vetted CPOs • Professional security';
       return {
-        message: `✓ ${selectedSituation.label} & ${selectedService.shortName} selected • Next: Enter location`,
-        hint: '↑ Scroll up',
-        showScrollHint: true
+        message: stepTitle,
+        hint: stepStatus,
+        progressText,
+        panelTitle,
+        panelSubtitle,
+        showScrollHint: true,
+        currentStep: 4
       };
     }
 
-    // State 8: Almost complete (all except terms)
-    if (hasBothLocations && hasService && !termsAccepted) {
+    // STEP 5: Terms acceptance
+    if (hasBothLocations && hasService && hasTime && !termsAccepted) {
+      currentStep = 5;
+      stepTitle = 'STEP 5 of 5 - Review & Accept Terms';
+      stepStatus = 'Accept terms below to request protection';
+      progressText = '✓ Time selected • Final step!';
+      panelTitle = 'Protection Detail Setup';
+      panelSubtitle = '✓ Enhanced-vetted CPOs • Professional security';
       return {
-        message: '⚠️ Almost there! Accept terms below to continue',
-        hint: '↓ Scroll down',
-        showScrollHint: true
+        message: stepTitle,
+        hint: stepStatus,
+        progressText,
+        panelTitle,
+        panelSubtitle,
+        showScrollHint: true,
+        currentStep: 5
       };
     }
 
-    // State 9: Everything complete
-    if (hasBothLocations && hasService && termsAccepted) {
+    // Everything complete
+    if (hasBothLocations && hasService && hasTime && termsAccepted) {
+      stepTitle = 'READY TO REQUEST';
+      stepStatus = 'All details confirmed';
+      progressText = '✓ CPO deployment confirmed • Request below';
+      panelTitle = 'Security Detail Ready';
+      panelSubtitle = '✓ CPO deployment confirmed • Request below';
       return {
-        message: '✅ Ready to request protection',
-        hint: '',
-        showScrollHint: false
+        message: stepTitle,
+        hint: stepStatus,
+        progressText,
+        panelTitle,
+        panelSubtitle,
+        showScrollHint: false,
+        currentStep: 5
       };
     }
 
     // Default fallback
     return {
-      message: 'Select protection level above',
-      hint: '↑ Choose options above',
-      showScrollHint: true
+      message: 'STEP 1 of 5 INCOMPLETE',
+      hint: 'Complete your locations to continue',
+      progressText: 'Enter commencement point and destination',
+      panelTitle: 'Configure Protection Detail',
+      panelSubtitle: '✓ SIA-licensed security • Nationwide coverage',
+      showScrollHint: true,
+      currentStep: 1
     };
-  }, [pickupLocation, secureDestination, selectedSituation, selectedService, terms]);
+  }, [pickupLocation, secureDestination, selectedSituation, selectedService, commencementTime, scheduledDateTime, terms]);
 
   return (
     <div className={`${styles.protectionRequest} ${className || ''}`}>
@@ -400,24 +489,35 @@ export function ProtectionRequest({ onAssignmentRequested, className }: Protecti
       >
         <span>←</span>
       </button>
-      {/* Header */}
-      <div className={styles.header}>
-        <div className={styles.statusLine}>🟢 Officers Available Now</div>
-        <h1 className={styles.title}>{getPageTitle}</h1>
-        <p className={styles.subtitle}>{getPageSubtitle}</p>
+      {/* Page Header - Separate section */}
+      <div className={styles.pageHeader}>
+        <h1 className={styles.title}>Request Your Protection Detail</h1>
+        <p className={styles.subtitle}>SIA-licensed Close Protection Officers across England & Wales</p>
+      </div>
+
+      {/* STEP 1 Section - Separate from header */}
+      <div className={styles.step1Section}>
+        <div className={styles.stepIndicatorInHeader}>
+          <div className={styles.stepHeaderRow}>
+            <span className={styles.stepNumber}>STEP 1</span>
+            <span className={styles.stepProgress}>of 5</span>
+            <span className={styles.stepDivider}>|</span>
+            <span className={styles.stepTime}>⏱️ 2 minutes</span>
+          </div>
+          <div className={styles.stepDescriptionInHeader}>
+            <p className={styles.stepDescriptionText}>Tell us where you need protection to begin and your destination. Your Close Protection Officer will arrive at your location to commence your security detail.</p>
+            <p className={styles.stepActionHint}>Enter your locations below</p>
+          </div>
+        </div>
+
         <div className={styles.trustBadges}>
-          <span className={styles.badge}>🛡️ SIA-Licensed Close Protection</span>
-          <span className={styles.badge}>🚗 Secure Protected Transport</span>
-          <span className={styles.badge}>⚡ Rapid CPO Deployment</span>
+          <span className={styles.badge}>● Enhanced-Vetted Officers</span>
+          <span className={styles.badge}>● Professional Security Transport</span>
+          <span className={styles.badge}>● 24/7 Rapid Response</span>
         </div>
       </div>
 
       <div className={styles.contentWrapper}>
-        {/* STEP 1: WHERE & WHEN */}
-        <div className={styles.stepIndicator}>
-          <span className={styles.stepNumber}>STEP 1</span>
-          <span className={styles.stepTitle}>WHERE & WHEN</span>
-        </div>
 
         {/* SECTION 2: LOCATION INPUT - Move to top */}
         <div className={styles.locationSection}>
@@ -452,8 +552,16 @@ export function ProtectionRequest({ onAssignmentRequested, className }: Protecti
 
         {/* STEP 2: PROTECTION TYPE */}
         <div className={styles.stepIndicator}>
-          <span className={styles.stepNumber}>STEP 2</span>
-          <span className={styles.stepTitle}>WHAT PROTECTION</span>
+          <div className={styles.stepHeaderRow}>
+            <span className={styles.stepNumber}>STEP 2</span>
+            <span className={styles.stepProgress}>of 5</span>
+            <span className={styles.stepDivider}>|</span>
+            <span className={styles.stepTime}>⏱️ 1 minute</span>
+          </div>
+          <div className={styles.stepDescription}>
+            <p className={styles.stepDescriptionTitle}>Choose Your Protection Scenario</p>
+            <p className={styles.stepDescriptionText}>Select the situation that best matches your needs. Based on real client cases, we'll recommend the appropriate SIA-licensed CPO for your security requirements.</p>
+          </div>
         </div>
 
         {/* SECTION 3: SITUATION SELECTOR */}
@@ -477,8 +585,16 @@ export function ProtectionRequest({ onAssignmentRequested, className }: Protecti
 
         {/* STEP 3: SERVICE LEVEL */}
         <div className={styles.stepIndicator}>
-          <span className={styles.stepNumber}>STEP 3</span>
-          <span className={styles.stepTitle}>SERVICE LEVEL</span>
+          <div className={styles.stepHeaderRow}>
+            <span className={styles.stepNumber}>STEP 3</span>
+            <span className={styles.stepProgress}>of 5</span>
+            <span className={styles.stepDivider}>|</span>
+            <span className={styles.stepTime}>⏱️ 1 minute</span>
+          </div>
+          <div className={styles.stepDescription}>
+            <p className={styles.stepDescriptionTitle}>Choose Your Protection Level</p>
+            <p className={styles.stepDescriptionText}>Every CPO is SIA-licensed with enhanced background checks. Select the tier based on your security requirements and situation complexity.</p>
+          </div>
         </div>
 
         {/* SECTION 3: SERVICE COMPARISON - Move before location */}
@@ -494,11 +610,16 @@ export function ProtectionRequest({ onAssignmentRequested, className }: Protecti
         {/* SECTION 4: TIME SELECTION - Show when service selected */}
         {selectedService && (
           <div className={styles.timeSelectionSection}>
-            <div className={styles.sectionHeader}>
-              <div className={styles.sectionHeaderIcon}>⏰</div>
-              <div className={styles.sectionHeaderContent}>
-                <h2 className={styles.sectionTitle}>When do you need protection?</h2>
-                <p className={styles.sectionSubtitle}>Choose your preferred start time</p>
+            <div className={styles.stepIndicator}>
+              <div className={styles.stepHeaderRow}>
+                <span className={styles.stepNumber}>STEP 4</span>
+                <span className={styles.stepProgress}>of 5</span>
+                <span className={styles.stepDivider}>|</span>
+                <span className={styles.stepTime}>⏱️ 30 seconds</span>
+              </div>
+              <div className={styles.stepDescription}>
+                <p className={styles.stepDescriptionTitle}>When Should Protection Commence?</p>
+                <p className={styles.stepDescriptionText}>Choose when you need your Close Protection Officer to arrive. Select immediate deployment (2-4 min response) or schedule for a specific date and time.</p>
               </div>
             </div>
 
@@ -528,7 +649,18 @@ export function ProtectionRequest({ onAssignmentRequested, className }: Protecti
         {/* SECTION 5: CONFIRMATION DETAILS */}
         {selectedService && secureDestination && (
           <div className={styles.confirmationSection}>
-            <h2 className={styles.sectionTitle}>Confirmation Details</h2>
+            <div className={styles.stepIndicator}>
+              <div className={styles.stepHeaderRow}>
+                <span className={styles.stepNumber}>STEP 5</span>
+                <span className={styles.stepProgress}>of 5</span>
+                <span className={styles.stepDivider}>|</span>
+                <span className={styles.stepTime}>⏱️ 1 minute</span>
+              </div>
+              <div className={styles.stepDescription}>
+                <p className={styles.stepDescriptionTitle}>Review & Accept Terms</p>
+                <p className={styles.stepDescriptionText}>Review your protection detail summary and accept our terms of service. Your booking will be confirmed after payment.</p>
+              </div>
+            </div>
 
             {/* Selected Options Summary */}
             <div className={styles.selectionSummary}>
@@ -617,19 +749,40 @@ export function ProtectionRequest({ onAssignmentRequested, className }: Protecti
           rate: selectedService.rate,
           hourlyRate: selectedService.hourlyRate,
           situation: selectedSituation?.label,
-          journeyRoute: pickupLocation && secureDestination ? `${pickupLocation} → ${secureDestination}` : undefined
+          journeyRoute: pickupLocation && secureDestination ? `${pickupLocation} → ${secureDestination}` : undefined,
+          officerLevel: selectedService.officerLevel
         } : undefined}
         primaryButtonText={
           !selectedService
-            ? getContextualGuidance.message
+            ? `Complete Step ${getContextualGuidance.currentStep}`
             : !Object.values(terms).every(v => v)
-            ? `Request ${selectedService.shortName || selectedService.name} - £${finalFee.toFixed(2)}`
-            : `Request ${selectedService.shortName || selectedService.name} - £${finalFee.toFixed(2)}`
+            ? `Accept Terms to Continue`
+            : `Proceed to Payment`
         }
-        onPrimaryAction={handleRequestProtection}
+        onPrimaryAction={handleProceedToPayment}
         onChangeSelection={selectedService ? handleChangeSelection : undefined}
-        additionalInfo={deploymentInfo}
+        onScrollToIncomplete={handleScrollToIncompleteStep}
+        additionalInfo={getContextualGuidance.progressText}
         contextualHint={getContextualGuidance.hint}
+        panelTitle={getContextualGuidance.panelTitle}
+        panelSubtitle={getContextualGuidance.panelSubtitle}
+        currentStep={getContextualGuidance.currentStep}
+      />
+
+      {/* Payment Modal */}
+      <PaymentModal
+        isOpen={showPaymentModal}
+        onClose={() => setShowPaymentModal(false)}
+        bookingSummary={{
+          serviceName: selectedService?.name || '',
+          journeyRoute: pickupLocation && secureDestination ? `${pickupLocation} → ${secureDestination}` : '',
+          commencementTime: deploymentInfo || '',
+          totalPrice: finalFee,
+          hasDiscount: hasDiscount,
+          originalPrice: hasDiscount ? originalFee : undefined
+        }}
+        onPaymentSuccess={handlePaymentSuccess}
+        onPaymentError={handlePaymentError}
       />
     </div>
   );

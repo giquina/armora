@@ -213,9 +213,11 @@ export const LocationInput: React.FC<LocationInputProps> = ({
 
   return (
     <div className={`${styles.locationInput} ${className}`}>
+      {/* Unified Location Wrapper */}
+      <div className={styles.locationInputWrapper}>
 
       {/* Protection Commencement Point */}
-      <div className={styles.inputGroup}>
+      <div className={`${styles.inputGroup} ${styles.inputGroupFirst}`}>
         <h3 className={styles.inputLabel}>📍 Protection Commencement Point</h3>
         <div className={styles.locationInputContainer}>
           {/* Address Display */}
@@ -347,8 +349,15 @@ export const LocationInput: React.FC<LocationInputProps> = ({
         </div>
       </div>
 
+      {/* Route Connector */}
+      <div className={styles.routeConnector}>
+        <div className={styles.routeLine}></div>
+        <div className={styles.routeIcon}>↓</div>
+        <div className={styles.routeLine}></div>
+      </div>
+
       {/* Secure Destination */}
-      <div className={styles.inputGroup}>
+      <div className={`${styles.inputGroup} ${styles.inputGroupLast}`}>
         <h3 className={styles.inputLabel}>📍 Secure Destination</h3>
         <div className={styles.locationInputContainer}>
           <div className={styles.inputWrapper}>
@@ -389,6 +398,8 @@ export const LocationInput: React.FC<LocationInputProps> = ({
           )}
         </div>
       </div>
+
+      </div> {/* End locationInputWrapper */}
 
       {/* Dropdown Menu - Only show if there are recent locations */}
       {(isOpen || isPickupOpen) && displayLocations.length > 0 && (

@@ -83,11 +83,43 @@
 */
 
 /* Header Section */
+/* Page Header Section - Simple title section with gold border (top part) */
+.pageHeader {
+  background: rgba(255, 255, 255, 0.5);
+  border: 2px solid #c9a961;
+  border-bottom: none;
+  border-radius: 12px 12px 0 0;
+  padding: 24px 18px 16px;
+  text-align: center;
+  max-width: 800px;
+  margin: 20px auto 0 auto;
+  width: calc(100% - 32px);
+  box-shadow: 0 2px 8px rgba(201, 169, 97, 0.2);
+  backdrop-filter: blur(8px);
+}
+
+/* STEP 1 Section - Connected gold section (bottom part) */
+.step1Section {
+  background: #c9a961;
+  border: 2px solid #c9a961;
+  border-top: none;
+  border-radius: 0 0 12px 12px;
+  box-shadow: 0 4px 12px rgba(201, 169, 97, 0.4);
+  margin: 0 auto 20px auto;
+  padding: 24px 32px 32px 32px;
+  text-align: center;
+  max-width: 800px;
+  width: calc(100% - 32px);
+  backdrop-filter: blur(10px);
+  overflow: hidden;
+}
+
+/* Keep .header for backwards compatibility */
 .header {
-  background: #2a2a3e;
-  border: 2px solid rgba(255, 215, 0, 0.2);
+  background: #c9a961;
+  border: 2px solid #c9a961;
   border-radius: 12px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 4px 12px rgba(201, 169, 97, 0.4);
   margin: 20px auto;
   padding: 32px;
   text-align: center;
@@ -108,7 +140,7 @@
 .title {
   font-size: 32px;
   font-weight: 700;
-  color: #FFD700 !important;
+  color: #1a2332 !important;
   margin: 0 0 8px 0;
   line-height: 1.2;
   word-wrap: break-word;
@@ -117,7 +149,7 @@
 .subtitle {
   font-size: 18px;
   font-weight: 400;
-  color: #ffffff !important;
+  color: #1a2332 !important;
   margin: 0 0 16px 0;
   line-height: 1.5;
   word-wrap: break-word;
@@ -130,10 +162,10 @@
   gap: 16px;
   flex-wrap: wrap;
   margin-top: 12px;
-  background: #c9a961;
+  background: rgba(0, 0, 0, 0.2);
   padding: 16px 24px;
   border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(201, 169, 97, 0.4);
+  box-shadow: none;
 }
 
 .badge {
@@ -182,6 +214,23 @@
   }
 }
 
+/* Step Section - Unified container for step + content */
+.stepSection {
+  background: #c9a961;
+  border: 2px solid #c9a961;
+  border-radius: 12px;
+  padding: 24px;
+  margin: 32px auto 24px auto;
+  max-width: 800px;
+  box-shadow: 0 4px 12px rgba(201, 169, 97, 0.4);
+}
+
+.sectionContent {
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 2px solid rgba(0, 0, 0, 0.1);
+}
+
 /* Step Indicators */
 .stepIndicator {
   background: #c9a961;
@@ -191,9 +240,100 @@
   margin: 32px auto 24px auto;
   max-width: 800px;
   display: flex;
-  align-items: center;
+  flex-direction: column;
+  align-items: flex-start;
   gap: 12px;
   box-shadow: 0 4px 12px rgba(201, 169, 97, 0.4);
+}
+
+.stepIndicator > span {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.stepDescription {
+  width: 100%;
+  margin-top: 12px;
+  padding-top: 16px;
+  border-top: 2px solid rgba(0, 0, 0, 0.1);
+}
+
+.stepDescriptionTitle {
+  font-size: 18px;
+  font-weight: 600;
+  color: #ffffff;
+  margin: 0 0 8px 0;
+}
+
+.stepDescriptionText {
+  font-size: 14px;
+  font-weight: 400;
+  color: #ffffff;
+  margin: 0;
+  line-height: 1.6;
+  opacity: 0.95;
+}
+
+/* Step Indicator inside stepSection - no separate box */
+.stepSection .stepIndicator {
+  background: transparent;
+  border: none;
+  padding: 0;
+  margin: 0;
+  box-shadow: none;
+}
+
+/* Step Indicator Inside Header - Connected style */
+.stepIndicatorInHeader {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+  margin-top: 0;
+  padding-top: 0;
+  border-top: none;
+}
+
+.stepHeaderRow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.stepProgress {
+  font-size: 14px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.stepDivider {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.5);
+  margin: 0 4px;
+}
+
+.stepTime {
+  font-size: 13px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.stepDescriptionInHeader {
+  width: 100%;
+  margin-top: 8px;
+  padding-top: 12px;
+  border-top: 2px solid rgba(0, 0, 0, 0.1);
+  text-align: left;
+}
+
+.stepActionHint {
+  font-size: 12px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.75);
+  margin: 8px 0 0 0;
+  font-style: italic;
 }
 
 .stepNumber {
@@ -781,19 +921,7 @@
   box-shadow: none;
 }
 
-/* Trust Badges - Single Row */
-.trustBadges {
-  background: linear-gradient(135deg, #FFD700, #ffa500) !important;
-  border: none;
-  border-radius: 8px;
-  padding: 16px 24px;
-  text-align: center;
-  box-shadow: 0 4px 12px rgba(255, 215, 0, 0.3);
-  font-size: 0.9rem;
-  font-weight: 600;
-  color: #1a1a2e !important;
-  margin-top: auto;
-}
+/* Trust Badges - Single Row - REMOVED DUPLICATE (already defined above) */
 
 /* Situation Section */
 .situationSection {
@@ -803,6 +931,22 @@
   border: 1px solid #e2e8f0;
   border-radius: 12px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  scroll-margin-top: 100px;
+  transition: all 0.3s ease;
+}
+
+.situationSection:target,
+.situationSection.scrollHighlight {
+  animation: pulseGold 2s ease-in-out;
+}
+
+@keyframes pulseGold {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(201, 169, 97, 0);
+  }
+  50% {
+    box-shadow: 0 0 0 8px rgba(201, 169, 97, 0.3);
+  }
 }
 
 .skipOption {
@@ -945,6 +1089,13 @@
 /* Terms Section */
 .termsSection {
   margin-top: 24px;
+  scroll-margin-top: 100px;
+  transition: all 0.3s ease;
+}
+
+.termsSection:target,
+.termsSection.scrollHighlight {
+  animation: pulseGold 2s ease-in-out;
 }
 
 .termsTitle {
@@ -1066,12 +1217,26 @@
 .locationSection {
   margin: 24px 0;
   padding: 0 16px;
+  scroll-margin-top: 100px;
+  transition: all 0.3s ease;
+}
+
+.locationSection:target,
+.locationSection.scrollHighlight {
+  animation: pulseGold 2s ease-in-out;
 }
 
 /* Time Selection Section */
 .timeSelectionSection {
   margin: 24px 0;
   padding: 0 16px;
+  scroll-margin-top: 100px;
+  transition: all 0.3s ease;
+}
+
+.timeSelectionSection:target,
+.timeSelectionSection.scrollHighlight {
+  animation: pulseGold 2s ease-in-out;
 }
 
 .sectionHeader {
