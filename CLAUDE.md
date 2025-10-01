@@ -212,7 +212,7 @@ When updating UI text:
 - En Route → CPO Approaching Principal
 
 ## Current Status
-✅ **Complete** (September 2025):
+✅ **Complete** (October 2025):
 - SIA compliance restructuring
 - TypeScript optimization (clean compilation)
 - Supabase-only authentication (Clerk removed)
@@ -222,11 +222,16 @@ When updating UI text:
 - Flexible port configuration (no hardcoded ports)
 - Service Worker disabled in development (prevents caching issues)
 - Hub design improvements (single-column layout, removed decorative elements)
+- **Production deployment on Vercel** (https://armora.vercel.app)
+- **Firebase Cloud Messaging integration** (Project: armora-protection)
+- **TWA Android app built** (AAB file ready for Play Store)
+- **Android App Links verification** (assetlinks.json deployed)
 
 ⚠️ **Remaining Tasks**:
+- Google Play Store developer account verification and publication
 - Test coverage expansion
 - PWA service worker implementation (only for production)
-- Payment integration completion
+- Payment integration completion (Stripe)
 
 ## Key Utilities
 - `timeEstimate.ts`: Standardized time formatting
@@ -250,4 +255,45 @@ When styling action buttons in the protection panel:
 - Date: **18px, weight 500, 75% opacity** (secondary)
 - Time: **16px, weight 400, 65% opacity** (tertiary)
 
-Last updated: 2025-09-29T19:30:00.000Z
+## Deployment Information
+
+### Production Environment
+- **Live URL**: https://armora.vercel.app
+- **Hosting**: Vercel (auto-deploy from GitHub main branch)
+- **Domain Verification**: https://armora.vercel.app/.well-known/assetlinks.json
+
+### Firebase Configuration
+- **Project ID**: armora-protection
+- **Console**: https://console.firebase.google.com/project/armora-protection
+- **Cloud Messaging**: Enabled (API V1)
+- **Sender ID**: 1010601153585
+
+### Android App Package
+- **Package Name**: com.armora.protection
+- **AAB File**: app-release-bundle.aab (1.9M)
+- **Keystore**: android.keystore (local only, not in repo)
+- **Keystore Password**: Armora2025Secure
+- **SHA-256 Fingerprint**: 19:45:2B:F1:4A:AC:90:49:29:31:BC:F7:8F:B8:AD:EF:AA:EA:A2:77:E5:78:E5:37:2E:CA:70:66:AB:EA:FB:D2
+
+### Build Commands for Android
+```bash
+# Install Bubblewrap CLI
+npm install -g @bubblewrap/cli
+
+# Update TWA project
+bubblewrap update
+
+# Build AAB and APK
+bubblewrap build
+```
+
+### Environment Variables (Vercel)
+```
+REACT_APP_FIREBASE_API_KEY=AIzaSyCByrZaVECC1n3mebfrRqEHdLxjAO86TEU
+REACT_APP_FIREBASE_AUTH_DOMAIN=armora-protection.firebaseapp.com
+REACT_APP_FIREBASE_PROJECT_ID=armora-protection
+REACT_APP_SUPABASE_URL=[from Supabase dashboard]
+REACT_APP_SUPABASE_ANON_KEY=[from Supabase dashboard]
+```
+
+Last updated: 2025-10-01T08:50:00.000Z
