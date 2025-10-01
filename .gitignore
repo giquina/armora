@@ -22,3 +22,27 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 .env.local
+
+# Android / TWA Build Files
+.gradle/
+app/
+build.gradle
+gradle.properties
+gradle/
+gradlew
+gradlew.bat
+settings.gradle
+app-release-*.apk
+app-release-*.aab
+app-release-*.idsig
+manifest-checksum.txt
+
+# Keystore (sensitive - keep local only)
+android.keystore
+*.keystore
+
+# TWA manifest (keep for reference but track separately)
+twa-manifest.json
+
+# Store assets
+store_icon.png
