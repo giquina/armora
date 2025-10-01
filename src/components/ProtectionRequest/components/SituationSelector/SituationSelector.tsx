@@ -256,11 +256,6 @@ export function SituationSelector({ selectedSituation, onSituationSelect }: Situ
 
   return (
     <div className={styles.container}>
-      <div className={styles.header}>
-        <h2 className={styles.title}>What type of protection do you need?</h2>
-        <p className={styles.instruction}>Tell us about your journey so we can recommend the right SIA-licensed Close Protection Officer for you. Each option shows real examples from clients like you.</p>
-      </div>
-
       {/* Carousel Wrapper */}
       <div className={styles.carouselWrapper}>
         {/* Navigation Arrows */}

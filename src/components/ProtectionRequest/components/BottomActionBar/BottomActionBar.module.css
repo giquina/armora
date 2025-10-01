@@ -6,9 +6,9 @@
   bottom: 0;
   left: 0;
   right: 0;
-  background: #ffffff;
-  border-top: 1px solid var(--border-light, #e2e8f0);
-  box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.1);
+  background: #fafafa;
+  border-top: 2px solid #c9a961;
+  box-shadow: 0 -4px 16px rgba(201, 169, 97, 0.25);
   z-index: var(--z-fixed, 100);
 
   /* Backdrop blur for modern appearance */
@@ -787,15 +787,15 @@
   flex: 1;
   height: var(--touch-large, 56px);
   padding: var(--space-4, 16px);
-  background: #1a2332; /* Navy background */
+  background: linear-gradient(135deg, #c9a961, #d4b96a);
   border: none;
   border-radius: var(--radius-lg, 12px);
-  color: white;
+  color: #1a2332;
   font-size: var(--text-lg, 18px);
   font-weight: var(--font-bold, 700);
   cursor: pointer;
   transition: all 300ms ease-in-out;
-  box-shadow: 0 4px 12px rgba(26, 35, 50, 0.3);
+  box-shadow: 0 4px 12px rgba(201, 169, 97, 0.4);
 
   /* Remove button styling */
   appearance: none;
@@ -815,10 +815,10 @@
 }
 
 .primaryButton:hover:not(:disabled) {
-  background: #c9a961; /* Gold on hover */
-  color: #1a2332; /* Navy text on gold background */
+  background: linear-gradient(135deg, #d4b96a, #c9a961);
+  color: #1a2332;
   transform: translateY(-2px);
-  box-shadow: 0 6px 16px rgba(201, 169, 97, 0.4);
+  box-shadow: 0 6px 20px rgba(201, 169, 97, 0.6);
 }
 
 .primaryButton:active:not(:disabled) {
@@ -1235,6 +1235,181 @@
   padding-bottom: 0;
   margin-top: 0;
   margin-bottom: 0;
+}
+
+/* ==========================================
+   NEW GOLD THEME SECTIONS
+   ========================================== */
+
+/* Service Summary Section */
+.serviceSummarySection {
+  background: #c9a961;
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 12px;
+  box-shadow: 0 2px 8px rgba(201, 169, 97, 0.3);
+}
+
+.serviceSummaryHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.serviceSummaryTitle {
+  font-size: 18px;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0;
+}
+
+.headerActions {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.changeLinkGold {
+  background: rgba(0, 0, 0, 0.2);
+  border: none;
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 6px 12px;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+}
+
+.changeLinkGold:hover {
+  background: rgba(0, 0, 0, 0.3);
+}
+
+.minimizeButton {
+  background: rgba(0, 0, 0, 0.2);
+  border: none;
+  color: #ffffff;
+  font-size: 18px;
+  font-weight: 700;
+  cursor: pointer;
+  padding: 4px 10px;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+  line-height: 1;
+}
+
+.minimizeButton:hover {
+  background: rgba(0, 0, 0, 0.3);
+}
+
+.serviceFeatures {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.featureBadge {
+  background: rgba(0, 0, 0, 0.2);
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 500;
+  padding: 6px 12px;
+  border-radius: 6px;
+}
+
+/* Journey Summary Section */
+.journeySummarySection {
+  background: rgba(201, 169, 97, 0.15);
+  border: 1px solid rgba(201, 169, 97, 0.3);
+  border-radius: 8px;
+  padding: 12px;
+  margin-bottom: 12px;
+}
+
+.journeySectionTitle {
+  font-size: 14px;
+  font-weight: 600;
+  color: #1a2332;
+  margin: 0 0 8px 0;
+}
+
+.journeyInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.journeyRoute {
+  font-size: 14px;
+  color: #374151;
+  font-weight: 500;
+}
+
+.journeyTiming {
+  font-size: 13px;
+  color: #6b7280;
+  font-weight: 400;
+}
+
+/* Pricing Breakdown Section */
+.pricingBreakdownSection {
+  background: rgba(201, 169, 97, 0.1);
+  border: 1px solid rgba(201, 169, 97, 0.25);
+  border-radius: 8px;
+  padding: 14px;
+  margin-bottom: 12px;
+}
+
+.pricingSectionTitle {
+  font-size: 14px;
+  font-weight: 600;
+  color: #1a2332;
+  margin: 0 0 12px 0;
+}
+
+.pricingLine {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+  font-size: 14px;
+}
+
+.pricingLineLabel {
+  color: #374151;
+  font-weight: 500;
+}
+
+.pricingLineValue {
+  color: #1a2332;
+  font-weight: 600;
+}
+
+.discountLineValue {
+  color: #059669;
+  font-weight: 700;
+}
+
+.pricingTotalLine {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 12px;
+  margin-top: 8px;
+  border-top: 2px solid rgba(201, 169, 97, 0.3);
+}
+
+.pricingTotalLabel {
+  font-size: 16px;
+  font-weight: 700;
+  color: #1a2332;
+}
+
+.pricingTotalValue {
+  font-size: 22px;
+  font-weight: 800;
+  color: #c9a961;
 }
 
 /* Mobile optimization for hide button */

@@ -246,12 +246,6 @@ export function ServiceComparison({
 
   return (
     <div className={styles.container}>
-      <div className={styles.header}>
-        <h2 className={styles.title}>Select Your Protection Service</h2>
-        <p className={styles.subtitle}>All officers are SIA-licensed Close Protection Officers with enhanced background checks. Select the service level based on your security requirements and threat assessment.</p>
-      </div>
-
-
       {/* Collapsible Service Cards */}
       <div className={styles.serviceCards}>
         {SERVICE_TIERS.map((service) => {
