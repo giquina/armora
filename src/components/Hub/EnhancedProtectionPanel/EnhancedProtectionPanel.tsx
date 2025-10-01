@@ -1,5 +1,6 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { TimeExtensionModal } from './TimeExtensionModal';
+import { useRealtimeTracking } from '../../../hooks/useRealtimeTracking';
 import styles from './EnhancedProtectionPanel.module.css';
 
 interface Officer {
@@ -47,6 +48,14 @@ export function EnhancedProtectionPanel({
   const startY = useRef(0);
   const currentY = useRef(0);
   const isDragging = useRef(false);
+
+  // Real-time tracking integration
+  const {
+    location: officerLocation,
+    progress: routeProgress,
+    isLoading: isTrackingLoading,
+    isActive: isTrackingActive,
+  } = useRealtimeTracking(assignmentId);
 
   // Enhanced touch handlers with improved swipe detection
   const handleTouchStart = (e: React.TouchEvent) => {
@@ -158,7 +167,7 @@ export function EnhancedProtectionPanel({
     }
   };
 
-  // Get current status display
+  // Get current status display with real-time data
   const getStatusInfo = () => {
     const defaultStatus = {
       location: 'Near Mayfair',
@@ -170,6 +179,28 @@ export function EnhancedProtectionPanel({
       cost: '£245.50',
       protectionLevel: 'Executive Protection'
     };
+
+    // Use real-time tracking data if available
+    if (routeProgress && officerLocation) {
+      const minutesRemaining = Math.ceil((routeProgress.estimatedTimeArrival - Date.now()) / 60000);
+      const hoursRemaining = Math.floor(minutesRemaining / 60);
+      const mins = minutesRemaining % 60;
+      const timeRemaining = hoursRemaining > 0 ? `${hoursRemaining}h ${mins}m` : `${mins}m`;
+
+      const etaDate = new Date(routeProgress.estimatedTimeArrival);
+      const eta = `${etaDate.getHours().toString().padStart(2, '0')}:${etaDate.getMinutes().toString().padStart(2, '0')}`;
+
+      return {
+        location: officerLocation.status === 'arrived' ? 'At Your Location' : 'En Route',
+        routeStart: assignment?.location?.start || defaultStatus.routeStart,
+        routeEnd: assignment?.location?.end || defaultStatus.routeEnd,
+        progress: Math.round(routeProgress.percentComplete),
+        timeRemaining,
+        eta,
+        cost: assignment?.estimatedCost ? `£${assignment.estimatedCost.toFixed(2)}` : defaultStatus.cost,
+        protectionLevel: assignment?.serviceLevel || defaultStatus.protectionLevel,
+      };
+    }
 
     if (!assignment) return defaultStatus;
 

@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useApp } from '../../contexts/AppContext';
 import { InstallAppButton } from '../UI/InstallAppButton';
+import { AssignmentHistory } from '../AssignmentHistory/AssignmentHistory';
 import styles from './AccountView.module.css';
 
 interface UserAccountData {
@@ -143,7 +144,7 @@ const generateMockUserData = (user: any): UserAccountData => {
   };
 };
 
-type SubPage = 'main' | 'security-score' | 'financial' | 'referral' | 'settings' | 'support';
+type SubPage = 'main' | 'security-score' | 'financial' | 'referral' | 'settings' | 'support' | 'history';
 
 export function AccountView() {
   const { state, navigateToView } = useApp();
@@ -490,6 +491,16 @@ export function AccountView() {
             <span className={styles.settingArrow}>→</span>
           </button>
 
+          <button className={`${styles.settingItem} ${styles.settingCard}`} onClick={() => setCurrentPage('history')}>
+            <span className={styles.settingIcon}>📋</span>
+            <div className={styles.settingContent}>
+              <span className={styles.settingTitle}>Assignment History</span>
+              <span className={styles.settingDesc}>View past protection assignments</span>
+              <span className={styles.balanceInfo}>{userData.stats.totalRides} assignments completed</span>
+            </div>
+            <span className={styles.settingArrow}>→</span>
+          </button>
+
           <button className={`${styles.settingItem} ${styles.settingCard}`} onClick={() => setCurrentPage('referral')}>
             <span className={styles.settingIcon}>🎁</span>
             <div className={styles.settingContent}>
@@ -596,6 +607,18 @@ export function AccountView() {
     </div>
   );
 
+  const renderAssignmentHistory = () => (
+    <div className={styles.subPage}>
+      <div className={styles.subPageHeader}>
+        <button className={styles.backButton} onClick={() => setCurrentPage('main')}>
+          ← Back
+        </button>
+        <h2 className={styles.subPageTitle}>ASSIGNMENT HISTORY</h2>
+      </div>
+      <AssignmentHistory />
+    </div>
+  );
+
   const renderCurrentPage = () => {
     switch (currentPage) {
       case 'security-score':
@@ -604,6 +627,8 @@ export function AccountView() {
         return renderFinancialDashboard();
       case 'referral':
         return renderReferralProgram();
+      case 'history':
+        return renderAssignmentHistory();
       default:
         return renderMainPage();
     }

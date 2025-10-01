@@ -1,0 +1,347 @@
+.container {
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 16px;
+}
+
+.filters {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 24px;
+  overflow-x: auto;
+  padding-bottom: 8px;
+}
+
+.filterButton {
+  padding: 8px 16px;
+  border-radius: 24px;
+  border: 2px solid #E5E7EB;
+  background: white;
+  color: #6B7280;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.filterButton:hover {
+  background: #F9FAFB;
+  border-color: #D1D5DB;
+}
+
+.filterActive {
+  background: #FFD700 !important;
+  border-color: #FFD700 !important;
+  color: #1a1a2e !important;
+}
+
+.assignmentList {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.assignmentCard {
+  background: white;
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.assignmentCard:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+}
+
+.cardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.serviceInfo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.serviceIcon {
+  font-size: 24px;
+}
+
+.serviceType {
+  font-size: 16px;
+  font-weight: 700;
+  color: #1F2937;
+  text-transform: capitalize;
+}
+
+.statusBadge {
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.statusScheduled {
+  background: #DBEAFE;
+  color: #1E40AF;
+}
+
+.statusConfirmed {
+  background: #D1FAE5;
+  color: #065F46;
+}
+
+.statusEnRoute {
+  background: #FEF3C7;
+  color: #92400E;
+}
+
+.statusInProgress {
+  background: #FBCFE8;
+  color: #9F1239;
+}
+
+.statusCompleted {
+  background: #D1FAE5;
+  color: #065F46;
+}
+
+.statusCancelled {
+  background: #FEE2E2;
+  color: #991B1B;
+}
+
+.statusDefault {
+  background: #F3F4F6;
+  color: #6B7280;
+}
+
+.dateTime {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 16px;
+  font-size: 14px;
+}
+
+.date {
+  color: #374151;
+  font-weight: 600;
+}
+
+.time {
+  color: #6B7280;
+}
+
+.locations {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 16px;
+  padding: 12px;
+  background: #F9FAFB;
+  border-radius: 8px;
+}
+
+.location {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.locationIcon {
+  font-size: 16px;
+}
+
+.locationText {
+  font-size: 14px;
+  color: #374151;
+  flex: 1;
+}
+
+.locationDivider {
+  margin-left: 24px;
+  color: #9CA3AF;
+  font-size: 18px;
+}
+
+.cardFooter {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 12px;
+  border-top: 1px solid #E5E7EB;
+}
+
+.cost {
+  font-size: 18px;
+  font-weight: 700;
+  color: #FFD700;
+}
+
+.officer {
+  font-size: 12px;
+  color: #6B7280;
+}
+
+.rating {
+  font-size: 14px;
+}
+
+.loadingContainer,
+.errorContainer,
+.emptyState {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 400px;
+  text-align: center;
+}
+
+.emptyIcon {
+  font-size: 64px;
+  margin-bottom: 16px;
+}
+
+.emptyState h3 {
+  font-size: 20px;
+  font-weight: 700;
+  color: #1F2937;
+  margin-bottom: 8px;
+}
+
+.emptyState p {
+  font-size: 14px;
+  color: #6B7280;
+}
+
+.errorMessage {
+  color: #DC2626;
+  margin-bottom: 16px;
+}
+
+/* Modal Styles */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 16px;
+}
+
+.modalContent {
+  background: white;
+  border-radius: 16px;
+  padding: 24px;
+  max-width: 600px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+}
+
+.closeButton {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  background: #F3F4F6;
+  border: none;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 18px;
+  color: #6B7280;
+  transition: all 0.2s ease;
+}
+
+.closeButton:hover {
+  background: #E5E7EB;
+  color: #374151;
+}
+
+.modalTitle {
+  font-size: 24px;
+  font-weight: 700;
+  color: #1F2937;
+  margin-bottom: 24px;
+}
+
+.detailSection {
+  margin-bottom: 24px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid #E5E7EB;
+}
+
+.detailSection:last-of-type {
+  border-bottom: none;
+}
+
+.detailSection h3 {
+  font-size: 16px;
+  font-weight: 700;
+  color: #1F2937;
+  margin-bottom: 12px;
+}
+
+.detailSection p {
+  font-size: 14px;
+  color: #6B7280;
+  margin-bottom: 8px;
+}
+
+.detailSection strong {
+  color: #374151;
+  font-weight: 600;
+}
+
+.modalActions {
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+  margin-top: 24px;
+}
+
+@media (max-width: 768px) {
+  .filters {
+    flex-wrap: nowrap;
+  }
+
+  .assignmentCard {
+    padding: 16px;
+  }
+
+  .cardFooter {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .modalContent {
+    padding: 20px;
+  }
+
+  .modalActions {
+    flex-direction: column;
+  }
+
+  .modalActions button {
+    width: 100%;
+  }
+}

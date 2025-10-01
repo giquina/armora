@@ -160,7 +160,7 @@ function PaymentFormContent({
     onPaymentError(paymentError);
   }, [onPaymentError]);
 
-  // Create payment intent via Supabase Edge Function
+  // Create payment intent via Vercel API
   const createPaymentIntent = async (flow: PaymentFlow): Promise<PaymentIntent> => {
     try {
       // Get current session
@@ -170,30 +170,26 @@ function PaymentFormContent({
         throw new Error('Authentication required. Please sign in to continue.');
       }
 
-      // Get Supabase URL from environment
-      const supabaseUrl = process.env.REACT_APP_SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL;
-
-      if (!supabaseUrl) {
-        throw new Error('Supabase configuration missing');
-      }
-
-      // Call Edge Function to create payment intent
-      const response = await fetch(`${supabaseUrl}/functions/v1/create-payment-intent`, {
+      // Call Vercel API to create payment intent
+      const response = await fetch('/api/create-payment-intent', {
         method: 'POST',
         headers: {
-          'Authorization': `Bearer ${session.access_token}`,
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
           amount: flow.amount,
           currency: flow.currency,
-          assignmentId: flow.protectionAssignmentDetails.user?.id,
+          description: flow.description,
           metadata: {
             serviceType: flow.metadata?.serviceType || 'protection_assignment',
             route: flow.metadata?.route || '',
             scheduledTime: flow.metadata?.scheduledTime || '',
             corporateAssignment: flow.metadata?.corporateAssignment || false,
             principalId: session.user.id,
+            userId: flow.protectionAssignmentDetails.user?.id,
+            pickupLocation: flow.protectionAssignmentDetails.commencementPoint,
+            dropoffLocation: flow.protectionAssignmentDetails.secureDestination,
+            estimatedDuration: flow.protectionAssignmentDetails.estimatedDuration,
           },
         }),
       });
@@ -205,10 +201,21 @@ function PaymentFormContent({
 
       const data = await response.json();
 
+      // Store payment intent in Supabase
+      await supabase.from('payments').insert({
+        payment_intent_id: data.paymentIntentId,
+        amount: flow.amount,
+        currency: flow.currency,
+        status: 'pending',
+        user_id: session.user.id,
+        metadata: flow.metadata,
+        created_at: new Date().toISOString(),
+      });
+
       return {
         id: data.paymentIntentId,
-        amount: data.amount,
-        currency: data.currency,
+        amount: flow.amount,
+        currency: flow.currency,
         status: 'requires_payment_method',
         clientSecret: data.clientSecret,
       };
