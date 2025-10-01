@@ -96,7 +96,7 @@ export function BookingSearchInterface({
             </svg>
           </div>
           <div className={styles.destinationInfo}>
-            <span className={styles.destinationLabel}>Secure Residence</span>
+            <span className={styles.destinationLabel}>Residence</span>
             <span className={styles.destinationAddress}>
               {savedAddresses.home || 'Add home address'}
             </span>
