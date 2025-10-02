@@ -13,6 +13,7 @@ import { CorporateBilling } from '../Payment/CorporateBilling';
 import { BookingProgressIndicator } from '../UI/ProgressIndicator';
 import { Button } from '../UI/Button';
 import { LoadingSpinner } from '../UI/LoadingSpinner';
+import { BookingSummary } from '../BookingSummary/BookingSummary';
 import styles from './PaymentIntegration.module.css';
 
 interface PaymentIntegrationProps {
@@ -338,6 +339,12 @@ export function PaymentIntegration({
             </div>
           </div>
         </div>
+
+        {/* Transparent Pricing Breakdown */}
+        <BookingSummary
+          protectionAssignmentData={protectionAssignmentData}
+          loading={false}
+        />
 
         {/* Credit Controls */}
         {userCredits > 0 && (
