@@ -15,7 +15,6 @@ import { Dashboard } from './components/Dashboard';
 import { ServicesPage } from './components/Services/ServicesPage';
 import { Hub } from './components/Hub';
 import { ActiveProtectionPanel } from './components/ActiveProtection';
-import { SubscriptionOffer } from './components/Subscription/SubscriptionOffer';
 // Removed unused imports
 import { ServiceSelection } from './components/ServiceSelection/ServiceSelection';
 import { AccountView } from './components/Account/AccountView';
@@ -151,11 +150,6 @@ function AppRouter() {
         return <Dashboard />;
       case 'services':
         return <ServicesPage />;
-      case 'subscription-offer':
-        // Get selected service data from localStorage for pricing
-        const selectedServiceId = localStorage.getItem('armora_selected_service');
-        const servicePrice = selectedServiceId === 'standard' ? 45 : selectedServiceId === 'executive' ? 75 : selectedServiceId === 'shadow' ? 65 : 45;
-        return <SubscriptionOffer selectedService={selectedServiceId || undefined} servicePrice={servicePrice} />;
       case 'protection-assignment':
       case 'legacy-assignment-view':
         // These views are no longer used - assignment system handles this

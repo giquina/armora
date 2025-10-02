@@ -1,11 +1,10 @@
 import { createContext, useContext, useReducer, useEffect, useCallback, ReactNode } from 'react';
-import { AppState, ViewState, User, PersonalizationData, DeviceCapabilities, UserSubscription, SubscriptionTier, PremiumInterest, NotificationData, SafeAssignmentFundMetrics, CommunityImpactData, Assignment, INotificationItem } from '../types';
+import { AppState, ViewState, User, PersonalizationData, DeviceCapabilities, Assignment, INotificationItem } from '../types';
 import {
   createProtectionAssignment,
   updateProtectionAssignment,
   subscribeToAssignmentUpdates,
   activateEmergency,
-  getSafeAssignmentFundStats,
 } from "../lib/supabase"
 
 // Protection Assignment Context Interface
@@ -31,11 +30,8 @@ const initialState: AppState = {
     isInstallable: false,
     isInstalled: false,
   },
-  subscription: null,
   selectedServiceForProtectionAssignment: undefined,
   userProfileSelection: undefined,
-  safeAssignmentFundMetrics: null,
-  communityImpactData: null,
   assignmentState: {
     currentAssignment: null,
     hasActiveAssignment: false,
@@ -61,10 +57,7 @@ type AppAction =
   | { type: 'START_ASSIGNMENT'; payload: AssignmentContext }
   | { type: 'END_ASSIGNMENT' }
   | { type: 'UPDATE_DEVICE_CAPABILITIES'; payload: Partial<DeviceCapabilities> }
-  | { type: 'SET_SUBSCRIPTION'; payload: UserSubscription | null }
   | { type: 'SET_SELECTED_SERVICE'; payload: string }
-  | { type: 'SET_SAFE_RIDE_FUND_METRICS'; payload: SafeAssignmentFundMetrics | null }
-  | { type: 'SET_COMMUNITY_IMPACT_DATA'; payload: CommunityImpactData | null }
   | { type: 'SET_ASSIGNMENT'; payload: Assignment | null }
   | { type: 'UPDATE_ASSIGNMENT_STATUS'; payload: { assignmentId: string; status: string } }
   | { type: 'SET_PANIC_ALERT_SENT'; payload: { sent: boolean; timestamp?: Date } }
@@ -107,14 +100,8 @@ function appReducer(state: AppState, action: AppAction): AppState {
       return { ...state, isLoading: action.payload };
     case 'SET_ERROR':
       return { ...state, error: action.payload, isLoading: false };
-    case 'SET_SUBSCRIPTION':
-      return { ...state, subscription: action.payload };
     case 'SET_SELECTED_SERVICE':
       return { ...state, selectedServiceForProtectionAssignment: action.payload };
-    case 'SET_SAFE_RIDE_FUND_METRICS':
-      return { ...state, safeAssignmentFundMetrics: action.payload };
-    case 'SET_COMMUNITY_IMPACT_DATA':
-      return { ...state, communityImpactData: action.payload };
     case 'SET_ASSIGNMENT':
       return {
         ...state,
@@ -204,16 +191,7 @@ interface AppContextType {
   clearError: () => void;
   setLoading: (loading: boolean) => void;
   resetApp: () => void;
-  // Subscription actions
-  setSubscription: (subscription: UserSubscription | null) => void;
   setSelectedService: (service: string) => void;
-  startFreeTrial: (tier: SubscriptionTier) => Promise<void>;
-  recordPremiumInterest: (data: PremiumInterest) => Promise<void>;
-  sendOwnerNotification: (data: NotificationData) => Promise<boolean>;
-  // Safe Assignment Fund actions
-  updateSafeRideFundMetrics: (metrics: SafeAssignmentFundMetrics | null) => void;
-  updateCommunityImpactData: (data: CommunityImpactData | null) => void;
-  initializeSafeRideFundData: () => void;
   // Notifications
   addNotification: (n: Omit<INotificationItem, 'id' | 'timestamp'> & Partial<Pick<INotificationItem, 'id' | 'timestamp'>>) => void;
   markNotificationRead: (id: string) => void;
@@ -358,181 +336,9 @@ export function AppProvider({ children }: { children: ReactNode }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // Subscription actions
-  const setSubscription = (subscription: UserSubscription | null) => {
-    dispatch({ type: 'SET_SUBSCRIPTION', payload: subscription });
-  };
-
   const setSelectedService = (service: string) => {
     dispatch({ type: 'SET_SELECTED_SERVICE', payload: service });
   };
-
-  const startFreeTrial = async (tier: SubscriptionTier) => {
-    try {
-      setLoading(true);
-      const trialStart = new Date();
-      const trialEnd = new Date(trialStart.getTime() + 30 * 24 * 60 * 60 * 1000); // 30 days
-
-      const trialSubscription: UserSubscription = {
-        tier,
-        status: 'trial',
-        trialStartDate: trialStart,
-        trialEndDate: trialEnd,
-        isTrialActive: true,
-        daysRemainingInTrial: 30,
-        memberBenefits: {
-          discountPercentage: tier === 'essential' ? 10 : tier === 'executive' ? 20 : 30,
-          bookingFee: 0,
-          priorityBooking: true,
-          flexibleCancellation: true,
-          dedicatedManager: tier !== 'essential',
-          responseTime: tier === 'essential' ? '2 hours' : tier === 'executive' ? '45 minutes' : '30 minutes'
-        }
-      };
-
-      setSubscription(trialSubscription);
-      
-      // Save to localStorage
-      localStorage.setItem('armora_subscription', JSON.stringify(trialSubscription));
-      
-      // Send notification to owner
-      await sendOwnerNotification({
-        type: 'trial_signup',
-        userEmail: state.user?.email || 'unknown@email.com',
-        tier,
-        timestamp: new Date()
-      });
-
-    } catch (error) {
-      console.error('Error starting free trial:', error);
-      setError('Failed to start free trial. Please try again.');
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const recordPremiumInterest = async (data: PremiumInterest) => {
-    try {
-      setLoading(true);
-      
-      // Save interest to localStorage (in real app, would be API call)
-      const existingInterests = JSON.parse(localStorage.getItem('armora_premium_interests') || '[]');
-      existingInterests.push(data);
-      localStorage.setItem('armora_premium_interests', JSON.stringify(existingInterests));
-      
-      // Send notification to owner
-      await sendOwnerNotification({
-        type: 'premium_interest',
-        userEmail: data.userEmail,
-        tier: data.tier,
-        expectedUsage: data.expectedUsage,
-        timestamp: new Date(),
-        totalInterestCount: existingInterests.length
-      });
-
-    } catch (error) {
-      console.error('Error recording premium interest:', error);
-      setError('Failed to record interest. Please try again.');
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const sendOwnerNotification = async (data: NotificationData) => {
-    try {
-      // In real app, this would be an API call to send email
-      // For now, we'll just log and simulate the notification
-      console.log('Owner notification:', {
-        to: 'owner@armora-transport.co.uk',
-        subject: data.type === 'premium_interest'
-          ? `🚨 NEW ${data.tier?.toUpperCase()} INTEREST`
-          : data.type === 'trial_signup'
-          ? '🎉 NEW TRIAL SIGNUP'
-          : '✅ SUBSCRIPTION ACTIVATED',
-        body: {
-          userEmail: data.userEmail,
-          tier: data.tier,
-          expectedUsage: data.expectedUsage,
-          timestamp: data.timestamp,
-          totalInterestCount: data.totalInterestCount
-        }
-      });
-
-      // Simulate API delay
-      await new Promise(resolve => setTimeout(resolve, 500));
-      
-      return true;
-    } catch (error) {
-      console.error('Error sending owner notification:', error);
-      throw error;
-    }
-  };
-
-  // Safe Assignment Fund actions
-  const updateSafeRideFundMetrics = (metrics: SafeAssignmentFundMetrics | null) => {
-    dispatch({ type: 'SET_SAFE_RIDE_FUND_METRICS', payload: metrics });
-  };
-
-  const updateCommunityImpactData = (data: CommunityImpactData | null) => {
-    dispatch({ type: 'SET_COMMUNITY_IMPACT_DATA', payload: data });
-  };
-
-  const initializeSafeRideFundData = useCallback(async () => {
-    // Only initialize for Essential subscribers
-    if (state.subscription?.tier === 'essential') {
-      const joinDate = state.subscription.startDate || new Date();
-      const monthsSinceJoined = Math.max(1, Math.floor((new Date().getTime() - joinDate.getTime()) / (1000 * 60 * 60 * 24 * 30)));
-
-      const metrics: SafeAssignmentFundMetrics = {
-        personalRidesFunded: monthsSinceJoined,
-        totalContributed: monthsSinceJoined * 4, // £4 per month
-        currentStreak: monthsSinceJoined,
-        monthlyContribution: 4,
-        joinDate,
-        nextMilestone: Math.ceil(monthsSinceJoined / 5) * 5,
-        progressToNextMilestone: ((monthsSinceJoined % 5) || 5) / 5 * 100
-      };
-
-      updateSafeRideFundMetrics(metrics);
-    }
-
-    // Load community impact data from Supabase
-    try {
-      const { data: fundStats, error } = await getSafeAssignmentFundStats();
-
-      if (!error && fundStats) {
-        const communityData: CommunityImpactData = {
-          totalMembers: 1247, // Could be calculated from profiles count
-          monthlyAssignmentsFunded: 278, // Could be calculated from recent assignments
-          totalAssignmentsFunded: fundStats.total_rides_provided || 3741,
-          lastUpdated: new Date(fundStats.last_updated || new Date())
-        };
-
-        updateCommunityImpactData(communityData);
-      } else {
-        // Fallback to default data
-        const communityData: CommunityImpactData = {
-          totalMembers: 1247,
-          monthlyAssignmentsFunded: 278,
-          totalAssignmentsFunded: 3741,
-          lastUpdated: new Date()
-        };
-
-        updateCommunityImpactData(communityData);
-      }
-    } catch (error) {
-      console.error('Error loading Safe Assignment Fund stats:', error);
-      // Use fallback data
-      const communityData: CommunityImpactData = {
-        totalMembers: 1247,
-        monthlyAssignmentsFunded: 278,
-        totalAssignmentsFunded: 3741,
-        lastUpdated: new Date()
-      };
-
-      updateCommunityImpactData(communityData);
-    }
-  }, [state.subscription]);
 
   // Assignment management functions
   const createAssignment = useCallback(async (assignmentData: any): Promise<Assignment> => {
@@ -692,15 +498,6 @@ export function AppProvider({ children }: { children: ReactNode }) {
   const endAssignment = () => {
     dispatch({ type: 'END_ASSIGNMENT' });
   };
-
-  // Initialize Safe Assignment Fund data when subscription changes
-  useEffect(() => {
-    if (state.subscription?.tier === 'essential') {
-      initializeSafeRideFundData();
-    } else {
-      updateSafeRideFundMetrics(null);
-    }
-  }, [state.subscription?.tier, initializeSafeRideFundData]); // Include callback dependency
 
   // Monitor device capabilities
   useEffect(() => {
@@ -946,14 +743,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
     clearError,
     setLoading,
     resetApp,
-    setSubscription,
     setSelectedService,
-    startFreeTrial,
-    recordPremiumInterest,
-    sendOwnerNotification,
-    updateSafeRideFundMetrics,
-    updateCommunityImpactData,
-    initializeSafeRideFundData,
     addNotification: (n) => {
       const id = n.id || `${Date.now()}_${Math.random().toString(36).slice(2, 8)}`;
       const item: INotificationItem = {

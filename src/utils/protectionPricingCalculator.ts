@@ -39,11 +39,6 @@ const RATES = {
   MINIMUM_HOURS: 2
 };
 
-const DISCOUNTS = {
-  MEMBER_DISCOUNT: 0.20, // 20% for registered members
-  REWARD_DISCOUNT: 0.50  // 50% for first-time reward
-};
-
 /**
  * Calculates comprehensive pricing for protection services
  * Now supports both legacy and nationwide pricing systems
@@ -114,31 +109,9 @@ export function calculateProtectionPricing(request: ProtectionServiceRequest): P
 
   const subtotal = components.reduce((sum, component) => sum + component.amount, 0);
 
-  // Calculate discounts
-  const discounts = [];
-
-  // Member discount (20% for registered users)
-  if (userType === 'registered' || userType === 'google') {
-    const memberDiscount = subtotal * DISCOUNTS.MEMBER_DISCOUNT;
-    discounts.push({
-      label: 'Member Discount (20%)',
-      amount: memberDiscount,
-      percentage: 20
-    });
-  }
-
-  // First-time reward (50% off - only if user has unlocked reward)
-  if (hasUnlockedReward && (userType === 'registered' || userType === 'google')) {
-    const rewardDiscount = subtotal * DISCOUNTS.REWARD_DISCOUNT;
-    discounts.push({
-      label: 'First Assignment Reward (50%)',
-      amount: rewardDiscount,
-      percentage: 50
-    });
-  }
-
-  const totalDiscountAmount = discounts.reduce((sum, discount) => sum + discount.amount, 0);
-  const total = Math.max(subtotal - totalDiscountAmount, 0);
+  // No discounts - base pricing only
+  const discounts: typeof components = [];
+  const total = subtotal;
 
   // Create formatted breakdown for display
   const formattedBreakdown = createFormattedBreakdown(

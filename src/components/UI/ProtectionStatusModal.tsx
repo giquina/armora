@@ -56,7 +56,7 @@ export function ProtectionStatusModal({ isOpen, onClose, protectionStatus }: Pro
   };
 
   const mockUserProfile = {
-    tier: state.subscription?.tier || 'essential',
+    tier: 'essential' as const,
     protectionScore: 94,
     memberSince: '2022'
   };

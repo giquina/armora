@@ -89,6 +89,12 @@ serve(async (req) => {
     const vatAmount = Math.round(baseAmount * vatRate)
     const totalAmount = baseAmount + vatAmount
 
+    // Calculate marketplace fees
+    const baseCost = body.amount; // CPO daily rate in pence
+    const clientTotal = Math.round(baseCost * 1.20); // Client pays 20% more
+    const platformFee = Math.round(baseCost * 0.35); // Platform takes 35%
+    const cpoEarnings = Math.round(baseCost * 0.85); // CPO receives 85%
+
     // Prepare metadata for Stripe
     const paymentMetadata = {
       principal_id: user.id,
@@ -100,14 +106,19 @@ serve(async (req) => {
       base_amount: String(baseAmount),
       vat_amount: String(vatAmount),
       total_amount: String(totalAmount),
+      base_cost: baseCost,
+      client_total: clientTotal,
+      platform_fee: platformFee,
+      cpo_earnings: cpoEarnings,
+      commission_rate: 0.15,
       assignment_id: body.assignmentId || '',
       created_via: 'armora_edge_function',
       ...body.metadata,
     }
 
-    // Create Stripe Payment Intent
+    // Create Stripe Payment Intent - charge client the total with markup
     const paymentIntent = await stripe.paymentIntents.create({
-      amount: totalAmount,
+      amount: clientTotal, // Charge client the total with markup
       currency: body.currency.toLowerCase(),
       metadata: paymentMetadata,
       automatic_payment_methods: {
@@ -138,6 +149,19 @@ serve(async (req) => {
       // Don't fail the request - payment intent is created
     }
 
+    // Store payment split in database
+    if (body.assignmentId) {
+      await supabase
+        .from('protection_assignments')
+        .update({
+          client_total: clientTotal / 100,
+          platform_fee: platformFee / 100,
+          cpo_earnings: cpoEarnings / 100,
+          commission_rate: 0.15
+        })
+        .eq('id', body.assignmentId);
+    }
+
     // Return success response
     return new Response(
       JSON.stringify({
@@ -146,9 +170,10 @@ serve(async (req) => {
         amount: totalAmount,
         currency: body.currency,
         breakdown: {
-          baseAmount,
-          vatAmount,
-          totalAmount,
+          base_cost: baseCost / 100,
+          client_total: clientTotal / 100,
+          platform_fee: platformFee / 100,
+          cpo_earnings: cpoEarnings / 100
         },
         paymentRecordId: paymentRecord?.id || null,
       }),

@@ -67,8 +67,6 @@ export interface Database {
           email: string
           full_name: string
           phone: string | null
-          subscription_tier: 'guest' | 'essential' | 'executive' | 'shadow'
-          subscription_valid_until: string | null
           discount_percentage: number
           questionnaire_completed: boolean
           questionnaire_data: any
@@ -84,8 +82,6 @@ export interface Database {
           email: string
           full_name: string
           phone?: string
-          subscription_tier?: 'guest' | 'essential' | 'executive' | 'shadow'
-          subscription_valid_until?: string
           discount_percentage?: number
           questionnaire_completed?: boolean
           questionnaire_data?: any
@@ -99,8 +95,6 @@ export interface Database {
           email?: string
           full_name?: string
           phone?: string
-          subscription_tier?: 'guest' | 'essential' | 'executive' | 'shadow'
-          subscription_valid_until?: string
           discount_percentage?: number
           questionnaire_completed?: boolean
           questionnaire_data?: any
@@ -173,50 +167,6 @@ export interface Database {
           officer_rating?: number
           assignment_metadata?: any
           updated_at?: string
-        }
-      }
-      subscriptions: {
-        Row: {
-          id: string
-          principal_id: string
-          tier: 'essential' | 'executive' | 'shadow'
-          status: 'active' | 'cancelled' | 'expired' | 'suspended'
-          stripe_subscription_id: string | null
-          monthly_fee: number
-          discount_percentage: number
-          priority_booking: boolean
-          started_at: string
-          expires_at: string | null
-          cancelled_at: string | null
-          cancellation_reason: string | null
-        }
-        Insert: {
-          id?: string
-          principal_id: string
-          tier: 'essential' | 'executive' | 'shadow'
-          status?: 'active' | 'cancelled' | 'expired' | 'suspended'
-          stripe_subscription_id?: string
-          monthly_fee?: number
-          discount_percentage?: number
-          priority_booking?: boolean
-          started_at?: string
-          expires_at?: string
-          cancelled_at?: string
-          cancellation_reason?: string
-        }
-        Update: {
-          id?: string
-          principal_id?: string
-          tier?: 'essential' | 'executive' | 'shadow'
-          status?: 'active' | 'cancelled' | 'expired' | 'suspended'
-          stripe_subscription_id?: string
-          monthly_fee?: number
-          discount_percentage?: number
-          priority_booking?: boolean
-          started_at?: string
-          expires_at?: string
-          cancelled_at?: string
-          cancellation_reason?: string
         }
       }
       payments: {
@@ -513,7 +463,6 @@ export type ProtectionOfficer = Database['public']['Tables']['protection_officer
 export type Principal = Database['public']['Tables']['principals']['Row']
 export type ProtectionAssignment = Database['public']['Tables']['protection_assignments']['Row']
 export type Payment = Database['public']['Tables']['payments']['Row']
-export type Subscription = Database['public']['Tables']['subscriptions']['Row']
 export type EmergencyActivation = Database['public']['Tables']['emergency_activations']['Row']
 export type VenueProtectionContract = Database['public']['Tables']['venue_protection_contracts']['Row']
 
@@ -522,7 +471,6 @@ export type NewProtectionOfficer = Database['public']['Tables']['protection_offi
 export type NewPrincipal = Database['public']['Tables']['principals']['Insert']
 export type NewProtectionAssignment = Database['public']['Tables']['protection_assignments']['Insert']
 export type NewPayment = Database['public']['Tables']['payments']['Insert']
-export type NewSubscription = Database['public']['Tables']['subscriptions']['Insert']
 
 // Commonly used enums
 export type ProtectionLevel = 'essential' | 'executive' | 'shadow'

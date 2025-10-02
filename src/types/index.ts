@@ -4,7 +4,7 @@
 export type NavigationViews = 'home' | 'services' | 'hub' | 'account';
 
 // Complete view state including navigation and flow states
-export type ViewState = 'splash' | 'welcome' | 'login' | 'signup' | 'guest-disclaimer' | 'questionnaire' | 'achievement' | 'home' | 'subscription-offer' | 'trial-setup' | 'member-dashboard' | 'services' | 'service-selection' | 'protection-assignment' | 'active' | 'hub' | 'Assignments' | 'account' | 'venue-protection-welcome' | 'venue-security-questionnaire' | 'venue-protection-success' | 'about' | 'coverage-areas' | 'legacy-assignment-view' | 'protection-request' | 'assignment-confirmed' | 'protection-assignment' | 'legacy-assignment-view' | 'privacy' | 'terms' | 'gdpr' | 'sia';
+export type ViewState = 'splash' | 'welcome' | 'login' | 'signup' | 'guest-disclaimer' | 'questionnaire' | 'achievement' | 'home' | 'services' | 'service-selection' | 'protection-assignment' | 'active' | 'hub' | 'Assignments' | 'account' | 'venue-protection-welcome' | 'venue-security-questionnaire' | 'venue-protection-success' | 'about' | 'coverage-areas' | 'legacy-assignment-view' | 'protection-request' | 'assignment-confirmed' | 'protection-assignment' | 'legacy-assignment-view' | 'privacy' | 'terms' | 'gdpr' | 'sia';
 
 export type UserType = 'registered' | 'google' | 'guest' | null;
 
@@ -600,11 +600,8 @@ export interface AppState {
   user: User | null;
   questionnaireData: PersonalizationData | null;
   deviceCapabilities: DeviceCapabilities;
-  subscription: UserSubscription | null;
   selectedServiceForProtectionAssignment?: string;
   userProfileSelection?: string; // Step 1 profile for FloatingCTA personalization
-  safeAssignmentFundMetrics: SafeAssignmentFundMetrics | null;
-  communityImpactData: CommunityImpactData | null;
   venueProtectionData?: any; // Venue protection assessment data
   assignmentState: AssignmentState;
   assignmentContext: AssignmentContext | null;
@@ -764,99 +761,6 @@ export interface Address {
   county?: string;
   postcode: string;
   country: string;
-}
-
-// Subscription System Types
-export type SubscriptionTier = 'essential' | 'executive' | 'elite';
-export type SubscriptionStatus = 'none' | 'trial' | 'active' | 'cancelled' | 'expired';
-
-export interface SubscriptionPlan {
-  tier: SubscriptionTier;
-  name: string;
-  price: number;
-  monthlyPrice: string;
-  originalPrice?: number;
-  discount: number;
-  features: string[];
-  description: string;
-  isAvailable: boolean;
-  isPopular?: boolean;
-  trialDays?: number;
-  responseTime: string;
-  serviceFee: number;
-  originalBookingFee: number;
-}
-
-export interface UserSubscription {
-  tier: SubscriptionTier;
-  status: SubscriptionStatus;
-  trialStartDate?: Date;
-  trialEndDate?: Date;
-  subscriptionStartDate?: Date;
-  subscriptionEndDate?: Date;
-  startDate?: Date; // For Safe Assignment Fund metrics calculation
-  isTrialActive: boolean;
-  daysRemainingInTrial?: number;
-  memberBenefits: {
-    discountPercentage: number;
-    serviceFee: number;
-    priorityBooking: boolean;
-    flexibleCancellation: boolean;
-    dedicatedManager?: boolean;
-    responseTime: string;
-  };
-}
-
-export interface PremiumInterest {
-  tier: SubscriptionTier;
-  userEmail: string;
-  expectedUsage: string;
-  timestamp: Date;
-  userType: UserType;
-  questionnaire?: boolean;
-}
-
-export interface NotificationData {
-  type: 'premium_interest' | 'trial_signup' | 'subscription_activated';
-  userEmail: string;
-  tier?: SubscriptionTier;
-  expectedUsage?: string;
-  timestamp: Date;
-  totalInterestCount?: number;
-}
-
-// Safe Assignment Fund Types
-export interface SafeAssignmentFundMetrics {
-  personalServicesFunded: number;
-  totalContributed: number;
-  currentStreak: number; // months active
-  monthlyContribution: number; // £4 for Essential
-  joinDate: Date;
-  nextMilestone: number;
-  progressToNextMilestone: number; // percentage
-}
-
-export interface CommunityImpactData {
-  totalMembers: number;
-  monthlyAssignmentsFunded: number;
-  totalAssignmentsFunded: number;
-  lastUpdated: Date;
-}
-
-export interface CharityPartner {
-  name: string;
-  description: string;
-  monthlyAmount: number;
-  logo?: string;
-}
-
-export interface ImpactStory {
-  id: number;
-  title: string;
-  story: string;
-  impact?: string;
-  timeframe: string;
-  isAnonymous?: boolean;
 }
 
 // Venue Security Assessment Types
