@@ -1,114 +1,114 @@
 {
-  "name": "armora-security",
-  "description": "Professional close protection and executive security services platform",
-  "keywords": [
-    "close protection",
-    "security",
-    "CPO",
-    "SIA",
-    "executive protection",
-    "bodyguards"
-  ],
-  "version": "0.1.0",
-  "private": true,
-  "dependencies": {
-    "@stripe/react-stripe-js": "^4.0.2",
-    "@stripe/stripe-js": "^7.9.0",
-    "@supabase/auth-helpers-react": "^0.5.0",
-    "@supabase/supabase-js": "^2.57.4",
-    "@testing-library/dom": "^10.4.1",
-    "@testing-library/jest-dom": "^6.8.0",
-    "@testing-library/react": "^16.3.0",
-    "@testing-library/user-event": "^13.5.0",
-    "@types/jest": "^27.5.2",
-    "@types/node": "^16.18.126",
-    "@types/react": "^19.1.12",
-    "@types/react-dom": "^19.1.9",
-    "canvas-confetti": "^1.9.3",
-    "firebase": "^12.3.0",
-    "leaflet": "^1.9.4",
-    "qrcode": "^1.5.4",
-    "react": "^19.1.1",
-    "react-dom": "^19.1.1",
-    "react-leaflet": "^5.0.0",
-    "react-scripts": "5.0.1",
-    "typescript": "^4.9.5",
-    "web-vitals": "^2.1.4"
-  },
-  "scripts": {
-    "start": "NODE_OPTIONS='--no-deprecation' react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "test:e2e": "playwright test",
-    "eject": "react-scripts eject",
-    "clean": "rm -rf node_modules/.cache build dist .parcel-cache /tmp/webpack-* ~/.npm/_cacache 2>/dev/null",
-    "reset": "bash scripts/reset-port-3002.sh",
-    "fresh": "npm run reset && npm start",
-    "dev": "npm run hooks:start && npm run agents:start && npm start",
-    "hooks:start": "node dev-tools/hooks/hooks-manager.js start",
-    "hooks:stop": "node dev-tools/hooks/hooks-manager.js stop",
-    "hooks:status": "node dev-tools/hooks/hooks-manager.js status",
-    "hooks:restart": "node dev-tools/hooks/hooks-manager.js restart",
-    "hooks:emergency": "node dev-tools/hooks/hooks-manager.js emergency",
-    "hooks:help": "node dev-tools/hooks/hooks-manager.js help",
-    "suggest": "node dev-tools/hooks/codebase-reviewer-suggester.js",
-    "select-suggestion": "node dev-tools/hooks/suggestion-selector.js",
-    "add-task": "node dev-tools/hooks/suggestion-selector.js add",
-    "complete-task": "node dev-tools/hooks/suggestion-selector.js complete",
-    "start-task": "node dev-tools/hooks/suggestion-selector.js start",
-    "task-status": "node dev-tools/hooks/suggestion-selector.js status",
-    "refresh-suggestions": "node dev-tools/hooks/codebase-reviewer-suggester.js refresh",
-    "update-docs": "node .claude/commands/update-docs.js",
-    "project-health": "node .claude/commands/project-health.js",
-    "statusline": "node .claude/commands/statusline.js",
-    "agents": "node .claude/commands/agents.js",
-    "agents:start": "node .claude/claude-agent-bridge.js start",
-    "agents:status": "node .claude/claude-agent-bridge.js status",
-    "agents:test": "node .claude/claude-agent-bridge.js test",
-    "agents:file": "node .claude/claude-agent-bridge.js file",
-    "orchestrate": "echo 'Use agents:start instead'",
-    "orchestrate:status": "npm run agents:status",
-    "health": "node scripts/health-check.js",
-    "keep-alive": "bash scripts/keep-alive.sh",
-    "keep-alive:start": "nohup bash scripts/keep-alive.sh > /tmp/keep-alive.log 2>&1 &",
-    "keep-alive:stop": "pkill -f keep-alive.sh",
-    "keep-alive:status": "ps aux | grep -v grep | grep keep-alive.sh || echo 'Keep-alive not running'",
-    "connection:fix": "npm run keep-alive:stop; pkill -f 'react-scripts start'; sleep 2; npm run fresh && npm run keep-alive:start"
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
-  },
-  "jest": {
-    "transformIgnorePatterns": [
-      "node_modules/(?!(react-leaflet|@react-leaflet)/)"
+    "name": "armora-security",
+    "description": "Professional close protection and executive security services platform",
+    "keywords": [
+          "close protection",
+          "security",
+          "CPO",
+          "SIA",
+          "executive protection",
+          "bodyguards"
     ],
-    "moduleNameMapper": {
-      "\\.(css|less|scss|sass)$": "identity-obj-proxy",
-      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "jest-transform-stub"
+    "version": "0.1.0",
+    "private": true,
+    "dependencies": {
+          "@stripe/react-stripe-js": "^4.0.2",
+          "@stripe/stripe-js": "^7.9.0",
+          "@supabase/auth-helpers-react": "^0.5.0",
+          "@supabase/supabase-js": "^2.57.4",
+          "canvas-confetti": "^1.9.3",
+          "firebase": "^12.3.0",
+          "leaflet": "^1.9.4",
+          "qrcode": "^1.5.4",
+          "react": "^19.1.1",
+          "react-dom": "^19.1.1",
+          "react-leaflet": "^5.0.0",
+          "react-scripts": "5.0.1",
+          "typescript": "^4.9.5",
+          "web-vitals": "^2.1.4"
+    },
+    "scripts": {
+          "start": "NODE_OPTIONS='--no-deprecation' react-scripts start",
+          "build": "react-scripts build",
+          "test": "react-scripts test",
+          "test:e2e": "@playwright/test",
+          "eject": "react-scripts eject",
+          "clean": "rm -rf node_modules/.cache build dist .parcel-cache /tmp/webpack-* ~/.npm/_cacache 2>/dev/null",
+          "reset": "bash scripts/reset-port-3002.sh",
+          "fresh": "npm run reset && npm start",
+          "dev": "npm run hooks:start && npm run agents:start && npm start",
+          "hooks:start": "node dev-tools/hooks/hooks-manager.js start",
+          "hooks:stop": "node dev-tools/hooks/hooks-manager.js stop",
+          "hooks:status": "node dev-tools/hooks/hooks-manager.js status",
+          "hooks:restart": "node dev-tools/hooks/hooks-manager.js restart",
+          "hooks:emergency": "node dev-tools/hooks/hooks-manager.js emergency",
+          "hooks:help": "node dev-tools/hooks/hooks-manager.js help",
+          "suggest": "node dev-tools/hooks/codebase-reviewer-suggester.js",
+          "select-suggestion": "node dev-tools/hooks/suggestion-selector.js",
+          "add-task": "node dev-tools/hooks/suggestion-selector.js add",
+          "complete-task": "node dev-tools/hooks/suggestion-selector.js complete",
+          "start-task": "node dev-tools/hooks/suggestion-selector.js start",
+          "task-status": "node dev-tools/hooks/suggestion-selector.js status",
+          "refresh-suggestions": "node dev-tools/hooks/codebase-reviewer-suggester.js refresh",
+          "update-docs": "node .claude/commands/update-docs.js",
+          "project-health": "node .claude/commands/project-health.js",
+          "statusline": "node .claude/commands/statusline.js",
+          "agents": "node .claude/commands/agents.js",
+          "agents:start": "node .claude/claude-agent-bridge.js start",
+          "agents:status": "node .claude/claude-agent-bridge.js status",
+          "agents:test": "node .claude/claude-agent-bridge.js test",
+          "agents:file": "node .claude/claude-agent-bridge.js file",
+          "orchestrate": "echo 'Use agents:start instead'",
+          "orchestrate:status": "npm run agents:status",
+          "health": "node scripts/health-check.js",
+          "keep-alive": "bash scripts/keep-alive.sh",
+          "keep-alive:start": "nohup bash scripts/keep-alive.sh > /tmp/keep-alive.log 2>&1 &",
+          "keep-alive:stop": "pkill -f keep-alive.sh",
+          "keep-alive:status": "ps aux | grep -v grep | grep keep-alive.sh || echo 'Keep-alive not running'",
+          "connection:fix": "npm run keep-alive:stop; pkill -f 'react-scripts start'; sleep 2; npm run fresh && npm run keep-alive:start"
+    },
+    "eslintConfig": {
+          "extends": [
+                  "react-app",
+                  "react-app/jest"
+          ]
+    },
+    "jest": {
+          "transformIgnorePatterns": [
+                  "node_modules/(?!(react-leaflet|@react-leaflet)/)"
+          ],
+          "moduleNameMapper": {
+                  "\\.(css|less|scss|sass)$": "identity-obj-proxy",
+                  "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "jest-transform-stub"
+          }
+    },
+    "browserslist": {
+          "production": [
+                  ">0.2%",
+                  "not dead",
+                  "not op_mini all"
+          ],
+          "development": [
+                  "last 1 chrome version",
+                  "last 1 firefox version",
+                  "last 1 safari version"
+          ]
+    },
+    "devDependencies": {
+          "@playwright/test": "^1.55.0",
+          "@types/canvas-confetti": "^1.9.0",
+          "@types/leaflet": "^1.9.20",
+          "css": "^3.0.0",
+          "identity-obj-proxy": "^3.0.0",
+          "jest-transform-stub": "^2.0.0",
+          "puppeteer": "^24.19.0",
+          "@testing-library/dom": "^10.4.1",
+          "@testing-library/jest-dom": "^6.8.0",
+          "@testing-library/react": "^16.3.0",
+          "@testing-library/user-event": "^13.5.0",
+          "@types/jest": "^27.5.2",
+          "@types/node": "^16.18.126",
+          "@types/react": "^19.1.12",
+          "@types/react-dom": "^19.1.9"
     }
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
-  },
-  "devDependencies": {
-    "@playwright/test": "^1.55.0",
-    "@types/canvas-confetti": "^1.9.0",
-    "@types/leaflet": "^1.9.20",
-    "css": "^3.0.0",
-    "identity-obj-proxy": "^3.0.0",
-    "jest-transform-stub": "^2.0.0",
-    "puppeteer": "^24.19.0"
-  }
 }
