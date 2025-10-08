@@ -24,10 +24,7 @@ Armora is a React 19.1.1 TypeScript application for premium close protection and
 
 ## Development Commands
 
-### Essential Commandsgit branch backup-before-cpo-split-$(date +%Y%m%d)
-git branch | grep backup
-echo "✅ Backup branch created successfully"
-
+### Essential Commands
 ```bash
 npm run dev        # RECOMMENDED: Full dev environment with hooks & agents
 npm start          # Development server (defaults to port 3000, specify with PORT=XXXX)
