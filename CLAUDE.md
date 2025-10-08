@@ -45,6 +45,13 @@ npm run clean      # Clean cache only
 PORT=3003 npm start  # Start on specific port (no hardcoded ports)
 ```
 
+### Deployment Verification
+```bash
+npm run verify     # Verify production deployment (all services)
+npm run verify-deployment  # Full name for CI/CD
+PRODUCTION_URL=https://custom-url.vercel.app npm run verify  # Custom URL
+```
+
 **PORT CONFIGURATION**: Development ports are no longer hardcoded. Use `PORT=XXXX npm start` to specify any port. Default is 3000. Service Worker is disabled in development to prevent caching issues.
 
 ### Development Infrastructure
