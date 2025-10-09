@@ -67,21 +67,16 @@ npm test           # Run tests
 - Achievement celebrations
 - 4D premium logo system
 - Safe Ride Fund integration (3,741+ rides)
-- **Production deployment on Vercel** (https://armora.vercel.app)
-- **Firebase integration** (Cloud Messaging enabled)
-- **TWA Android app** (AAB file ready for Play Store)
-- **Android App Links verification** (assetlinks.json configured)
 
 ⏳ **In Progress**:
-- Google Play Store developer account verification
-- App Store screenshots and listing preparation
-- Payment integration completion
-- Real-time tracking implementation
+- PWA service worker implementation
+- App store preparation
+- Payment integration
+- Real-time tracking
 
 🔜 **Planned**:
-- Google Play Store publication (pending account verification)
-- PWA service worker for offline support
-- Push notifications via Firebase
+- Push notifications
+- Offline mode
 - Multi-language support
 - Advanced analytics
 
@@ -91,12 +86,8 @@ npm test           # Run tests
 - **Styling**: CSS Modules (no CSS-in-JS)
 - **State**: React Context + useReducer
 - **Build**: Create React App 5.0.1
-- **Testing**: Jest + React Testing Library + Playwright (E2E)
+- **Testing**: Jest + React Testing Library
 - **PWA**: Service Workers + Manifest
-- **Hosting**: Vercel (production deployment)
-- **Backend**: Firebase (Cloud Messaging, Auth)
-- **Database**: Supabase (PostgreSQL)
-- **Mobile**: TWA (Trusted Web Activity) for Android
 
 ## 📱 Device Support
 
@@ -136,22 +127,10 @@ armora/
 
 ## 🚀 Deployment
 
-**Production URL**: https://armora.vercel.app
-
-**Deployment Status**: ✅ Live on Vercel
-
-**Android App**: ✅ AAB file ready for Google Play Store submission
-
-The app is deployed as a Progressive Web App and available for:
-- **Web**: Direct access at armora.vercel.app
-- **Google Play Store**: TWA-wrapped Android app (pending publication)
-- **Apple App Store**: WebView wrapper (planned)
-
-### Deployment Infrastructure
-- **Hosting**: Vercel (automatic deployments from GitHub)
-- **Backend**: Firebase (Cloud Messaging enabled)
-- **Database**: Supabase
-- **Domain Verification**: assetlinks.json configured for Android App Links
+The app is configured for deployment as a Progressive Web App, ready for:
+- Google Play Store (via TWA)
+- Apple App Store (via WebView wrapper)
+- Direct web access
 
 ## 🤝 Contributing
 
@@ -167,14 +146,4 @@ Proprietary - Armora Security Transport Ltd.
 
 ---
 
-## 🔑 Key Files for Deployment
-
-- `twa-manifest.json` - Android TWA configuration (package: com.armora.protection)
-- `android.keystore` - Android signing keystore (local only, not in repo)
-- `app-release-bundle.aab` - Android App Bundle for Play Store (local only)
-- `public/.well-known/assetlinks.json` - Android App Links verification
-- `public/manifest.json` - PWA manifest
-
----
-
-Last updated: 2025-10-01T08:45:00.000Z
+Last updated: 2025-10-09T08:08:25.923Z

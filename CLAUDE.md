@@ -318,4 +318,4 @@ REACT_APP_STRIPE_PUBLISHABLE_KEY=[from Stripe dashboard]
 REACT_APP_GOOGLE_MAPS_API_KEY=[from Google Cloud Console]
 ```
 
-Last updated: 2025-10-01T09:25:00.000
+Last updated: 2025-10-09T08:08:25.926Z

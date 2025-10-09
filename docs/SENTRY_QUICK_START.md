@@ -174,3 +174,8 @@ Check Sentry dashboard in 30 seconds → You should see the error!
 **Full Documentation**: See `/workspaces/armora/docs/SENTRY_SETUP.md`
 
 **Last Updated**: October 8, 2025
+
+
+---
+
+Last updated: 2025-10-09T08:08:25.960Z

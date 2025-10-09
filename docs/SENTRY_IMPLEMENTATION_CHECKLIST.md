@@ -381,3 +381,8 @@ If errors aren't appearing in Sentry:
 
 **Last Updated**: October 8, 2025
 **Next Review**: When implementing Sentry or quarterly review
+
+
+---
+
+Last updated: 2025-10-09T08:08:25.960Z
