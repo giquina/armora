@@ -174,18 +174,22 @@ jobs:
           grep -q "google()" android/build.gradle || echo "WARNING: google() not found in root build.gradle"
           grep -q "mavenCentral()" android/build.gradle || echo "WARNING: mavenCentral() not found"
 
-      - name: 🔐 Configure Signing (if secrets exist)
-        if: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
+      - name: 🔐 Configure Signing (optional - skipped if secrets not set)
+        continue-on-error: true
         run: |
-          echo "${{ secrets.ANDROID_KEYSTORE_BASE64 }}" | base64 -d > android/keystore.jks
-          cat >> android/gradle.properties << 'SIGNING_EOF'
+          if [ -n "${{ secrets.ANDROID_KEYSTORE_BASE64 }}" ]; then
+            echo "${{ secrets.ANDROID_KEYSTORE_BASE64 }}" | base64 -d > android/keystore.jks
+            cat >> android/gradle.properties << 'SIGNING_EOF'
 
           RELEASE_STORE_FILE=keystore.jks
           RELEASE_STORE_PASSWORD=${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
           RELEASE_KEY_ALIAS=${{ secrets.ANDROID_KEY_ALIAS }}
           RELEASE_KEY_PASSWORD=${{ secrets.ANDROID_KEY_PASSWORD }}
           SIGNING_EOF
-          echo "Applied signing config."
+            echo "Applied signing config."
+          else
+            echo "Signing secrets not configured - skipping release signing"
+          fi
 
       - name: 🏗️ Gradle Build
         id: gradle-build
