@@ -94,7 +94,7 @@ curl -o ANDROID_BUILD_SETUP.md \
   https://raw.githubusercontent.com/giquina/armora/main/ANDROID_BUILD_SETUP.md
 
 # Update capacitor.config.ts for CPO app
-sed -i "s/uk.co.armora.client/uk.co.armora.cpo/g" capacitor.config.ts
+sed -i "s/com.armora.protection/com.armora.protection.cpo/g" capacitor.config.ts
 sed -i "s/Armora Security Transport/Armora CPO/g" capacitor.config.ts
 
 # Commit and push
@@ -111,7 +111,7 @@ git push origin main
    - `capacitor.config.ts`
    - `ANDROID_BUILD_SETUP.md`
 3. In `capacitor.config.ts`, change:
-   - `appId: 'uk.co.armora.cpo'`
+   - `appId: 'com.armora.protection.cpo'`
    - `appName: 'Armora CPO'`
 4. Upload to armoracpo repository
 5. Commit and push

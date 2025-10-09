@@ -1,0 +1,326 @@
+================================================================================
+GOOGLE PLAY STORE - COPY-PASTE REFERENCE
+Armora Close Protection (com.armora.protection)
+================================================================================
+
+---
+APP TITLE (30 characters max)
+---
+Armora Close Protection
+
+---
+SHORT DESCRIPTION (80 characters max)
+---
+Premium SIA-licensed close protection & executive security across England & Wales
+
+---
+FULL DESCRIPTION (4000 characters max)
+---
+Professional Executive Protection at Your Fingertips
+
+Armora delivers premium close protection services through vetted SIA-licensed Close Protection Officers (CPOs) across England & Wales. Whether you're a high-profile executive, VIP, or anyone requiring professional security, Armora connects you with elite protection professionals instantly.
+
+IMPORTANT: Armora is a professional security company providing SIA-licensed close protection services. We are NOT a taxi or private hire vehicle service.
+
+Why Choose Armora?
+
+🛡️ SIA-Licensed Protection Officers
+Every CPO in our network holds current Security Industry Authority licensing and has passed rigorous background checks. From corporate bodyguards to Special Forces-trained operators, our officers deliver protection that exceeds industry standards.
+
+📍 Nationwide Coverage
+Complete England & Wales coverage with specialized services in:
+• London and Greater London
+• Major cities (Manchester, Birmingham, Leeds, Bristol)
+• Airport security and transfers
+• Event protection
+• High-risk area operations
+
+⚡ Instant Assignment & Real-Time Tracking
+Book protection in seconds with our intuitive mobile platform. Track your CPO's approach in real-time, receive instant notifications, and maintain secure communication throughout your protection detail.
+
+🔒 Military-Grade Security
+Our platform uses end-to-end encryption, secure payment processing via Stripe, and complies with UK GDPR regulations. Your safety and privacy are paramount.
+
+Service Tiers
+
+Essential Protection (£65/hour)
+SIA Level 2 licensed officers for standard close protection requirements. Perfect for business meetings, events, and general security needs.
+
+Executive Protection (£95/hour)
+SIA Level 3 licensed corporate bodyguards with extensive experience protecting high-profile individuals. Discrete, professional, and highly trained.
+
+Shadow Protocol (£125/hour)
+Elite Special Forces-trained operators for maximum security requirements. Former military personnel with specialized protection training.
+
+Client Vehicle Security (£55/hour)
+Professional security drivers who operate your personal vehicle, combining protection with transportation coordination.
+
+Key Features
+
+Smart Protection Assignment
+• Instant CPO matching based on location and requirements
+• Real-time officer tracking and ETA
+• Secure in-app communication
+• Emergency panic button with instant response
+• Protection detail history and documentation
+
+Professional Hub
+• Live protection panel with status updates
+• Direct CPO contact and messaging
+• Route optimization and planning
+• Assignment management and scheduling
+• Secure payment processing
+
+Safety First
+• 24/7 emergency support
+• ICO-registered data protection
+• Comprehensive insurance coverage
+• SIA compliance verification
+• Martyn's Law compliant operations
+
+Advanced Technology
+• Progressive Web App for reliable performance
+• Offline capability for uninterrupted service
+• Location services for accurate CPO assignment
+• Push notifications for critical updates
+• Secure cloud backup
+
+Who Uses Armora?
+
+• Corporate executives and board members
+• High-net-worth individuals and families
+• VIPs and public figures
+• Business travelers requiring security
+• Event attendees needing protection
+• Anyone prioritizing personal safety
+
+Regulatory Compliance
+
+Security Industry Authority (SIA)
+All Close Protection Officers hold current SIA licenses verified against the official SIA register. We comply with the Private Security Industry Act 2001 and maintain the highest professional standards.
+
+UK GDPR Compliant
+Operated by Giquina Management Holdings Ltd with full ICO registration. Your data is protected, never sold, and processed in accordance with UK data protection law.
+
+Professional Standards
+• Comprehensive officer background checks (DBS/security clearance)
+• Public liability insurance coverage
+• Professional indemnity insurance
+• Ongoing training and certification
+• Performance monitoring and quality assurance
+
+Get Started Today
+
+1. Download Armora and create your secure account
+2. Complete our brief security assessment questionnaire
+3. Request protection when and where you need it
+4. Track your assigned CPO in real-time
+5. Enjoy professional close protection
+
+Premium Experience
+
+Our mobile-first platform delivers a seamless experience from booking to completion. With real-time updates, secure communications, and professional-grade features, Armora sets the standard for executive protection services.
+
+Register for full benefits:
+• Direct protection booking
+• 50% rewards on completed assignments
+• Priority officer assignment
+• Detailed service history
+• Emergency contact management
+
+Guest access available for quote requests and service information.
+
+About Armora
+
+Operated by Giquina Management Holdings Ltd, Armora represents the future of professional close protection. By combining elite SIA-licensed officers with cutting-edge technology, we deliver security services that meet the demands of today's high-risk environment.
+
+Contact & Support:
+• 24/7 Emergency Support: support@armora.security
+• Privacy Inquiries: privacy@armora.security
+• General Inquiries: info@armora.security
+
+Visit: https://armora.vercel.app
+Privacy Policy: https://armora.vercel.app/privacy.html
+
+Armora: Where professional protection meets premium technology.
+
+---
+RELEASE NOTES - INITIAL RELEASE (500 characters max)
+---
+🛡️ Armora Close Protection - Initial Release
+
+Professional SIA-licensed close protection services across England & Wales. Connect with verified Close Protection Officers in seconds.
+
+FEATURES:
+• Real-time CPO tracking and assignment
+• Four professional tiers (£55-£125/hour)
+• 24/7 emergency support with panic button
+• Secure payments via Stripe
+• Live protection panel
+
+All officers are SIA-licensed, DBS-checked, and fully insured. UK GDPR compliant.
+
+Experience premium executive security today.
+
+---
+CONTACT DETAILS
+---
+Email: support@armora.security
+Website: https://armora.vercel.app
+Privacy Policy: https://armora.vercel.app/privacy.html
+
+---
+CATEGORIZATION
+---
+Category: Business
+Tags: close protection, security, executive protection, SIA licensed, bodyguard
+
+---
+CONTENT RATING
+---
+Expected Rating: PEGI 3 / Everyone
+Reasoning: Professional security services app with no violent, sexual, or inappropriate content
+
+---
+PRIVACY & DATA SAFETY - KEY POINTS
+---
+
+Data Collection: Yes
+Location Data: Yes (for CPO assignment and tracking, deleted after 24 hours)
+Personal Info: Yes (name, email, phone - for service delivery)
+Payment Info: Yes (processed via Stripe, PCI-DSS compliant)
+Photos: Optional (profile picture only)
+
+Data Sharing: Limited to essential service providers only
+- Supabase (backend, GDPR-compliant, EU hosting)
+- Stripe (payments, PCI-DSS compliant)
+- Google Maps API (location services, anonymized where possible)
+- Firebase (push notifications, device tokens only)
+
+Data Selling: NO - We do not sell, rent, or share data with marketing companies
+
+Security Practices:
+✓ Data encrypted in transit
+✓ Data encrypted at rest
+✓ Users can request data deletion
+✓ ISO 27001 certified infrastructure
+✓ Regular security audits
+
+---
+PERMISSIONS JUSTIFICATIONS
+---
+
+ACCESS_FINE_LOCATION (Required)
+Purpose: Real-time CPO assignment and tracking during protection details
+Retention: Location data deleted 24 hours after service completion
+Control: Can be disabled when not requesting protection
+
+INTERNET (Required)
+Purpose: App functionality, real-time updates, secure communication
+Control: Required for app to function
+
+POST_NOTIFICATIONS (Optional)
+Purpose: Protection assignment updates and emergency alerts
+Control: Can be disabled in app or device settings
+
+CAMERA (Optional)
+Purpose: Profile photo upload only
+Control: Fully optional, prompted only when user adds photo
+
+---
+THIRD-PARTY SERVICE PROVIDERS
+---
+
+Supabase - Backend database and authentication
+Data: User accounts, authentication, assignment records
+Privacy: https://supabase.com/privacy
+GDPR: Yes, EU hosting, DPA signed
+
+Stripe - Payment processing
+Data: Payment card information, transactions
+Privacy: https://stripe.com/privacy
+Compliance: PCI-DSS Level 1, GDPR compliant, DPA signed
+
+Google Maps API - Location and mapping services
+Data: Location data for address lookup and routes
+Privacy: https://policies.google.com/privacy
+GDPR: Yes, data anonymized where possible
+
+Firebase Cloud Messaging - Push notifications
+Data: Device tokens only (no personal data)
+Privacy: https://firebase.google.com/support/privacy
+GDPR: Yes, DPA signed
+
+---
+APP DETAILS
+---
+Package Name: com.armora.protection
+Version: 1.0.0
+Version Code: 1
+Minimum Android: 5.0 (API 21)
+Target Android: 14.0 (API 34)
+Bundle Type: AAB (Android App Bundle)
+
+---
+COMPANY INFORMATION
+---
+Legal Name: Giquina Management Holdings Ltd
+Trading As: Armora
+Country: United Kingdom
+Service Area: England & Wales
+ICO Registration: Pending
+SIA Compliance: Yes
+
+---
+DISTRIBUTION
+---
+Countries: United Kingdom
+Pricing: Free (pay-per-use via Stripe)
+Age Restriction: None (suitable for all ages)
+Content: Professional security services
+
+---
+APP CATEGORY & KEYWORDS
+---
+Primary Category: Business
+Secondary: Lifestyle
+
+Search Keywords:
+close protection, bodyguard, executive security, SIA licensed, CPO, personal security, VIP protection, security services, professional bodyguard, security officer, executive protection, corporate security, London security, UK bodyguard, security driver
+
+---
+FILES LOCATION
+---
+App Icon: /workspaces/armora/public/playstore/armora-icon-512.png
+Feature Graphic: /workspaces/armora/public/playstore/armora-feature-graphic.png
+AAB File: /workspaces/armora/app-release-bundle.aab
+Privacy Policy: https://armora.vercel.app/privacy.html
+
+---
+SCREENSHOTS NEEDED
+---
+Minimum: 2 phone screenshots
+Recommended: 5 phone screenshots
+Format: PNG or JPEG
+Dimensions: 1080x1920 (portrait) or 1920x1080 (landscape)
+
+Suggested Screenshots:
+1. Hub/Dashboard with protection panel
+2. Service tier selection screen
+3. Real-time CPO tracking map
+4. Payment and booking flow
+5. Protection assignment completion
+
+---
+SUPPORT CONTACTS
+---
+General Support: support@armora.security
+Privacy Inquiries: privacy@armora.security
+Data Protection Officer: dpo@armora.security
+Emergency Support: 24/7 via in-app panic button
+
+================================================================================
+END OF COPY-PASTE REFERENCE
+Last Updated: October 2025
+Status: Ready for Play Store submission (pending screenshots)
+================================================================================

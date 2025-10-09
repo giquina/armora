@@ -25,7 +25,7 @@ env:
   AGP_VERSION: 8.5.2
   KOTLIN_VERSION: 1.9.24
   GRADLE_DISTRIBUTION: 8.7
-  APP_ID: uk.co.armora.client
+  APP_ID: com.armora.protection
   APP_NAME: "Armora Security Transport"
   WEB_DIR: build
 

@@ -73,7 +73,10 @@
         "play:status": "npx @blocktopus/mcp-google-play list_releases",
         "play:info": "npx @blocktopus/mcp-google-play get_app_info",
         "play:reviews": "npx @blocktopus/mcp-google-play get_reviews",
-        "play:stats": "npx @blocktopus/mcp-google-play get_statistics"
+        "play:stats": "npx @blocktopus/mcp-google-play get_statistics",
+        "android:build": "bash scripts/android-build.sh",
+        "android:prepare": "bash scripts/prepare-playstore.sh",
+        "firebase:verify": "bash scripts/verify-firebase.sh"
     },
     "eslintConfig": {
         "extends": [

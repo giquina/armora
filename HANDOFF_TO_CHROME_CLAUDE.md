@@ -158,7 +158,7 @@ screenshot-8-settings.png
 4. Choose "Android" platform
 5. Configure settings:
    - App name: Armora
-   - Package ID: uk.co.armora.app
+   - Package ID: com.armora.protection
    - Host: armora-hpp7ejnrw-giquinas-projects.vercel.app
 6. Click "Generate"
 7. Download the .aab file

@@ -1,7 +1,7 @@
 import { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'uk.co.armora.client',
+  appId: 'com.armora.protection',
   appName: 'Armora Security Transport',
   webDir: 'build',
   server: {
