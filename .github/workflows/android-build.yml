@@ -22,6 +22,9 @@ env:
   ANDROID_API_LEVEL: 34
   ANDROID_BUILD_TOOLS_VERSION: '34.0.0'
   ANDROID_TARGET_SDK: 34
+  AGP_VERSION: 8.5.2
+  KOTLIN_VERSION: 1.9.24
+  GRADLE_DISTRIBUTION: 8.7
   APP_ID: uk.co.armora.client
   APP_NAME: "Armora Security Transport"
   WEB_DIR: build
@@ -87,6 +90,36 @@ jobs:
             npx cap add android
           else
             npx cap sync android
+          fi
+
+      - name: 🔧 Patch Android Gradle Versions
+        run: |
+          if [ -d android ]; then
+            WRAPPER="android/gradle/wrapper/gradle-wrapper.properties"
+            if [ -f "$WRAPPER" ]; then
+              sed -i 's#distributionUrl=.*#distributionUrl=https\://services.gradle.org/distributions/gradle-${GRADLE_DISTRIBUTION}-bin.zip#' "$WRAPPER"
+              echo "Patched gradle-wrapper.properties to ${GRADLE_DISTRIBUTION}";
+            fi
+            ROOT_BUILD="android/build.gradle"
+            if [ -f "$ROOT_BUILD" ]; then
+              # Remove existing lines to avoid duplicates
+              sed -i '/com.android.tools.build:gradle/d' "$ROOT_BUILD"
+              sed -i '/kotlin-gradle-plugin/d' "$ROOT_BUILD"
+              # Inject after first occurrence of dependencies {
+              awk -v agp="$AGP_VERSION" -v kotlin="$KOTLIN_VERSION" 'BEGIN{inserted=0} /dependencies[[:space:]]*{/ {print; if(!inserted){print "        classpath \"com.android.tools.build:gradle:" agp "\"
+        classpath \"org.jetbrains.kotlin:kotlin-gradle-plugin:" kotlin "\""; inserted=1; next}} {print}' "$ROOT_BUILD" > /tmp/root.build && mv /tmp/root.build "$ROOT_BUILD"
+            fi
+            APP_BUILD="android/app/build.gradle"
+            if [ -f "$APP_BUILD" ]; then
+              # Ensure compileSdkVersion
+              if ! grep -q "compileSdkVersion" "$APP_BUILD"; then
+                sed -i '0,/android {/s//android {\n    compileSdkVersion ${ANDROID_API_LEVEL}\n/' "$APP_BUILD"
+              fi
+              # Ensure defaultConfig target & min sdk
+              if grep -q "defaultConfig" "$APP_BUILD"; then
+                sed -i "/defaultConfig {/{:a; n; /}/!ba; s/}/    minSdkVersion 23\n    targetSdkVersion ${ANDROID_TARGET_SDK}\n}/}" "$APP_BUILD" || true
+              fi
+            fi
           fi
 
       - name: 🧩 Prepare Android Gradle Patch
@@ -188,5 +221,5 @@ EOF
             echo "- Status: ❌ Failed" >> $GITHUB_STEP_SUMMARY
             echo "### Troubleshooting Handoff to Copilot" >> $GITHUB_STEP_SUMMARY
             echo "Copy the prompt below into Copilot Chat in this repo:" >> $GITHUB_STEP_SUMMARY
-            echo '\n```
-@copilot Please inspect the last failed Android build logs in this workflow run and propose concrete changes (Gradle plugin versions / repositories / missing plugins) to achieve a successful assembleDebug and bundleRelease.\n``\n' >> $GITHUB_STEP_SUMMARY
+            echo '\n```\n@copilot Please inspect the last failed Android build logs in this workflow run and propose concrete changes (Gradle plugin versions / repositories / missing plugins) to achieve a successful assembleDebug and bundleRelease.\n```\n' >> $GITHUB_STEP_SUMMARY
+          fi
