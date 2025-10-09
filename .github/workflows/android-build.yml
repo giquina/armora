@@ -43,6 +43,7 @@ jobs:
             echo "build_type=${{ github.event.inputs.build_type }}" >> $GITHUB_OUTPUT
           else
             echo "build_type=debug" >> $GITHUB_OUTPUT
+          fi
       - name: 📥 Checkout
         uses: actions/checkout@v4
 
@@ -97,27 +98,28 @@ jobs:
           if [ -d android ]; then
             WRAPPER="android/gradle/wrapper/gradle-wrapper.properties"
             if [ -f "$WRAPPER" ]; then
-              sed -i 's#distributionUrl=.*#distributionUrl=https\://services.gradle.org/distributions/gradle-${GRADLE_DISTRIBUTION}-bin.zip#' "$WRAPPER"
-              echo "Patched gradle-wrapper.properties to ${GRADLE_DISTRIBUTION}";
+              sed -i 's#distributionUrl=.*#distributionUrl=https\://services.gradle.org/distributions/gradle-${{ env.GRADLE_DISTRIBUTION }}-bin.zip#' "$WRAPPER"
+              echo "Patched gradle-wrapper.properties to ${{ env.GRADLE_DISTRIBUTION }}"
             fi
+
             ROOT_BUILD="android/build.gradle"
             if [ -f "$ROOT_BUILD" ]; then
-              # Remove existing lines to avoid duplicates
               sed -i '/com.android.tools.build:gradle/d' "$ROOT_BUILD"
               sed -i '/kotlin-gradle-plugin/d' "$ROOT_BUILD"
-              # Inject after first occurrence of dependencies {
-              awk -v agp="$AGP_VERSION" -v kotlin="$KOTLIN_VERSION" 'BEGIN{inserted=0} /dependencies[[:space:]]*{/ {print; if(!inserted){print "        classpath \"com.android.tools.build:gradle:" agp "\"
-        classpath \"org.jetbrains.kotlin:kotlin-gradle-plugin:" kotlin "\""; inserted=1; next}} {print}' "$ROOT_BUILD" > /tmp/root.build && mv /tmp/root.build "$ROOT_BUILD"
+
+              awk -v agp="${{ env.AGP_VERSION }}" -v kotlin="${{ env.KOTLIN_VERSION }}" \
+                'BEGIN{inserted=0} /dependencies[[:space:]]*{/ {print; if(!inserted){print "        classpath \"com.android.tools.build:gradle:" agp "\"\n        classpath \"org.jetbrains.kotlin:kotlin-gradle-plugin:" kotlin "\""; inserted=1; next}} {print}' \
+                "$ROOT_BUILD" > /tmp/root.build && mv /tmp/root.build "$ROOT_BUILD"
             fi
+
             APP_BUILD="android/app/build.gradle"
             if [ -f "$APP_BUILD" ]; then
-              # Ensure compileSdkVersion
               if ! grep -q "compileSdkVersion" "$APP_BUILD"; then
-                sed -i '0,/android {/s//android {\n    compileSdkVersion ${ANDROID_API_LEVEL}\n/' "$APP_BUILD"
+                sed -i '0,/android {/s//android {\n    compileSdkVersion ${{ env.ANDROID_API_LEVEL }}\n/' "$APP_BUILD"
               fi
-              # Ensure defaultConfig target & min sdk
+
               if grep -q "defaultConfig" "$APP_BUILD"; then
-                sed -i "/defaultConfig {/{:a; n; /}/!ba; s/}/    minSdkVersion 23\n    targetSdkVersion ${ANDROID_TARGET_SDK}\n}/}" "$APP_BUILD" || true
+                sed -i "/defaultConfig {/{:a; n; /}/!ba; s/}/    minSdkVersion 23\n    targetSdkVersion ${{ env.ANDROID_TARGET_SDK }}\n}/}" "$APP_BUILD" || true
               fi
             fi
           fi
@@ -176,13 +178,13 @@ jobs:
         if: secrets.ANDROID_KEYSTORE_BASE64 && secrets.ANDROID_KEYSTORE_PASSWORD && secrets.ANDROID_KEY_ALIAS && secrets.ANDROID_KEY_PASSWORD
         run: |
           echo "${{ secrets.ANDROID_KEYSTORE_BASE64 }}" | base64 -d > android/keystore.jks
-          cat >> android/gradle.properties <<EOF
+          cat >> android/gradle.properties << 'SIGNING_EOF'
 
-RELEASE_STORE_FILE=keystore.jks
-RELEASE_STORE_PASSWORD=${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
-RELEASE_KEY_ALIAS=${{ secrets.ANDROID_KEY_ALIAS }}
-RELEASE_KEY_PASSWORD=${{ secrets.ANDROID_KEY_PASSWORD }}
-EOF
+          RELEASE_STORE_FILE=keystore.jks
+          RELEASE_STORE_PASSWORD=${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
+          RELEASE_KEY_ALIAS=${{ secrets.ANDROID_KEY_ALIAS }}
+          RELEASE_KEY_PASSWORD=${{ secrets.ANDROID_KEY_PASSWORD }}
+          SIGNING_EOF
           echo "Applied signing config."
 
       - name: 🏗️ Gradle Build
