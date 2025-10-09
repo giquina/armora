@@ -1,13 +1,20 @@
 import { FC } from 'react';
+import { useApp } from '../../../contexts/AppContext';
 import styles from './PrivacyPolicy.module.css';
 
 export const PrivacyPolicy: FC = () => {
+  const { navigateToView } = useApp();
+
   return (
     <div className={styles.container}>
+      <button className={styles.backButton} onClick={() => navigateToView('home')}>
+        ← Back
+      </button>
+
       <div className={styles.content}>
         <header className={styles.header}>
           <h1>ARMORA PROTECTION SERVICES PRIVACY POLICY</h1>
-          <p className={styles.lastUpdated}>Last updated: {new Date().toLocaleDateString('en-GB')}</p>
+          <p className={styles.lastUpdated}>Last updated: October 2025</p>
         </header>
 
         <div className={styles.importantNotice}>
@@ -25,7 +32,7 @@ export const PrivacyPolicy: FC = () => {
             <li><a href="#data-collection">2. What Data We Collect</a></li>
             <li><a href="#data-use">3. How We Use Your Data</a></li>
             <li><a href="#legal-basis">4. Legal Basis for Processing</a></li>
-            <li><a href="#data-sharing">5. Data Sharing</a></li>
+            <li><a href="#data-sharing">5. Data Sharing & Third-Party Services</a></li>
             <li><a href="#data-retention">6. Data Retention</a></li>
             <li><a href="#your-rights">7. Your GDPR Rights</a></li>
             <li><a href="#security">8. Data Security</a></li>
@@ -37,13 +44,14 @@ export const PrivacyPolicy: FC = () => {
         <section id="data-controller" className={styles.section}>
           <h2>1. Data Controller</h2>
           <p>
-            <strong>Armora Security Ltd</strong> is the data controller responsible for your personal data.
+            <strong>Giquina Management Holdings Ltd</strong> (trading as Armora) is the data controller responsible for your personal data.
           </p>
           <div className={styles.contactDetails}>
-            <p><strong>Address:</strong> [Company Address]</p>
-            <p><strong>Email:</strong> privacy@armorasecurity.com</p>
-            <p><strong>Phone:</strong> +44 (0) 20 XXXX XXXX</p>
-            <p><strong>Data Protection Officer:</strong> dpo@armorasecurity.com</p>
+            <p><strong>Company:</strong> Giquina Management Holdings Ltd</p>
+            <p><strong>Trading As:</strong> Armora Security Transport & Armora CPO Console</p>
+            <p><strong>Email:</strong> privacy@armora.security</p>
+            <p><strong>Data Protection Officer:</strong> dpo@armora.security</p>
+            <p><strong>ICO Registration:</strong> [Pending Registration]</p>
           </div>
         </section>
 
@@ -67,6 +75,8 @@ export const PrivacyPolicy: FC = () => {
               <li>Protection requirements and risk assessment</li>
               <li>Service history and protection assignments</li>
               <li>Payment information (processed securely via Stripe)</li>
+              <li>SIA license information (for CPO Console users only)</li>
+              <li>Real-time GPS coordinates during active assignments</li>
             </ul>
           </div>
 
@@ -118,20 +128,25 @@ export const PrivacyPolicy: FC = () => {
         </section>
 
         <section id="data-sharing" className={styles.section}>
-          <h2>5. Data Sharing</h2>
+          <h2>5. Data Sharing & Third-Party Services</h2>
           <div className={styles.noSharing}>
-            <h3>🚫 We DO NOT Share Your Data With Third Parties</h3>
+            <h3>🚫 We DO NOT Sell Your Data</h3>
             <p>Your personal data is never sold, rented, or shared with marketing companies.</p>
           </div>
 
           <div className={styles.limitedSharing}>
-            <h4>Limited Sharing for Service Delivery:</h4>
+            <h4>Essential Third-Party Service Providers:</h4>
             <ul>
-              <li><strong>Assigned CPOs:</strong> Receive only necessary information for your protection</li>
-              <li><strong>Payment Processor (Stripe):</strong> Handles payments securely with minimal data</li>
-              <li><strong>Emergency Services:</strong> Only in genuine emergency situations</li>
-              <li><strong>SIA Authority:</strong> For license verification and compliance when required</li>
+              <li><strong>Supabase (Backend & Authentication):</strong> Secure cloud database for user accounts, authentication, and protection assignment records. Data hosted in EU regions compliant with GDPR.</li>
+              <li><strong>Stripe (Payment Processing):</strong> PCI-DSS compliant payment processor handling card transactions. Only necessary payment data is shared.</li>
+              <li><strong>Google Maps API (Location Services):</strong> Geocoding and mapping services for address lookup and route display. Location data is anonymized where possible.</li>
+              <li><strong>Firebase Cloud Messaging:</strong> Push notifications for protection assignment updates and emergency alerts. Device tokens only, no personal data.</li>
+              <li><strong>Assigned CPOs:</strong> Receive only necessary information (name, phone, pickup location) for your protection.</li>
+              <li><strong>Emergency Services:</strong> Only contacted in genuine emergency situations with your consent or vital interest.</li>
+              <li><strong>SIA Authority:</strong> CPO license verification and compliance checks when legally required.</li>
             </ul>
+
+            <p><strong>Data Processing Agreements:</strong> All third-party processors have signed Data Processing Agreements (DPAs) and are GDPR-compliant.</p>
           </div>
         </section>
 
@@ -198,7 +213,7 @@ export const PrivacyPolicy: FC = () => {
 
           <div className={styles.exerciseRights}>
             <h4>How to Exercise Your Rights:</h4>
-            <p>Email: <strong>privacy@armorasecurity.com</strong></p>
+            <p>Email: <strong>privacy@armora.security</strong></p>
             <p>We will respond within 30 days of receiving your request.</p>
           </div>
         </section>
@@ -215,54 +230,74 @@ export const PrivacyPolicy: FC = () => {
         </section>
 
         <section id="sia-data" className={styles.section}>
-          <h2>9. SIA License Verification Data</h2>
+          <h2>9. SIA License Verification Data (CPO Console)</h2>
           <p>
-            We process SIA license information to verify our officers' qualifications. This includes:
+            For Close Protection Officers using the <strong>Armora CPO Console</strong> app, we process additional professional information:
           </p>
           <ul>
-            <li>SIA license numbers and expiry dates</li>
-            <li>Verification status with the Security Industry Authority</li>
-            <li>Training certificates and background check confirmations</li>
+            <li><strong>SIA license numbers and expiry dates:</strong> Verified against SIA public register</li>
+            <li><strong>Verification status:</strong> Confirmation of active license with Security Industry Authority</li>
+            <li><strong>Training certificates:</strong> Close Protection qualifications and specialist training</li>
+            <li><strong>Background check confirmations:</strong> DBS/Security clearance status</li>
+            <li><strong>Professional insurance:</strong> Public liability and professional indemnity details</li>
+            <li><strong>Assignment history:</strong> Performance ratings and service records</li>
           </ul>
           <p>
-            This data is processed under our legal obligation to comply with SIA regulations
-            and is retained for the duration of the officer's employment plus 7 years.
+            This data is processed under our legal obligation to comply with SIA regulations (Private Security Industry Act 2001)
+            and is retained for the duration of the officer's engagement plus 7 years as required by law.
           </p>
+          <p><strong>CPO Rights:</strong> Officers have the same GDPR rights as Principals and can request access to their professional records at any time.</p>
         </section>
 
         <section id="contact" className={styles.section}>
-          <h2>10. Contact Information</h2>
+          <h2>10. Contact Information & Complaints</h2>
 
           <div className={styles.contactGrid}>
             <div className={styles.contactItem}>
               <h4>Privacy Inquiries</h4>
-              <p>privacy@armorasecurity.com</p>
+              <p>privacy@armora.security</p>
+              <p>Response time: 30 days maximum</p>
             </div>
             <div className={styles.contactItem}>
               <h4>Data Protection Officer</h4>
-              <p>dpo@armorasecurity.com</p>
+              <p>dpo@armora.security</p>
+              <p>For GDPR rights requests</p>
             </div>
             <div className={styles.contactItem}>
               <h4>ICO Complaint</h4>
               <p>ico.org.uk</p>
               <p>0303 123 1113</p>
+              <p>Right to lodge complaint with UK Information Commissioner's Office</p>
             </div>
             <div className={styles.contactItem}>
               <h4>General Support</h4>
-              <p>support@armorasecurity.com</p>
-              <p>+44 (0) 20 XXXX XXXX</p>
+              <p>support@armora.security</p>
+              <p>24/7 emergency support</p>
             </div>
+          </div>
+
+          <div className={styles.exerciseRights}>
+            <h4>🇬🇧 UK GDPR Compliance</h4>
+            <p>This policy is compliant with the UK General Data Protection Regulation (UK GDPR) and the Data Protection Act 2018.</p>
+            <p><strong>Company Registration:</strong> Giquina Management Holdings Ltd</p>
+            <p><strong>Apps Covered:</strong> Armora Security Transport (Principal app) & Armora CPO Console (Officer app)</p>
           </div>
         </section>
 
         <footer className={styles.footer}>
           <p>
-            This privacy policy applies to Armora Security Ltd's professional close protection services.
-            We are committed to protecting your privacy and handling your data responsibly.
+            This privacy policy applies to both <strong>Armora Security Transport</strong> (Principal app) and
+            <strong> Armora CPO Console</strong> (Close Protection Officer app), operated by Giquina Management Holdings Ltd.
           </p>
           <p>
-            <strong>Remember:</strong> Armora provides professional security services via SIA-licensed officers.
-            We are not a transportation company.
+            We are committed to protecting your privacy, handling your data responsibly, and maintaining full compliance with UK GDPR.
+          </p>
+          <p>
+            <strong>Important:</strong> Armora provides professional close protection services via SIA-licensed officers.
+            We are not a taxi or private hire vehicle service.
+          </p>
+          <p className={styles.lastUpdated}>
+            <strong>Policy Version:</strong> 1.0.0 | <strong>Last Updated:</strong> October 2025
           </p>
         </footer>
       </div>

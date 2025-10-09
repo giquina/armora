@@ -67,7 +67,13 @@
         "keep-alive:status": "ps aux | grep -v grep | grep keep-alive.sh || echo 'Keep-alive not running'",
         "connection:fix": "npm run keep-alive:stop; pkill -f 'react-scripts start'; sleep 2; npm run fresh && npm run keep-alive:start",
         "verify-deployment": "node scripts/verify-deployment.js",
-        "verify": "npm run verify-deployment"
+        "verify": "npm run verify-deployment",
+        "play:list": "npx @blocktopus/mcp-google-play list_apps",
+        "play:deploy": "npx @blocktopus/mcp-google-play create_release",
+        "play:status": "npx @blocktopus/mcp-google-play list_releases",
+        "play:info": "npx @blocktopus/mcp-google-play get_app_info",
+        "play:reviews": "npx @blocktopus/mcp-google-play get_reviews",
+        "play:stats": "npx @blocktopus/mcp-google-play get_statistics"
     },
     "eslintConfig": {
         "extends": [

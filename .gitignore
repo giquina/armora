@@ -40,6 +40,11 @@ manifest-checksum.txt
 # Keystore (sensitive - keep local only)
 android.keystore
 *.keystore
+*.keystore.base64
+
+# Google Play Service Account (sensitive - never commit)
+google-play-service-account.json
+*.serviceaccount.json
 
 # TWA manifest (keep for reference but track separately)
 twa-manifest.json

@@ -1,0 +1,22 @@
+{
+  "mcpServers": {
+    "google-play": {
+      "command": "npx",
+      "args": [
+        "@blocktopus/mcp-google-play",
+        "--api-key",
+        "${GOOGLE_PLAY_SERVICE_ACCOUNT_KEY_PATH}"
+      ],
+      "env": {
+        "GOOGLE_APPLICATION_CREDENTIALS": "${GOOGLE_PLAY_SERVICE_ACCOUNT_KEY_PATH}"
+      }
+    }
+  },
+  "notes": {
+    "description": "Google Play MCP Server Configuration for Armora Protection App",
+    "package": "@blocktopus/mcp-google-play",
+    "version": "installed",
+    "installation_date": "2025-10-09",
+    "documentation": "See docs/google-play-mcp-setup.md for complete setup instructions"
+  }
+}

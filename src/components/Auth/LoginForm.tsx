@@ -260,6 +260,26 @@ export function LoginForm() {
           >
             ← Back to Welcome
           </button>
+
+          <div className={styles.legalLinks}>
+            <button
+              type="button"
+              className={styles.linkButton}
+              onClick={() => navigateToView('privacy')}
+              disabled={isSubmitting}
+            >
+              Privacy Policy
+            </button>
+            <span> • </span>
+            <button
+              type="button"
+              className={styles.linkButton}
+              onClick={() => navigateToView('terms')}
+              disabled={isSubmitting}
+            >
+              Terms of Service
+            </button>
+          </div>
         </footer>
       </div>
     </div>

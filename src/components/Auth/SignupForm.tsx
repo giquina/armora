@@ -481,7 +481,7 @@ export function SignupForm() {
                 disabled={isSubmitting}
               />
               <span className={styles.checkboxText}>
-                I accept the <button type="button" className={styles.link}>Terms of Service</button> and <button type="button" className={styles.link}>Privacy Policy</button>
+                I accept the <button type="button" className={styles.link} onClick={() => navigateToView('terms')}>Terms of Service</button> and <button type="button" className={styles.link} onClick={() => navigateToView('privacy')}>Privacy Policy</button>
               </span>
             </label>
             {errors.acceptTerms && (
@@ -586,6 +586,26 @@ export function SignupForm() {
           >
             ← Back to Welcome
           </button>
+
+          <div className={styles.legalLinks}>
+            <button
+              type="button"
+              className={styles.linkButton}
+              onClick={() => navigateToView('privacy')}
+              disabled={isSubmitting}
+            >
+              Privacy Policy
+            </button>
+            <span> • </span>
+            <button
+              type="button"
+              className={styles.linkButton}
+              onClick={() => navigateToView('terms')}
+              disabled={isSubmitting}
+            >
+              Terms of Service
+            </button>
+          </div>
         </footer>
       </div>
     </div>

@@ -599,9 +599,9 @@ export function AccountView() {
 
         <div className={styles.appInfo}>
           <span>Version 2.4.1 • </span>
-          <button className={styles.linkButton}>Terms</button>
+          <button className={styles.linkButton} onClick={() => navigateToView('terms')}>Terms</button>
           <span> • </span>
-          <button className={styles.linkButton}>Privacy</button>
+          <button className={styles.linkButton} onClick={() => navigateToView('privacy')}>Privacy</button>
         </div>
       </div>
     </div>
