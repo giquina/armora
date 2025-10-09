@@ -1,4 +1,4 @@
-name: 🤖 Build Android App for Play Store
+name: 🤖 Android CI (Capacitor) – Build APK & AAB
 
 on:
   push:
@@ -8,9 +8,9 @@ on:
   workflow_dispatch:
     inputs:
       build_type:
-        description: 'Build type'
+        description: "Build type (debug or release)"
         required: true
-        default: 'debug'
+        default: "debug"
         type: choice
         options:
           - debug
@@ -19,39 +19,45 @@ on:
 env:
   NODE_VERSION: '18'
   JAVA_VERSION: '17'
-  ANDROID_API_LEVEL: 33
-  ANDROID_BUILD_TOOLS_VERSION: '33.0.0'
+  ANDROID_API_LEVEL: 34
+  ANDROID_BUILD_TOOLS_VERSION: '34.0.0'
+  ANDROID_TARGET_SDK: 34
+  APP_ID: uk.co.armora.client
+  APP_NAME: "Armora Security Transport"
+  WEB_DIR: build
 
 jobs:
-  setup-capacitor:
-    name: 📦 Setup Capacitor & Android Project
+  prepare:
+    name: 📦 Prepare Capacitor Project
     runs-on: ubuntu-latest
-    
+    outputs:
+      build_type: ${{ steps.set-build-type.outputs.build_type }}
     steps:
-      - name: 📥 Checkout code
+      - name: 🔍 Set build type
+        id: set-build-type
+        run: |
+          if [ -n "${{ github.event.inputs.build_type }}" ]; then
+            echo "build_type=${{ github.event.inputs.build_type }}" >> $GITHUB_OUTPUT
+          else
+            echo "build_type=debug" >> $GITHUB_OUTPUT
+      - name: 📥 Checkout
         uses: actions/checkout@v4
-      
-      - name: 🟢 Setup Node.js
+
+      - name: 🟢 Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NODE_VERSION }}
           cache: 'npm'
-      
-      - name: 📦 Install dependencies
+
+      - name: 📦 Install deps
+        run: npm ci
+
+      - name: ➕ Install Capacitor Android
         run: |
-          npm ci
-          npm install @capacitor/core @capacitor/cli @capacitor/android
-      
-      - name: 🔧 Initialize Capacitor (if not exists)
-        run: |
-          if [ ! -f "capacitor.config.ts" ] && [ ! -f "capacitor.config.json" ]; then
-            echo "Creating Capacitor config..."
-            npx cap init "Armora Security Transport" "uk.co.armora.client" --web-dir=build
-          else
-            echo "Capacitor config already exists"
-          fi
-      
-      - name: 🏗️ Build React app
+          npm i -D @capacitor/cli
+          npm i @capacitor/core @capacitor/android
+
+      - name: 🏗️ Build Web App
         run: npm run build
         env:
           CI: false
@@ -66,102 +72,121 @@ jobs:
           REACT_APP_STRIPE_PUBLISHABLE_KEY: ${{ secrets.REACT_APP_STRIPE_PUBLISHABLE_KEY }}
           REACT_APP_GOOGLE_MAPS_API_KEY: ${{ secrets.REACT_APP_GOOGLE_MAPS_API_KEY }}
           REACT_APP_SENTRY_DSN: ${{ secrets.REACT_APP_SENTRY_DSN }}
-      
-      - name: 📱 Add Android platform (if not exists)
+
+      - name: ⚙️ Ensure Capacitor Config
         run: |
-          if [ ! -d "android" ]; then
-            echo "Adding Android platform..."
+          if [ ! -f capacitor.config.ts ] && [ ! -f capacitor.config.json ]; then
+            npx cap init "${APP_NAME}" "${APP_ID}" --web-dir=${WEB_DIR} --npm-client=npm
+          else
+            echo "Capacitor config present."
+          fi
+
+      - name: ➕ Add / Sync Android Platform
+        run: |
+          if [ ! -d android ]; then
             npx cap add android
           else
-            echo "Android platform already exists, syncing..."
             npx cap sync android
           fi
-      
-      - name: 📤 Upload Android project
+
+      - name: 🧩 Prepare Android Gradle Patch
+        run: |
+          if [ -f scripts/prepare-android-ci.sh ]; then
+            bash scripts/prepare-android-ci.sh
+          else
+            echo "No prepare script found (will be added)."
+          fi
+
+      - name: 📤 Upload Prepared Android Project
         uses: actions/upload-artifact@v4
         with:
-          name: android-project
-          path: android/
+          name: android-prepared
+          path: android
           retention-days: 7
 
-  build-android-debug:
-    name: 🔨 Build Android Debug APK
-    needs: setup-capacitor
+  build:
+    name: 🏗️ Build (${{ needs.prepare.outputs.build_type }})
+    needs: prepare
     runs-on: ubuntu-latest
-    
     steps:
-      - name: 📥 Checkout code
+      - name: 📥 Checkout
         uses: actions/checkout@v4
-      
-      - name: ☕ Setup JDK
+
+      - name: ☕ Setup Java
         uses: actions/setup-java@v4
         with:
-          distribution: 'temurin'
+          distribution: temurin
           java-version: ${{ env.JAVA_VERSION }}
-      
-      - name: 📥 Download Android project
+          cache: gradle
+
+      - name: 📦 Setup Android SDK
+        uses: android-actions/setup-android@v3
+        with:
+          api-level: ${{ env.ANDROID_API_LEVEL }}
+          build-tools: ${{ env.ANDROID_BUILD_TOOLS_VERSION }}
+
+      - name: 📥 Download Android Project
         uses: actions/download-artifact@v4
         with:
-          name: android-project
-          path: android/
-      
-      - name: 🔧 Make gradlew executable
+          name: android-prepared
+          path: android
+
+      - name: 🔧 Gradle Executable
         run: chmod +x android/gradlew
-      
-      - name: 🏗️ Build Debug APK
+
+      - name: 🧪 Validate Repositories
+        run: |
+          grep -q "google()" android/build.gradle || echo "WARNING: google() not found in root build.gradle"
+          grep -q "mavenCentral()" android/build.gradle || echo "WARNING: mavenCentral() not found"
+
+      - name: 🔐 Configure Signing (if secrets exist)
+        if: secrets.ANDROID_KEYSTORE_BASE64 && secrets.ANDROID_KEYSTORE_PASSWORD && secrets.ANDROID_KEY_ALIAS && secrets.ANDROID_KEY_PASSWORD
+        run: |
+          echo "${{ secrets.ANDROID_KEYSTORE_BASE64 }}" | base64 -d > android/keystore.jks
+          cat >> android/gradle.properties <<EOF
+
+RELEASE_STORE_FILE=keystore.jks
+RELEASE_STORE_PASSWORD=${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
+RELEASE_KEY_ALIAS=${{ secrets.ANDROID_KEY_ALIAS }}
+RELEASE_KEY_PASSWORD=${{ secrets.ANDROID_KEY_PASSWORD }}
+EOF
+          echo "Applied signing config."
+
+      - name: 🏗️ Gradle Build
+        id: gradle-build
         run: |
           cd android
-          ./gradlew assembleDebug --stacktrace
-      
-      - name: 📤 Upload Debug APK
+          if [ "${{ needs.prepare.outputs.build_type }}" = "release" ]; then
+            ./gradlew bundleRelease --stacktrace || (echo "::error ::Release build failed"; exit 1)
+          else
+            ./gradlew assembleDebug --stacktrace || (echo "::error ::Debug build failed"; exit 1)
+          fi
+
+      - name: 📤 Upload Artifact
+        if: success()
         uses: actions/upload-artifact@v4
         with:
-          name: armora-debug-apk
-          path: android/app/build/outputs/apk/debug/*.apk
+          name: ${{ needs.prepare.outputs.build_type == 'release' && 'armora-release-aab' || 'armora-debug-apk' }}
+          path: |
+            android/app/build/outputs/**/*.aab
+            android/app/build/outputs/**/*.apk
           retention-days: 30
 
-  build-android-release:
-    name: 🚀 Build Android Release AAB
-    needs: setup-capacitor
-    runs-on: ubuntu-latest
-    
-    steps:
-      - name: 📥 Checkout code
-        uses: actions/checkout@v4
-      
-      - name: ☕ Setup JDK
-        uses: actions/setup-java@v4
-        with:
-          distribution: 'temurin'
-          java-version: ${{ env.JAVA_VERSION }}
-      
-      - name: 📥 Download Android project
-        uses: actions/download-artifact@v4
-        with:
-          name: android-project
-          path: android/
-      
-      - name: 🔧 Make gradlew executable
-        run: chmod +x android/gradlew
-      
-      - name: 🏗️ Build Release AAB
+      - name: 📝 Summary
+        if: always()
         run: |
-          cd android
-          ./gradlew bundleRelease --stacktrace
-      
-      - name: 📤 Upload Release AAB
-        uses: actions/upload-artifact@v4
-        with:
-          name: armora-release-aab
-          path: android/app/build/outputs/bundle/release/*.aab
-          retention-days: 90
-      
-      - name: 📊 Generate build report
-        run: |
-          echo "## 🎉 Android Build Complete!" >> $GITHUB_STEP_SUMMARY
-          echo "" >> $GITHUB_STEP_SUMMARY
-          echo "### 📱 Build Artifacts" >> $GITHUB_STEP_SUMMARY
-          echo "- **Debug APK**: armora-debug-apk" >> $GITHUB_STEP_SUMMARY
-          echo "- **Release AAB**: armora-release-aab" >> $GITHUB_STEP_SUMMARY
-          echo "" >> $GITHUB_STEP_SUMMARY
-          echo "### 📦 Ready for Google Play Store!" >> $GITHUB_STEP_SUMMARY
+          echo "## Android Build Summary" >> $GITHUB_STEP_SUMMARY
+          echo "- Build Type: ${{ needs.prepare.outputs.build_type }}" >> $GITHUB_STEP_SUMMARY
+          if [ "${{ job.status }}" = "success" ]; then
+            echo "- Status: ✅ Success" >> $GITHUB_STEP_SUMMARY
+            echo "- Artifact: $( [ '${{ needs.prepare.outputs.build_type }}' = 'release' ] && echo 'armora-release-aab' || echo 'armora-debug-apk')" >> $GITHUB_STEP_SUMMARY
+            echo "### Next Steps" >> $GITHUB_STEP_SUMMARY
+            echo "1. Download artifact" >> $GITHUB_STEP_SUMMARY
+            echo "2. Test on device (APK for debug)" >> $GITHUB_STEP_SUMMARY
+            echo "3. Upload AAB to Play Console (release)" >> $GITHUB_STEP_SUMMARY
+          else
+            echo "- Status: ❌ Failed" >> $GITHUB_STEP_SUMMARY
+            echo "### Troubleshooting Handoff to Copilot" >> $GITHUB_STEP_SUMMARY
+            echo "Copy the prompt below into Copilot Chat in this repo:" >> $GITHUB_STEP_SUMMARY
+            echo '\n```
+@copilot Please inspect the last failed Android build logs in this workflow run and propose concrete changes (Gradle plugin versions / repositories / missing plugins) to achieve a successful assembleDebug and bundleRelease.\n``\n' >> $GITHUB_STEP_SUMMARY
