@@ -88,7 +88,6 @@ jobs:
     name: 🔨 Build Android Debug APK
     needs: setup-capacitor
     runs-on: ubuntu-latest
-    if: github.event.inputs.build_type == 'debug' || github.event.inputs.build_type == ''
     
     steps:
       - name: 📥 Checkout code
@@ -120,24 +119,11 @@ jobs:
           name: armora-debug-apk
           path: android/app/build/outputs/apk/debug/*.apk
           retention-days: 30
-      
-      - name: 📝 Comment on PR with download link
-        if: github.event_name == 'pull_request'
-        uses: actions/github-script@v7
-        with:
-          script: |
-            github.rest.issues.createComment({
-              issue_number: context.issue.number,
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              body: '✅ Android Debug APK built successfully!\n\nDownload it from the artifacts section of this workflow run.'
-            })
 
   build-android-release:
-    name: 🚀 Build Android Release AAB for Play Store
+    name: 🚀 Build Android Release AAB
     needs: setup-capacitor
     runs-on: ubuntu-latest
-    if: github.event.inputs.build_type == 'release' || github.ref == 'refs/heads/main'
     
     steps:
       - name: 📥 Checkout code
@@ -158,26 +144,10 @@ jobs:
       - name: 🔧 Make gradlew executable
         run: chmod +x android/gradlew
       
-      - name: 🔐 Decode keystore
-        if: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
-        run: |
-          echo "${{ secrets.ANDROID_KEYSTORE_BASE64 }}" | base64 --decode > android/app/armora-release.keystore
-      
       - name: 🏗️ Build Release AAB
         run: |
           cd android
-          if [ -f "app/armora-release.keystore" ]; then
-            echo "Building signed release AAB..."
-            ./gradlew bundleRelease \
-              -Pandroid.injected.signing.store.file=app/armora-release.keystore \
-              -Pandroid.injected.signing.store.password="${{ secrets.ANDROID_KEYSTORE_PASSWORD }}" \
-              -Pandroid.injected.signing.key.alias="${{ secrets.ANDROID_KEY_ALIAS }}" \
-              -Pandroid.injected.signing.key.password="${{ secrets.ANDROID_KEY_PASSWORD }}" \
-              --stacktrace
-          else
-            echo "Building unsigned release AAB (keystore not configured)..."
-            ./gradlew bundleRelease --stacktrace
-          fi
+          ./gradlew bundleRelease --stacktrace
       
       - name: 📤 Upload Release AAB
         uses: actions/upload-artifact@v4
@@ -188,61 +158,10 @@ jobs:
       
       - name: 📊 Generate build report
         run: |
-          echo "## 🎉 Android Release Build Complete!" >> $GITHUB_STEP_SUMMARY
+          echo "## 🎉 Android Build Complete!" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
-          echo "### 📱 Build Information" >> $GITHUB_STEP_SUMMARY
-          echo "- **Build Type:** Release AAB" >> $GITHUB_STEP_SUMMARY
-          echo "- **Target API:** ${{ env.ANDROID_API_LEVEL }}" >> $GITHUB_STEP_SUMMARY
-          echo "- **JDK Version:** ${{ env.JAVA_VERSION }}" >> $GITHUB_STEP_SUMMARY
-          echo "- **Commit:** ${{ github.sha }}" >> $GITHUB_STEP_SUMMARY
+          echo "### 📱 Build Artifacts" >> $GITHUB_STEP_SUMMARY
+          echo "- **Debug APK**: armora-debug-apk" >> $GITHUB_STEP_SUMMARY
+          echo "- **Release AAB**: armora-release-aab" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
-          echo "### 📦 Next Steps" >> $GITHUB_STEP_SUMMARY
-          echo "1. Download the AAB from artifacts" >> $GITHUB_STEP_SUMMARY
-          echo "2. Upload to Google Play Console" >> $GITHUB_STEP_SUMMARY
-          echo "3. Create a release in Play Console" >> $GITHUB_STEP_SUMMARY
-          echo "4. Submit for review" >> $GITHUB_STEP_SUMMARY
-
-  create-github-issue:
-    name: 📝 Create tracking issue
-    needs: [build-android-debug, build-android-release]
-    runs-on: ubuntu-latest
-    if: always() && (needs.build-android-debug.result == 'success' || needs.build-android-release.result == 'success')
-    
-    steps:
-      - name: 📝 Create issue with build summary
-        uses: actions/github-script@v7
-        with:
-          script: |
-            const buildType = context.payload.inputs?.build_type || 'auto';
-            const sha = context.sha.substring(0, 7);
-            
-            const issueBody = `## 🤖 Android Build Complete
-            
-            ### Build Information
-            - **Build Type:** ${buildType}
-            - **Commit:** ${sha}
-            - **Workflow Run:** [View workflow](https://github.com/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId})
-            
-            ### Artifacts
-            The following artifacts were generated:
-            - Debug APK (if built)
-            - Release AAB (if built)
-            
-            ### Next Steps for Play Store Submission
-            - [ ] Download the release AAB
-            - [ ] Test the app on physical devices
-            - [ ] Prepare Play Store assets (screenshots, descriptions)
-            - [ ] Upload to Google Play Console
-            - [ ] Complete Data Safety form
-            - [ ] Submit for review
-            
-            ---
-            🤖 This issue was automatically created by GitHub Actions`;
-            
-            github.rest.issues.create({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              title: `📱 Android Build Ready - ${buildType} - ${sha}`,
-              body: issueBody,
-              labels: ['android', 'automation', 'play-store']
-            });
+          echo "### 📦 Ready for Google Play Store!" >> $GITHUB_STEP_SUMMARY
