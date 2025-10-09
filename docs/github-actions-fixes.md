@@ -6,7 +6,20 @@
 
 ## Issues Found and Fixed
 
-### 1. Missing `fi` Statement (Line 45)
+### 1. Incorrect `if` Condition Syntax for Secrets (Line 178) - CRITICAL
+**Problem:** The conditional check for secrets used incorrect syntax without proper GitHub Actions expression wrapper.
+
+```yaml
+# Before (INVALID):
+if: secrets.ANDROID_KEYSTORE_BASE64 && secrets.ANDROID_KEYSTORE_PASSWORD && secrets.ANDROID_KEY_ALIAS && secrets.ANDROID_KEY_PASSWORD
+
+# After (FIXED):
+if: ${{ secrets.ANDROID_KEYSTORE_BASE64 != '' && secrets.ANDROID_KEYSTORE_PASSWORD != '' && secrets.ANDROID_KEY_ALIAS != '' && secrets.ANDROID_KEY_PASSWORD != '' }}
+```
+
+**Impact:** This was causing the workflow to fail immediately with the error "Unrecognized named-value: 'secrets'". Fixed by wrapping in `${{ }}` and using proper boolean comparison.
+
+### 2. Missing `fi` Statement (Line 45)
 **Problem:** The "Set build type" step had an incomplete if-else block missing the closing `fi` statement.
 
 ```bash
@@ -25,9 +38,9 @@ else
 fi  # Added closing fi
 ```
 
-**Impact:** This caused immediate workflow file validation failure, preventing any builds from starting.
+**Impact:** Prevented workflow jobs from starting due to YAML validation error.
 
-### 2. Multiline awk Command Issues (Lines 109-110)
+### 3. Multiline awk Command Issues (Lines 109-110)
 **Problem:** The awk command with embedded newlines was causing YAML parsing errors due to improper escaping.
 
 ```bash
@@ -48,7 +61,7 @@ awk -v agp="${{ env.AGP_VERSION }}" -v kotlin="${{ env.KOTLIN_VERSION }}" \
 
 **Impact:** Fixed YAML parsing errors and improved script reliability.
 
-### 3. Heredoc Delimiter Issues (Lines 180-187)
+### 4. Heredoc Delimiter Issues (Lines 180-187)
 **Problem:** The `EOF` delimiter in the signing configuration step was causing YAML parsing errors.
 
 ```bash
@@ -78,7 +91,7 @@ SIGNING_EOF
 
 **Impact:** Fixed heredoc parsing and ensured secrets are properly written to gradle.properties.
 
-### 4. Shell Variable vs GitHub Env Variable Consistency
+### 5. Shell Variable vs GitHub Env Variable Consistency
 **Problem:** Inconsistent use of shell variables (`$VAR`) vs GitHub Actions env variables (`${{ env.VAR }}`).
 
 **Fixed in:**

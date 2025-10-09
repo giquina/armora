@@ -175,7 +175,7 @@ jobs:
           grep -q "mavenCentral()" android/build.gradle || echo "WARNING: mavenCentral() not found"
 
       - name: 🔐 Configure Signing (if secrets exist)
-        if: secrets.ANDROID_KEYSTORE_BASE64 && secrets.ANDROID_KEYSTORE_PASSWORD && secrets.ANDROID_KEY_ALIAS && secrets.ANDROID_KEY_PASSWORD
+        if: ${{ secrets.ANDROID_KEYSTORE_BASE64 != '' && secrets.ANDROID_KEYSTORE_PASSWORD != '' && secrets.ANDROID_KEY_ALIAS != '' && secrets.ANDROID_KEY_PASSWORD != '' }}
         run: |
           echo "${{ secrets.ANDROID_KEYSTORE_BASE64 }}" | base64 -d > android/keystore.jks
           cat >> android/gradle.properties << 'SIGNING_EOF'
