@@ -21,13 +21,11 @@ Armora is a React 19.1.1 TypeScript application for premium close protection and
 - **React-Leaflet**: Maps and location services
 - **Google Maps API**: Geocoding and location services
 - **Playwright**: E2E testing framework
+- **Sentry**: Error monitoring and performance tracking (@sentry/react)
 
 ## Development Commands
 
-### Essential Commandsgit branch backup-before-cpo-split-$(date +%Y%m%d)
-git branch | grep backup
-echo "✅ Backup branch created successfully"
-
+### Essential Commands
 ```bash
 npm run dev        # RECOMMENDED: Full dev environment with hooks & agents
 npm start          # Development server (defaults to port 3000, specify with PORT=XXXX)
@@ -235,6 +233,7 @@ When updating UI text:
 - Service Worker disabled in development (prevents caching issues)
 - Hub design improvements (single-column layout, removed decorative elements)
 - **Production deployment on Vercel** (https://armora.vercel.app)
+- **Sentry error monitoring and performance tracking** (configured for production)
 - **Firebase Cloud Messaging integration** (Project: armora-protection)
 - **Firebase service worker** (public/firebase-messaging-sw.js - 289 lines)
 - **Firebase App ID configured in service worker** (1:1010601153585:web:9e4b5e9e5e9e5e9e)
@@ -245,12 +244,26 @@ When updating UI text:
 - **Play Store listing content** (marketing copy, metadata, guides)
 - **Build automation scripts** (android-build.sh, verify-firebase.sh, prepare-playstore.sh)
 - **Complete deployment documentation** (PLAYSTORE_DEPLOYMENT.md, FIREBASE_SETUP.md)
+- **GitHub Actions CI/CD** (android-build.yml workflow with automated builds)
 
-⚠️ **Remaining Tasks** (100% Core Complete):
+⚠️ **Remaining Tasks**:
 - Play Store screenshots creation (30-60 minutes) - Optional for initial submission
 - Google Play Store developer account and publication
 - Test coverage expansion
 - Payment integration completion (Stripe)
+
+## Error Monitoring & Debugging
+
+### Sentry Integration
+- **Production**: Error monitoring with 10% performance tracing sample rate
+- **Development**: 100% tracing, chunk loading errors suppressed to prevent noise
+- **Session Replay**: 10% of sessions, 100% on errors (with PII masking)
+- **Configuration**: `src/index.tsx` lines 9-52
+- **DSN**: Configured via `REACT_APP_SENTRY_DSN` environment variable
+- **Documentation**: See `docs/SENTRY_SETUP.md` for complete setup guide
+
+### Development Error Suppression
+The app suppresses chunk loading errors in development mode to prevent React error overlay interruptions. These errors are logged as warnings instead. This behavior is configured in `src/index.tsx` lines 54-99.
 
 ## Key Utilities
 - `timeEstimate.ts`: Standardized time formatting
@@ -323,6 +336,10 @@ REACT_APP_STRIPE_PUBLISHABLE_KEY=[from Stripe dashboard]
 
 # Google Maps (Geocoding & Maps)
 REACT_APP_GOOGLE_MAPS_API_KEY=[from Google Cloud Console]
+
+# Sentry (Error Monitoring - optional for development)
+REACT_APP_SENTRY_DSN=[from Sentry dashboard]
+REACT_APP_VERSION=[app version for release tracking]
 ```
 
-Last updated: 2025-10-09T12:59:37.032Z
+Last updated: 2025-10-12T00:00:00.000Z
