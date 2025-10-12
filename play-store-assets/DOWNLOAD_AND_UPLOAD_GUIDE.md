@@ -4,9 +4,14 @@ This guide will walk you through downloading all Play Store assets and uploading
 
 ---
 
-## ✅ SCREENSHOTS CAPTURED SUCCESSFULLY
+## ✅ ALL ASSETS READY
 
-**All 8 screenshots captured:** ✓
+### App Icon & Feature Graphic ✓
+**Location:** `/workspaces/armora/play-store-assets/`
+1. **App Icon:** `armora-icon-512x512.png` (28 KB, 512×512 PNG)
+2. **Feature Graphic:** `armora-feature-graphic-1024x500.png` (68 KB, 1024×500 PNG)
+
+### Phone Screenshots ✓
 **Location:** `/workspaces/armora/play-store-assets/screenshots/`
 **Resolution:** 2160x3840 pixels (portrait, high-quality 2x scale)
 **Total Size:** ~29 MB
@@ -25,22 +30,24 @@ This guide will walk you through downloading all Play Store assets and uploading
 
 ## 📥 STEP 1: DOWNLOAD ASSETS FROM CODESPACES
 
-### Method A: Download via VS Code (Easiest)
+### Method A: Download via VS Code (Easiest - RECOMMENDED)
 
 1. **Open the VS Code Explorer** (left sidebar, Files icon)
-2. **Navigate to folders:**
-   - `play-store-assets/` folder (for screenshots)
-   - `public/playstore/` folder (for icon & feature graphic)
 
-3. **Download screenshots folder:**
+2. **Download the entire play-store-assets folder** (contains everything you need):
    - Right-click on `play-store-assets` folder
    - Select **"Download..."**
    - Save to your computer (e.g., `~/Downloads/play-store-assets`)
+   - **This includes:**
+     - App icon (512x512)
+     - Feature graphic (1024x500)
+     - All 8 screenshots (in `/screenshots/` subfolder)
 
-4. **Download icon & feature graphic:**
-   - Right-click on `public/playstore` folder
-   - Select **"Download..."**
-   - Save to your computer (e.g., `~/Downloads/playstore`)
+3. **Alternative - Download individual files:**
+   - Navigate to `play-store-assets/`
+   - Right-click on `armora-icon-512x512.png` → Download
+   - Right-click on `armora-feature-graphic-1024x500.png` → Download
+   - Right-click on `screenshots` folder → Download
 
 ### Method B: Download via GitHub Codespaces Web UI
 
@@ -87,18 +94,20 @@ cd armora
 #### B. Upload App Icon (512x512)
 
 1. In left sidebar → **"Store presence" → "Main store listing"**
-2. Scroll to **"App icon"**
+2. Scroll to **"App icon"** section
 3. Click **"Upload"** or drag-and-drop
-4. Upload: `public/playstore/armora-icon-512.png` (28 KB)
-5. Google will validate dimensions (512x512 required)
+4. Upload: `armora-icon-512x512.png` (28 KB)
+5. Google will validate dimensions (512x512 required) ✓
+6. **Design:** Premium gold shield with "A" emblem on navy background
 
 #### C. Upload Feature Graphic (1024x500)
 
 1. Still in **"Main store listing"**
-2. Scroll to **"Feature graphic"**
+2. Scroll to **"Feature graphic"** section
 3. Click **"Upload"** or drag-and-drop
-4. Upload: `public/playstore/armora-feature-graphic.png` (68 KB)
-5. This appears at top of store listing
+4. Upload: `armora-feature-graphic-1024x500.png` (68 KB)
+5. This banner appears at top of your store listing
+6. **Design:** Shield logo with "ARMORA" branding and tagline
 
 #### D. Upload Phone Screenshots
 
@@ -238,15 +247,21 @@ These can enhance your store listing:
 
 Before submitting for review:
 
-- [ ] App icon uploaded (512x512 PNG)
-- [ ] Feature graphic uploaded (1024x500 PNG)
-- [ ] All 8 phone screenshots uploaded in correct order
-- [ ] App name filled out
+### Assets Ready (All in `/workspaces/armora/play-store-assets/`)
+- [x] App icon created (512x512 PNG) - `armora-icon-512x512.png` (28 KB)
+- [x] Feature graphic created (1024x500 PNG) - `armora-feature-graphic-1024x500.png` (68 KB)
+- [x] All 8 phone screenshots captured (2160x3840 each, ~29 MB total)
+
+### Google Play Console Upload
+- [ ] App icon uploaded to Play Console
+- [ ] Feature graphic uploaded to Play Console
+- [ ] All 8 phone screenshots uploaded in correct order (01-08)
+- [ ] App name filled out: "Armora Protection Services"
 - [ ] Short description (80 chars max)
 - [ ] Full description (detailed, under 4000 chars)
-- [ ] App category selected
+- [ ] App category selected (Lifestyle or Travel & Local)
 - [ ] Contact email provided
-- [ ] Privacy policy URL added
+- [ ] Privacy policy URL added (https://armora.vercel.app/privacy)
 - [ ] Target audience set (18+)
 - [ ] Content rating completed
 - [ ] Store listing saved successfully
