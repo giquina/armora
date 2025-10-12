@@ -1,8 +1,55 @@
 import { StrictMode } from 'react';
 import ReactDOM from 'react-dom/client';
+import * as Sentry from "@sentry/react";
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+
+// Initialize Sentry for error monitoring and performance tracking
+Sentry.init({
+  dsn: "https://2eccb0faaa6cc2708b1e767e51af88c1@o4510152121712640.ingest.de.sentry.io/4510153279864912",
+
+  // Set environment based on build mode
+  environment: process.env.NODE_ENV,
+
+  // Enable performance monitoring
+  integrations: [
+    Sentry.browserTracingIntegration(),
+    Sentry.replayIntegration({
+      maskAllText: true, // Mask sensitive data in replays
+      blockAllMedia: true, // Don't capture media in replays
+    }),
+  ],
+
+  // Performance Monitoring
+  tracesSampleRate: process.env.NODE_ENV === 'production' ? 0.1 : 1.0, // 10% in prod, 100% in dev
+
+  // Session Replay
+  replaysSessionSampleRate: 0.1, // Sample 10% of sessions
+  replaysOnErrorSampleRate: 1.0, // Capture 100% of sessions with errors
+
+  // Automatically capture unhandled promise rejections
+  autoSessionTracking: true,
+
+  // Send default PII (IP addresses, user agents) for better error tracking
+  sendDefaultPii: true,
+
+  // Release tracking (uses git commit hash if available)
+  release: process.env.REACT_APP_VERSION || 'armora@1.0.0',
+
+  // Filter out development errors
+  beforeSend(event, hint) {
+    // Don't send chunk loading errors in development
+    if (process.env.NODE_ENV === 'development') {
+      const errorMessage = hint?.originalException?.toString() || '';
+      if (errorMessage.includes('ChunkLoadError') ||
+          errorMessage.includes('Loading chunk')) {
+        return null;
+      }
+    }
+    return event;
+  },
+});
 
 // Comprehensive error suppression for development
 if (process.env.NODE_ENV === 'development') {
