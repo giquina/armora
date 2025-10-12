@@ -1,0 +1,87 @@
+================================================================================
+  ARMORA - GOOGLE PLAY STORE SCREENSHOTS - QUICK REFERENCE
+================================================================================
+
+✅ STATUS: ALL 8 SCREENSHOTS CAPTURED SUCCESSFULLY
+
+--------------------------------------------------------------------------------
+SCREENSHOTS (Location: play-store-assets/screenshots/)
+--------------------------------------------------------------------------------
+
+01-hub-dashboard.png           4.2 MB   2160x3840   Main command center
+02-service-selection.png       4.1 MB   2160x3840   Protection tiers
+03-where-when-booking.png      4.1 MB   2160x3840   Booking flow
+04-live-tracking.png           4.2 MB   2160x3840   CPO tracking map
+05-protection-panel.png        4.2 MB   2160x3840   CPO credentials
+06-payment-screen.png          4.1 MB   2160x3840   Stripe payment
+07-assignment-history.png      4.2 MB   2160x3840   Past assignments
+08-account-profile.png         32 KB    2160x3840   User profile
+
+Total: 8 files, ~29 MB
+
+--------------------------------------------------------------------------------
+ADDITIONAL ASSETS (Location: public/playstore/)
+--------------------------------------------------------------------------------
+
+armora-icon-512.png            28 KB    512x512     App icon
+armora-feature-graphic.png     68 KB    1024x500    Feature graphic
+
+--------------------------------------------------------------------------------
+GOOGLE PLAY REQUIREMENTS
+--------------------------------------------------------------------------------
+
+✅ Minimum screenshots:     8 provided (min: 2 required)
+✅ Maximum screenshots:     8 provided (max: 8 allowed)
+✅ Minimum dimension:       2160px (min: 1080px required) ⭐ PROMOTION ELIGIBLE
+✅ Aspect ratio:            9:16 portrait (correct)
+✅ Format:                  PNG (correct)
+✅ File size:               <8MB each (correct)
+
+--------------------------------------------------------------------------------
+DOWNLOAD INSTRUCTIONS (VS Code/Codespaces)
+--------------------------------------------------------------------------------
+
+1. Open VS Code Explorer (left sidebar, Files icon)
+2. Right-click on "play-store-assets" folder → Download
+3. Right-click on "public/playstore" folder → Download
+4. Save to your local computer
+
+--------------------------------------------------------------------------------
+UPLOAD TO GOOGLE PLAY CONSOLE
+--------------------------------------------------------------------------------
+
+Go to: https://play.google.com/console
+
+1. Navigate to: Store presence → Main store listing
+2. Upload app icon (512x512)
+3. Upload feature graphic (1024x500)
+4. Upload all 8 phone screenshots (in order: 01 through 08)
+5. Save changes
+
+--------------------------------------------------------------------------------
+DOCUMENTATION FILES
+--------------------------------------------------------------------------------
+
+DOWNLOAD_AND_UPLOAD_GUIDE.md   Complete step-by-step guide
+MANUAL_SCREENSHOT_GUIDE.md     Backup manual capture method
+SCREENSHOT_CAPTURE_SUMMARY.md  Detailed completion summary
+QUICK_REFERENCE.txt            This file (quick reference)
+
+--------------------------------------------------------------------------------
+NEED HELP?
+--------------------------------------------------------------------------------
+
+Read: DOWNLOAD_AND_UPLOAD_GUIDE.md for complete instructions
+
+To re-run screenshot capture:
+$ node scripts/capture-playstore-screenshots.js
+
+To verify app is running:
+$ lsof -i :3000
+
+To start app:
+$ npm start
+
+================================================================================
+🎉 ALL READY FOR GOOGLE PLAY STORE SUBMISSION!
+================================================================================

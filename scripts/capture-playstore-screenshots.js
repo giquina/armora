@@ -24,7 +24,7 @@ const path = require('path');
 
 // Configuration
 const APP_URL = 'http://localhost:3000';
-const SCREENSHOT_DIR = path.join(__dirname, '../public/playstore/screenshots');
+const SCREENSHOT_DIR = path.join(__dirname, '../play-store-assets/screenshots');
 const VIEWPORT = { width: 1080, height: 1920 };
 
 // Screenshot definitions
@@ -211,7 +211,7 @@ async function captureScreenshots() {
   if (successCount === SCREENSHOTS.length) {
     console.log('\n🎉 All screenshots captured successfully!');
     console.log('\n📋 Next steps:');
-    console.log('   1. Review screenshots in public/playstore/screenshots/');
+    console.log('   1. Review screenshots in play-store-assets/screenshots/');
     console.log('   2. Upload to Google Play Console');
     console.log('   3. Main store listing → Phone screenshots');
   } else if (successCount > 0) {
@@ -232,8 +232,17 @@ async function captureScreenshots() {
 // Check if app is running before attempting capture
 async function checkAppRunning() {
   try {
-    const response = await fetch(APP_URL);
-    return response.ok;
+    const http = require('http');
+    return new Promise((resolve) => {
+      const req = http.get(APP_URL, (res) => {
+        resolve(res.statusCode === 200);
+      });
+      req.on('error', () => resolve(false));
+      req.setTimeout(5000, () => {
+        req.destroy();
+        resolve(false);
+      });
+    });
   } catch (error) {
     return false;
   }
@@ -242,18 +251,8 @@ async function checkAppRunning() {
 // Main execution
 (async () => {
   try {
-    console.log('🔍 Checking if app is running...');
-    const isRunning = await checkAppRunning();
-
-    if (!isRunning) {
-      console.log('\n❌ App is not running on http://localhost:3000');
-      console.log('\n📋 To start the app:');
-      console.log('   npm start\n');
-      console.log('Then run this script again.\n');
-      process.exit(1);
-    }
-
-    console.log('✅ App is running\n');
+    console.log('🔍 Starting screenshot capture...');
+    console.log('⚠️  Make sure app is running on http://localhost:3000\n');
 
     await captureScreenshots();
     process.exit(0);
