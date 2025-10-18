@@ -37,11 +37,15 @@ jobs:
         env:
           CI: false
           REACT_APP_ENVIRONMENT: production
-      - name: ⚡ Generate Android Project
-        run: npx cap add android
-        working-directory: ./
-      - name: 📋 Sync Capacitor
-        run: npx cap sync android
+      - name: ⚡ Sync Android Project
+        run: |
+          if [ ! -d android ]; then
+            echo "Android project not found, generating..."
+            npx cap add android
+          else
+            echo "Android project exists, syncing..."
+            npx cap sync android
+          fi
       - name: 🔐 Configure Signing (Debug)
         run: |
           chmod +x android/gradlew
