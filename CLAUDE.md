@@ -239,16 +239,22 @@ When updating UI text:
 - **Firebase App ID configured in service worker** (1:1010601153585:web:9e4b5e9e5e9e5e9e)
 - **Package name alignment fixed** (com.armora.protection)
 - **All Play Store preparation complete** (AAB ready, assetlinks.json, listing content)
-- **TWA Android app built** (AAB file ready for Play Store)
 - **Android App Links verification** (assetlinks.json deployed)
 - **Play Store listing content** (marketing copy, metadata, guides)
 - **Build automation scripts** (android-build.sh, verify-firebase.sh, prepare-playstore.sh)
 - **Complete deployment documentation** (PLAYSTORE_DEPLOYMENT.md, FIREBASE_SETUP.md)
-- **GitHub Actions CI/CD** (android-build.yml workflow with automated builds)
+- **GitHub Actions CI/CD** (android-build.yml workflow with automated Android builds)
+- **Android SDK 35 integration** (compileSdk 35, targetSdk 35, minSdk 22)
+- **Java 21 build environment** (required for Capacitor 7.4.3)
+- **Signed production AAB** (v1.0.0 - 3.6MB, signed with release keystore)
+- **AAB uploaded to Google Play Console** (Internal testing track, draft release)
+- **Play Console release configuration** (Release notes, country selection, app integrity verified)
+- **Developer account identity verified** (Completed Oct 13, 2025)
 
 ⚠️ **Remaining Tasks**:
+- **Phone number verification** (Google Play security requirement - manual step required)
 - Play Store screenshots creation (30-60 minutes) - Optional for initial submission
-- Google Play Store developer account and publication
+- Complete Play Store rollout (after phone verification)
 - Test coverage expansion
 - Payment integration completion (Stripe)
 
@@ -302,21 +308,57 @@ When styling action buttons in the protection panel:
 
 ### Android App Package
 - **Package Name**: com.armora.protection
-- **AAB File**: app-release-bundle.aab (1.9M, local only)
-- **Keystore**: android.keystore (local only, not in repo)
+- **Version**: 1.0.0 (versionCode 1)
+- **AAB File**: signed-app-release.aab (3.6MB)
+- **Location**: `/workspaces/armora/downloads/signed-app-release.aab`
+- **Keystore**: armora-release-key.jks (local only, not in repo)
+- **Key Alias**: armora
 - **Keystore Credentials**: Stored securely (not in documentation for security)
 - **SHA-256 Fingerprint**: 19:45:2B:F1:4A:AC:90:49:29:31:BC:F7:8F:B8:AD:EF:AA:EA:A2:77:E5:78:E5:37:2E:CA:70:66:AB:EA:FB:D2
+- **Android SDK**: compileSdk 35, targetSdk 35, minSdk 22
+- **Build Tool**: Gradle 8.2.1 with Java 21
+- **Capacitor Version**: 7.4.3
 
 ### Build Commands for Android
 ```bash
-# Install Bubblewrap CLI
-npm install -g @bubblewrap/cli
+# Local Development Build (requires Android SDK and Java 21)
+cd android
+export JAVA_HOME=$HOME/jdk-21
+export ANDROID_HOME=$HOME/android-sdk
+./gradlew bundleRelease -x lint  # Build unsigned AAB
 
-# Update TWA project
-bubblewrap update
+# Signed Release Build (with keystore)
+cd android
+export JAVA_HOME=$HOME/jdk-21
+export ANDROID_HOME=$HOME/android-sdk
+RELEASE_KEYSTORE_FILE=/path/to/armora-release-key.jks \
+RELEASE_KEYSTORE_PASSWORD='your-password' \
+RELEASE_KEY_ALIAS=armora \
+RELEASE_KEY_PASSWORD='your-password' \
+./gradlew clean bundleRelease -x lint --no-daemon
 
-# Build AAB and APK
-bubblewrap build
+# GitHub Actions Build (automated)
+git push origin main  # Triggers workflow automatically
+gh run watch  # Monitor build progress
+gh run download [run-id] --name armora-release-aab  # Download AAB artifact
+```
+
+### Android SDK Setup (Codespaces/Local)
+```bash
+# Install Android SDK Command-line Tools
+mkdir -p $HOME/android-sdk/cmdline-tools
+cd /tmp
+wget https://dl.google.com/android/repository/commandlinetools-linux-11076708_latest.zip
+unzip commandlinetools-linux-11076708_latest.zip
+mv cmdline-tools $HOME/android-sdk/cmdline-tools/latest
+
+# Install SDK Components
+$HOME/android-sdk/cmdline-tools/latest/bin/sdkmanager \
+  --sdk_root=$HOME/android-sdk \
+  "platform-tools" "platforms;android-35" "build-tools;35.0.0"
+
+# Configure local.properties
+echo "sdk.dir=$HOME/android-sdk" > android/local.properties
 ```
 
 ### Environment Variables (Vercel & Local Development)
@@ -342,4 +384,4 @@ REACT_APP_SENTRY_DSN=[from Sentry dashboard]
 REACT_APP_VERSION=[app version for release tracking]
 ```
 
-Last updated: 2025-10-12T00:00:00.000Z
+Last updated: 2025-10-18T15:15:00.000Z
